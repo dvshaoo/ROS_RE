@@ -1,0 +1,39 @@
+<root>
+	<Properties>
+		<redPacketGiftInfoTemp>
+			<!-- 		红包奖励领取状态 <id, state>		 	-->
+			<!-- 	临时，为了红点，存盘属性是childPropertyList[0].redPacketGiftInfo	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</redPacketGiftInfoTemp>
+	</Properties>
+	<BaseMethods>
+		<queryAvailableRedPacketGift> <Exposed/>
+		</queryAvailableRedPacketGift>
+		<getRedPacketGift> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- giftId -->
+		</getRedPacketGift>
+		<refreshRedPacketGiftInfo>
+		</refreshRedPacketGiftInfo>
+	</BaseMethods>
+	<ClientMethods>
+		<onQueryAvailableRedPacketGift>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>		<!-- giveRedPacketCnt -->
+			<Arg>	PYTHON	</Arg>		<!-- getRedPacketCnt -->
+		</onQueryAvailableRedPacketGift>
+		<onUpdateRedPacketGiftInfo>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>		<!-- giveRedPacketCnt -->
+			<Arg>	PYTHON	</Arg>		<!-- getRedPacketCnt -->
+		</onUpdateRedPacketGiftInfo>
+		<onGetRedPacketGift>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetRedPacketGift>
+		<onGetRedPacketGiftFailed>
+			<Arg>		STRING		</Arg>
+		</onGetRedPacketGiftFailed>
+	</ClientMethods>
+</root>

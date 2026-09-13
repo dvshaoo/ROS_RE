@@ -1,0 +1,27 @@
+<root>
+	<Implements>
+		<Interface>		iGlobal					</Interface> 
+		<Interface>		iBaseNoCell				</Interface> 
+	</Implements>
+
+	<Properties>
+		<bindRequestList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		{}					</Default>
+		</bindRequestList>	
+	</Properties>
+
+	<BaseMethods>
+		<requestBind>
+			<Arg>			GID					</Arg>	<!-- gid -->
+			<Arg>			INT32				</Arg> <!-- bindcode -->
+			<Arg>			MAILBOX 			</Arg>	<!-- player -->
+		</requestBind>
+
+		<requestBindInfo>
+			<Arg>			GID					</Arg>	<!-- gid -->
+		</requestBindInfo>
+	</BaseMethods>	
+
+</root>

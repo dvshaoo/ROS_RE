@@ -1,0 +1,243 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iOnlineData	</Interface>
+		<Interface>	iAccountLock	</Interface>
+		<Interface>	iGMCommand	</Interface>
+		<Interface>	iNickname	</Interface>
+		<Interface>	iFriendStub	</Interface>
+		<Interface>	iMailStub	</Interface>
+	</Implements>
+
+	<Properties>
+		<nextMessageID>
+			<Type>			UINT32				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		0					</Default>
+		</nextMessageID>
+
+		<versionLimit>
+			<Type>			STRING				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+		</versionLimit>
+		<lockedDtsGid>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}			</Default>
+		</lockedDtsGid>
+		<watchAdTimesByMacAddr>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<PersistentMongo>	true				</PersistentMongo>
+			<Default>		{}			</Default>
+		</watchAdTimesByMacAddr>
+		<warnedWatchAdMacAddrDict>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<PersistentMongo>	true				</PersistentMongo>
+			<Default>		{}			</Default>
+		</warnedWatchAdMacAddrDict>
+		<lastRefreshWatchAdTime>
+			<Type>			UINT32				</Type>
+			<Flags>			BASE				</Flags>
+			<PersistentMongo>	true				</PersistentMongo>
+			<Default>		0					</Default>
+		</lastRefreshWatchAdTime>
+		<banIpList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}			</Default>
+		</banIpList>
+		<banUdidList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}			</Default>
+		</banUdidList>
+		<accountIdentifierNameWhiteList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}			</Default>
+		</accountIdentifierNameWhiteList>
+	</Properties>
+
+	<BaseMethods>
+		<callAvatarFuncByGid>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		CALLBACK		</Arg>
+		</callAvatarFuncByGid>
+
+		<callOnlineAvatarFuncByGid>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		CALLBACK		</Arg>
+		</callOnlineAvatarFuncByGid>
+
+		<gmCallAvatarFuncByGid>
+			<Arg>				GM_PROXY		</Arg>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		CALLBACK		</Arg>
+		</gmCallAvatarFuncByGid>
+
+		<requestBindRecallHuiliuer>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		GID				</Arg>
+		</requestBindRecallHuiliuer>
+
+		<gmRequestSetInviteAuthority>
+			<Arg>				GM_PROXY			</Arg>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		BOOL				</Arg>
+		</gmRequestSetInviteAuthority>
+
+
+		<callAvatarCellFuncByGid>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		CALLBACK		</Arg>
+		</callAvatarCellFuncByGid>
+
+		<callAvatarClientFuncByGid>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		CALLBACK		</Arg>
+		</callAvatarClientFuncByGid>
+
+		<callAvatarFuncByGidWithFailCallback>
+			<Arg>		 		GID				</Arg>
+			<Arg>		 		CALLBACK		</Arg>
+			<Arg>		 		BOOL			</Arg>	<!-- is base func -->
+			<Arg>		 		MAILBOX			</Arg>	<!-- caller -->
+			<Arg>		 		CALLBACK		</Arg>  <!-- fail cb -->
+		</callAvatarFuncByGidWithFailCallback>
+
+		<gmCommandByGID>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</gmCommandByGID>
+
+		<gmCommandForAll>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</gmCommandForAll>
+
+		<gmCommandByPlayerName>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</gmCommandByPlayerName>
+
+		<gmCommandByNickname>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</gmCommandByNickname>
+
+		<afterBanAccount>
+			<Arg>	GID		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	STRING		</Arg>
+		</afterBanAccount>
+		<gmCommandByMachineFingerprint>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</gmCommandByMachineFingerprint>
+		<gmCommandByMacAddress>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</gmCommandByMacAddress>
+
+		<afterUnBanAccount>
+			<Arg>	GID		</Arg>
+		</afterUnBanAccount>
+
+		<inviteToWildDungeon>
+			<Arg>			GID				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</inviteToWildDungeon>
+
+		<inviteToLigeanceSourceSpace>
+			<Arg>			GID				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</inviteToLigeanceSourceSpace>
+
+		<broadcastRosMatchTeamChat>
+			<Arg>	ARRAY <of>	GID	</of>	</Arg>	
+			<Arg>			STRING			</Arg>
+			<Arg>			CHAT_RECIVER	</Arg>
+			<Arg>           CHAT_PARAMS     </Arg>
+		</broadcastRosMatchTeamChat>
+
+		<onPlayerGetNewOrder>
+			<Arg>			GID			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+		</onPlayerGetNewOrder>
+
+		<onPlayerGetNewAdOrder>
+			<Arg>			GID			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onPlayerGetNewAdOrder>
+
+		<gmSetVersionLimit>
+			<Arg>			STRING			</Arg>
+		</gmSetVersionLimit>
+
+		<getComplaintInfo>
+			<Arg> 			GID 			</Arg>
+			<Arg> 			MAILBOX 		</Arg>
+		</getComplaintInfo>
+
+		<inviteBindToCC>
+			<Arg>			GID				</Arg>
+		</inviteBindToCC>
+
+		<requestObservePlayer>
+			<Arg>			GLOBAL_MAIL_BOX_INFO			</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT32			</Arg>
+		</requestObservePlayer>
+		<requestObserveFriend>
+			<Arg>			GLOBAL_MAIL_BOX_INFO				</Arg>	<!-- 观察者gloabl mailBox -->
+			<Arg>			GID				</Arg>	<!-- 观察者GID -->
+			<Arg>			GID				</Arg>	<!-- 被观察者GID -->
+		</requestObserveFriend>
+
+		<gmRequestCheckPlayerExist>
+			<Arg>			GLOBAL_MAIL_BOX_INFO		</Arg>	<!-- 查询的人的mailbox -->
+			<Arg>			GID				</Arg>  <!-- 被查询的GID -->
+		</gmRequestCheckPlayerExist>
+		<getOnlineNumByChannel>
+			<Arg>		MAILBOX			</Arg>
+		</getOnlineNumByChannel>
+
+		<onPlayerGetFestivalTaskReward>
+			<Arg>			GID			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			BOOL			</Arg>
+		</onPlayerGetFestivalTaskReward>
+
+	</BaseMethods>
+</root>

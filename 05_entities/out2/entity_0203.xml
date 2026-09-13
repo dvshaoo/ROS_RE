@@ -1,0 +1,71 @@
+<root>
+	<Implements>
+		<Interface>	iGameStage	</Interface>
+		<Interface>	iMonsterGenerate</Interface>
+		<Interface>	iMonsterGroup	</Interface>
+		<Interface>	iTrap	</Interface>
+	</Implements>
+	
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<racingStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</racingStartTime>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<racingStartTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racingStartTimerID>
+		
+		<clientStatus> <!--  记录客户端表现类的状态 	--> 
+			<Type>		PYTHON			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	{}			</Default>
+		</clientStatus>
+
+	</Properties>
+
+	<CellMethods>
+		<onRacerPassArea> <Exposed/>
+			<Arg>	INT32		</Arg> <!-- pass area id-->
+		</onRacerPassArea>
+
+		<onRacerPassFinishLine> <Exposed/>
+			<Arg>	FLOAT		</Arg> <!-- pass finish line time -->
+		</onRacerPassFinishLine>
+
+		<onEnterRaceJudgeArea>
+			<Arg>	INT32		</Arg> <!-- racer id-->
+			<Arg>	INT32		</Arg> <!-- area id-->
+		</onEnterRaceJudgeArea>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<onStageChanged>
+		</onStageChanged>
+		<playSoundBGM>
+			<Arg>		STRING		</Arg>
+		</playSoundBGM>
+		<showDungeonTip>
+			<Arg>	STRING	</Arg>
+		</showDungeonTip>
+		<hideDungeonTip>
+		</hideDungeonTip>
+
+		<onRacingStart>
+		</onRacingStart>
+	</ClientMethods>
+	
+</root>

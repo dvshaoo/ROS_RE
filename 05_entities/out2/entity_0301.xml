@@ -1,0 +1,21 @@
+<root>
+	<Properties>
+		<battleGroundPoisonTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</battleGroundPoisonTimerID>
+		<isInPoisonArea>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isInPoisonArea>
+	</Properties>
+	<CellMethods>
+		<onCircleStageChange>
+			<Arg>		INT32			</Arg>
+		</onCircleStageChange>
+	</CellMethods>
+	<ClientMethods>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

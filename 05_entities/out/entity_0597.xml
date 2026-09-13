@@ -1,0 +1,76 @@
+<root>
+	<Properties>
+		<fuelStatTimerID>
+			<Type>			INT32		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</fuelStatTimerID>
+
+		<isFuelTriggerd>
+			<Type>			BOOL		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</isFuelTriggerd>
+
+		<fuelComsumPerBoom>
+			<Type>			FLOAT		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</fuelComsumPerBoom>
+
+		<fuelComsumPerMoveSec>
+			<Type>			FLOAT		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</fuelComsumPerMoveSec>
+
+		<fuelStatInterval>
+			<Type>			FLOAT		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</fuelStatInterval>
+
+		<minMoveSpeedComsumFuel>
+			<Type>			FLOAT		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</minMoveSpeedComsumFuel>
+
+		<fuelEmpty>
+			<Type>			BOOL		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</fuelEmpty>
+
+		<enabled>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+			<Default>		1		</Default>
+		</enabled>
+
+		<fuelFull>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</fuelFull>
+
+		<fuelAmount>
+			<Type>			FLOAT		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</fuelAmount>
+
+		<capacity>
+			<Type>			FLOAT		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</capacity>
+		<comsumeFuel>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</comsumeFuel>
+
+	</Properties>
+	<CellMethods>
+		<onAddFuel>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</onAddFuel>
+		<onBoomComsumeFuel><Exposed/>
+		</onBoomComsumeFuel>
+		<genFuelReport>
+			<Arg>	FLOAT	</Arg>
+		</genFuelReport>
+	</CellMethods>
+</root>
+

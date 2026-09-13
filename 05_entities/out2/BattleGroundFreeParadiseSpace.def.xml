@@ -1,0 +1,189 @@
+<root>
+	<Parent>	BattleGroundSpace		</Parent>
+	<ClientName>	BattleGroundFreeParadiseSpace	</ClientName>
+	
+	<Properties>
+		<spaceOwner>
+			<Type>	GID </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</spaceOwner>
+		<isEditSpace>
+			<Type>	BOOL </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</isEditSpace>
+		<ownerInSpace>
+			<Type>	BOOL </Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</ownerInSpace>
+		<inviterGidList>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</inviterGidList>
+		<playerInFreeParadise>
+			<Type>	        PYTHON		    </Type>
+			<Flags>         ALL_CLIENTS     </Flags>
+		</playerInFreeParadise>
+		<playerPosRrefreshTimerId>
+			<Type>          INT64           </Type>
+			<Flags>	     CELL_PRIVATE	    </Flags>
+			<Default>	    0       	    </Default>
+		</playerPosRrefreshTimerId>
+		<dismissFreeParadiseTimer>
+			<Type>          INT64           </Type>
+			<Flags>	     CELL_PRIVATE	    </Flags>
+			<Default>	    0       	    </Default>
+		</dismissFreeParadiseTimer>
+		<delayForceRecycleSpaceTimerID>
+			<Type>          INT64           </Type>
+			<Flags>	     CELL_PRIVATE	    </Flags>
+			<Default>	    0       	    </Default>
+		</delayForceRecycleSpaceTimerID>
+		<dtsTeleportPointSet>
+			<Type>	        PYTHON		    </Type>
+			<Flags>         ALL_CLIENTS     </Flags>
+			<Default>	    {}       	    </Default>
+		</dtsTeleportPointSet>
+	</Properties>
+
+	<CellMethods>
+		<registerFreeParadiseInviteFriends>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		PYTHON			</Arg>
+		</registerFreeParadiseInviteFriends>
+		<unRegisterFreeParadiseInviteFriends>
+			<Arg>		GID				</Arg>
+		</unRegisterFreeParadiseInviteFriends>
+		<syncSpaceOwnerInviteFriendList>
+			<Arg>		ARRAY <of>	GID	</of>		</Arg>
+		</syncSpaceOwnerInviteFriendList>
+		<createFreeParadiseRobotEntity>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>		</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		UINT64		</Arg>
+		</createFreeParadiseRobotEntity>
+		<updateFreeParadiseRobotAttr>
+			<Arg>		UINT64		</Arg>
+		</updateFreeParadiseRobotAttr>
+		<addFreeParaDisplayModelNum>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+		</addFreeParaDisplayModelNum>
+		<deleteDisplayRobotInFreeparadise>  <Exposed/>
+			<Arg>		UINT64		</Arg>
+		</deleteDisplayRobotInFreeparadise>
+
+		<!--传送点-->
+		<createTeleportInFreeparadise>
+			<Arg>		INT64		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT64		</Arg>
+		</createTeleportInFreeparadise>
+		<deleteTeleportInFreeparadise> <Exposed/>
+			<Arg>		UINT64		</Arg>
+		</deleteTeleportInFreeparadise>
+		<updateTeleportInfoInFreeparadise>
+			<Arg>		INT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT64		</Arg>
+		</updateTeleportInfoInFreeparadise>
+		<!--传送点-->
+
+		<!--武器展示-->
+		<createWeaponDisplayModelInFreeparadise>
+			<Arg>		INT64		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		STRING		</Arg>
+		</createWeaponDisplayModelInFreeparadise>
+		<deleteWeaponDisplayModelInFreeparadise>  <Exposed/>
+			<Arg>		UINT64		</Arg>
+		</deleteWeaponDisplayModelInFreeparadise>
+		<updateWeaponDisplayModelAppear>
+			<Arg>		INT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		STRING		</Arg>
+		</updateWeaponDisplayModelAppear>
+		
+        <updateWeaponDisplayModelPosition>  <Exposed/>
+			<Arg>		UINT64		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</updateWeaponDisplayModelPosition>
+        
+        <updateWeaponDisplayModelDirection>  <Exposed/>
+			<Arg>		UINT64		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</updateWeaponDisplayModelDirection>
+		<!--武器展示-->
+
+		<!--载具展示-->
+		<createDisplayVehicleInFreeparadise>
+			<Arg>		INT64		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		STRING		</Arg>
+		</createDisplayVehicleInFreeparadise>
+		<deleteDisplayVehicleInFreeparadise> <Exposed/>
+			<Arg>		UINT64		</Arg>
+		</deleteDisplayVehicleInFreeparadise>
+		<updateDisplayVehicleAppear>
+			<Arg>		INT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		UINT64		</Arg>
+			<Arg>		STRING		</Arg>
+		</updateDisplayVehicleAppear>
+		
+        <updateDisplayVehiclePosition>  <Exposed/>
+			<Arg>		UINT64		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</updateDisplayVehiclePosition>
+        
+        <updateDisplayVehicleDirection>  <Exposed/>
+			<Arg>		UINT64		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</updateDisplayVehicleDirection>
+		<!--载具展示-->
+	</CellMethods>
+
+	<ClientMethods>
+		<onCreateTeleportInFreeparadise>
+			<Arg>		UINT64		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onCreateTeleportInFreeparadise>
+
+		<onDeleteTeleportInFreeparadise>
+			<Arg>		UINT64		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onDeleteTeleportInFreeparadise>
+
+		<onUpdateTeleportInfoInFreeparadise>
+			<Arg>		UINT64		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onUpdateTeleportInfoInFreeparadise>
+		<onSyncNewGeneratedModelEntityID>
+			<Arg>		UINT64		</Arg>
+		</onSyncNewGeneratedModelEntityID>
+		
+	</ClientMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+</root>
+

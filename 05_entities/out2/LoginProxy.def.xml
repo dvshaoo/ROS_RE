@@ -1,0 +1,29 @@
+<root>
+	<Implements>
+		<Interface>	iProxyNoCell	</Interface>
+	</Implements>
+	<ClientName>	LoginProxy		</ClientName>
+	
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<handshake> <Exposed/>
+			<Arg>	DEVICE_INFO		</Arg>  <!-- device info -->
+			<Arg>	CHANNEL_INFO	</Arg> 	<!-- channel info -->		
+		</handshake>
+		<onAccountDestroy>
+			<Arg>	INT32		</Arg>
+		</onAccountDestroy>
+		<bindUrs> <Exposed/>
+			<Arg>	STRING		</Arg> <!-- new uid -->
+			<Arg>	STRING		</Arg> <!-- old uid -->
+		</bindUrs>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onChannelLogin> <!--验证回调-->
+			<Arg>			UINT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onChannelLogin>
+	</ClientMethods>
+</root>

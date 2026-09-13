@@ -1,0 +1,46 @@
+<root>
+	<Properties>
+		<startTimings>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> BASE </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</startTimings>
+
+		<numFreeChestOpenedToday>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</numFreeChestOpenedToday>
+
+		<lastOpenFreeChest>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</lastOpenFreeChest>
+	</Properties>
+
+	<BaseMethods>
+		<openFreeTreasureChest> <Exposed />
+		</openFreeTreasureChest>
+
+		<freeBoostAndOpen> <Exposed />
+		</freeBoostAndOpen>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncStartTimings>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</syncStartTimings>
+
+		<onOpenFreeTreasureChest>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</onOpenFreeTreasureChest>
+
+		<syncNumFreeChestOpenedToday>
+			<Arg> INT32 </Arg>
+		</syncNumFreeChestOpenedToday>
+	</ClientMethods>
+</root>

@@ -1,0 +1,90 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface>	iMatchDoubleSideSpace	</Interface>
+		<Interface>	iMonsterGenerate	</Interface>
+		<Interface>	iMonsterGroup	</Interface>
+		<Interface>	iGameStage	</Interface>
+	</Implements>
+	<ClientName>	VehicleBattleSpace	</ClientName>
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<initCheckTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</initCheckTimerID>
+		<campDataDict>
+			<Type>	BATTLE_CAMP_DATA_DICT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</campDataDict>
+		<occupDict>
+			<Type>	PY_DICT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</occupDict>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<gameResult>
+			<Type> BATTLE_GAME_RESULT </Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</gameResult>
+		<winnerCamp>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>0		</Default>
+		</winnerCamp>
+		<teamNumber>
+			<Type>	PY_DICT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</teamNumber>
+		<clientStatus> <!--  记录客户端表现类的状态 	--> 
+			<Type>		PYTHON			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	{}			</Default>
+		</clientStatus>
+	</Properties>
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		BATTLE_GAME_RESULT	</Arg>
+		</gameEnd>
+		<showKillInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+		<showDungeonTip>
+			<Arg>	STRING	</Arg>
+		</showDungeonTip>
+		<hideDungeonTip>
+		</hideDungeonTip>
+		<playSoundBGM>
+			<Arg>		STRING		</Arg>
+		</playSoundBGM>
+		<markTargetPosition>
+			<Arg>		VECTOR3		</Arg>
+		</markTargetPosition>
+		<closeTargetPosition>
+		</closeTargetPosition>
+	</ClientMethods>
+	<CellMethods>
+		<requestGameResult><Exposed/>
+		</requestGameResult>
+	</CellMethods>
+</root>

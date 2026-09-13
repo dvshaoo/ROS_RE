@@ -1,0 +1,115 @@
+<root>
+	<Implements>
+		<Interface> iTrainCarriage </Interface>
+		<Interface> iTrap </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName> TrainCarriageLocomotive </ClientName>
+
+	<Properties>
+		<inRangeAvts>
+			<Type>		ARRAY <of> ENTITY_ID </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</inRangeAvts>
+		<usedHangSockets>
+			<Type>		ARRAY <of> VEHICLE_SOCKET_INFO </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</usedHangSockets>
+		<carUUID>
+			<Type>		 UUID			</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</carUUID>
+		<vehicleInfo>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</vehicleInfo>
+		<canStretch>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canStretch>
+		<vehicleInfo>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</vehicleInfo>
+		<vehicleGameMode>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</vehicleGameMode>
+		<curAppearanceID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</curAppearanceID>
+		<isCarryVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</isCarryVehicle>
+		<createByAvatar>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</createByAvatar>
+		<characterType>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</characterType>
+		<canDriveInWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canDriveInWater>
+		<cannonEquipAvtID>
+			<Type>		ENTITY_ID	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</cannonEquipAvtID>
+		<gunEquipAvtID>
+			<Type>		ENTITY_ID	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</gunEquipAvtID>
+	</Properties>
+
+	<ClientMethods>
+		<onAddAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onAddAvatarSocket>
+		<onDelAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onDelAvatarSocket>
+
+	</ClientMethods>
+
+
+	<CellMethods>
+		<reqPassenger>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqPassenger>
+		<reqTrainSeat>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqTrainSeat>
+		<reqHangOn>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</reqHangOn>
+
+		<reqGetOff>
+			<Arg>	ENTITY_ID		</Arg>
+			<Arg>		 BOOL		</Arg>
+		</reqGetOff>
+		<onRecycleBullets>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32	</Arg>
+		</onRecycleBullets>
+	</CellMethods>
+</root>

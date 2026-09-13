@@ -1,0 +1,17 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<saveVnCheckInfo> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</saveVnCheckInfo>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSyncVnCheckInfo>
+			<Arg>			STRING				</Arg>
+		</onSyncVnCheckInfo>
+	</ClientMethods>
+</root>
+

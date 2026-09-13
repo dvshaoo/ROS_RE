@@ -1,0 +1,116 @@
+<root>
+	<Properties>
+		<dailyActivity>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</dailyActivity>
+
+		<dailyActivityRewardState>
+			<Type> ARRAY <of> INT8 </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</dailyActivityRewardState>
+
+		<weeklyActivity>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</weeklyActivity>
+
+		<weeklyActivityRewardState>
+			<Type> ARRAY <of> INT8 </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</weeklyActivityRewardState>
+
+		<activityProgress>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</activityProgress>
+
+		<activityState>
+			<Type> ARRAY <of> INT8 </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</activityState>
+
+		<lastRecordActivity>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</lastRecordActivity>
+	</Properties>
+
+	<BaseMethods>
+		<getActivityReward> <Exposed />
+			<Arg> INT32 </Arg>
+		</getActivityReward>
+
+		<getDailyActivityReward> <Exposed />
+			<Arg> INT32 </Arg>
+		</getDailyActivityReward>
+
+		<getWeeklyActivityReward> <Exposed />
+			<Arg> INT32 </Arg>
+		</getWeeklyActivityReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetActivityReward>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</onGetActivityReward>
+
+		<syncDailyActivity>
+			<Arg> INT32 </Arg>
+		</syncDailyActivity>
+
+		<syncWeeklyActivity>
+			<Arg> INT32 </Arg>
+		</syncWeeklyActivity>
+
+		<syncActivityState>
+			<Arg> ARRAY <of> INT8 </of> </Arg>
+		</syncActivityState>
+
+		<syncSingleActivityState>
+			<Arg> INT32 </Arg>
+			<Arg> INT8 </Arg>
+		</syncSingleActivityState>
+
+		<syncActivityProgress>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</syncActivityProgress>
+
+		<syncSingleActivityProgress>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</syncSingleActivityProgress>
+
+		<syncDailyActivityRewardState>
+			<Arg> ARRAY <of> INT8 </of> </Arg>
+		</syncDailyActivityRewardState>
+
+		<syncSingleDailyActivityRewardState>
+			<Arg> INT32 </Arg>
+			<Arg> INT8 </Arg>
+		</syncSingleDailyActivityRewardState>
+
+		<syncWeeklyActivityRewardState>
+			<Arg> ARRAY <of> INT8 </of> </Arg>
+		</syncWeeklyActivityRewardState>
+
+		<syncSingleWeeklyActivityRewardState>
+			<Arg> INT32 </Arg>
+			<Arg> INT8 </Arg>
+		</syncSingleWeeklyActivityRewardState>
+	</ClientMethods>
+</root>

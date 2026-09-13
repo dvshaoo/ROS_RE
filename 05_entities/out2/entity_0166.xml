@@ -1,0 +1,31 @@
+<root>
+	<Implements>
+		<Interface>	iCrontab	</Interface>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<lastModuleEvents>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE 		</Flags>
+			<Default>	{}		</Default>
+			<Persistent>	true		</Persistent>
+		</lastModuleEvents>
+
+		<moduleID2Box>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE 		</Flags>
+			<Default>	{}		</Default>
+		</moduleID2Box>
+	</Properties>
+
+	<BaseMethods>
+		<restoreCrontab>
+			<Arg>	MAILBOX	</Arg>
+		</restoreCrontab>
+		<onTimeset>
+		</onTimeset>
+	</BaseMethods>
+
+</root>

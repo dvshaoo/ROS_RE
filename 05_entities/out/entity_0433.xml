@@ -1,0 +1,395 @@
+<root>
+	<Implements>
+		<Interface>	iGMProxy	</Interface>
+	</Implements>
+	<Properties>
+		<startFreezeYuanbaoTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</startFreezeYuanbaoTime>
+		<freezeYuanbaoTime>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</freezeYuanbaoTime>
+		<freezeYuanbaoReason>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</freezeYuanbaoReason>
+		<unFreezeYuanbaoReason>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</unFreezeYuanbaoReason>
+		<dtsLockTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</dtsLockTime>
+
+		<procList>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+		</procList>
+		<clientHeartbeatTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+		</clientHeartbeatTimerID>
+		<clientLastHeartbeatTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE	</Flags>
+		</clientLastHeartbeatTime>
+		<logLastHeartbeatTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE	</Flags>
+		</logLastHeartbeatTime>
+		<lastPingNumber>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+		</lastPingNumber>
+		<negYBMatchMark>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</negYBMatchMark>
+		<negYBMatchTip>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	""	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</negYBMatchTip>
+		<negYBAppearanceMark>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</negYBAppearanceMark>
+		<negYBAppearanceTip>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	""	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</negYBAppearanceTip>
+		<showGmRedPointTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</showGmRedPointTime>
+		<bHeatBeatNotifyCell>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE	</Flags>
+		</bHeatBeatNotifyCell>
+		<lastUploadCCLogTime>
+			<Type>		FLOATTIME		</Type>
+			<Flags>		BASE	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</lastUploadCCLogTime>
+		<banFashionMark>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</banFashionMark>
+		<banFashionTip>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	""	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</banFashionTip>
+		<upPhotoFlag>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</upPhotoFlag>
+	</Properties>
+
+	<BaseMethods>
+		<reqWatchFreshman> <Exposed/>
+		</reqWatchFreshman>
+
+		<getGMTable> <Exposed/>
+		</getGMTable>
+
+		<adminOnBase> <Exposed/>
+			<Arg>		GM_INDEX				</Arg>	<!-- index -->
+			<Arg>		STRING					</Arg>	<!-- command -->
+		</adminOnBase>
+
+
+		<reloadModuleDict><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- package -->
+			<Arg>		STRING					</Arg>	<!-- module_name -->
+			<Arg>		STRING					</Arg>	<!-- dict_str -->
+		</reloadModuleDict>
+
+		<forwardTraceback>
+			<Arg>		STRING					</Arg>	<!-- content -->
+		</forwardTraceback>
+
+		<gmSysInformAll>
+			<Arg>		PYTHON				</Arg>
+			<Arg>		INT32				</Arg>
+		</gmSysInformAll>
+
+		<gmDelMail>
+			<Arg>		INT32				</Arg>
+		</gmDelMail>
+		<gmLockDts>
+			<Arg>		INT64				</Arg>
+		</gmLockDts>
+		<gmUnlockDts>
+		</gmUnlockDts>
+
+		<saLogFromClient><Exposed/>
+			<Arg>		UINT8					</Arg>	<!-- log_type -->
+			<Arg>		UINT8					</Arg>	<!-- log_reason -->
+			<Arg>		STRING					</Arg>	<!-- log_info -->
+		</saLogFromClient>
+		<gmSetChatCD>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</gmSetChatCD>
+
+		<saLogSwitchSetting><Exposed/>
+			<Arg>		ARRAY <of>	SETTING_VALUE	</of>					</Arg>
+		</saLogSwitchSetting>
+
+		<onResClientHeartbeat><Exposed/>
+		</onResClientHeartbeat>
+
+		<gmAdminJoinDtsCustomGame>
+			<Arg>		GID 					</Arg>
+		</gmAdminJoinDtsCustomGame>
+		<gmSetIntimacyDegree>
+			<Arg>		GID 					</Arg>
+			<Arg>		UINT32 					</Arg>
+		</gmSetIntimacyDegree>
+		<gmAddSilverVipScore>
+			<Arg>		UINT32 					</Arg>
+		</gmAddSilverVipScore>
+		<gmSetSupplementMultipleOpenTimes>
+			<Arg>		INT32 					</Arg>
+			<Arg>		INT32 					</Arg>
+		</gmSetSupplementMultipleOpenTimes>
+		<gmAsAddTaskProgres>
+			<Arg>		INT32 					</Arg>
+			<Arg>		INT32 					</Arg>
+			<Arg>		INT32 					</Arg>
+			<Arg>		INT32 					</Arg>
+		</gmAsAddTaskProgres>
+		<gmAsChangeTaskState>
+			<Arg>		INT32 					</Arg>
+			<Arg>		INT32 					</Arg>
+			<Arg>		INT32 					</Arg>
+		</gmAsChangeTaskState>
+
+		<saLogAdvertisementFromClient><Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</saLogAdvertisementFromClient>
+
+		<saLogDtsActivityFromClient><Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</saLogDtsActivityFromClient>
+
+		<requestS3PresignURL><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</requestS3PresignURL>
+
+		<saLogS3UploadResFromClient><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32 		</Arg>
+		</saLogS3UploadResFromClient>
+
+		<saLogProtectedPropertyFromClient><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</saLogProtectedPropertyFromClient>
+
+		<saLogMeetLikeFromClient><Exposed/>
+			<Arg>		GID		</Arg>
+		</saLogMeetLikeFromClient>
+
+		<saLogMeetInfoFromClient><Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</saLogMeetInfoFromClient>
+
+		<saLogUIClickFromClient><Exposed/>
+			<Arg>	INT32	</Arg>
+		</saLogUIClickFromClient>
+
+		<saLogG89UIClickFromClient><Exposed/>
+			<Arg>	STRING	</Arg>
+		</saLogG89UIClickFromClient>
+		<saLogG89UploadPicFromClient><Exposed/>
+			<Arg>	STRING	</Arg>
+		</saLogG89UploadPicFromClient>
+
+		<saLogOrderCallbackFromClient><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</saLogOrderCallbackFromClient>
+
+		<saLogUITabEventFromClient><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		ARRAY <of>	UI_CLICK_INFO	</of>		</Arg>
+		</saLogUITabEventFromClient>
+
+		<saLogUIEnterEventFromClient><Exposed/>
+			<Arg>		ARRAY <of>	UI_CLICK_INFO	</of>		</Arg>
+		</saLogUIEnterEventFromClient>
+
+		<saLogUIHotActClickFromClient><Exposed/>
+			<Arg>	INT32	</Arg>
+		</saLogUIHotActClickFromClient>
+		<saLogUIWatchAdFromClient><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</saLogUIWatchAdFromClient>
+
+		<onReportCodeHash><Exposed/>
+			<Arg>		INT32					</Arg>	<!-- where -->
+			<Arg>		INT32					</Arg>	<!-- code length -->
+			<Arg>		INT32					</Arg>	<!-- seed -->
+			<Arg>		INT32					</Arg>	<!-- code hash -->
+			<Arg>		UINT8					</Arg>	<!-- 1:address, 0:offset -->
+		</onReportCodeHash>
+		<onReportMemBytesString><Exposed/>
+			<Arg>		INT32					</Arg>	<!-- where -->
+			<Arg>		STRING					</Arg>	<!-- bytes string -->
+			<Arg>		UINT8					</Arg>	<!-- 1:address, 0:offset -->
+		</onReportMemBytesString>
+
+		<requestPackageUUID><Exposed/>
+		</requestPackageUUID>
+
+		<checkPackageUUID><Exposed/>
+			<Arg>		STRING		</Arg>	<!-- master package uuid -->
+			<Arg>		STRING		</Arg>	<!-- slave package uuid -->
+		</checkPackageUUID>
+
+		<onClickedGMSdkRedPoint><Exposed/>
+		</onClickedGMSdkRedPoint>
+	</BaseMethods>
+
+	<CellMethods>
+		<adminOnCell>
+			<Arg>		GM_PROXY				</Arg>	<!-- gm -->
+			<Arg>		STRING					</Arg>	<!-- methodName -->
+			<Arg>		PYTHON					</Arg>	<!-- methodArgs -->
+		</adminOnCell>
+
+		<reloadModuleDict>
+			<Arg>		STRING					</Arg>	<!-- package -->
+			<Arg>		STRING					</Arg>	<!-- module_name -->
+			<Arg>		PY_DICT					</Arg>	<!-- dict -->
+		</reloadModuleDict>
+	</CellMethods>
+
+	<ClientMethods>
+		<onGetGMTable>
+			<Arg>		PYTHON					</Arg>	<!-- gmDescTbl -->
+		</onGetGMTable>
+
+		<feedbackCommand>
+			<Arg>		GM_COMMAND_ABSTRACT		</Arg>	<!-- command -->
+			<Arg>		GM_ERRCODE				</Arg>	<!-- errcode -->
+			<Arg>		STRING					</Arg>	<!-- tips -->
+			<Arg>		PYTHON				</Arg>		<!-- results -->
+		</feedbackCommand>
+
+		<forwardTraceback>
+			<Arg>		STRING					</Arg>	<!-- content -->
+		</forwardTraceback>
+
+		<showStateList>
+			<Arg>		PY_DICT					</Arg>	<!-- state_lst -->
+		</showStateList>
+
+		<gmSnapShot>
+			<Arg>		UINT8					</Arg>	<!-- snapshot with reason param -->
+		</gmSnapShot>
+
+		<gmSnapShotAllScreen>
+			<Arg>		UINT8					</Arg>	<!-- snapshot with reason param -->
+			<Arg>		UINT8					</Arg>
+		</gmSnapShotAllScreen>
+
+		<onClientHeartbeat>
+		</onClientHeartbeat>
+
+		<onHeartbeatUpdate>
+			<Arg>	INT32		</Arg>
+		</onHeartbeatUpdate>
+		<onRequestS3PresignURL>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING					</Arg>
+		</onRequestS3PresignURL>
+		<onDebugLog>
+			<Arg>			STRING				</Arg>
+		</onDebugLog>
+
+		<checkCodeByList>
+		</checkCodeByList>
+		<checkCodeByAddress>
+			<Arg>		INT32					</Arg>	<!-- address -->
+			<Arg>		INT32					</Arg>	<!-- codelen -->
+			<Arg>		INT32					</Arg>	<!-- codeseed -->
+			<Arg>		INT32					</Arg>	<!-- codehash -->
+		</checkCodeByAddress>
+		<checkCodeByOffset>
+			<Arg>		INT32					</Arg>	<!-- offset -->
+			<Arg>		INT32					</Arg>	<!-- codelen -->
+			<Arg>		INT32					</Arg>	<!-- codeseed -->
+			<Arg>		INT32					</Arg>	<!-- codehash -->
+		</checkCodeByOffset>
+		<onRequestGetCodeHash>
+			<Arg>		INT32					</Arg>	<!-- where -->
+			<Arg>		INT32					</Arg>	<!-- codelen -->
+			<Arg>		INT32					</Arg>	<!-- codeseed -->
+			<Arg>		UINT8					</Arg>	<!-- is_addr -->
+		</onRequestGetCodeHash>
+		<onRequestGetMemBytesString>
+			<Arg>		INT32					</Arg>	<!-- address -->
+			<Arg>		INT32					</Arg>	<!-- codelen -->
+			<Arg>		UINT8					</Arg>	<!-- is_addr -->
+		</onRequestGetMemBytesString>
+		<onSyncCheckCodeList>
+			<Arg>		STRING					</Arg>	<!-- list_str -->
+		</onSyncCheckCodeList>
+		<checkPackageUUID>
+		</checkPackageUUID>
+		<onRequestPackageUUID>
+			<Arg>		STRING		</Arg>	<!-- master package uuid -->
+			<Arg>		STRING		</Arg>	<!-- slave package uuid -->
+		</onRequestPackageUUID>
+		<uploadUserClientLogs>
+		</uploadUserClientLogs>
+		<uploadUserCCLogs>
+		</uploadUserCCLogs>
+		<doShowGmSdkRedPoint>
+			<Arg>		INT32					</Arg>
+		</doShowGmSdkRedPoint>
+	</ClientMethods>
+</root>

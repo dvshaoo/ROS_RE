@@ -1,0 +1,68 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<curHandleEndMatchID>
+			<Type>		INT64 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</curHandleEndMatchID>
+		<curHandleRank1BidMatchID>
+			<Type>		INT64 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</curHandleRank1BidMatchID>
+		<curHandleEndBidMatchID>
+			<Type>		INT64 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</curHandleEndBidMatchID>
+		<curCheckGenTopWinBetMatchID>
+			<Type>		 INT64 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 0 </Default>
+			<Persistent>	true	</Persistent>
+		</curCheckGenTopWinBetMatchID>
+		<curTopWinBetList>
+			<Type>	ARRAY	<of>	PYTHON	</of>	</Type>
+			<Flags>			BASE		</Flags>
+			<Default> [] </Default>
+			<Persistent>	true	</Persistent>
+		</curTopWinBetList>
+	</Properties>
+
+	<BaseMethods>
+		<reqCurMatch>
+			<Arg> 		MAILBOX 		</Arg>
+		</reqCurMatch>
+		<reqTopCommentList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32			</Arg>
+		</reqTopCommentList>
+		<reqNextMatch>
+			<Arg> 		MAILBOX 		</Arg>
+		</reqNextMatch>
+		<reqTopWinBetList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT64			</Arg>
+		</reqTopWinBetList>
+		<reqTopWinToday>
+			<Arg> 		MAILBOX 		</Arg>
+		</reqTopWinToday>
+		<reqCurMatchTopWin>
+			<Arg> 		MAILBOX 		</Arg>
+		</reqCurMatchTopWin>
+		<reqSpecificMatchWinInfo>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT64			</Arg>
+		</reqSpecificMatchWinInfo>
+		<gmResetHorseRacingAllData>
+		</gmResetHorseRacingAllData>
+	</BaseMethods>
+</root>

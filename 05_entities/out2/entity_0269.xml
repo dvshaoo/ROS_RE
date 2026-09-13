@@ -1,0 +1,527 @@
+<root>
+	<Properties>
+		<!-- 已装备可装载外观列表 -->
+		<dtsWearableAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsWearableAppearanceList>
+
+		<!-- 已装备身体外观列表 -->
+		<dtsBodyAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsBodyAppearanceList>
+
+		<!-- 性别 -->
+		<dtsAppearanceGender>
+			<Type>			INT32						</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		1							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsAppearanceGender>
+
+		<!-- 已装备染色外观列表 -->
+		<dtsDyeingAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsDyeingAppearanceList>
+
+		<!-- 已装备武器外观列表 -->
+		<dtsWeaponAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsWeaponAppearanceList>
+
+		<!-- 已装备大逃杀物品外观列表 -->
+		<dtsBattlegroundPropAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsBattlegroundPropAppearanceList>
+
+		<!-- 已拥有表情列表 -->
+		<dtsEmojiList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<PersistentMongo> 	true					</PersistentMongo>
+		</dtsEmojiList>
+		
+		<dtsEmojiID>
+			<Type>	INT32	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+		</dtsEmojiID>
+
+		<!-- 已装备载具外观列表 -->
+		<dtsVehicleAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsVehicleAppearanceList>
+
+		<!-- 显示可装载外观列表 -->
+		<dtsShowWearableAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowWearableAppearanceList>
+
+		<!-- 显示身体外观列表 -->
+		<dtsShowBodyAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowBodyAppearanceList>
+
+		<!-- 显示飞行配饰列表 -->
+		<dtsShowFlyingAccessoryList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowFlyingAccessoryList>
+
+		<!-- 显示染色外观列表 -->
+		<dtsShowDyeingAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowDyeingAppearanceList>
+
+		<!-- 显示武器外观列表 -->
+		<dtsShowWeaponAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowWeaponAppearanceList>
+		
+		<!-- 显示大逃杀物品外观列表 -->
+		<dtsShowBattlegroundPropAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsShowBattlegroundPropAppearanceList>
+
+		<!-- 显示载具外观列表 -->
+		<dtsShowVehicleAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsShowVehicleAppearanceList>
+
+
+		<!-- 男性默认可装载保留外观 -->
+		<dtsMaleDefaultWearableAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsMaleDefaultWearableAppearanceList>
+
+		<!-- 女性默认可装载保留外观 -->
+		<dtsFemaleDefaultWearableAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsFemaleDefaultWearableAppearanceList>
+
+		<!-- 男性默认身体保留外观 -->
+		<dtsMaleDefaultBodyAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsMaleDefaultBodyAppearanceList>
+
+		<!-- 女性默认身体保留外观 -->
+		<dtsFemaleDefaultBodyAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsFemaleDefaultBodyAppearanceList>
+
+		<!-- 男性默认大逃杀物品保留外观 -->
+		<dtsMaleDefaultBattlegroundPropAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsMaleDefaultBattlegroundPropAppearanceList>
+
+		<!-- 女性默认大逃杀物品保留外观 -->
+		<dtsFemaleDefaultBattlegroundPropAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</dtsFemaleDefaultBattlegroundPropAppearanceList>
+
+		<!-- 已装备标签相关外观 -->
+		<dtsTagAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+			<Persistent> 	true						</Persistent>
+		</dtsTagAppearanceList>
+		<!-- 显示已装备标签相关外观 -->
+		<dtsShowTagAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowTagAppearanceList>
+		<!-- 暴露给客户端的展示背包变量，会随着性别变化而变化 -->
+		<dtsOutGameBag>
+			<Type>			INT32 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameBag>
+		<!-- 存两个额外的变量分别表示男女性别的展示背包，此变量不暴露给客户端 -->
+		<dtsOutGameBagByGender>
+			<Type>			PYTHON 	</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		{}							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameBagByGender>
+		<dtsHallVehicleAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]						</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsHallVehicleAppearanceList>
+
+		<hideAppearanceToEnemy>
+			<Type>			BOOL 	</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		False							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</hideAppearanceToEnemy>
+		<!-- 展示武器变量 -->
+		<dtsOutGameWeapon>
+			<Type>			INT32 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameWeapon>
+		<!-- 展示武器动作编号 -->
+		<dtsOutGameWeaponPos>
+			<Type>			INT8 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameWeaponPos>
+		<!-- 展示武器变量男 -->
+		<dtsOutGameWeaponMale>
+			<Type>			INT32 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameWeaponMale>
+		<!-- 展示武器动作编号男 -->
+		<dtsOutGameWeaponPosMale>
+			<Type>			INT8 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameWeaponPosMale>
+		<!-- 展示武器变量女 -->
+		<dtsOutGameWeaponFemale>
+			<Type>			INT32 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameWeaponFemale>
+		<!-- 展示武器动作编号女 -->
+		<dtsOutGameWeaponPosFemale>
+			<Type>			INT8 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsOutGameWeaponPosFemale>
+		<dtsJetWingsAppearanceID>
+			<Type>		INT32			</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsJetWingsAppearanceID>
+		<dtsVehiclePlateNumberAppearanceID>
+			<Type>		INT32			</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsVehiclePlateNumberAppearanceID>
+		<dtsShowAircraftAppearanceID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<PersistentMongo> 	true	</PersistentMongo>
+		</dtsShowAircraftAppearanceID>
+		<!-- 已装备挂件 -->
+		<dtsPendantAppearanceList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsPendantAppearanceList>
+
+		<!-- 显示已装备挂件 -->
+		<dtsShowPendantList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>
+		</dtsShowPendantList>
+		<dtsCustomPlanePlan>
+			<Type>			PYTHON 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		{}							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</dtsCustomPlanePlan>
+		<defaultCustomPlanePlanIdx>
+			<Type>			INT8 	</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		0							</Default>
+			<PersistentMongo> 	true						</PersistentMongo>
+		</defaultCustomPlanePlanIdx>
+	</Properties>
+
+	<BaseMethods>
+		<equipAppearance> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</equipAppearance>
+
+		<setDtsHallVehicleAppearance> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</setDtsHallVehicleAppearance>
+
+		<cancelDtsHallVehicleAppearance> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</cancelDtsHallVehicleAppearance>
+
+		<unloadAppearance> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</unloadAppearance>
+
+		<setDtsAppearanceGender> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</setDtsAppearanceGender>
+
+		<notifyEquipedAppearance>
+			<Arg>			INT32						</Arg>
+		</notifyEquipedAppearance>
+		<notifyUnloadAppearance>
+			<Arg>			INT32						</Arg>
+		</notifyUnloadAppearance>
+
+		<onNotifyEquipAppearanceFailed>
+			<Arg>			STRING						</Arg>
+		</onNotifyEquipAppearanceFailed>
+
+		<tryOnAppearance> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</tryOnAppearance>
+
+		<tryOffAppearance> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</tryOffAppearance>
+
+		<cancelTryOnAllRequest> <Exposed/>
+		</cancelTryOnAllRequest>
+		<setOutGameBag> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</setOutGameBag>
+		<decSuitWeaponDanceChargeData>
+			<Arg>			STRING						</Arg>
+		</decSuitWeaponDanceChargeData>
+		<buySuitWeaponDanceChargeCnt> <Exposed/>
+			<Arg>			INT32						</Arg>
+			<Arg>			STRING						</Arg>
+			<Arg>			INT32						</Arg>
+		</buySuitWeaponDanceChargeCnt>
+		<setHideAppearanceToEnemyState>
+			<Arg>			BOOL						</Arg>
+		</setHideAppearanceToEnemyState>
+		<takeOffAllAppearanceForSuit> <Exposed/>
+		</takeOffAllAppearanceForSuit>
+		<recoverToOldSuit>  <Exposed/>
+		</recoverToOldSuit>
+		<saveOldSuitInfo>   <Exposed/>
+		</saveOldSuitInfo>
+		<putOnAppearanceClothSuit> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</putOnAppearanceClothSuit>
+		<takeOffAppearanceClothSuit> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</takeOffAppearanceClothSuit>
+		<setOutGameWeapon> <Exposed/>
+			<Arg>			INT32						</Arg>
+			<Arg>			INT32						</Arg>
+			<Arg>			INT8						</Arg>
+		</setOutGameWeapon>
+
+		<queryOthersAppearanceDict> <Exposed/>
+			<Arg>			GID					</Arg>
+		</queryOthersAppearanceDict>
+		<saveCustomPlaneText> <Exposed/>
+			<Arg>			INT8					</Arg>
+			<Arg>			STRING					</Arg>
+			<Arg>			STRING					</Arg>
+			<Arg>			INT8					</Arg>
+		</saveCustomPlaneText>
+		<setCustomPlaneDefaultPlanIdx> <Exposed/>
+			<Arg>			INT8					</Arg>
+		</setCustomPlaneDefaultPlanIdx>	
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateDtsWearableAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsWearableAppearanceList>
+		<onUpdateDtsBodyAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsBodyAppearanceList>
+		<onUpdateDtsEmojiList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsEmojiList>
+		<onUpdateDtsEmojiID>
+			<Arg>			INT32		</Arg>
+		</onUpdateDtsEmojiID>
+		<!-- 飞行配饰 -->
+		<onUpdateDtsFlyingAccessoryList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsFlyingAccessoryList>
+		<onUpdateDtsDyeingAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsDyeingAppearanceList>
+		<onUpdateBattlegroundPropAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateBattlegroundPropAppearanceList>
+		<onUpdateDtsWeaponAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsWeaponAppearanceList>
+		<onUpdateVehicleAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateVehicleAppearanceList>
+		<onUpdatePetAppearance>
+			<Arg>			INT32		</Arg>
+		</onUpdatePetAppearance>
+		<onUpdateDtsTagAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsTagAppearanceList>
+
+		<onSetDtsAppearanceGender>
+			<Arg>			INT32						</Arg>
+		</onSetDtsAppearanceGender>
+		<onNotifyEquipedAppearance>
+			<Arg>			INT32						</Arg>
+		</onNotifyEquipedAppearance>
+		<onNotifyUnloadAppearance>
+			<Arg>			INT32						</Arg>
+		</onNotifyUnloadAppearance>
+		<onNotifyEquipAppearanceFailed>
+			<Arg>			STRING						</Arg>
+		</onNotifyEquipAppearanceFailed>
+
+		<onUpdateDtsShowWearableAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowWearableAppearanceList>
+		<onUpdateDtsShowBodyAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowBodyAppearanceList>
+		<!-- 飞行配饰 -->
+		<onUpdateDtsShowFlyingAccessoryList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowFlyingAccessoryList>
+		<onUpdateDtsShowDyeingAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowDyeingAppearanceList>
+		<onUpdateDtsShowBattlegroundPropAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowBattlegroundPropAppearanceList>
+		<onUpdateDtsShowWeaponAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowWeaponAppearanceList>
+		<onUpdateDtsShowVehicleAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowVehicleAppearanceList>
+		<onUpdateDtsShowTagAppearanceList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowTagAppearanceList>
+		<onUpdateDtsHallThemeID>
+			<Arg>		INT32		</Arg>
+		</onUpdateDtsHallThemeID>
+		<onUpdateDtsPaintAppearanceIDs>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsPaintAppearanceIDs>
+		<onUpdateDtsJetWingsAppearanceID>
+			<Arg>		INT32		</Arg>
+		</onUpdateDtsJetWingsAppearanceID>
+		<onUpdateVehiclePlateNumberAppearanceID>
+			<Arg>		INT32		</Arg>
+		</onUpdateVehiclePlateNumberAppearanceID>
+		<onUpdateDtsShowAircraftAppearanceID>
+			<Arg>		INT32		</Arg>
+		</onUpdateDtsShowAircraftAppearanceID>
+		<updateDtsShowAircraftAppearanceID>
+			<Arg>		INT32		</Arg>
+		</updateDtsShowAircraftAppearanceID>
+		<updateDtsShowNameplateAppearance>
+		</updateDtsShowNameplateAppearance>
+		<onUpdatePlayerSfxAppearance>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdatePlayerSfxAppearance>
+		<onUpdateAppearanceSuitList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateAppearanceSuitList>
+		<onUpdateOutGameBag>
+			<Arg>			INT32  </Arg>
+		</onUpdateOutGameBag>
+		<onUpdateSuitWeaponDanceChargeData>
+			<Arg>			PYTHON					</Arg>
+		</onUpdateSuitWeaponDanceChargeData>
+		<onBuySuitWeaponDanceChargeCntSuccess>
+			<Arg>		INT32		</Arg>
+		</onBuySuitWeaponDanceChargeCntSuccess>
+		<onBuySuitWeaponDanceChargeCntFailed>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onBuySuitWeaponDanceChargeCntFailed>
+		<onUpdateOutGameWeapon>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+		</onUpdateOutGameWeapon>
+		<onUpdateHallVehicleAppearanceList>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateHallVehicleAppearanceList>
+
+		<onQueryOthersAppearanceDict>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING	</Arg>
+		</onQueryOthersAppearanceDict>
+		<onUpdateDtsPendantList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsPendantList>
+		<onUpdateDtsShowPendantList>
+			<Arg>			ARRAY <of> INT32 </of>		</Arg>
+		</onUpdateDtsShowPendantList>
+		<onSaveCustomPlaneText>
+			<Arg>			PYTHON					</Arg>
+		</onSaveCustomPlaneText>
+		<onSetCustomPlaneDefaultPlanIdx>
+			<Arg>			INT8					</Arg>
+		</onSetCustomPlaneDefaultPlanIdx>	
+	</ClientMethods>
+</root>

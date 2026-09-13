@@ -1,0 +1,25 @@
+<root>
+  <Implements>
+    <Interface> iCell </Interface>
+    <Interface> iDtsExplode </Interface>
+  </Implements>
+
+  <ClientName>  Landmine  </ClientName>
+
+  <Properties>
+    <landmineType>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </landmineType>
+  </Properties>
+
+  <ClientMethods>
+  </ClientMethods>
+
+  <CellMethods>
+  </CellMethods>
+
+  <BaseMethods>
+  </BaseMethods>
+
+</root>

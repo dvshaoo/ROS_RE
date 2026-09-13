@@ -1,0 +1,146 @@
+<root>
+	<Properties>
+		<dtsAprilFoolSurpriseStamp>
+			<Type>		INT32	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolSurpriseStamp>
+		<dtsAprilFoolLuckyValue>
+			<Type>		INT32	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolLuckyValue>
+		<hasGetDtsAprilFoolProp>
+			<Type>		ARRAY <of>	INT32	</of>		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</hasGetDtsAprilFoolProp>
+		<dtsAprilFoolSurpriseStampDayCnt>
+			<Type>		INT32	</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolSurpriseStampDayCnt>
+		<dtsAprilFoolActivityDayNo>
+			<Type>		INT32	</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolActivityDayNo>
+
+
+		<dtsAprilFoolDailyGameAwardTimes>
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolDailyGameAwardTimes>
+
+
+		<dtsAprilFoolAdvanceTickets>
+			<Type>		INT64	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolAdvanceTickets>
+		<dtsAprilFoolBaseLotteryRoundCnt>
+			<Type>		INT64	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolBaseLotteryRoundCnt>
+		<dtsAprilFoolBaseLotteryCnt>
+			<Type>		INT64	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolBaseLotteryCnt>
+		<dtsAprilFoolCurrBaseGrid>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolCurrBaseGrid>
+		<dtsAprilFoolCurrBaseGridHasGot>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolCurrBaseGridHasGot>
+		<dtsAprilFoolAdvanceGridHasGot>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolAdvanceGridHasGot>
+		<dtsAprilFoolAdvanceTotalLotteryCnt>
+			<Type>		INT64	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsAprilFoolAdvanceTotalLotteryCnt>
+
+	</Properties>
+	<BaseMethods>
+		<doOpenAprilFoolBox> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</doOpenAprilFoolBox>
+		<doOpenMutipleAprilFoolBox> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</doOpenMutipleAprilFoolBox>
+		<onPickDtsAprilFoolActivityItem>
+			<Arg>		INT32		</Arg>
+		</onPickDtsAprilFoolActivityItem>
+
+		<requestDtsAprilFoolDailyGameReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestDtsAprilFoolDailyGameReward>
+
+
+		<requestGenerateDtsAprilFoolBaseTable> <Exposed/>
+		</requestGenerateDtsAprilFoolBaseTable> 
+
+		<requestDtsAprilFoolDoLottery> <Exposed/>
+		</requestDtsAprilFoolDoLottery>
+		
+		<requestDtsAprilFoolDoAdvanceLottery> <Exposed/>
+		</requestDtsAprilFoolDoAdvanceLottery>
+
+	</BaseMethods>
+	<ClientMethods>
+		<onOpenDtsAprilFoolBox>
+			<Arg>		PYTHON		</Arg>
+		</onOpenDtsAprilFoolBox>
+		<updateDtsAprilFoolSurpriseStamp>
+			<Arg>		INT32		</Arg>
+		</updateDtsAprilFoolSurpriseStamp>
+		<updateDtsAprilFoolLuckyValue>
+			<Arg>		INT32		</Arg>
+		</updateDtsAprilFoolLuckyValue>
+		<updateDtsAprilFoolGetPropList>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</updateDtsAprilFoolGetPropList>
+
+		<onGetDtsAprilFoolDailyGameReward>
+			<Arg>		PYTHON		</Arg>
+		</onGetDtsAprilFoolDailyGameReward>
+		<onResetDtsAprilFoolDailyGameTimes>
+			<Arg>		INT32		</Arg>
+		</onResetDtsAprilFoolDailyGameTimes>
+
+		
+		<onGenerateDtsAprilFoolBaseTable>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGenerateDtsAprilFoolBaseTable>
+
+		<onDtsAprilFoolDoLottery>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onDtsAprilFoolDoLottery>
+
+	</ClientMethods>
+</root>

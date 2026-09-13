@@ -1,0 +1,74 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<seasonNo>
+			<Type>		INT64	</Type>
+			<Flags>		BASE	</Flags>
+			<Persistent> true	</Persistent>
+		</seasonNo>
+	</Properties>
+	<BaseMethods>
+		<requireSeasonNo>
+			<Arg>   MAILBOX </Arg>
+		</requireSeasonNo>
+		<requireSchedule>
+			<Arg>   MAILBOX </Arg>
+			<Arg>   INT64	</Arg>
+		</requireSchedule>
+		<requireMatchSeeds>
+			<Arg>   MAILBOX </Arg>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</requireMatchSeeds>
+		<notifyMatchFlags>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>
+		</notifyMatchFlags>
+		<initNewSeason>
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>
+		</initNewSeason>
+		<stopBattle>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</stopBattle>
+		<banCertainMatch>
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</banCertainMatch>
+		<addCertainMatch>
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- seedsList -->
+		</addCertainMatch>
+		<startNextMatchTimer>
+		</startNextMatchTimer>
+		<restartStopSeasonTimer>
+		</restartStopSeasonTimer>
+		<restartGodSeasonTimer>
+		</restartGodSeasonTimer>
+		<setSignUpInterval>
+			<Arg>	INT64	</Arg>	<!-- interval -->
+		</setSignUpInterval>
+		<banCertainUserForCC>
+			<Arg>	INT64	</Arg>	<!-- gid -->
+			<Arg>	INT64	</Arg>	<!-- hostID -->
+			<Arg>	INT64	</Arg>	<!-- banTime -->
+		</banCertainUserForCC>
+		<banCertainCountryForCC>
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	INT64	</Arg>	<!-- hostID -->
+			<Arg>	INT64	</Arg>	<!-- banTime -->
+		</banCertainCountryForCC>
+		<clearUserRank>
+			<Arg>	INT64	</Arg>	<!-- gid -->
+			<Arg>	INT64	</Arg>	<!-- hostID -->
+		</clearUserRank>
+		<clearCountryRank>
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	INT64	</Arg>	<!-- hostID -->
+		</clearCountryRank>
+	</BaseMethods>
+</root>
+

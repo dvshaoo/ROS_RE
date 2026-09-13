@@ -1,0 +1,213 @@
+<root>
+	<Properties>
+		<quizRoomMailbox>
+			<Type> MAILBOX </Type>
+			<Flags>		BASE		</Flags>
+		</quizRoomMailbox>
+
+		<ranklistInRoom>
+			<Type> RANK_INFO_LIST </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+		</ranklistInRoom>
+		<playerListInRoom>
+			<Type> PLAYER_INFO_LIST </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+		</playerListInRoom>
+
+		<quizActivityOpened>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</quizActivityOpened>
+		<quizActivityCouldJoin>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</quizActivityCouldJoin>
+		<willingToJoinQuiz>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</willingToJoinQuiz>
+
+		<legionQuizActivityOpened>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</legionQuizActivityOpened>
+		<legionQuizActivityCouldJoin>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</legionQuizActivityCouldJoin>
+		<willingToJoinLegionQuiz>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</willingToJoinLegionQuiz>
+		<isInQuizRoom>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</isInQuizRoom>
+
+		<correctAnswerNum>	<!-- 答对题目数量 -->
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</correctAnswerNum>
+		<totalQuestionNum>  <!-- 全部题目数量 -->
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</totalQuestionNum>
+
+		<generalQuizFinishedTimes>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default> 0 </Default>
+		</generalQuizFinishedTimes>
+	</Properties>
+
+	<BaseMethods>
+		<quickJoinQuiz><Exposed/>
+		</quickJoinQuiz>
+		<quickJoinLegionQuiz><Exposed/>
+		</quickJoinLegionQuiz>
+		<answerQuestion><Exposed/>
+			<Arg> ANSWER_INFO </Arg>
+		</answerQuestion>
+		<chatInQuizRoom><Exposed/>
+			<Arg> CHAT_INFO </Arg>
+		</chatInQuizRoom>
+		<joinQuizWilling><Exposed/>
+			<Arg> BOOL </Arg>
+		</joinQuizWilling>
+		<joinLegionQuizWilling><Exposed/>
+			<Arg> BOOL </Arg>
+		</joinLegionQuizWilling>
+		<queryQuizRoomInfo><Exposed/>
+		</queryQuizRoomInfo>
+
+		<onJoinQuizRoomSucc>
+			<Arg> MAILBOX </Arg>
+		</onJoinQuizRoomSucc>
+		<onJoinQuizRoomSuccWithoutUI>
+			<Arg> MAILBOX </Arg>
+		</onJoinQuizRoomSuccWithoutUI>
+		<onJoinQuizRoomFail>
+			<Arg> STRING </Arg>
+		</onJoinQuizRoomFail>
+		<onUpdateRoomMemberList>
+			<Arg> PLAYER_INFO_LIST </Arg>
+		</onUpdateRoomMemberList>
+		<onUpdateRoomRankList>
+			<Arg> RANK_INFO_LIST </Arg>
+		</onUpdateRoomRankList>
+		<onUpdateRoomCountDown>
+			<Arg> PYTHON </Arg>
+		</onUpdateRoomCountDown>
+
+		<onQuestionArrived>
+			<Arg> QUESTION_INFO </Arg>
+			<Arg> BOOL </Arg> <!-- isQuestionCorrectlyAnswered -->
+		</onQuestionArrived>
+		<onAnswerQuestion>
+			<Arg> GID </Arg>	<!-- GID -->
+			<Arg> ANSWER_RESULT </Arg>	<!-- wrappedAnswer -->
+		</onAnswerQuestion>
+
+		<onQuizActivityStartJoin>
+			<Arg> INT32 </Arg>
+		</onQuizActivityStartJoin>
+		<onQuizActivityFinishJoin>
+			<Arg> INT32 </Arg>
+		</onQuizActivityFinishJoin>
+		<queryQuizActivityState>
+		</queryQuizActivityState>
+		<onQuizFinished>
+			<Arg> INT32 </Arg>
+			<Arg> PYTHON </Arg>	<!-- quizResult -->
+		</onQuizFinished>
+		<onChatInQuizRoom>
+			<Arg> GID </Arg>
+			<Arg> CHAT_INFO </Arg>
+		</onChatInQuizRoom>
+		<onRequestLeaveRoom>
+			<Arg> BOOL </Arg>
+			<Arg> STRING </Arg>
+		</onRequestLeaveRoom>
+		<clearQuizFinishedTimes>
+		</clearQuizFinishedTimes>
+	</BaseMethods>
+
+
+	<ClientMethods>
+		<updateWillingToJoinQuiz>
+			<Arg> INT32 </Arg>
+		</updateWillingToJoinQuiz>
+		<updateWillingToJoinLegionQuiz>
+			<Arg> INT32 </Arg>
+		</updateWillingToJoinLegionQuiz>
+		<onJoinQuizRoom>
+			<Arg> BOOL </Arg>
+			<Arg> STRING </Arg>
+		</onJoinQuizRoom>
+		<onJoinQuizRoomWithoutUI>
+			<Arg> BOOL </Arg>
+			<Arg> STRING </Arg>
+		</onJoinQuizRoomWithoutUI>
+
+		<onUpdateRoomMemberList>
+			<Arg> PLAYER_INFO_LIST </Arg>
+		</onUpdateRoomMemberList>
+
+		<onUpdateRoomRankList>
+			<Arg> RANK_INFO_LIST </Arg>
+		</onUpdateRoomRankList>
+
+		<onUpdateRoomCountDown>
+			<Arg> PYTHON </Arg>
+		</onUpdateRoomCountDown>
+
+		<onQuestionArrived>
+			<Arg> QUESTION_INFO </Arg>
+			<Arg> BOOL </Arg> <!-- isQuestionCorrectlyAnswered -->
+		</onQuestionArrived>
+
+		<onAnswerQuestion>
+			<Arg> GID </Arg>
+			<Arg> ANSWER_RESULT </Arg>	<!-- result -->
+		</onAnswerQuestion>
+
+		<onQuizActivityStartJoin>
+			<Arg> INT32 </Arg>
+		</onQuizActivityStartJoin>
+		<onQuizActivityFinishJoin>
+			<Arg> INT32 </Arg>
+		</onQuizActivityFinishJoin>
+		<onQuizFinished>
+			<Arg> INT32 </Arg>
+			<Arg> PYTHON </Arg>	<!-- quizResult -->
+		</onQuizFinished>
+		<onChatInQuizRoom>
+			<Arg> GID </Arg>
+			<Arg> CHAT_INFO </Arg>
+		</onChatInQuizRoom>
+		<onRequestLeaveRoom>
+			<Arg> BOOL </Arg>
+			<Arg> STRING </Arg>
+		</onRequestLeaveRoom>
+
+		<canJoinGeneralQuiz>
+		</canJoinGeneralQuiz>
+		<isGeneralQuizAvailable>
+		</isGeneralQuizAvailable>
+		<canJoinLegionQuiz>
+		</canJoinLegionQuiz>
+		<isLegionQuizAvailable>
+		</isLegionQuizAvailable>
+		<insideQuizRoom>
+		</insideQuizRoom>
+	</ClientMethods>
+</root>

@@ -1,0 +1,60 @@
+<root>
+	<Properties>
+		<!-- 最近一次的换货记录编号 -->
+		<lastExchangeID>
+			<Type>			UUID						</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Persistent> 	true						</Persistent>
+		</lastExchangeID>
+
+		<!-- 此次换货是否已经完成 -->
+		<isExchangeConfirmed>
+			<Type>			BOOL						</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		False						</Default>
+			<Persistent> 	true						</Persistent>
+		</isExchangeConfirmed>
+
+		<!-- 被消耗的物品ID -->
+		<costAppearanceID>
+			<Type>			INT32						</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		-1							</Default>
+			<Persistent> 	true						</Persistent>
+		</costAppearanceID>
+
+		<!-- 换出的物品ID -->
+		<exchangedAppearanceID>
+			<Type>			INT32						</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		-1							</Default>
+			<Persistent> 	true						</Persistent>
+		</exchangedAppearanceID>
+	</Properties>
+
+	<BaseMethods>
+		<exchangeRequest> <Exposed/>
+			<Arg>			INT32						</Arg>
+		</exchangeRequest>
+		<continueExchangeRequest> <Exposed/>
+		</continueExchangeRequest>
+		<confirmExchangeRequest> <Exposed/>
+		</confirmExchangeRequest>
+		<discardExchangeRequest> <Exposed/>
+		</discardExchangeRequest>
+	</BaseMethods>
+
+	<ClientMethods>
+		<notifyExchangeResult>
+			<Arg>			INT32						</Arg>
+			<Arg>			INT32						</Arg>
+			<Arg>			BOOL						</Arg>
+		</notifyExchangeResult>
+		<onConfirmExchange>
+			<Arg>			BOOL						</Arg>
+		</onConfirmExchange>
+		<onDiscardExchange>
+			<Arg>			BOOL						</Arg>
+		</onDiscardExchange>
+	</ClientMethods>
+</root>

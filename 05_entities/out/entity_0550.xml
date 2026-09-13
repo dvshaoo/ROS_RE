@@ -1,0 +1,53 @@
+<root>
+	<Properties>
+		<accumulateChargeV4Data>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</accumulateChargeV4Data>
+	</Properties>
+	<BaseMethods>
+		<getAccumulateChargeDailyGift> <Exposed/>
+		</getAccumulateChargeDailyGift>
+		<getAccumulateChargeWeeklyGift> <Exposed/>
+		</getAccumulateChargeWeeklyGift>
+		<getAccumulateChargeDailyGiftByIndex> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- index -->
+		</getAccumulateChargeDailyGiftByIndex>
+		<tryClickAccumulateCharge> <Exposed/>
+		</tryClickAccumulateCharge>
+		<checkOpenAccumulateChargeUIByVersion> <Exposed/>
+		</checkOpenAccumulateChargeUIByVersion>
+		<getAccumulateChargeRewardV4> <Exposed/>
+			<Arg>		INT8		</Arg>		<!-- index -->
+		</getAccumulateChargeRewardV4>
+	</BaseMethods>
+	<ClientMethods>
+		<onAccumulateChargeUpdate>
+			<Arg>		INT32		</Arg>		<!-- daily count -->
+			<Arg>		INT32		</Arg>		<!-- weekly count -->
+			<Arg>		INT32		</Arg>		<!-- daily time stamp -->
+			<Arg>		INT32		</Arg>		<!-- weekly time stamp -->
+			<Arg>		INT32		</Arg>		<!-- weekly gift state -->
+			<Arg>		INT32		</Arg>		<!-- daily click state -->
+			<Arg>		INT32		</Arg>		<!-- accumulate charge state -->
+			<Arg>		PYTHON		</Arg>		<!-- accumulate charge daily get list -->
+		</onAccumulateChargeUpdate>
+		<onReceiveAccumulateChargeDailyGift>
+			<Arg>		INT32		</Arg>		<!-- base diamond count -->
+			<Arg>		INT32		</Arg>		<!-- random diamond count -->
+		</onReceiveAccumulateChargeDailyGift>
+		<onCheckOpenAccumulateChargeUIByVersion>
+			<Arg>		INT8		</Arg>
+		</onCheckOpenAccumulateChargeUIByVersion>
+		<onSyncAccumulateChargeV4Data>
+			<Arg>		PYTHON		</Arg>
+		</onSyncAccumulateChargeV4Data>
+		<onGetAccumulateChargeRewardV4>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+		</onGetAccumulateChargeRewardV4>
+	</ClientMethods>
+</root>
+

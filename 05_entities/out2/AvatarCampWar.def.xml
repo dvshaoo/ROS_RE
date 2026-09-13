@@ -1,0 +1,83 @@
+<root>
+	<Parent>	BattleGroundAvatar	</Parent>
+	<ClientName>	AvatarCampWar	</ClientName>
+	<Implements>
+		<Interface>	iMark	</Interface>
+	</Implements>
+	<Properties>
+		<baoShiDu>
+			<Type>	INT32	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</baoShiDu>
+
+		<monsterSpeedUpRatio>
+			<Type>	FLOAT	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default> 0 </Default>
+		</monsterSpeedUpRatio>
+
+		<campWarZombieTickTimer>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</campWarZombieTickTimer>
+
+		<entityIdToPosition>
+			<Type> PYTHON </Type>
+			<Flags> OWN_CLIENT </Flags>
+		</entityIdToPosition>
+
+		<gameEndTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameEndTime>
+		<campWarLowSpeedRate>
+			<Type>	FLOAT </Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default> 0 </Default>
+		</campWarLowSpeedRate>
+		<campWarZombieTick>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</campWarZombieTick>	
+		<skillAcquireDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</skillAcquireDict>
+	</Properties>
+
+	<CellMethods>
+		<updateEntityIdPositionDict> <Exposed/>
+		</updateEntityIdPositionDict>
+		<setGameEndTime>
+			<Arg>	FLOAT	</Arg>
+		</setGameEndTime>
+		<addLowSpeedBuff>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT32	</Arg>
+		</addLowSpeedBuff>
+
+		<removeLowSpeedBuff>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT32	</Arg>
+		</removeLowSpeedBuff>
+		<onAddPassiveSkill>
+			<Arg>	PYTHON	</Arg>
+		</onAddPassiveSkill>
+		<setMonsterSpeedUpRatio> <Exposed/>
+			<Arg>	FLOAT	</Arg>
+		</setMonsterSpeedUpRatio>
+	</CellMethods>
+
+	<ClientMethods>
+		<showGameResult>
+			<Arg>	ARRAY <of>	AVATAR_CAMP_WAR_GAME_STATUS	</of> </Arg>
+			<Arg>	AVATAR_CAMP_WAR_GAME_STATUS	</Arg>	
+			<Arg>	INT32	</Arg>
+			<Arg>	CAMP_WAR_OWN_GAME_RESULT	</Arg>
+			<Arg>	INT32	</Arg>
+		</showGameResult>
+		<onAcquireSkill>
+			<Arg>	INT32	</Arg>
+		</onAcquireSkill>
+	</ClientMethods>
+</root>

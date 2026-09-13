@@ -1,0 +1,26 @@
+<root>
+	<Properties>
+		<settingData>
+			<Type> TYPE_SETTING </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</settingData>
+	</Properties>
+
+	<BaseMethods>
+		<sSyncSettingDataToServer>
+			<Exposed/>
+			<Arg> TYPE_SETTING </Arg>
+		</sSyncSettingDataToServer>
+
+		<sSyncSettingDataFromAvatarToAthlete>
+			<Arg> TYPE_SETTING </Arg>
+		</sSyncSettingDataFromAvatarToAthlete>
+	</BaseMethods>
+
+	<ClientMethods>
+		<cSyncSettingDataToClient>
+			<Arg> TYPE_SETTING </Arg>
+		</cSyncSettingDataToClient>
+	</ClientMethods>
+</root>

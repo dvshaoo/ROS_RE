@@ -1,0 +1,131 @@
+<root>
+	<Properties>
+		<dragonDanceJoinTime>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 201904 </Default> <!-- 年+周 -->
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceJoinTime>
+
+		<dragonDanceFeedTutorial>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceFeedTutorial>
+
+		<dragonDanceItemGiveCount>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceItemGiveCount>
+
+		<dragonDanceItemLastGiveTime>
+			<Type> LONGTIME </Type>
+			<Flags> BASE </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceItemLastGiveTime>
+
+		<dragonDanceItems>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceItems>
+
+		<dragonDanceLuckyBag>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceLuckyBag>
+
+		<dragonGrowthPersonal>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonGrowthPersonal>
+
+		<dragonDanceItemSendInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceItemSendInfo>
+
+		<dragonDanceItemReceiveInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceItemReceiveInfo>
+
+		<dragonDanceAskSendInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceAskSendInfo>
+
+		<dragonDanceAskReceiveInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceAskReceiveInfo>
+
+		<dragonDanceAwardedList>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</dragonDanceAwardedList>
+	</Properties>
+
+	<BaseMethods>
+		<requestDragonDanceUpdate>
+			<Exposed/>
+		</requestDragonDanceUpdate>
+
+		<requestBuildDragonDanceLuckyBag>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</requestBuildDragonDanceLuckyBag>
+
+		<requestFeedDragonViaMicroService>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</requestFeedDragonViaMicroService>
+
+		<requestGiveDragonDanceItem>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</requestGiveDragonDanceItem>
+
+		<requestAskDragonDanceItem>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</requestAskDragonDanceItem>
+
+		<receivePlayerGiveDragonDanceItem>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</receivePlayerGiveDragonDanceItem>
+
+		<receivePlayerAskDragonDanceItem>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</receivePlayerAskDragonDanceItem>
+
+		<requestGetDragonDancePhaseAward>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</requestGetDragonDancePhaseAward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onDragonDanceResult>
+			<Exposed/>
+			<Arg>	PYTHON	</Arg>
+		</onDragonDanceResult>
+	</ClientMethods>
+
+</root>

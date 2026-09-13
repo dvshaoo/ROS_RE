@@ -1,0 +1,36 @@
+<root>
+	<Properties>
+		<hasSecretTreasureTraveler>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENT </Flags>
+		</hasSecretTreasureTraveler>
+		<currentPackageWeight>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENT </Flags>
+		</currentPackageWeight>
+	</Properties>
+
+	<BaseMethods>
+		<onGetSecretTreasureTravelerBase>
+		</onGetSecretTreasureTravelerBase>
+		<onDefendDamageByTraveler>
+			<Arg>	INT32	</Arg>
+		</onDefendDamageByTraveler>
+	</BaseMethods>
+
+	<CellMethods>
+		<onGetSecretTreasureTraveler>
+		</onGetSecretTreasureTraveler>
+		<onPackageWeightChange>
+			<Arg>	INT32	</Arg>
+		</onPackageWeightChange>
+	</CellMethods>
+	<ClientMethods>
+		<onPackageWeightChange>
+			<Arg>	INT32	</Arg>
+		</onPackageWeightChange>
+		<onDefendDamageByTraveler>
+			<Arg>	INT32	</Arg>
+		</onDefendDamageByTraveler>
+	</ClientMethods>	
+</root>

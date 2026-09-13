@@ -1,0 +1,144 @@
+<root>
+  <Implements>
+    <Interface> iCell </Interface>
+    <Interface> iTrap </Interface>
+  </Implements>
+
+  <ClientName>  Campsite  </ClientName>
+  <Properties>
+    <lastDamageTime>
+      <Type>    FLOAT   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0.0     </Default>
+    </lastDamageTime>
+    <lastOccupyTime>
+      <Type>    FLOAT   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0.0     </Default>
+    </lastOccupyTime>
+    <activated>
+      <Type>    BOOL   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </activated>
+    <occupied>
+      <Type>    BOOL   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </occupied>
+    <trapID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </trapID>
+    <nickname>
+      <Type>    STRING   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </nickname>
+    <relatedRebornPoint>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </relatedRebornPoint>
+
+    <tankSerial>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </tankSerial>
+
+    <tankRoutes>
+      <Type>    PYTHON   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </tankRoutes>
+
+    <redPlayers>
+      <Type>    PYTHON   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </redPlayers>
+
+    <bluePlayers>
+      <Type>    PYTHON   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </bluePlayers>
+
+    <occupyPercent>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+      <Default> 0     </Default>
+    </occupyPercent>
+
+    <damagePercent>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+      <Default> 0     </Default>
+    </damagePercent>
+
+    <playerInArea>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0     </Default>
+    </playerInArea>
+
+    <timerCheckOccupy>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </timerCheckOccupy>
+
+    <timerProduceTank>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </timerProduceTank>
+
+    <nextTankTime>
+      <Type>    FLOAT   </Type>
+      <Default> 0     </Default>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </nextTankTime>
+
+    <defaultRoute>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+      <Default> 0     </Default>
+    </defaultRoute>
+  </Properties>
+
+  <ClientMethods>
+    <startOccupy></startOccupy>
+    <stopOccupy></stopOccupy>
+
+    <startDamage></startDamage>
+    <stopDamage></stopDamage>
+
+    <waitDamageTip>
+      <Arg> BOOL   </Arg>
+      <Arg> FLOAT </Arg>
+    </waitDamageTip>
+
+    <startProduceTank>
+      <Arg> FLOAT </Arg>
+    </startProduceTank>
+
+    <stopProduceTank>
+    </stopProduceTank>
+
+    <selectDefaultRoute>
+      <Arg> INT32   </Arg>
+    </selectDefaultRoute>
+
+    <cancleSelectDefaultRoute></cancleSelectDefaultRoute>
+  </ClientMethods>
+
+  <CellMethods>
+    <setDefaultRoute> <Exposed/>
+      <Arg>  INT32    </Arg>
+    </setDefaultRoute>
+
+    <directOccupy>
+    </directOccupy>
+
+    <startProduceTank>
+    </startProduceTank>
+
+    <stopProduceTank> </stopProduceTank>
+
+    <occupy> </occupy>
+    <damage> </damage>
+  </CellMethods>
+
+</root>

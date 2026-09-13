@@ -1,0 +1,41 @@
+<root>
+	<Properties>
+		<trapDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</trapDict>
+		<trapEntityBuffer>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</trapEntityBuffer>
+		<trapAddTimerIDs>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</trapAddTimerIDs>
+		<trapUpdateTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</trapUpdateTimerID>
+		<trapUpdatingController>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	set()		</Default>
+		</trapUpdatingController>
+		<bActive>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	1		</Default>
+		</bActive>
+
+	</Properties>
+
+	<CellMethods>
+		<activate>
+		</activate>
+		<inactivate>
+		</inactivate>
+	</CellMethods>
+</root>

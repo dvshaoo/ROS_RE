@@ -1,0 +1,77 @@
+<root>
+	<Properties>
+		<fallFollowTargetID>
+			<Type> ENTITY_ID </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</fallFollowTargetID>
+		<fallFollowerList>
+			<Type>	ARRAY <of>	ENTITY_ID	</of>		</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</fallFollowerList>
+		<fallFollowInviteID> <!-- 被谁邀请了 -->
+			<Type> ENTITY_ID </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</fallFollowInviteID>
+	</Properties>
+	<CellMethods>
+		<reqFallFollowTeammateFollow> <Exposed/>
+			<Arg> 	ENTITY_ID	</Arg>
+		</reqFallFollowTeammateFollow>
+		<reqFallFollowTeammateCancel> <Exposed/>
+			<Arg> 	ENTITY_ID	</Arg>
+		</reqFallFollowTeammateCancel>
+		<reqFallFollowTeammateInvite> <Exposed/>
+			<Arg> 	ENTITY_ID	</Arg>
+		</reqFallFollowTeammateInvite>
+		<reqFallFollowTeammateInviteResponse> <Exposed/>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg> 	INT8	</Arg>
+		</reqFallFollowTeammateInviteResponse>
+		<reqFallFollowCurrentInfo> <Exposed/>
+		</reqFallFollowCurrentInfo>
+
+		<fallFollowBroadcastChanged>
+		</fallFollowBroadcastChanged>
+		<addFallFollower>
+			<Arg>	ENTITY_ID	</Arg>
+		</addFallFollower>
+		<removeFallFollower>
+			<Arg>	ENTITY_ID	</Arg>
+		</removeFallFollower>
+		<beInvitedAsFallFollower>
+			<Arg>	ENTITY_ID	</Arg>
+		</beInvitedAsFallFollower>
+		<onFallFollowInviteResponse>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT8	</Arg>
+		</onFallFollowInviteResponse>
+
+
+		<onFallFollowTargetGetOffPlane>
+			<Arg>	VECTOR3		</Arg>
+		</onFallFollowTargetGetOffPlane>
+		<setFallFollowTargetID>
+			<Arg>	INT32		</Arg>
+		</setFallFollowTargetID>
+	</CellMethods>
+	<ClientMethods>
+		<resFallFollowInfo>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	ARRAY <of>	ENTITY_ID	</of>	</Arg>
+		</resFallFollowInfo>
+
+		<fallFollowInvite>
+			<Arg>	ENTITY_ID	</Arg>
+		</fallFollowInvite>
+
+		<beginFallFollow>
+			<Arg>	VECTOR3		</Arg>
+		</beginFallFollow>
+
+		<endFallFollow>
+		</endFallFollow>
+	</ClientMethods>
+</root>

@@ -1,0 +1,43 @@
+<root>
+	<Properties>
+		<robotDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</robotDict>
+		<robotDistributor>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotDistributor>
+		<robotReDistributeTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</robotReDistributeTimerID>
+		<robotAllReDistributeTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</robotAllReDistributeTimerID>
+		<robotSkydivingMocker>
+			<Type>	PYTHON	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</robotSkydivingMocker>
+		<robotsSkydivingTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</robotsSkydivingTimerID>
+	</Properties>
+	<CellMethods>
+		<killAllRobot>
+		</killAllRobot>
+		<gmCreateBot>
+			<Arg>		INT32		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</gmCreateBot>
+		<randomSendForgottenBots>
+			<Arg>		ENTITY_ID		</Arg>
+		</randomSendForgottenBots>
+	</CellMethods>
+</root>

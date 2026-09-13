@@ -1,0 +1,45 @@
+<root>
+	<Properties>
+		<classifiedAvailableConvertItem>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>	
+		</classifiedAvailableConvertItem>
+	</Properties>
+
+	<BaseMethods>
+		<queryAvailableConvertItem> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</queryAvailableConvertItem>
+		<convertItem> <Exposed/>
+			<Arg>	INT32	</Arg> <!-- convertItemID -->
+			<Arg>	INT32	</Arg> <!-- times -->
+		</convertItem>
+		<updateItemConvertRemind> <Exposed/>
+			<Arg>		INT32		</Arg> <!-- convertItemID -->
+			<Arg>		BOOL		</Arg>
+		</updateItemConvertRemind>
+	</BaseMethods>
+	
+	<ClientMethods>
+		<onQueryAvailableConvertItem>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg> <!-- itemConvertTimes -->
+			<Arg>	PYTHON	</Arg> <!-- itemConvertRemind -->
+		</onQueryAvailableConvertItem>
+		<onUpdateConvertTimes>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateConvertTimes>
+		<onConvertItem>
+			<Arg>	INT32	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onConvertItem>
+		<onConvertItemFailed>
+			<Arg>	STRING	</Arg>
+		</onConvertItemFailed>
+		<onUpdateItemConvertRemind>
+			<Arg>	PYTHON	</Arg> <!-- itemConvertRemind -->
+		</onUpdateItemConvertRemind>
+	</ClientMethods>
+</root>

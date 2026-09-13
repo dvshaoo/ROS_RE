@@ -1,0 +1,59 @@
+<root>
+	<Implements>
+		<Interface>	iOnlineUpdateBase	</Interface>
+	</Implements>
+	<Properties>
+		<playerUUID><!--@玩家UUID-->
+			<Type>		OBJECT_UUID	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<DatabaseLength>16		</DatabaseLength>
+			<Persistent>	true		</Persistent>
+		</playerUUID>
+
+		<playerName><!--@账户用户名-->
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+			<DatabaseLength>255		</DatabaseLength>
+		</playerName>
+
+		<identifierName><!--@绑定账号的唯一用户名-->
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+			<DatabaseLength>255		</DatabaseLength>
+			<Identifier>	true		</Identifier>
+		</identifierName>
+
+		<baseTimerRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>         BASE            </Flags>
+			<Default>	{}		</Default>
+		</baseTimerRecord>
+		<isDestroying>
+			<Type>          BOOL            </Type>
+			<Flags>         BASE            </Flags>
+			<Default>	False		</Default>
+		</isDestroying>
+	</Properties>
+	<BaseMethods>
+		<entireDestroy>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</entireDestroy>
+
+		<syncProperties>
+			<Arg>	STRING	</Arg>
+			<Arg>	PY_DICT	</Arg>
+		</syncProperties>
+		<createEntityWithBase>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</createEntityWithBase>
+		<clearEntityWithBase>
+			<Arg>	STRING	</Arg>
+		</clearEntityWithBase>
+		<clearAllEntityWithBase>
+		</clearAllEntityWithBase>
+	</BaseMethods>
+</root>

@@ -1,0 +1,89 @@
+<root>
+  <Implements>
+    <Interface> iCell </Interface>
+    <Interface> iCombatBehavior	</Interface>
+    <Interface> iCombatUnit </Interface>
+    <Interface> iSkill </Interface>
+    <Interface> iTrap </Interface>
+    <Interface> iRotate </Interface>
+    <Interface> iStateTransfer </Interface>
+  </Implements>
+
+  <ClientName>  DefendTower  </ClientName>
+
+  <Properties>
+    <level>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE </Flags>
+    </level>
+
+    <showHint>
+      <Type>    BOOL   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+      <Default> False   </Default>
+    </showHint>
+
+    <relateStage>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+      <Default> 0   </Default>
+    </relateStage>
+
+    <trapID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </trapID>
+
+    <operator>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </operator>
+
+    <playerInTrap>
+      <Type>    PYTHON   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </playerInTrap>
+
+    <nickname>
+      <Type>    STRING    </Type>
+      <Flags>   ALL_CLIENTS </Flags>
+    </nickname>
+
+    <routeName>
+      <Type>    STRING    </Type>
+      <Flags>   ALL_CLIENTS </Flags>
+    </routeName>
+  </Properties>
+
+  <ClientMethods>
+    <playerEnter></playerEnter>
+    <playerLeave></playerLeave>
+    <upgrade></upgrade>
+    <openPosHint></openPosHint>
+    <closePosHint></closePosHint>
+    <showGateDeadHint></showGateDeadHint>
+
+    <gateBlink>
+      <Arg>  INT32 </Arg>
+    </gateBlink>
+  </ClientMethods>
+
+  <CellMethods>
+    <startFix> <Exposed/>
+    </startFix>
+    <cancleFix> <Exposed/>
+    </cancleFix>
+    <doneFix> <Exposed/>
+    </doneFix>
+    <startUpgrade> <Exposed/>
+    </startUpgrade>
+    <cancleUpgrade> <Exposed/>
+    </cancleUpgrade>
+    <doneUpgrade> <Exposed/>
+    </doneUpgrade>
+    <closePosHint>
+    </closePosHint>
+  </CellMethods>
+
+</root>

@@ -1,0 +1,30 @@
+<root>
+	<Implements>
+		<Interface>		iSkill		</Interface>
+	</Implements>
+	<Properties>
+		<characterSkills>
+			<Type> 			ARRAY <of> INT32 </of> 	</Type>
+			<Flags> 		CELL_PRIVATE			</Flags>
+		</characterSkills>
+
+		<skillTimingTriggerTimer>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default> 		0 			</Default>
+		</skillTimingTriggerTimer>
+	</Properties>
+	<CellMethods>
+		<requestSynSkillsCoolDown> <Exposed/>
+		</requestSynSkillsCoolDown>
+
+		<clearIconSkillCD><!--客户端调用，新手本生效-->
+			<Exposed/>
+			<Arg> 		INT32 			</Arg>
+		</clearIconSkillCD>
+	</CellMethods>
+	<ClientMethods>
+		<resetSkillIconCDState>
+		</resetSkillIconCDState>
+	</ClientMethods>
+</root>

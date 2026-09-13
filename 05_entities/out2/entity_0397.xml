@@ -1,0 +1,157 @@
+<root>
+	<Properties>
+		<asActivityRecords>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> {} </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</asActivityRecords>
+		<asTaskRecords>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> {} </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</asTaskRecords>
+		<asAwardRecords>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> {} </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</asAwardRecords>
+		<asOnlineTimerID>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default>	0	</Default>
+		</asOnlineTimerID>
+		<asActivityTimerID>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default>	0	</Default>
+		</asActivityTimerID>
+		<asTaskTimerID>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default>	0	</Default>
+		</asTaskTimerID>
+		<asContactInfoCollected>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	0	</Default>
+			<PersistentMongo> true </PersistentMongo>
+		</asContactInfoCollected>
+		
+		<asBraveBookKeepSeasonState>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	0	</Default>
+			<PersistentMongo> true </PersistentMongo>
+		</asBraveBookKeepSeasonState>
+		
+        <asHasClickBraveBookBtn>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	False	</Default>
+			<PersistentMongo> true </PersistentMongo>
+        </asHasClickBraveBookBtn>
+	</Properties>
+
+	<CellMethods>
+	</CellMethods>
+
+	<BaseMethods>
+		<asOnNotify> <!-- for server -->
+			<Arg>	INT32	</Arg> <!-- msgType -->
+			<Arg>	PYTHON	</Arg> <!-- msgArgs -->
+		</asOnNotify>
+		<asSyncCustomDataToClient>
+			<Arg>	INT32	</Arg> <!-- actID -->
+			<Arg>	PYTHON	</Arg> <!-- data -->
+		</asSyncCustomDataToClient>
+
+		<asOnClientMessage> <!-- for client -->
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- msgType -->
+			<Arg>	TUPLE	<of>	INT32	</of>	</Arg> <!-- msgArgs -->
+		</asOnClientMessage>
+		<asOnRequestGetAwards>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- actID -->
+			<Arg>	INT32	</Arg> <!-- awardID -->
+			<Arg>	INT32	</Arg> <!-- times -->
+		</asOnRequestGetAwards>
+		<asOnRequestCompensateAwards>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- actID -->
+		</asOnRequestCompensateAwards>
+		<asOnRequestCompleteTask>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- actID -->
+			<Arg>	INT32	</Arg> <!-- taskID -->
+			<Arg>	INT32	</Arg> <!-- times -->
+		</asOnRequestCompleteTask>
+		<asOnRequestActivityInfo>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- actID -->
+		</asOnRequestActivityInfo>
+		<asOnRequestTaskInfo>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- actID -->
+			<Arg>	INT32	</Arg> <!-- taskID -->
+		</asOnRequestTaskInfo>
+		<asOnNotifyPlayerContactInfo>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- actID -->
+			<Arg>	STRING	</Arg> <!-- name -->
+			<Arg>	STRING	</Arg> <!-- tel -->
+		</asOnNotifyPlayerContactInfo>
+		<asGMTask>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- instructionID -->
+		</asGMTask>
+
+        <asKeepOrChangeSeasonChoose> <Exposed/>
+			<Arg>	INT32	</Arg>
+        </asKeepOrChangeSeasonChoose>
+        
+        <asClickBraveBookBtn> <Exposed/>
+        </asClickBraveBookBtn>
+	</BaseMethods>
+
+	<ClientMethods>
+		<asOnUpdateActivities>
+			<Arg>	PYTHON	</Arg>
+		</asOnUpdateActivities>
+		<asOnUpdateTasks>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</asOnUpdateTasks>
+		<asOnUpdateAwards>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</asOnUpdateAwards>
+		<asOnGetAwards>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</asOnGetAwards>
+		<asOnUpdateCustomData>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</asOnUpdateCustomData>
+		<asShowItemDisplay>
+			<Arg>		ARRAY <of>	INT32	</of>			</Arg>
+		</asShowItemDisplay>
+		<asUpdateAsyncTaskRecords>
+			<Arg>	PYTHON	</Arg>
+		</asUpdateAsyncTaskRecords>
+        
+        <asOnBraveBookSeasonStateChange>
+			<Arg>	INT32	</Arg>
+        </asOnBraveBookSeasonStateChange>
+
+        <onResetBraveBookActivity>
+        </onResetBraveBookActivity>
+
+        <asShowChangeBraveBookSeasonPanel>
+        </asShowChangeBraveBookSeasonPanel>
+	</ClientMethods>
+</root>

@@ -1,0 +1,43 @@
+<root>
+	<Properties>
+		<treasureMallIndexLastResetTime>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</treasureMallIndexLastResetTime>
+		<currentTreasureIndex>
+			<Type>	INT32		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</currentTreasureIndex>
+		<treasureMallOpenState>
+			<Type>	INT8		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</treasureMallOpenState>
+		<treasureMallIndexTargetRefreshTime>
+			<Type>	TIMESTAMP_INT		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+		</treasureMallIndexTargetRefreshTime>
+		<refreshTreasureMallIndexTimer>
+			<Type>	INT32		</Type>
+			<Flags>	BASE	</Flags>
+		</refreshTreasureMallIndexTimer>
+	</Properties>
+
+	<BaseMethods>
+		<updateTreasureMallOpenState> <Exposed/>
+		</updateTreasureMallOpenState>
+	</BaseMethods>
+	
+	<ClientMethods>
+		<onOpenTreasureMall>
+			<Arg>	INT32	</Arg>
+		</onOpenTreasureMall>
+		<onTreasureIndexUpdate>
+			<Arg>	INT32	</Arg>
+			<Arg>	TIMESTAMP_INT	</Arg>
+		</onTreasureIndexUpdate>
+	</ClientMethods>
+</root>

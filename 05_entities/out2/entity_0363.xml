@@ -1,0 +1,17 @@
+<root>
+	<Implements>
+		<Interface>	iMatchSpace		</Interface>
+	</Implements>
+	<Properties>
+		<robotPool>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</robotPool>
+	</Properties>
+	<CellMethods>
+		<onGetMatchRobotData>
+			<Arg>		PYTHON			</Arg>
+		</onGetMatchRobotData>
+	</CellMethods>
+</root>

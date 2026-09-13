@@ -1,0 +1,74 @@
+<root>
+	<Properties>
+		<freshManSurveyLeftCnt>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>
+		</freshManSurveyLeftCnt>
+
+		<versionSurveyLeftCnt>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT 	</Flags>
+			<Default> 		0					</Default>
+			<Persistent> 	true				</Persistent>
+		</versionSurveyLeftCnt>
+
+		<heroModeSurveyLeftCnt>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT 	</Flags>
+			<Default> 		0					</Default>
+			<PersistentMongo> 	true				</PersistentMongo>
+		</heroModeSurveyLeftCnt>
+
+		<lastVersionUrl>
+			<Type>			STRING				</Type>
+			<Flags>			BASE_AND_CLIENT 	</Flags>
+			<Default> 		0					</Default>
+			<Persistent> 	true				</Persistent>
+		</lastVersionUrl>
+
+		<lastHeroSurveyUrl>
+			<Type>			STRING				</Type>
+			<Flags>			BASE_AND_CLIENT 	</Flags>
+			<Default> 		0					</Default>
+			<PersistentMongo> 	true				</PersistentMongo>
+		</lastHeroSurveyUrl>
+
+		<showSurveyIndex>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT 	</Flags>
+			<Default> 		0					</Default>
+			<Persistent> 	true				</Persistent>
+		</showSurveyIndex>
+		<showSurveyRedPoint>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE_AND_CLIENT 	</Flags>
+			<Default> 		1					</Default>
+			<Persistent> 	true				</Persistent>
+		</showSurveyRedPoint>
+	</Properties>
+
+	<BaseMethods>
+		<resetShowSurveyState> <Exposed/>
+		</resetShowSurveyState>
+
+		<resetShowSurveyStateWithoutAward> <Exposed/>
+		</resetShowSurveyStateWithoutAward>
+
+		<changeShowSurveyState>
+			<Arg>			INT32 				</Arg>
+		</changeShowSurveyState>
+
+		<closeSurveyRedPoint> <Exposed/>
+		</closeSurveyRedPoint>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onChangeShowSurveyState>
+			<Arg>			INT32				</Arg>	
+		</onChangeShowSurveyState>
+		<onCloseSurveyRedPoint>
+		</onCloseSurveyRedPoint>
+	</ClientMethods>
+</root>

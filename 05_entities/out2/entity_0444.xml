@@ -1,0 +1,107 @@
+<root>
+	<Properties>
+		<openSupplyScore>
+			<!-- 		开箱得分（根据得分领取奖励）	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</openSupplyScore>
+		<openSupplyTimes>
+			<!-- 		开箱次数<supplementId, num> -->
+			<!-- 	非存盘属性，存盘属性是childPropertyList[0].openSupplyTimes 	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</openSupplyTimes>
+		<openMallTimes>
+			<!-- 		开箱次数<mallId, num>  -->
+			<!-- 	非存盘属性，存盘属性是childPropertyList[0].openMallTimes 	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</openMallTimes>
+		<openHalfMonthPackageTimes>
+			<!-- 		开箱次数<halfMonthPackId, num> -->
+			<!-- 	非存盘属性，存盘属性是childPropertyList[0].openHalfMonthPackageTimes 	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</openHalfMonthPackageTimes>
+		<openWorkShopScore>
+			<!-- 		工坊重制得分 -->
+			<!-- 	非存盘属性，存盘属性是childPropertyList[0].openWorkShopScore 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</openWorkShopScore>
+		<openSupplyGiftInfo>
+			<!-- 		奖励领取状态 <id, state>		 	-->
+			<!-- 	state : 0：不能领 1：未领取 2：已领取	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</openSupplyGiftInfo>
+		<openSupplyGiftLastRefreshTimeDays>
+			<!-- 		上次刷新时间（用以每x天刷新功能） <id, timeStamp>		 	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</openSupplyGiftLastRefreshTimeDays>
+	</Properties>
+	<BaseMethods>
+		<queryAvailableOpenSupplyGift> <Exposed/>
+			<Arg>		STRING		</Arg>		<!-- queryUI -->
+		</queryAvailableOpenSupplyGift>
+		<getOpenSupplyGift> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- giftId -->
+			<Arg>		INT32		</Arg>		<!-- rewardIndex -->
+		</getOpenSupplyGift>
+		<refreshWorkShopOpenScore>
+			<Arg>		INT32		</Arg>		<!-- apperanceID -->
+		</refreshWorkShopOpenScore>
+		<refreshOpenSupplyTimesAndScore>
+			<Arg>		INT32		</Arg>		<!-- supplementID -->
+			<Arg>		INT32		</Arg>		<!-- openTimes -->
+		</refreshOpenSupplyTimesAndScore>
+		<refreshOpenMallTimes>
+			<Arg>		INT32		</Arg>		<!-- mallGoodID -->
+			<Arg>		INT32		</Arg>		<!-- num -->
+		</refreshOpenMallTimes>
+		<refreshOpenHalfMonthPackageTimes>
+			<Arg>		INT32		</Arg>		<!-- halfMonthPackID -->
+			<Arg>		INT32		</Arg>		<!-- num -->
+		</refreshOpenHalfMonthPackageTimes>
+		<checkOpenSupplyTimes> <Exposed/>
+		</checkOpenSupplyTimes>
+	</BaseMethods>
+	<ClientMethods>
+		<onQueryAvailableOpenSupplyGift>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg> 		<!-- openSupplyScore -->
+			<Arg>	INT32	</Arg> 		<!-- openWorkShopScore -->
+		</onQueryAvailableOpenSupplyGift>
+		<onUpdateOpenSupplyGiftInfo>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>     	<!-- openSupplyScore -->
+			<Arg>	INT32	</Arg> 		<!-- openWorkShopScore -->
+		</onUpdateOpenSupplyGiftInfo>
+		<onGetOpenSupplyGift>
+			<Arg>		PYTHON		</Arg>
+		</onGetOpenSupplyGift>
+		<onGetOpenSupplyGiftFailed>
+			<Arg>		STRING		</Arg>
+		</onGetOpenSupplyGiftFailed>
+	</ClientMethods>
+</root>

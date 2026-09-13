@@ -1,0 +1,1004 @@
+<root>
+	<ClientName>	Athlete		</ClientName>
+	<Implements>
+        <Interface> iFirstPay                   </Interface>
+		<Interface>	iProxyNoCell				</Interface>
+		<Interface>	iFriend						</Interface>
+		<Interface>	iMail						</Interface>
+		<Interface>	iBindPhone					</Interface>
+		<Interface>	iHallTeam					</Interface>
+		<Interface>	iChatHall					</Interface>
+		<Interface>	iPay						</Interface>
+		<Interface>	iGMCommand					</Interface>
+		<Interface>	iGMAdmin					</Interface>
+		<Interface>	iRank						</Interface>
+		<Interface>	iCurrency					</Interface>
+		<Interface>	iChips						</Interface>
+		<Interface>	iMiscVar					</Interface>
+		<Interface>	iMiscIntVar					</Interface>
+		<Interface>	iMiscMapVar					</Interface>
+		<Interface>	iAccountServiceMgr				</Interface>
+		<Interface>	iActivityXmas2017				</Interface>
+		<Interface>	iActivityLimitTime				</Interface>
+		<Interface>	iActivityValentine2018		</Interface>
+		<Interface>	iNewMonthcard					</Interface>
+		<Interface>	iComplaintHall 				</Interface>
+		<Interface>	iRecord						</Interface>
+		<Interface> iCommonLive					</Interface>
+		<Interface>	iDtsCustomGame				</Interface>
+		<Interface> iDtsAppearancePackage 		</Interface>
+		<Interface>	iDtsEquipAppearanceAthlete	</Interface>
+		<Interface>	iSupplement 				</Interface>
+		<Interface>	iAdvertisement 				</Interface>
+		<Interface> iShare 						</Interface>
+		<Interface> iTreasureChest				</Interface>
+		<Interface> iDailyActivity				</Interface>
+		<Interface> iAwardMonitor 				</Interface>
+		<Interface>	iSigned						</Interface>
+		<Interface>	iCustomControlManagerOnAthlete	</Interface>
+		<Interface> iCCMiniAthlete				</Interface>
+		<Interface> iDtsPaintAthlete			</Interface>
+		<Interface> iDtsSurveySystem 			</Interface>
+		<Interface> iMall 						</Interface>
+		<Interface> iShareMall					</Interface>
+		<Interface> iWelfare					</Interface>
+		<Interface> iAntiCheatingWatcher		</Interface>
+		<Interface> iNationality 				</Interface>
+		<Interface> iDayTask                                    </Interface>
+		<Interface> iSpecTrain                                    </Interface>
+		<Interface> iLottery                                    </Interface>
+		<Interface> iCourse					</Interface>
+		<Interface> iBlackMarket				</Interface>
+		<Interface> iLimitPackage				</Interface>
+		<Interface> iChongDing					</Interface>
+		<Interface> iDtsBigMapDownloader		</Interface>
+		<Interface>	iPush						</Interface>
+		<Interface>	iItemExchange				</Interface>
+		<Interface>	iOpenSupplyGift				</Interface>
+		<Interface> iGoldBattle 				</Interface>
+		<Interface> iYuanbaoBattle			</Interface>
+		<Interface> iAppearanceWorkShop 		</Interface>
+		<Interface> iVideoAdvertisement			</Interface>
+		<Interface> iSpringGameShare			</Interface>
+		<Interface>	iChildTable			</Interface>
+		<Interface> iRedPacketAthlete			</Interface>
+		<Interface>	iDtsAppearanceCultivate			</Interface>
+		<Interface>	iVNG				</Interface>
+		<Interface>	iFacebook				</Interface>
+		<Interface>	iSteam				</Interface>
+		<Interface>	iRosMatch				</Interface>
+		<Interface>	iPrizeMatch				</Interface>
+		<Interface>	iHorseRacing				</Interface>
+		<Interface>	iDynamicDifficulty				</Interface>
+		<Interface>	iIdentifyTag			</Interface>
+		<Interface> iOldPlayerReturn 			</Interface>
+		<Interface> iRecallPlayer			</Interface>
+		<Interface> iShareGift 			</Interface>
+		<Interface> iBattleGift 			</Interface>
+		<Interface> iRedPacketGift 			</Interface>
+		<Interface> iWatchLiveGift 			</Interface>
+		<Interface> iDtsRepertoryPackage 		</Interface>
+		<Interface> iInternationalChallengeCupRpc			</Interface>
+		<Interface> iCounter					</Interface>
+		<Interface> iItemConvert					</Interface>
+		<Interface>	iCommanderHall			</Interface>
+		<Interface> iBraveBook	</Interface>
+		<Interface> iPayedPartner					</Interface>
+		<Interface>	iDtsLevelSystem				</Interface>
+		<Interface> iLuckyCarnival				</Interface>
+		<Interface>	iTimeRangePay			</Interface>
+		<Interface>	iPersonalRecommend		</Interface>
+		<Interface> iDtsSignin					</Interface>
+		<Interface> iAccumulateCharge				</Interface>
+		<Interface> iMonthPayRebateSpecialAward			</Interface>
+		<Interface> iVid			</Interface>
+		<Interface> iCosmicSupplyActivity		</Interface>
+		<Interface> iDoubleSevenSupport                 </Interface>
+		<Interface> iTelkomseUser			</Interface>
+		<Interface> iIntimacyDegree                 </Interface>
+		<Interface> iDoubleSevenFriend                 </Interface>
+		<Interface> iDtsActivityTask                 </Interface>
+		<Interface> iWeekendPush                 </Interface>
+		<Interface> iVip			</Interface>
+		<Interface> iRedPackageActivity                 </Interface>
+		<Interface> iNeteaseVIP                 </Interface>
+		<Interface> iWishPool                 </Interface>
+		<Interface> iDtsInGameActionAthlete			</Interface>
+		<Interface> iAnniversaryAthlete		</Interface>
+		<Interface> iNewPlayerTask                 </Interface>
+		<Interface> iSettingDataSyncManagerOnAthlete	</Interface>
+		<Interface> iDoubleTwelve	</Interface>
+		<Interface> iChristmasBonusCN 	</Interface>
+		<Interface> iXmasTreeAthlete	</Interface>
+		<Interface> iPayRebate 	</Interface>
+		<Interface> iNewYearGoal 	</Interface>
+		<Interface> iLuckyTurn 	</Interface>
+		<Interface> iChildCare 	</Interface>
+		<Interface> iPickUpOutGameItemAthlete 	</Interface>
+		<Interface> iCollectNewYearWord 	</Interface>
+		<Interface> iDragonDance 	</Interface>
+		<Interface> iTreasureMall 	</Interface>
+		<Interface> iDtsStarAthlete	</Interface>
+		<Interface> iValentineWeaponAthlete	</Interface>
+		<Interface> iHideMaterial	</Interface>
+		<Interface>	iGirlsDay	</Interface>
+		<Interface> iDtsCrazyCarnivalAthlete 	</Interface>
+		<Interface> iCustomizedSuit </Interface>
+		<Interface>	iActivitySystem	</Interface>
+		<Interface> iMarrySystem </Interface>
+		<Interface> iCustomLayoutOnAthlete </Interface>
+		<Interface> iDtsAprilFoolActivityAthlete 	</Interface>
+		<Interface> iDtsBasketballActivityAthlete 	</Interface>
+		<Interface> iSplashMode		</Interface>
+		<Interface> iDtsActivityDrawBox		</Interface>
+		<Interface> iHalloween2019Athlete		</Interface>
+		<Interface> iAdView </Interface>
+		<Interface> iHeroLevel </Interface>
+		<Interface> iAirwarVote		</Interface>
+		<Interface> iPersonalSpace		</Interface>
+		<Interface> iCreditSystem		</Interface>
+		<Interface> iDtsFreeParadise </Interface>
+		<Interface> iSocialLadder </Interface>
+		<Interface> iLuckyTurnNA 	</Interface>
+		<Interface> iPlayerMemory </Interface>
+		<Interface> iRosLandDrone 	</Interface>
+		<Interface> iDtsFestivalActvityTaskAthlete 	</Interface>
+		<Interface> iWeaponIllustration 	</Interface>
+	</Implements>
+	<Indexes>
+		<gid>
+			<Type>  INDEX   </Type>
+		</gid>
+		<baseNickname>
+			<Type>  INDEX   </Type>
+			<Length> 20	</Length>
+		</baseNickname>
+		<playerName>
+			<Type>  INDEX   </Type>
+			<Length> 128	</Length>
+		</playerName>
+	</Indexes>
+	<Properties>
+		<proficiencyState>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> -1 </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</proficiencyState>
+		<realNameAuthed>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</realNameAuthed>
+		<msToken>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT 			</Flags>
+		</msToken>
+		<msTicket>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT 			</Flags>
+		</msTicket>
+		<hostID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT 			</Flags>
+		</hostID>
+		<msHttpAP>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT 			</Flags>
+		</msHttpAP>
+		<freshManState>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true			</Persistent>
+		</freshManState>
+
+		<finishedDtsTraining>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 1 </Default>
+			<Persistent>	true			</Persistent>
+		</finishedDtsTraining>
+		<baseCharacterType>
+			<Type> UINT32 </Type>
+			<Flags> BASE_AND_CLIENT	 </Flags>
+			<Persistent>	true	</Persistent>
+		</baseCharacterType>
+		<baseLevel>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 1 </Default>
+			<Persistent> true </Persistent>
+		</baseLevel>
+		<isMobileAccount><!--是否手机账号-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>		true			</Persistent>
+		</isMobileAccount>
+		<disconnectTimerID>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			BASE				</Flags>
+		</disconnectTimerID>
+		<reconnecting>
+			<Type>          BOOL				</Type>
+			<Flags>         BASE				</Flags>
+		</reconnecting>
+		<lastLogInTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastLogInTime>
+		<lastLogOutTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastLogOutTime>
+		<createTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</createTime>
+		<isTourist><!--是否游客账号-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	1		</Default>
+		</isTourist>
+		<roleCreatTimestamp><!-- 		角色创建时间戳			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</roleCreatTimestamp>
+		<ursAccount>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<Persistent>	true		</Persistent>
+		</ursAccount>
+		<exp>
+			<!-- 		经验值 			-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</exp>
+		<lastOperation>
+			<Type>		STRING		</Type>
+			<Flags>		BASE 			</Flags>
+		</lastOperation>
+		<firstLogOnUdidForRealName>
+			<Type>		STRING		</Type>
+			<Flags>		BASE 			</Flags>
+			<Persistent>	true		</Persistent>
+		</firstLogOnUdidForRealName>
+		<isCheater>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	False		</Default>
+			<Persistent>	true		</Persistent>
+		</isCheater>
+		<isBan>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+			<Persistent>	true			</Persistent>
+		</isBan>
+		<startBanTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</startBanTime>
+		<banTime>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</banTime>
+		<banReason>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</banReason>
+		<oldNicknameList>
+			<Type>		ARRAY <of>	STRING	</of>		</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	[]		</Default>
+			<Persistent>	true			</Persistent>
+		</oldNicknameList>
+		<realPlayerName>
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE	</Flags>
+		</realPlayerName>
+		<processedRedPoints>
+			<Type>		ARRAY <of>	INT32	</of>	</Type>
+			<Flags>		BASE_AND_CLIENT				</Flags>
+			<Default>	[]							</Default>
+			<Persistent>	true					</Persistent>
+		</processedRedPoints>
+		<lastChangeNameTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastChangeNameTime>
+		<redBadgeInfo>		<!-- 红点系统内容，配置见data_badge -->
+			<Type>		PYTHON				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}					</Default>
+			<Persistent>	true			</Persistent>
+		</redBadgeInfo>
+		<identifyTagID>
+			<!-- 		身份标签ID 			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</identifyTagID>
+		<isTourist>	<!--是否游客账号-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	1		</Default>
+		</isTourist>
+		<lastGMRedhintMsg>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+		</lastGMRedhintMsg>
+		<pushGMRedHintMsgTimerID>
+			<Type>		TIMER_ID		</Type>
+			<Flags>		BASE		</Flags>
+		</pushGMRedHintMsgTimerID>
+		<readGMRedhintMsg>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	1		</Default>
+		</readGMRedhintMsg>
+		<rawUrs>	<!--urs原名-->
+			<Type>		STRING				</Type>
+			<Flags>		BASE	</Flags>
+		</rawUrs>
+		<filePickerToken>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</filePickerToken>
+		<filePickerDelToken>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</filePickerDelToken>
+		<filePickerVoiceToken>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</filePickerVoiceToken>
+		<filePickerVoiceDelToken>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</filePickerVoiceDelToken>
+		<extraCommonInfo>
+			<Type>	ARRAY <of>	PYTHON	</of>	</Type>
+			<Flags>			BASE		</Flags>
+			<Persistent>	true		</Persistent>
+		</extraCommonInfo>
+
+		<tantanSex>
+			<!-- 		设置性别 			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</tantanSex>
+		<tantanPicCount>
+			<!-- 		上传图片 			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</tantanPicCount>
+
+		<requestObserveTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	BASE	</Flags>
+		</requestObserveTimerID>
+
+		<!-- test mongo storage section -->
+		<mongoTestData>
+			<Type>		MONGO_TEST_DATA		</Type>
+			<Flags>		BASE			</Flags>
+		</mongoTestData>
+		<!-- test mongo storage section -->
+		<weaponKillCount>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponKillCount>
+
+		<rDayNo>
+			<!-- 每日重置数据用的dayNo -->
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rDayNo>
+		<rDayData>
+			<!-- 每日重置数据用的数据-->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rDayData>
+		<rAccumData>
+			<!-- 累计计数器数据 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rAccumData>
+
+		<serialReqs>
+			<!-- 串行化请求用的吧，保存一个key和对应时间戳 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</serialReqs>
+
+		<needDrawCardConfirm>
+			<Type>	BOOL	</Type>
+			<Flags>	BASE	</Flags>
+			<Default> true	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</needDrawCardConfirm>
+		<valentineSuitsCollected>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</valentineSuitsCollected>
+		<transformSuitsCollected>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</transformSuitsCollected>
+
+		<propsFromRandomItemGiftbag>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</propsFromRandomItemGiftbag>
+
+		<useOwnAppearOverHeroAppear>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</useOwnAppearOverHeroAppear>
+
+		<hasInformedHeroOwnCloth>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	false		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasInformedHeroOwnCloth>
+		
+		<hasShowSpecialTipsPanel>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	false		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasShowSpecialTipsPanel>
+		
+		<hasShowSpecialTipsPanelRestTime>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasShowSpecialTipsPanelRestTime>
+
+		<cclive_last_start_time>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE	</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</cclive_last_start_time>
+
+		<newFunctionGuideRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newFunctionGuideRecord>
+
+		<enterGameCountRecord>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</enterGameCountRecord>
+
+		<hasAccountInOtherPlatform>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasAccountInOtherPlatform>
+		
+		<hasAccountInOtherServer>
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	False			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasAccountInOtherServer>
+
+		<hasShowNoGPSPermissionTips>
+			<Type>		PYTHON				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}					</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</hasShowNoGPSPermissionTips>
+		
+		<freeHeroRefreshTimes>
+			<Type>		PYTHON				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}					</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</freeHeroRefreshTimes>
+		
+		<freeHeroRefreshWeekIdx>
+			<Type>		INT8				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	1					</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</freeHeroRefreshWeekIdx>
+		
+	</Properties>
+	<BaseMethods>
+		<onSelectProficiencyState> <Exposed/>
+			<Arg> INT32 </Arg>
+		 </onSelectProficiencyState>
+		<uploadRCVersion> <Exposed/>
+			<Arg> INT32 </Arg>
+		</uploadRCVersion>
+		<notifyUpdateLabel> <Exposed/>
+		</notifyUpdateLabel>
+		<handshake> <Exposed/>
+		</handshake>
+		<onNotify>
+			<Arg> INT32 </Arg>
+			<Arg> PYTHON </Arg>
+		</onNotify>
+		<onStartChangeNickname>
+			<Arg>		BOOL		</Arg>
+		</onStartChangeNickname>
+		<createCharacter> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- appearanceID List -->
+		</createCharacter>
+		<onAvatarReady>
+			<Arg>		INT32		</Arg>
+			<Arg>		KEY_NAME	</Arg>
+			<Arg>		BLOB		</Arg>
+			<Arg>	GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</onAvatarReady>
+		<onAvatarCreateFailure>
+			<Arg>		INT32		</Arg>
+		</onAvatarCreateFailure>
+		<onAvatarLogout>
+			<Arg>		INT32		</Arg>
+			<Arg>	GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onAvatarLogout>
+		<onAvatarLeaveGame>
+			<Arg>		INT32		</Arg>
+			<Arg>	GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onAvatarLeaveGame>
+		<onAvatarFinishDtsTutorial>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onAvatarFinishDtsTutorial>
+		<onAvatarHeartbeat>
+			<Arg>	GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onAvatarHeartbeat>
+		<joinDynamicSpace>
+			<Arg>	PYTHON		</Arg>
+		</joinDynamicSpace>
+		<enterBattleGroundTutorialSpace><Exposed/>
+		</enterBattleGroundTutorialSpace>
+
+		<onRequestGMSDKToken><Exposed/>
+			<Arg>	STRING		</Arg>  <!-- refer -->
+			<Arg>	STRING		</Arg>  <!-- callback -->
+		</onRequestGMSDKToken>
+		<onRequestDynamicSpace>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onRequestDynamicSpace>
+
+		<updateLastOperation>
+			<Arg>		STRING		</Arg>
+		</updateLastOperation>
+		<onKickedOut>
+		</onKickedOut>
+		<loadSceneAfterReconnect>
+			<Arg>		MAILBOX					</Arg>	<!-- account -->
+		</loadSceneAfterReconnect>
+
+		<systemAnnouncement>
+			<Arg>		STRING					</Arg>
+		</systemAnnouncement>
+		<systemMsg>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING					</Arg>
+		</systemMsg>
+		<systemJumpTip>
+			<Arg>		STRING		</Arg>
+		</systemJumpTip>
+		<gmKickLowVersion>
+			<Arg>		STRING		</Arg>
+		</gmKickLowVersion>
+
+		<gmsyncForbidLiveChannel>
+			<Arg>	ARRAY <of> STRING		</of>	</Arg>
+		</gmsyncForbidLiveChannel>
+
+		<gmsyncRedPoints>
+			<Arg>	ARRAY <of> RED_POINT		</of>	</Arg>
+		</gmsyncRedPoints>
+
+		<processRedPoint><Exposed/>
+			<Arg>	INT32	</Arg>
+		</processRedPoint>
+
+		<getPlayerTip> <Exposed/>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		VECTOR2		</Arg>
+			<Arg>		STRING		</Arg>
+		</getPlayerTip>
+		<getComplaintInfo>
+			<Arg> 		MAILBOX 	</Arg>
+		</getComplaintInfo>
+
+		<requestClientProcList> </requestClientProcList>
+		<requestClientSpeedUp> </requestClientSpeedUp>
+		<requestClientScreen>
+			<Arg>			INT32			</Arg>
+		</requestClientScreen>
+		<requestClientAllScreen>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</requestClientAllScreen>
+		<backToHall> </backToHall>
+		<onRequestObserve>
+			<Arg>			GLOBAL_MAIL_BOX_INFO			</Arg>
+			<Arg>			GID			</Arg>
+			<Arg>			INT32			</Arg>
+		</onRequestObserve>
+		<observeRequestCallback>
+			<Arg>			GID			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</observeRequestCallback>
+		<onRequestObserveResult>
+			<Arg>			BOOL				</Arg>
+			<Arg>			STRING				</Arg>
+		</onRequestObserveResult>
+		<refreshTimesAdapter>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</refreshTimesAdapter>
+		<updateRealAccountID>
+			<Arg>	KEY_NAME	</Arg>
+		</updateRealAccountID>
+		<queryQuiz201701Sign> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</queryQuiz201701Sign>
+		<queryGirlActivitySign> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</queryGirlActivitySign>
+		<changeNicknameWithCard> <Exposed/>
+			<Arg>       STRING      </Arg>
+		</changeNicknameWithCard>
+		<cleanRedBadge>	<Exposed/>	<!-- 通知服务端熄灭某个红点 -->
+			<Arg>		STRING			</Arg>
+		</cleanRedBadge>
+		<onAvatarClientLoadingFinish>
+		</onAvatarClientLoadingFinish>
+
+		<refreshMicroServiceToken> <Exposed/>
+		</refreshMicroServiceToken>
+
+		<requestFilePickerToken><Exposed/>
+		</requestFilePickerToken>
+
+		<requestFilePickerVoiceToken><Exposed/>
+		</requestFilePickerVoiceToken>
+
+		<requestFilePickerDelToken><Exposed/>
+			<Arg>		STRING			</Arg>
+		</requestFilePickerDelToken>
+
+		<requestFilePickerVoiceDelToken><Exposed/>
+			<Arg>		STRING			</Arg>
+		</requestFilePickerVoiceDelToken>
+
+		<requireGMRedHintMsg> <Exposed/>
+		</requireGMRedHintMsg>
+
+		<clearGMRedHintMsg> <Exposed/>
+		</clearGMRedHintMsg>
+
+		<changeTantanSex> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</changeTantanSex>
+
+		<changeTantanPicCount> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</changeTantanPicCount>
+
+		<requestBindFacebookReward> <Exposed/>
+		</requestBindFacebookReward>
+
+		<getChannelAwards> <Exposed/>
+		</getChannelAwards>
+
+		<setPortrait> <Exposed/>
+			<Arg>	STRING </Arg>
+		</setPortrait>
+		<uploadPatchCheckData> <Exposed/>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</uploadPatchCheckData>
+		<addAthleteCurrencyIntoExtraBattleAward>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</addAthleteCurrencyIntoExtraBattleAward>
+		<onAddZhongqiuSkinKill>
+			<Arg>	INT32		</Arg>
+		</onAddZhongqiuSkinKill>
+		<onUpdateWeaponKillCount>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onUpdateWeaponKillCount>
+		<sendUSRankedData>
+			<Arg>			PYTHON				</Arg>
+		</sendUSRankedData>
+		<banPlayerSelf>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+		</banPlayerSelf>
+		<onCallAthleteFromAvatar>
+			<Arg>			STRING				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onCallAthleteFromAvatar>
+		<stopDrawCardConfirm>
+		</stopDrawCardConfirm>
+		<updateShouldCreatePetInBattle>
+			<Arg>			BOOL				</Arg>
+		</updateShouldCreatePetInBattle>
+		<sendValentineTShirt>
+		</sendValentineTShirt>
+
+		<sendAcceptOwnAppearResult>	<Exposed/>
+			<Arg>			BOOL				</Arg>
+		</sendAcceptOwnAppearResult>
+
+		<onInformedHeroWearOwnAppear>	<Exposed/>
+		</onInformedHeroWearOwnAppear>
+		
+		<onInformedHasShowSpecialPanel>	<Exposed/>
+		</onInformedHasShowSpecialPanel>
+
+		<sendLiveSALog>  <Exposed/>
+			<Arg>	STRING	</Arg>
+		</sendLiveSALog>
+
+		<recordNewFunctionGuide> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</recordNewFunctionGuide>
+
+		<gmClearNewFunctionGuide>
+		</gmClearNewFunctionGuide>
+
+		<recordNoGPSPermissionShowTips> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</recordNoGPSPermissionShowTips>
+		<getAirShipKillReward>
+		</getAirShipKillReward>
+
+		<syncWeaponProficiencyData>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+		</syncWeaponProficiencyData>
+	</BaseMethods>
+	<ClientMethods>
+		<showSelectFreshmanState>
+		</showSelectFreshmanState>
+		<onRefreshMSToken>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+		</onRefreshMSToken>
+		<onKickOff>
+		</onKickOff>
+		<showSelectCharacter>
+			<Arg>	ARRAY <of> STRING		</of>	</Arg><!-- 曾用名 -->
+		</showSelectCharacter>
+		<onCreateCharacter>
+			<Arg>			BOOL			</Arg>
+			<Arg>			STRING			</Arg>
+		</onCreateCharacter>
+		<onRoleCreateSuc>
+			<Arg>			INT32			</Arg>
+		</onRoleCreateSuc>
+		<onChangeNickname>
+			<Arg>			BOOL			</Arg>
+			<Arg>			STRING			</Arg>
+		</onChangeNickname>
+		<updateBaseCharacter>
+			<Arg>			INT32			</Arg>
+		</updateBaseCharacter>
+		<updateBaseNickname>
+			<Arg> STRING </Arg>
+		</updateBaseNickname>
+		<preloadMap>
+			<Arg>	INT32	</Arg>
+		</preloadMap>
+		<cancelPreloadMap>
+		</cancelPreloadMap>
+
+		<enterHall>
+			<Arg> BOOL </Arg>  <!-- 当日首次登录 -->
+		</enterHall>
+
+		<onGetGMToken>
+			<Arg>		STRING			</Arg>
+		</onGetGMToken>
+
+		<transferToBattleServer>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		KEY_NAME	</Arg>
+			<Arg>		BLOB		</Arg>
+			<Arg>		UINT32		</Arg>
+		</transferToBattleServer>
+
+		<systemMsg>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING					</Arg>
+		</systemMsg>
+		<systemJumpTip>
+			<Arg>		STRING		</Arg>
+		</systemJumpTip>
+		<systemJumpPanel>
+			<Arg>		STRING		</Arg>
+		</systemJumpPanel>
+		<gmKickLowVersion>
+			<Arg>		STRING		</Arg>
+		</gmKickLowVersion>
+
+		<gmsyncForbidLiveChannel>
+			<Arg>	ARRAY <of> STRING		</of>	</Arg>
+		</gmsyncForbidLiveChannel>
+
+		<gmsyncRedPoints>
+			<Arg>	ARRAY <of> RED_POINT		</of>	</Arg>
+		</gmsyncRedPoints>
+
+		<onGetPlayerTip>
+			<Arg>		FRIEND_ABSTRACT		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		VECTOR2		</Arg>
+			<Arg>		STRING		</Arg>
+		</onGetPlayerTip>
+
+		<requestClientProcList> </requestClientProcList>
+		<requestClientSpeedUp> </requestClientSpeedUp>
+
+		<onLogin>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onLogin>
+
+		<onUpdateRedBadgeInfo>		<!-- 通知客户端更新红点信息 -->
+			<Arg>		PYTHON			</Arg>
+		</onUpdateRedBadgeInfo>
+
+		<onQueryQuiz201701Sign> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onQueryQuiz201701Sign>
+		<onQueryGirlActivitySign> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onQueryGirlActivitySign>
+		<pushGMRedHintMsg>
+			<Arg>			STRING			</Arg>
+		</pushGMRedHintMsg>
+		<onRequestFilePickerToken>
+			<Arg>			STRING			</Arg>
+			<Arg>			INT32			</Arg>
+		</onRequestFilePickerToken>
+
+		<onRequestFilePickerDelToken>
+			<Arg>			STRING			</Arg>
+		</onRequestFilePickerDelToken>
+
+		<onRequestFilePickerVoiceToken>
+			<Arg>			STRING			</Arg>
+		</onRequestFilePickerVoiceToken>
+
+		<onRequestFilePickerVoiceDelToken>
+			<Arg>			STRING			</Arg>
+		</onRequestFilePickerVoiceDelToken>
+
+		<updateReadGMRedhintMsg>
+			<Arg>			BOOL			</Arg>
+		</updateReadGMRedhintMsg>
+
+		<updateExtraCommonInfo>
+			<Arg>			PYTHON		</Arg>	<!-- params -->
+		</updateExtraCommonInfo>
+
+		<updateTantanSex>
+			<Arg>			INT32				</Arg>
+		</updateTantanSex>
+
+		<updateTantanPicCount>
+			<Arg>			INT32				</Arg>
+		</updateTantanPicCount>
+
+		<onSetPortrait>
+			<Arg>			STRING				</Arg>
+		</onSetPortrait>
+
+		<onSyncSwitches>
+			<Arg>			STRING			</Arg>
+			<Arg>			BOOL			</Arg>
+		</onSyncSwitches>
+		<onZhongqiuSkinKillNumberUpdate>
+			<Arg>			INT32				</Arg>
+		</onZhongqiuSkinKillNumberUpdate>
+		<announceValentineTShirtReward>
+		</announceValentineTShirtReward>
+
+		<onGetGMSupportToken>
+			<Arg>		STRING			</Arg>
+		</onGetGMSupportToken>
+		<onBaseLevelUpdate>
+			<Arg>			INT32				</Arg>
+		</onBaseLevelUpdate>
+		<onGetDtsAppearance>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetDtsAppearance>
+		<onSyncGotAwards>
+			<Arg>			PYTHON				</Arg>
+		</onSyncGotAwards>
+		<updateShouldCreatePetInBattle>
+			<Arg>			BOOL				</Arg>
+		</updateShouldCreatePetInBattle>
+		<onBuyBraveBookExperience>
+		</onBuyBraveBookExperience>
+
+		<syncUseOwnAppearOverHeroAppear>
+			<Arg>			INT32				</Arg>
+		</syncUseOwnAppearOverHeroAppear>
+
+		<onGmClearNewFunctionGuide>
+		</onGmClearNewFunctionGuide>
+		
+		<resetHasShowSpecialPanel>
+		</resetHasShowSpecialPanel>
+		
+		<syncAccountInOtherServer>
+			<Arg>			BOOL				</Arg>
+		</syncAccountInOtherServer>
+		
+		<syncFreeHeroRefreshWeekIdx>
+			<Arg>			INT8				</Arg>
+		</syncFreeHeroRefreshWeekIdx>
+	</ClientMethods>
+</root>

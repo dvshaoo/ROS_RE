@@ -1,0 +1,26 @@
+<Root>
+	<Properties>
+		<crazyCarnivalTicketsCnt>
+			<Type>  INT32 </Type>
+			<Flags> CELL_PUBLIC_AND_OWN </Flags>
+			<Default>	0		</Default>
+		</crazyCarnivalTicketsCnt>
+	</Properties>
+	<ClientMethods>
+	</ClientMethods>
+	<BaseMethods>
+		<onGetCrazyCarnivalItem>
+			<Arg>		INT32		</Arg>
+		</onGetCrazyCarnivalItem>
+	</BaseMethods>
+	<CellMethods>
+		<onPickCrazyCarnivalItem>
+			<Arg>		INT32		</Arg> 
+			<Arg>		INT32		</Arg> 
+		</onPickCrazyCarnivalItem>
+		<discardCrazyCarnivalItem>
+			<Arg>		INT32		</Arg> 
+			<Arg>		INT32		</Arg> 
+		</discardCrazyCarnivalItem>
+	</CellMethods>
+</Root>

@@ -1,0 +1,132 @@
+<root>
+	<Properties>
+		<currencyAwardList>
+			<Type>	ARRAY <of>	CURRENCY_ITEM	</of>	</Type>
+			<Default>		[]			</Default>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</currencyAwardList>
+
+		<hasCreatedCommanderVehicle>
+			<Type>		BOOL	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0			</Default>
+		</hasCreatedCommanderVehicle>
+
+		<commanderVehicleID>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0			</Default>
+		</commanderVehicleID>
+
+		<lastCommanderDropTime>
+			<Type>		INT64	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0			</Default>
+		</lastCommanderDropTime>
+	</Properties>
+
+	<BaseMethods>
+		<commanderBroadcast>
+			<Arg>			STRING					</Arg>	<!-- content -->
+		</commanderBroadcast>
+
+		<addCommanderAward>
+			<Arg>  INT32 </Arg>
+			<Arg>  INT64    </Arg>
+		</addCommanderAward>
+
+		<syncCommanderAwardToAthlete>
+		</syncCommanderAwardToAthlete>
+
+		<commanderDropAward>
+			<Arg>  INT32 </Arg>
+			<Arg>  VECTOR3 </Arg>
+		</commanderDropAward>
+
+		<pickCommanderAwardItem>
+			<Arg>  STRING </Arg>
+			<Arg>  INT32 </Arg>
+			<Arg>  INT32 </Arg>
+		</pickCommanderAwardItem>
+
+		<commanderAvatarItemPickedByOther>
+		</commanderAvatarItemPickedByOther>
+	</BaseMethods>
+
+	<CellMethods>
+		<doCommandBroadcast>
+			<Arg>			STRING					</Arg>	<!-- content -->
+		</doCommandBroadcast>
+
+		<onCommanderBroadcast>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER					</Arg>	<!-- receiver -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+		</onCommanderBroadcast>
+
+		<doCommanderDropAward>
+			<Arg>  INT32 </Arg>
+			<Arg>  VECTOR3 </Arg>
+		</doCommanderDropAward>
+
+		<createCommanderVehicle>
+		</createCommanderVehicle>
+
+		<onCreateCommanderVehicle>
+			<Arg>  INT32 </Arg>
+			<Arg>  VECTOR3 </Arg>
+		</onCreateCommanderVehicle>
+
+		<commanderDropAward> <Exposed/>
+			<Arg>  INT32 </Arg>
+			<Arg>  VECTOR3 </Arg>
+		</commanderDropAward>
+
+		<commanderReqOnVehicle> <Exposed/>
+		</commanderReqOnVehicle>
+
+		<commanderReqObserve> <Exposed/>
+		</commanderReqObserve>
+
+		<commanderUseRedPacket> <Exposed/>
+			<Arg>  INT32 </Arg>
+			<Arg>  VECTOR3 </Arg>
+		</commanderUseRedPacket>
+
+		<commanderAvatarItemPickedByOther>
+		</commanderAvatarItemPickedByOther>
+
+		<commanderPlaneCreateAirDrop>
+		</commanderPlaneCreateAirDrop>
+	</CellMethods>
+
+	<ClientMethods>
+		<commanderReqOnVehicle>
+		</commanderReqOnVehicle>
+
+		<onCommanderBroadcast>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER					</Arg>	<!-- receiver -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+		</onCommanderBroadcast>
+
+		<onCommanderAwardUpdate>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+		</onCommanderAwardUpdate>
+
+		<onCommanderDropAwardReady>
+		</onCommanderDropAwardReady>
+
+		<onCommanderAvatarItemPickedByOther>
+		</onCommanderAvatarItemPickedByOther>
+
+		<onCommanderDropAwardSuccess>
+		</onCommanderDropAwardSuccess>
+
+		<onCommanderPlaneCreateAirDrop>
+		</onCommanderPlaneCreateAirDrop>
+	</ClientMethods>
+</root>

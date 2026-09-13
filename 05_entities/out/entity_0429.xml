@@ -1,0 +1,64 @@
+<root>
+	<Implements>
+		<Interface>			iGlobal			</Interface>
+		<Interface>			iBaseNoCell		</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<enterQueue>
+			<Arg>		MAILBOX					</Arg>	<!-- reqMB -->
+			<Arg>		STRING					</Arg>	<!-- playerName -->
+			<Arg>		STRING					</Arg>	<!-- loginchannel -->
+			<Arg>		UINT8					</Arg>	<!-- queueType -->
+			<Arg>		INT8					</Arg>	<!-- priority -->
+		</enterQueue>
+
+		<leaveQueue>
+			<Arg>		MAILBOX					</Arg>	<!-- reqMB -->
+			<Arg>		UINT8					</Arg>	<!-- queueType -->
+		</leaveQueue>
+
+		<leaveGame>
+			<Arg>		MAILBOX					</Arg>	<!-- reqMB -->
+			<Arg>		UINT8					</Arg>	<!-- queueType -->
+		</leaveGame>
+
+		<setPriority>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT8					</Arg>
+		</setPriority>
+
+		<delPriority>
+			<Arg>		STRING					</Arg>
+		</delPriority>
+
+		<gmSetNumbers>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</gmSetNumbers>
+
+		<gmAddWhiteListItem>
+			<Arg>	STRING		</Arg>
+		</gmAddWhiteListItem>
+
+		<gmSetPriority>
+			<Arg>		STRING				</Arg>
+			<Arg>		INT32				</Arg>
+		</gmSetPriority>
+		<gmDelPriority>
+			<Arg>		STRING				</Arg>
+		</gmDelPriority>
+
+		<gmAddPermittedPlayers>
+			<Arg>	ARRAY <of>	STRING	</of>		</Arg>
+		</gmAddPermittedPlayers>
+
+		<gmDelPermittedPlayers>
+			<Arg>	ARRAY <of>	STRING	</of>		</Arg>
+		</gmDelPermittedPlayers>
+	</BaseMethods>
+</root>
+

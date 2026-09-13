@@ -1,0 +1,39 @@
+<root>
+	<Implements>
+		<Interface> iCell </Interface>
+		<Interface> iDtsExplode </Interface>
+		<Interface> iTrap </Interface>
+	</Implements>
+
+	<ClientName>  AutoRoyaleLandmine  </ClientName>
+
+	<Properties>
+		<detectRange>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</detectRange>
+
+		<delayDetectTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</delayDetectTime>
+
+		<landmineItemID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</landmineItemID>
+	</Properties>
+
+	<ClientMethods>
+		<notifyClientExplode>
+			<Arg>	VECTOR3		</Arg>
+		</notifyClientExplode>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+</root>

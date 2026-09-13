@@ -1,0 +1,24 @@
+<root>
+	<Parent>	SceneElement	</Parent>
+
+	<ClientName>	SwitchBomb	</ClientName>
+
+	<Properties>
+		<timerExplode>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	-1				</Default>
+		</timerExplode>
+	</Properties>
+
+	<ClientMethods>
+		<playerEnter></playerEnter>
+		<playerLeave></playerLeave>
+	</ClientMethods>
+
+	<CellMethods>
+		<requestOpen>  <Exposed/>
+		</requestOpen>
+	</CellMethods>
+
+</root>

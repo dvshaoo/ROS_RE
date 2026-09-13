@@ -1,0 +1,175 @@
+<root>
+	<Implements>
+		<Interface>		iBaseNoCell			</Interface>
+		<Interface> 	iSpaceRequester 	</Interface>
+	</Implements>
+
+	<Properties>
+		<roomData>
+			<Type>			CUSTOM_ROOM_DATA				</Type>
+			<Flags>			BASE 							</Flags>
+		</roomData>
+
+		<spaceMailBox>
+			<Type>			MAILBOX 						</Type>
+			<Flags>			BASE 							</Flags>
+		</spaceMailBox>
+
+		<roomState>
+			<Type>			INT32							</Type>
+			<Flags>			BASE 							</Flags>
+		</roomState>
+
+		<teamGIDs>
+			<Type>			PYTHON						</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		{}						</Default>
+		</teamGIDs>
+		<fixedTeamConfig>
+			<Type>			PYTHON						</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		{}						</Default>
+		</fixedTeamConfig>
+		<fixedTeamGIDs>
+			<Type>			PYTHON						</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		{}						</Default>
+		</fixedTeamGIDs>
+		<bannedPlayers>
+			<Type>			PYTHON						</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		{}						</Default>
+		</bannedPlayers>
+	</Properties>
+
+	<BaseMethods>
+		<onJoinDtsCustomGame>
+			<Arg>		GLOBAL_MAIL_BOX_INFO		</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		SCORE			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</onJoinDtsCustomGame>
+
+		<onJoinDtsCustomGameWithoutPassword>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		SCORE			</Arg>
+			<Arg>		INT32			</Arg>
+		</onJoinDtsCustomGameWithoutPassword>
+
+		<requestEnterWorldOpenUI>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID 			</Arg>
+		</requestEnterWorldOpenUI>
+
+		<enterDtsCustomGame>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID 			</Arg>
+		</enterDtsCustomGame>
+
+		<moveFreeItemToPrepare>
+			<Arg>		GID 			</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 		</Arg>
+		</moveFreeItemToPrepare>
+
+		<moveOBFreeItemToPrepareFixedPoint>
+			<Arg>		GID			</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO		</Arg>
+		</moveOBFreeItemToPrepareFixedPoint>
+
+		<movePrepareItemToFree>
+			<Arg>		GID			</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO		</Arg>
+		</movePrepareItemToFree>
+
+		<removePlayerFromRoom>
+			<Arg>		GID 		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 	</Arg>
+		</removePlayerFromRoom>
+
+		<removeDtsCustomRoom>
+			<Arg>		GID 		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 	</Arg>
+		</removeDtsCustomRoom>
+
+		<requestRoomPassWord>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</requestRoomPassWord>
+
+		<onLogout>
+			<Arg>		GID			</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onLogout>
+
+		<modifyCustomRoomParams>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING 					</Arg>
+			<Arg>		INT32					</Arg>
+		</modifyCustomRoomParams>
+
+		<refreshCustomGameWhiteList>
+			<Arg>		ARRAY <of> GID </of>	</Arg>
+		</refreshCustomGameWhiteList>
+
+		<changeLockMoveState>
+		</changeLockMoveState>
+
+		<movePrepareFreeItemToWatch>
+			<Arg>		GID 					</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 				</Arg>
+			<Arg>		BOOL					</Arg>
+		</movePrepareFreeItemToWatch>
+
+		<moveOBWatchItemToPrepareFixedPoint>
+			<Arg>		GID			</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO		</Arg>
+		</moveOBWatchItemToPrepareFixedPoint>
+
+		<setScoreConfig>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 		</Arg>
+			<Arg>		INT32		</Arg>  <!-- configID -->
+		</setScoreConfig>
+
+		<getScoreConfig>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 		</Arg>
+		</getScoreConfig>
+
+		<moveWatchItemToFree>
+			<Arg>		GID 		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</moveWatchItemToFree>
+
+		<onChatRoom>
+			<Arg>			INT32					</Arg>	<!-- channel -->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER			</Arg>	<!-- receiver -->
+			<Arg>			CHAT_PARAMS				</Arg>	<!-- params -->
+			<Arg>			GID 					</Arg>
+		</onChatRoom>
+		<banPlayer>
+			<Arg>			GID					</Arg>	<!-- channel -->
+			<Arg>			GID 					</Arg>
+		</banPlayer>
+		<gmSetFixedRoomConfig>
+			<Arg>		GM_PROXY		</Arg>
+			<Arg>		STRING			</Arg>
+		</gmSetFixedRoomConfig>
+		<gmShowFixedRoomConfig>
+			<Arg>		GM_PROXY		</Arg>
+		</gmShowFixedRoomConfig>
+		<gmClearFixedRoomConfig>
+			<Arg>		GM_PROXY		</Arg>
+		</gmClearFixedRoomConfig>
+		<gmDelCustomRoom>
+			<Arg>		GM_PROXY		</Arg>
+		</gmDelCustomRoom>
+	</BaseMethods>
+</root>

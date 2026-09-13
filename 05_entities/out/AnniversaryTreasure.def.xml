@@ -1,0 +1,35 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+	</Implements>
+	<ClientName>	AnniversaryTreasure	</ClientName>
+	<Properties>
+		<hasOpen>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</hasOpen>
+		<isFounded>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</isFounded>
+		<targetPlayers>
+			<Type>	ARRAY <of>	INT32	</of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</targetPlayers>
+	</Properties>
+	<CellMethods>
+		<tryOpenAnniversaryTreasure>	<Exposed/>
+		</tryOpenAnniversaryTreasure>
+		<quitOpenTreasure>	<Exposed/>
+		</quitOpenTreasure>
+		<onFounded>	<Exposed/>
+		</onFounded>
+	</CellMethods>
+	<ClientMethods>
+		<onOpenTreasure>
+		</onOpenTreasure>
+		<onOpenTreasureFail>
+		</onOpenTreasureFail>
+	</ClientMethods>
+</root>

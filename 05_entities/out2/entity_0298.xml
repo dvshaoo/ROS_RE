@@ -1,0 +1,95 @@
+<root>
+	<Properties>
+		<!-- 大逃杀背包 -->
+		<dtsItemPackage>
+			<Type>			DTS_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+		</dtsItemPackage>
+	</Properties>
+
+	<BaseMethods>
+		<clearDtsPackage>
+		</clearDtsPackage>
+
+		<unlockDtsItemPackage>
+			<Arg>			PYTHON 			</Arg>
+		</unlockDtsItemPackage>
+
+		<addDtsItem>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</addDtsItem>
+
+		<delFoldedItemBatch> <Exposed/>
+			<Arg>		ARRAY <of> DTS_ITEM_BATCH </of>			</Arg>
+		</delFoldedItemBatch>
+
+		<updateCustomRoomAllPackage>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+		</updateCustomRoomAllPackage>
+
+		<delDtsFoldedItem>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</delDtsFoldedItem>
+
+		<checkWearJetBagParts>
+		</checkWearJetBagParts>
+
+		<onTeammateLeaveDelBattleRebornTokenItem>
+			<Arg>			INT32			</Arg>
+		</onTeammateLeaveDelBattleRebornTokenItem>
+		<delAllEnemyRebornTokensForSell>
+			<Arg>			INT32			</Arg>
+		</delAllEnemyRebornTokensForSell>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onClearDtsPackage>
+		</onClearDtsPackage>
+		
+		<onAddDtsItem>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ARRAY <of> ITEM_DATA_CONVERT </of>		</Arg>
+			<Arg>		INT8									</Arg>
+			<Arg>		INT32									</Arg>
+		</onAddDtsItem>
+
+		<onDelDtsItem> <!--删除道具, 用于同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelDtsItem>
+
+		<onDelDtsFoldedItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onDelDtsFoldedItem>
+
+		<onUnlockDtsItemPackage>
+			<Arg>		PYTHON									</Arg>
+		</onUnlockDtsItemPackage>
+
+		<onDelFoldedItemBatch>
+			<Arg>		ARRAY <of> DTS_ITEM_BATCH </of>			</Arg>
+		</onDelFoldedItemBatch>
+
+		<onUpdateCustomRoomAllPackage>
+			<Arg>		PYTHON									</Arg>
+			<Arg>		INT32									</Arg>
+		</onUpdateCustomRoomAllPackage>
+	</ClientMethods>
+</root>

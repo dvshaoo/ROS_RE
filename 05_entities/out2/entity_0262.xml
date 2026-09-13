@@ -1,0 +1,23 @@
+<root>
+	<Properties>
+		<nationalityInfo>
+			<Type>	ARRAY <of>	PYTHON	</of>	</Type>
+			<Flags> 		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true		</Persistent>
+		</nationalityInfo>
+
+	</Properties>
+
+	<BaseMethods>
+		<setNationalFlag> <Exposed/>
+			<Arg>			STRING					</Arg>
+		</setNationalFlag>
+	</BaseMethods>
+
+	<ClientMethods>
+		<updateNationalityInfo>
+			<Arg>		PYTHON		</Arg>	<!-- params -->
+		</updateNationalityInfo>
+	</ClientMethods>
+</root>
+

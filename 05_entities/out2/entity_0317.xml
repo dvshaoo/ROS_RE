@@ -1,0 +1,49 @@
+<root>
+	<Properties>
+		<shipAdvSNList>
+			<Type>	ARRAY <of>	STRING	</of>	</Type>
+			<Flags>		BASE			</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</shipAdvSNList>
+
+		<hasAdConnect>
+			<Type>	BOOL	</Type>
+			<Flags>		BASE			</Flags>
+		</hasAdConnect>
+
+		<watchAdData>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+			<Default> {} </Default>
+		</watchAdData>
+
+	</Properties>
+	<BaseMethods>
+		<onGetNewAdv>
+			<Arg>	PYTHON	</Arg>
+		</onGetNewAdv>
+		<onRequestSyncWatchAdData>
+			<Exposed/>
+			<Arg>	STRING	</Arg> <!-- 途径 -->
+		</onRequestSyncWatchAdData>
+		<onRequestAdvRewardByForbiddenChannel>
+			<Exposed/>
+			<Arg>	STRING	</Arg> <!-- 途径 -->
+		</onRequestAdvRewardByForbiddenChannel>
+
+		<addWatchAdAddRankScore>
+			<Arg>	INT8	</Arg>
+		</addWatchAdAddRankScore>
+
+	</BaseMethods>
+	<ClientMethods>
+		<onSyncWatchAdData>
+			<Arg>	PYTHON	</Arg>
+		</onSyncWatchAdData>
+		<onGetWatchAdProps>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetWatchAdProps>
+	</ClientMethods>
+</root>

@@ -1,0 +1,35 @@
+﻿# OBB zip-entry hunt — entity/config files, v1117219
+
+## main.1117219.com.netease.chiji.obb total entries: 361
+- res/sound/music/resource_stastics.xml (0 KB)
+- res/animators.npk (151.4 KB)
+- res/character.npk (713417.1 KB)
+- res/character2.npk (459610.9 KB)
+- res/common.npk (2278.1 KB)
+- res/cubemap.npk (128.6 KB)
+- res/decal.npk (87.4 KB)
+- res/effect.npk (564583.5 KB)
+- res/effect_cache.npk (6307.2 KB)
+- res/emote.npk (2843.5 KB)
+- res/entities.npk (329.2 KB)
+- res/gim_infos.xml (1927.1 KB)
+
+## patch.1117219.com.netease.chiji.obb total entries: 24
+- res/item.npk (119488.3 KB)
+- res/model.npk (132189.5 KB)
+- res/npk_manifest.xml (0 KB)
+- res/pet.npk (5075 KB)
+- res/props.npk (46.8 KB)
+- res/roads.npk (62.3 KB)
+- res/scenario.npk (14.1 KB)
+- res/scene.npk (215071 KB)
+- res/shader.npk (1611.1 KB)
+- res/textures.npk (2007.7 KB)
+- res/track.npk (1079.4 KB)
+- res/ui.npk (457254.8 KB)
+- res/vehicle.npk (312360 KB)
+- res/weapon.npk (172489.3 KB)
+- res/weather.npk (7503.2 KB)
+- assets.npk (10649.5 KB)
+- script.npk (49829.6 KB)
+

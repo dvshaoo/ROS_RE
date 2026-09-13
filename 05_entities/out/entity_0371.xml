@@ -1,0 +1,152 @@
+<root>
+	<Properties>
+		<shareCount>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</shareCount>
+
+		<nextReward>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</nextReward>
+
+		<finalReward>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> -1 </Default>
+			<Persistent> true </Persistent>
+		</finalReward>
+
+		<rewards>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</rewards>
+
+		<dailyEvent>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</dailyEvent>
+
+		<periodShareCount>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</periodShareCount>
+
+		<periodNextReward>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</periodNextReward>
+
+		<periodRewards>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</periodRewards>
+		
+		<periodEvent>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</periodEvent>
+
+		<lastShare>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</lastShare>
+
+		<lastOpenDailyBox>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</lastOpenDailyBox>
+
+		<lastGetNewbieReward>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</lastGetNewbieReward>
+
+		<!-- Sharing records, containing datetime of successful sharings. -->
+		<shares>
+			<Type> ARRAY <of> PYTHON </of> </Type>
+			<Flags> BASE </Flags>
+			<Default> [] </Default>
+			<Persistent> true </Persistent>
+		</shares>
+	</Properties>
+
+	<BaseMethods>
+		<getCurrentEvents> <Exposed />
+		</getCurrentEvents>
+
+		<recordShare> <Exposed />
+			<Arg> 			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</recordShare>
+
+		<recordSpringGameShare> <Exposed />
+			<Arg> 			INT32			</Arg>
+		</recordSpringGameShare>
+
+		<getReward> <Exposed />
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</getReward>
+
+		<openDailyBox> <Exposed />
+		</openDailyBox>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetCurrentEvents>
+			<Arg> PYTHON </Arg>
+			<Arg> BOOL </Arg>
+		</onGetCurrentEvents>
+
+		<onShareResult>
+			<Arg> BOOL </Arg>
+		</onShareResult>
+
+		<onOpenDailyBox>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</onOpenDailyBox>
+
+		<syncShareState>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</syncShareState>
+
+		<syncRewardState>
+			<Arg> INT32 </Arg>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</syncRewardState>
+
+		<syncHasAvailableReward>
+			<Arg> BOOL </Arg>
+		</syncHasAvailableReward>
+
+		<syncPeriodShareData>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</syncPeriodShareData>
+	</ClientMethods>
+</root>

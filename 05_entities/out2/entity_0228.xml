@@ -1,0 +1,305 @@
+<root>
+	<Properties>
+		<curJetBag>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</curJetBag>
+		<curJetBagCooler>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</curJetBagCooler>
+		<curJetBagStabilizer>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</curJetBagStabilizer>
+		<curRocketShose>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</curRocketShose>
+		<currEquipDtsParagliding>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</currEquipDtsParagliding>
+		<dtsParaglidingInUse>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</dtsParaglidingInUse>
+		<dtsParaglidingfallControlID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>   0               </Default>
+		</dtsParaglidingfallControlID>
+		<inDtsBlowerRange>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	False		</Default>
+		</inDtsBlowerRange>
+		<timerCheckDtsParaglidingFallHeight>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>   0               </Default>
+		</timerCheckDtsParaglidingFallHeight>
+		<inJumpRobotStretch>
+			<Type>		BOOL		</Type>
+			<Default>	False		</Default>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inJumpRobotStretch>
+		<jumpRobotId>
+			<Type>  INT32   </Type>
+			<Flags> ALL_CLIENTS	 </Flags>
+			<Default> 0	</Default>
+		</jumpRobotId>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<syncRunningJetBag> <Exposed/>
+			<Arg>		INT8			</Arg>
+		</syncRunningJetBag>
+		<wearDtsJetBag>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</wearDtsJetBag>
+		<discardDtsJetBag>
+		</discardDtsJetBag>
+		<otherChangeRunJetBagStage> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</otherChangeRunJetBagStage>
+		<useFuelForJetBag>
+			<Arg>		INT32			</Arg>
+		</useFuelForJetBag>
+		<playAllClientDtsJetBagAnim>    <Exposed/>
+			<Arg>		STRING          </Arg>
+			<Arg>		INT8            </Arg>
+		</playAllClientDtsJetBagAnim>
+		<syncOtherRunningJetBagData> <Exposed/>
+			<Arg>		STRING          </Arg>
+		</syncOtherRunningJetBagData>
+		<requestJetBagJump> <Exposed/>
+		</requestJetBagJump>
+		<requestJetBagFall> <Exposed/>
+		</requestJetBagFall>
+		<requestCancelJetBagFall> <Exposed/>
+		</requestCancelJetBagFall>
+		<discardAllJetBagParts> <Exposed/>
+		</discardAllJetBagParts>
+		<requestDiscardJetBagCooler> <Exposed/>
+			<Arg>		INT8			</Arg>
+		</requestDiscardJetBagCooler>
+		<requestDiscardJetBagStabilizer> <Exposed/>
+			<Arg>		INT8			</Arg>
+		</requestDiscardJetBagStabilizer>
+		<wearDtsJetBagCooler>
+			<Arg>		INT32			</Arg>
+		</wearDtsJetBagCooler>
+		<smartWearDtsJetBagCooler>
+			<Arg>		INT32			</Arg>
+		</smartWearDtsJetBagCooler>
+		<wearDtsJetBagStabilizer>
+			<Arg>		INT32			</Arg>
+		</wearDtsJetBagStabilizer>
+		<smartWearDtsJetBagStabilizer>
+			<Arg>		INT32			</Arg>
+		</smartWearDtsJetBagStabilizer>
+		<hitSceneWhenUsingJetBag> <Exposed/>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</hitSceneWhenUsingJetBag>
+		<equipDtsParaglidingItem>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</equipDtsParaglidingItem>
+		<discardDtsParaglidingItem>
+		</discardDtsParaglidingItem>
+		<requestOpenDtsParagliding> <Exposed/>
+		</requestOpenDtsParagliding>
+		<requestCloseDtsParagliding> <Exposed/>
+		</requestCloseDtsParagliding>
+		<onAirWarClientResumeGame> <Exposed/>
+		</onAirWarClientResumeGame>
+		<onAirWarClientTryControl> <Exposed/>
+		</onAirWarClientTryControl>
+		<enterDtsBlowerRange> <Exposed/>
+		</enterDtsBlowerRange>
+		<leaveDtsBlowerRange> <Exposed/>
+		</leaveDtsBlowerRange>
+		<wearRocketShose>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</wearRocketShose>
+		<discardRocketShose>
+		</discardRocketShose>
+		<activateRocketShose> <Exposed/>
+		</activateRocketShose>
+		<inactivateRocketShose> <Exposed/>
+		</inactivateRocketShose>
+		<rocketShoseStop> <Exposed/>
+			<Arg>		BOOL			</Arg>
+		</rocketShoseStop>
+		<rocketShoseNos> <Exposed/>
+		</rocketShoseNos>
+		<rocketShoseJump> <Exposed/>
+		</rocketShoseJump>
+		<rocketShoseTouchGround> <Exposed/>
+		</rocketShoseTouchGround>
+		<useFuelForRocketShose>
+			<Arg>		INT32			</Arg>
+		</useFuelForRocketShose>
+		<changeRunRocketShoseStage> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</changeRunRocketShoseStage>
+
+		<reqGetOnJumpRobot><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqGetOnJumpRobot>
+		<onGetOnJumpRobot>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg> 		INT32   		</Arg>
+		</onGetOnJumpRobot>
+		<onGetOffJumpRobot>
+		</onGetOffJumpRobot>
+		<useFuelForJumpRobot>
+			<Arg>		INT32			</Arg>
+		</useFuelForJumpRobot>
+		<reqStretchInJumpRobot><Exposed/>
+		</reqStretchInJumpRobot>
+		<reqStretchOutJumpRobot><Exposed/>
+		</reqStretchOutJumpRobot>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<onWearDtsJetBag>
+		</onWearDtsJetBag>
+		<onOtherWearDtsJetBag>
+		</onOtherWearDtsJetBag>
+		<onDiscardDtsJetBag>
+			<Arg>		INT32			</Arg>
+		</onDiscardDtsJetBag>
+		<onOtherChangeRunJetBagStage>
+			<Arg>		INT32			</Arg>
+		</onOtherChangeRunJetBagStage>
+		<onSyncOtherRunningJetBagData>
+			<Arg>		STRING          </Arg>
+		</onSyncOtherRunningJetBagData>
+		<onOtherDiscardDtsJetBag>
+			<Arg>		INT32			</Arg>
+		</onOtherDiscardDtsJetBag>
+		<onJetBagJump>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onJetBagJump>
+		<onPlayDtsJetBagAnim>
+			<Arg>		STRING          </Arg>
+			<Arg>		INT8            </Arg>
+		</onPlayDtsJetBagAnim>
+		<onSyncJetBagGas>
+			<Arg>		INT32			</Arg>
+		</onSyncJetBagGas>
+		<onWearDtsJetBagCooler>
+			<Arg>		INT32			</Arg>
+		</onWearDtsJetBagCooler>
+		<onOtherWearDtsJetBagCooler>
+		</onOtherWearDtsJetBagCooler>
+		<onDiscardDtsJetBagCooler>
+			<Arg>		INT32			</Arg>
+		</onDiscardDtsJetBagCooler>
+		<onOtherDiscardDtsJetBagCooler>
+			<Arg>		INT32			</Arg>
+		</onOtherDiscardDtsJetBagCooler>
+		<onWearDtsJetBagStabilizer>
+			<Arg>		INT32			</Arg>
+		</onWearDtsJetBagStabilizer>
+		<onOtherWearDtsJetBagStabilizer>
+		</onOtherWearDtsJetBagStabilizer>
+		<onDiscardDtsJetBagStabilizer>
+			<Arg>		INT32			</Arg>
+		</onDiscardDtsJetBagStabilizer>
+		<onOtherDiscardDtsJetBagStabilizer>
+			<Arg>		INT32			</Arg>
+		</onOtherDiscardDtsJetBagStabilizer>
+		<onJetBagFall>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onJetBagFall>
+		<onStopJetBagFall>
+		</onStopJetBagFall>
+
+		<onEquipDtsParaglidingItem>
+		</onEquipDtsParaglidingItem>
+		<onOtherEquipDtsParaglidingItem>
+		</onOtherEquipDtsParaglidingItem>
+		<onDiscardDtsParaglidingItem>
+			<Arg>		INT32			</Arg>
+		</onDiscardDtsParaglidingItem>
+		<onOtherDiscardDtsParaglidingItem>
+			<Arg>		INT32			</Arg>
+		</onOtherDiscardDtsParaglidingItem>
+		<onOpenDtsParagliding>
+		</onOpenDtsParagliding>
+		<onCloseDtsParagliding>
+		</onCloseDtsParagliding>
+
+		<onWearRocketShose>
+			<Arg>		INT32			</Arg>
+		</onWearRocketShose>
+		<onOtherWearRocketShose>
+			<Arg>		INT32			</Arg>
+		</onOtherWearRocketShose>
+		<onDiscardRocketShose>
+			<Arg>		INT32			</Arg>
+		</onDiscardRocketShose>
+		<onOtherDiscardRocketShose>
+			<Arg>		INT32			</Arg>
+		</onOtherDiscardRocketShose>
+		<onActivateRocketShose>
+		</onActivateRocketShose>
+		<onOtherActivateRocketShose>
+		</onOtherActivateRocketShose>
+		<onInactivateRocketShose>
+		</onInactivateRocketShose>
+		<onOtherInactivateRocketShose>
+		</onOtherInactivateRocketShose>
+		<onRocketShoseFuelChange>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onRocketShoseFuelChange>
+		<onRocketShoseJump>
+			<Arg>		BOOL			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</onRocketShoseJump>
+		<onOtherRocketShoseJump>
+			<Arg>		BOOL			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</onOtherRocketShoseJump>
+		<onOtherRocketShoseTouchGround>
+		</onOtherRocketShoseTouchGround>
+		<onRocketShoseStop>
+		</onRocketShoseStop>
+		<onOtherRocketShoseStop>
+		</onOtherRocketShoseStop>
+		<onRocketShoseNos>
+		</onRocketShoseNos>
+		<onOtherRocketShoseNos>
+		</onOtherRocketShoseNos>
+		<onChangeRunRocketShoseStage>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onChangeRunRocketShoseStage>
+		<syncJumpRobotId>
+			<Arg>	INT32		</Arg>
+		</syncJumpRobotId>
+		<stretchInJumpRobot> 
+			<Arg>		INT32			</Arg>
+		</stretchInJumpRobot>
+		<stretchOutJumpRobot> 
+		</stretchOutJumpRobot>
+
+	</ClientMethods>
+</root>
+

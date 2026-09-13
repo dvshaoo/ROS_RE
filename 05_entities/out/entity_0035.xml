@@ -1,0 +1,300 @@
+<root>
+	<Implements>
+		<Interface>	iVehicle	</Interface>
+		<Interface>	iTrap	</Interface>
+		<Interface>	iVehicleComps	</Interface>
+		<Interface>	iVehicleRegeneration	</Interface>
+	</Implements>
+
+	<Properties>
+		<inRangeAvts>
+			<Type>		ARRAY <of> ENTITY_ID </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</inRangeAvts>
+
+		<entrustTo>
+			<Type>		ENTITY_ID  	</Type>
+			<Flags>		ALL_CLIENTS			</Flags>			
+		</entrustTo>
+
+		<entrustOffTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</entrustOffTimer>
+
+		<trapID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</trapID>
+
+		<hasDriver>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</hasDriver>
+
+		<unsetCntlTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</unsetCntlTimer>
+
+		<isAfterTransfer>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</isAfterTransfer>
+
+		<vehicleDestroyTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</vehicleDestroyTimerID>
+
+		<posSyncTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</posSyncTimerID>
+
+		<imp2DamageFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</imp2DamageFactor>
+
+		<speed2DamageFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</speed2DamageFactor>
+
+		<throwPlayerTb>
+			<Type>		 PYTHON			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</throwPlayerTb>
+
+		<canStretch>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canStretch>
+
+		<lastDyeingTime>
+			<Type>          FLOAT		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</lastDyeingTime>
+		<curAppearanceID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</curAppearanceID>
+		<curPlateNumberAppearanceID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</curPlateNumberAppearanceID>
+		<curPlateNumberShowingGID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</curPlateNumberShowingGID>
+
+		<lastPlayAnimTime>
+			<Type>          FLOAT		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</lastPlayAnimTime>
+
+		<targetPlayerEntID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</targetPlayerEntID>
+		<shouldDestroyAfterCreated>
+			<Type>          BOOL		</Type>
+			<Flags>        BASE_AND_CLIENT	</Flags>
+			<Default>		False		</Default>
+		</shouldDestroyAfterCreated>
+		<summonerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</summonerID>
+
+		<avtIdsFocusOnDieEvent>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</avtIdsFocusOnDieEvent>
+		
+		<hasVehicleTransfer>
+			<Type>		 BOOL			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</hasVehicleTransfer>
+		<trainID>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainID>
+		<trainPosition>
+			<Type>  VECTOR3 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainPosition>
+	</Properties>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<CellMethods>
+		<reqDriver>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqDriver>
+
+		<reqPassenger>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqPassenger>
+
+		<reqHangOn>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</reqHangOn>
+
+		<reqGetOff>
+			<Arg>	ENTITY_ID		</Arg>
+			<Arg>		 BOOL		</Arg>
+		</reqGetOff>
+
+		<reqSwitchToDrive>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	STRING		</Arg>
+		</reqSwitchToDrive>
+
+		<reqSwitchToPassenger>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqSwitchToPassenger>
+
+		<reqSwitchToHang>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT32		</Arg>
+		</reqSwitchToHang>
+
+		<hitScene><Exposed/>
+			<Arg>	VECTOR3	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</hitScene>
+
+		<getStepInWater> <Exposed/>
+		</getStepInWater>
+
+		<getStepOutWater> <Exposed/>
+		</getStepOutWater>
+
+		<dyeingVehicle>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</dyeingVehicle>
+		<discardVehicleDyeing>
+			<Arg>	ENTITY_ID	</Arg>
+		</discardVehicleDyeing>
+		<setupPlateNumber>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</setupPlateNumber>
+		<playVehicleAnims>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</playVehicleAnims>
+
+		<registerAvatarFocusOnDie>
+			<Arg>	ENTITY_ID	</Arg>
+		</registerAvatarFocusOnDie>
+
+		<unregisterAvatarFocusOnDie>
+			<Arg>	ENTITY_ID	</Arg>
+		</unregisterAvatarFocusOnDie>
+		<sysDyeingVehicle>
+			<Arg>	INT32		</Arg>
+		</sysDyeingVehicle>
+
+		<broadPlayVehicleEff> <Exposed/>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</broadPlayVehicleEff>
+		<bindOnTrain>
+			<Arg> INT32 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</bindOnTrain>
+	</CellMethods>
+
+	<ClientMethods>
+		<onAddAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onAddAvatarSocket>
+
+		<onDelAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onDelAvatarSocket>
+
+		<onAvtSwitchToSock>
+			<Arg>		ENTITY_ID			</Arg>
+			<Arg>		STRING			</Arg>
+		</onAvtSwitchToSock>
+
+		<onPlayerEnter>
+			<Arg>		ENTITY_ID			</Arg>
+		</onPlayerEnter>
+
+		<onPlayerLeave>
+			<Arg>		ENTITY_ID			</Arg>
+		</onPlayerLeave>
+		<onControlledBy>
+			<Arg>		ENTITY_ID			</Arg>
+			<Arg>          BOOL		</Arg>
+		</onControlledBy>
+		<onUncontrolledBy>
+			<Arg>		ENTITY_ID			</Arg>
+		</onUncontrolledBy>
+
+		<onSyncPos>
+			<Arg>		VECTOR3			</Arg>
+		</onSyncPos>
+
+		<onStepInWater>
+		</onStepInWater>
+
+		<onStepOutWater>
+		</onStepOutWater>
+
+		<onCarPropertyChanged>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onCarPropertyChanged>
+
+		<preShutDownVehicle>
+		</preShutDownVehicle>
+
+		<onTireIsBroken>
+			<Arg>		INT32			</Arg>			
+		</onTireIsBroken>
+		<onUpdateVehicleStartPlayAnim>
+			<Arg>		STRING			</Arg>
+		</onUpdateVehicleStartPlayAnim>
+
+		<onTransferVehicle>
+		</onTransferVehicle>
+		
+		<onBroadPlayVehicleEff>
+			<Arg>		ENTITY_ID			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onBroadPlayVehicleEff>
+		<hidePlateNumberNow>
+		</hidePlateNumberNow>
+		<bindOnTrain>
+			<Arg> INT32 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</bindOnTrain>
+	</ClientMethods>
+
+</root>

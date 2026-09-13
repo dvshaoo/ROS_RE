@@ -1,0 +1,111 @@
+<root>
+	<Properties>
+		<bestScoreInHistory>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</bestScoreInHistory>
+		
+		<historyScoreDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</historyScoreDict>
+		
+		<beyondHistorySectionReward>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</beyondHistorySectionReward>
+		
+		<accumulatedHistoryBeyondRewardState>
+			<Type>		INT32	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</accumulatedHistoryBeyondRewardState>
+		
+		<accumulatedHistoryBeyondRewardIDs>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	[]		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</accumulatedHistoryBeyondRewardIDs>
+		
+		<beyondRewardState>
+			<Type>		INT32	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</beyondRewardState>
+		<showLadderRedPoint>
+			<Type>		BOOL	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</showLadderRedPoint>
+	</Properties>
+
+	<BaseMethods>
+		<getHistorySeasonTopData> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</getHistorySeasonTopData>
+
+		<getMyHistorySeasonRecord> <Exposed/>
+		</getMyHistorySeasonRecord>
+		
+		<claimBeyondHistorySectionReward> <Exposed/>
+		</claimBeyondHistorySectionReward>
+		
+		<getKingSectionRankList> <Exposed/>
+		</getKingSectionRankList>
+		
+		<onGetKingSectionRankList>
+			<Arg>	PYTHON	</Arg>
+		</onGetKingSectionRankList>
+		
+		<getMyKingSectionRank> <Exposed/>
+		</getMyKingSectionRank>
+		<enterLadderSystem>
+		</enterLadderSystem>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetHistorySeasonTopData>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onGetHistorySeasonTopData>
+
+		<onGetMyHistorySeasonRecord>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetMyHistorySeasonRecord>
+		
+		<onClaimBeyondHistorySectionReward>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onClaimBeyondHistorySectionReward>
+		
+		<onGetKingSectionRankList>
+			<Arg>	PYTHON	</Arg>
+		</onGetKingSectionRankList>
+		
+		<onGetMyKingSectionRank>
+			<Arg>	INT32	</Arg>
+		</onGetMyKingSectionRank>
+		
+		<sendSeasonLevelUpAward>
+			<Arg>	PYTHON	</Arg>
+		</sendSeasonLevelUpAward>
+		<updateHistoryScoreDict>
+			<Arg>	PYTHON	</Arg>
+		</updateHistoryScoreDict>
+	</ClientMethods>
+</root>

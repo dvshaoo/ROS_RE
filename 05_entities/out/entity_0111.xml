@@ -1,0 +1,62 @@
+<root>
+	<Implements>
+		<Interface>	iSpaceRequester	</Interface>
+	</Implements>
+	<Properties>
+		<matchingTeams>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE		 		</Flags>
+			<Default>		{}					</Default>
+		</matchingTeams>
+		<matchedTeams>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE		 		</Flags>
+			<Default>		{}					</Default>
+		</matchedTeams>
+		<matchedIndex>
+			<Type>			INT32				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		0				</Default>
+		</matchedIndex>
+	</Properties>
+	<BaseMethods>
+		<startMatch>
+			<Arg>			TEAM_ID				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>	BOOL					</Arg>
+		</startMatch>
+		<startMatchV2>
+			<Arg>			GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>			PYTHON		</Arg>
+			<Arg>			BOOL		</Arg>
+		</startMatchV2>
+		<cancelMatchV2>
+			<Arg>			GLOBAL_MAIL_BOX_INFO	</Arg>
+		</cancelMatchV2>
+		<onGameStartSuccess>
+			<Arg>		INT32		</Arg>
+		</onGameStartSuccess>
+		<onGameStartFailure>
+			<Arg>		INT32		</Arg>
+		</onGameStartFailure>
+		<setGameCanJoin>
+			<Arg>		UINT64		</Arg>
+			<Arg>		BOOL		</Arg>
+		</setGameCanJoin>
+		<onSpacePlayerDecrease>
+			<Arg>		UINT64		</Arg>
+			<Arg>		INT32		</Arg>
+		</onSpacePlayerDecrease>
+		<onTeamVoteSuccess>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+		</onTeamVoteSuccess>
+		<onTeamVoteFailed>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+		</onTeamVoteFailed>
+		<onSyncSpaceInfo>
+			<Arg>		PYTHON		</Arg>
+		</onSyncSpaceInfo>
+	</BaseMethods>
+</root>

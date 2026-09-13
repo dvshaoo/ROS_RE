@@ -1,0 +1,30 @@
+<root>
+	<Implements>
+		<Interface>	iSkillSummon	</Interface>
+		<Interface>	iCell	</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+	
+	<ClientName>	SkillGunLikeSummonCreateEntity	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<doHitEntity>
+			<Exposed/>
+			<Arg> INT32	</Arg>
+		</doHitEntity>
+		<doHitScene>
+			<Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</doHitScene>
+	</CellMethods>
+</root>

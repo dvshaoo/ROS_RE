@@ -1,0 +1,74 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<readYuanbaoBattleNew> <Exposed/> </readYuanbaoBattleNew>
+		<syncYuanbaoBattleFinalMatchID> 
+			<Arg>			INT32			</Arg>
+		</syncYuanbaoBattleFinalMatchID>
+		<useYuanbaoBattleChance> </useYuanbaoBattleChance>
+		<selectYuanbaoBattleCurMatchID>  <Exposed/>
+			<Arg>			INT32			</Arg>
+		</selectYuanbaoBattleCurMatchID>
+		<onSyncSelectYuanbaoBattleCurMatchID>
+			<Arg>			INT32			</Arg>
+		</onSyncSelectYuanbaoBattleCurMatchID>
+		<buyYuanbaoBattleChance>  <Exposed/>
+			<Arg>			INT32			</Arg>
+		</buyYuanbaoBattleChance>
+		<addYuanbaoBattleAwards>
+			<Arg>			PYTHON					</Arg>	<!-- params -->
+		</addYuanbaoBattleAwards>
+		<addYuanbaoBattleGame>
+			<Arg>			INT32					</Arg>	<!-- params -->
+			<Arg>			INT32					</Arg>	<!-- params -->
+			<Arg>			STRING					</Arg>	<!-- params -->
+		</addYuanbaoBattleGame>
+		<getYuanbaoBattleRecentGameList>  <Exposed/>
+			<Arg>			INT32			</Arg>
+		</getYuanbaoBattleRecentGameList>
+		<onGetYuanbaoBattleRecentGameList>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetYuanbaoBattleRecentGameList>
+		<getYuanbaoBattleGameRankList>  <Exposed/>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+		</getYuanbaoBattleGameRankList>
+		<onGetYuanbaoBattleGameRankList>
+			<Arg>			STRING			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			STRING			</Arg>
+		</onGetYuanbaoBattleGameRankList>
+	</BaseMethods>
+
+	<ClientMethods>
+		<updateYuanbaoBattleInfo>
+			<Arg>			PYTHON					</Arg>	<!-- params -->
+		</updateYuanbaoBattleInfo>
+		<onSyncEnableYuanbaoGame>
+			<Arg>			BOOL				</Arg>
+		</onSyncEnableYuanbaoGame>
+		<syncMemberYuanbaoBattleInfo>
+			<Arg>			INT32					</Arg>
+			<Arg>			PYTHON					</Arg>	<!-- params -->
+		</syncMemberYuanbaoBattleInfo>
+		<onSyncYuanbaoBattleCurMatchID>
+			<Arg>			INT32					</Arg>
+		</onSyncYuanbaoBattleCurMatchID>
+		<buyYuanbaoBattleChanceCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT32					</Arg>
+		</buyYuanbaoBattleChanceCallback>
+		<onGetYuanbaoBattleRecentGameList>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetYuanbaoBattleRecentGameList>
+		<onGetYuanbaoBattleGameRankList>
+			<Arg>			STRING			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetYuanbaoBattleGameRankList>
+	</ClientMethods>
+</root>
+

@@ -1,0 +1,61 @@
+<root>
+	<Properties>
+		<springGameOpenNum>
+			<Type>			INT32			</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		0				</Default>
+			<Persistent>	true			</Persistent>
+		</springGameOpenNum>
+		<springGameShareUrl>
+			<Type>			STRING			</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Persistent>	true			</Persistent>
+		</springGameShareUrl>
+		<springShareNum>
+			<Type>			INT32			</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		0				</Default>
+		</springShareNum>
+		<springInviteNewNum>
+			<Type>			INT32			</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		0				</Default>
+			<Persistent>	true			</Persistent>
+		</springInviteNewNum>
+		<springGameInviteAwardList>
+			<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		[]				</Default>
+			<Persistent>	true			</Persistent>
+		</springGameInviteAwardList>
+	</Properties>
+	<BaseMethods>
+		<requestSpringGameShareUrl> <Exposed/>
+		</requestSpringGameShareUrl>
+		<requestSpringGameShareInfo> <Exposed/>
+		</requestSpringGameShareInfo>
+		<requestSpringGameShareAward> <Exposed/>
+		</requestSpringGameShareAward>
+		<requestSpringGameInviteAward> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</requestSpringGameInviteAward>
+	</BaseMethods>
+	<ClientMethods>
+		<updateSpringGameOpenNum>
+			<Arg>			INT32			</Arg>
+		</updateSpringGameOpenNum>
+		<updateSpringGameShareUrl>
+			<Arg>			STRING			</Arg>
+		</updateSpringGameShareUrl>
+		<updateSpringGameShareInfo>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</updateSpringGameShareInfo>
+		<updateSpringGameInviteAwardList>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</updateSpringGameInviteAwardList>
+		<onGetSpringGameAward>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onGetSpringGameAward>
+	</ClientMethods>
+</root>

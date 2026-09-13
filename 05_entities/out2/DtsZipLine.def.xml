@@ -1,0 +1,44 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface>	iTrap </Interface>
+	</Implements>
+	<ClientName>	DtsZipLine		</ClientName>
+	<Properties>
+		<itemType> <!--滑索类型-->
+			<Type> UINT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</itemType>
+		<trapID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</trapID>
+		<neighbours>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</neighbours>
+		<connections>
+			<Type> ARRAY <of> BOOL </of> </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</connections>
+		<sfxPoints>
+			<Type> ARRAY <of> VECTOR3 </of> </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</sfxPoints>
+	</Properties>
+
+	<CellMethods>
+		<syncNeighbourInfo>
+			<Arg> ARRAY <of> INT32 </of> </Arg> <!--滑索邻居节点ID-->
+			<Arg> ARRAY <of> BOOL </of> </Arg> <!--滑索邻居节点是否可达-->
+			<Arg> ARRAY <of> VECTOR3 </of> </Arg> <!--滑索邻居节点的特效挂点位置-->
+		</syncNeighbourInfo>
+	</CellMethods>
+
+	<ClientMethods>
+		<onAvatarEnter>
+		</onAvatarEnter>
+		<onAvatarLeave>
+		</onAvatarLeave>
+	</ClientMethods>
+</root>

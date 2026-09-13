@@ -1,0 +1,66 @@
+<root>
+	<Properties>
+		<valentineWeaponSerialNumber>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</valentineWeaponSerialNumber>
+		<valentineWeaponLastLoginTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</valentineWeaponLastLoginTime>
+		<canNotifyClientGetValentineMarkByLogin>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</canNotifyClientGetValentineMarkByLogin>
+		<hasBoughtValentineWeapon>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasBoughtValentineWeapon>
+		<upgradedValentineWeapon>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</upgradedValentineWeapon>
+		<markNumGotByKillToday>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</markNumGotByKillToday>
+	</Properties>
+	<ClientMethods>
+		<onUpdateValentineWeaponMarkNum>
+			<Arg>		INT32		</Arg>
+		</onUpdateValentineWeaponMarkNum>
+		<onGetValentineWeaponMarkByLogin>
+		</onGetValentineWeaponMarkByLogin>
+		<onShowGetValentineWeapon>
+			<Arg>		PYTHON		</Arg>
+		</onShowGetValentineWeapon>
+		<onSetValentineWeaponRedPoint>
+			<Arg>		BOOL		</Arg>
+		</onSetValentineWeaponRedPoint>
+	</ClientMethods>
+	<BaseMethods>
+		<requestUpgradeValentineWeapon> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestUpgradeValentineWeapon>
+		<requestCanGetValentineWeaponMarkByLogin> <Exposed/>
+		</requestCanGetValentineWeaponMarkByLogin>
+		<requestBuyValentineWeapon> <Exposed/>
+		</requestBuyValentineWeapon>
+		<onAddValentineWeaponMarkByKill>
+			<Arg>		INT32		</Arg>
+		</onAddValentineWeaponMarkByKill>
+	</BaseMethods>
+</root>
+

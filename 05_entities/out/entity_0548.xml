@@ -1,0 +1,67 @@
+<root>
+	<Properties>
+		<generatorDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</generatorDict>
+		<monsterGeneratorDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	{}		</Default>
+		</monsterGeneratorDict>
+		<generateRuleIndex>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</generateRuleIndex>
+		<monsterAmountLimit>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</monsterAmountLimit>
+
+		<curMonsterAmount>
+			<!-- 		当前space怪总数 	-->
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</curMonsterAmount>
+
+		<killedMonsterAmount>
+			<!-- 		杀怪计数 	-->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</killedMonsterAmount>
+
+		<monsterCreateQueue>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</monsterCreateQueue>
+
+		<timerQueuePop>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	-1		</Default>
+		</timerQueuePop>
+
+		<attackAddition>
+			<Type>		FLOAT		</Type>
+			<Flags> 	CELL_PUBLIC </Flags>
+			<Default>	1.0		</Default>
+		</attackAddition>
+		<hpAddition>
+			<Type>		FLOAT		</Type>
+			<Flags> 	CELL_PUBLIC </Flags>
+			<Default>	1.0		</Default>
+		</hpAddition>
+	</Properties>
+	<CellMethods>
+		<removeEntity>
+			<Arg>		ENTITY_ID				</Arg>
+			<Arg>		PYTHON					</Arg>
+		</removeEntity>
+		<onGenCreated>
+			<Arg>		MAILBOX			</Arg>	<!-- entBase -->
+			<Arg>		PYTHON			</Arg>	<!-- props -->
+		</onGenCreated>
+	</CellMethods>
+</root>

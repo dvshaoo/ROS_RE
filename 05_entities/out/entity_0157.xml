@@ -1,0 +1,247 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iSkill		</Interface>
+		<Interface>	iCombatUnit	</Interface>
+		<Interface>	iDropItem	</Interface>
+		<Interface>	iVehicleProperty 	</Interface>
+		<Interface>	iVehicleBuff 	</Interface>
+	</Implements>
+	
+	<Properties>
+		<tpsVehicleID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</tpsVehicleID>
+
+		<isCarryVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</isCarryVehicle>
+
+		<ownerID>
+			<Type>		ENTITY_ID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</ownerID>
+
+		<vehicleInfo>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</vehicleInfo>
+
+		<createByAvatar> <!-- 随身载具，由玩家召唤 -->
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</createByAvatar>
+
+		<vHasHp> <!-- 是否血量逻辑 -->
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</vHasHp>
+
+		<wheelHp>
+			<Type>		ARRAY <of> INT32 </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>			
+		</wheelHp>
+		
+		<wheelMaxHp>
+			<Type>		ARRAY <of> INT32 </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>			
+		</wheelMaxHp>
+
+		<vehicleGameMode>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</vehicleGameMode>
+		<driverID>
+			<Type>		ENTITY_ID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</driverID>
+		<controlledSetted>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS </Flags>
+		</controlledSetted>
+
+		<hangSockets>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</hangSockets>
+
+		<hangSockNames>
+			<Type>		ARRAY <of> STRING </of> </Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</hangSockNames>
+
+		<usedHangSockets>
+			<Type>		ARRAY <of> VEHICLE_SOCKET_INFO </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</usedHangSockets>
+
+		<basicMaxSpeed>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</basicMaxSpeed>
+
+		<maxSpeedLimitFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</maxSpeedLimitFactor>
+
+		<doorOpened>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</doorOpened>
+
+		<maxSpeed>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</maxSpeed>
+	
+		<!-- 资源购买的属性加成，副本结束会清空 -->
+		<resourceBuffProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</resourceBuffProperties>
+
+		<throttleEnabled>
+			<Type>		BOOL </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+			<Default>	1		</Default>
+		</throttleEnabled>
+
+		<carUUID>
+			<Type>		 UUID			</Type>
+			<Flags> 	CELL_PUBLIC 	</Flags>
+		</carUUID>
+
+		<!-- 高辛烷燃料加速增益 -->
+		<highOctaneGain>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+			<Default>	1.0		</Default>
+		</highOctaneGain>
+
+		<!-- 移动透明状态 -->
+		<inMobileTransparency>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</inMobileTransparency>
+
+		<!-- 移动透明状态最大速度，大于这个速度则不透明 -->
+		<maxTransparentSpeed>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</maxTransparentSpeed>
+
+		<!-- 移动透明状态最小速度，小于这个速度就透明 -->
+		<minTransparentSpeed>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</minTransparentSpeed>
+
+		<avtPosCheckTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</avtPosCheckTimerID>
+
+		<inMatWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</inMatWater>
+
+		<canDriveInWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canDriveInWater>
+
+		<canDriveOutWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canDriveOutWater>
+
+		<inwaterCheckTimerID>
+			<Type>		 TIMER_ID			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</inwaterCheckTimerID>
+
+		<topSpeedClient>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</topSpeedClient>
+
+		<topSpeedRatio>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</topSpeedRatio>
+
+		<inAcc>
+			<Type>		 BOOL			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</inAcc>
+
+		<stopAccTimerID>
+			<Type>		 TIMER_ID			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</stopAccTimerID>
+	</Properties>
+
+	<CellMethods>
+		<onEnterWorld> <Exposed/>
+		</onEnterWorld>
+		<playTrumpet> <Exposed/>
+		</playTrumpet>
+		<stopTrumpet> <Exposed/>
+		</stopTrumpet>
+		<onAccStart> <Exposed/>
+		</onAccStart>
+		<onAccEnd> <Exposed/>
+		</onAccEnd>
+		<moveToPositions>
+			<Arg>			ARRAY <of> VECTOR3 </of>			</Arg>
+			<Arg>			FLOAT			</Arg>
+			<Arg>			FLOAT			</Arg>
+		</moveToPositions>
+		<enableThrottle>
+		</enableThrottle>
+		<disableThrottle>
+		</disableThrottle>
+		<openDoor> <Exposed/>
+		</openDoor>
+		<closeDoor> <Exposed/>
+		</closeDoor>
+		<applyImpulseNoFix>
+			<Arg>			VECTOR3				</Arg><!--impulse-->
+		</applyImpulseNoFix>
+	</CellMethods>
+
+	<ClientMethods>
+		<applyImpulseNoFix>
+			<Arg>			VECTOR3				</Arg><!--impulse-->
+		</applyImpulseNoFix>
+		<onEnableThrottle>
+		</onEnableThrottle>
+		<onDisableThrottle>
+		</onDisableThrottle>
+		<onPlayTrumpet>
+		</onPlayTrumpet>
+		<onStopTrumpet>
+		</onStopTrumpet>
+		<moveToPositions>
+			<Arg>			ARRAY <of> VECTOR3 </of>			</Arg>
+			<Arg>			FLOAT			</Arg>
+			<Arg>			FLOAT			</Arg>
+		</moveToPositions>
+		<onOpenDoor>
+		</onOpenDoor>
+		<onCloseDoor>
+		</onCloseDoor>
+	</ClientMethods>
+
+
+</root>

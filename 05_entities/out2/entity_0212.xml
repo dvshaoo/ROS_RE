@@ -1,0 +1,66 @@
+<root>
+	<Properties>
+		<cache>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+		</cache>
+
+		<shardID>
+			<Type>			UINT16				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		0					</Default>
+		</shardID>
+
+		<shardCount>
+			<Type>			UINT16				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		0					</Default>
+		</shardCount>
+	</Properties>
+
+	<BaseMethods>
+		<reqSetOnline>
+			<Arg>			GID				</Arg>	<!-- gid -->
+			<Arg>			MAILBOX				</Arg>	<!-- mailbox -->
+		</reqSetOnline>
+
+		<reqSetOffline>
+			<Arg>			GID				</Arg>	<!-- gid -->
+		</reqSetOffline>
+
+		<reqUpdCacheData>
+			<Arg>			GID				</Arg>	<!-- gid -->
+			<Arg>			PYTHON				</Arg>	<!-- attrPath -->
+			<Arg>			PYTHON				</Arg>	<!-- attrValue -->
+		</reqUpdCacheData>
+		<reqUpdLazyCacheData>
+			<Arg>			GID				</Arg>	<!-- gid -->
+			<Arg>			PYTHON				</Arg>	<!-- attrDict -->
+		</reqUpdLazyCacheData>
+
+		<reqGetCacheData>
+			<Arg>			NUID				</Arg>	<!-- reqID -->
+			<Arg>			MAILBOX				</Arg>	<!-- reqBox -->
+			<Arg>		ARRAY <of> GID </of>	</Arg>	<!-- gids -->
+			<Arg>			PYTHON				</Arg>	<!-- attrDict -->
+			<Arg>			BOOL				</Arg>	<!-- allGID -->
+			<Arg>			PYTHON				</Arg>	<!-- filterDict -->
+		</reqGetCacheData>
+
+		<onReqGetCacheData>
+			<Arg>			NUID				</Arg>	<!-- reqID -->
+			<Arg>			GID				</Arg>	<!-- gid -->
+			<Arg>			PYTHON				</Arg>	<!-- reqData -->
+			<Arg>			UINT8				</Arg>	<!-- error -->
+		</onReqGetCacheData>
+
+		<onReqGetCacheDataShardFinish>
+			<Arg>			NUID				</Arg>	<!-- reqID -->
+			<Arg>			UINT16				</Arg>	<!-- shardID -->
+		</onReqGetCacheDataShardFinish>
+
+		<requestPlayerInfo>
+		</requestPlayerInfo>
+	</BaseMethods>
+</root>
+

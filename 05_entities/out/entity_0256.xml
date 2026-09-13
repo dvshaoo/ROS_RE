@@ -1,0 +1,48 @@
+<root>
+	<Properties>
+		<canNotifyClientGetValentineMarkByLogin>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</canNotifyClientGetValentineMarkByLogin>
+		<hasBoughtValentineWeapon>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasBoughtValentineWeapon>
+		<markNumGotByKillToday>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</markNumGotByKillToday>
+	</Properties>
+	<ClientMethods>
+		<onUpdateValentineWeaponMarkNum>
+			<Arg>		INT32		</Arg>
+		</onUpdateValentineWeaponMarkNum>
+		<onGetValentineWeaponMarkByLogin>
+		</onGetValentineWeaponMarkByLogin>
+		<onShowGetValentineWeapon>
+			<Arg>		PYTHON		</Arg>
+		</onShowGetValentineWeapon>
+		<onSetValentineWeaponRedPoint>
+			<Arg>		BOOL		</Arg>
+		</onSetValentineWeaponRedPoint>
+	</ClientMethods>
+	<BaseMethods>
+		<requestUpgradeValentineWeapon> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestUpgradeValentineWeapon>
+		<requestCanGetValentineWeaponMarkByLogin> <Exposed/>
+		</requestCanGetValentineWeaponMarkByLogin>
+		<requestBuyValentineWeapon> <Exposed/>
+		</requestBuyValentineWeapon>
+		<onAddValentineWeaponMarkByKill>
+			<Arg>		INT32		</Arg>
+		</onAddValentineWeaponMarkByKill>
+	</BaseMethods>
+</root>
+

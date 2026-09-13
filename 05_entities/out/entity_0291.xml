@@ -1,0 +1,453 @@
+<root>
+	<Implements>
+		<Interface>	iCharacter		</Interface>
+		<Interface>	iSkillState		</Interface>
+	</Implements>
+
+	<Properties>
+		<hp>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</hp>
+		<tmpHP>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</tmpHP>
+		<actualHP>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</actualHP>
+		<deathAreaTimerID>
+			<Type> INT32	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</deathAreaTimerID>
+
+		<rebornTimer>
+			<Type> INT32	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</rebornTimer>
+
+		<maxHp>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</maxHp>
+		<basicMaxHP>
+			<Type> INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</basicMaxHP>
+		<basicAttack>
+			<Type> FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default> 10		</Default>
+		</basicAttack>
+
+		<jumpBuffHeight>
+			<Type> FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</jumpBuffHeight>
+
+		<deadInGame>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> False </Default>
+		</deadInGame>
+
+		<canHitFly>
+			<Type> BOOL </Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> False </Default>
+		</canHitFly>
+
+		<invincible>
+			<Type> INT16	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> 0	</Default>
+		</invincible>
+
+		<invincibleTextJump>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> False </Default>
+		</invincibleTextJump>
+
+		<campType>
+			<Type> CAMP_TYPE </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</campType>
+
+		<handingWeapon>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> 0 </Default>
+		</handingWeapon>
+
+		<!-- 通用属性加成 -->
+		<combatUnitProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</combatUnitProperties>
+
+		<dieReason>
+			<Type> INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</dieReason>
+
+		<leanState>
+			<Type> INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default> 0 </Default>
+		</leanState>
+
+		<lastFireStamp>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</lastFireStamp>
+
+		<timerResetHormoneGunBuff>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</timerResetHormoneGunBuff>
+
+		<hormoneGunRunBuff>
+			<Type>		INT8			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</hormoneGunRunBuff>
+
+		<hormoneGunJumpBuff>
+			<Type>		INT8			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</hormoneGunJumpBuff>
+		<wildModeInvincibleCDTimer>
+			<Type> INT32	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</wildModeInvincibleCDTimer>
+		<forbidJump>
+			<Type> INT8 </Type>
+			<Flags> OWN_CLIENT </Flags>
+			<Default> 0 </Default>
+		</forbidJump>
+		<immuneFatalDamage>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default> False   </Default>
+		</immuneFatalDamage>
+		<immuneRecoverDuration>
+			<Type>		FLOAT			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	2.0		</Default>
+		</immuneRecoverDuration>
+		<invincibleDuration>
+			<Type>		FLOAT			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	0.5		</Default>
+		</invincibleDuration>
+
+	</Properties>
+
+	<ClientMethods>
+		<damage>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> UINT16 </Arg>
+		</damage>
+		<propDamage>
+			<Arg> ENTITY_ID </Arg>
+		</propDamage>
+		<die>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> UINT16 </Arg>
+		</die>
+		<applyImpluse>
+			<Arg> VECTOR3 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</applyImpluse>
+
+		<empBombHit>
+			<Arg> FLOAT </Arg>
+			<Arg> INT32 </Arg>
+		</empBombHit>
+
+		<hide>
+		</hide>
+		<show>
+		</show>
+		<onKillOther>
+		</onKillOther>
+		<onFire>
+		</onFire>
+		<onChargeFireStart>
+		</onChargeFireStart>
+		<onTPChargeFireInterrupt>
+		</onTPChargeFireInterrupt>
+		<onThrowRedPacket>
+		</onThrowRedPacket>
+		<onFireEnd/>
+		<playAnimation>
+			<Arg> STRING </Arg>
+			<Arg> FLOAT </Arg>
+		</playAnimation>
+		<stopAnimation/>
+		<onReload>
+		</onReload>
+		<onWeaponSkill>
+		</onWeaponSkill>
+
+		<onShieldDamage>
+			<Arg> 		INT32		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		UINT16		</Arg>
+		</onShieldDamage>
+
+		<reborn>
+		</reborn>
+
+		<onInvincible>
+			<Arg>		BOOL		</Arg>
+		</onInvincible>
+
+		<invincibleHit>
+		    <Arg> ENTITY_ID </Arg>
+		</invincibleHit>
+
+		<onTakeSnipeScoping>
+			<Arg> BOOL </Arg>
+		</onTakeSnipeScoping>
+		<onSyncTmpHp>
+			<Arg> INT32 </Arg>
+		</onSyncTmpHp>
+
+		<startJumpBuff>
+			<Arg>	FLOAT	</Arg>	<!-- max height -->
+		</startJumpBuff>
+
+		<stopJumpBuff>
+		</stopJumpBuff>
+
+		<onVehicleHeal>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onVehicleHeal>
+
+		<onDisplayWildModeBuff>
+			<Arg>		INT32			</Arg>
+		</onDisplayWildModeBuff>
+
+	</ClientMethods>
+
+	<CellMethods>
+		<reborn>
+			<Arg>		BOOL		</Arg>
+		</reborn>
+		<fire><Exposed/>
+		</fire>
+		<chargeFireStart><Exposed/>
+		</chargeFireStart>
+		<chargeFireInterrupt><Exposed/>
+		</chargeFireInterrupt>
+		<fireEnd><Exposed/>
+		</fireEnd>
+		<throwRedPacket><Exposed/>
+		</throwRedPacket>
+
+		<reload><Exposed/>
+		</reload>
+		<reloadSucceed><Exposed/>
+		</reloadSucceed>
+		<weaponSkill><Exposed/>
+		</weaponSkill>
+
+
+		<onShootHit>
+			<Arg> PYTHON	</Arg>
+			<Arg> PY_DICT	</Arg>
+			<Arg> PYTHON	</Arg>
+			<Arg> PYTHON	</Arg>
+		</onShootHit>
+
+		<onChargeShootHit>
+			<Arg> PYTHON	</Arg>
+			<Arg> PY_DICT	</Arg>
+			<Arg> PYTHON	</Arg>
+			<Arg> PYTHON	</Arg>
+			<Arg> FLOAT		</Arg>
+		</onChargeShootHit>
+
+		<onShootHitOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT16 </Arg>
+			<Arg> INT16 </Arg>
+		</onShootHitOther>
+
+		<onShootHitOtherWithSniper>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT16 </Arg>
+			<Arg> INT16 </Arg>
+		</onShootHitOtherWithSniper>
+
+		<onShootKillOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT8 	</Arg>
+		</onShootKillOther>
+
+		<logShootKillOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT8 	</Arg>
+			<Arg> UINT16 </Arg>
+		</logShootKillOther>
+
+		<onSkillKillOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT32 </Arg>
+		</onSkillKillOther>
+
+		<logSkillKillOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> UINT32 </Arg>
+		</logSkillKillOther>
+
+		<onSkillHitOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT32 </Arg>
+		</onSkillHitOther>
+
+		<onShootBlock>
+		</onShootBlock>
+
+		<vehicleHit><Exposed/>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> ARRAY <of> ENTITY_ID </of> </Arg>
+			<Arg> ARRAY <of> VECTOR3 </of> </Arg>
+			<Arg> ARRAY <of> VECTOR2 </of> </Arg>
+			<Arg> ARRAY <of> FLOAT </of> </Arg>
+		</vehicleHit>
+
+		<onVehicleHit>
+			<Arg> PYTHON	</Arg>
+			<Arg> PY_DICT </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg> FLOAT </Arg>
+			<Arg> VECTOR2 </Arg>
+		</onVehicleHit>
+
+		<onEmpBombHit>
+			<Arg> ENTITY_ID	</Arg>
+			<Arg> PY_DICT </Arg>
+		</onEmpBombHit>
+
+		<suicideFromClient><Exposed/>
+		</suicideFromClient>
+
+		<onDamageResult>
+			<Arg> INT32 </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> INT8	</Arg>
+			<Arg> PYTHON	</Arg>
+			<Arg> PY_DICT </Arg>
+		</onDamageResult>
+
+		<setInvincible>
+			<Arg> BOOL </Arg>
+			<Arg> BOOL </Arg>
+		</setInvincible>
+
+		<onApplyImpluse>
+			<Arg> VECTOR3 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</onApplyImpluse>
+
+		<!-- 用于GM指令，修改HP -->
+		<gmSetHP>
+			<Arg> INT32	</Arg>
+		</gmSetHP>
+
+		<!-- 用于GM指令，修改HP -->
+		<gmSuicide>
+		</gmSuicide>
+
+		<onGetHurt><Exposed/><!--hurt-->
+			<Arg>			INT32				</Arg><!--task_id-->
+		</onGetHurt>
+
+		<setCampType>
+			<Arg>	CAMP_TYPE </Arg>
+		</setCampType>
+
+		<doEnterDeathArea>
+		</doEnterDeathArea>
+
+		<doLeaveDeathArea>
+		</doLeaveDeathArea>
+
+		<onVehicleBlast>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> UINT16 </Arg>
+		</onVehicleBlast>
+
+		<takeSnipeScoping>
+			<Exposed/>
+			<Arg> BOOL </Arg>
+		</takeSnipeScoping>
+
+		<suicide></suicide>
+		<clean></clean>
+
+		<setHP>
+			<Arg> INT32 </Arg>
+		</setHP>
+
+		<setHPPercent>
+			<Arg> FLOAT </Arg>
+		</setHPPercent>
+
+		<addHp>
+			<Arg> INT32 </Arg>
+		</addHp>
+		<reset>
+		</reset>
+
+		<syncLeanState><Exposed/>
+			<Arg> FLOAT </Arg>
+		</syncLeanState>
+
+		<setCombatUnitProperty>
+			<Arg> INT32 </Arg>
+			<Arg> FLOAT </Arg>
+		</setCombatUnitProperty>
+
+		<hormoneGunSelfHit><Exposed/>
+		</hormoneGunSelfHit>
+
+		<startJumpBuff>
+			<Arg>	FLOAT	</Arg>	<!-- max height -->
+		</startJumpBuff>
+
+		<stopJumpBuff>
+		</stopJumpBuff>
+
+		<doVehicleHeal>
+			<Arg>	PYTHON	</Arg>
+		</doVehicleHeal>
+
+		<onTrainHit>
+			<Arg> PYTHON	</Arg>
+		</onTrainHit>
+
+	</CellMethods>
+</root>

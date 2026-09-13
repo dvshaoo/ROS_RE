@@ -1,0 +1,264 @@
+<root>
+	<Properties>
+		<friendLists>					<!--@好友列表-->
+			<Type>			FRIEND_LISTS		</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+		</friendLists>
+
+		<requestFriendDict>					<!--@请求添加好友的信息-->
+			<Type>			PY_DICT		</Type>
+			<Flags>			BASE				</Flags>
+			<Default>	{}		</Default>
+		</requestFriendDict>
+	</Properties>
+
+	<BaseMethods>
+		<setSocialSignature> <Exposed/>
+			<Arg>			STRING				</Arg>
+		</setSocialSignature>
+
+		<setSocialVoice> <Exposed/>
+			<Arg>			STRING				</Arg>
+		</setSocialVoice>
+
+		<updateFriendInfo>      <!--刷新好友信息-->
+			<Arg>			PYTHON				</Arg>	<!-- infoDict -->
+		</updateFriendInfo>
+
+		<!-- 好友操作 -->
+		<requestFriendOnlineStatus> <Exposed/>
+			<Arg>			INT32					</Arg>
+		</requestFriendOnlineStatus>
+
+		<requestSuggestFriends> <Exposed/>
+		</requestSuggestFriends>
+
+		<onRequestSuggestFriends>
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg> <!-- searchPlayers -->
+		</onRequestSuggestFriends>
+
+		<searchPlayerByName> <Exposed/>
+			<Arg>			STRING				</Arg>	<!-- nickname -->
+		</searchPlayerByName>
+
+		<requestFriend> <Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT8			</Arg>
+		</requestFriend>
+
+		<requestReceive>
+			<Arg>			INT32				</Arg>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT32				</Arg>	<!-- reqTime -->
+		</requestReceive>
+
+		<giftReceive>
+		    <Arg>			PYTHON				</Arg>
+			<Arg>			UINT32			</Arg>
+			<Arg>			STRING				</Arg>
+		</giftReceive>
+
+		<giftHallPropReceive>
+		    <Arg>			PYTHON				</Arg>
+			<Arg>			UINT32			</Arg>
+			<Arg>			STRING				</Arg>
+		</giftHallPropReceive>
+
+		<giftSuitPropReceive>
+		    <Arg>           PYTHON              </Arg>
+		    <Arg>           UINT32          </Arg>
+		    <Arg>           PYTHON              </Arg>
+		    <Arg>			STRING				</Arg>
+		</giftSuitPropReceive>
+
+		<acceptFriend> <Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+		</acceptFriend>
+
+		<acceptReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			STRING				</Arg>	<!-- friendName -->
+		</acceptReceive>
+
+
+		<refuseFriend> <Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+		</refuseFriend>
+
+		<refuseReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			STRING				</Arg>	<!-- friendName -->
+		</refuseReceive>
+
+		<removeFriend> <Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+		</removeFriend>
+
+		<removeReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+		</removeReceive>
+
+		<requestRecentTeammates> <Exposed/>
+		</requestRecentTeammates>
+
+		<onGetRencentTeammates>
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg>
+		</onGetRencentTeammates>
+
+		<!-- 数据接口 -->
+		<getFriendList> <Exposed/>
+			<Arg>			UINT8				</Arg>	<!-- friendType -->
+		</getFriendList>
+
+
+		<gmAddFriends>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</gmAddFriends>
+
+		<requestObserveFriend> <Exposed/>
+			<Arg>			GID				</Arg>	<!-- 被观察的好友GID -->
+		</requestObserveFriend>
+
+		<requestLBSUrl>	<Exposed/>
+		</requestLBSUrl>
+
+		<requestLBSToken>	<Exposed/>
+		</requestLBSToken>
+
+		<searchPlayerByGidList> <Exposed/>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>   <!-- gid_list -->
+		</searchPlayerByGidList>
+
+		<addNearByFriend> <Exposed/>
+			<Arg>			GID				</Arg>
+		</addNearByFriend>
+
+		<nearByAddReceive>
+			<Arg>			GID				</Arg>
+		</nearByAddReceive>
+
+		<addIntimacyDegreeValue>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</addIntimacyDegreeValue>
+		<subIntimacyDegreeValue>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</subIntimacyDegreeValue>
+		<setIntimacyDegreeReceive>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</setIntimacyDegreeReceive>
+		<setIntimacyDegreeValue>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</setIntimacyDegreeValue>
+		<addIntimacyDegreeValueIntoExtraBattleAward>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</addIntimacyDegreeValueIntoExtraBattleAward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetFriendList>
+			<Arg>			UINT8				</Arg>	<!-- friendType -->
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg>	<!-- friendType -->
+			<Arg>		PY_DICT		</Arg>
+		</onGetFriendList>
+
+		<onGetRencentTeammates>
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg>
+		</onGetRencentTeammates>
+
+		<onRequestSuggestFriends>
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg> <!-- searchPlayers -->
+		</onRequestSuggestFriends>
+
+		<onSearchPlayerByName>
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg> <!-- searchPlayers -->
+		</onSearchPlayerByName>
+
+		<onGetRequest>
+			<Arg>			FRIEND_ABSTRACT	</Arg>	<!-- request -->
+		</onGetRequest>
+
+
+		<!-- 数据同步 -->
+		<onUpdateFriend>
+			<Arg>			FRIEND_ABSTRACT		</Arg>	<!-- friend -->
+			<Arg>			BOOL				</Arg>	<!-- isNew -->
+		</onUpdateFriend>
+
+		<onRemoveFriend>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+		</onRemoveFriend>
+
+		<onUpdateFriendInfo>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT32				</Arg>	<!-- level -->
+			<Arg>			UINT32				</Arg>	<!-- kill -->
+			<Arg>			UINT32				</Arg>	<!-- die -->
+		</onUpdateFriendInfo>
+
+		<onRemoveRequest>
+			<Arg>			GID			</Arg>	<!-- databaseID -->
+		</onRemoveRequest>
+
+		<onRequestFriendOnlineStatus>
+			<Arg>		INT32		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</onRequestFriendOnlineStatus>
+
+		<onUpdateStranger>
+			<Arg>			FRIEND_ABSTRACT		</Arg>	<!-- friend -->
+		</onUpdateStranger>
+
+		<onRemoveStranger>
+			<Arg>		GID		</Arg>
+		</onRemoveStranger>
+
+		<onUpdateNearByFriend>
+			<Arg>			FRIEND_ABSTRACT		</Arg>	<!-- friend -->
+		</onUpdateNearByFriend>
+
+		<onRemoveNearByFriend>
+			<Arg>		GID		</Arg>
+		</onRemoveNearByFriend>
+
+		<onGetLBSTokenFromServer>
+			<Arg>			STRING			</Arg>   <!-- token -->
+			<Arg>			INT32			</Arg>   <!-- expired duration -->
+		</onGetLBSTokenFromServer>
+
+		<onGetLBSUrlFromServer>
+			<Arg>			STRING			</Arg>   <!-- host -->
+			<Arg>			INT32			</Arg>   <!-- port -->
+		</onGetLBSUrlFromServer>
+
+		<onSearchPlayerByGidList>
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg>
+		</onSearchPlayerByGidList>
+
+		<onRequestFriendAck>
+			<Arg>			UINT8			</Arg>
+			<Arg>			GID			</Arg>
+		</onRequestFriendAck>
+
+		<onUpdateSignature>
+			<Arg>			INT32			</Arg>
+		</onUpdateSignature>
+
+		<onCheckVoiceSuccess>
+		</onCheckVoiceSuccess>
+
+	</ClientMethods>
+</root>

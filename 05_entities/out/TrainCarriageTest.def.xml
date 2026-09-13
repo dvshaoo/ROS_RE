@@ -1,0 +1,21 @@
+<root>
+	<Implements>
+		<Interface> iTrainCarriage </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName> TrainCarriageTest </ClientName>
+	<Properties>
+		<masterID>
+			<Type>		INT32				 </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</masterID>
+	</Properties>
+</root>

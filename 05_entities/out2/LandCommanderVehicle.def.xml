@@ -1,0 +1,30 @@
+<root>
+	<Parent>	LandHelicopter	</Parent>
+
+	<ClientName>	LandCommanderVehicle		</ClientName>
+
+	<Properties>
+		<commanderID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</commanderID>
+
+		<lastReportPos>
+			<Type>		VECTOR3		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</lastReportPos>
+
+		<lastReportYaw>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</lastReportYaw>
+	</Properties>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>
+
+

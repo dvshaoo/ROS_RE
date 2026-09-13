@@ -1,0 +1,57 @@
+<root>
+	<Implements>
+		<Interface>			iGlobal			</Interface>
+		<Interface>			iBaseNoCell		</Interface>
+	</Implements>
+
+	<Properties>
+    </Properties>
+
+	<BaseMethods>
+		<legionStartQuiz>
+			<Arg> GID </Arg> <!--LegionGID-->
+			<Arg> MAILBOX </Arg>
+			<Arg> LEGION_QUESTION_INFO_LIST </Arg>
+		</legionStartQuiz>
+        <legionStopQuiz>
+            <Arg> GID </Arg>
+        </legionStopQuiz>
+
+		<quickJoinLegionQuiz>
+			<Arg> GID </Arg>
+			<Arg> GID </Arg> <!-- legionGID -->
+			<Arg> MAILBOX </Arg>
+			<Arg> PLAYER_INFO </Arg>
+		</quickJoinLegionQuiz>
+
+		<onQuizRoomAddedMember>
+			<Arg> GID </Arg> <!-- roomID -->
+			<Arg> GID </Arg> <!-- userID -->
+			<Arg> INT32 </Arg>
+		</onQuizRoomAddedMember>
+		<onQuizRoomDeledMember>
+			<Arg> GID </Arg> <!-- roomID -->
+			<Arg> GID </Arg> <!-- userID -->
+			<Arg> INT32 </Arg>
+		</onQuizRoomDeledMember>
+		<onCreateQuizRoom>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+			<Arg> GID </Arg>
+		</onCreateQuizRoom>
+
+		<queryLegionQuizActivityState>
+			<Arg> GID </Arg> <!-- playerGID -->
+			<Arg> MAILBOX </Arg>
+			<Arg> GID </Arg> <!-- legionGID -->
+		</queryLegionQuizActivityState>
+
+		<gmCloseLegionQuiz>
+		</gmCloseLegionQuiz>
+
+		<startPromptToLegionUser>
+			<Arg> PYTHON </Arg>
+		</startPromptToLegionUser>
+
+	</BaseMethods>
+</root>

@@ -1,0 +1,61 @@
+<root>
+	<Properties>
+		<heroLevelDict>			<!-- 英雄等级和经验 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</heroLevelDict>
+
+		<heroWeekExp>			<!-- 英雄等级和经验 -->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</heroWeekExp>
+
+		<heroLevelRewardDict>	<!-- 获得过的英雄等级奖励列表 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</heroLevelRewardDict>
+
+		<lastUpdateHeroWeekExpTime>			<!-- 上次更新英雄周经验时间 -->
+			<Type>		INT32		</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</lastUpdateHeroWeekExpTime>
+	</Properties>
+
+	<BaseMethods>
+		<getHeroExp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</getHeroExp>
+		<getHeroLevelReward><Exposed/>
+			<Arg>		INT32		</Arg>
+		</getHeroLevelReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetHeroLevelReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetHeroLevelReward>
+		<onGetHeroExp>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetHeroExp>
+		<onUpdateHeroLevelData>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateHeroLevelData>
+		<onUpdateHeroLevelRewardRecord>
+			<Arg>		PYTHON		</Arg>
+		</onUpdateHeroLevelRewardRecord>
+	</ClientMethods>
+</root>

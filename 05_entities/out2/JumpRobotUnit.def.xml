@@ -1,0 +1,281 @@
+<root>
+	<Implements>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iCell		</Interface>
+		<Interface>	iMove		</Interface>
+		<Interface>	iRotate		</Interface>
+		<Interface>	iDtsEquipAppearanceAvatar	</Interface>
+		<Interface>	iTrap		</Interface>
+		<Interface>	iCombatUnit		</Interface>
+		<Interface>	iSkill		</Interface>
+		<Interface>	JumpRobotFuelComps		</Interface>
+		<Interface>	JumpRobotAttackComps		</Interface>
+		<Interface>	iVehicleRegeneration	</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+	</Volatile>
+	<ClientName>	JumpRobotUnit		</ClientName>
+
+	<Properties>
+		<vehiclePropertyLevel>
+			<Type>			ARRAY <of>	VEHICLE_PROPERTY_LEVEL	</of>			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+			<Default>		[]			</Default>
+		</vehiclePropertyLevel>
+		<inRangeAvts>
+			<Type>		ARRAY <of> ENTITY_ID </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</inRangeAvts>
+		<vHasHp> <!-- 是否血量逻辑 -->
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</vHasHp>
+		<characterType>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</characterType>
+		<isClientEntity>
+			<Type>  INT32   </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</isClientEntity>
+		<animIndex>
+			<Type>  INT32   </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</animIndex>
+		<stateMachine>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</stateMachine>
+		<selectNextPosTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</selectNextPosTimerID>
+		<checkFarFromMasterTimer>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</checkFarFromMasterTimer>
+		<gameStarted>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</gameStarted>
+		<masterEntityId>
+			<Type>  INT32   </Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</masterEntityId>
+		<fixedPlayList>
+			<Type>	PYTHON	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</fixedPlayList>
+		<unsetCntlTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</unsetCntlTimer>
+		<ownerID>
+			<Type>		ENTITY_ID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</ownerID>
+		<controlledSetted>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS </Flags>
+		</controlledSetted>
+		<haveOwner>
+			<Type>		 BOOL			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</haveOwner>
+		<confID>
+			<Type>		INT32   </Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</confID>
+		<paramID>
+			<Type>		INT32   </Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</paramID>
+		<jumpRobotHP>
+			<Type>		FLOAT </Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</jumpRobotHP>
+		<fuelStatTimerID>
+			<Type>			INT32		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</fuelStatTimerID>
+
+		<usedHangSockets>
+			<Type>		ARRAY <of> VEHICLE_SOCKET_INFO </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</usedHangSockets>
+
+		<hasDriver>
+			<Type>		 BOOL			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</hasDriver>
+		<inMatWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</inMatWater>
+		<canDriveInWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canDriveInWater>
+		<canDriveOutWater>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canDriveOutWater>
+
+		<inwaterCheckTimerID>
+			<Type>		 TIMER_ID			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</inwaterCheckTimerID>
+		<shouldDestroyAfterCreated>
+			<Type>          BOOL		</Type>
+			<Flags>        BASE_AND_CLIENT	</Flags>
+			<Default>		False		</Default>
+		</shouldDestroyAfterCreated>
+		<isCarryVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</isCarryVehicle>
+		<checkDisconnectTimer>
+			<Type>	    TIMER_ID	    </Type>
+			<Flags>	    CELL_PRIVATE    </Flags>
+		</checkDisconnectTimer>
+		<tpsVehicleID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</tpsVehicleID>
+		<lastDyeingTime>
+			<Type>          FLOAT		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</lastDyeingTime>
+		<curAppearanceID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</curAppearanceID>
+		<vehicleDestroyTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</vehicleDestroyTimerID>
+		<hangSockets>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</hangSockets>
+		<carUUID>
+			<Type>		 UUID			</Type>
+			<Flags> 	CELL_PUBLIC 	</Flags>
+		</carUUID>
+		<targetPlayerEntID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</targetPlayerEntID>
+		<shouldDestroyAfterCreated>
+			<Type>          BOOL		</Type>
+			<Flags>        BASE_AND_CLIENT	</Flags>
+			<Default>		False		</Default>
+		</shouldDestroyAfterCreated>
+	</Properties>
+	<CellMethods>
+		<reqDriver>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqDriver>
+		<onEnterWorld> <Exposed/>
+		</onEnterWorld>
+		<reqGetOff>
+			<Arg>	ENTITY_ID		</Arg>
+			<Arg>		 BOOL		</Arg>
+		</reqGetOff>
+		<jumpStart><Exposed/>
+		</jumpStart>
+		<jumpEnd><Exposed/>
+			<Arg> FLOAT </Arg>
+		</jumpEnd>
+		<fall><Exposed/>
+		</fall>
+		<getStepInWater> <Exposed/>
+		</getStepInWater>
+		<rush><Exposed/>
+		</rush>
+		<stopRush><Exposed/>
+		</stopRush>
+		<rushEnd><Exposed/>
+			<Arg>		 BOOL		</Arg>
+		</rushEnd>
+		<rushFallEnd><Exposed/>
+		</rushFallEnd>
+		<pullToGround>
+		</pullToGround>
+		<dyeingVehicle>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</dyeingVehicle>
+		<reqHangOn>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</reqHangOn>
+	</CellMethods>
+
+	<ClientMethods>
+		<stopFullbodyAnim>
+		</stopFullbodyAnim>
+		<playAnim>
+			<Arg>	STRING		</Arg>
+		</playAnim>
+		<onPlayerEnter>
+			<Arg>		ENTITY_ID			</Arg>
+		</onPlayerEnter>
+	
+		<onPlayerLeave>
+			<Arg>		ENTITY_ID			</Arg>
+		</onPlayerLeave>
+		<onAddAvatarSock>
+			<Arg>		STRING				</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onAddAvatarSock>
+		<onDelAvatarSock>
+			<Arg>		ENTITY_ID			</Arg>
+		</onDelAvatarSock>
+		<onControlledBy>
+			<Arg>		ENTITY_ID			</Arg>
+			<Arg>          BOOL		</Arg>
+		</onControlledBy>
+		<onSyncPos>
+			<Arg>		VECTOR3			</Arg>
+		</onSyncPos>
+		<onUncontrolledBy>
+			<Arg>		ENTITY_ID			</Arg>
+		</onUncontrolledBy>
+		<onDelAvatarSocket>
+			<Arg>		STRING				</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onDelAvatarSocket>
+		<onStepInWater>
+		</onStepInWater>
+
+		<onStepOutWater>
+		</onStepOutWater>
+		<enableJumpRobotMove>
+		</enableJumpRobotMove>
+		<disableJumpRobotMove>
+		</disableJumpRobotMove>
+
+		<onJumpStart></onJumpStart>
+		<onJumpEnd>
+			<Arg> FLOAT </Arg>
+		</onJumpEnd>
+		<onRush></onRush>
+		<onStopRush></onStopRush>
+		<onRushEnd>
+			<Arg>		 BOOL		</Arg>
+		</onRushEnd>
+		<onRushFallEnd></onRushFallEnd>
+	</ClientMethods>
+</root>

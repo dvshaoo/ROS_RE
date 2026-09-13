@@ -1,0 +1,5186 @@
+<root>
+	<BOOL>				INT8		</BOOL>
+	<LONG>				INT64		</LONG>
+	<DWORD>				INT32		</DWORD>
+	<PICKLED>			BLOB		</PICKLED>
+	<PY_DICT>			PYTHON		</PY_DICT>
+	<PY_SET>			PYTHON		</PY_SET>
+	<PY_CLASS>			PYTHON		</PY_CLASS>
+	<PY_SIMPLE>			PYTHON		</PY_SIMPLE>
+	<PY_SIMPLE_ARRAY>
+		ARRAY	<of>	PY_SIMPLE	</of>
+	</PY_SIMPLE_ARRAY>
+	<PY_SIMPLE_TUPLE>
+		TUPLE	<of>	PY_SIMPLE	</of>
+	</PY_SIMPLE_TUPLE>
+
+	<IP>				UINT32		</IP>
+	<BAR_ID>			UINT32		</BAR_ID>
+	<DBID>				INT64		</DBID>
+	<NUID>				UINT64		</NUID>
+	<UUID>				BLOB		</UUID>
+	<OBJECT_ID>			INT32		</OBJECT_ID>
+	<OBJECT_DBID>			INT64		</OBJECT_DBID>
+	<OBJECT_UUID>			BLOB		</OBJECT_UUID>
+	<CONTROLLER_ID>			INT32		</CONTROLLER_ID>
+	<EVENT_NO>			UINT64		</EVENT_NO>
+	<BASEBOX>			MAILBOX		</BASEBOX>
+	<CELLBOX>			MAILBOX		</CELLBOX>
+
+	<TRADE_ID>			UINT32		</TRADE_ID>
+	<TATTLE_ID>			UINT32		</TATTLE_ID>
+
+	<ENT_TYPE>			BLOB		</ENT_TYPE>
+	<KEY_NAME>			BLOB		</KEY_NAME>
+	<PET_NAME>			BLOB		</PET_NAME>
+	<MOBILE_NUMBER>			BLOB		</MOBILE_NUMBER>
+	<PET_OPTION>			UINT16		</PET_OPTION>
+	<SYLLABUS_SCORE>		UINT16		</SYLLABUS_SCORE>
+
+	<OID_ARRAY>
+		ARRAY	<of>	OBJECT_ID	</of>
+	</OID_ARRAY>
+
+	<HARD_DISK>			BLOB		</HARD_DISK>
+
+	<METHOD_NAME>			BLOB		</METHOD_NAME>
+	<METHOD_ID>			UINT16		</METHOD_ID>
+	<ACTION_ID>			UINT32		</ACTION_ID>
+	<ORDER_ID>			UINT8		</ORDER_ID>
+	<METHOD_ARGS>			PYTHON		</METHOD_ARGS>
+
+	<TIMER_ID>			INT32		</TIMER_ID>
+	<HOUR>				UINT8		</HOUR>
+	<DAY>				UINT16		</DAY>
+	<INTERVAL>			UINT32		</INTERVAL>
+	<LONGTIME>			UINT64		</LONGTIME>
+	<FLOATTIME>			FLOAT		</FLOATTIME>
+
+	<LIFE>				UINT8		</LIFE>
+	<STATUS>			UINT8		</STATUS>
+	<CAMP>				UINT8		</CAMP>
+	<FLAG>				UINT8		</FLAG>
+	<PASSWORD>			BLOB		</PASSWORD>
+
+	<LOAD>				UINT16		</LOAD>
+	<MONEY>				UINT32		</MONEY>
+	<DISCOUNT>			FLOAT		</DISCOUNT>
+
+	<CREDIT>			UINT32		</CREDIT>
+	<LEVEL>				UINT16		</LEVEL>
+	<GRADE>				UINT8		</GRADE>
+	<FLOAT_RATIO>			FLOAT		</FLOAT_RATIO>
+	<PK>				UINT8		</PK>
+	<COMBAT_DAMAGE>			UINT32		</COMBAT_DAMAGE>
+	<COMBAT_CURE>			UINT32		</COMBAT_CURE>
+
+	<CHAR_ID>			UINT32		</CHAR_ID>
+	<AREA_ID>			UINT32		</AREA_ID>
+	<MAP_ID> 			UINT32		</MAP_ID>
+
+	<QUESTION>			UINT16		</QUESTION>
+	<EMOTE_NO>			UINT16		</EMOTE_NO>
+
+	<SCORE>				UINT64		</SCORE>
+	<ROOM_ID>			BLOB		</ROOM_ID>
+
+	<CONTAINER>			UINT8		</CONTAINER>
+	<PART>				UINT8		</PART>
+	<PAGE>				UINT8		</PAGE>
+	<POS>				UINT8		</POS>
+	<MANY>				UINT16		</MANY>
+	<BUILDING_VAL>			UINT32		</BUILDING_VAL>
+	<BUILDING_NO>			UINT16		</BUILDING_NO>
+	<BUILDING_RES>			UINT8		</BUILDING_RES>
+
+	<OP_CODE>			BLOB		</OP_CODE>
+
+	<ITEM_CURSOR>		UINT32		</ITEM_CURSOR>
+	<ITEM_TYPE>			INT8		</ITEM_TYPE>
+	<ITEM_ID>			INT32		</ITEM_ID>
+	<ITEM_CNT>			INT32		</ITEM_CNT>
+	<ITEM_UUID>		STRING		</ITEM_UUID>
+	<REPERTORY_ID>		INT8		</REPERTORY_ID>
+
+	<WEAPON_ID>     UINT32       </WEAPON_ID>
+	<RAIL_ID>       UINT32       </RAIL_ID>
+	<SLOT_IDX>      UINT32       </SLOT_IDX>
+	<SPOT_ID>           INT32       </SPOT_ID>
+	<ENTITY_ID>			INT32		</ENTITY_ID>
+	<ENTITY_GROUP_ID>	UINT32		</ENTITY_GROUP_ID>
+	<ENTITY_GROUP_IDX>	UINT32		</ENTITY_GROUP_IDX>
+	<TIMESTAMP_FLOAT>	FLOAT64		</TIMESTAMP_FLOAT>
+	<TIMESTAMP_INT>	UINT32		</TIMESTAMP_INT>
+	<INTERACT_ID> UINT32 </INTERACT_ID>
+	<GLOBAL_MAIL_BOX_INFO> FIXED_DICT
+		<implementedBy>		cross_server.converter.globalMBConverter	</implementedBy>
+		<Properties>
+			<serverID>
+				<Type>	KEY_NAME	</Type>
+			</serverID>
+			<box>
+				<Type>	MAILBOX		</Type>
+			</box>
+			<entName>
+				<Type>	KEY_NAME	</Type>
+			</entName>
+			<sHost>
+				<Type>	UINT32		</Type>
+			</sHost>
+		</Properties>
+		<AllowNone>	True	</AllowNone>
+	</GLOBAL_MAIL_BOX_INFO>
+
+	<VEHICLE_SOCKET_INFO> FIXED_DICT
+		<Properties>
+				<sockname>
+					<Type> STRING </Type>
+				</sockname>
+				<id>
+					<Type> ENTITY_ID </Type>
+				</id>
+		</Properties>
+	</VEHICLE_SOCKET_INFO>
+
+	<CASTER_TARGET_INFO> FIXED_DICT
+		<Properties>
+				<id>
+					<Type> OBJECT_ID </Type>
+				</id>
+				<position>
+					<Type> VECTOR3 </Type>
+				</position>
+		</Properties>
+	</CASTER_TARGET_INFO>
+
+	<LOGIC_DICT_ITEM> FIXED_DICT
+		<Properties>
+				<key>
+					<Type> INT32 </Type>
+				</key>
+				<value>
+					<Type> INT32 </Type>
+				</value>
+		</Properties>
+	</LOGIC_DICT_ITEM>
+
+	<DTS_ITEM_BATCH> FIXED_DICT
+		<Properties>
+				<itemID>
+					<Type> INT32 </Type>
+				</itemID>
+				<number>
+					<Type> INT32 </Type>
+				</number>
+		</Properties>
+	</DTS_ITEM_BATCH>
+
+	<WEAPON_ITEM> FIXED_DICT
+		<implementedBy> WeaponBag.weaponItemConverter </implementedBy>
+		<Properties>
+			<weaponId>
+				<Type> WEAPON_ID </Type>
+			</weaponId>
+			<railList>
+				<Type> ARRAY <of> RAIL_ID </of> </Type>
+			</railList>
+		</Properties>
+	</WEAPON_ITEM>
+
+	<WEAPON_BAG_DATA> FIXED_DICT
+		<implementedBy> WeaponBag.weaponBagDataConverter </implementedBy>
+		<Properties>
+			<slotIdx>
+				<Type> SLOT_IDX </Type>
+			</slotIdx>
+			<weaponContainer>
+				<Type> WEAPON_ITEM </Type>
+			</weaponContainer>
+		</Properties>
+	</WEAPON_BAG_DATA>
+
+	<WEAPON_BAG_DICT> FIXED_DICT
+		<implementedBy> WeaponBag.weaponBagDictConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type> ARRAY <of> WEAPON_BAG_DATA </of> </Type>
+			</elements>
+		</Properties>
+	</WEAPON_BAG_DICT>
+
+	<BATTLE_GROUND_WEAPON_ITEM> FIXED_DICT
+		<Properties>
+			<weaponID>
+				<Type> WEAPON_ID </Type>
+			</weaponID>
+			<muzzle>
+				<Type> INT32	</Type>
+			</muzzle>
+			<barrel>
+				<Type> INT32	</Type>
+			</barrel>
+			<magazine>
+				<Type> INT32	</Type>
+			</magazine>
+			<gunStock>
+				<Type> INT32	</Type>
+			</gunStock>
+			<telescope>
+				<Type> INT32	</Type>
+			</telescope>
+			<hangdown>
+				<Type> INT32	</Type>
+			</hangdown>
+			<wildModeComponent0>
+				<Type> INT32 </Type>
+			</wildModeComponent0>
+			<wildModeComponent1>
+				<Type> INT32 </Type>
+			</wildModeComponent1>
+			<wildModeComponent2>
+				<Type> INT32 </Type>
+			</wildModeComponent2>
+			<wildModeComponent3>
+				<Type> INT32 </Type>
+			</wildModeComponent3>
+			<wildModeComponent4>
+				<Type> INT32 </Type>
+			</wildModeComponent4>
+			<wildModeExtraComponent>
+				<Type> INT32 </Type>
+			</wildModeExtraComponent>
+		</Properties>
+	</BATTLE_GROUND_WEAPON_ITEM>
+
+	<BATTLE_GROUND_SAFETY_GEAR> FIXED_DICT
+		<Properties>
+			<itemID>
+				<Type> 		INT32		</Type>
+			</itemID>
+
+			<durability>
+				<Type> 		INT32		</Type>
+			</durability>
+		</Properties>
+	</BATTLE_GROUND_SAFETY_GEAR>
+
+	<BATTLE_GROUND_COOL_DOWN_PROP> FIXED_DICT
+		<Properties>
+			<coolHpStamp>
+				<Type> 		INT32		</Type>
+			</coolHpStamp>
+
+			<coolFireStamp>
+				<Type> 		INT64		</Type>
+			</coolFireStamp>
+
+			<coolState>
+				<Type> 		UINT8		</Type>
+			</coolState>
+
+		</Properties>
+	</BATTLE_GROUND_COOL_DOWN_PROP>
+
+	<HIT_PART> UINT8 </HIT_PART>
+	<ENTITY_ID> UINT32 </ENTITY_ID>
+	<VEHICLE_ID> UINT32 </VEHICLE_ID>
+
+	<SHOOT_WEAPON_INFO> FIXED_DICT
+		<Properties>
+			<weaponID>
+				<Type> WEAPON_ID </Type>
+			</weaponID>
+			<railID>
+				<Type> RAIL_ID </Type>
+			</railID>
+			<hitType>
+				<Type> INT32 </Type>
+			</hitType>
+			<stateID>
+				<Type> INT32 </Type>
+			</stateID>
+		</Properties>
+	</SHOOT_WEAPON_INFO>
+
+	<DTS_WEAPON_BOMB_THROW_INFO> FIXED_DICT
+		<Properties>
+			<lifespan>
+				<Type> FLOAT </Type>
+			</lifespan>
+			<startPos>
+				<Type> VECTOR3 </Type>
+			</startPos>
+			<endPos>
+				<Type> VECTOR3 </Type>
+			</endPos>
+			<angle>
+				<Type> FLOAT </Type>
+			</angle>
+			<direction>
+				<Type> VECTOR3 </Type>
+			</direction>
+		</Properties>
+	</DTS_WEAPON_BOMB_THROW_INFO>
+
+	<DTS_BOMB_CARRIER_CREATE_INFO> FIXED_DICT
+		<Properties>
+			<lifespan>
+				<Type> FLOAT </Type>
+			</lifespan>
+			<startPos>
+				<Type> VECTOR3 </Type>
+			</startPos>
+			<endPos>
+				<Type> VECTOR3 </Type>
+			</endPos>
+			<angle>
+				<Type> FLOAT </Type>
+			</angle>
+			<direction>
+				<Type> VECTOR3 </Type>
+			</direction>
+			<bulletStamp>
+				<Type> INT32 </Type>
+			</bulletStamp>
+		</Properties>
+	</DTS_BOMB_CARRIER_CREATE_INFO>
+
+	<DTS_RANGE_GUN_FIRE_INFO> FIXED_DICT
+		<Properties>
+			<firePos>
+				<Type> VECTOR3 </Type>
+			</firePos>
+			<fireDir>
+				<Type> VECTOR3 </Type>
+			</fireDir>
+		</Properties>
+	</DTS_RANGE_GUN_FIRE_INFO>
+
+	<ACTIVITY_ID> INT32	</ACTIVITY_ID>
+
+	<ACTIVITY_STATE_MAP> FIXED_DICT
+		<Properties>
+			<activityID>
+				<Type> 	ACTIVITY_ID	</Type>
+			</activityID>
+
+			<activityState>
+				<Type> UINT8 </Type>
+			</activityState>
+		</Properties>
+	</ACTIVITY_STATE_MAP>
+
+	<DONE_ACTIVITY_COUNT> FIXED_DICT
+		<Properties>
+			<activityID>
+				<Type> 	ACTIVITY_ID	</Type>
+			</activityID>
+
+			<count>
+				<Type> INT32 </Type>
+			</count>
+		</Properties>
+	</DONE_ACTIVITY_COUNT>
+
+	<ACTIVITY_DATA> FIXED_DICT
+		<implementedBy> activity.Activity.activityConverter </implementedBy>
+		<Properties>
+			<entityID>
+				<Type>          INT32           </Type>
+				<Persistent>     false           </Persistent>
+			</entityID>
+			<activityID>
+				<Type>          ACTIVITY_ID         </Type>
+			</activityID>
+			<startTime>
+				<Type>          FLOATTIME       </Type>
+			</startTime>
+			<records>
+				<Type>          PYTHON          </Type>
+			</records>
+			<dynamicData>
+				<Type>          PYTHON          </Type>
+			</dynamicData>
+		</Properties>
+	</ACTIVITY_DATA>
+
+	<ACTIVITY_SERVER_DATA> FIXED_DICT
+		<implementedBy> activity_server.ActivityServer.activityServerConverter </implementedBy>
+		<Parent> ACTIVITY_DATA </Parent>
+		<Properties>
+			<dynamicData>
+				<Type>          PYTHON          </Type>
+			</dynamicData>
+		</Properties>
+	</ACTIVITY_SERVER_DATA>
+
+	<ACTIVITY_MAP> FIXED_DICT
+		<implementedBy> activity.Activity.activityMapConverter	</implementedBy>
+		<Properties>
+				<elements>
+						<Type> ARRAY <of> ACTIVITY_DATA	</of> </Type>
+				</elements>
+		</Properties>
+	</ACTIVITY_MAP>
+
+	<ACTIVITY_SERVER_MAP> FIXED_DICT
+		<implementedBy> activity_server.ActivityServer.activityServerMapConverter	</implementedBy>
+		<Properties>
+				<elements>
+						<Type> ARRAY <of> ACTIVITY_SERVER_DATA	</of> </Type>
+				</elements>
+		</Properties>
+	</ACTIVITY_SERVER_MAP>
+
+	<TASK_ID>       INT32           </TASK_ID>
+	<TASK_DATA> FIXED_DICT
+		<implementedBy> task.Task.taskConverter </implementedBy>
+		<Properties>
+			<entityID>
+				<Type>          INT32           </Type>
+				<Persistent>     false           </Persistent>
+			</entityID>
+			<taskID>
+				<Type>          TASK_ID         </Type>
+			</taskID>
+			<startTime>
+				<Type>          FLOATTIME       </Type>
+			</startTime>
+			<costTime>
+				<Type>          FLOATTIME       </Type>
+			</costTime>
+			<state>
+				<Type>          INT8            </Type>
+			</state>
+			<records>
+				<Type>          PYTHON          </Type>
+			</records>
+			<eventRecords>
+				<Type> ARRAY <of> INT32 </of> </Type>
+			</eventRecords>
+
+		</Properties>
+	</TASK_DATA>
+
+	<TASK_SERVER_DATA> FIXED_DICT
+		<implementedBy> task_server.TaskServer.taskServerConverter</implementedBy>
+		<Parent>	TASK_DATA		</Parent>
+		<Properties>
+			<dynamicData>
+				<Type>          PYTHON          </Type>
+			</dynamicData>
+		</Properties>
+	</TASK_SERVER_DATA>
+
+	<TASK_MAP> FIXED_DICT
+		<implementedBy> task.Task.taskMapConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>  ARRAY <of> TASK_DATA </of> </Type>
+			</elements>
+		</Properties>
+	</TASK_MAP>
+
+	<TASK_SERVER_MAP> FIXED_DICT
+		<implementedBy> task_server.TaskServer.taskServerMapConverter</implementedBy>
+		<Properties>
+			<elements>
+				<Type>  ARRAY <of> TASK_SERVER_DATA </of> </Type>
+			</elements>
+		</Properties>
+	</TASK_SERVER_MAP>
+
+	<DTS_ACTIVIY_TASK_DATA> FIXED_DICT
+		<implementedBy> dts_activity_task.Task.taskConverter </implementedBy>
+		<Properties>
+			<entityID>
+				<Type>          INT32           </Type>
+				<Persistent>     false           </Persistent>
+			</entityID>
+			<taskID>
+				<Type>          TASK_ID         </Type>
+			</taskID>
+			<state>
+				<Type>          INT8            </Type>
+			</state>
+			<records>
+				<Type>          PYTHON          </Type>
+			</records>
+		</Properties>
+	</DTS_ACTIVIY_TASK_DATA>
+
+	<DTS_ACTIVIY_TASK_SERVER_DATA> FIXED_DICT
+		<implementedBy> dts_activity_task_server.TaskServer.taskServerConverter</implementedBy>
+		<Parent>	DTS_ACTIVIY_TASK_DATA		</Parent>
+		<Properties>
+			<dynamicData>
+				<Type>          PYTHON          </Type>
+			</dynamicData>
+		</Properties>
+	</DTS_ACTIVIY_TASK_SERVER_DATA>
+
+	<DTS_ACTIVIY_TASK_SERVER_MAP> FIXED_DICT
+		<implementedBy> dts_activity_task_server.TaskServer.taskServerMapConverter</implementedBy>
+		<Properties>
+			<elements>
+				<Type>  ARRAY <of> DTS_ACTIVIY_TASK_SERVER_DATA </of> </Type>
+			</elements>
+		</Properties>
+	</DTS_ACTIVIY_TASK_SERVER_MAP>
+
+	<TASK_SERVER_HISTORY_DATA> FIXED_DICT
+		<implementedBy> task_server.TaskServer.taskServerHistoryConverter</implementedBy>
+		<Properties>
+			<taskID>
+				<Type>          TASK_ID         </Type>
+			</taskID>
+			<acceptTimes>
+				<Type>          UINT32       </Type>
+			</acceptTimes>
+		</Properties>
+	</TASK_SERVER_HISTORY_DATA>
+
+	<TASK_SERVER_HISTORY_MAP> FIXED_DICT
+		<implementedBy> task_server.TaskServer.taskServerHistoryMapConverter</implementedBy>
+		<Properties>
+			<elements>
+				<Type>  ARRAY <of> TASK_SERVER_HISTORY_DATA </of> </Type>
+			</elements>
+		</Properties>
+	</TASK_SERVER_HISTORY_MAP>
+
+	<!-- Package System -->
+
+	<ITEM_POSITION> FIXED_DICT
+		<Properties>
+				<itemID>
+					<Type> ITEM_ID </Type>
+				</itemID>
+				<position>
+					<Type> INT32 </Type>
+				</position>
+				<number>
+					<Type> INT32 </Type>
+				</number>
+		</Properties>
+	</ITEM_POSITION>
+
+	<UUID_ITEM_POSITION> FIXED_DICT
+		<Properties>
+				<itemID>
+					<Type> ITEM_ID </Type>
+				</itemID>
+				<position>
+					<Type> INT32 </Type>
+				</position>
+				<uuid>
+					<Type> ITEM_UUID </Type>
+				</uuid>
+		</Properties>
+	</UUID_ITEM_POSITION>
+
+	<ITEM_DATA> FIXED_DICT
+		<Properties>
+				<itemID>
+					<Type> 	ITEM_ID 	</Type>
+				</itemID>
+				<uuid>
+					<Type> 	BLOB 	</Type>
+				</uuid>
+				<info>
+					<Type> 	PY_DICT 	</Type>
+				</info>
+		</Properties>
+	</ITEM_DATA>
+
+	<REPERTORY_ITEM_DATA> FIXED_DICT
+		<Properties>
+				<repertoryID>
+					<Type> 	REPERTORY_ID </Type>
+				</repertoryID>
+				<itemID>
+					<Type> 	ITEM_ID 	</Type>
+				</itemID>
+				<uuid>
+					<Type> 	BLOB 	</Type>
+				</uuid>
+				<info>
+					<Type> 	PY_DICT 	</Type>
+				</info>
+		</Properties>
+	</REPERTORY_ITEM_DATA>
+
+	<ITEM_PACKAGE2> FIXED_DICT
+		<implementedBy> package_common.PackageConvert.itemPackageConvert </implementedBy>
+		<Properties>
+			<rawItemList>
+				<Type> 		ARRAY <of> ITEM_DATA </of>	</Type>
+ 			</rawItemList>
+ 			<_packageCapacity>
+ 				<Type> 		UINT32				</Type>
+ 			</_packageCapacity>
+		</Properties>
+	</ITEM_PACKAGE2>
+
+	<ITEM_DATA3> FIXED_DICT
+		<Properties>
+			<uuid>
+					<Type>		BLOB		</Type>
+			</uuid>
+			<itemID>
+					<Type>		INT32		</Type>
+			</itemID>
+			<number>
+					<Type>		INT32		</Type>
+			</number>
+			<info>
+					<Type>		PY_DICT		</Type>
+			</info>
+		</Properties>
+	</ITEM_DATA3>
+
+	<ITEM_DATA_CONVERT> FIXED_DICT
+		<Properties>
+			<uuid>
+					<Type>		BLOB		</Type>
+			</uuid>
+			<number>
+					<Type>		INT32		</Type>
+			</number>
+			<info>
+					<Type>		PY_DICT		</Type>
+			</info>
+			<layout>
+					<Type> 		INT32		</Type>
+			</layout>
+		</Properties>
+	</ITEM_DATA_CONVERT>
+
+	<ITEM_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.itemPackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</ITEM_PACKAGE3>
+
+	<DTS_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.dtsPackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</DTS_PACKAGE3>
+
+	<AUTO_ROYALE_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.autoRoyalePackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</AUTO_ROYALE_PACKAGE3>
+
+	<DTS_APPEARANCE_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.dtsAppearancePackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<itemsList>
+				<Type>		ARRAY <of>	PYTHON	</of>	</Type>
+			</itemsList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</DTS_APPEARANCE_PACKAGE3>
+
+	<DTS_APPEARANCE_REPERTORY_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.dtsAppearanceRepertoryPackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</DTS_APPEARANCE_REPERTORY_PACKAGE3>
+
+	<MISSION_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.missionPackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</MISSION_PACKAGE3>
+
+	<COSTUME_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.costumePackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</COSTUME_PACKAGE3>
+
+	<VEHICLE_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.vehiclePackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+		</Properties>
+	</VEHICLE_PACKAGE3>
+
+	<TEMPORARY_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.temporaryPackageConvert3 </implementedBy>
+		<Properties>
+			<itemList>
+				<Type>		ARRAY <of> ITEM_DATA3 </of> </Type>
+			</itemList>
+			<layoutInfo>
+				<Type>		PY_DICT						</Type>
+			</layoutInfo>
+			<_packageCapacity>
+				<Type>		UINT32						</Type>
+			</_packageCapacity>
+			<seqList>
+				<Type>		PY_DICT						</Type>
+			</seqList>
+		</Properties>
+	</TEMPORARY_PACKAGE3>
+
+	<REPERTORY_PACKAGE3> FIXED_DICT
+		<implementedBy> package_common.PackageConvert3.repertoryPackageConvert3 </implementedBy>
+		<Properties>
+			<repertoryItemList>
+				<Type>		PY_DICT											</Type>
+			</repertoryItemList>
+			<repertoryCount>
+				<Type>		UINT32											</Type>
+			</repertoryCount>
+			<_packageCapacity>
+				<Type>		UINT32											</Type>
+			</_packageCapacity>
+			<layoutInfoList>
+				<Type> 		PY_DICT											</Type>
+			</layoutInfoList>
+		</Properties>
+	</REPERTORY_PACKAGE3>
+
+	<MISSION_PACKAGE2> FIXED_DICT
+		<implementedBy> package_common.PackageConvert.missionPackageConvert	</implementedBy>
+		<Properties>
+			<rawItemList>
+				<Type> 		ARRAY <of> ITEM_DATA </of>	</Type>
+ 			</rawItemList>
+			<_packageCapacity>
+				<Type> 		UINT32				</Type>
+			</_packageCapacity>
+		</Properties>
+	</MISSION_PACKAGE2>
+
+	<TEMPORARY_PACKAGE2> FIXED_DICT
+		<implementedBy> package_common.PackageConvert.temporarypacakgeConvert </implementedBy>
+		<Properties>
+			<rawItemList>
+				<Type> 		ARRAY <of> ITEM_DATA </of>	</Type>
+ 			</rawItemList>
+			<_packageCapacity>
+				<Type>		UINT32				</Type>
+			</_packageCapacity>
+			<seqList>
+				<Type>		PY_DICT				</Type>
+			</seqList>
+		</Properties>
+	</TEMPORARY_PACKAGE2>
+
+	<REPERTORY_PACKAGE2> FIXED_DICT
+		<implementedBy> package_common.PackageConvert.repertoryPackageConvert </implementedBy>
+		<Properties>
+			<rawRepertoryItemList>
+				<Type> 		ARRAY <of> REPERTORY_ITEM_DATA </of>	</Type>
+			</rawRepertoryItemList>
+			<_packageCapacity>
+				<Type>		UINT32				</Type>
+			</_packageCapacity>
+			<repertoryCount>
+				<Type>		UINT8				</Type>
+			</repertoryCount>
+			<rawItemList>
+				<Type> 		ARRAY <of> ITEM_DATA </of>	</Type>
+ 			</rawItemList>
+		</Properties>
+	</REPERTORY_PACKAGE2>
+
+	<COSTUME_PACKAGE2> FIXED_DICT
+		<implementedBy> package_common.PackageConvert.costumePackageConvert	</implementedBy>
+		<Properties>
+			<rawItemList>
+				<Type> 		ARRAY <of> ITEM_DATA </of>	</Type>
+ 			</rawItemList>
+			<_packageCapacity>
+				<Type> 		UINT32				</Type>
+			</_packageCapacity>
+		</Properties>
+	</COSTUME_PACKAGE2>
+
+	<VEHICLE_PACKAGE2> FIXED_DICT
+		<implementedBy> package_common.PackageConvert.vehiclePackageConvert </implementedBy>
+		<Properties>
+			<rawItemList>
+				<Type> 		ARRAY <of> ITEM_DATA </of>	</Type>
+ 			</rawItemList>
+			<_packageCapacity>
+				<Type>		UINT32				</Type>
+			</_packageCapacity>
+		</Properties>
+	</VEHICLE_PACKAGE2>
+
+	<!-- Team System -->
+	<GID>				NUID		</GID>
+	<TEAM_ID>				NUID			</TEAM_ID>
+
+	<TASK_GEN_INFO> FIXED_DICT
+		<implementedBy> gen_entity_utils.taskGenInfoConverter </implementedBy>
+		<Properties>
+			<keyID>
+				<Type>		INT32			</Type>
+			</keyID>
+			<mapID>
+				<Type>		INT32			</Type>
+			</mapID>
+			<groupID>
+				<Type>		INT32			</Type>
+			</groupID>
+			<position>
+				<Type>		VECTOR3			</Type>
+			</position>
+			<taskID>
+				<Type>      TASK_ID			</Type>
+			</taskID>
+		</Properties>
+	</TASK_GEN_INFO>
+	<TASK_GEN_INFO_DICT> FIXED_DICT
+		<implementedBy> gen_entity_utils.taskGenDictConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of> TASK_GEN_INFO</of> </Type>
+			</elements>
+		</Properties>
+	</TASK_GEN_INFO_DICT>
+
+	<ENTITY_GROUP> FIXED_DICT
+		<implementedBy> EntityGroup.entityGroupConverter </implementedBy>
+		<Properties>
+			<spotid>
+				<Type>		ENTITY_ID			</Type>
+			</spotid>
+			<groupid>
+				<Type>		ENTITY_GROUP_IDX	</Type>
+			</groupid>
+			<groupidx>
+				<Type>		UINT32				</Type>
+			</groupidx>
+			<dynamic>
+				<Type>		BOOL				</Type>
+			</dynamic>
+			<entities>
+				<Type>	ARRAY <of> MAILBOX </of></Type>
+			</entities>
+			<entities_reloading>
+				<Type>	ARRAY <of> LONGTIME </of></Type>
+			</entities_reloading>
+			<valid_entities>
+				<Type>		UINT16				</Type>
+			</valid_entities>
+			<visible_entities>
+				<Type>		UINT16				</Type>
+			</visible_entities>
+			<delay_reload_timer>
+				<Type>		TIMER_ID			</Type>
+			</delay_reload_timer>
+			<reload_timer>
+				<Type>		TIMER_ID			</Type>
+			</reload_timer>
+			<reload_overtime_info>
+				<Type>	ARRAY <of> PYTHON </of>	</Type>
+			</reload_overtime_info>
+			<setFormationTimerID>
+				<Type>		TIMER_ID			</Type>
+			</setFormationTimerID>
+			<fadeTime>
+				<Type>		FLOAT				</Type>
+			</fadeTime>
+			<mapID>
+				<Type>		UINT32				</Type>
+			</mapID>
+			<creatorType>
+				<Type>		INT32				</Type>
+			</creatorType>
+			<creatorID>
+				<Type>		UINT64				</Type>
+			</creatorID>
+			<creatorMailBox>
+				<Type>		MAILBOX				</Type>
+			</creatorMailBox>
+		</Properties>
+	</ENTITY_GROUP>
+
+	<ENTITY_GROUP_DICT> FIXED_DICT
+		<implementedBy> EntityGroup.entityGroupDictConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of> ENTITY_GROUP </of>	</Type>
+			</elements>
+		</Properties>
+	</ENTITY_GROUP_DICT>
+
+	<DYNAMIC_ENTITY_GROUP_DICT> FIXED_DICT
+		<implementedBy> EntityGroup.dynamicEntityGroupDictConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of> ENTITY_GROUP </of>	</Type>
+			</elements>
+		</Properties>
+	</DYNAMIC_ENTITY_GROUP_DICT>
+
+	<!-- gm admin -->
+	<GM_GROUP>				UINT8				</GM_GROUP>
+	<GM_INDEX>				INT32				</GM_INDEX>
+	<GM_ERRCODE>			UINT8				</GM_ERRCODE>
+
+	<GM_COMMAND_ABSTRACT> FIXED_DICT
+		<Properties>
+			<index>
+				<Type>		GM_INDEX			</Type>
+			</index>
+			<name>
+				<Type>		STRING				</Type>
+			</name>
+		</Properties>
+	</GM_COMMAND_ABSTRACT>
+
+	<GM_PROXY> FIXED_DICT
+		<implementedBy> gm.GMProxy.gmProxyConverter </implementedBy>
+		<Properties>
+			<mailbox>
+				<Type>		MAILBOX				</Type>
+			</mailbox>
+			<name>
+				<Type>		STRING				</Type>
+			</name>
+			<group>
+				<Type>		GM_GROUP			</Type>
+			</group>
+			<feedback>
+				<Type>		BOOL				</Type>
+			</feedback>
+			<command>
+				<Type>		GM_COMMAND_ABSTRACT	</Type>
+			</command>
+			<args>
+				<Type>  PYTHON </Type>
+			</args>>
+		</Properties>
+	</GM_PROXY>
+	<!-- gm admin end -->
+	<BEST_EQUIP_INFO> FIXED_DICT
+		<Properties>
+			<part>
+				<Type> INT32 </Type>
+			</part>
+			<equipId>
+				<Type> ITEM_ID </Type>
+			</equipId>
+			<uuid>
+				<Type> ITEM_UUID </Type>
+			</uuid>
+			<force>
+				<Type> INT32 </Type>
+			</force>
+		</Properties>
+	</BEST_EQUIP_INFO>
+	<ITEM_INFO> FIXED_DICT
+		<implementedBy>	item.Item.itemInfoConverter	</implementedBy>
+		<Properties>
+			<itemId>
+				<Type>		INT32		</Type>
+			</itemId>
+			<uuid>
+				<Type>		UUID		</Type>
+			</uuid>
+		</Properties>
+	</ITEM_INFO>
+	<ITEM_DETAIL_INFO> FIXED_DICT
+		<implementedBy>	item.Item.itemDetailInfoConverter	</implementedBy>
+		<Parent>	ITEM_INFO		</Parent>
+		<Properties>
+			<info>
+				<Type>		PY_DICT		</Type>
+			</info>
+		</Properties>
+	</ITEM_DETAIL_INFO>
+	<ONLINE_AVATAR> FIXED_DICT
+		<implementedBy> OnlineData.onlineDataConverter </implementedBy>
+		<Properties>
+			<databaseID>
+				<Type>		DBID				</Type>
+			</databaseID>
+			<gid>
+				<Type>		GID					</Type>
+			</gid>
+			<urs>
+				<Type>		KEY_NAME			</Type>
+			</urs>
+			<name>
+				<Type>		STRING				</Type>
+			</name>
+			<mailbox>
+				<Type>		MAILBOX				</Type>
+			</mailbox>
+			<mapID>
+				<Type> 		MAP_ID				</Type>
+			</mapID>
+			<level>
+				<Type> 		INT32				</Type>
+			</level>
+			<onlineStatus>
+				<Type> 		INT8				</Type>
+			</onlineStatus>
+			<characterType>
+				<Type> UINT32 </Type>
+			</characterType>
+			<score>
+				<Type>	INT32		</Type>
+			</score>
+		</Properties>
+	</ONLINE_AVATAR>
+	<STREAM> FIXED_DICT
+		<Properties>
+			<stream>
+				<Type>	PYTHON	</Type>
+			</stream>
+		</Properties>
+	</STREAM>
+	<STREAM_4MB> FIXED_DICT
+		<Properties>
+			<stream>
+				<Type>	PYTHON	</Type>
+				<DatabaseLength> 4194304 </DatabaseLength> <!-- 4 MB -->
+			</stream>
+		</Properties>
+	</STREAM_4MB>
+	<STREAM_4MB_NEW> FIXED_DICT
+		<Properties>
+			<stream>
+				<Type>	BLOB	</Type>
+				<DatabaseLength> 4194304 </DatabaseLength> <!-- 4 MB -->
+			</stream>
+		</Properties>
+	</STREAM_4MB_NEW>
+	<STREAM_ARRAY> FIXED_DICT
+		<implementedBy> UserDictType.commonStreamDictConverter </implementedBy>
+		<Properties>
+			<streamList>
+				<Type>	ARRAY <of> PYTHON </of> </Type>
+				<DatabaseLength> 1048575 </DatabaseLength> <!-- 1MB -->
+			</streamList>
+		</Properties>
+	</STREAM_ARRAY>
+	<LIST_STREAM_ARRAY> FIXED_DICT
+		<implementedBy> UserDictType.commonStreamListConverter</implementedBy>
+		<Properties>
+			<streamList>
+				<Type>	ARRAY <of> PYTHON </of> </Type>
+				<DatabaseLength> 1048575 </DatabaseLength> <!-- 1MB -->
+			</streamList>
+		</Properties>
+	</LIST_STREAM_ARRAY>
+	<EQUIP_RANK_STREAM_ARRAY> FIXED_DICT
+		<implementedBy> UserDictType.equipRankStreamListConverter </implementedBy>
+		<Properties>
+			<streamList>
+				<Type>	ARRAY <of> PYTHON </of> </Type>
+				<DatabaseLength> 1048575 </DatabaseLength> <!-- 1MB -->
+			</streamList>
+		</Properties>
+	</EQUIP_RANK_STREAM_ARRAY>
+	<BUCKET_RANK_LIST> FIXED_DICT
+		<implementedBy> RankList.bucketRankListConverter </implementedBy>
+		<Parent> STREAM_ARRAY	</Parent>
+		<Properties>
+		</Properties>
+	</BUCKET_RANK_LIST>
+	<BUCKET_RANK_LIST_NO_ORDER> FIXED_DICT
+		<implementedBy> RankList.bucketRankListNoOrderConverter </implementedBy>
+		<Parent> STREAM_ARRAY	</Parent>
+		<Properties>
+		</Properties>
+	</BUCKET_RANK_LIST_NO_ORDER>
+	<RANK_DATA> FIXED_DICT
+		<Properties>
+			<gid>
+				<Type>		GID			 </Type>
+			</gid>
+			<nickname>
+				<Type>		STRING				</Type>
+			</nickname>
+			<nationalFlag>
+				<Type>		STRING				</Type>
+			</nationalFlag>
+			<value>
+				<Type>		INT32				</Type>
+			</value>
+		</Properties>
+	</RANK_DATA>
+	<BATTLE_GROUND_RANK_DATA> FIXED_DICT
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<identifyTagID>
+				<Type>		INT32				</Type>
+			</identifyTagID>
+		</Properties>
+	</BATTLE_GROUND_RANK_DATA>
+	<FORCE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.forceRankDataConverter</implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+		</Properties>
+	</FORCE_RANK_DATA>
+
+	<DTS_FORCE_RANK_DATA> FIXED_DICT
+        <implementedBy> RankData.battleGroundForceRankDataConverter </implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<winRate>
+				<Type> FLOAT </Type>
+			</winRate>
+			<topFiveRate>
+				<Type> FLOAT </Type>
+			</topFiveRate>
+			<killDeathRate>
+				<Type> FLOAT </Type>
+			</killDeathRate>
+		</Properties>
+	</DTS_FORCE_RANK_DATA>
+
+	<DTS_WIN_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.battleGroundWinningRankDataConverter </implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<winRate>
+				<Type> FLOAT </Type>
+			</winRate>
+			<topFiveCount>
+				<Type> UINT32 </Type>
+			</topFiveCount>
+			<topFiveRate>
+				<Type> FLOAT </Type>
+			</topFiveRate>
+		</Properties>
+	</DTS_WIN_RANK_DATA>
+
+	<DTS_KILL_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.battleGroundKillingRankDataConverter </implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<killCombo>
+				<Type> UINT16 </Type>
+			</killCombo>
+			<killDeathRate>
+				<Type> FLOAT </Type>
+			</killDeathRate>
+			<headshotRate>
+				<Type> FLOAT </Type>
+			</headshotRate>
+		</Properties>
+	</DTS_KILL_RANK_DATA>
+
+	<ROS_MATCH_TEAM_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.rosMatchTeamRankDataConverter </implementedBy>
+		<Properties>
+			<teamID>
+				<Type> INT64	</Type>
+			</teamID>
+			<name>
+				<Type> STRING	</Type>
+			</name>
+			<logo>
+				<Type> STRING	</Type>
+			</logo>
+			<logoType>
+				<Type> INT8	</Type>
+			</logoType>
+			<logoState>
+				<Type> INT8	</Type>
+			</logoState>
+			<value>
+				<Type> INT32	</Type>
+			</value>
+			<sumScore>
+				<Type> INT32	</Type>
+			</sumScore>
+			<nation>
+				<Type> STRING	</Type>
+			</nation>
+			<exp>
+				<Type> INT32	</Type>
+			</exp>
+			<act>
+				<Type> INT32	</Type>
+			</act>
+			<memberCnt>
+				<Type> INT16	</Type>
+			</memberCnt>
+			<memberMax>
+				<Type> INT16	</Type>
+			</memberMax>
+		</Properties>
+	</ROS_MATCH_TEAM_RANK_DATA>
+
+	<ROS_MATCH_QUALITIER_SCORE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.rosMatchQualifierScoreRankDataConverter </implementedBy>
+		<Properties>
+			<teamID>
+				<Type> STRING	</Type>
+			</teamID>
+			<name>
+				<Type> STRING	</Type>
+			</name>
+			<value>
+				<Type> INT32	</Type>
+			</value>
+		</Properties>
+	</ROS_MATCH_QUALITIER_SCORE_RANK_DATA>
+
+	<PRIZE_MATCH_SCORE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.prizeMatchScoreRankDataConverter </implementedBy>
+		<Parent> RANK_DATA </Parent>
+		<Properties>
+			<times>
+				<Type> INT32	</Type>
+			</times>
+		</Properties>
+	</PRIZE_MATCH_SCORE_RANK_DATA>
+
+	<XMAS_GIFTS_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.xmasGiftsRankDataConverter </implementedBy>
+		<Parent> RANK_DATA </Parent>
+		<Properties>
+			<characterType>
+				<Type> UINT32 </Type>
+			</characterType>
+			<portrait>
+				<Type> STRING </Type>
+			</portrait>
+		</Properties>
+	</XMAS_GIFTS_RANK_DATA>
+
+	<YUANBAO_BATTLE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.yuanbaoBattleRankDataConverter	</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<sumYB>
+				<Type> INT32	</Type>
+			</sumYB>
+			<maxYB>
+				<Type> INT32	</Type>
+			</maxYB>
+			<sumWin>
+				<Type> INT32	</Type>
+			</sumWin>
+		</Properties>
+	</YUANBAO_BATTLE_RANK_DATA>
+
+	<GOLD_BATTLE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.goldBattleRankDataConverter	</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<sumCoin>
+				<Type> INT32	</Type>
+			</sumCoin>
+			<maxCoin>
+				<Type> INT32	</Type>
+			</maxCoin>
+			<sumWin>
+				<Type> INT32	</Type>
+			</sumWin>
+		</Properties>
+	</GOLD_BATTLE_RANK_DATA>
+
+	<DTS_WEEKEND_PUSH_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.battleGroundWeekendPushRankDataConverter	</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<gameCount>
+				<Type> INT32	</Type>
+			</gameCount>
+			<topFiveRate>
+				<Type> FLOAT	</Type>
+			</topFiveRate>
+		</Properties>
+	</DTS_WEEKEND_PUSH_RANK_DATA>
+	<DTS_CAMP_WAR_HUMAN_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.campWarHumanRankDataConverter	</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<topCount>
+				<Type> INT32	</Type>
+			</topCount>
+			<clearCount>
+				<Type> INT32	</Type>
+			</clearCount>
+			<liveTime>
+				<Type> FLOAT	</Type>
+			</liveTime>
+		</Properties>
+	</DTS_CAMP_WAR_HUMAN_RANK_DATA>
+	<DTS_CAMP_WAR_INFECT_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.campWarInfectRankDataConverter	</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<topCount>
+				<Type> INT32	</Type>
+			</topCount>
+			<infectCount>
+				<Type> INT32	</Type>
+			</infectCount>
+			<averageDamage>
+				<Type> FLOAT	</Type>
+			</averageDamage>
+		</Properties>
+	</DTS_CAMP_WAR_INFECT_RANK_DATA>
+	<DTS_CAMP_WAR_OVERALL_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.campWarOverallRankDataConverter</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<mvpCount>
+				<Type> INT32	</Type>
+			</mvpCount>
+			<killCount>
+				<Type> INT32	</Type>
+			</killCount>
+			<gameCount>
+				<Type> INT32	</Type>
+			</gameCount>
+		</Properties>
+	</DTS_CAMP_WAR_OVERALL_RANK_DATA>
+
+	<HOT_VAL_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.hotValRankDataConverter</implementedBy>
+		<Parent> RANK_DATA </Parent>
+		<Properties>
+			<serverID>
+				<Type> INT32	</Type>
+			</serverID>
+		</Properties>
+	</HOT_VAL_RANK_DATA>
+
+	<WEAPON_PROFICIENCY_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.weaponProficiencyRankDataConverter</implementedBy>
+		<Parent> BATTLE_GROUND_RANK_DATA </Parent>
+		<Properties>
+			<proficiency>
+				<Type> INT32	</Type>
+			</proficiency>
+			<accumulateDamage>
+				<Type> INT32	</Type>
+			</accumulateDamage>
+			<hitRate>
+				<Type> FLOAT	</Type>
+			</hitRate>
+		</Properties>
+	</WEAPON_PROFICIENCY_RANK_DATA>
+	<LEVEL_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.levelRankDataConverter</implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+		</Properties>
+	</LEVEL_RANK_DATA>
+	<PVP_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.pvpRankDataConverter	</implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+		</Properties>
+	</PVP_RANK_DATA>
+	<CHALLENGE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.challengeRankDataConverter </implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+		</Properties>
+	</CHALLENGE_RANK_DATA>
+	<RACING_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.racingRankDataConverter </implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+		</Properties>
+	</RACING_RANK_DATA>
+	<BATTLE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.battleRankDataConverter </implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+		</Properties>
+	</BATTLE_RANK_DATA>
+	<EQUIP_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.equipRankDataConverter </implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<bestEquip>
+				<Type>		PY_DICT				</Type>
+			</bestEquip>
+		</Properties>
+	</EQUIP_RANK_DATA>
+	<DUNGEON_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.dungeonRankDataConverter </implementedBy>
+		<Parent>	RANK_DATA		</Parent>
+		<Properties>
+			<level>
+				<Type>		INT32				</Type>
+			</level>
+			<rank>
+				<Type>		INT32				</Type>
+			</rank>
+			<legionName>
+				<Type>		STRING	 			</Type>
+			</legionName>
+			<firstInSameRank>
+				<Type>		BOOL	 			</Type>
+			</firstInSameRank>
+		</Properties>
+	</DUNGEON_RANK_DATA>
+	<LEGION_RANK_DATA> FIXED_DICT
+		<Properties>
+			<legionGID>
+				<Type>		GID			 </Type>
+			</legionGID>
+			<legionName>
+				<Type>		STRING				</Type>
+			</legionName>
+			<leaderName>
+				<Type>		STRING				</Type>
+			</leaderName>
+		</Properties>
+	</LEGION_RANK_DATA>
+	<LEGION_FORCE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.legionForceRankDataConverter</implementedBy>
+		<Parent>	LEGION_RANK_DATA		</Parent>
+		<Properties>
+			<force>
+				<Type>		INT32				</Type>
+			</force>
+		</Properties>
+	</LEGION_FORCE_RANK_DATA>
+	<LEGION_GENERAL_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.legionGeneralRankDataConverter</implementedBy>
+		<Parent>	LEGION_RANK_DATA		</Parent>
+		<Properties>
+			<legionMemberNum>
+				<Type>		INT32				</Type>
+			</legionMemberNum>
+		</Properties>
+	</LEGION_GENERAL_RANK_DATA>
+	<LEGION_ACTIVENESS_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.legionActivenessRankDataConverter</implementedBy>
+		<Parent>	LEGION_RANK_DATA		</Parent>
+		<Properties>
+			<activeness>
+				<Type>		INT32				</Type>
+			</activeness>
+		</Properties>
+	</LEGION_ACTIVENESS_RANK_DATA>
+	<LEGION_PVP_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.legionPVPRankDataConverter</implementedBy>
+		<Parent>	LEGION_RANK_DATA		</Parent>
+		<Properties>
+			<pvpScore>
+				<Type>		INT32				</Type>
+			</pvpScore>
+		</Properties>
+	</LEGION_PVP_RANK_DATA>
+	<LEGION_PVE_RANK_DATA> FIXED_DICT
+		<implementedBy> RankData.legionPVERankDataConverter</implementedBy>
+		<Parent>	LEGION_RANK_DATA		</Parent>
+		<Properties>
+			<pveScore>
+				<Type>		INT32				</Type>
+			</pveScore>
+		</Properties>
+	</LEGION_PVE_RANK_DATA>
+
+	<PLAYER_RANK_ITEM> FIXED_DICT
+		<implementedBy>	RankData.playerRankItemConverter</implementedBy>
+		<Properties>
+			<rankType>
+				<Type>		INT32		</Type>
+			</rankType>
+			<isOpen>
+				<Type>		BOOL		</Type>
+			</isOpen>
+			<rank>
+				<Type>		INT32		</Type>
+			</rank>
+			<rankValue>
+				<Type>		INT32		</Type>
+			</rankValue>
+			<maxRank>
+				<Type>		INT32		</Type>
+			</maxRank>
+			<maxRankValue>
+				<Type>		INT32		</Type>
+			</maxRankValue>
+		</Properties>
+	</PLAYER_RANK_ITEM>
+	<PLAYER_RANK_RECORD> FIXED_DICT
+		<implementedBy>	RankData.playerRankRecordConverter</implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of> PLAYER_RANK_ITEM	</of>	</Type>
+			</elements>
+		</Properties>
+	</PLAYER_RANK_RECORD>
+
+	<TRANSFER_RECORD> FIXED_DICT
+		<implementedBy>	TransferRecord.transferRecordConverter	</implementedBy>
+		<Properties>
+			<worldMapID>
+				<Type>		INT32				</Type>
+			</worldMapID>
+			<worldMapPosition>
+				<Type>		VECTOR3				</Type>
+			</worldMapPosition>
+			<worldMapDirection>
+				<Type>		VECTOR3				</Type>
+			</worldMapDirection>
+		</Properties>
+	</TRANSFER_RECORD>
+
+
+	<VEHICLE_FOLLOW_INFO> FIXED_DICT
+		<Properties>
+			<targetID>
+				<Type>		INT32		</Type>
+			</targetID>
+			<dstPos>
+				<Type>		VECTOR3		</Type>
+			</dstPos>
+		</Properties>
+	</VEHICLE_FOLLOW_INFO>
+
+	<VEHICLE_SWITCH_PARAM> FIXED_DICT
+		<Properties>
+			<paraName>
+				<Type>		STRING		</Type>
+			</paraName>
+			<paraValue>
+				<Type>		STRING		</Type>
+			</paraValue>
+			<socketNames>
+				<Type>	ARRAY <of> STRING </of>	</Type>
+			</socketNames>
+			<socketIds>
+				<Type>	ARRAY <of> INT32 </of>	</Type>
+			</socketIds>
+		</Properties>
+	</VEHICLE_SWITCH_PARAM>
+
+	<AVATAR_VEHICLE_CLIENT_STATUS> FIXED_DICT
+		<Properties>
+			<switchParam>
+				<Type>		VEHICLE_SWITCH_PARAM		</Type>
+			</switchParam>
+		</Properties>
+	</AVATAR_VEHICLE_CLIENT_STATUS>
+
+	<MONSTER_VEHICLE_CLIENT_STATUS> FIXED_DICT
+		<Properties>
+			<driving>
+				<Type>		INT32		</Type>
+			</driving>
+			<showHpBar>
+				<Type>		BOOL				</Type>
+			</showHpBar>
+			<showTip>
+				<Type>		BOOL		</Type>
+			</showTip>
+			<physicsClosedLos>
+				<Type>		INT32				</Type>
+			</physicsClosedLos>
+			<following>
+				<Type>		VEHICLE_FOLLOW_INFO			</Type>
+			</following>
+			<switchParam>
+				<Type>		VEHICLE_SWITCH_PARAM		</Type>
+			</switchParam>
+		</Properties>
+	</MONSTER_VEHICLE_CLIENT_STATUS>
+
+	<FRIEND_INFO> FIXED_DICT
+		<implementedBy>		friend_data.friendInfoConverter		</implementedBy>
+		<Properties>
+			<serverID>
+				<Type>		INT32				</Type>
+				<Persistent>	false	</Persistent>
+			</serverID>
+			<gid>
+				<Type>		GID			</Type>
+				<Persistent>	true	</Persistent>
+			</gid>
+			<createTime>
+				<Type>		LONGTIME		</Type>
+				<Persistent>	true	</Persistent>
+			</createTime>
+			<nickname>
+				<Type>		STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</nickname>
+			<characterType>
+				<Type>		UINT32		</Type>
+				<Persistent>	false	</Persistent>
+			</characterType>
+			<score>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</score>
+			<identifyTagID>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</identifyTagID>
+			<isHuiliu>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</isHuiliu>
+			<dtsLevel>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</dtsLevel>
+			<huiliuOnlineTime>
+				<Type>	INT32		</Type>
+				<Persistent>	true	</Persistent>
+			</huiliuOnlineTime>
+			<nationalFlag>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</nationalFlag>
+			<portrait>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</portrait>
+			<headFrameTag>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</headFrameTag>				
+			<fbID>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</fbID>
+			<intimacyDegree>
+				<Type>	UINT32		</Type>
+			</intimacyDegree>
+			<xmasBallInfo>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</xmasBallInfo>
+			<hasBackThisSeason>
+				<Type>	INT32		</Type>
+				<Persistent>	true	</Persistent>
+			</hasBackThisSeason>
+			<applyFriendRemarkType>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</applyFriendRemarkType>
+			<applyFriendRemarkContent>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</applyFriendRemarkContent>
+		</Properties>
+	</FRIEND_INFO>
+
+	<FRIEND_ABSTRACT> FIXED_DICT
+		<implementedBy>		friend_data.friendAbstractConverter		</implementedBy>
+		<Properties>
+			<serverID>
+				<Type>		INT32				</Type>
+			</serverID>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<gid>
+				<Type>		GID		</Type>
+			</gid>
+			<characterType>
+				<Type>		UINT32		</Type>
+				<Persistent>	false	</Persistent>
+			</characterType>
+			<score>
+				<Type>	INT32		</Type>
+			</score>
+			<identifyTagID>
+				<Type>	INT32		</Type>
+			</identifyTagID>
+			<isHuiliu>
+				<Type>	INT32		</Type>
+			</isHuiliu>
+			<dtsLevel>
+				<Type>	INT32		</Type>
+			</dtsLevel>
+			<huiliuOnlineTime>
+				<Type>		INT32		</Type>
+			</huiliuOnlineTime>
+			<nationalFlag>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</nationalFlag>
+			<portrait>
+				<Type>	STRING		</Type>
+			</portrait>
+			<headFrameTag>
+				<Type>	INT32		</Type>
+			</headFrameTag>
+			<fbID>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</fbID>
+			<intimacyDegree>
+				<Type>	UINT32		</Type>
+			</intimacyDegree>
+			<xmasBallInfo>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</xmasBallInfo>
+			<hasBackThisSeason>
+				<Type>		INT32		</Type>
+			</hasBackThisSeason>
+			<applyFriendRemarkType>
+				<Type>	INT32		</Type>
+				<Persistent>	false	</Persistent>
+			</applyFriendRemarkType>
+			<applyFriendRemarkContent>
+				<Type>	STRING		</Type>
+				<Persistent>	false	</Persistent>
+			</applyFriendRemarkContent>
+		</Properties>
+	</FRIEND_ABSTRACT>
+
+	<FRIEND_LISTS> FIXED_DICT
+		<implementedBy>		friend_data.friendListsConverter	</implementedBy>
+		<Properties>
+			<normalFriendList>
+				<Type>			ARRAY <of>	FRIEND_INFO </of>	</Type>
+			</normalFriendList>
+			<requestFriendList>
+				<Type>			ARRAY <of>	FRIEND_INFO </of>	</Type>
+			</requestFriendList>
+			<tempFriendList>
+				<Type>			ARRAY <of>	FRIEND_INFO </of>	</Type>
+			</tempFriendList>
+			<strangers>
+				<Type>			ARRAY <of>	FRIEND_INFO </of>	</Type>
+				<Persistent>		false	</Persistent>
+			</strangers>
+			<nearByFriends>
+				<Type>			ARRAY <of>	FRIEND_INFO </of>	</Type>
+			</nearByFriends>
+			<normalFriends>
+				<Type>			ARRAY <of>	PYTHON		</of>	</Type>
+			</normalFriends>
+		</Properties>
+	</FRIEND_LISTS>
+
+	<OFFLINE_MAIL_TRANSFER> FIXED_DICT
+		<implementedBy>		TransferRecord.offlineMailTransferConverter		</implementedBy>
+		<Properties>
+			<arr>
+				<Type>	ARRAY <of>	INT32	</of> </Type>
+			</arr>
+		</Properties>
+	</OFFLINE_MAIL_TRANSFER>
+
+	<CAMP_TYPE> FIXED_DICT
+		<implementedBy>		camp_utils.campInfoConverter </implementedBy>
+		<Properties>
+			<camp>
+				<Type>		UINT8		</Type>
+			</camp>
+			<legionGID>
+				<Type>		GID		</Type>
+			</legionGID>
+			<teamID>
+				<Type>		GID		</Type>
+			</teamID>
+			<campWarID>
+				<Type>		UINT8		</Type>
+			</campWarID>
+		</Properties>
+	</CAMP_TYPE>
+
+	<MASTER_SKILL_INFO> FIXED_DICT
+		<Properties>
+			<masterSkillID>
+				<Type> INT32 </Type>
+			</masterSkillID>
+
+			<masterSkillLevel>
+				<Type> INT32</Type>
+			</masterSkillLevel>
+		</Properties>
+	</MASTER_SKILL_INFO>
+	<BATTLE_GAME_RESULT_ITEM> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<nickname>
+				<Type>	STRING		</Type>
+			</nickname>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+			<level>
+				<Type>	INT32		</Type>
+			</level>
+			<mainWeapon>
+				<Type>	INT32		</Type>
+			</mainWeapon>
+			<kill>
+				<Type>	INT32		</Type>
+			</kill>
+			<die>
+				<Type>	INT32		</Type>
+			</die>
+			<characterType>
+				<Type>	INT32		</Type>
+			</characterType>
+
+            <rankDValue>
+                <Type> INT32        </Type>
+            </rankDValue>
+		</Properties>
+	</BATTLE_GAME_RESULT_ITEM>
+	<BATTLE_GAME_RESULT> FIXED_DICT
+		<Properties>
+			<aces>
+				<Type>	ARRAY <of>	INT32	</of> <size> 2 </size>	</Type>
+			</aces>
+			<campKill>
+				<Type>	ARRAY <of>	INT32	</of> <size> 2 </size>	</Type>
+			</campKill>
+			<redCampPlayers>
+				<Type>	ARRAY <of>	BATTLE_GAME_RESULT_ITEM </of>	</Type>
+			</redCampPlayers>
+			<blueCampPlayers>
+				<Type>	ARRAY <of>	BATTLE_GAME_RESULT_ITEM </of>	</Type>
+			</blueCampPlayers>
+		</Properties>
+	</BATTLE_GAME_RESULT>
+	<BASE_CAMP_DATA> FIXED_DICT
+		<implementedBy>		GameData.baseCampDataConverter	</implementedBy>
+		<Properties>
+			<kill>
+				<Type>		INT32		</Type>
+			</kill>
+			<players>
+				<Type> ARRAY <of>	INT32	</of>	</Type>
+			</players>
+		</Properties>
+	</BASE_CAMP_DATA>
+	<BASE_CAMP_DATA_DICT> FIXED_DICT
+		<implementedBy>		GameData.campDataDictConverter	</implementedBy>
+		<Properties>
+			<Red>
+				<Type>		BASE_CAMP_DATA		</Type>
+			</Red>
+			<Blue>
+				<Type>		BASE_CAMP_DATA		</Type>
+			</Blue>
+		</Properties>
+	</BASE_CAMP_DATA_DICT>
+	<COMMON_CAMP_PLAYER_ITEM> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<playerGID>
+				<Type>	GID		</Type>
+			</playerGID>
+			<nickname>
+				<Type>  STRING		</Type>
+			</nickname>
+			<kill>
+				<Type>	INT32		</Type>
+			</kill>
+			<headshotKill>
+				<Type> INT32 </Type>
+			</headshotKill>
+			<robotKill>
+				<Type> INT32 </Type>
+			</robotKill>
+			<die>
+				<Type>	INT32		</Type>
+			</die>
+			<alive>
+				<Type>  BOOL 		</Type>
+			</alive>
+			<latency>
+				<Type>  INT16 		</Type>
+			</latency>
+			<score>
+				<Type>	INT32		</Type>
+			</score>
+			<isRobot>
+				<Type>	BOOL		</Type>
+			</isRobot>
+		</Properties>
+	</COMMON_CAMP_PLAYER_ITEM>
+	<COMMON_CAMP_DATA> FIXED_DICT
+		<Properties>
+			<playersData>
+				<Type> ARRAY <of>	COMMON_CAMP_PLAYER_ITEM	</of>	</Type>
+			</playersData>
+		</Properties>
+	</COMMON_CAMP_DATA>
+
+	<BATTLE_CAMP_PLAYER_ITEM> FIXED_DICT
+		<Parent>	COMMON_CAMP_PLAYER_ITEM	</Parent>
+		<Properties>
+		</Properties>
+	</BATTLE_CAMP_PLAYER_ITEM>
+	<BATTLE_CAMP_DATA> FIXED_DICT
+		<Parent>	COMMON_CAMP_DATA	</Parent>
+		<implementedBy>		GameData.battleCampDataConverter	</implementedBy>
+		<Properties>
+			<kill>
+				<Type>		INT32		</Type>
+			</kill>
+			<playersData>
+				<Type> ARRAY <of>	BATTLE_CAMP_PLAYER_ITEM	</of>	</Type>
+			</playersData>
+		</Properties>
+	</BATTLE_CAMP_DATA>
+	<BATTLE_CAMP_DATA_DICT> FIXED_DICT
+		<implementedBy>		GameData.campDataDictConverter	</implementedBy>
+		<Properties>
+			<Red>
+				<Type>		BATTLE_CAMP_DATA		</Type>
+			</Red>
+			<Blue>
+				<Type>		BATTLE_CAMP_DATA		</Type>
+			</Blue>
+		</Properties>
+	</BATTLE_CAMP_DATA_DICT>
+	<BLAST_CAMP_PLAYER_ITEM> FIXED_DICT
+		<Parent>		COMMON_CAMP_PLAYER_ITEM			</Parent>
+		<Properties>
+			<hasC4>
+				<Type>		BOOL				</Type>
+			</hasC4>
+		</Properties>
+	</BLAST_CAMP_PLAYER_ITEM>
+	<BLAST_CAMP_DATA> FIXED_DICT
+		<implementedBy>		GameData.blastCampDataConverter	</implementedBy>
+		<Properties>
+			<winRound>
+				<Type>		INT32		</Type>
+			</winRound>
+			<playersData>
+				<Type> ARRAY <of>	BLAST_CAMP_PLAYER_ITEM	</of>	</Type>
+			</playersData>
+		</Properties>
+	</BLAST_CAMP_DATA>
+	<BLAST_CAMP_DATA_DICT> FIXED_DICT
+		<implementedBy>		GameData.campDataDictConverter	</implementedBy>
+		<Properties>
+			<Red>
+				<Type>		BLAST_CAMP_DATA		</Type>
+			</Red>
+			<Blue>
+				<Type>		BLAST_CAMP_DATA		</Type>
+			</Blue>
+		</Properties>
+	</BLAST_CAMP_DATA_DICT>
+	<SINGLE_BATTLE_GAME_RESULT_ITEM> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<nickname>
+				<Type>	STRING		</Type>
+			</nickname>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+			<level>
+				<Type>	INT32		</Type>
+			</level>
+			<mainWeapon>
+				<Type>	INT32		</Type>
+			</mainWeapon>
+			<kill>
+				<Type>	INT32		</Type>
+			</kill>
+			<die>
+				<Type>	INT32		</Type>
+			</die>
+			<characterType>
+				<Type>	INT32		</Type>
+			</characterType>
+			<rankDValue>
+				<Type>	INT32		</Type>
+			</rankDValue>
+		</Properties>
+	</SINGLE_BATTLE_GAME_RESULT_ITEM>
+	<SINGLE_BATTLE_GAME_RESULT> FIXED_DICT
+		<Properties>
+			<players>
+				<Type>	ARRAY <of>	SINGLE_BATTLE_GAME_RESULT_ITEM </of>	</Type>
+			</players>
+		</Properties>
+	</SINGLE_BATTLE_GAME_RESULT>
+	<SINGLE_BATTLE_CAMP_RECORD_ITEM> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<nickname>
+				<Type>  STRING		</Type>
+			</nickname>
+			<kill>
+				<Type>	INT32		</Type>
+			</kill>
+			<die>
+				<Type>	INT32		</Type>
+			</die>
+			<alive>
+				<Type>  BOOL 		</Type>
+			</alive>
+			<latency>
+				<Type>  INT16 		</Type>
+			</latency>
+		</Properties>
+	</SINGLE_BATTLE_CAMP_RECORD_ITEM>
+	<SINGLE_BATTLE_CAMP_RECORD_DATA> FIXED_DICT
+		<implementedBy>		GameData.battleCampDataConverter	</implementedBy>
+		<Properties>
+			<kill>
+				<Type>		INT32		</Type>
+			</kill>
+			<playersData>
+				<Type> ARRAY <of>	SINGLE_BATTLE_CAMP_RECORD_ITEM	</of>	</Type>
+			</playersData>
+		</Properties>
+	</SINGLE_BATTLE_CAMP_RECORD_DATA>
+	<PLAYER_LOADING_INFO> FIXED_DICT
+		<Properties>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+			<!-- <nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<level>
+				<Type>		INT8		</Type>
+			</level>
+			<characterType>
+				<Type> 		INT16		</Type>
+			</characterType> -->
+		</Properties>
+	</PLAYER_LOADING_INFO>
+	<BATTLE_GROUND_CAMP_PLAYER_ITEM> FIXED_DICT
+		<Parent>	COMMON_CAMP_PLAYER_ITEM	</Parent>
+		<Properties>
+			<moveDis>
+				<Type>		FLOAT		</Type>
+			</moveDis>
+			<collectCount>
+				<Type>		INT16		</Type>
+			</collectCount>
+			<damage>
+				<Type>	INT32		</Type>
+			</damage>
+			<healTeammate>
+				<Type> 		INT16		</Type>
+			</healTeammate>
+			<destroyVehicle>
+				<Type> 		INT32		</Type>
+			</destroyVehicle>
+			<athMailBox>
+				<Type>  GLOBAL_MAIL_BOX_INFO 		</Type>
+			</athMailBox>
+		</Properties>
+	</BATTLE_GROUND_CAMP_PLAYER_ITEM>
+	<BATTLE_GROUND_CAMP_DATA> FIXED_DICT
+		<implementedBy>		GameData.battleGroundCampDataConverter	</implementedBy>
+		<Properties>
+			<playersData>
+				<Type> ARRAY <of>	BATTLE_GROUND_CAMP_PLAYER_ITEM	</of>	</Type>
+			</playersData>
+		</Properties>
+	</BATTLE_GROUND_CAMP_DATA>
+
+	<UIPlayerMatchingInfo> FIXED_DICT
+		<Properties>
+			<playerNum>
+				 <Type>		UINT32		</Type>
+			</playerNum>
+		</Properties>
+	</UIPlayerMatchingInfo>
+
+	<RACE_GAME_RESULT_ITEM> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<nickname>
+				<Type>	STRING		</Type>
+			</nickname>
+			<racingTime>
+				<Type>	FLOAT	</Type>
+			</racingTime>
+			<characterType>
+				<Type>	INT32	</Type>
+			</characterType>
+		</Properties>
+	</RACE_GAME_RESULT_ITEM>
+
+	<TIME_TRIAL_RESULT_ITEM> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<nickname>
+				<Type>	STRING		</Type>
+			</nickname>
+			<characterType>
+				<Type>	INT32	</Type>
+			</characterType>
+			<totalTime>
+				<Type>	FLOAT	</Type>
+			</totalTime>
+			<nMaxCombo>
+				<Type>	INT32	</Type>
+			</nMaxCombo>
+			<killNum>
+				<Type>	INT32	</Type>
+			</killNum>
+			<totalPoints>
+				<Type>	INT32	</Type>
+			</totalPoints>
+		</Properties>
+	</TIME_TRIAL_RESULT_ITEM>
+
+	<RACER_RANK_DATA> FIXED_DICT
+		<Properties>
+			<playerID>
+				<Type>	INT32		</Type>
+			</playerID>
+			<nickname>
+				<Type>	STRING		</Type>
+			</nickname>
+			<rank>
+				<Type>	INT32		</Type>
+			</rank>
+		</Properties>
+	</RACER_RANK_DATA>
+
+	<RACE_GAME_RESULT> FIXED_DICT
+		<Properties>
+			<racersData>
+				<Type>	ARRAY <of>	RACE_GAME_RESULT_ITEM </of>	</Type>
+			</racersData>
+		</Properties>
+	</RACE_GAME_RESULT>
+
+	<TIME_TRIAL_GAME_RESULT> FIXED_DICT
+		<Properties>
+			<racersData>
+				<Type>	ARRAY <of>	TIME_TRIAL_RESULT_ITEM </of>	</Type>
+			</racersData>
+		</Properties>
+	</TIME_TRIAL_GAME_RESULT>
+
+	<SIGNED_ITEM> FIXED_DICT
+		<Properties>
+			<itemId>
+				<Type> 		INT32		</Type>
+			</itemId>
+			<itemCount>
+				<Type>  	INT32		</Type>
+			</itemCount>
+			<lvVIP>
+				<Type> 		INT8		</Type>
+			</lvVIP>
+		</Properties>
+	</SIGNED_ITEM>
+	<ROBOT_PROPERTY> FIXED_DICT
+		<Properties>
+			<baseNickname>
+				<Type>	KEY_NAME		</Type>
+			</baseNickname>
+			<gid>
+				<Type>	GID			</Type>
+			</gid>
+			<level>
+				<Type>	INT32			</Type>
+			</level>
+			<force>
+				<Type>	INT32			</Type>
+			</force>
+			<baseCharacterType>
+				<Type>	INT32			</Type>
+			</baseCharacterType>
+			<rankValue>
+				<Type>	INT32			</Type>
+			</rankValue>
+		</Properties>
+	</ROBOT_PROPERTY>
+	<CHALLENGE_DEFFENDER_INFO> FIXED_DICT
+		<Properties>
+			<index>
+				<Type>	INT32			</Type>
+			</index>
+			<rank>
+				<Type>	INT32			</Type>
+			</rank>
+			<rankValue>
+				<Type>	INT32			</Type>
+			</rankValue>
+			<nickname>
+				<Type>	STRING			</Type>
+			</nickname>
+			<level>
+				<Type>	INT16			</Type>
+			</level>
+			<force>
+				<Type>	INT32			</Type>
+			</force>
+			<characterType>
+				<Type>	INT32			</Type>
+			</characterType>
+		</Properties>
+	</CHALLENGE_DEFFENDER_INFO>
+	<SOLO_MEMBER_INFO> FIXED_DICT
+		<Properties>
+			<memberGID>
+				<Type>	GID			</Type>
+			</memberGID>
+			<memberBox>
+				<Type>	MAILBOX			</Type>
+			</memberBox>
+		</Properties>
+	</SOLO_MEMBER_INFO>
+	<DRESS_INFO> FIXED_DICT
+		<Properties>
+			<head>
+				<Type>	INT32			</Type>
+			</head>
+			<hair>
+				<Type>	INT32			</Type>
+			</hair>
+			<body>
+				<Type>	INT32			</Type>
+			</body>
+			<arm>
+				<Type>	INT32			</Type>
+			</arm>
+			<set>
+				<Type>	INT32			</Type>
+			</set>
+		</Properties>
+	</DRESS_INFO>
+	<MALL_BUY_RECORD> FIXED_DICT
+		<implementedBy> mall_utils.mallBuyRecordConverter </implementedBy>
+		<Properties>
+			<goodsID>
+				<Type>	INT32		</Type>
+			</goodsID>
+			<amount>
+				<Type>	INT32		</Type>
+			</amount>
+			<lastStartTime>
+				<Type>	FLOAT		</Type>
+			</lastStartTime>
+		</Properties>
+	</MALL_BUY_RECORD>
+	<MALL_BUY_RECORD_DICT> FIXED_DICT
+		<implementedBy> mall_utils.mallBuyRecordDictConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of>	MALL_BUY_RECORD </of>	</Type>
+			</elements>
+		</Properties>
+	</MALL_BUY_RECORD_DICT>
+	<LEGION_BRIEF_INFO>	FIXED_DICT
+		<implementedBy> LegionData.legionBriefInfoConverter	</implementedBy>
+		<Properties>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+			<name>
+				<Type>	STRING		</Type>
+			</name>
+			<description>
+				<Type>	STRING		</Type>
+			</description>
+			<leaderGID>
+				<Type>	GID		</Type>
+			</leaderGID>
+			<leaderName>
+				<Type>	STRING		</Type>
+			</leaderName>
+			<badgeID>
+				<Type>	INT32		</Type>
+			</badgeID>
+			<force>
+				<Type>	INT32		</Type>
+			</force>
+			<memberCount>
+				<Type>	INT32		</Type>
+			</memberCount>
+			<showID>
+				<Type>	INT32		</Type>
+			</showID>
+			<level>
+				<Type>	INT32		</Type>
+			</level>
+		</Properties>
+	</LEGION_BRIEF_INFO>
+	<LEGION_SERVER_BRIEF_INFO> FIXED_DICT
+		<Parent>	LEGION_BRIEF_INFO	</Parent>
+		<implementedBy> LegionData.legionServerBriefInfoConverter	</implementedBy>
+		<Properties>
+			<mailbox>
+				<Type>	MAILBOX		</Type>
+			</mailbox>
+		</Properties>
+	</LEGION_SERVER_BRIEF_INFO>
+	<LEGION_DETAIL_INFO> FIXED_DICT
+		<Parent>	LEGION_BRIEF_INFO	</Parent>
+		<implementedBy> LegionData.legionDetailInfoConverter	</implementedBy>
+		<Properties>
+			<rank>
+				<Type>	INT32		</Type>
+			</rank>
+		</Properties>
+	</LEGION_DETAIL_INFO>
+	<LEGION_MEMBER_BASE> FIXED_DICT
+		<Properties>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+			<name>
+				<Type>	KEY_NAME	</Type>
+			</name>
+			<level>
+				<Type>	INT32		</Type>
+			</level>
+			<characterType>
+				<Type>	INT32		</Type>
+			</characterType>
+			<force>
+				<Type>	INT32		</Type>
+			</force>
+		</Properties>
+	</LEGION_MEMBER_BASE>
+	<LEGION_MEMBER_INFO> FIXED_DICT
+		<Parent>	LEGION_MEMBER_BASE	</Parent>
+		<Properties>
+			<position>
+				<Type>	INT32		</Type>
+			</position>
+			<contribution>
+				<Type>	INT32		</Type>
+			</contribution>
+			<weekContribution>
+				<Type>	INT32		</Type>
+			</weekContribution>
+			<enterTime>
+				<Type>	FLOAT		</Type>
+			</enterTime>
+			<isMuzzled>
+				<Type>	BOOL		</Type>
+			</isMuzzled>
+			<tmpStartTime>
+				<Type>	FLOAT		</Type>
+			</tmpStartTime>
+		</Properties>
+	</LEGION_MEMBER_INFO>
+	<LEGION_MEMBER_SERVER_INFO> FIXED_DICT
+		<Parent>	LEGION_MEMBER_INFO	</Parent>
+		<implementedBy> LegionData.legionMemberServerInfoConverter	</implementedBy>
+		<Properties>
+			<mailbox>
+				<Type>	MAILBOX		</Type>
+				<Persistent> false	</Persistent>
+			</mailbox>
+			<offlineTime>
+				<Type>	INT64		</Type>
+			</offlineTime>
+		</Properties>
+	</LEGION_MEMBER_SERVER_INFO>
+	<LEGION_MEMBER_CLIENT_INFO> FIXED_DICT
+		<Parent>	LEGION_MEMBER_INFO	</Parent>
+		<implementedBy> LegionData.legionMemberClientInfoConverter	</implementedBy>
+		<Properties>
+			<isOnline>
+				<Type>	BOOL		</Type>
+			</isOnline>
+		</Properties>
+	</LEGION_MEMBER_CLIENT_INFO>
+	<LEGION_MEMBER_DICT> FIXED_DICT
+		<implementedBy>	LegionData.legionMemberDictConverter	</implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of>	LEGION_MEMBER_SERVER_INFO	</of>	</Type>
+			</elements>
+		</Properties>
+	</LEGION_MEMBER_DICT>
+	<LEGION_APPLY> FIXED_DICT
+		<Parent>	LEGION_MEMBER_BASE	</Parent>
+		<implementedBy>	LegionData.legionApplyConverter	</implementedBy>
+		<Properties>
+			<applyTime>
+				<Type>	FLOAT		</Type>
+			</applyTime>
+		</Properties>
+	</LEGION_APPLY>
+	<LEGION_APPLY_DICT> FIXED_DICT
+		<implementedBy>	LegionData.legionApplyDictConverter	</implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of>	LEGION_APPLY	</of>	</Type>
+			</elements>
+		</Properties>
+	</LEGION_APPLY_DICT>
+	<LEGION_MAIL_INFO> FIXED_DICT
+		<Properties>
+			<index>
+				<Type>		INT32		</Type>
+			</index>
+			<title>
+				<Type>		STRING		</Type>
+			</title>
+			<content>
+				<Type>		STRING		</Type>
+			</content>
+			<positions>
+				<Type>	ARRAY <of> INT32 </of>	</Type>
+			</positions>
+			<sender>
+				<Type>		STRING		</Type>
+			</sender>
+			<when>
+				<Type>		INT64		</Type>
+			</when>
+		</Properties>
+	</LEGION_MAIL_INFO>
+	<LEGION_EVENT_INFO> FIXED_DICT
+		<Properties>
+			<index>
+				<Type>		INT32		</Type>
+			</index>
+			<content>
+				<Type>		STRING		</Type>
+			</content>
+			<when>
+				<Type>		INT64		</Type>
+			</when>
+		</Properties>
+	</LEGION_EVENT_INFO>
+	<LEGION_BUILDING_INFO> FIXED_DICT
+		<Properties>
+			<buildingID>
+				<Type>		INT32		</Type>
+			</buildingID>
+			<level>
+				<Type>		INT32		</Type>
+			</level>
+			<upgradeTime>
+				<Type>		INT64		</Type>
+			</upgradeTime>
+		</Properties>
+	</LEGION_BUILDING_INFO>
+	<LEGION_RESOURCE_INFO> FIXED_DICT
+		<Properties>
+			<cash>
+				<Type>		INT32		</Type>
+			</cash>
+			<iron>
+				<Type>		INT32		</Type>
+			</iron>
+			<food>
+				<Type>		INT32		</Type>
+			</food>
+			<concrete>
+				<Type>		INT32		</Type>
+			</concrete>
+			<silicon>
+				<Type>		INT32		</Type>
+			</silicon>
+		</Properties>
+	</LEGION_RESOURCE_INFO>
+	<LEGION_LIGEANCE_INFO> FIXED_DICT
+		<Properties>
+			<ligeanceIDs>
+				<Type>		ARRAY <of> INT32 </of>		</Type>
+			</ligeanceIDs>
+			<invadeLigeanceID>
+				<Type>		INT32		</Type>
+			</invadeLigeanceID>
+			<declareLigeanceID>
+				<Type>		INT32		</Type>
+			</declareLigeanceID>
+			<declareLegionGID>
+				<Type>		GID		</Type>
+			</declareLegionGID>
+			<declareLigeanceState>
+				<Type>		INT8		</Type>
+			</declareLigeanceState>
+			<attackLigeanceID>
+				<Type>		INT32		</Type>
+			</attackLigeanceID>
+			<attackLegionGID>
+				<Type>		GID		</Type>
+			</attackLegionGID>
+		</Properties>
+	</LEGION_LIGEANCE_INFO>
+	<LIGEANCE_INFO> FIXED_DICT
+		<implementedBy>	LegionData.ligeanceInfoConverter </implementedBy>
+		<Properties>
+			<ligeanceID>
+				<Type>		INT32		</Type>
+			</ligeanceID>
+			<ownerGID>
+				<Type>		GID		</Type>
+			</ownerGID>
+			<attackerGID>
+				<Type>		GID		</Type>
+			</attackerGID>
+			<invadeGIDs>
+				<Type>		PYTHON		</Type>
+			</invadeGIDs>
+			<declareGIDs>
+				<Type>		PYTHON		</Type>
+			</declareGIDs>
+			<mailboxes>
+				<Type>		PYTHON		</Type>
+				<Persistent>	false		</Persistent>
+			</mailboxes>
+		</Properties>
+	</LIGEANCE_INFO>
+	<LIGEANCE_INFO_DICT> FIXED_DICT
+		<implementedBy>	LegionData.ligeanceInfoDictConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of>	LIGEANCE_INFO </of>	</Type>
+			</elements>
+		</Properties>
+	</LIGEANCE_INFO_DICT>
+	<LIGEANCE_CLIENT_INFO> FIXED_DICT
+		<implementedBy>	LegionData.ligeanceClientInfoConverter </implementedBy>
+		<Properties>
+			<ligeanceID>
+				<Type>		INT32		</Type>
+			</ligeanceID>
+			<ownerGID>
+				<Type>		GID		</Type>
+			</ownerGID>
+			<declareGID>
+				<Type>		GID		</Type>
+			</declareGID>
+			<ownerName>
+				<Type>		STRING		</Type>
+			</ownerName>
+			<declareName>
+				<Type>		STRING		</Type>
+			</declareName>
+		</Properties>
+	</LIGEANCE_CLIENT_INFO>
+	<PLANTED_CRACK_ITEM> FIXED_DICT
+		<implementedBy>	LegionData.plantedCrackItemInfoConverter </implementedBy>
+		<Properties>
+			<index>
+				<Type>		INT32		</Type>
+			</index>
+			<legionGID>
+				<Type>		GID		</Type>
+			</legionGID>
+			<legionName>
+				<Type>		STRING		</Type>
+			</legionName>
+			<playerGID>
+				<Type>		GID		</Type>
+			</playerGID>
+			<position>
+				<Type>		VECTOR3		</Type>
+			</position>
+			<direction>
+				<Type>		VECTOR3		</Type>
+			</direction>
+			<plantTime>
+				<Type>		INT64		</Type>
+			</plantTime>
+		</Properties>
+	</PLANTED_CRACK_ITEM>
+	<LEGION_WAR_INFO> FIXED_DICT
+		<Properties>
+			<ligeanceID>
+				<Type> 		INT32 		</Type>
+			</ligeanceID>
+			<memberNum>
+				<Type>		INT32		</Type>
+			</memberNum>
+			<progress>
+				<Type>		FLOAT		</Type>
+			</progress>
+		</Properties>
+	</LEGION_WAR_INFO>
+	<DOMINATION_RANK_INFO> FIXED_DICT
+		<Properties>
+			<name>
+				<Type>		STRING		</Type>
+			</name>
+			<win>
+				<Type>		INT32		</Type>
+			</win>
+			<score>
+				<Type>		INT32		</Type>
+			</score>
+		</Properties>
+	</DOMINATION_RANK_INFO>
+	<DOMINATION_OWN_RANK_INFO> FIXED_DICT
+		<Parent>		DOMINATION_RANK_INFO	</Parent>
+		<Properties>
+			<rank>
+				<Type>		INT32		</Type>
+			</rank>
+		</Properties>
+	</DOMINATION_OWN_RANK_INFO>
+
+<!--   答题相关    -->
+	<QUESTION_INFO> FIXED_DICT
+		<implementedBy> QuizData.generalQuestionConverter </implementedBy>
+		<Properties>
+			<serial_num>
+				<Type> INT32 </Type>
+			</serial_num>
+			<desc>
+				<Type> STRING </Type>
+			</desc>
+			<options>
+				<Type> PYTHON </Type>
+			</options>
+			<countdown>
+				<Type> INT32 </Type>
+			</countdown>
+			<award>
+				<Type> PYTHON </Type>
+			</award>
+		</Properties>
+	</QUESTION_INFO>
+	<LEGION_QUESTION_INFO> FIXED_DICT
+		<implementedBy> QuizData.legionQuestionConverter </implementedBy>
+		<Properties>
+			<id>
+				<Type> INT32 </Type>
+			</id>
+			<desc>
+				<Type> STRING </Type>
+			</desc>
+			<options>
+				<Type> PYTHON </Type>
+			</options>
+			<countdown>
+				<Type> INT32 </Type>
+			</countdown>
+			<correct>
+				<Type> PYTHON </Type>
+			</correct>
+		</Properties>
+	</LEGION_QUESTION_INFO>
+	<LEGION_QUESTION_INFO_LIST> FIXED_DICT
+		<implementedBy> QuizData.legionQuestionListConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type> ARRAY <of> LEGION_QUESTION_INFO </of> </Type>
+			</elements>
+		</Properties>
+	</LEGION_QUESTION_INFO_LIST>
+	<ANSWER_INFO> FIXED_DICT
+		<implementedBy> QuizData.answerInfoConverter </implementedBy>
+		<Properties>
+			<gid>
+				<Type> GID </Type>
+			</gid>
+			<is_voice>
+				<Type> BOOL </Type>
+			</is_voice>
+			<voice_info>
+				<Type> PY_DICT </Type>
+			</voice_info>
+			<answer>
+				<Type> STRING </Type>
+			</answer>
+		</Properties>
+	</ANSWER_INFO>
+	<ANSWER_RESULT> FIXED_DICT
+		<implementedBy> QuizData.answerResultConverter </implementedBy>
+		<Properties>
+			<gid>
+				<Type> GID </Type>
+			</gid>
+			<is_voice>
+				<Type> BOOL </Type>
+			</is_voice>
+			<voice_info>
+				<Type> PY_DICT </Type>
+			</voice_info>
+			<answer>
+				<Type> STRING </Type>
+			</answer>
+			<result>
+				<Type> BOOL </Type>
+			</result>
+			<rank>
+				<Type> INT32 </Type>
+			</rank>
+			<time>
+				<Type> STRING </Type>
+			</time>
+			<score>
+				<Type> INT32 </Type>
+			</score>
+			<awards>
+				<Type> PYTHON </Type>
+			</awards>
+			<extra_awards>
+				<Type> PYTHON </Type>
+			</extra_awards>
+		</Properties>
+	</ANSWER_RESULT>
+	<CHAT_INFO> FIXED_DICT
+		<implementedBy> QuizData.chatInfoConverter </implementedBy>
+		<Properties>
+			<gid>
+				<Type> GID </Type>
+			</gid>
+			<is_voice>
+				<Type> BOOL </Type>
+			</is_voice>
+			<voice_info>
+				<Type> PY_DICT </Type>
+			</voice_info>
+			<msg>
+				<Type> STRING </Type>
+			</msg>
+			<time>
+				<Type> STRING </Type>
+			</time>
+		</Properties>
+	</CHAT_INFO>
+	<RANK_INFO> FIXED_DICT
+		<implementedBy> QuizData.rankInfoConverter </implementedBy>
+		<Properties>
+			<gid>
+				<Type> GID </Type>
+			</gid>
+			<rank>
+				<Type> INT32 </Type>
+			</rank>
+			<score>
+				<Type> INT32 </Type>
+			</score>
+		</Properties>
+	</RANK_INFO>
+	<RANK_INFO_LIST> FIXED_DICT
+		<implementedBy> QuizData.rankInfoListConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of>	RANK_INFO </of>	</Type>
+			</elements>
+		</Properties>
+	</RANK_INFO_LIST>
+	<PLAYER_INFO> FIXED_DICT
+		<implementedBy> QuizData.playerInfoConverter </implementedBy>
+		<Properties>
+			<gid>
+				<Type> GID </Type>
+			</gid>
+			<name>
+				<Type> STRING </Type>
+			</name>
+			<characterType>
+				<Type> INT32 </Type>
+			</characterType>
+		</Properties>
+	</PLAYER_INFO>
+	<PLAYER_INFO_LIST> FIXED_DICT
+		<implementedBy> QuizData.playerInfoListConverter </implementedBy>
+		<Properties>
+			<elements>
+				<Type> ARRAY <of> PLAYER_INFO </of> </Type>
+			</elements>
+		</Properties>
+	</PLAYER_INFO_LIST>
+
+
+<!-- 	枪械养成相关  -->
+	<GUN_COMP_ID> UINT32  </GUN_COMP_ID>
+	<RAND_ARGS> TUPLE <of>  INT32 </of> <size> 2 </size> </RAND_ARGS>
+
+	<GUN_COMP_DATA> FIXED_DICT
+		<Properties>
+			<!-- 	id  -->
+			<propID>
+				<Type>		GUN_COMP_ID		</Type>
+			</propID>
+			<!-- 	uuid  -->
+			<uuid>
+				<Type>		UUID		</Type>
+			</uuid>
+			<!--  槽位  -->
+			<slot>
+				<Type>		UINT8		</Type>
+			</slot>
+			<!--  等级  -->
+			<lv>
+				<Type>		UINT8		</Type>
+			</lv>
+			<!--  星级  -->
+			<star>
+				<Type>		UINT8		</Type>
+			</star>
+			<!--  主属性 (类型, 数值)  -->
+			<coreArg>
+				<Type>		TUPLE <of>  FLOAT </of> <size> 2 </size> </Type>
+			</coreArg>
+			<!--  副属性属性 [(类型, 数值), (类型, 数值)...]  -->
+			<randArgs>
+				<Type>		ARRAY <of>  RAND_ARGS </of> </Type>
+			</randArgs>
+			<!--  当前所属枪支的UUID  -->
+			<host>
+				<Type>	UUID </Type>
+			</host>
+			<!--  成长值  -->
+			<grow>
+				<Type>		UINT32		</Type>
+			</grow>
+			<!--  套装编号  -->
+			<suit>
+				<Type>		UINT32		</Type>
+			</suit>
+			<locked>
+				<Type>		BOOL		</Type>
+			</locked>
+			<!--是否为新的标记-->
+			<checked>
+				<Type> 		BOOL 		</Type>
+			</checked>
+		</Properties>
+	</GUN_COMP_DATA>
+
+	<SUIT_ARG> TUPLE <of>  FLOAT </of> <size> 2 </size> </SUIT_ARG>
+	<GUN_SLOT> FIXED_DICT
+		<Properties>
+			<uuid>
+				<Type>		UUID		</Type>
+			</uuid>
+			<slots>
+				<Type>
+					ARRAY <of> UUID </of> <size> 6 </size>
+				</Type>
+			</slots>
+			<suitArgs>
+				<Type>
+					ARRAY <of> SUIT_ARG </of>
+				</Type>
+			</suitArgs>
+			<suitSkills>
+				<Type>
+					ARRAY <of> UINT32 </of>
+				</Type>
+			</suitSkills>
+		</Properties>
+	</GUN_SLOT>
+	<SHOOT_PARAMS> FIXED_DICT
+		<Properties>
+			<hitDis>
+				<Type>		FLOAT		</Type>
+			</hitDis>
+			<hitProbDecay>
+				<Type>		FLOAT		</Type>
+			</hitProbDecay>
+			<maxHitProb>
+				<Type>		FLOAT		</Type>
+			</maxHitProb>
+			<minHitProb>
+				<Type>		FLOAT		</Type>
+			</minHitProb>
+			<offset>
+				<Type>		FLOAT		</Type>
+			</offset>
+			<reloadCapacity>
+				<Type>		INT32		</Type>
+			</reloadCapacity>
+			<serialCnt>
+				<Type>		INT32		</Type>
+			</serialCnt>
+			<serialInt>
+				<Type>		INT32		</Type>
+			</serialInt>
+			<radius>
+				<Type>		FLOAT		</Type>
+			</radius>
+			<dstPos>
+				<Type>		VECTOR3		</Type>
+			</dstPos>
+			<ignoreBarrier>
+				<Type>		INT8		</Type>
+			</ignoreBarrier>
+			<beforeAttackTime>
+				<Type>		FLOAT		</Type>
+			</beforeAttackTime>
+		</Properties>
+	</SHOOT_PARAMS>
+	<DEVICE_INFO> FIXED_DICT
+		<Properties>
+			<os_name>
+				<Type>		STRING		</Type>
+			</os_name>
+			<os_ver>
+				<Type>		STRING		</Type>
+			</os_ver>
+			<udid>
+				<Type>		STRING		</Type>
+			</udid>
+			<isp>
+				<Type>		STRING		</Type>
+			</isp>
+			<app_channel>
+				<Type>		STRING		</Type>
+			</app_channel>
+			<app_ver>
+				<Type>		STRING		</Type>
+			</app_ver>
+			<network>
+				<Type>		STRING		</Type>
+			</network>
+			<device_model>
+				<Type>		STRING		</Type>
+			</device_model>
+			<device_height>
+				<Type>		INT32		</Type>
+			</device_height>
+			<device_width>
+				<Type>		INT32		</Type>
+			</device_width>
+			<root>
+				<Type>		INT8		</Type>
+			</root>
+			<emulator>
+				<Type>		INT8		</Type>
+			</emulator>
+			<hw_ins_enabled>
+				<Type>		BOOL		</Type>
+			</hw_ins_enabled>
+			<mac_addr>
+				<Type>		STRING		</Type>
+			</mac_addr>
+			<platform>
+				<Type>		STRING		</Type>
+			</platform>
+			<engine_ver>
+				<Type>		INT32		</Type>
+			</engine_ver>
+			<engine_version>
+				<Type>		INT32		</Type>
+			</engine_version>
+			<first_pack_version>
+				<Type>		STRING		</Type>
+			</first_pack_version>
+			<patch_version>
+				<Type>		STRING		</Type>
+			</patch_version>
+			<channel_currency_type>
+				<Type>		STRING		</Type>
+			</channel_currency_type>
+			<country_code>
+				<Type>		STRING		</Type>
+			</country_code>
+			<country_code_by_ip>
+				<Type>		STRING		</Type>
+			</country_code_by_ip>
+			<src_udid>
+				<Type>		STRING		</Type>
+			</src_udid>
+			<engine_ver>
+				<Type>		INT32		</Type>
+			</engine_ver>
+			<game_arch>
+				<Type>		STRING		</Type>
+			</game_arch>
+			<client_language>
+				<Type>		STRING		</Type>
+			</client_language>
+		</Properties>
+	</DEVICE_INFO>
+	<CHANNEL_INFO> FIXED_DICT
+		<Properties>
+			<uid>
+				<Type>		STRING		</Type>
+			</uid>
+			<session>
+				<Type>		STRING		</Type>
+			</session>
+			<platform>
+				<Type>		STRING		</Type>
+			</platform>
+			<device_id>
+				<Type>		STRING		</Type>
+			</device_id>
+			<udid>
+				<Type>		STRING		</Type>
+			</udid>
+			<channel>
+				<Type>		STRING		</Type>
+			</channel>
+			<app_channel>
+				<Type>		STRING		</Type>
+			</app_channel>
+			<pay_channel>
+				<Type>		STRING		</Type>
+			</pay_channel>
+			<sdk_version>
+				<Type>		STRING		</Type>
+			</sdk_version>
+			<timestamp>
+				<Type>		STRING		</Type>
+			</timestamp>
+			<sauth>
+				<Type>		STRING		</Type>
+			</sauth>
+			<login_type>
+				<Type>		STRING		</Type>
+			</login_type>
+			<app_id>
+				<Type>		STRING		</Type>
+			</app_id>>
+			<dist_src>
+				<Type>		STRING		</Type>
+			</dist_src>
+			<ext_info>	<!-- 是个json结构的数据，方便扩展 -->
+				<Type>		STRING		</Type>
+			</ext_info>
+		</Properties>
+	</CHANNEL_INFO>
+	<PERFORMANCE> FIXED_DICT
+		<Properties>
+			<fps>
+				<Type>		UINT16		</Type>
+			</fps>
+			<mem>
+				<Type>		UINT16		</Type>
+			</mem>
+			<dp_num>
+				<Type>		UINT16		</Type>
+			</dp_num>
+			<model_dp_num>
+				<Type>		UINT16		</Type>
+			</model_dp_num>
+			<fx_dp_num>
+				<Type>		UINT8		</Type>
+			</fx_dp_num>
+			<ui_dp_num>
+				<Type>		UINT8		</Type>
+			</ui_dp_num>
+			<prim_num>
+				<Type>		UINT32		</Type>
+			</prim_num>
+			<map_id>
+				<Type>		UINT16		</Type>
+			</map_id>
+			<quality_level>
+				<Type>		UINT8		</Type>
+			</quality_level>
+			<resolution>
+				<Type>		ARRAY <of> INT32 </of>		</Type>
+			</resolution>
+			<game_enter_type>
+				<Type>		INT32		</Type>
+			</game_enter_type>
+			<circle_stage>
+				<Type>		INT32		</Type>
+			</circle_stage>
+			<game_status>
+				<Type>		INT32		</Type>
+			</game_status>
+			<csmLevel>
+				<Type>		INT32		</Type>
+			</csmLevel>
+			<frameRateMode>
+				<Type>		INT32		</Type>
+			</frameRateMode>
+			<resolutionLevel>
+				<Type>		INT8		</Type>
+			</resolutionLevel>
+			<isMsaaOn>
+				<Type>		BOOL		</Type>
+			</isMsaaOn>
+			<low_fps_num>
+				<Type>		INT32		</Type>
+			</low_fps_num>
+			<low_fps_statis>
+				<Type>		ARRAY <of> UINT8 </of>		</Type>
+			</low_fps_statis>
+			<fps_num>
+				<Type>		INT32		</Type>
+			</fps_num>
+			<fps_statis>
+				<Type>		ARRAY <of> UINT8 </of>		</Type>
+			</fps_statis>
+		</Properties>
+	</PERFORMANCE>
+
+	<CHAT_RECIVER> FIXED_DICT
+		<Properties>
+			<id>
+				<Type>   GID   </Type>
+			</id>
+			<name>
+				<Type>   STRING   </Type>
+			</name>
+			<nationalFlag>
+				<Type>   STRING   </Type>
+			</nationalFlag>
+		</Properties>
+	</CHAT_RECIVER>
+	<CHAT_PARAMS> FIXED_DICT
+		<Properties>
+			<is_voice>
+				<Type>   BOOL   </Type>
+			</is_voice>
+			<info>
+				<Type>   STRING   </Type>
+			</info>
+			<character>
+				<Type>   UINT32   </Type>
+			</character>
+		</Properties>
+	</CHAT_PARAMS>
+
+	<HUANGYE_ACTIVITY> FIXED_DICT
+		<Properties>
+			<activityID>
+				<Type>		UINT32		</Type>
+			</activityID>
+			<groupID>
+				<Type>		UINT32		</Type>
+			</groupID>
+			<areaID>
+				<Type>		UINT32		</Type>
+			</areaID>
+			<createTime>
+				<Type>		FLOAT		</Type>
+			</createTime>
+			<category>
+				<Type>		UINT8		</Type>
+			</category>
+			<lifetime>
+				<Type>		FLOAT		</Type>
+			</lifetime>
+		</Properties>
+	</HUANGYE_ACTIVITY>
+	<BATTLE_TEAMMATE> FIXED_DICT
+		<implementedBy>		BattleTeam.battleTeammateConverter	</implementedBy>
+		<Properties>
+			<gid>
+				<Type> GID </Type>
+			</gid>
+			<entID>
+				<Type>		INT32		</Type>
+			</entID>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<dtsLevel>
+				<Type>		INT32		</Type>
+			</dtsLevel>
+			<characterType>
+				<Type>		INT32		</Type>
+			</characterType>
+			<nationalFlag>
+				<Type>		STRING		</Type>
+			</nationalFlag>
+			<score>
+				<Type>		SCORE		</Type>
+			</score>
+			<hp>
+				<Type>		INT32		</Type>
+			</hp>
+			<maxHp>
+				<Type>		INT32		</Type>
+			</maxHp>
+			<state>
+				<Type>		INT8		</Type>
+			</state>
+			<position>
+				<Type>		VECTOR3		</Type>
+			</position>
+			<yaw>
+				<Type>		FLOAT		</Type>
+			</yaw>
+			<markPosition>
+				<Type>		VECTOR2		</Type>
+			</markPosition>
+			<teamId>
+				<Type>		INT32		</Type>
+			</teamId>
+			<currWeaponId>
+				<Type>		INT32		</Type>
+			</currWeaponId>
+			<currBulletCnt>
+				<Type>		INT32		</Type>
+			</currBulletCnt>
+			<kill>
+				<Type>		INT32		</Type>
+			</kill>
+			<identity>
+				<Type>		INT8		</Type>
+			</identity>
+			<streamid>
+				<Type>		STRING		</Type>
+			</streamid>
+			<onPlane>
+				<Type>		BOOL		</Type>
+			</onPlane>
+			<woundCount>
+				<Type>		UINT32		</Type>
+			</woundCount>
+			<doubleSevenCoupleGid>
+				<Type>		GID		</Type>
+			</doubleSevenCoupleGid>
+			<tmpHP>
+				<Type>		INT32		</Type>
+			</tmpHP>
+			<secretTreasures>
+				<Type>		PY_DICT		</Type>
+			</secretTreasures>
+			<selectedHero>
+				<Type>		INT32		</Type>
+			</selectedHero>
+		</Properties>
+	</BATTLE_TEAMMATE>
+	<BATTLE_HUMAN_SYNC_INFO> FIXED_DICT
+		<Properties>
+			<entID>
+				<Type>		INT32		</Type>
+			</entID>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<position>
+				<Type>		VECTOR3		</Type>
+			</position>
+			<yaw>
+				<Type>		FLOAT		</Type>
+			</yaw>
+			<state>
+				<Type>		INT8		</Type>
+			</state>
+		</Properties>
+	</BATTLE_HUMAN_SYNC_INFO>
+	<HALL_TEAM_MEMBER_CLIENT> FIXED_DICT
+		<Properties>
+			<entID>
+				<Type>		INT32		</Type>
+			</entID>
+			<gid>
+				<Type>		GID		</Type>
+			</gid>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<nationalFlag>
+				<Type>		STRING		</Type>
+			</nationalFlag>
+			<level>
+				<Type>		INT32		</Type>
+			</level>
+			<occupation>
+				<Type>		INT8		</Type>
+			</occupation>
+			<ethnicity>
+				<Type>		INT8		</Type>
+			</ethnicity>
+			<characterType>
+				<Type>		INT32		</Type>
+			</characterType>
+			<loginHostID>
+				<Type>		INT32		</Type>
+			</loginHostID>
+			<ready>
+				<Type> BOOL </Type>
+			</ready>
+			<rankScore>
+				<Type>		INT32		</Type>
+			</rankScore>
+			<inWorld>
+				<Type>		BOOL		</Type>
+			</inWorld>
+			<dtsEmojiID>
+				<Type>		INT32		</Type>
+			</dtsEmojiID>
+			<dtsWearableAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsWearableAppearanceList>
+			<dtsBodyAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsBodyAppearanceList>
+			<dtsFlyingAccessoryList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsFlyingAccessoryList>
+			<dtsBattlegroundPropAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsBattlegroundPropAppearanceList>
+			<dtsWeaponAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsWeaponAppearanceList>
+			<dtsVehicleAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsVehicleAppearanceList>
+			<dtsAppearanceGender>
+				<Type>		INT32		</Type>
+			</dtsAppearanceGender>
+			<identifyTagID>
+				<Type> INT32 </Type>
+			</identifyTagID>
+			<dtsNameplateAppearance>
+				<Type> INT32 </Type>
+			</dtsNameplateAppearance>
+			<goldBattleInfo>
+				<Type>		PYTHON		</Type>
+			</goldBattleInfo>
+			<yuanbaoBattleInfo>
+				<Type>		PYTHON		</Type>
+			</yuanbaoBattleInfo>
+			<supportSeason>
+				<Type>		BOOL		</Type>
+			</supportSeason>
+			<isHuiliu>
+				<Type>		BOOL		</Type>
+			</isHuiliu>
+			<lockTip>
+				<Type>		STRING		</Type>
+			</lockTip>
+			<hallThemeID>
+				<Type>		INT32		</Type>
+			</hallThemeID>
+			<freezeAddScore>
+				<Type>		BOOL		</Type>
+			</freezeAddScore>
+			<canMatchNextGen>
+				<Type>		BOOL		</Type>
+			</canMatchNextGen>
+			<intimateRelationship>
+				<Type>		PYTHON		</Type>
+			</intimateRelationship>
+			<intimacyDegree>
+				<Type>		PYTHON		</Type>
+			</intimacyDegree>
+			<outGameBag>
+				<Type>		INT32		</Type>
+			</outGameBag>
+			<outGameWeapon>
+				<Type>		PYTHON		</Type>
+			</outGameWeapon>
+			<hallVehicleAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</hallVehicleAppearanceList>
+			<creditScore>
+				<Type>		INT32		</Type>
+			</creditScore>
+			<dtsPendantAppearanceList>
+				<Type>			ARRAY <of> INT32 </of>		</Type>
+			</dtsPendantAppearanceList>
+			<choosedBestWeaponID>
+				<Type>		INT32		</Type>
+			</choosedBestWeaponID>
+		</Properties>
+	</HALL_TEAM_MEMBER_CLIENT>
+	<HALL_TEAM_MEMBER> FIXED_DICT
+		<Parent>		HALL_TEAM_MEMBER_CLIENT		</Parent>
+		<Properties>
+			<mailBox>
+				<Type>		GLOBAL_MAIL_BOX_INFO	</Type>
+			</mailBox>
+			<rankScore>
+				<Type>		INT32		</Type>
+			</rankScore>
+			<lockTime>
+				<Type>		INT64		</Type>
+			</lockTime>
+			<specialTag>
+				<Type>		INT32		</Type>
+			</specialTag>
+			<canMatchBigMap>
+				<Type>		BOOL		</Type>
+			</canMatchBigMap>
+			<canMatchFPSMode>
+				<Type>		BOOL		</Type>
+			</canMatchFPSMode>
+			<canMatchNextGen>
+				<Type>		BOOL		</Type>
+			</canMatchNextGen>
+			<rankHistory>
+				<Type>		PYTHON		</Type>
+			</rankHistory>
+			<creditScore>
+				<Type>		INT32		</Type>
+			</creditScore>
+			<engineVersion>
+				<Type>		INT32		</Type>
+			</engineVersion>
+			<recommanderLevel>
+				<Type>		INT32		</Type>
+			</recommanderLevel>
+			<dynamicDifficultyLevel>
+				<Type>		INT32		</Type>
+			</dynamicDifficultyLevel>
+			<countryCode>
+				<Type>		STRING		</Type>
+			</countryCode>
+			<sumCash>
+				<Type>		FLOAT		</Type>
+			</sumCash>
+			<mic>
+				<Type>		INT8		</Type>
+			</mic>
+			<inviteInfo>
+				<Type>		PYTHON		</Type>
+			</inviteInfo>
+		</Properties>
+	</HALL_TEAM_MEMBER>
+	<DTS_GUN_INFO> FIXED_DICT
+		<Properties>
+			<comps>
+				<Type>
+					ARRAY <of> INT32 </of>
+				</Type>
+			</comps>
+		</Properties>
+	</DTS_GUN_INFO>
+	<DTS_ELEMENT> FIXED_DICT
+		<Properties>
+			<elemID>
+				<Type>		INT32		</Type>
+			</elemID>
+			<state>
+				<Type>		INT8		</Type>
+			</state>
+		</Properties>
+	</DTS_ELEMENT>
+	<CC_LIVE_ROOM> FIXED_DICT
+		<Properties>
+			<channel_id>
+				<Type>		INT32		</Type>
+			</channel_id>
+			<room_num>
+				<Type>		INT32		</Type>
+			</room_num>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<mobile_url>
+				<Type>		STRING		</Type>
+			</mobile_url>
+			<video_url>
+				<Type>		STRING		</Type>
+			</video_url>
+			<title>
+				<Type>		STRING		</Type>
+			</title>
+			<cover>
+				<Type>		STRING		</Type>
+			</cover>
+			<head>
+				<Type>		STRING		</Type>
+			</head>
+		</Properties>
+	</CC_LIVE_ROOM>
+	<COMMON_LIVE_ROOM> FIXED_DICT
+		<Properties>
+			<uid>
+				<Type>		INT32		</Type>
+			</uid>
+			<channel_id>
+				<Type>		INT32		</Type>
+			</channel_id>
+			<room_num>
+				<Type>		INT32		</Type>
+			</room_num>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<mobile_url>
+				<Type>		STRING		</Type>
+			</mobile_url>
+			<video_url>
+				<Type>		STRING		</Type>
+			</video_url>
+			<title>
+				<Type>		STRING		</Type>
+			</title>
+			<cover>
+				<Type>		STRING		</Type>
+			</cover>
+			<head>
+				<Type>		STRING		</Type>
+			</head>
+			<timestamp>
+				<Type> 		LONGTIME	</Type>
+			</timestamp>
+		</Properties>
+	</COMMON_LIVE_ROOM>
+	<COMMON_LIVE_FOLLOW> FIXED_DICT
+		<Properties>
+			<channel_id>
+				<Type>		INT32		</Type>
+			</channel_id>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<uid>
+				<Type>		INT32		</Type>
+			</uid>
+			<head>
+				<Type>		STRING		</Type>
+			</head>
+		</Properties>
+	</COMMON_LIVE_FOLLOW>
+	<COMMON_LIVE_HOTRANK> FIXED_DICT
+		<Properties>
+			<channel>
+				<Type>		INT32		</Type>
+			</channel>
+			<total_online>
+				<Type>		INT32		</Type>
+			</total_online>
+		</Properties>
+	</COMMON_LIVE_HOTRANK>
+	<COMMON_LIVE_RECOMMEND_ROOM> FIXED_DICT
+		<Properties>
+			<uid>
+				<Type>		INT32		</Type>
+			</uid>
+			<recommend>
+				<Type>		BOOL		</Type>
+			</recommend>
+			<order>
+				<Type>		INT32		</Type>
+			</order>
+			<channel>
+				<Type>		INT32		</Type>
+			</channel>
+			<channel_id>
+				<Type>		INT32		</Type>
+			</channel_id>
+			<room_num>
+				<Type>		INT32		</Type>
+			</room_num>
+			<nickname>
+				<Type>		STRING		</Type>
+			</nickname>
+			<mobile_url>
+				<Type>		STRING		</Type>
+			</mobile_url>
+			<video_url>
+				<Type>		STRING		</Type>
+			</video_url>
+			<title>
+				<Type>		STRING		</Type>
+			</title>
+			<cover>
+				<Type>		STRING		</Type>
+			</cover>
+			<head>
+				<Type>		STRING		</Type>
+			</head>
+			<timestamp>
+				<Type> 		LONGTIME	</Type>
+			</timestamp>
+		</Properties>
+	</COMMON_LIVE_RECOMMEND_ROOM>
+	<CALLBACK> FIXED_DICT
+		<Properties>
+			<func>
+				<Type>	STRING		</Type>
+			</func>
+			<args>
+				<Type>	PYTHON		</Type>
+			</args>
+		</Properties>
+	</CALLBACK>
+	<DTS_RANK_VALUE> FIXED_DICT
+		<Properties>
+			<section>
+				<Type>	INT8		</Type>
+			</section>
+			<subSection>
+				<Type>	INT8		</Type>
+			</subSection>
+			<score>
+				<Type>	INT32		</Type>
+			</score>
+		</Properties>
+	</DTS_RANK_VALUE>
+	<PLAYER_DTS_RANK_VALUE> FIXED_DICT
+		<Parent>	DTS_RANK_VALUE		</Parent>
+		<Properties>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+		</Properties>
+	</PLAYER_DTS_RANK_VALUE>
+	<PLAYER_DTS_RANK_DICT> FIXED_DICT
+		<implementedBy>		RankData.playerDtsRankDictConverter	</implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of>	PLAYER_DTS_RANK_VALUE	</of>	</Type>
+			</elements>
+		</Properties>
+	</PLAYER_DTS_RANK_DICT>
+
+	<!--   大逃杀自定义房间相关    -->
+	<ROOM_PLAYER> FIXED_DICT
+		<Properties>
+			<mailBox>
+				<Type>		GLOBAL_MAIL_BOX_INFO		</Type>
+			</mailBox>
+
+			<gid>
+				<Type>		GID			</Type>
+			</gid>
+
+			<name>
+				<Type> 		STRING		</Type>
+			</name>
+
+			<nationalFlag>
+				<Type> 		STRING		</Type>
+			</nationalFlag>
+		</Properties>
+	</ROOM_PLAYER>
+
+	<ROOM_CREATOR_PLAYER> FIXED_DICT
+		<Properties>
+			<mailBox>
+				<Type>		GLOBAL_MAIL_BOX_INFO	</Type>
+			</mailBox>
+
+			<gid>
+				<Type>		GID			</Type>
+			</gid>
+
+			<name>
+				<Type> 		STRING		</Type>
+			</name>
+			<nationalFlag>
+				<Type> 		STRING		</Type>
+			</nationalFlag>
+		</Properties>
+	</ROOM_CREATOR_PLAYER>
+
+	<CUSTOM_ROOM_PARAMS> FIXED_DICT
+		<Properties>
+			<vehicleRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</vehicleRefreshRatio>
+			<rifleRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</rifleRefreshRatio>
+			<shotGunRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</shotGunRefreshRatio>
+			<sniperRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</sniperRefreshRatio>
+			<pistolRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</pistolRefreshRatio>
+			<submachineRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</submachineRefreshRatio>
+			<helmetRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</helmetRefreshRatio>
+			<armorRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</armorRefreshRatio>
+			<packageRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</packageRefreshRatio>
+			<medicalRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</medicalRefreshRatio>
+			<energyRefreshRatio>
+				<Type> 		FLOAT 		</Type>
+			</energyRefreshRatio>
+			<bombRegionInterval>
+				<Type> 		FLOAT 		</Type>
+			</bombRegionInterval>
+			<circlePrepareTime>
+				<Type> 		FLOAT 		</Type>
+			</circlePrepareTime>
+			<airdropFrequencyRatio>
+				<Type>		FLOAT		</Type>
+			</airdropFrequencyRatio>
+			<moveSpeedRatio>
+				<Type>		FLOAT		</Type>
+			</moveSpeedRatio>
+			<bulletDamageRatio>
+				<Type>		FLOAT		</Type>
+			</bulletDamageRatio>
+			<observePermission>
+				<Type>		INT32		</Type>
+			</observePermission>
+			<poisonGain>
+				<Type>		INT8		</Type>
+			</poisonGain>
+		</Properties>
+	</CUSTOM_ROOM_PARAMS>
+
+	<TEAM_TWO_CUSTOM_ROOM> FIXED_DICT
+		<Properties>
+			<player0>
+				<Type> 			GID 				</Type>
+			</player0>
+
+			<player1>
+				<Type> 			GID 				</Type>
+			</player1>
+		</Properties>
+	</TEAM_TWO_CUSTOM_ROOM>
+
+	<CUSTOM_ROOM_DATA> FIXED_DICT
+		<Properties>
+			<creator>
+				<Type> 		ROOM_CREATOR_PLAYER		</Type>
+			</creator>
+			<members>
+				<Type> 		PYTHON			 	</Type>
+			</members>
+
+			<OBMembers>
+				<Type> 		PYTHON				</Type>
+			</OBMembers>
+
+			<teamInfo>
+				<Type> 		PYTHON					 </Type>
+			</teamInfo>
+
+			<customRoomParams>
+				<Type> 		CUSTOM_ROOM_PARAMS			</Type>
+			</customRoomParams>
+			<roomName>
+				<Type> 		STRING						</Type>
+			</roomName>
+
+			<roomMinNumber>
+				<Type> 		INT32						</Type>
+			</roomMinNumber>
+
+			<roomMaxNumber>
+				<Type> 		INT32						</Type>
+			</roomMaxNumber>
+
+			<password>
+				<Type> 		STRING						</Type>
+			</password>
+
+			<roomIdx>
+				<Type> 		INT32						</Type>
+			</roomIdx>
+
+			<teamSize>
+				<Type> 		INT32						</Type>
+			</teamSize>
+
+			<mapTypeID>
+				<Type> 		INT32						</Type>
+			</mapTypeID>
+
+			<whiteList>
+				<Type> 		ARRAY <of> GID </of> 		</Type>
+			</whiteList>
+
+			<lockMove>
+				<Type> 		BOOL 						</Type>
+			</lockMove>
+
+			<lowSection>
+				<Type> 		INT8						</Type>
+			</lowSection>
+
+			<lowSubSection>
+				<Type> 		INT8						</Type>
+			</lowSubSection>
+
+			<maxSection>
+				<Type> 		INT8						</Type>
+			</maxSection>
+
+			<isOfficial>
+				<Type> 		BOOL						</Type>
+			</isOfficial>
+
+			<maxSubSection>
+				<Type> 		INT8						</Type>
+			</maxSubSection>
+
+			<lowLevel>
+				<Type>		INT32						</Type>
+			</lowLevel>
+
+			<highLevel>
+				<Type>		INT32						</Type>
+			</highLevel>
+		</Properties>
+	</CUSTOM_ROOM_DATA>
+
+	<DTS_CUSTOM_CLIENT_ROOM_INFO> FIXED_DICT
+		<Properties>
+			<name>
+				<Type> 		STRING 						</Type>
+			</name>
+			<creatorName>
+				<Type> 		STRING 						</Type>
+			</creatorName>
+			<creatorGID>
+				<Type> 		GID 						</Type>
+			</creatorGID>
+			<needPassword>
+				<Type> 		BOOL 						</Type>
+			</needPassword>
+			<roomIdx>
+				<Type> 		INT32 						</Type>
+			</roomIdx>
+			<teamSize>
+				<Type> 		INT32 						</Type>
+			</teamSize>
+			<isFull>
+				<Type> 		INT32 						</Type>
+			</isFull>
+			<mapTypeID>
+				<Type> 		INT32						</Type>
+			</mapTypeID>
+			<isOfficial>
+				<Type> 		BOOL						</Type>
+			</isOfficial>
+			<hostID>
+				<Type> 		INT32						</Type>
+			</hostID>
+		</Properties>
+	</DTS_CUSTOM_CLIENT_ROOM_INFO>
+
+	<CUSTOM_ROOM_CLIENT_MEMBER_INFO> FIXED_DICT
+		<Properties>
+			<name>
+				<Type> 		STRING 						</Type>
+			</name>
+			<gid>
+				<Type> 		GID 						</Type>
+			</gid>
+			<nationalFlag>
+				<Type> 		STRING						</Type>
+			</nationalFlag>
+		</Properties>
+	</CUSTOM_ROOM_CLIENT_MEMBER_INFO>
+
+	<DTS_CUSTOM_ROOM_INFO_FOR_CLIENT> FIXED_DICT
+		<Properties>
+			<name>
+				<Type> 		STRING 						</Type>
+			</name>
+			<creatorName>
+				<Type> 		STRING						</Type>
+			</creatorName>
+			<creatorNationalFlag>
+				<Type> 		STRING						</Type>
+			</creatorNationalFlag>
+			<creatorGID>
+				<Type> 		GID 						</Type>
+			</creatorGID>
+			<needPassword>
+				<Type> 		BOOL 						</Type>
+			</needPassword>
+			<roomIdx>
+				<Type> 		INT32 						</Type>
+			</roomIdx>
+			<teamSize>
+				<Type> 		INT32 						</Type>
+			</teamSize>
+			<roomMinNumber>
+				<Type> 		INT32 						</Type>
+			</roomMinNumber>
+			<members>
+				<Type> 		ARRAY <of>  CUSTOM_ROOM_CLIENT_MEMBER_INFO </of>						</Type>
+			</members>
+			<teamInfo>
+				<Type> 		PYTHON						</Type>
+			</teamInfo>
+			<lockMove>
+				<Type> 		BOOL 						</Type>
+			</lockMove>
+			<obMemberInfo>
+				<Type> 		ARRAY <of>  CUSTOM_ROOM_CLIENT_MEMBER_INFO </of>	</Type>
+			</obMemberInfo>
+			<mapTypeID>
+				<Type> 		INT32						</Type>
+			</mapTypeID>
+			<isOfficial>
+				<Type> 		BOOL						</Type>
+			</isOfficial>
+		</Properties>
+	</DTS_CUSTOM_ROOM_INFO_FOR_CLIENT>
+
+
+	<DTS_CUSTOM_ROOM_FULL_INFO> FIXED_DICT
+		<Properties>
+				<gid>
+					<Type> 		GID 	</Type>
+				</gid>
+
+				<roomMailBox>
+					<Type> 		MAILBOX 		</Type>
+				</roomMailBox>
+
+				<isFull>
+					<Type> 		BOOL 		</Type>
+				</isFull>
+		</Properties>
+	</DTS_CUSTOM_ROOM_FULL_INFO>
+
+	<AS_KEYS> FIXED_DICT
+		<Properties>
+				<baseID>
+					<Type> INT32 </Type>
+				</baseID>
+				<gainID>
+					<Type> INT32 </Type>
+				</gainID>
+		</Properties>
+	</AS_KEYS>
+	<AS_VALUES> FIXED_DICT
+		<Properties>
+				<minAngle>
+					<Type> FLOAT </Type>
+				</minAngle>
+		</Properties>
+	</AS_VALUES>
+
+	<WEAPON_MECHANICAL_PARAMS> FIXED_DICT
+		<Properties>
+				<aimPitchFactor>
+					<Type> FLOAT </Type>
+				</aimPitchFactor>
+				<aimYawFactor>
+					<Type> FLOAT </Type>
+				</aimYawFactor>
+				<aimSizeFactor>
+					<Type> FLOAT </Type>
+				</aimSizeFactor>
+				<operationDiff>
+					<Type> FLOAT </Type>
+				</operationDiff>
+		</Properties>
+	</WEAPON_MECHANICAL_PARAMS>
+
+	<CLIENT_VALUES> FIXED_DICT
+		<Properties>
+				<bindingOffset>
+					<Type> FLOAT </Type>
+				</bindingOffset>
+				<colliderDiff>
+					<Type> FLOAT </Type>
+				</colliderDiff>
+				<heightDiff>
+					<Type> FLOAT </Type>
+				</heightDiff>
+				<pose>
+					<Type> INT8 </Type>
+				</pose>
+				<movePose>
+					<Type> INT8 </Type>
+				</movePose>
+				<speed>
+					<Type> FLOAT </Type>
+				</speed>
+				<detailHeight>
+					<Type> FLOAT </Type>
+				</detailHeight>
+				<identityType>
+					<Type> INT8 </Type>
+				</identityType>
+				<gravity>
+					<Type> FLOAT </Type>
+				</gravity>
+		</Properties>
+	</CLIENT_VALUES>
+
+	<CLIENT_WEAPON_VALUES> FIXED_DICT
+		<Properties>
+				<weaponData>
+					<Type> BATTLE_GROUND_WEAPON_ITEM </Type>
+				</weaponData>
+				<weaponFireSpeed>
+					<Type> FLOAT </Type>
+				</weaponFireSpeed>
+				<weaponReloadSpeed>
+					<Type> FLOAT </Type>
+				</weaponReloadSpeed>
+				<weaponMagazineCount>
+					<Type> FLOAT </Type>
+				</weaponMagazineCount>
+				<weaponMechanical>
+					<Type> WEAPON_MECHANICAL_PARAMS </Type>
+				</weaponMechanical>
+				<lightDiffuse>
+					<Type> VECTOR3 </Type>
+				</lightDiffuse>
+				<viewerType>
+					<Type> INT8 </Type>
+				</viewerType>
+				<viewerPositionDiff>
+					<Type> VECTOR3 </Type>
+				</viewerPositionDiff>
+				<modelVertexBounding>
+					<Type> VECTOR3 </Type>
+				</modelVertexBounding>
+				<modelTopSocketHeight>
+					<Type> FLOAT </Type>
+				</modelTopSocketHeight>
+				<cameraOffset>
+					<Type> VECTOR3 </Type>
+				</cameraOffset>
+				<cameraInVehicle>
+					<Type> BOOL </Type>
+				</cameraInVehicle>
+				<asStates>
+					<Type> AS_KEYS </Type>
+				</asStates>
+				<asParams>
+					<Type> AS_VALUES </Type>
+				</asParams>
+				<weaponMechanicalPose>
+					<Type> UINT8 </Type>
+				</weaponMechanicalPose>
+				<avatarPose>
+					<Type> UINT8 </Type>
+				</avatarPose>
+				<SWAP_MAGAZINE_SPEED>
+					<Type>	INT32	</Type>
+				</SWAP_MAGAZINE_SPEED>
+				<RANGE_GUN_FIRE_SPEED_RATIO>
+					<Type>	INT32	</Type>
+				</RANGE_GUN_FIRE_SPEED_RATIO>
+				<FIRE_SPEED_RATIO>
+					<Type>	INT32	</Type>
+				</FIRE_SPEED_RATIO>
+		</Properties>
+	</CLIENT_WEAPON_VALUES>
+
+	<CLIENT_RC2_VALUES> FIXED_DICT
+		<Properties>
+				<characterRadius>
+					<Type> FLOAT </Type>
+				</characterRadius>
+				<characterJumpSpeed>
+					<Type> FLOAT </Type>
+				</characterJumpSpeed>
+				<characterFallSpeed>
+					<Type> FLOAT </Type>
+				</characterFallSpeed>
+				<identityType>
+					<Type> INT8 </Type>
+				</identityType>
+		</Properties>
+	</CLIENT_RC2_VALUES>
+
+	<CLIENT_RC4_VALUES> FIXED_DICT
+		<Properties>
+				<characterStepHeight>
+					<Type> FLOAT </Type>
+				</characterStepHeight>
+				<identityType>
+					<Type> INT8 </Type>
+				</identityType>
+		</Properties>
+	</CLIENT_RC4_VALUES>
+
+	<CLIENT_CONSTANT_VALUES> FIXED_DICT
+		<Properties>
+				<propertyMD5>
+					<Type> STRING </Type>
+				</propertyMD5>
+				<propertySum>
+					<Type> FLOAT64 </Type>
+				</propertySum>
+				<constantMD5>
+					<Type> STRING </Type>
+				</constantMD5>
+				<constantSum>
+					<Type> FLOAT64 </Type>
+				</constantSum>
+		</Properties>
+	</CLIENT_CONSTANT_VALUES>
+
+	<CLIENT_COLLISION_CHECK_VALUES> FIXED_DICT
+		<Properties>
+				<centerPos>
+					<Type> VECTOR3 </Type>
+				</centerPos>
+				<hitDistance>
+					<Type> VECTOR2 </Type>
+				</hitDistance>
+		</Properties>
+	</CLIENT_COLLISION_CHECK_VALUES>
+
+	<SWEEP_TEST_CHECK_VALUES> FIXED_DICT
+		<Properties>
+				<startPos>
+					<Type> VECTOR3 </Type>
+				</startPos>
+				<direction>
+					<Type> VECTOR3 </Type>
+				</direction>
+				<hitPoint>
+					<Type> VECTOR3 </Type>
+				</hitPoint>
+		</Properties>
+	</SWEEP_TEST_CHECK_VALUES>
+
+	<CLIENT_GAME_CHECK_VALUES> FIXED_DICT
+		<Properties>
+				<frame>
+					<Type> VECTOR3 </Type>
+				</frame>
+		</Properties>
+	</CLIENT_GAME_CHECK_VALUES>
+
+	<CLIENT_PROCESS_VALUES> FIXED_DICT
+		<Properties>
+				<filename>
+					<Type> STRING </Type>
+				</filename>
+				<count>
+					<Type> UINT8 </Type>
+				</count>
+		</Properties>
+	</CLIENT_PROCESS_VALUES>
+
+	<CLIENT_GAME_RAWINPUT_VALUES> FIXED_DICT
+		<Properties>
+				<mouse>
+					<Type> VECTOR2 </Type>
+				</mouse>
+		</Properties>
+	</CLIENT_GAME_RAWINPUT_VALUES>
+
+	<SETTING_VALUE> FIXED_DICT
+		<Properties>
+				<key>
+					<Type> STRING </Type>
+				</key>
+				<val_before>
+					<Type> STRING </Type>
+				</val_before>
+				<val_after>
+					<Type> STRING </Type>
+				</val_after>
+		</Properties>
+	</SETTING_VALUE>
+
+	<FILENAME_MD5> FIXED_DICT
+		<Properties>
+				<filename>
+					<Type> STRING </Type>
+				</filename>
+				<md5>
+					<Type> STRING </Type>
+				</md5>
+		</Properties>
+	</FILENAME_MD5>
+
+	<CUSTOM_CONTROL_LAYOUT> FIXED_DICT
+		<implementedBy>		CustomControlUtils.CustomControlLayoutConverter	</implementedBy>
+		<Properties>
+			<id>
+				<Type>	INT32	</Type>
+			</id>
+			<pospct>
+				<Type>	VECTOR2	</Type>
+			</pospct>
+			<scale>
+				<Type>	FLOAT	</Type>
+			</scale>
+			<opacitypct>
+				<Type>	FLOAT	</Type>
+			</opacitypct>
+		</Properties>
+	</CUSTOM_CONTROL_LAYOUT>
+	<DTS_APPEARANCE_MAP_DICT> FIXED_DICT
+		<Properties>
+			<appearanceID>
+				<Type> INT32 </Type>
+			</appearanceID>
+		</Properties>
+	</DTS_APPEARANCE_MAP_DICT>
+
+	<CUSTOM_CONTROL_SCHEME> FIXED_DICT
+		<implementedBy>		CustomControlUtils.CustomControlSchemeConverter	</implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of> CUSTOM_CONTROL_LAYOUT</of> </Type>
+			</elements>
+		</Properties>
+	</CUSTOM_CONTROL_SCHEME>
+
+	<!-- New custom layout framework -->
+	<CUSTOM_LAYOUT_ITEM> FIXED_DICT
+		<Properties>
+			<lid>
+				<Type>	INT32	</Type>
+			</lid>
+			<position>
+				<Type>	VECTOR2	</Type>
+			</position>
+			<scale>
+				<Type>	FLOAT	</Type>
+			</scale>
+			<opacity>
+				<Type>	FLOAT	</Type>
+			</opacity>
+		</Properties>
+	</CUSTOM_LAYOUT_ITEM>
+	<!-- /New custom layout framework -->
+
+	<CURRENCY_ITEM> FIXED_DICT
+		<Properties>
+			<id>
+				<Type>	INT32	</Type>
+			</id>
+			<num>
+				<Type>	INT64	</Type>
+			</num>
+		</Properties>
+	</CURRENCY_ITEM>
+	<RED_PACKET_INFO> FIXED_DICT
+		<Properties>
+			<id>
+				<Type>	INT32	</Type>
+			</id>
+			<num>
+				<Type>	INT64	</Type>
+			</num>
+			<gid>
+				<Type>	GID		</Type>
+			</gid>
+			<nickname>
+				<Type>	STRING	</Type>
+			</nickname>
+		</Properties>
+	</RED_PACKET_INFO>
+	<PURCHASED_WELFARE_INFO> FIXED_DICT
+		<Properties>
+			<welfareId>
+				<Type>	INT32	</Type>
+			</welfareId>
+			<purchaseTimestamp>
+				<Type>	FLOAT	</Type>
+			</purchaseTimestamp>
+			<expireTimestamp>
+				<Type>	FLOAT	</Type>
+			</expireTimestamp>
+			<lastReceiveWelfareTimestamp>
+				<Type>	FLOAT	</Type>
+			</lastReceiveWelfareTimestamp>
+			<availReceiveCnt>
+				<Type>	INT32	</Type>
+			</availReceiveCnt>
+			<receivedCnt>
+				<Type>	INT32	</Type>
+			</receivedCnt>
+		</Properties>
+	</PURCHASED_WELFARE_INFO>
+	<COMMON_ACTIVITY_DATA> FIXED_DICT
+		<Properties>
+			<taskid>
+				<Type>	INT32	</Type>
+			</taskid>
+			<progress>
+				<Type>	INT32	</Type>
+			</progress>
+			<got>
+				<Type>	INT32	</Type>
+			</got>
+			<ts>
+				<Type>	INT32	</Type>
+			</ts>
+		</Properties>
+	</COMMON_ACTIVITY_DATA>
+	<QUIZ_COIN_201701_DATA> FIXED_DICT
+		<Properties>
+			<req_id>
+				<Type>	STRING	</Type>
+			</req_id>
+			<amount>
+				<Type>	INT32	</Type>
+			</amount>
+		</Properties>
+	</QUIZ_COIN_201701_DATA>
+
+	<DTS_APPEARANCE_MAP_DICT> FIXED_DICT
+		<Properties>
+			<appearanceID>
+				<Type> INT32 </Type>
+			</appearanceID>
+		</Properties>
+	</DTS_APPEARANCE_MAP_DICT>
+	<DATETIME_RECORD> FIXED_DICT
+		<Properties>
+			<year>
+				<Type>	INT32	</Type>
+			</year>
+
+			<month>
+				<Type>	INT32	</Type>
+			</month>
+
+			<day>
+				<Type>	INT32	</Type>
+			</day>
+
+			<week>
+				<Type>	INT32	</Type>
+			</week>
+		</Properties>
+	</DATETIME_RECORD>
+
+	<DATETIME_RECORD_DATE> FIXED_DICT
+		<Properties>
+			<year>
+				<Type>	INT32	</Type>
+			</year>
+
+			<month>
+				<Type>	INT32	</Type>
+			</month>
+
+			<day>
+				<Type>	INT32	</Type>
+			</day>
+		</Properties>
+	</DATETIME_RECORD_DATE>
+
+	<RED_POINT> FIXED_DICT
+		<Properties>
+			<uid>
+				<Type>	INT32	</Type>
+			</uid>
+			<mainTab>
+				<Type>	INT8	</Type>
+			</mainTab>
+			<subTab>
+				<Type>	INT8	</Type>
+			</subTab>
+		</Properties>
+	</RED_POINT>
+
+	<MPM_RANK_PLAYER_DATA> FIXED_DICT
+		<Properties>
+			<gid>
+				<Type>	GID	</Type>
+			</gid>
+			<rank>
+				<Type>	INT32	</Type>
+			</rank>
+			<kill>
+				<Type>	INT32	</Type>
+			</kill>
+		</Properties>
+	</MPM_RANK_PLAYER_DATA>
+
+	<MPM_RANK_DATA> FIXED_DICT
+		<Properties>
+			<dayNo>
+				<Type>	INT32	</Type>
+			</dayNo>
+			<update>
+				<Type>	INT8	</Type>
+			</update>
+			<rankList>
+				<Type>	ARRAY <of> MPM_RANK_PLAYER_DATA	</of>	</Type>
+			</rankList>
+		</Properties>
+	</MPM_RANK_DATA>
+
+	<LOVE_LETTER> FIXED_DICT
+		<Properties>
+			<letter_id>
+				<Type>	INT32	</Type>
+			</letter_id>
+			<content>
+				<Type>	STRING	</Type>
+			</content>
+			<author_id>
+				<Type>	GID		</Type>
+			</author_id>
+			<name>
+				<Type>	STRING	</Type>
+			</name>
+			<characterType>
+				<Type>	UINT32	</Type>
+			</characterType>
+			<likeCount>
+				<Type>	INT32	</Type>
+			</likeCount>
+		</Properties>
+	</LOVE_LETTER>
+
+	<DAMAGE_SOURCE> FIXED_DICT
+		<Properties>
+			<damage>
+				<Type>	INT32	</Type>
+			</damage>
+			<timestamp>
+				<Type>	LONGTIME	</Type>
+			</timestamp>
+			<type>
+				<Type>	INT32	</Type>
+			</type>
+			<entityID>
+				<Type>	INT32	</Type>
+			</entityID>
+			<name>
+				<Type>	STRING	</Type>
+			</name>
+		</Properties>
+	</DAMAGE_SOURCE>
+
+	<KILLER_OVERVIEW_PLAYER_INFO> FIXED_DICT
+		<Properties>
+			<identityType>
+				<Type>	INT8	</Type>
+			</identityType>
+			<characterType>
+				<Type>	INT32	</Type>
+			</characterType>
+			<equips>
+				<Type> ARRAY <of> INT32 </of> </Type>
+			</equips>
+			<dtsBodyAppearanceList>
+				<Type> ARRAY <of> INT32 </of> </Type>
+			</dtsBodyAppearanceList>
+			<dtsWeaponAppearanceList>
+				<Type> ARRAY <of> INT32 </of> </Type>
+			</dtsWeaponAppearanceList>
+			<dtsBattlegroundPropAppearanceList>
+				<Type> ARRAY <of> INT32 </of> </Type>
+			</dtsBattlegroundPropAppearanceList>
+			<weaponInfo>
+				<Type>	SHOOT_WEAPON_INFO	</Type>
+			</weaponInfo>
+			<hitInfo>
+				<Type>	PYTHON	</Type>
+			</hitInfo>
+			<damageSrcInfo>
+				<Type>	PYTHON	</Type>
+			</damageSrcInfo>
+			<isCulprit>
+				<Type>	BOOL	</Type>
+			</isCulprit>
+			<dtsNameplateAppearance>
+				<Type>  INT32	</Type>
+			</dtsNameplateAppearance>
+			<dtsWearableAppearanceList>
+				<Type> ARRAY <of> INT32 </of> </Type>
+			</dtsWearableAppearanceList>
+		</Properties>
+	</KILLER_OVERVIEW_PLAYER_INFO>
+
+	<KILLER_OVERVIEW_PLAYER_INFO_AND_DAMAGE_SOURCE> FIXED_DICT
+		<Properties>
+			<playerInfo>
+				<Type>	KILLER_OVERVIEW_PLAYER_INFO	</Type>
+			</playerInfo>
+			<damageSource>
+				<Type>	DAMAGE_SOURCE	</Type>
+			</damageSource>
+		</Properties>
+	</KILLER_OVERVIEW_PLAYER_INFO_AND_DAMAGE_SOURCE>
+	<COURSE_FAVORITE_DATA> FIXED_DICT
+		<Properties>
+			<playerGID>
+				<Type>	GID	</Type>
+			</playerGID>
+			<gameID>
+				<Type>	UUID	</Type>
+			</gameID>
+			<when>
+				<Type>	FLOAT	</Type>
+			</when>
+		</Properties>
+	</COURSE_FAVORITE_DATA>
+
+	<DTS_LEVEL_SPECIAL_AWARD_STATE> FIXED_DICT
+		<Properties>
+			<awardNumber>
+				<Type>		FLOAT				</Type>
+			</awardNumber>
+			<endMicroSecond>
+				<Type>		INT32				</Type>
+			</endMicroSecond>
+		</Properties>
+	</DTS_LEVEL_SPECIAL_AWARD_STATE>
+
+	<!-- End  -->
+	<CLIENT_ENGINE_INFO> FIXED_DICT
+		<Properties>
+			<version>
+				<Type>		UINT32		</Type>
+			</version>
+			<supportSeason>
+				<Type>		BOOL		</Type>
+			</supportSeason>
+		</Properties>
+	</CLIENT_ENGINE_INFO>
+
+	<CLICK_INFO> FIXED_DICT
+		<Properties>
+			<ID>
+				<Type>		INT32		</Type>
+			</ID>
+			<CLICK_CNT>
+				<Type>		INT32		</Type>
+			</CLICK_CNT>
+		</Properties>
+	</CLICK_INFO>
+
+	<RED_PACKET_POS_INFO> FIXED_DICT
+		<Properties>
+			<uuid>
+				<Type>		UUID		</Type>
+			</uuid>
+			<pos>
+				<Type>		VECTOR3		</Type>
+			</pos>
+		</Properties>
+	</RED_PACKET_POS_INFO>
+	
+	<STAR_DIAMOND_NPC_POS_INFO> FIXED_DICT
+		<Properties>
+			<npcIdx>
+				<Type>		INT32		</Type>
+			</npcIdx>
+			<pos>
+				<Type>		VECTOR3		</Type>
+			</pos>
+		</Properties>
+	</STAR_DIAMOND_NPC_POS_INFO>
+
+	<OWN_RED_PACKET_INFO> FIXED_DICT
+		<Properties>
+			<propID>
+				<Type>		INT32		</Type>
+			</propID>
+			<num>
+				<Type>		INT32		</Type>
+			</num>
+		</Properties>
+	</OWN_RED_PACKET_INFO>
+
+	<COMMANDER_DROP_POS_INFO> FIXED_DICT
+		<Properties>
+			<index>
+				<Type>		UINT32		</Type>
+			</index>
+			<pos>
+				<Type>		VECTOR3		</Type>
+			</pos>
+			<commanderIndex>
+				<Type>		UINT32		</Type>
+			</commanderIndex>
+		</Properties>
+	</COMMANDER_DROP_POS_INFO>
+
+	<COMMANDER_VEHICLE_INFO> FIXED_DICT
+		<Properties>
+			<vehicleID>
+				<Type>		INT32		</Type>
+			</vehicleID>
+			<pos>
+				<Type>		VECTOR3		</Type>
+			</pos>
+			<yaw>
+				<Type>		FLOAT	</Type>
+			</yaw>
+			<name>
+				<Type>	STRING	</Type>
+			</name>
+			<active>
+				<Type>		BOOL		</Type>
+			</active>
+		</Properties>
+	</COMMANDER_VEHICLE_INFO>
+
+	<BRAVE_BOOK_DATA> FIXED_DICT
+		<implementedBy>		brave_book_utils.BraveBookDataConverter	</implementedBy>
+		<Properties>
+			<seasonID>
+				<Type> INT32 </Type>
+			</seasonID>
+			<level>
+				<Type> INT32 </Type>
+			</level>
+			<experience>
+				<Type> INT32 </Type>
+			</experience>
+			<passStates>
+				<Type> PYTHON </Type>
+			</passStates>
+			<receivedRewards>
+				<Type> PYTHON </Type>
+			</receivedRewards>
+		</Properties>
+	</BRAVE_BOOK_DATA>
+
+	<BRAVE_BOOK_DATA_LIST> FIXED_DICT
+		<implementedBy>		brave_book_utils.BraveBookDataListConverter	</implementedBy>
+		<Properties>
+			<elements>
+				<Type>	ARRAY <of> BRAVE_BOOK_DATA </of> </Type>
+			</elements>
+		</Properties>
+	</BRAVE_BOOK_DATA_LIST>
+
+	<AUTO_APPEARANCE_INFO> FIXED_DICT
+		<Properties>
+			<appearanceID>
+				<Type>		INT32		</Type>
+			</appearanceID>
+			<owners>
+				<Type>	ARRAY <of> INT32 </of> </Type>
+			</owners>
+		</Properties>
+	</AUTO_APPEARANCE_INFO>
+	<BROADCAST_FIRE_INFO> FIXED_DICT
+		<Properties>
+			<entityID>
+				<Type> INT32 </Type>
+			</entityID>
+			<scopeShoot>
+				<Type> BOOL </Type>
+			</scopeShoot>
+			<normal>
+				<Type> VECTOR3 </Type>
+			</normal>
+			<material>
+				<Type> STRING </Type>
+			</material>
+			<weaponID>
+				<Type> INT32 </Type>
+			</weaponID>
+			<fireDir>
+				<Type> VECTOR3 </Type>
+			</fireDir>
+			<fireStamp>
+				<Type> INT64 </Type>
+			</fireStamp>
+			<hitPart>
+				<Type> INT32 </Type>
+			</hitPart>
+		</Properties>
+	</BROADCAST_FIRE_INFO>
+
+	<VEHICLE_PROPERTY_LEVEL> FIXED_DICT
+		<Properties>
+			<propID>
+				<Type>		INT8		</Type>
+			</propID>
+			<level>
+				<Type>		INT8		</Type>
+			</level>
+		</Properties>
+	</VEHICLE_PROPERTY_LEVEL>
+
+	<FINISHED_PEIWAN_ORDER> FIXED_DICT
+		<Properties>
+			<inviterName>
+				<Type>		STRING		</Type>
+			</inviterName>
+			<inviteeName>
+				<Type>		STRING		</Type>
+			</inviteeName>
+			<duration>
+				<Type>		INT32		</Type>
+			</duration>
+			<money>
+				<Type>		INT32		</Type>
+			</money>
+			<id>
+				<Type>		STRING		</Type>
+			</id>
+		</Properties>
+	</FINISHED_PEIWAN_ORDER>
+
+	<JETWINGS_SOCKET_INFO> FIXED_DICT
+		<Properties>
+			<id>
+				<Type> ENTITY_ID </Type>
+			</id>
+			<showAircraftID>
+				<Type> INT32 </Type>
+			</showAircraftID>
+			<dressInfo>
+				<Type> PYTHON	</Type>
+			</dressInfo>
+		</Properties>
+	</JETWINGS_SOCKET_INFO>
+
+	<WEAPON_BUFF> FIXED_DICT
+		<Properties>
+			<propID>
+				<Type>		INT8		</Type>
+			</propID>
+			<val>
+				<Type>		FLOAT		</Type>
+			</val>
+		</Properties>
+	</WEAPON_BUFF>
+
+	<VEHICLE_BUFF> FIXED_DICT
+		<Properties>
+			<maxSpeedBuff>
+				<Type>		FLOAT		</Type>
+			</maxSpeedBuff>
+			<nosSpeedBuff>
+				<Type>		FLOAT		</Type>
+			</nosSpeedBuff>
+			<throttleBuff>
+				<Type>		FLOAT		</Type>
+			</throttleBuff>
+			<driveForceBuff>
+				<Type>		FLOAT		</Type>
+			</driveForceBuff>
+		</Properties>
+	</VEHICLE_BUFF>
+	<MONGO_TEST_DATA> FIXED_DICT
+		<Properties>
+			<currencyList>
+				<Type>	ARRAY <of>	CURRENCY_ITEM	</of>	</Type>
+			</currencyList>
+			<baseNickname>
+				<Type>		KEY_NAME	</Type>
+			</baseNickname>
+			<baseLevel>
+				<Type>		INT32		</Type>
+			</baseLevel>
+			<lastLogInTime>
+				<Type>		FLOAT		</Type>
+			</lastLogInTime>
+		</Properties>
+	</MONGO_TEST_DATA>
+	<UI_CLICK_INFO> FIXED_DICT
+		<Properties>
+			<name>
+				<Type>	STRING	</Type>
+			</name>
+			<cnt>
+				<Type>	INT32	</Type>
+			</cnt>
+		</Properties>
+	</UI_CLICK_INFO>
+	<VOXEL_BUILDUNITS_MGR> FIXED_DICT
+		<implementedBy>	sandbox.VoxelBuildTypes.voxleBuildUnitsMgrConverterInstance </implementedBy>
+		<Properties>
+			<r>
+				<Type>		PY_DICT		</Type>
+			</r>
+		</Properties>
+	</VOXEL_BUILDUNITS_MGR>
+
+	<BLAST_SYNC_DATA> FIXED_DICT
+		<Properties>
+			<elemID>
+				<Type>		INT32		</Type>
+			</elemID>
+			<data>
+				<Type> 		BLOB		</Type>
+			</data>
+		</Properties>
+	</BLAST_SYNC_DATA>
+
+	<AVATAR_CAMP_WAR_GAME_STATUS>	FIXED_DICT
+		<Properties>
+				<name>
+					<Type>		STRING		</Type>
+				</name>
+				<kill>
+					<Type> 		INT32		</Type>
+				</kill>
+				<damage>
+					<Type> 		INT32		</Type>
+				</damage>
+				<score>
+					<Type>		INT32		</Type>
+				</score>
+				<camp_war_id>
+					<Type>		INT32		</Type>
+				</camp_war_id>
+
+				<campWarAppears>
+					<Type>			ARRAY <of> INT32 </of>		</Type>
+				</campWarAppears>
+
+				<characterType>
+					<Type>		INT32		</Type>
+				</characterType>
+		</Properties>
+	</AVATAR_CAMP_WAR_GAME_STATUS>
+
+	<CAMP_WAR_OWN_GAME_RESULT>	FIXED_DICT
+		<Properties>
+			<kill>
+					<Type>		PYTHON	</Type>
+			</kill>
+			<damage>
+					<Type>		INT32	</Type>
+			</damage>
+			<score>
+					<Type>		INT32	</Type>
+			</score>
+			<exp>
+					<Type>		INT32	</Type>
+			</exp>
+			<beforeScore>
+					<Type>		INT32	</Type>
+			</beforeScore>
+			<afterScore>
+					<Type>		INT32	</Type>
+			</afterScore>
+		</Properties>
+	</CAMP_WAR_OWN_GAME_RESULT>
+
+	<TYPE_SETTING> STRING </TYPE_SETTING>
+
+	<CUSTOMIZED_SUIT_DATA> FIXED_DICT
+		<Properties>
+			<suitName>
+				<Type>		STRING		</Type>
+			</suitName>
+			<unlocked>
+				<Type>		BOOL		</Type>
+			</unlocked>
+			<cloth>
+				<Type> 		INT32		</Type>
+			</cloth>
+			<pants>
+				<Type> 		INT32		</Type>
+			</pants>
+			<head>
+				<Type> 		INT32		</Type>
+			</head>
+			<hair>
+				<Type> 		INT32		</Type>
+			</hair>
+			<hat>
+				<Type> 		INT32		</Type>
+			</hat>
+			<facemask>
+				<Type> 		INT32		</Type>
+			</facemask>
+		</Properties>
+	</CUSTOMIZED_SUIT_DATA>
+	
+	<ENTITY_POS_INFO> FIXED_DICT
+		<Properties>
+			<entityIdx>
+				<Type>		INT32		</Type>
+			</entityIdx>
+			<pos>
+				<Type>		VECTOR3		</Type>
+			</pos>
+		</Properties>
+	</ENTITY_POS_INFO>
+
+	<SAFE_CIRCLE_STATE_DATA> FIXED_DICT
+		<Properties>
+			<state>
+				<Type>	INT32	</Type>
+			</state>
+			<radius>
+				<Type>	FLOAT	</Type>
+			</radius>
+			<isShow>
+				<Type>	BOOL	</Type>
+			</isShow>
+			<markList>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</markList>
+			<itemID>
+				<Type>	INT32	</Type>
+			</itemID>
+			<finishTime>
+				<Type>	FLOAT	</Type>
+			</finishTime>
+		</Properties>
+	</SAFE_CIRCLE_STATE_DATA>
+	<CIRCLE_DATA> FIXED_DICT
+		<Properties>
+			<radius>
+				<Type>	FLOAT	</Type>
+			</radius>
+			<center>
+				<Type>	VECTOR2	</Type>
+			</center>
+		</Properties>
+	</CIRCLE_DATA>
+	<AIR_DROP_CHANGE_IDENTITY_DATA>	FIXED_DICT
+		<Properties>
+			<identityType>
+				<Type>	INT32	</Type>
+			</identityType>
+			<airDropCnt>
+				<Type>	INT32	</Type>
+			</airDropCnt>
+			<itemID>
+				<Type>	INT32	</Type>
+			</itemID>
+		</Properties>
+	</AIR_DROP_CHANGE_IDENTITY_DATA>
+
+	<SECRET_TREASURE_DESTINY>	FIXED_DICT
+		<Properties>
+			<markList>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</markList>
+			<stateList>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</stateList>
+			<itemID>
+				<Type>	INT32	</Type>
+			</itemID>
+			<maxLevel>
+				<Type>	INT32	</Type>
+			</maxLevel>
+		</Properties>
+	</SECRET_TREASURE_DESTINY>
+
+	<HIDE_AND_ADD_MARKS_STATE>	FIXED_DICT
+		<Properties>
+			<duration>
+				<Type>	FLOAT	</Type>
+			</duration>
+			<marks>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</marks>
+			<opacity>
+				<Type>	INT32	</Type>
+			</opacity>
+			<time_to_leave>
+				<Type>	FLOAT	</Type>
+			</time_to_leave>
+		</Properties>
+	</HIDE_AND_ADD_MARKS_STATE>
+	<SHOOT_CHECK_STATE_DATA>	FIXED_DICT
+		<Properties>
+			<statesToAdd>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</statesToAdd>
+
+			<weaponType>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</weaponType>
+		</Properties>
+	</SHOOT_CHECK_STATE_DATA>
+	<BATTLE_UNITED_BATTLE_SPACE_ENTITY_POS> FIXED_DICT
+		<Properties>
+			<campId>
+				<Type>		INT32		</Type>
+			</campId>
+			<entityIdx>
+				<Type>		INT32		</Type>
+			</entityIdx>
+			<pos>
+				<Type>		VECTOR3		</Type>
+			</pos>
+		</Properties>
+	</BATTLE_UNITED_BATTLE_SPACE_ENTITY_POS>
+
+	<NEAR_ATTACK_CHARGE_ARGS>	FIXED_DICT
+		<Properties>
+			<speed>
+				<Type>	FLOAT	</Type>
+			</speed>
+
+			<duration>
+				<Type>	FLOAT	</Type>
+			</duration>
+			
+			<angle>
+				<Type>	FLOAT	</Type>
+			</angle>
+		</Properties>
+	</NEAR_ATTACK_CHARGE_ARGS>
+
+	<PICK_SECRET_TREASURE_BONUS>	FIXED_DICT
+		<Properties>
+			<secretItemIDs>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</secretItemIDs>
+
+			<markList>
+				<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			</markList>
+		</Properties>
+	</PICK_SECRET_TREASURE_BONUS>
+
+	<FALL_FOLLOW_INVITE_MSG>	FIXED_DICT
+		<Properties>
+			<isFallFollow>
+				<Type>	BOOL	</Type>
+			</isFallFollow>
+
+			<entID>
+				<Type>	INT32	</Type>
+			</entID>
+			
+			<name>
+				<Type>	STRING	</Type>
+			</name>
+		</Properties>
+	</FALL_FOLLOW_INVITE_MSG>
+
+	<LAND_DRONE_COMPS>	FIXED_DICT
+		<Properties>
+			<slotIdx0>
+				<Type> INT32	</Type>
+			</slotIdx0>
+
+			<slotIdx1>
+				<Type>	INT32	</Type>
+			</slotIdx1>
+		</Properties>
+	</LAND_DRONE_COMPS>
+    
+	<LAND_DRONE_BATTERY>	FIXED_DICT
+		<Properties>
+			<itemID>
+				<Type> INT32	</Type>
+			</itemID>
+
+			<batteryPower>
+				<Type>	INT32	</Type>
+			</batteryPower>
+		</Properties>
+	</LAND_DRONE_BATTERY>
+	
+	<DTS_RANGE_GUN_TRAJECTORY>	FIXED_DICT
+		<Properties>
+			<srcPos>
+				<Type>	VECTOR3	</Type>
+			</srcPos>
+
+			<endPos>
+				<Type>	VECTOR3	</Type>
+			</endPos>
+			
+			<forward>
+				<Type>	VECTOR3	</Type>
+			</forward>
+		</Properties>
+	</DTS_RANGE_GUN_TRAJECTORY>
+</root>

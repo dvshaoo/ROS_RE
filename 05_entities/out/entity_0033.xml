@@ -1,0 +1,89 @@
+<root>
+	<Properties>
+	    <dailyPay>
+			<Type>  PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dailyPay>
+		<dailyPayLoginToday>
+			<Type>  FLOAT </Type>
+			<Flags> BASE </Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dailyPayLoginToday>
+		<getGift>
+		    <Type>  PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </getGift>
+        <choseGalaxy>
+		    <Type>  INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	-1		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </choseGalaxy>
+        <tenDayGift>
+		    <Type>  PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </tenDayGift>
+        <buyTenDayGiftTime>
+            <Type>  FLOAT </Type>
+			<Flags> BASE </Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </buyTenDayGiftTime>
+        <startDailyPayActive>
+            <Type>  INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </startDailyPayActive>
+        <endDailyPayActive>
+            <Type>  INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </endDailyPayActive>
+	</Properties>
+	<BaseMethods>
+        <onReqLotteryFirstPay><Exposed/>
+         <Arg>			INT32				</Arg>
+        </onReqLotteryFirstPay>
+        <setChoseGalaxy><Exposed/>
+         <Arg>			INT32				</Arg>
+        </setChoseGalaxy>
+        <dailyPayRefresh><Exposed/>
+        </dailyPayRefresh>
+	</BaseMethods>
+	<ClientMethods>
+        <updateDailyPay>
+            <Arg>			INT32				</Arg>
+            <Arg>			INT32				</Arg>
+            <Arg>			INT32				</Arg>
+        </updateDailyPay>
+        <onReqLotteryFirstPay>
+            <Arg>			INT32				</Arg>
+            <Arg>			INT32				</Arg>
+            <Arg>			PYTHON				</Arg>
+        </onReqLotteryFirstPay>
+         <onReqlostLottery>
+            <Arg>			INT32				</Arg>
+        </onReqlostLottery>
+         <getTenDayGift>
+            <Arg>			PYTHON				</Arg>
+            <Arg>			PYTHON				</Arg>
+        </getTenDayGift>
+        <setDailyPayEndTime>
+            <Arg>			INT64				</Arg>
+            <Arg>			INT64				</Arg>
+        </setDailyPayEndTime>
+        <dailyPayFinalAward>
+            <Arg>			PYTHON				</Arg>
+        </dailyPayFinalAward>
+	</ClientMethods>
+</root>
+

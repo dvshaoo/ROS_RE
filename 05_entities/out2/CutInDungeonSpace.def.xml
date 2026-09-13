@@ -1,0 +1,19 @@
+<root>
+	<Parent>	DungeonSpace		</Parent>
+	<Implements>
+	</Implements>
+	<ClientName>	CutInDungeonSpace	</ClientName>
+	<Properties>
+		<accessingPlayers>
+			<Type>		ARRAY <of> INT32 </of>		</Type>
+			<Flags>		CELL_PRIVATE				</Flags>
+		</accessingPlayers>
+	</Properties>
+	<CellMethods>
+		<onAvatarJoin>
+			<Arg>		PYTHON		</Arg>
+		</onAvatarJoin>
+	</CellMethods>
+	<ClientMethods>
+	</ClientMethods>
+</root>

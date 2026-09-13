@@ -1,0 +1,30 @@
+=== mitm_log START ===
+=== MITM tls :8443 ===
+=== MITM plain :8080 ===
+REQ GET /query?host=g61.update.easebar.com&errcode=112 host=listerr.nie.netease.com sni=? len=0
+  H User-Agent: Python-urllib/2.7
+REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com sni=? len=0
+  H User-Agent: Python-urllib/2.7
+REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com sni=? len=0
+  H User-Agent: Python-urllib/2.7
+REQ GET /query?host=g61.update.easebar.com&errcode=113 host=listerr.nie.netease.com sni=? len=0
+  H User-Agent: Python-urllib/2.7
+REQ POST / host=drpf-h45na.proxima.nie.easebar.com sni=? len=316
+  H User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)
+  H Content-Type: application/json
+  BODY b'{"type":"obb","obb_state":0,"obb_param":"1117219","udid":"11178811c6a412d9","os_name":"android","time":"2026-09-12 20:46:59 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+REQ POST / host=drpf-h45na.proxima.nie.easebar.com sni=? len=294
+  H User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)
+  H Content-Type: application/json
+  BODY b'{"type":"obb","obb_state":5,"udid":"11178811c6a412d9","os_name":"android","time":"2026-09-12 20:46:59 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+REQ POST / host=drpf-h45na.proxima.nie.easebar.com sni=? len=294
+  H User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)
+  H Content-Type: application/json
+  BODY b'{"type":"obb","obb_state":6,"udid":"11178811c6a412d9","os_name":"android","time":"2026-09-12 20:46:59 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+REQ POST / host=drpf-h45na.proxima.nie.easebar.com sni=? len=296
+  H User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)
+  H Content-Type: application/json
+  BODY b'{"type":"obb","obb_state":100,"udid":"11178811c6a412d9","os_name":"android","time":"2026-09-12 20:46:59 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com sni=? len=1036
+  H User-Agent: detect
+  H Content-Type: application/json

@@ -1,0 +1,289 @@
+<root>
+	<Parent>	DynamicSpace		</Parent>
+	<Implements>
+		<Interface>	iGameStage	</Interface>
+		<Interface>	iMonsterGenerate</Interface>
+		<Interface>	iMonsterGroup	</Interface>
+		<Interface>	iBuildingGenerate	</Interface>
+	</Implements>
+	<ClientName>	DungeonSpace	</ClientName>
+	<Properties>
+		<playerDataStatistics>
+			<Type>	PY_DICT		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</playerDataStatistics>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<startTime>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</startTime>
+		<taskID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</taskID>
+
+		<battleInfoType>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</battleInfoType>
+
+		<awardSrc>
+			<!-- 		标识掉落请求来源 	-->
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</awardSrc>
+
+		<isWipeOut>
+			<!-- 		是否团灭 		-->
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	False			</Default>
+		</isWipeOut>
+		<timerWipeOut>
+			<Type>		INT32		</Type>
+			<Flags> 	CELL_PRIVATE </Flags>
+		</timerWipeOut>
+
+		<wipeOutTimestamp>
+			<!--  最近一次团灭的时间戳 	-->
+			<Type>		FLOAT			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0.0				</Default>
+		</wipeOutTimestamp>
+
+		<summonItem>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</summonItem>
+		<rebornPointID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</rebornPointID>
+		<scenarioState>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</scenarioState>
+		<killHistory>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</killHistory>
+		<drivingStage>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</drivingStage>
+
+		<monsterBasicLevel>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	1		</Default>
+		</monsterBasicLevel>
+		<monsterInitLevel>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</monsterInitLevel>
+		<warGrowthOpen>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</warGrowthOpen>
+
+		<saLogInfo>
+			<Type>		PY_DICT		</Type>
+			<Flags> 	CELL_PUBLIC </Flags>
+		</saLogInfo>
+
+		<strongholdID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</strongholdID>
+	</Properties>
+	<CellMethods>
+		<onPlayerReborn>
+			<Arg>		ENTITY_ID				</Arg>
+			<Arg>		BOOL					</Arg>
+		</onPlayerReborn>
+		<moveToRebornPoint>
+			<Arg>		INT32					</Arg>
+			<Arg>		ENTITY_ID				</Arg>
+		</moveToRebornPoint>
+		<setDungeonLevel>
+			<Arg>	INT32		</Arg>
+		</setDungeonLevel>
+		<requestDelayGameStatusTimer><Exposed/></requestDelayGameStatusTimer>
+		<closeHalfwayJoin>
+		</closeHalfwayJoin>
+
+		<giveBTAwards>
+			<Arg>		INT32		</Arg>
+		</giveBTAwards>
+
+		<pingshenSwitchStage> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</pingshenSwitchStage>
+	</CellMethods>
+	<ClientMethods>
+		<onStageChanged>
+		</onStageChanged>
+		<playSoundBGM>
+			<Arg>		STRING		</Arg>
+		</playSoundBGM>
+		<setVolumeByName>
+			<Arg>		STRING		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</setVolumeByName>
+		<hidePlayer>
+		</hidePlayer>
+		<showPlayer>
+		</showPlayer>
+		<gameEnd>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOATTIME	</Arg>
+		</gameEnd>
+		<changeLand>
+			<Arg>		STRING		</Arg>
+			<Arg>		BOOL		</Arg>
+		</changeLand>
+		<playHintSfx>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</playHintSfx>
+		<playUIEffect>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</playUIEffect>
+		<saveGameResult>
+			<Arg>		INT32		</Arg>
+		</saveGameResult>
+		<markTargetPosition>
+			<Arg>		VECTOR3		</Arg>
+		</markTargetPosition>
+		<closeTargetPosition></closeTargetPosition>
+
+		<startMarkTarget>
+			<Arg>		INT32		</Arg> <!-- group id -->
+			<Arg>		FLOAT		</Arg> <!-- proximity -->
+		</startMarkTarget>
+
+		<stopMarkTarget>
+		</stopMarkTarget>
+
+		<enableDrivingSwitch>
+		</enableDrivingSwitch>
+		<disableDrivingSwitch>
+		</disableDrivingSwitch>
+		<disableShootPanel>
+		</disableShootPanel>
+		<enableShootPanel>
+		</enableShootPanel>
+		<openDoor>
+			<Arg>		INT32		</Arg>
+		</openDoor>
+		<closeDoor>
+			<Arg>		INT32		</Arg>
+		</closeDoor>
+		<gameLose></gameLose>
+		<showDungeonTip>
+			<Arg>	STRING	</Arg>
+		</showDungeonTip>
+		<hideDungeonTip></hideDungeonTip>
+
+		<startSynCountDown>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		STRING		</Arg>
+		</startSynCountDown>
+
+		<stopSynCountDown>
+		</stopSynCountDown>
+
+		<shownGameProgress></shownGameProgress>
+
+		<updateGameProgress>
+			<Arg>		FLOAT		</Arg>
+		</updateGameProgress>
+
+
+		<playStoryDialog>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</playStoryDialog>
+
+		<showUIInGame>
+			<Arg>		INT32		</Arg><!-- group_id -->
+		</showUIInGame>
+
+		<closeUIInGame>
+			<Arg>		INT32		</Arg><!-- group_id -->
+		</closeUIInGame>
+
+		<openAutoFight></openAutoFight>
+
+		<closeAutoFight></closeAutoFight>
+
+		<autoFightGuard>
+			<Arg>		FLOAT		</Arg><!-- shootRange -->
+		</autoFightGuard>
+
+		<autoFightPatrol>
+			<Arg>		INT32		</Arg><!-- pathID -->
+			<Arg>		FLOAT		</Arg><!-- shootRange -->
+			<Arg>		INT32		</Arg><!-- endNode -->
+		</autoFightPatrol>
+
+		<autoFightAimTarget>
+			<Arg>		INT32		</Arg><!-- mapID -->
+			<Arg>		INT32		</Arg><!-- pointID -->
+			<Arg>		INT32		</Arg><!-- monsterID -->
+		</autoFightAimTarget>
+
+		<autoFightOpenSwitch>
+			<Arg>		INT32		</Arg><!-- mapID -->
+			<Arg>		INT32		</Arg><!-- pointID -->
+			<Arg>		INT32		</Arg><!-- elemID -->
+		</autoFightOpenSwitch>
+
+		<autoFightClearArea>
+			<Arg>		INT32		</Arg><!-- mapID -->
+			<Arg>		INT32		</Arg><!-- areaID -->
+			<Arg>		FLOAT		</Arg><!-- shootRange -->
+		</autoFightClearArea>
+
+		<autoFightNaviTarget>
+			<Arg>		INT32		</Arg><!-- mapID -->
+			<Arg>		INT32		</Arg><!-- pointID -->
+		</autoFightNaviTarget>
+
+		<playCG>
+			<Arg>		STRING		</Arg>
+		</playCG>
+
+		<avatarFaceToMonster>
+			<Arg>		INT32		</Arg><!-- serial id -->
+			<Arg>		INT32		</Arg><!-- distance -->
+		</avatarFaceToMonster>
+
+		<hideBossHp></hideBossHp>
+
+		<updateStartTime>
+			<Arg>		FLOAT 		</Arg><!-- time -->
+		</updateStartTime>
+		<showSfxInScene>
+			<Arg>		STRING		</Arg>
+			<Arg>		BOOL		</Arg>
+		</showSfxInScene>
+		<playSystemGuide>
+		    <Arg>       STRING      </Arg>
+		</playSystemGuide>
+	</ClientMethods>
+</root>

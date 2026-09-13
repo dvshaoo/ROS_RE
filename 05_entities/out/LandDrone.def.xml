@@ -1,0 +1,130 @@
+<root>
+	<Implements>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iLandVehicle	</Interface>
+		<Interface>	iMove	</Interface>
+		<Interface>	iLandDroneComps	</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName>	LandDrone		</ClientName>
+
+	<Properties>
+		<moveStage>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</moveStage>
+
+		<flyTargetPos>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</flyTargetPos>
+		
+		<isServerControled>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</isServerControled>
+
+		<flyMoveSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</flyMoveSpeed>
+
+		<fallMoveSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</fallMoveSpeed>
+		
+		<pickOwnerID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</pickOwnerID>
+		<dtsLandDroneItemID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</dtsLandDroneItemID>
+
+		<dtsLandDroneState>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</dtsLandDroneState>
+
+		<checkDroneFlyRadiusTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</checkDroneFlyRadiusTimerID>
+
+		<lastLandDroneHurtTick>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</lastLandDroneHurtTick>
+
+		<landDroneBattleGroundTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</landDroneBattleGroundTimerID>
+		
+        <landDroneDelayDestroyTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+        </landDroneDelayDestroyTimerID>
+        
+		<landDroneInPrepareDestroyTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+        </landDroneInPrepareDestroyTimerID>
+        
+		<battleGroundTeamID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</battleGroundTeamID>
+	</Properties>
+
+	<CellMethods>
+		<changeStage><Exposed/>
+			<Arg>		INT32			</Arg>
+		</changeStage>
+		<uploadFlyTarget><Exposed/>
+			<Arg>		VECTOR3			</Arg>
+		</uploadFlyTarget>
+		<reqControlDrone>
+			<Arg>		INT32			</Arg>
+		</reqControlDrone>
+		<reqUncontrolDrone>
+			<Arg>		INT32			</Arg>
+		</reqUncontrolDrone>
+
+        <onLandDronePickOwnerDie>
+        </onLandDronePickOwnerDie>
+
+        <syncLandDroneBaseInfo>
+            <Arg>   PYTHON   </Arg>
+        </syncLandDroneBaseInfo>
+	</CellMethods>
+
+	<ClientMethods>
+		<onChangeToStage>
+			<Arg>		INT32			</Arg>
+		</onChangeToStage>
+		<movingToGroundBegin>
+			<Arg>		VECTOR3			</Arg>
+		</movingToGroundBegin>
+		<movingToGroundEnd>
+		</movingToGroundEnd>
+
+		<onLandDronePowerEmpty>
+		</onLandDronePowerEmpty>
+
+		<onLandDroneLostSingal>
+		</onLandDroneLostSingal>
+	</ClientMethods>
+</root>
+
+

@@ -1,0 +1,304 @@
+<root>
+	<Implements>
+		<Interface>			iGlobal			</Interface>
+		<Interface>			iBaseNoCell		</Interface>
+		<Interface>	 iSpaceRequester	</Interface>
+	</Implements>
+	<Properties>
+		<ligeances>
+			<Type>		LIGEANCE_INFO_DICT	</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</ligeances>
+		<legionWarState>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</legionWarState>
+		<legionWarStateNextTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</legionWarStateNextTime>
+		<ligeanceWarRecord>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</ligeanceWarRecord>
+		<ligeanceWarSpaces>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+		</ligeanceWarSpaces>
+		<dominationState>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</dominationState>
+		<dominationMatchPool>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	[]			</Default>
+		</dominationMatchPool>
+		<dominationRecord>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+		</dominationRecord>
+		<dominationKey>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</dominationKey>
+		<dominationTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</dominationTime>
+		<dominationMapID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0			</Default>
+		</dominationMapID>
+		<weekRefreshedLegions>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	set()			</Default>
+			<Persistent>	true			</Persistent>
+		</weekRefreshedLegions>
+
+	</Properties>
+	<BaseMethods>
+		<setOnline>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</setOnline>
+		<setOffline>
+			<Arg>		GID		</Arg>
+		</setOffline>
+		<onLegionRegist>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		LEGION_SERVER_BRIEF_INFO	</Arg>
+			<Arg>		ARRAY <of>	GID	</of>	</Arg>
+			<Arg>		GID				</Arg>
+		</onLegionRegist>
+		<onLegionUnregist>
+			<Arg>		GID			</Arg>
+			<Arg>		STRING			</Arg>
+		</onLegionUnregist>
+		<onLegionCreateFailure>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+		</onLegionCreateFailure>
+		<onLigeanceRegist>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</onLigeanceRegist>
+		<onLigeanceUnregist>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</onLigeanceUnregist>
+		<createLegion>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</createLegion>
+		<onCreateLegion>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+		</onCreateLegion>
+		<requestLegionMailbox>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		GID		</Arg>
+		</requestLegionMailbox>
+
+		<requestLegionList>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- buffer length -->
+			<Arg>		BOOL		</Arg>		<!-- get next batch -->
+		</requestLegionList>
+		<requestSearchLegion>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		STRING		</Arg>
+		</requestSearchLegion>
+		<requestJoinLegion>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		LEGION_APPLY	</Arg>
+		</requestJoinLegion>
+		<quickJoinLegion>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		LEGION_APPLY	</Arg>
+		</quickJoinLegion>
+		<confirmMemberApply>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</confirmMemberApply>
+		<onLegionUpdate>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onLegionUpdate>
+		<onLegionRemoveMember>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+		</onLegionRemoveMember>
+		<queryLigeanceInfo>
+			<Arg>		MAILBOX		</Arg>
+		</queryLigeanceInfo>
+		<onLegionDungeonFinish>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onLegionDungeonFinish>
+		<confirmInvadeOnLigeance>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</confirmInvadeOnLigeance>
+		<confirmInvadeLoseOnLigeance>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+		</confirmInvadeLoseOnLigeance>
+		<confirmInvadeWinOnLigeance>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+		</confirmInvadeWinOnLigeance>
+		<confirmDeclareOnLigeance>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</confirmDeclareOnLigeance>
+		<plantLegionCrackItem>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PLANTED_CRACK_ITEM	</Arg>
+		</plantLegionCrackItem>
+		<removeLegionCrackItem>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</removeLegionCrackItem>
+		<onLegionCrackItemRemoved>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PLANTED_CRACK_ITEM	</Arg>
+		</onLegionCrackItemRemoved>
+		<onLegionCrackItemActived>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PLANTED_CRACK_ITEM	</Arg>
+			<Arg>		INT32		</Arg>
+		</onLegionCrackItemActived>
+		<confirmDeclareWinOnLigeance>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+		</confirmDeclareWinOnLigeance>
+		<onLegionWarEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT64		</Arg>
+		</onLegionWarEvent>
+		<onSpaceProgressUpdate>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</onSpaceProgressUpdate>
+		<onLegionWarResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onLegionWarResult>
+		<refreshLegionMall>
+		</refreshLegionMall>
+		<onDominationEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT64		</Arg>
+		</onDominationEvent>
+		<matchLegionDominationV2>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</matchLegionDominationV2>
+		<cancelMatchLegionDominationV2>
+			<Arg>		MAILBOX		</Arg>
+		</cancelMatchLegionDominationV2>
+		<onBattleResult>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onBattleResult>
+		<onLegionDominationScoreUpdate>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</onLegionDominationScoreUpdate>
+		<requestLegionDominationRankData>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</requestLegionDominationRankData>
+		<clearWeekContribution>
+		</clearWeekContribution>
+		<gmDismissAllLegion>
+		</gmDismissAllLegion>
+		<requestSelectOneLigeanceAsTaskTarget>
+			<Arg> 		MAILBOX 	</Arg>
+			<Arg> 		GID 		</Arg>
+			<Arg> 		INT32 		</Arg>
+		</requestSelectOneLigeanceAsTaskTarget>
+
+		<queryLegionQuizVariable>
+			<Arg> GID </Arg>
+			<Arg> PYTHON </Arg>
+		</queryLegionQuizVariable>
+
+
+		<!-- 军团排行榜 -->
+		<onUpdateLegionActiveness>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateLegionActiveness>
+		<onUpdateLegionPVPScore>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateLegionPVPScore>
+		<onUpdateLegionPVEScore>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateLegionPVEScore>
+
+
+
+
+		<gmClearLigeance>
+		</gmClearLigeance>
+		<gmClearLigeanceByID>
+			<Arg>		GID		</Arg>
+		</gmClearLigeanceByID>
+		<gmSwitchWarState>
+			<Arg>		INT32		</Arg>
+		</gmSwitchWarState>
+		<gmSwitchDominationState>
+			<Arg>		INT32		</Arg>
+		</gmSwitchDominationState>
+	</BaseMethods>
+</root>

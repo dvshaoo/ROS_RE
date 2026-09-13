@@ -1,0 +1,106 @@
+<root>
+	<Properties>
+		<sourceSpaceInfoDict>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE 		</Flags>
+			<Default>	{}			</Default>
+		</sourceSpaceInfoDict>
+
+		<doneStartTruck>
+			<Type>		INT32				</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0					</Default>
+			<Persistent>	true			</Persistent>
+		</doneStartTruck>
+
+		<gotLegionCash>
+			<Type>		INT32				</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0					</Default>
+			<Persistent>	true			</Persistent>
+		</gotLegionCash>
+
+		<resourceRedPoint>
+			<Type>		BOOL				</Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</resourceRedPoint>
+
+		<ligeanceSourceActivityState>
+			<Type>		INT32				</Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</ligeanceSourceActivityState>
+	</Properties>
+
+	<CellMethods>
+		<requestEnterLigeanceSourceDungeon> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</requestEnterLigeanceSourceDungeon>
+
+		<getLigeanceSourceAwards>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	BOOL		</Arg>
+		</getLigeanceSourceAwards>
+
+		<getLegionLigeanceSourceAwards>
+			<Arg>	INT32		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	BOOL		</Arg>
+		</getLegionLigeanceSourceAwards>
+
+		<increaseStartTruckCnt>
+		</increaseStartTruckCnt>
+
+		<onRequestSourceActivityState>
+			<Arg>	INT32		</Arg>
+		</onRequestSourceActivityState>
+	</CellMethods>
+
+	<BaseMethods>
+		<initSpaceData>
+			<Arg>		PYTHON			</Arg>
+		</initSpaceData>
+
+		<updateSourceSpaceInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</updateSourceSpaceInfo>
+
+		<delSourceSpaceInfo>
+			<Arg>		INT32			</Arg>
+		</delSourceSpaceInfo>
+
+		<increaseStartTruckCnt>
+		</increaseStartTruckCnt>
+
+		<increaseStartTruckNum>
+			<Arg>	PYTHON		</Arg>
+		</increaseStartTruckNum>
+
+		<onRequestSourceActivityState>
+			<Arg>	INT32		</Arg>
+		</onRequestSourceActivityState>
+	</BaseMethods>
+	
+	<ClientMethods>
+		<onInitSpaceData>
+			<Arg>		PYTHON			</Arg>
+		</onInitSpaceData>
+
+		<onUpdateSourceSpaceInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onUpdateSourceSpaceInfo>
+
+		<onDelSourcedSpaceInfo>
+			<Arg>		INT32			</Arg>
+		</onDelSourcedSpaceInfo>
+        <onUpdateResourceInfo>
+        </onUpdateResourceInfo>   
+	</ClientMethods>
+</root>

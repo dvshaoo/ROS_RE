@@ -1,0 +1,57 @@
+<root>
+    <Properties>
+        <currentGid>
+			<Type>		GID		</Type>
+			<Flags>		BASE		</Flags>
+		</currentGid>
+        <currentRecordType>
+			<Type>		INT16		</Type>
+			<Flags>		BASE		</Flags>
+		</currentRecordType>
+    </Properties>
+    <BaseMethods>
+        <requireRecordData> <Exposed/>
+            <Arg>	GID		</Arg>
+            <Arg>	INT16		</Arg>
+        </requireRecordData>
+        <requireBaseInfo> <Exposed/>
+            <Arg>	GID		</Arg>
+        </requireBaseInfo>
+         <requireHistoricMaxRankInfo> <Exposed/>
+        </requireHistoricMaxRankInfo>
+        <onGetRecordData>
+            <Arg>	GID		</Arg>
+            <Arg>	PY_DICT		</Arg>
+        </onGetRecordData>
+        <onGetBaseInfo>
+            <Arg>	PY_DICT		</Arg>
+            <Arg>	ARRAY <of> GID </of>	</Arg> <!-- searchPlayers -->
+        </onGetBaseInfo>
+    </BaseMethods>
+    <ClientMethods>
+        <requireRecordData>
+            <Arg>	GID		</Arg>
+            <Arg>	INT16		</Arg>
+        </requireRecordData>
+        <onGetRecordData>
+            <Arg>	GID		</Arg>
+            <Arg>	PY_DICT		</Arg>
+        </onGetRecordData>
+        <requireBaseInfo>
+            <Arg>	GID		</Arg>
+        </requireBaseInfo>
+        <onGetBaseInfo>
+            <Arg>	GID		</Arg>
+            <Arg>	STRING		</Arg>
+            <Arg>	BOOL		</Arg>
+            <Arg>	SCORE		</Arg>
+            <Arg>	INT32		</Arg>
+            <Arg>	INT32		</Arg>
+            <Arg>   INT32       </Arg>
+            <Arg>	STRING		</Arg>
+        </onGetBaseInfo>
+        <onGetHistoricMaxRankInfo>
+            <Arg>   INT32       </Arg>
+        </onGetHistoricMaxRankInfo>
+    </ClientMethods>
+</root>

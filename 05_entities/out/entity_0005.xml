@@ -1,0 +1,91 @@
+<root>
+	<Properties>
+		<state_index_table>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{} </Default>
+		</state_index_table>
+
+		<next_state_index>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</next_state_index>
+
+		<state_sfx_effect>
+			<Type>	PYTHON	</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+		</state_sfx_effect>
+
+	</Properties>
+
+	<CellMethods>
+		<onSkillHit>
+			<Arg>	INT32	</Arg>	<!-- skillID -->
+			<Arg>	OBJECT_ID	</Arg>	<!-- summon_id -->
+			<Arg>	PYTHON	</Arg>	<!-- caster info -->
+			<Arg>	PYTHON	</Arg>	<!-- target info -->
+			<Arg>	PYTHON	</Arg>	<!-- stateInfoList -->
+			<Arg>	INT32	</Arg>	<!-- skillCasterType -->
+		</onSkillHit>
+
+		<setStatusEfxBack>
+			<Arg>  INT32  </Arg>
+			<Arg>  INT32  </Arg>
+			<Arg>  INT32  </Arg>
+			<Type>			BOOL			</Type>
+		</setStatusEfxBack>
+
+		<getIndex>
+		</getIndex>
+
+		<skillClientStatusPause>
+			<Arg>  INT32  </Arg>
+		</skillClientStatusPause>
+
+		<skillClientStatusResume>
+			<Arg>  INT32  </Arg>
+		</skillClientStatusResume>
+
+		<onSkillDamage>
+			<Arg>  FLOAT  </Arg>  <!-- damageFactor -->
+			<Arg>  INT32  </Arg>  <!-- damageType -->
+			<Arg>  PYTHON </Arg>  <!-- stateObjInfo -->
+		</onSkillDamage>
+
+		<clientBreakState>	<Exposed/>
+			<Arg>	INT32	</Arg>	<!-- state id -->
+		</clientBreakState>
+
+		<breakStates>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</breakStates>
+	</CellMethods>
+
+	<ClientMethods>
+		<skillClientStatusStart>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</skillClientStatusStart>
+
+		<skillClientStatusFinish>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</skillClientStatusFinish>
+		<onStateProlonged>
+			<Arg>	INT32	</Arg>
+			<Arg>	FLOAT32	</Arg>
+		</onStateProlonged>	
+
+		<skillClientStatusPause>
+			<Arg>	INT32	</Arg>
+		</skillClientStatusPause>
+
+		<skillClientStatusResume>
+			<Arg>	INT32	</Arg>
+		</skillClientStatusResume>
+		
+	</ClientMethods>
+</root>

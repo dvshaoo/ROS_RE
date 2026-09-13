@@ -1,0 +1,20 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<onGetSteamAwardClothes> <Exposed/> 
+		</onGetSteamAwardClothes>
+		<onGetSteamAwardMonthcard> <Exposed/> 
+		</onGetSteamAwardMonthcard>
+	</BaseMethods>
+
+	<ClientMethods>
+		<getSteamAwardClothesCallback>
+			<Arg>			INT8			</Arg>
+		</getSteamAwardClothesCallback>
+		<getSteamAwardMonthcardCallback>
+			<Arg>			INT8			</Arg>
+		</getSteamAwardMonthcardCallback>
+	</ClientMethods>
+</root>

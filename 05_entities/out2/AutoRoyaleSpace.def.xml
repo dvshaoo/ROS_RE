@@ -1,0 +1,44 @@
+<root>
+	<Implements>
+		iAutoRoyaleGenSpot
+	</Implements>
+	<Parent>	BattleGroundSpace	</Parent>
+	<ClientName>	AutoRoyaleSpace	</ClientName>
+	<Properties>
+		<teamAutoDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</teamAutoDict>
+		<selectDefaultAutoTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</selectDefaultAutoTimerID>
+	</Properties>
+
+	<CellMethods>
+		<selectBattleAuto>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</selectBattleAuto>
+		<createAutoRoyaleOilFilm>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</createAutoRoyaleOilFilm>
+		<createAutoRoyaleSmoke>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</createAutoRoyaleSmoke>
+		<createAutoRoyaleCorrosiveGas>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</createAutoRoyaleCorrosiveGas>
+		<gmCreateEntityWithoutBase>
+			<Arg>		STRING		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</gmCreateEntityWithoutBase>
+	</CellMethods>
+</root>

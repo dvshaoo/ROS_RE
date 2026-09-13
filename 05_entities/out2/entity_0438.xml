@@ -1,0 +1,129 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<requestChallengeCupSignUpInfo><Exposed/>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</requestChallengeCupSignUpInfo>
+		<requestChallengeCupSignUpTopPlayers><Exposed/>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+		</requestChallengeCupSignUpTopPlayers>
+		<requestChallengeCupAvailableTimes><Exposed/>
+		</requestChallengeCupAvailableTimes>
+		<requestChallengeCupSignUpTopWildcardFlags><Exposed/>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</requestChallengeCupSignUpTopWildcardFlags>
+		<signUpForChallengeCup><Exposed/>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</signUpForChallengeCup>
+		<cancelSignUpForChallengeCup><Exposed/>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</cancelSignUpForChallengeCup>
+		<onSignUpCallback>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	INT32	</Arg>	<!-- score -->
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+		</onSignUpCallback>
+		<onCancelSignUpCallback>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+		</onCancelSignUpCallback>
+		<onRequestChallengeCupSignUpFlagsInfo>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- seeds -->
+			<Arg>	UINT32	</Arg>	<!-- signup_endtime -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- wildcard_flags -->
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- wildcard_scores -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_rank -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_score -->
+		</onRequestChallengeCupSignUpFlagsInfo>
+		<onRequestChallengeCupSignUpTopPlayersBase>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- player_names -->
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- player_scores -->
+			<Arg>	INT32	</Arg>	<!-- own_rank -->
+		</onRequestChallengeCupSignUpTopPlayersBase>
+		<onRequestChallengeCupSignUpTopWildcardFlagsBase>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- wildcard_flags -->
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- wildcard_scores -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_rank -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_score -->
+		</onRequestChallengeCupSignUpTopWildcardFlagsBase>
+		<onChallengeCupEnterBattle>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</onChallengeCupEnterBattle>
+		<writeToSASignUpLog>
+			<Arg>	INT64	</Arg>	<!-- type -->
+		</writeToSASignUpLog>
+	</BaseMethods>
+	<ClientMethods>
+		<onRequestChallengeCupSignUpInfo>
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	INT32	</Arg>	<!-- ava_times -->
+			<Arg>	INT32	</Arg>	<!-- is_signed_up -->
+			<Arg>	UINT32	</Arg>	<!-- signup_endtime -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- seeds -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- wildcard_flags -->
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- wildcard_scores -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_rank -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_score -->
+		</onRequestChallengeCupSignUpInfo>
+		<onRequestChallengeCupAvailableTimes>
+			<Arg>	INT32	</Arg>	<!-- times -->
+		</onRequestChallengeCupAvailableTimes>
+		<onRequestChallengeCupSignUpTopPlayers>
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- player_names -->
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- player_scores -->
+			<Arg>	INT32	</Arg>	<!-- own_rank -->
+			<Arg>	INT32	</Arg>	<!-- own_score -->
+		</onRequestChallengeCupSignUpTopPlayers>
+		<onRequestChallengeCupSignUpTopWildcardFlags>
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- wildcard_flags -->
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>	<!-- wildcard_scores -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_rank -->
+			<Arg>	INT32	</Arg>	<!-- own_flag_score -->
+		</onRequestChallengeCupSignUpTopWildcardFlags>
+		<onSignUpForChallengeCup>
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</onSignUpForChallengeCup>
+		<onCancelSignUpForChallengeCup>
+			<Arg>	INT32	</Arg>	<!-- st -->
+			<Arg>	STRING	</Arg>	<!-- ext_info -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</onCancelSignUpForChallengeCup>
+	</ClientMethods>
+</root>

@@ -1,0 +1,78 @@
+<root>
+	<Properties>
+		<waterCoin>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</waterCoin>
+		<lastResetWaterCoinCntTime>
+			<Type>		PYTHON		</Type>
+			<Flags>		 BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastResetWaterCoinCntTime>
+		<dailyWaterCoinCnt>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dailyWaterCoinCnt>
+		<curSplashModeTaskProgress>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</curSplashModeTaskProgress>
+		<songkranFestivalGiftGot>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</songkranFestivalGiftGot>
+		<lastResetSplashModeTaskTime>
+			<Type>		PYTHON		</Type>
+			<Flags>		 BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastResetSplashModeTaskTime>
+	</Properties>
+	<BaseMethods>
+		<recordPlayerSplashModeScore>
+			<Arg>	PYTHON	</Arg>
+		</recordPlayerSplashModeScore>
+		<getSplashModeReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getSplashModeReward> 
+		<getSplashModeTaskReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getSplashModeTaskReward>
+		<doOpenMutipleSplashModeBox> <Exposed/>
+			<Arg>	INT8	</Arg>
+		</doOpenMutipleSplashModeBox>
+		<doOpenSplashModeBox> <Exposed/>
+			<Arg>	INT8	</Arg>
+		</doOpenSplashModeBox>
+	</BaseMethods>
+	<ClientMethods>
+		<onGetAwardSplashMode>
+			<Arg>	INT8	</Arg>
+		</onGetAwardSplashMode>
+		<onSyncWaterCoin>
+			<Arg>	INT32	</Arg>
+		</onSyncWaterCoin>
+		<onSyncSplashModeTaskProgress>
+			<Arg>	PYTHON	</Arg>
+		</onSyncSplashModeTaskProgress>
+		<onSongkranFestivalGiftGot>
+			<Arg>	PYTHON	</Arg>
+		</onSongkranFestivalGiftGot>
+		<onSetSongkranRedPoint>
+			<Arg>	BOOL	</Arg>
+		</onSetSongkranRedPoint>
+		<onOpenSplashModeBox>
+			<Arg>	PYTHON	</Arg>
+		</onOpenSplashModeBox>
+	</ClientMethods>
+</root>
+

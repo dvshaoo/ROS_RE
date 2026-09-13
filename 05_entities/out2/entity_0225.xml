@@ -1,0 +1,81 @@
+<root>
+	<Properties>
+		<newActivityRedPointInfo>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</newActivityRedPointInfo>
+		<supplementWatchAdData>
+			<!-- 记录玩家看广告抽补给数据（国服原来放mysql了，syncdb会很久，影响维护时间） -->
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</supplementWatchAdData>
+	</Properties>
+
+	<BaseMethods>
+		<requestAdToken>	<Exposed/>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+		</requestAdToken>
+		<queryAvailableAdvertisement> <Exposed/>
+		</queryAvailableAdvertisement>
+		<queryAvailableActivity> <Exposed/>
+		</queryAvailableActivity>
+		<selectActivity> <Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	BOOL 	</Arg>
+		</selectActivity>
+
+		<queryAssistantRedPoint> <Exposed/>
+		</queryAssistantRedPoint>
+		<selectAssistant> <Exposed/>
+			<Arg>	INT32 	</Arg>
+		</selectAssistant>
+		<doSALogAdClick> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT32	</Arg>
+		</doSALogAdClick>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onRequestAdToken>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+		</onRequestAdToken>
+		<onQueryAvailableAdvertisement>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableAdvertisement>
+		<onQueryAvailableActivity>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableActivity>
+		<onUpdateActivityRedPointInfo>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateActivityRedPointInfo>
+		
+		<onQueryAssistantRedPoint>
+			<Arg>	INT32	</Arg>
+		</onQueryAssistantRedPoint>
+		<onSelectAssistant>
+			<Arg>	INT32	</Arg>
+		</onSelectAssistant>
+		<openWebViewWithoutToken>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</openWebViewWithoutToken>
+		<openKHCUPVoteLink>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</openKHCUPVoteLink>
+	</ClientMethods>
+</root>

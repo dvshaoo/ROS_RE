@@ -1,0 +1,21 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<requestCommanderSpace>
+			<Arg>			GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>			PYTHON		</Arg>
+			<Arg>			INT32		</Arg>
+		</requestCommanderSpace>
+		<onAddCommander>
+			<Arg>			PYTHON			</Arg>
+		</onAddCommander>
+		<onDelCommander>
+			<Arg>			PYTHON			</Arg>
+		</onDelCommander>
+	</BaseMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

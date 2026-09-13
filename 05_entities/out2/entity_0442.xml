@@ -1,0 +1,179 @@
+<root>
+	<Implements>
+		<Interface>	iCombatUnit		</Interface>
+		<Interface>	iShield			</Interface>
+		<Interface>	iAvatarSkill	</Interface>
+		<Interface>	iDress		</Interface>
+		<Interface>	iBattleGround	</Interface>
+	</Implements>
+	<Properties>
+		<basicAttack>
+			<Type> FLOAT	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default> 10		</Default>
+		</basicAttack>
+		<hpRecoverTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</hpRecoverTimerID>
+		<hormoneGunTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</hormoneGunTimerID>
+		<lastAttackedInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</lastAttackedInfo>
+		<lastDamageRecordInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</lastDamageRecordInfo>
+
+		<lastDamageCaused>
+			<Type> 		INT32  	</Type>
+			<Flags>  	CELL_PRIVATE  	</Flags>
+		</lastDamageCaused>
+		<opMode>
+			<Type>			INT32			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+		</opMode>
+		<pose>
+			<Type>		INT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</pose>
+		<fallLog>
+			<Type>		PY_DICT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{"timeInSky" : None,
+			            "jumpPlanePos" : None,
+			            "heightOpenParachute" : None,
+			            "route" : None,
+			            "landPos" : None,
+			            }
+			</Default>
+		</fallLog>
+		<identityType>
+			<Type>		INT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</identityType>
+		<fpsMode>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>   False		</Default>
+		</fpsMode>
+
+		<rebornCnt>
+			<Type>		INT32					</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default> 	0			</Default>
+		</rebornCnt>
+	</Properties>
+	<CellMethods>
+		<activeSoloCamp>
+		</activeSoloCamp>
+		<setIdentity>
+			<Arg>	INT8		</Arg>
+		</setIdentity>
+		<setFPSMode>
+			<Arg>	BOOL		</Arg>
+		</setFPSMode>
+		<broadcastShootHitScene>	<Exposed/>
+			<Arg>		STRING			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		WEAPON_ID		</Arg>
+		</broadcastShootHitScene>
+		<broadcastColdWeaponHitScene>	<Exposed/>
+			<Arg>		STRING			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		WEAPON_ID		</Arg>
+		</broadcastColdWeaponHitScene>
+		<broadcastShootHitEntity>	<Exposed/>
+			<Arg>		ENTITY_ID		</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		WEAPON_ID		</Arg>
+			<Arg>		INT32			</Arg>
+		</broadcastShootHitEntity>
+		<broadcastShootClientWeaponEntity>	<Exposed/>
+			<Arg>		ENTITY_ID		</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		WEAPON_ID		</Arg>
+			<Arg>		WEAPON_ID		</Arg>
+		</broadcastShootClientWeaponEntity>
+		<broadcastShootRay>	<Exposed/>
+			<Arg>		VECTOR3			</Arg>	<!-- Start Position -->
+			<Arg>		VECTOR3			</Arg>	<!-- Direction -->
+		</broadcastShootRay>
+		<broadcastShootSegment> <Exposed/>
+			<Arg>		VECTOR3			</Arg>	<!-- Start Position -->
+			<Arg>		VECTOR3			</Arg>	<!-- End Position -->
+		</broadcastShootSegment>
+		<broadcastFireMessage> <Exposed/>
+			<Arg>		VECTOR3			</Arg>	<!-- Start -->
+			<Arg>		VECTOR3			</Arg>	<!-- End -->
+			<Arg>		INT32			</Arg>	<!-- mixed type -->
+			<Arg>		BROADCAST_FIRE_INFO			</Arg>
+		</broadcastFireMessage>
+		<increaseMaxHP>
+			<Arg>		INT32			</Arg>	<!-- increased hp -->
+		</increaseMaxHP>
+		<onPoison>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPoison>
+	</CellMethods>
+	<ClientMethods>
+		<notifyTeleport>
+		</notifyTeleport>
+		<onUpdatePose>
+			<Arg> INT8 </Arg>  <!-- 旧姿势 -->
+			<Arg> INT8 </Arg>  <!-- 新姿势 -->
+		</onUpdatePose>
+		<onBroadcastShootHitScene>
+			<Arg>		STRING			</Arg>	<!-- material -->
+			<Arg>		VECTOR3			</Arg>	<!-- position -->
+			<Arg>		VECTOR3			</Arg>	<!-- normal -->
+			<Arg>		WEAPON_ID		</Arg>	<!-- weaponID -->
+		</onBroadcastShootHitScene>
+		<onBroadcastColdWeaponHitScene>
+			<Arg>		STRING			</Arg>	<!-- material -->
+			<Arg>		VECTOR3			</Arg>	<!-- position -->
+			<Arg>		VECTOR3			</Arg>	<!-- normal -->
+			<Arg>		WEAPON_ID		</Arg>	<!-- weaponID -->
+			<DetailDistance> 100 </DetailDistance>
+		</onBroadcastColdWeaponHitScene>
+		<onBroadcastShootHitClientWeaponEntity>
+			<Arg>		ENTITY_ID		</Arg>	<!-- entityID -->
+			<Arg>		VECTOR3			</Arg>	<!-- position -->
+			<Arg>		VECTOR3			</Arg>	<!-- normal -->
+			<Arg>		STRING 			</Arg>	<!-- material -->
+			<Arg>		WEAPON_ID		</Arg>	<!-- weaponID -->
+			<Arg>		WEAPON_ID		</Arg>	<!-- hittedWeaponID -->
+		</onBroadcastShootHitClientWeaponEntity>
+		<onBroadcastShootHitEntity>
+			<Arg>		ENTITY_ID		</Arg>	<!-- entityID -->
+			<Arg>		ENTITY_ID		</Arg>	<!-- entityID -->
+			<Arg>		VECTOR3			</Arg>	<!-- position -->
+			<Arg>		VECTOR3			</Arg>	<!-- normal -->
+			<Arg>		STRING 			</Arg>	<!-- material -->
+			<Arg>		WEAPON_ID		</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>  <!-- hitPart -->
+		</onBroadcastShootHitEntity>
+		<onBroadcastShootTrace>
+			<Arg>		VECTOR3			</Arg>	<!-- Target Position -->
+		</onBroadcastShootTrace>
+		<onBroadcastShootRay>
+			<Arg>		VECTOR3			</Arg>	<!-- Start Position -->
+			<Arg>		VECTOR3			</Arg>	<!-- Direction -->
+		</onBroadcastShootRay>
+		<onBroadcastShootSegment>
+			<Arg>		VECTOR3			</Arg>	<!-- Start Position -->
+			<Arg>		VECTOR3			</Arg>	<!-- End Position -->
+		</onBroadcastShootSegment>
+	</ClientMethods>
+</root>

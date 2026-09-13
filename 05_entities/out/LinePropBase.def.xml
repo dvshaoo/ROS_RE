@@ -1,0 +1,73 @@
+<root>
+	<Implements>
+		<Interface> iCell </Interface>
+	</Implements>
+
+	<ClientName>  LinePropBase  </ClientName>
+
+	<Properties>
+		<entIDsInRangeBuffer>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	set()	</Default>
+		</entIDsInRangeBuffer>
+		<points>
+			<Type>	ARRAY <of>  VECTOR3 </of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default> [] </Default>
+		</points>
+		<simplifyPoints>
+			<Type>	ARRAY <of>  VECTOR3 </of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default> [] </Default>
+		</simplifyPoints>
+		<validIndex>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</validIndex>
+		<simplifyValidIndex>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</simplifyValidIndex>
+		<radius>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</radius>
+		<detectRange>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</detectRange>
+		<detectInterval>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</detectInterval>
+		<entityTypes>
+			<Type>	TUPLE <of>  STRING </of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</entityTypes>
+		<lifeTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</lifeTime>
+		<propID>
+		<!-- 		道具ID - 表data_battle_ground_prop -->
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</propID>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<addPoint>
+			<Arg>	VECTOR3	</Arg>
+		</addPoint>
+		<delPoint>
+		</delPoint>
+	</CellMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+</root>

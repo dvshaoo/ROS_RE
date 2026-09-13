@@ -1,0 +1,49 @@
+<root>
+  <Implements>
+    <Interface>  iChat  </Interface>
+  </Implements>
+  <Properties>
+  </Properties>
+
+  <BaseMethods>
+  	<setMuzzled>
+	</setMuzzled>
+
+	<unsetMuzzled>
+	</unsetMuzzled>
+
+  </BaseMethods>
+
+  <CellMethods>
+	<onChat>
+		<Arg>     INT32         </Arg>  <!-- channel -->
+		<Arg>     STRING          </Arg>  <!-- content -->
+		<Arg>     CHAT_RECIVER         </Arg>  <!-- receiver -->
+		<Arg>     CHAT_PARAMS         </Arg>  <!-- params -->
+	</onChat>
+
+	<chatInRadius>
+		<Arg>     FLOAT         </Arg>  <!-- radisu -->
+		<Arg>     INT32         </Arg>  <!-- channel -->
+		<Arg>     STRING          </Arg>  <!-- content -->
+		<Arg>     CHAT_RECIVER         </Arg>  <!-- sender -->
+		<Arg>     CHAT_PARAMS         </Arg>  <!-- params -->
+	</chatInRadius>
+
+	<chatTeam>
+		<Arg>     INT32         </Arg>  <!-- channel -->
+		<Arg>     STRING          </Arg>  <!-- content -->
+		<Arg>     CHAT_RECIVER         </Arg>  <!-- sender -->
+		<Arg>     CHAT_PARAMS         </Arg>  <!-- params -->
+	</chatTeam>
+	<chatCampWar>
+		<Arg>     INT32         </Arg>  <!-- channel -->
+		<Arg>     STRING          </Arg>  <!-- content -->
+		<Arg>     CHAT_RECIVER         </Arg>  <!-- sender -->
+		<Arg>     CHAT_PARAMS         </Arg>  <!-- params -->
+	</chatCampWar>
+  </CellMethods>
+
+  <ClientMethods>
+  </ClientMethods>
+</root>

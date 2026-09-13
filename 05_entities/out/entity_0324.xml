@@ -1,0 +1,412 @@
+<root>
+	<Properties>
+		<lastCancelRosMatchTime>
+			<Type>          INT32				</Type>
+			<Flags>         BASE_AND_CLIENT			</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastCancelRosMatchTime>
+		<rmtWeekNo>
+			<Type>          INT32				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtWeekNo>
+		<rmtTaskProg>
+			<Type>          PYTHON				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtTaskProg>
+		<rmtTaskAdds>
+			<Type>          PYTHON				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtTaskAdds>
+		<rmtSignInDayNoList>
+			<Type>          PYTHON				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	[] 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtSignInDayNoList>
+		<rmtWeekRwFlags>
+			<Type>          PYTHON				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtWeekRwFlags>
+		<rmtTmpTeamID>
+			<Type>          INT64				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtTmpTeamID>
+		<rmtMaxPopTeamUp>
+			<Type>          INT32				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtMaxPopTeamUp>
+		<rmtShopRedDot>
+			<Type>          PYTHON				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtShopRedDot>
+		<rmtWeekRank1Tip>
+			<Type>          INT8				</Type>
+			<Flags>         BASE				</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</rmtWeekRank1Tip>
+	</Properties>
+
+	<BaseMethods>
+		<rosMatchSignSingle> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+		</rosMatchSignSingle>
+		<rosMatchSignMulti> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+		</rosMatchSignMulti>
+		<rosMatchCancelSignByMember> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			INT8				</Arg>
+		</rosMatchCancelSignByMember>
+		<getRosMatchSignResultList> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</getRosMatchSignResultList>
+		<rosMatchModifySignInfo> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+		</rosMatchModifySignInfo>
+		<getRosSubMatchStatusList> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</getRosSubMatchStatusList>
+		<createRosMatchTeam> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT32				</Arg>
+		</createRosMatchTeam>
+		<modifyRosMatchTeamBasicInfo> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT32				</Arg>
+		</modifyRosMatchTeamBasicInfo>
+		<modifyRosMatchTeamLogo> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+		</modifyRosMatchTeamLogo>
+		<applyRosMatchTeam> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</applyRosMatchTeam>
+		<rosMatchTeamLeaderOperation> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT8				</Arg>
+		</rosMatchTeamLeaderOperation>
+		<quitRosMatchTeam> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</quitRosMatchTeam>
+		<getMyRosMatchTeamInfo> <Exposed/> 
+			<Arg>			INT8				</Arg>
+		</getMyRosMatchTeamInfo>
+		<getRosMatchTeamData> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamData>
+		<getRosMatchTeamPlayerList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamPlayerList>
+		<getRosMatchTeamPlayer> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamPlayer>
+		<getRosMatchTeamApplyList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamApplyList>
+		<getRosMatchTeamEventList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamEventList>
+		<searchRosMatchTeam> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</searchRosMatchTeam>
+		<getRosMatchTeamList> <Exposed/> 
+			<Arg>			BOOL				</Arg>
+			<Arg>			BOOL				</Arg>
+		</getRosMatchTeamList>
+		<getRosMatchQualifierScoreRankList> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</getRosMatchQualifierScoreRankList>
+		<onGetRosMatchQualifierScoreRankList>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	ARRAY <of> ROS_MATCH_QUALITIER_SCORE_RANK_DATA </of>	</Arg>
+		</onGetRosMatchQualifierScoreRankList>
+		<onRosMatchTeamChat>
+			<Arg>	STRING		</Arg>
+			<Arg>			CHAT_RECIVER	</Arg>
+			<Arg>           CHAT_PARAMS     </Arg>
+		</onRosMatchTeamChat>
+		<getRosMatchAdminConf> <Exposed/> 
+		</getRosMatchAdminConf>
+		<rosMatchTeamSignIn> <Exposed/> 
+		</rosMatchTeamSignIn>
+		<openRosMatchTeamTaskMain> <Exposed/> 
+		</openRosMatchTeamTaskMain>
+		<getRosMatchTeamWeekActReward> <Exposed/> 
+			<Arg>	INT8		</Arg>
+		</getRosMatchTeamWeekActReward>
+		<buyRosMatchTeamMallGoods> <Exposed/> 
+			<Arg>	INT32		</Arg>
+		</buyRosMatchTeamMallGoods>
+		<finishRosMatchTeamTask>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT8		</Arg>
+			<Arg>	INT32		</Arg>
+		</finishRosMatchTeamTask>
+		<openRosMatchTeamShopMain> <Exposed/> 
+		</openRosMatchTeamShopMain>
+		<giveFreeModifyRosMatchTeamLogoChange>
+		</giveFreeModifyRosMatchTeamLogoChange>
+		<resetRosMatchTeamWeekData>
+		</resetRosMatchTeamWeekData>
+		<getRosMatchTeamLvRewardProps> <Exposed/> 
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</getRosMatchTeamLvRewardProps>
+		<getAthleteRosMatchTeamLogo> <Exposed/> 
+			<Arg>	GID			</Arg>
+		</getAthleteRosMatchTeamLogo>
+		<getAthleteRosMatchTeamBriefData> <Exposed/> 
+			<Arg>	GID			</Arg>
+		</getAthleteRosMatchTeamBriefData>
+		<checkRosMatchTeamWeekRank1Player> <Exposed/> 
+		</checkRosMatchTeamWeekRank1Player>
+		<checkCreateRosMatchTeamInfoValidation> <Exposed/> 
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>	        INT8		        </Arg>
+		</checkCreateRosMatchTeamInfoValidation>
+		<getRosMatchTeamRankListDetail> <Exposed/> 
+			<Arg>	        INT64		        </Arg>
+			<Arg>		BOOL			</Arg>
+		</getRosMatchTeamRankListDetail>
+		<onGetRosMatchTeamRankListDetail>
+			<Arg>			INT8				</Arg>
+			<Arg>	        INT64		        </Arg>
+			<Arg>	        PYTHON				</Arg>
+			<Arg>	        PYTHON				</Arg>
+			<Arg>	ARRAY <of> PYTHON	</of>	</Arg>
+			<Arg>	ARRAY <of> PYTHON	</of>	</Arg>
+			<Arg>		BOOL			</Arg>
+		</onGetRosMatchTeamRankListDetail>
+		<checkShowWeekRank1TeamInRankList> <Exposed/> 
+		</checkShowWeekRank1TeamInRankList>
+		<onGetWeekRank1Team>
+			<Arg>	        INT64		        </Arg>
+			<Arg>	        STRING				</Arg>
+		</onGetWeekRank1Team>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onRosMatchSignCallback>
+			<Arg>			INT32				</Arg>
+			<Arg>			BOOL				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onRosMatchSignCallback>
+		<onGetRosMatchSignResultList>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetRosMatchSignResultList>
+		<onSyncRosMatchAdminConf>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onSyncRosMatchAdminConf>
+		<onGetRosSubMatchStatusList>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosSubMatchStatusList>
+		<onRosMatchCancelSignByMemberCallback>
+			<Arg>			INT32				</Arg>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT32				</Arg>
+		</onRosMatchCancelSignByMemberCallback>
+		<onCreateRosMatchTeamCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+		</onCreateRosMatchTeamCallback>
+		<onModifyRosMatchTeamBasicInfoCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onModifyRosMatchTeamBasicInfoCallback>
+		<onModifyRosMatchTeamLogoCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+		</onModifyRosMatchTeamLogoCallback>
+		<onApplyRosMatchTeamCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+		</onApplyRosMatchTeamCallback>
+		<onRosMatchTeamLeaderOperationCallback>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT8				</Arg>
+		</onRosMatchTeamLeaderOperationCallback>
+		<onQuitRosMatchTeamCallback>
+			<Arg>			BOOL				</Arg>
+		</onQuitRosMatchTeamCallback>
+		<onGetMyRosMatchTeamInfoCallback>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT8				</Arg>
+		</onGetMyRosMatchTeamInfoCallback>
+		<onGetRosMatchTeamDataCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchTeamDataCallback>
+		<onGetRosMatchTeamPlayerListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetRosMatchTeamPlayerListCallback>
+		<onGetRosMatchTeamPlayer>
+			<Arg>			INT64				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchTeamPlayer>
+		<onGetRosMatchTeamApplyListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetRosMatchTeamApplyListCallback>
+		<onGetRosMatchTeamEventListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchTeamEventListCallback>
+		<onSearchRosMatchTeam>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onSearchRosMatchTeam>
+		<onGetRosMatchTeamListCallback>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT8				</Arg>
+		</onGetRosMatchTeamListCallback>
+		<onGiveFreeModifyRosMatchTeamLogoChance>
+			<Arg>			INT8				</Arg>
+		</onGiveFreeModifyRosMatchTeamLogoChance>
+		<onGetRosMatchQualifierScoreRankList>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	ARRAY <of> ROS_MATCH_QUALITIER_SCORE_RANK_DATA </of>	</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchQualifierScoreRankList>
+		<onRosMatchTeamSignIn>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onRosMatchTeamSignIn>
+		<onFinishRosMatchTeamTask>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onFinishRosMatchTeamTask>
+		<onRosMatchTeamTaskMain>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onRosMatchTeamTaskMain>
+		<onRosMatchTeamShopMain>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onRosMatchTeamShopMain>
+		<onGetRosMatchTeamWeekActReward>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchTeamWeekActReward>
+		<onBuyRosMatchTeamMallGoods>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onBuyRosMatchTeamMallGoods>
+		<onSyncRosMatchTeamConf>
+			<Arg>			PYTHON				</Arg>
+		</onSyncRosMatchTeamConf>
+		<onGetRosMatchTeamLvRewardProps>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetRosMatchTeamLvRewardProps>
+		<onGetAthleteRosMatchTeamLogo>
+			<Arg>			GID					</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+		</onGetAthleteRosMatchTeamLogo>
+		<onGetAthleteRosMatchTeamBriefData>
+			<Arg>			GID					</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetAthleteRosMatchTeamBriefData>
+		<onCheckRosMatchTeamWeekRank1Player>
+			<Arg>			INT8				</Arg>
+		</onCheckRosMatchTeamWeekRank1Player>
+		<onCheckCreateRosMatchTeamInfoValidation>
+			<Arg>			INT8				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>	        INT8		        </Arg>
+		</onCheckCreateRosMatchTeamInfoValidation>
+		<onGetRosMatchTeamRankListDetail>
+			<Arg>			INT8				</Arg>
+			<Arg>	        INT64		        </Arg>
+			<Arg>	        PYTHON				</Arg>
+			<Arg>	        PYTHON				</Arg>
+			<Arg>	ARRAY <of> PYTHON	</of>	</Arg>
+			<Arg>	ARRAY <of> PYTHON	</of>	</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>		BOOL			</Arg>
+		</onGetRosMatchTeamRankListDetail>
+		<onGetWeekRank1Team>
+			<Arg>	        INT64		        </Arg>
+			<Arg>	        STRING				</Arg>
+		</onGetWeekRank1Team>
+		<onShowRosMatchTeamRedDot>
+		</onShowRosMatchTeamRedDot>
+	</ClientMethods>
+</root>

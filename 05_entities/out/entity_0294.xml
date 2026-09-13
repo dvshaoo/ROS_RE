@@ -1,0 +1,25 @@
+<root>
+	<Implements>
+		<Interface>		iGlobal					</Interface>
+		<Interface>		iBaseNoCell				</Interface>
+		<Interface>		iGMCommand				</Interface>
+	</Implements>
+
+    <Properties>
+		<jhmIndex>
+			<Type>			UINT32				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		0					</Default>
+		</jhmIndex>
+	</Properties>
+
+	<BaseMethods>
+		<sendWinner>
+			<Arg>	GID			</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO					</Arg>
+		</sendWinner>
+	</BaseMethods>
+
+</root>

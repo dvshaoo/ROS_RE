@@ -1,0 +1,68 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell		</Interface>
+		<Interface>	iGenSpotCreated		</Interface>
+		<Interface>	iMove		</Interface>
+		<Interface>	iRotate		</Interface>
+	</Implements>
+	<ClientName>	Npc			</ClientName>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<Properties>
+		<charId>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</charId>
+		<charName>
+			<Type>			STRING				</Type>
+			<Flags>			ALL_CLIENTS			</Flags>
+		</charName>
+		<charTitle>
+			<Type>			STRING				</Type>
+			<Flags>			ALL_CLIENTS			</Flags>
+		</charTitle>
+		<creatorName>
+			<Type>		STRING		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</creatorName>
+
+		<!-- 创建时自定义数据,python类型小心 -->
+		<userData>
+			<Type>			PYTHON				</Type>
+			<Flags>			ALL_CLIENTS			</Flags>
+			<Default>		{}					</Default>
+		</userData>
+
+		<markedCnt>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0				</Default>
+		</markedCnt>
+
+		<showOnMap>
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False				</Default>
+		</showOnMap>
+	</Properties>
+	<CellMethods>
+		<markNPC><Exposed/> <!--标记NPC-->
+			<Arg>			INTERACT_ID			</Arg>
+		</markNPC>
+		<clearMarkFlag><Exposed/> <!--取消标记NPC-->
+			<Arg>			INTERACT_ID			</Arg>
+		</clearMarkFlag>
+		<triggerFinish><Exposed/>
+		</triggerFinish>
+
+		<requestDestory>
+		</requestDestory>
+	</CellMethods>
+	<ClientMethods>
+	</ClientMethods>
+</root>

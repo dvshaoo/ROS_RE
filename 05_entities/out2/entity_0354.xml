@@ -1,0 +1,64 @@
+<root>
+	<Properties>
+		<forbidTalk>
+			<Type>          BOOL				</Type>
+			<Flags>         OWN_CLIENT		 	</Flags>
+			<Default>		False				</Default>
+		</forbidTalk>	
+			
+		<streamid>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</streamid>	
+
+		<audience>
+			<Type>		INT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</audience>			
+
+		<speak>
+			<Type>		INT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</speak>
+
+		<talkTime>
+			<Type>	FLOAT 	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</talkTime>
+
+		<lastTalkTime>
+			<Type>	FLOAT 	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</lastTalkTime>
+	</Properties>
+
+	<CellMethods>
+		<requestForbidTalk>
+		</requestForbidTalk>
+
+		<requestAudienceChange> <Exposed/>
+			<Arg>			INT8					</Arg> <!-- team:0 all:1 -->			
+		</requestAudienceChange>
+
+		<requestSpeakChange> <Exposed/>
+			<Arg>			INT8					</Arg> <!-- team:0 all:1 -->			
+		</requestSpeakChange>	
+
+		<saLogCCMiniOP> <Exposed/>
+			<Arg>			INT8					</Arg> <!-- action type -->
+			<Arg>			BOOL					</Arg> <!-- speech -->
+			<Arg>			BOOL					</Arg> <!-- microphone -->
+		</saLogCCMiniOP>
+
+		<recordTalkTime> <Exposed/>
+			<Arg>			INT8					</Arg> <!-- action type -->
+		</recordTalkTime>
+	</CellMethods>
+
+	<ClientMethods>
+		<onForbidTalk>
+		</onForbidTalk>
+	</ClientMethods>	
+</root>	

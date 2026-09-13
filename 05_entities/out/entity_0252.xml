@@ -1,0 +1,39 @@
+<root>
+	<Implements>
+		<Interface>	iCCMiniShared		</Interface>
+		<Interface>	iCCMiniBase		</Interface>
+	</Implements>
+
+	<Properties>
+		<isSpeaking>
+			<Type>          BOOL				</Type>
+			<Flags>         ALL_CLIENTS			</Flags>
+			<Default>		False				</Default>		
+		</isSpeaking>		
+		<hallTeamCCMiniStream>
+			<Type>		STRING				</Type>
+			<Flags>		BASE				</Flags>
+		</hallTeamCCMiniStream>
+	</Properties>
+
+	<BaseMethods>
+		<onNotifyBattleTeamInfo>
+			<Arg>			UUID					</Arg>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</onNotifyBattleTeamInfo>
+	</BaseMethods>
+
+	<CellMethods>
+		<requestSpeakingChange> <Exposed/>
+			<Arg>			BOOL					</Arg> <!-- isSpeaking -->
+		</requestSpeakingChange>
+		<onJoinCCMiniStream>
+			<Arg>			STRING					</Arg>
+			<Arg>			PYTHON					</Arg>
+		</onJoinCCMiniStream>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

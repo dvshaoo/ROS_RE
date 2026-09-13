@@ -1,0 +1,28 @@
+<root>
+	<Properties>
+		<lastRequestStartCommanderTime>
+			<Type>	INT64	</Type>
+			<Flags>	BASE	</Flags>
+		</lastRequestStartCommanderTime>
+
+		<commanderChance>
+			<Type>	INT32	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+		</commanderChance>
+	</Properties>
+
+	<BaseMethods>
+		<startCommanderMode><Exposed/>
+		</startCommanderMode>
+
+		<buyCommanderChance><Exposed/>
+		</buyCommanderChance>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateCommanderChance>
+			<Arg>	INT32		</Arg>
+		</onUpdateCommanderChance>
+	</ClientMethods>
+</root>

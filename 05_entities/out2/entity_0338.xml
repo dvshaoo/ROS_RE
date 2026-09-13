@@ -1,0 +1,167 @@
+<root>
+	<Implements>
+		<Interface>  iOfflineOperation  </Interface>
+	</Implements>
+
+	<Properties>
+		<operation>
+			<Type>			PYTHON		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		{}			</Default>
+		</operation>
+	</Properties>
+
+	<BaseMethods>
+	    <doGiftToFriend>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>	<!-- srcINFO -->
+			<Arg>		GID		</Arg>
+		</doGiftToFriend>
+		<doGiftSuitToFriend>
+            <Arg>		INT32		</Arg>
+            <Arg>		INT32		</Arg>
+            <Arg>	ARRAY <of> INT32 </of>	</Arg>
+            <Arg>		STRING		</Arg>
+            <Arg>		PYTHON		</Arg>	<!-- srcINFO -->
+            <Arg>		GID		</Arg>
+        </doGiftSuitToFriend>
+	    <doGiftHallPropToFriend>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>	<!-- srcINFO -->
+			<Arg>		GID		</Arg>
+		</doGiftHallPropToFriend>
+		<requestFriend>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+		</requestFriend>
+
+		<acceptFriend>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		STRING		</Arg>	<!-- srcName -->
+		</acceptFriend>
+
+		<refuseFriend>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		STRING		</Arg>	<!-- srcName -->
+		</refuseFriend>
+
+		<removeFriend>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+		</removeFriend>
+
+		<addNearByFriend>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+		</addNearByFriend>
+
+		<chatPrivate>
+			<Arg>			GID						</Arg>	<!-- gid 	-->
+			<Arg>			GID						</Arg>	<!-- gid 	-->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+			<Arg>			STRING					</Arg>	<!-- nationalFlag -->
+		</chatPrivate>
+
+		<gmAddFriends>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	GID	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</gmAddFriends>
+
+		<addChongDingReborn>
+			<Arg>			GID						</Arg>	<!-- gid 	-->
+		</addChongDingReborn>
+
+		<setIntimacyDegree>
+			<Arg>			GID 					</Arg>
+			<Arg>			GID 					</Arg>
+			<Arg>			INT32					</Arg>
+			<Arg>			STRING					</Arg>
+			<Arg>			INT32					</Arg>
+		</setIntimacyDegree>
+
+		<requestIntimateRelationship>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		INT32		</Arg>
+		</requestIntimateRelationship>
+
+		<requestIntimateRelationshipAck>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</requestIntimateRelationshipAck>
+
+		<acceptIntimateRelationship>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</acceptIntimateRelationship>
+
+		<acceptIntimateRelationshipAck>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</acceptIntimateRelationshipAck>
+
+		<refuseIntimateRelationship>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</refuseIntimateRelationship>
+
+		<removeIntimateRelationship>
+			<Arg>		GID		</Arg>	<!-- srcDBID -->
+			<Arg>		GID		</Arg>	<!-- dstDBID -->
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</removeIntimateRelationship>
+
+		<requestDoubleSevenFriend>
+			<Arg>			GID 					</Arg>
+			<Arg>			GID 					</Arg>
+			<Arg>			UINT8					</Arg>	<!-- friendType -->
+		</requestDoubleSevenFriend>
+
+		<acceptDoubleSevenFriendRequest>
+			<Arg>			GID 					</Arg>
+			<Arg>			GID 					</Arg>
+			<Arg>			UINT8					</Arg>	<!-- friendType -->
+		</acceptDoubleSevenFriendRequest>
+
+		<refuseDoubleSevenFriendRequest>
+			<Arg>			GID 					</Arg>
+			<Arg>			GID 					</Arg>
+			<Arg>			UINT8					</Arg>	<!-- friendType -->
+		</refuseDoubleSevenFriendRequest>
+
+		<cancelDoubleSevenFriendRequest>
+			<Arg>			GID 					</Arg>
+			<Arg>			GID 					</Arg>
+			<Arg>			UINT8					</Arg>	<!-- friendType -->
+		</cancelDoubleSevenFriendRequest>
+
+		<doubleSevenFriendFeedback>
+			<Arg>			GID 					</Arg>
+			<Arg>			GID 					</Arg>
+			<Arg>			UINT32					</Arg>	<!-- msgType -->
+			<Arg>			UINT32					</Arg>	<!-- opType -->
+		</doubleSevenFriendFeedback>
+	</BaseMethods>
+</root>

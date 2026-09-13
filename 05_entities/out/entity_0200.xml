@@ -1,0 +1,45 @@
+<root>
+	<Implements>
+	</Implements>
+
+	<Properties>
+		<inQueue>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+		</inQueue>
+		<inGame>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+		</inGame>
+	</Properties>
+
+	<BaseMethods>
+		<onEnterGame> 
+		</onEnterGame>
+
+		<onEnterQueueFailed> 
+			<Arg>		UINT8				</Arg>
+		</onEnterQueueFailed>
+
+		<onRankRefresh> 
+			<Arg>		UINT32				</Arg>
+		</onRankRefresh>
+
+		<leaveQueue> <Exposed/> <!--玩家主动退出队列-->
+		</leaveQueue>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onRankRefresh>
+			<Arg>		UINT32				</Arg>
+		</onRankRefresh>
+
+		<onEnterQueueFailed> 
+			<Arg>		UINT8				</Arg>
+		</onEnterQueueFailed>
+
+	</ClientMethods>
+
+</root>

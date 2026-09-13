@@ -1,0 +1,58 @@
+<root>
+	<Implements>
+		<Interface>			iGlobal			</Interface>
+		<Interface>			iBaseNoCell		</Interface>
+		<Interface>			iChongDingStub		</Interface>
+	</Implements>
+
+	<Properties>
+
+		<quizRoomDict>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Default> {} </Default>
+		</quizRoomDict>
+
+		<quizRoomJoinRequester>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Default> {} </Default>
+		</quizRoomJoinRequester>
+	</Properties>
+
+	<BaseMethods>
+		<quickJoinQuiz>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+			<Arg> PLAYER_INFO </Arg>
+		</quickJoinQuiz>
+
+		<switchGeneralQuizActivity>
+			<Arg> INT32 </Arg>
+		</switchGeneralQuizActivity>
+		<onQuizRoomAddedMember>
+			<Arg> GID </Arg> <!-- roomID -->
+			<Arg> GID </Arg> <!-- userID -->
+			<Arg> INT32 </Arg>
+		</onQuizRoomAddedMember>
+		<onQuizRoomDeledMember>
+			<Arg> GID </Arg> <!-- roomID -->
+			<Arg> GID </Arg> <!-- userID -->
+			<Arg> INT32 </Arg>
+		</onQuizRoomDeledMember>
+		<queryQuizActivityState>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</queryQuizActivityState>
+
+		<onCreateQuizRoom>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</onCreateQuizRoom>
+
+		<gmSwitchQuiz>
+			<Arg> BOOL </Arg>
+		</gmSwitchQuiz>
+
+	</BaseMethods>
+</root>

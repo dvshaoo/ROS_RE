@@ -1,0 +1,41 @@
+<root>
+	<BaseMethods>
+	</BaseMethods>
+	<CellMethods>
+		<reqStartZipSliding> <Exposed/>
+			<Arg> INT32 </Arg> <!--srcID-->
+			<Arg> INT32 </Arg> <!--destID-->
+		</reqStartZipSliding>
+	</CellMethods>
+	<ClientMethods>
+	</ClientMethods>
+	<Properties>
+		<zipLineControlID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	0				</Default>
+		</zipLineControlID>
+		<zipLineTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	0				</Default>
+		</zipLineTimerID>
+		<zipSlidingPos>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</zipSlidingPos>
+		<slidingPhase>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0				</Default>
+		</slidingPhase>
+		<slidingDirection>
+			<Type>		VECTOR3			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</slidingDirection>
+		<slidingTargetPosition>
+			<Type>		VECTOR3			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</slidingTargetPosition>
+	</Properties>
+</root>

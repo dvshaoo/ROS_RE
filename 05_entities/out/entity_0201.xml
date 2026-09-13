@@ -1,0 +1,54 @@
+<root>
+	<Properties>
+		<originalVehicleProp>
+			<Type>		PYTHON		</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+			<Default>	{}		</Default>
+		</originalVehicleProp>
+		<vehicleRegenerationCheckTimerId>
+			<Type>		INT32		</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</vehicleRegenerationCheckTimerId>
+		<vehicleSelfCheckTimerId>
+			<Type>		INT32		</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</vehicleSelfCheckTimerId>
+		<vehicleTireBroken>
+			<Type>		BOOL		</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+			<Default>	False		</Default>
+		</vehicleTireBroken>
+		<hasGenerateNewVehicle>
+			<Type>		BOOL		</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+			<Default>	False		</Default>
+		</hasGenerateNewVehicle>
+
+        <!--展示车的属性-->
+        <vehicleDisplayId>
+			<Type>		UINT64		        </Type>
+			<Flags> 	ALL_CLIENTS	</Flags>
+        </vehicleDisplayId>
+        <displayNickname> 
+          <Type>  STRING </Type>
+          <Flags> ALL_CLIENTS </Flags>
+        </displayNickname> 
+        <!--展示车的属性-->
+	</Properties>
+
+	<CellMethods>
+        <setDisplayVehiclePosition>
+            <Arg>      VECTOR3     </Arg>
+        </setDisplayVehiclePosition>
+        <setDisplayVehicleDirection>
+            <Arg>      VECTOR3     </Arg>
+        </setDisplayVehicleDirection>
+        <setDisplayVehicleNickName>
+            <Arg>      STRING     </Arg>
+        </setDisplayVehicleNickName>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+
+</root>

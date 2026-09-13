@@ -1,0 +1,130 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<requestPersonSpaceRedDot>	<Exposed/>
+		</requestPersonSpaceRedDot>
+		
+		<setPersonSpaceVisited>	<Exposed/>
+		</setPersonSpaceVisited>
+
+		<commitPersonalSpaceComment> <Exposed/>
+			<Arg>			STRING		</Arg>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT8		</Arg>
+		</commitPersonalSpaceComment>
+		<commitPersonalSpaceCommentModify> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			STRING		</Arg>
+			<Arg>			INT8		</Arg>
+		</commitPersonalSpaceCommentModify>
+
+		<queryPersonalSpaceComment> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT8		</Arg>
+		</queryPersonalSpaceComment>
+
+		<queryPersonalInfo> <Exposed/>
+			<Arg>			GID			</Arg>
+		</queryPersonalInfo>
+
+		<queryPersonalAppearance> <Exposed/>
+			<Arg>			GID 		</Arg>
+		</queryPersonalAppearance>
+
+		<postPersonalSpaceLike> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT32		</Arg>
+		</postPersonalSpaceLike>
+
+		<queryPersonalSpaceLikeCnt> <Exposed/>
+			<Arg>			INT32		</Arg>
+		</queryPersonalSpaceLikeCnt>
+
+		<judgePersonalSpaceLike> <Exposed/>
+			<Arg>			INT32		</Arg>
+		</judgePersonalSpaceLike>
+
+		<postPersonalSpaceRead> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT32		</Arg>
+		</postPersonalSpaceRead>
+
+		<judgeSpacePartnerShow> <Exposed/>
+			<Arg>			INT32		</Arg>
+		</judgeSpacePartnerShow>
+
+		<postSpacePartnerShow> <Exposed/>
+			<Arg>			GID			</Arg>
+			<Arg>			INT32		</Arg>
+		</postSpacePartnerShow>
+
+	</BaseMethods>
+	<ClientMethods>
+		<setPersonSpaceVisited>
+		</setPersonSpaceVisited>
+		
+		<onUpdatePersonSpaceRedDot> 
+			<Arg>	BOOL		</Arg>
+		</onUpdatePersonSpaceRedDot>
+	
+		<getSpaceRedDotShow>
+		</getSpaceRedDotShow>
+	
+		<commitSpaceCommentCB>
+			<Arg>	INT32	</Arg>
+		</commitSpaceCommentCB>
+
+		<commitPersonalSpaceCommentModifyCB>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT8		</Arg>
+			<Arg>	INT32		</Arg>
+		</commitPersonalSpaceCommentModifyCB>
+
+		<queryPersonalSpaceCommentCB>
+			<Arg>	GID		</Arg>
+			<Arg>	PY_DICT		</Arg>
+		</queryPersonalSpaceCommentCB>
+
+		<postPersonalSpaceReadCB>
+			<Arg>	INT32		</Arg>
+		</postPersonalSpaceReadCB>
+
+		<queryPersonalInfoCB>
+			<Arg>	GID		</Arg>
+			<Arg>	PY_DICT		</Arg>
+		</queryPersonalInfoCB>
+
+		<queryPersonalAppearanceCB>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING 	</Arg>
+		</queryPersonalAppearanceCB>
+
+		<postPersonalSpaceLikeCB>
+			<Arg>	GID		</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	INT32		</Arg>
+		</postPersonalSpaceLikeCB>
+
+		<queryPersonalSpaceLikeCntCB>
+			<Arg>	GID		</Arg>
+			<Arg>	INT32			</Arg>
+		</queryPersonalSpaceLikeCntCB>
+
+		<judgePersonalSpaceLikeCB>
+			<Arg>	GID		</Arg>
+			<Arg>	INT8		</Arg>
+		</judgePersonalSpaceLikeCB>
+
+		<judgeSpacePartnerShowCB>
+			<Arg>	GID		</Arg>
+			<Arg>	INT8		</Arg>
+		</judgeSpacePartnerShowCB>
+
+		<postSpacePartnerShowCB>
+			<Arg>	GID		</Arg>
+			<Arg>	INT8		</Arg>
+		</postSpacePartnerShowCB>
+	</ClientMethods>
+</root>

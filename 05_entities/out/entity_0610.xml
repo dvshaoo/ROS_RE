@@ -1,0 +1,42 @@
+<root>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<getChallengeCupTeamsData> <Exposed />
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+		</getChallengeCupTeamsData>
+		<onGetTeamsData>
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetTeamsData>
+		<asyncGetChallengeCupPlayerInfo>
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+		</asyncGetChallengeCupPlayerInfo>
+
+	</BaseMethods>
+	<ClientMethods>
+		<onGetChallengeCupTeamsData>
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetChallengeCupTeamsData>
+		<onChallengeCupBattleStart>
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onChallengeCupBattleStart>
+		<onRefreshChallengeCupTeamsData>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	PYTHON	</Arg>
+		</onRefreshChallengeCupTeamsData>
+		<onChallengeCupBattleEnd>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	PYTHON	</Arg>
+		</onChallengeCupBattleEnd>
+	</ClientMethods>
+</root>

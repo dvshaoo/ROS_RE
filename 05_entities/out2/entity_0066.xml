@@ -1,0 +1,43 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<onGameResult>
+			<Arg>		INT32		</Arg>	<!-- teamSize -->
+			<Arg>		INT32		</Arg>	<!-- rank -->
+			<Arg>		PYTHON		</Arg>	<!-- result list -->
+		</onGameResult>
+		<onCampWarGameResult>
+			<Arg>		PYTHON		</Arg>
+		</onCampWarGameResult>
+		<setOnline>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</setOnline>
+		<setOffline>
+			<Arg>		GID		</Arg>
+		</setOffline>
+		<addPlayerScore>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</addPlayerScore>
+		<requireRankValue>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</requireRankValue>
+		<onPlayerScoreUpdate>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onPlayerScoreUpdate>
+		<onPlayerWeekendPushScoreUpdate>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPlayerWeekendPushScoreUpdate>
+	</BaseMethods>
+</root>
+

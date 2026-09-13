@@ -1,0 +1,28 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<bugReport>	<Exposed/>
+			<Arg>	GID		</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>	<!--手填的BUG内容-->
+			<Arg>	STRING	</Arg>	<!--avatar当前位置-->
+			<Arg>	INT32 	</Arg>	<!--mapID-->
+		</bugReport>
+
+		<onGetBugReportInfo>
+			<Arg> 	BOOL	</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetBugReportInfo>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onBugReportResult>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING	</Arg>
+		</onBugReportResult>
+	</ClientMethods>
+</root>

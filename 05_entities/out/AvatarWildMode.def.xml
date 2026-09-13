@@ -1,0 +1,37 @@
+<root>
+	
+	<Parent>	AvatarSecretTreasure	</Parent>
+	<Implements>
+		<Interface>	iMark		</Interface>
+	</Implements>
+	<ClientName>	AvatarWildMode	</ClientName>
+	<Properties>
+		<runFillBulletsCostTime>
+			<Type>		INT64		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</runFillBulletsCostTime>
+		<continuousHit>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</continuousHit>
+	</Properties>
+
+	<CellMethods>
+		<setRunFillBulletsBuff>
+			<Arg>			INT64				</Arg>
+		</setRunFillBulletsBuff>
+		<tryReloadMagazineDirectly>	<Exposed/>
+		</tryReloadMagazineDirectly>
+		<setContinuousHitMarkLevel>	<Exposed/>
+			<Arg>			INT64				</Arg>
+		</setContinuousHitMarkLevel>
+	</CellMethods>
+
+	<ClientMethods>
+		<startWildModeChecker>
+		</startWildModeChecker>
+		<onMsgReloadSucceed>
+			<Arg>			INT64				</Arg>
+		</onMsgReloadSucceed>
+	</ClientMethods>
+</root>

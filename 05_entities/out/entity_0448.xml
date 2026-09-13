@@ -1,0 +1,149 @@
+<root>
+	<Properties>
+		<firstShowCosmicSupplyAD>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</firstShowCosmicSupplyAD>
+		<newRecallBindingCode>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</newRecallBindingCode>
+		<isRecallPlayer>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</isRecallPlayer>
+		<newRecallScore>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</newRecallScore>
+		<newRecallReward>
+			<Type>		ARRAY	<of>	INT32	</of>	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	[]		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</newRecallReward>
+		<recallBindingMac>
+			<Type>		STRING	</Type>
+			<Flags>		BASE	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</recallBindingMac>
+		<isFinishRecallTask>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</isFinishRecallTask>
+		<resetRecallTime>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</resetRecallTime>
+		<newRecallRewardNum>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</newRecallRewardNum>
+		<hasShowCosmicSupplyTips>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</hasShowCosmicSupplyTips>
+	</Properties>
+
+	<BaseMethods>
+		<requestCosmicSupplyShareUrl> <Exposed/>
+		</requestCosmicSupplyShareUrl>
+		<requestCosmicSupplyShareInfo> <Exposed/>
+		</requestCosmicSupplyShareInfo>
+		<requestCosmicSupplyShareAward> <Exposed/>
+		</requestCosmicSupplyShareAward>
+		<requestCosmicSupplyInviteAward> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</requestCosmicSupplyInviteAward>
+		<requestCosmicSupplyRankListInfo> <Exposed/>
+		</requestCosmicSupplyRankListInfo>
+		<bindInviteCode> <Exposed/>
+			<Arg>		STRING	</Arg>
+		</bindInviteCode>
+		<getBindInviteCodeReward> <Exposed/>
+		</getBindInviteCodeReward>
+		<getBonusPoolDiamond> <Exposed/>
+		</getBonusPoolDiamond>
+		<onInviterCharge>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</onInviterCharge>
+		<setHasShownCosmicSupplyAD> <Exposed/>
+		</setHasShownCosmicSupplyAD>
+		<inputRecallInviteCode> <Exposed/>
+			<Arg>			STRING			</Arg>
+		</inputRecallInviteCode>
+		<requireRecallReward> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</requireRecallReward>
+		<getNewRecallableFriends> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</getNewRecallableFriends>
+		<queryRecallStatus> <Exposed/>
+		</queryRecallStatus>
+		<requestNewRecallShareAward> <Exposed/>
+		</requestNewRecallShareAward>
+		
+		<setHasAlreadyShowCosmicSupplyTips> <Exposed/>
+		</setHasAlreadyShowCosmicSupplyTips>
+	</BaseMethods>
+
+	<ClientMethods>
+		<updateCosmicSupplyBaseInfo>
+			<Arg>	PYTHON	</Arg>
+		</updateCosmicSupplyBaseInfo>
+		<updateCosmicSupplyOpenNum>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</updateCosmicSupplyOpenNum>
+		<updateCosmicSupplyShareUrl>
+			<Arg>			STRING			</Arg>
+		</updateCosmicSupplyShareUrl>
+		<updateCosmicSupplyShareInfo>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</updateCosmicSupplyShareInfo>
+		<updateCosmicSupplyInviteAwardList>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</updateCosmicSupplyInviteAwardList>
+		<onGetCosmicSupplyAward>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onGetCosmicSupplyAward>
+		<updateCosmicSupplyRankListInfo>
+			<Arg>	PYTHON	</Arg>
+		</updateCosmicSupplyRankListInfo>
+		<onInputRecallInviteCode>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onInputRecallInviteCode>
+		<onRequireRecallReward>
+			<Arg>			INT32			</Arg>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onRequireRecallReward>
+		<onQueryRecallStatus>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onQueryRecallStatus>
+		<onGetRecalledPlayer>
+			<Arg>			PYTHON			</Arg>
+		</onGetRecalledPlayer>
+		<onGetNewRecallReward>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onGetNewRecallReward>
+	</ClientMethods>
+</root>

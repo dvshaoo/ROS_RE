@@ -1,0 +1,190 @@
+<root>
+	<Properties>
+		<hasHorseRaceRookieBetVisit>	
+				<Type>		BOOL				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       0	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+		</hasHorseRaceRookieBetVisit>	
+	</Properties>
+	<BaseMethods>
+		<getCurHorseRacingMatch> <Exposed/> 
+		</getCurHorseRacingMatch>
+		<onGetCurHorseRacingMatch>
+			<Arg>			PYTHON				</Arg>
+		</onGetCurHorseRacingMatch>
+		<getNextHorseRacingMatch> <Exposed/> 
+		</getNextHorseRacingMatch>
+		<onGetNextHorseRacingMatch>
+			<Arg>			PYTHON				</Arg>
+		</onGetNextHorseRacingMatch>
+		<horseBet> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</horseBet>
+		<getHorseBetList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getHorseBetList>
+		<getHorseLastEndedMatch> <Exposed/> 
+		</getHorseLastEndedMatch>
+		<getCurMatchTopWins> <Exposed/> 
+		</getCurMatchTopWins>
+		<onGetCurMatchTopWins>
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetCurMatchTopWins>
+		<getHorseMatchWinInfo> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getHorseMatchWinInfo>
+		<onGetHorseMatchWinInfo>
+			<Arg>			INT64				</Arg> 
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetHorseMatchWinInfo>
+		<getHorseEndMatchList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getHorseEndMatchList>
+		<horseComment> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+		</horseComment>
+		<horseLike> <Exposed/> 
+			<Arg>			GID				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+		</horseLike>
+		<getTopWinToday> <Exposed/> 
+		</getTopWinToday>
+		<onGetTopWinToday>
+			<Arg>			PYTHON				</Arg>
+		</onGetTopWinToday>
+		<getHorseTopCommentList> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</getHorseTopCommentList>
+		<onGetHorseTopCommentList>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetHorseTopCommentList>
+		<getHorseTopWinBetList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getHorseTopWinBetList>
+		<onGetHorseTopWinBetList>
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+		</onGetHorseTopWinBetList>
+		<horseLikeAthlete> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</horseLikeAthlete>
+		<sendHorseBulletScreen> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</sendHorseBulletScreen>
+		<horseBid> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</horseBid>
+		<cancelHorseBid> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+		</cancelHorseBid>
+		<openHorseRacingShopMain> <Exposed/> 
+		</openHorseRacingShopMain>
+		<buyHorseRacingShopGoods> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</buyHorseRacingShopGoods>
+		<setBetVisitRookie> <Exposed/> 
+		</setBetVisitRookie>
+	</BaseMethods>
+	<ClientMethods>
+		<onHorseBet>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onHorseBet>
+		<onGetHorseBetList>
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+		</onGetHorseBetList>
+		<onGetHorseLastEndedMatch>
+			<Arg>			PYTHON				</Arg>
+		</onGetHorseLastEndedMatch>
+		<onGetCurMatchTopWins>
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetCurMatchTopWins>
+		<onGetHorseMatchWinInfo>
+			<Arg>			INT64				</Arg> 
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetHorseMatchWinInfo>
+		<onGetHorseEndMatchList>
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+		</onGetHorseEndMatchList>
+		<onHorseComment>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+		</onHorseComment>
+		<onHorseBulletScreen>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+		</onHorseBulletScreen>
+		<onHorseLike>
+			<Arg>			GID				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onHorseLike>
+		<onGetTopWinToday>
+			<Arg>			PYTHON				</Arg>
+		</onGetTopWinToday>
+		<onGetHorseTopCommentList>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetHorseTopCommentList>
+		<onGetHorseTopWinBetList>
+			<Arg>	ARRAY	<of>	PYTHON	</of>			</Arg>
+		</onGetHorseTopWinBetList>
+		<onHorseLikeAthlete>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onHorseLikeAthlete>
+		<onGetCurHorseRacingMatch>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetCurHorseRacingMatch>
+		<onGetNextHorseRacingMatch>
+			<Arg>			PYTHON				</Arg>
+		</onGetNextHorseRacingMatch>
+		<onHorseBid>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onHorseBid>
+		<onCancelHorseBid>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onCancelHorseBid>
+		<onOpenHorseRacingShopMain>
+			<Arg>			PYTHON				</Arg>
+		</onOpenHorseRacingShopMain>
+		<onBuyHorseRacingShopGoods>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onBuyHorseRacingShopGoods>
+		<onUpdateRookieResult>
+			<Arg>		BOOL		</Arg>
+		</onUpdateRookieResult>
+	</ClientMethods>
+</root>
+

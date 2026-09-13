@@ -1,0 +1,58 @@
+<root>
+	<Parent>	BattleGroundSpace	</Parent>
+	<Implements>
+		<Interface>	iDrawCard	</Interface>
+	</Implements>
+	<ClientName>	BattleGroundImbaModeSpace	</ClientName>
+
+	<Properties>
+		<nextDrawCardTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</nextDrawCardTime>
+		<firstDrawCardTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</firstDrawCardTime>
+		<drawCardTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</drawCardTimerID>
+		<curCardRound>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</curCardRound>
+
+		<drawCardInterval>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</drawCardInterval>
+
+		<stopRebornTimeStamp>
+			<Type>	TIMESTAMP_INT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</stopRebornTimeStamp>
+
+	</Properties>
+	
+	<CellMethods>
+		<tryLock><Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</tryLock>
+		<startDrawCard>
+			<Arg>		INT32			</Arg>
+		</startDrawCard>
+	</CellMethods>
+
+	<ClientMethods>
+		<showDrawCardCntDown>
+			<Arg>		INT32			</Arg>
+		</showDrawCardCntDown>	
+		
+		<updateNextDrawCardCntDown>
+			<Arg>		INT32			</Arg>
+		</updateNextDrawCardCntDown>
+
+	</ClientMethods>
+</root>

@@ -1,0 +1,27 @@
+<root>
+	<Properties>
+		<maxShieldHp>
+			<Type> 		INT32 				</Type>
+			<Flags> 	ALL_CLIENTS		</Flags>
+		</maxShieldHp>
+
+		<maxTempShieldHp>
+			<Type> 		INT32 				</Type>
+			<Flags> 	ALL_CLIENTS </Flags>
+		</maxTempShieldHp>
+
+		<shieldHp>
+			<Type> 		INT32 				</Type>
+			<Flags> 	ALL_CLIENTS		</Flags>
+		</shieldHp>
+
+		<restoreTimerID>
+			<Type> 		TIMER_ID 			</Type>
+			<Flags> 	CELL_PRIVATE 		</Flags>
+		</restoreTimerID>
+
+	</Properties>
+	
+	<CellMethods>
+	</CellMethods>
+</root>

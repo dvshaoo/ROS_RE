@@ -1,0 +1,295 @@
+<root>
+	<Properties>
+		<timerGentleHeal>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</timerGentleHeal>
+
+		<timerPropSing>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0				</Default>
+		</timerPropSing>
+
+		<timerGentleHeal_2>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</timerGentleHeal_2>
+		<timerResetSpeedAdd>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</timerResetSpeedAdd>
+		<remainGentleHealTimes>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</remainGentleHealTimes>
+		<pickedIDSet>
+			<Type>		PY_SET		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	set()		</Default>
+		</pickedIDSet>
+		<showPickNum>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0			</Default>
+		</showPickNum>
+		<remainGentleHealTimes_2>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</remainGentleHealTimes_2>
+		<propOp>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</propOp>
+		<boostSpeedBuff>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</boostSpeedBuff>
+		<propSingTimerRecord>
+			<Type>		PY_DICT		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</propSingTimerRecord>
+		<propSingStartTimeRecord>
+			<Type>		PY_DICT		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</propSingStartTimeRecord>
+		<currentPropSingID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+		</currentPropSingID>
+	</Properties>
+
+	<BaseMethods>
+		<recycleGunComps>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+		</recycleGunComps>
+		<addProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</addProp>
+		<pickProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</pickProp>
+
+		<smartPickProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</smartPickProp>
+
+		<useProp> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</useProp>
+
+		<discardProp> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</discardProp>
+
+		<onStartPropSing> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onStartPropSing>
+
+		<discardPropToAutoRoyalePackage> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</discardPropToAutoRoyalePackage>
+
+		<pickSlotGun>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</pickSlotGun>
+
+		<leaveHeritage>
+		    <Arg>		BOOL     		</Arg>
+		</leaveHeritage>
+
+		<clearShowPickNum>
+		</clearShowPickNum>
+
+		<requestDiscardDtsGunComp> <Exposed/>
+			<Arg>		STRING     		</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestDiscardDtsGunComp>
+
+		<requestRecycleBullet>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestRecycleBullet>
+
+		<requestUseDtsBombBullet> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestUseDtsBombBullet>
+
+		<requestDelDtsBombBullet> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestDelDtsBombBullet>
+
+		<smartEquipGunComponentInPackage>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+		</smartEquipGunComponentInPackage>
+
+		<smartEquipGunComponentOldGun>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		PYTHON		</Arg>
+		</smartEquipGunComponentOldGun>
+
+		<cancelPropSing> <Exposed/>
+		</cancelPropSing>
+
+		<wearDtsGunComp> <Exposed/>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+		</wearDtsGunComp>
+		<resetAllDtsEquipment>
+		</resetAllDtsEquipment>
+		<wearDtsGunWildModeComp> <Exposed/>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+		</wearDtsGunWildModeComp>
+		<quickWearGunWildModeComp>
+			<Arg>		INT32		</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+		</quickWearGunWildModeComp>
+
+		<wearDtsLandDroneComp> <Exposed/>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+		</wearDtsLandDroneComp>
+
+		<requestPutBackDtsLandDroneComp> <Exposed/>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+		</requestPutBackDtsLandDroneComp>
+
+        <smartWearDtsDroneCompsInPackage>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+        </smartWearDtsDroneCompsInPackage>
+        
+        <tryFullFillLandDroneWeaponBullet>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+		</tryFullFillLandDroneWeaponBullet>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onPickUpPropEntity>
+		</onPickUpPropEntity>
+
+		<closeDtsPackage>
+		</closeDtsPackage>
+
+		<onDiscardProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onDiscardProp>
+
+		<onPropSingFinishServer>
+			<Arg>		INT32			</Arg>		<!-- item id -->
+			<Arg>		INT32			</Arg>		<!-- number -->
+		</onPropSingFinishServer>
+
+		<onUpdateShowPickNum>
+			<Arg>		INT32			</Arg>
+		</onUpdateShowPickNum>
+		
+		<onRefreshGunRailPicked>
+			<Arg>		BOOL			</Arg>
+		</onRefreshGunRailPicked>
+	</ClientMethods>
+
+	<CellMethods>
+		<startGentleHeal>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</startGentleHeal>
+
+		<startGentleHeal_2>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</startGentleHeal_2>
+
+		<UseInstantMedicine>
+			<Arg>		INT32		</Arg>
+		</UseInstantMedicine>
+
+		<onLeaveHeritage>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onLeaveHeritage>
+
+		<logPropOP>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</logPropOP>
+
+		<changeSpeedAddition>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		INT32		</Arg>
+		</changeSpeedAddition>
+
+		<doHeal>
+			<Arg> INT32 </Arg>
+		</doHeal>
+		<pickProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</pickProp>
+		<onGetItemFromTeammate>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onGetItemFromTeammate>
+		<smartPickProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</smartPickProp>
+		<quickWearGunWildModeComp> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</quickWearGunWildModeComp>
+		<onQuickWearGunWildModeComp>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		INT32		</Arg>
+		</onQuickWearGunWildModeComp>
+	</CellMethods>
+</root>

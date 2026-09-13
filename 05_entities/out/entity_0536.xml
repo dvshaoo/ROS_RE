@@ -1,0 +1,20 @@
+<root>
+	<Parent>    HotValTotalStub </Parent>
+
+	<Properties>
+		<sendPlayerMail>
+			<Type>		PYTHON </Type>
+			<Flags>		BASE			</Flags>
+			<PersistentMongo>	true		</PersistentMongo>
+		</sendPlayerMail>
+	</Properties>
+
+	<BaseMethods>
+		<getLaskTopList>
+			<Arg>		MAILBOX				</Arg>	<!-- mailbox -->
+			<Arg>		INT32				</Arg>	<!-- buffer version -->
+			<Arg>		INT32				</Arg>	<!-- buffer length-->
+			<Arg>		BOOL				</Arg>	<!-- next batch -->
+		</getLaskTopList>
+	</BaseMethods>
+</root>

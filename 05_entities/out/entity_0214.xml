@@ -1,0 +1,37 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<requestDynamicSpace>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestDynamicSpace>
+		<onReportLoad>
+			<Arg>		STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BLOB		</Arg>
+			<Arg>		BLOB		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onReportLoad>
+		<onReportSpeicalLoad>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onReportSpeicalLoad>
+		<gmClearCluster>
+			<Arg>		STRING		</Arg>
+		</gmClearCluster>
+		<gmResetCluster>
+			<Arg>		STRING		</Arg>
+		</gmResetCluster>
+	</BaseMethods>
+</root>

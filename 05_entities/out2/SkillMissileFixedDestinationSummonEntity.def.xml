@@ -1,0 +1,32 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface> iCombatUnit	</Interface>
+		<Interface>	iSkill	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillMissileFixedDestinationSummonEntity	</ClientName>
+
+	<Properties>
+		<destination>
+			<Type>	VECTOR3	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</destination>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<explode>
+			<Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</explode>
+	</CellMethods>
+</root>

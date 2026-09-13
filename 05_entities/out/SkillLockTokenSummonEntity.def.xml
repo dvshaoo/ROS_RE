@@ -1,0 +1,34 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface> iCombatUnit	</Interface>
+		<Interface>	iSkill	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillLockTokenSummonEntity	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+		<setLockResult>
+			<Arg>	BOOL	</Arg> <!-- lockResult -->
+		</setLockResult>
+	</ClientMethods>
+
+	<CellMethods>
+		<releaseLock>
+			<Arg>	BOOL	</Arg> <!-- lockResult -->
+		</releaseLock>
+
+		<updatePosition> <Exposed/>
+			<Arg>	VECTOR3	</Arg> <!-- position -->
+		</updatePosition>
+	</CellMethods>
+</root>

@@ -1,0 +1,83 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<initNewMatch>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- seeds -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- ban_flags -->
+			<Arg>	PYTHON	</Arg>	<!-- extraSettings -->
+		</initNewMatch>
+		<clearMatch>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</clearMatch>
+		<clearSlaveMatch>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</clearSlaveMatch>
+		<endMatch>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</endMatch>
+		<signUp>
+			<Arg>   MAILBOX </Arg>	<!-- mailbox -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	GID		</Arg>	<!-- gid -->
+			<Arg>	STRING	</Arg>	<!-- name -->
+			<Arg>	INT32	</Arg>	<!-- score -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+		</signUp>
+		<cancelSignUp>
+			<Arg>   MAILBOX </Arg>	<!-- mailbox -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	GID		</Arg>	<!-- gid -->
+			<Arg>	INT32	</Arg>	<!-- needCallback -->
+		</cancelSignUp>
+		<onNotifyNewMatch>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	STRING	</of>	</Arg>	<!-- seeds -->
+			<Arg>	PYTHON	</Arg>	<!-- extraSettings -->
+		</onNotifyNewMatch>
+		<onNotifyAddFlag>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+		</onNotifyAddFlag>
+		<requestFlags>
+			<Arg>   MAILBOX </Arg>	<!-- mailbox -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+		</requestFlags>
+		<requestTopPlayers>
+			<Arg>   MAILBOX </Arg>	<!-- mailbox -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	GID		</Arg>	<!-- gid -->
+		</requestTopPlayers>
+		<requestTopFlags>
+			<Arg>   MAILBOX </Arg>	<!-- mailbox -->
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	STRING	</Arg>	<!-- flag -->
+		</requestTopFlags>
+		<banUserSignUp>
+			<Arg>	INT64	</Arg>	<!-- gid -->
+			<Arg>	INT64	</Arg>	<!-- banTime -->
+		</banUserSignUp>
+		<banCountrySignUp>
+			<Arg>	STRING	</Arg>	<!-- flag -->
+			<Arg>	INT64	</Arg>	<!-- banTime -->
+		</banCountrySignUp>
+	</BaseMethods>
+</root>

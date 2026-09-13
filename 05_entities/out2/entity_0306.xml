@@ -1,0 +1,41 @@
+<root>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<requireChallengeCupSeasonNo> <Exposed/>
+		</requireChallengeCupSeasonNo>
+		<requireChallengeCupSchedule> <Exposed/>
+			<Arg>	INT64	</Arg>
+		</requireChallengeCupSchedule>
+		<requireChallengeCupMatchSeeds> <Exposed/>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+		</requireChallengeCupMatchSeeds>
+		<onGetChallengeCupSeasonNoCallback>
+			<Arg>	INT64	</Arg>
+		</onGetChallengeCupSeasonNoCallback>
+		<onGetChallengeCupScheduleCallback>
+			<Arg>	INT64 </Arg>
+			<Arg>	PYTHON </Arg>
+			<Arg>	INT32 </Arg>
+			<Arg>	PYTHON </Arg>
+		</onGetChallengeCupScheduleCallback>
+		<onGetChallengeCupMatchSeedsCallback>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	PYTHON </Arg>
+		</onGetChallengeCupMatchSeedsCallback>
+	</BaseMethods>
+	<ClientMethods>
+		<onGetChallengeCupSeasonNo>
+			<Arg>	INT64	</Arg>
+		</onGetChallengeCupSeasonNo>
+		<onGetChallengeCupSchedule>
+			<Arg>	PYTHON </Arg>
+		</onGetChallengeCupSchedule>
+		<onGetChallengeCupMatchSeeds>
+			<Arg>	PYTHON </Arg>
+		</onGetChallengeCupMatchSeeds>
+	</ClientMethods>
+</root>
+

@@ -1,0 +1,63 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iMove		</Interface>
+		<Interface> iJetWingsContainer	</Interface>
+	</Implements>
+	<ClientName>	Plane	</ClientName>
+	<Properties>
+		<inJumpArea>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</inJumpArea>
+		<movePath>
+			<Type>	ARRAY <of>	VECTOR3	</of>	</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</movePath>
+		<posCheckTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</posCheckTimerID>
+		<mode>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</mode>
+		<commanderDropID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</commanderDropID>
+		<ownerName>
+			<Type>		STRING			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</ownerName>
+		<ownerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</ownerID>
+		<gameMode>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</gameMode>
+		<teamSize>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</teamSize>
+		<customPlan>
+			<Type>		PYTHON			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</customPlan>
+	</Properties>
+	<CellMethods>
+		<pauseFly>
+		</pauseFly>
+		<resumeFly>
+		</resumeFly>
+		<onPlayerEnter>
+			<Arg>	ENTITY_ID	</Arg>
+		</onPlayerEnter>
+		<onPlayerLeave>
+			<Arg>	ENTITY_ID	</Arg>
+		</onPlayerLeave>
+	</CellMethods>
+</root>

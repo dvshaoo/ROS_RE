@@ -1,0 +1,265 @@
+<root>
+	<Properties>
+		<marryState>        <!-- 玩家的婚姻状态 -->
+			<Type>      INT32       </Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>       0       </Default>
+			<PersistentMongo>       true        </PersistentMongo>
+		</marryState>
+		<haveLove>          <!-- 玩家是否有真爱好友 -->
+		    <Type>      BOOL        </Type>
+		    <Flags>		BASE_AND_CLIENT		</Flags>
+		    <Default>       FALSE       </Default>
+		    <PersistentMongo>       true        </PersistentMongo>
+		</haveLove>
+		<loverInfo>     <!-- 玩家的真爱好友信息 -->
+		    <Type>      PYTHON      </Type>
+		    <Flags>     BASE_AND_CLIENT     </Flags>
+		    <Default>       {}      </Default>
+		    <PersistentMongo>       true        </PersistentMongo>
+		</loverInfo>
+		<declaredPropList>    <!-- 玩家使用的真爱麦克风记录 -->
+		    <Type>      PYTHON      </Type>
+		    <Flags>     BASE    </Flags>
+		    <Default>       []      </Default>
+		    <PersistentMongo>       true        </PersistentMongo>
+		</declaredPropList>
+		<proposalPropIDs>	<!-- 求婚用到的物品ID列表，暂存成功结婚则发放奖励，否则退回 -->
+			<Type>      PYTHON  	</Type>
+			<Flags>     BASE	</Flags>
+			<Default>       []  	</Default>
+			<PersistentMongo>       true		</PersistentMongo>
+		</proposalPropIDs>
+		<recevedProposalPropIDs>	<!-- 求婚收到的物品ID列表，暂存成功结婚则发放奖励，否则删除 -->
+			<Type>      PYTHON  	</Type>
+			<Flags>     BASE_AND_CLIENT	</Flags>
+			<Default>       []  	</Default>
+			<PersistentMongo>       true		</PersistentMongo>
+		</recevedProposalPropIDs>
+		<recevedProposalCustomText>	<!-- 求婚收到的话 -->
+			<Type>      STRING  	</Type>
+			<Flags>     BASE_AND_CLIENT	</Flags>
+			<Default>       []  	</Default>
+			<PersistentMongo>       true		</PersistentMongo>
+		</recevedProposalCustomText>
+		<enteredUIMarriage> <!-- 是否显示过提示跳转界面，显示过就不再显示了 -->
+			<Type>      INT32  	</Type>
+			<Flags>     BASE_AND_CLIENT	</Flags>
+			<Default>       0  	</Default>
+			<PersistentMongo>       true		</PersistentMongo>
+		</enteredUIMarriage>
+
+		<lastLeaveMsgTimeStamp>
+			<Type>		INT64	</Type>
+			<Flags>     BASE	</Flags>
+			<Default>   0  	</Default>
+		</lastLeaveMsgTimeStamp>
+
+		<marriageUsedPropIDs>	<!-- 结婚已经使用过的道具，在结婚界面显示 -->
+			<Type>      PYTHON  	</Type>
+			<Flags>     BASE_AND_CLIENT	</Flags>
+			<Default>       []  	</Default>
+			<PersistentMongo>       true		</PersistentMongo>
+		</marriageUsedPropIDs>
+		<gotMarriageExtraAwardInfoIDs>
+			<Type>      PYTHON  	</Type>
+			<Flags>     BASE_AND_CLIENT	</Flags>
+			<Default>       {}  	</Default>
+			<PersistentMongo>       true		</PersistentMongo>
+		</gotMarriageExtraAwardInfoIDs>
+	</Properties>
+
+	<BaseMethods>
+		<updateTrueLoveInfo>
+		</updateTrueLoveInfo>
+        <requestDeclare>
+            <Arg>       GID     </Arg>      <!-- gid -->
+            <Arg>       INT32       </Arg>      <!-- itemID -->
+            <Arg>       UINT32      </Arg>      <!-- num -->
+        </requestDeclare>
+        <receiveDeclareRequest>
+            <Arg>       GID     </Arg>      <!-- gid -->
+            <Arg>       INT32       </Arg>      <!-- itemID -->
+            <Arg>       UINT32      </Arg>      <!-- loverServerID -->
+            <Arg>       UINT32      </Arg>      <!-- num -->
+        </receiveDeclareRequest>
+        <trueLoveBroadcastSuccess>
+            <Arg>       INT32       </Arg>      <!-- itemID -->
+            <Arg>       UINT32      </Arg>      <!-- num -->
+        </trueLoveBroadcastSuccess>
+        <requestOtherMarryshipInfo>  <Exposed/>
+            <Arg>       GID     </Arg>      <!-- gid -->
+        </requestOtherMarryshipInfo>
+        <GetLoverInfo>
+        </GetLoverInfo>
+        <requestMarryshipInfo>  <Exposed/>
+        </requestMarryshipInfo>
+		<sendProposalRequest>  <Exposed/>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</sendProposalRequest>
+		<recvProposalRequest>
+			<Arg>	GID 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</recvProposalRequest>
+
+		<onNotifyProposalExpired>
+		</onNotifyProposalExpired>
+
+		<feedbackProposalRequest>  <Exposed/>
+			<Arg>	BOOL 	</Arg>
+		</feedbackProposalRequest>
+		<recvProposalFeedback>
+			<Arg>	GID 	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT64	</Arg>
+		</recvProposalFeedback>
+		<cancelEngagement>  <Exposed/>
+			<Arg>	GID 	</Arg>
+		</cancelEngagement>
+		<onCancelEngagement>
+			<Arg>	GID 	</Arg>
+			<Arg>	INT64	</Arg>
+		</onCancelEngagement>
+
+		<finishedWedding>  <Exposed/>
+		</finishedWedding>
+
+		<requestDivorce>  <Exposed/>
+			<Arg>	GID 	</Arg>
+		</requestDivorce>
+		<onRecvDivorceRequest>
+			<Arg>	GID 	</Arg>
+		</onRecvDivorceRequest>
+
+		<recordEnteredUIMarriage>  <Exposed/>
+		</recordEnteredUIMarriage>
+
+		<requestOthersMarriageInfo>  <Exposed/>
+			<Arg>	GID 	</Arg>
+		</requestOthersMarriageInfo>
+		<leaveMessageForMarriage>  <Exposed/>
+			<Arg>	GID 	</Arg>
+			<Arg>	GID 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</leaveMessageForMarriage>
+		<deleteMessgeForMarriage>  <Exposed/>
+			<Arg>	GID 	</Arg>
+			<Arg>	GID 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</deleteMessgeForMarriage>
+		<modifyMessageForMarriage>  <Exposed/>
+			<Arg>	GID 	</Arg>
+			<Arg>	GID 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</modifyMessageForMarriage>
+		<requestMessageForMarriage>  <Exposed/>
+			<Arg>	GID 	</Arg>
+			<Arg>	GID 	</Arg>
+		</requestMessageForMarriage>
+		<gmEndCurrentMarriageStateTimer>
+		</gmEndCurrentMarriageStateTimer>
+
+		<notifyGotoMarriageState>
+		</notifyGotoMarriageState>
+		<requestMarriageExtraAward>  <Exposed/>
+			<Arg>	INT32	</Arg>
+		</requestMarriageExtraAward>
+		<onLoverRequestMarriageExtraAward>
+			<Arg>	GID 	</Arg>
+			<Arg>	INT32	</Arg>
+		</onLoverRequestMarriageExtraAward>
+		<loverConfirmGetExtraAward>
+			<Arg>	GID 	</Arg>
+			<Arg>	INT32	</Arg>
+		</loverConfirmGetExtraAward>
+		<checkIfCanDoProposal>  <Exposed/>
+		</checkIfCanDoProposal>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateTrueLoveInfoToClient>
+			<Arg>       BOOL        </Arg>      <!-- haveLove -->
+			<Arg>       INT32        </Arg>      <!-- marryState -->
+			<Arg>       PYTHON      </Arg>      <!-- loverInfo -->
+		</onUpdateTrueLoveInfoToClient>
+		<onGetOtherPlayerMarryshipInfo>
+			<Arg>       INT32        </Arg>     <!-- marryState -->
+			<Arg>       PYTHON      </Arg>      <!-- loverInfo -->
+			<Arg>       GID     </Arg>      <!-- gid -->
+		</onGetOtherPlayerMarryshipInfo>
+		<broadcastDeclared>
+		    <Arg>       UINT32      </Arg>      <!-- propaganderGid -->
+		    <Arg>       INT32       </Arg>      <!-- itemID -->
+		    <Arg>       UINT32      </Arg>      <!-- num -->
+		</broadcastDeclared>
+		<playAddIntimacyAnimation>
+		    <Arg>       UINT32       </Arg>      <!-- addValue -->
+		    <Arg>       UINT32       </Arg>      <!-- intimacyValue -->
+		</playAddIntimacyAnimation>
+		<onUpdateMarriageUsedProps>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onUpdateMarriageUsedProps>
+
+		<onSendProposalRequest>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onSendProposalRequest>
+		<onRecvProposalRequest>
+			<Arg>	GID 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onRecvProposalRequest>
+		<onProposalFeedback>
+			<Arg>	BOOL	</Arg>		
+		</onProposalFeedback>
+		<onCancelEngagement>
+		</onCancelEngagement>
+
+		<onStartWedding>
+		</onStartWedding>
+
+		<onUpdateEnteredUIMarriage>
+			<Arg>	INT32	</Arg>
+		</onUpdateEnteredUIMarriage>
+
+		<onGetOthersMarriageInfo>
+			<Arg>	GID 	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetOthersMarriageInfo>
+		<onLeaveMessageCallback>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onLeaveMessageCallback>
+		<onDeleteMessageCallback>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onDeleteMessageCallback>
+		<onModifyMessageCallback>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onModifyMessageCallback>
+		<onRequestMessageCallback>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	GID 	</Arg>
+			<Arg>	GID 	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onRequestMessageCallback>
+
+		<onGetMarriageExtraAwards>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetMarriageExtraAwards>
+		<onUpdateGetMarriageExtraAwards>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateGetMarriageExtraAwards>
+		<onCheckCanDoProposal>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onCheckCanDoProposal>
+	</ClientMethods>
+</root>

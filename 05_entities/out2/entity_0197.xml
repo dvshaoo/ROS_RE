@@ -1,0 +1,17 @@
+<root>
+    <Parent>    RankListStub    </Parent>
+
+    <Properties>
+        <playerDataDict>
+            <Type>		STREAM_ARRAY	</Type>
+            <Flags>		BASE			</Flags>
+            <Persistent>	true		</Persistent>
+        </playerDataDict>
+        <bannedPlayerDataDict>
+            <Type>		STREAM_ARRAY	</Type>
+            <Flags>		BASE			</Flags>
+			<PersistentMongo> 	true						</PersistentMongo>
+        </bannedPlayerDataDict>
+    </Properties>
+
+</root>

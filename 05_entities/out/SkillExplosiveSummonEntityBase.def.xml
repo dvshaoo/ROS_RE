@@ -1,0 +1,33 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface> iCombatUnit	</Interface>
+		<Interface>	iSkill	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillExplosiveSummonEntityBase	</ClientName>
+
+	<Properties>
+		<firstExplosed>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	True	</Default>
+		</firstExplosed>
+	</Properties>
+
+	<ClientMethods>
+		<onExplode>
+			<Arg>	INT32	</Arg>
+			<Arg>	VECTOR3	</Arg>
+		</onExplode>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+</root>

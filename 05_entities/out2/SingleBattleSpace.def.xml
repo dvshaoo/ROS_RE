@@ -1,0 +1,75 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface>	iLatencyCheck	</Interface>
+		<Interface>	iRobotGenerate	</Interface>
+		<Interface>	iMatchSingleSideSpace	</Interface>
+	</Implements>
+	<ClientName>	SingleBattleSpace	</ClientName>
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<initCheckTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</initCheckTimerID>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<gameResult>
+			<Type> SINGLE_BATTLE_GAME_RESULT </Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</gameResult>
+		<gameLatencyTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameLatencyTimerID>
+		<campRecordData>
+			<Type> SINGLE_BATTLE_CAMP_RECORD_DATA </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</campRecordData>
+		<playerPosDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerPosDict>
+		<rankDValueRet>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</rankDValueRet>
+
+	</Properties>
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		SINGLE_BATTLE_GAME_RESULT	</Arg>
+		</gameEnd>
+		<showKillInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+	</ClientMethods>
+	<CellMethods>
+		<onGetRankDValue>
+			<Arg>	INT32  </Arg>
+			<Arg>	PYTHON </Arg>
+		</onGetRankDValue>	
+	</CellMethods>
+</root>

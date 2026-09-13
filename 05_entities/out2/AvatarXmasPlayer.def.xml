@@ -1,0 +1,53 @@
+<root>
+	<ClientName>	AvatarXmasPlayer		</ClientName>
+	<Implements>
+		<Interface> iCell </Interface>
+	</Implements>
+	<Properties>
+		<dtsWearableAppearanceList>
+			<Type>  PYTHON </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsWearableAppearanceList>
+		<dtsBodyAppearanceList>
+			<Type>  PYTHON </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsBodyAppearanceList>
+		<dtsAppearanceGender>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsAppearanceGender>
+		<dtsWearableAppearanceList>
+			<Type>  PYTHON </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsWearableAppearanceList>
+		<dtsOutGameWeapon>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsOutGameWeapon>
+		<dtsOutGameWeaponPos>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsOutGameWeaponPos>
+		<nickname>
+			<Type>  STRING </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</nickname>
+		<nationalFlag>
+			<Type>  STRING </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</nationalFlag>
+		<valueType>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</valueType>
+	</Properties>
+	<CellMethods>
+	</CellMethods>
+	<ClientMethods>
+		<onUpdateXmasTop3PlayerAppearance>
+			<Arg>		PYTHON		</Arg>
+		</onUpdateXmasTop3PlayerAppearance>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

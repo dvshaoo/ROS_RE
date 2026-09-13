@@ -1,0 +1,65 @@
+<root>
+	<Properties>
+		<redPackageResetStamp> <!-- 红包发放重置时间点，用来记录重置 -->
+			<Type> STRING </Type>
+			<Default>	""	</Default>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</redPackageResetStamp>
+	</Properties>
+	<BaseMethods>
+		<requireOpenRedPackage> <Exposed/>
+			<Arg>		INT64		</Arg>
+			<Arg>		INT32		</Arg> 
+		</requireOpenRedPackage>
+		<requireRedPackageList> <Exposed/>
+		</requireRedPackageList>
+		<getReleaseAndGotRedPackageList> <Exposed/>
+		</getReleaseAndGotRedPackageList>
+		<onGetRedPackageList>
+			<Arg>		PYTHON </Arg>
+			<Arg>		INT32		</Arg>
+		</onGetRedPackageList>
+		<onReceivedRedPackageFailure>
+			<Arg>		PYTHON </Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32			</Arg>	<!-- 使用来源 -->
+		</onReceivedRedPackageFailure>
+		<onReceivedRedPackage>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON </Arg>
+		</onReceivedRedPackage>
+		<onGetReleaseAndGotRedPackageList>
+			<Arg>		PYTHON </Arg>
+			<Arg>		PYTHON </Arg>
+		</onGetReleaseAndGotRedPackageList>
+		<addRedPackageChance> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</addRedPackageChance>
+	</BaseMethods>
+	<ClientMethods>
+		<onClientGetRedPacketList>
+			<Arg>		PYTHON </Arg>
+			<Arg>		INT32		</Arg>
+		</onClientGetRedPacketList>
+		<onClientGetRedPacket>
+			<Arg>		INT32		</Arg>  <!-- 开红包总次数 -->
+			<Arg>		INT32		</Arg>  <!-- 开红包使用次数 -->
+			<Arg>		PYTHON 	</Arg>  <!--award_list-->
+			<Arg>		PYTHON		</Arg>  <!-- 红包信息-->
+		</onClientGetRedPacket>
+		<onClientGetReleaseAndGotRedPackageList>
+			<Arg>		PYTHON </Arg>
+			<Arg>		PYTHON </Arg>
+		</onClientGetReleaseAndGotRedPackageList>
+		<updateRedPackageChance>
+			<Arg>		INT32		</Arg>  <!-- 开红包总次数 -->
+			<Arg>		INT32		</Arg>  <!-- 开红包使用次数 -->
+			<Arg>		PYTHON		</Arg>
+		</updateRedPackageChance>
+		<getRedPackageFailed>
+			<Arg>		PYTHON		</Arg>  <!-- 红包信息-->
+		</getRedPackageFailed>
+	</ClientMethods>
+</root>

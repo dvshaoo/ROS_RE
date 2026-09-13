@@ -1,0 +1,105 @@
+<root>
+	<Implements>
+		<Interface>			iGlobal			</Interface>
+		<Interface>			iBaseNoCell		</Interface>
+	</Implements>
+
+	<Properties>
+		<packageIDGenerator>
+			<Type>		INT64		</Type>
+			<Flags>		BASE				</Flags>
+			<Default>	0				</Default>
+		</packageIDGenerator>
+		<packageInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}				</Default>
+		</packageInfo>
+		<playerPackageDone>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}				</Default>
+		</playerPackageDone>
+		<playerPackage>
+			<Type>		PYTHON </Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}				</Default>
+		</playerPackage>
+		<publicPackage>
+			<Type>	PYTHON </Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}				</Default>
+		</publicPackage>
+		<lastPublicPackageID>
+			<Type>		INT64		</Type>
+			<Flags>		BASE				</Flags>
+			<Default> 0 </Default>
+		</lastPublicPackageID>
+		<playerHasGotRedPackageIDs>     <!-- 玩家已领取的红包列表 -->
+			<Type>	PYTHON </Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}				</Default>
+		</playerHasGotRedPackageIDs>
+	</Properties>
+	<BaseMethods>
+		<requireReceiveRedPackage>
+			<Arg>		DBID			</Arg>	<!-- player databaseID -->
+			<Arg>		STRING			</Arg>	<!-- 玩家名字 -->
+			<Arg>		INT32			</Arg>	<!-- 品质 -->
+			<Arg>		INT64			</Arg>	<!-- 红包ID -->
+			<Arg>		MAILBOX			</Arg>	<!-- 玩家的mailbox -->
+			<Arg>		INT32			</Arg>	<!-- 使用来源 -->
+		</requireReceiveRedPackage>
+		<requireRedPackageData>
+			<Arg>		DBID			</Arg>	<!-- player databaseID -->
+			<Arg>		MAILBOX			</Arg>	<!-- 玩家的mailbox -->
+		</requireRedPackageData>
+		<requireRedPackageList>
+			<Arg>		PYTHON			</Arg>	<!-- player databaseIDs -->
+			<Arg>		MAILBOX			</Arg>	<!-- 玩家的mailbox -->
+		</requireRedPackageList>
+		<addRedPackage>
+			<Arg>		DBID			</Arg>	<!-- player databaseID -->
+			<Arg>		STRING			</Arg>	<!-- 玩家名字 -->
+			<Arg>		INT32			</Arg>	<!-- 品质 -->
+			<Arg>		MAILBOX			</Arg>	<!-- 玩家的mailbox -->
+		</addRedPackage>
+		<requireGotAndReleaseRedPackageList>
+			<Arg>		DBID			</Arg>	<!-- player databaseID -->
+			<Arg>		MAILBOX			</Arg>	<!-- 玩家的mailbox -->
+		</requireGotAndReleaseRedPackageList>
+		<createVirtualRedPackage>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>		INT32			</Arg>	<!-- 红包品质 -->
+			<Arg>		INT32			</Arg>	<!-- 数量 -->
+		</createVirtualRedPackage>
+		<onTimerCreateRedPackage>
+			<Arg>		INT32			</Arg>	<!-- 红包等级 -->
+		</onTimerCreateRedPackage>
+		<setRedPackageNum>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>		INT32			</Arg>	<!-- 红包等级 -->
+			<Arg>		INT32			</Arg>	<!-- 数量 -->
+		</setRedPackageNum>
+		<recordRedPackageHistory>
+			<Arg>		STRING			</Arg>	<!-- nickname -->
+			<Arg>		INT32			</Arg>	<!-- value -->
+		</recordRedPackageHistory>
+		<getRedPackageHistory>
+			<Arg>		INT32			</Arg>	<!-- actID -->
+			<Arg>		INT32			</Arg>	<!-- num -->
+			<Arg>		MAILBOX			</Arg>	<!-- mailBox -->
+		</getRedPackageHistory>
+		<recordAwardHistory>
+			<Arg>		STRING			</Arg>	<!-- nickname -->
+			<Arg>		INT32			</Arg>	<!-- propID -->
+			<Arg>		INT32			</Arg>	<!-- num -->
+		</recordAwardHistory>
+		<getAwardHistory>
+			<Arg>		INT32			</Arg>	<!-- actID -->
+			<Arg>		INT32			</Arg>	<!-- num -->
+			<Arg>		MAILBOX			</Arg>	<!-- mailBox -->
+		</getAwardHistory>
+	</BaseMethods>
+</root>
+

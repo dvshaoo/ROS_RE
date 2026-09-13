@@ -1,0 +1,77 @@
+<root>
+	<Properties>
+		<dtsSafetyBulletCount>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE				</Flags>
+			<Default>	{}				</Default>
+		</dtsSafetyBulletCount>
+
+		<dtsUsedSafetyBulletCount>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE				</Flags>
+			<Default>	{}				</Default>
+		</dtsUsedSafetyBulletCount>
+
+		<dtsBombBulletCount>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</dtsBombBulletCount>
+
+		<dtsUsedBombBulletCount>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</dtsUsedBombBulletCount>
+
+		<dtsAllowShootHit>
+			<Type>		INT8						</Type>
+			<Flags>		CELL_PRIVATE				</Flags>
+			<Default>	1							</Default>
+		</dtsAllowShootHit>
+
+		<shootHitTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0			</Default>
+		</shootHitTimerID>
+
+		<shotGunHitTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0			</Default>
+		</shotGunHitTimerID>
+
+		<shotGunBulletHitDict>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</shotGunBulletHitDict>
+	</Properties>
+	<CellMethods>
+		<addDtsSafetyBullet>
+			<Arg>		INT32				</Arg>
+			<Arg>		INT32				</Arg>
+		</addDtsSafetyBullet>
+
+		<addDtsSafetyUsedBullet>
+			<Arg>		INT32				</Arg>
+			<Arg>		INT32				</Arg>
+		</addDtsSafetyUsedBullet>
+
+		<addDtsSafetyBomb>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</addDtsSafetyBomb>
+
+		<addDtsSafetyUsedBomb>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</addDtsSafetyUsedBomb>
+
+		<onDtsSelectStart> <Exposed/>
+		</onDtsSelectStart>
+	</CellMethods>
+	<ClientMethods>
+	</ClientMethods>
+</root>

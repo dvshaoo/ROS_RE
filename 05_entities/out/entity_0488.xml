@@ -1,0 +1,136 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iSpaceRequester	</Interface>
+	</Implements>
+
+	<Properties>
+		<eventRefreshData>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>		{}		</Default>		
+		</eventRefreshData>
+
+		<preEventIDPerGroup>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>		{}		</Default>	
+		</preEventIDPerGroup>
+
+		<eventInfoDict>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE 		</Flags>
+			<Default>	{}			</Default>
+		</eventInfoDict>
+
+		<eventToucherInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE 		</Flags>
+			<Default>	{}			</Default>
+		</eventToucherInfo>
+
+		<omWildEventState>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE 	</Flags>
+			<Default>	{}	</Default>
+		</omWildEventState>
+
+		<omWildEventRefreshState>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE 	</Flags>
+			<Default>	{}	</Default>
+		</omWildEventRefreshState>
+	</Properties>
+
+	<BaseMethods>
+		<onMsg>
+			<Arg>		INT32		</Arg>
+		</onMsg>
+
+		<refreshWildDungeonEvent>
+			<Arg>		INT32		</Arg>
+		</refreshWildDungeonEvent>
+
+		<delEventInfo>
+			<Arg>		INT32		</Arg>
+		</delEventInfo>
+
+		<requestEventData>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		GID			</Arg>
+		</requestEventData>
+
+		<updateEventInfo>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		BOOL		</Arg>
+		</updateEventInfo>
+
+		<touchEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID			</Arg>
+		</touchEvent>
+
+		<omSwitchWildEventState>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+		</omSwitchWildEventState>
+
+		<omSwitchWildEventRefreshState>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+		</omSwitchWildEventRefreshState>
+
+		<!-- <updateEventPlayerNumInfo>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</updateEventPlayerNumInfo> -->
+
+		<registEventEntrance>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</registEventEntrance>
+		<unregistEventEntrance>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</unregistEventEntrance>
+		<registEventJoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</registEventJoin>
+		<unregistEventJoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</unregistEventJoin>
+		<requestEnterEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestEnterEvent>
+		<requestJoinEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestJoinEvent>
+		<requestNewTeamJoinEvent>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		TEAM_ID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestNewTeamJoinEvent>		
+		<onEventGameEnd>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onEventGameEnd>
+		<onPlayerLeaveEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPlayerLeaveEvent>
+		<onWorldSpaceInit>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+		</onWorldSpaceInit>
+	</BaseMethods>
+
+</root>

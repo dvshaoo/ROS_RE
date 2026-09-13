@@ -1,0 +1,631 @@
+<root>
+	<Properties>
+		<fpsMode>
+			<Type>		INT8		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</fpsMode>
+		<battleGroundTeamID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</battleGroundTeamID>
+		<battleGroundTeamSize>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</battleGroundTeamSize>
+		<battleGroundTickCnt>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</battleGroundTickCnt>
+		<battleGroundTickTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</battleGroundTickTimerID>
+		<battleGroundPoisonTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</battleGroundPoisonTimerID>
+		<woundedCnt>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</woundedCnt>
+		<woundedTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</woundedTimerID>
+		<woundedInvincibleTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</woundedInvincibleTimerID>
+		<healTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</healTimerID>
+		<healEntityID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</healEntityID>
+		<ownMarkPos>
+			<Type>		VECTOR2		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</ownMarkPos>
+		<battleTeammates>
+			<Type>	ARRAY <of>	BATTLE_TEAMMATE	</of>	</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN </Flags>
+		</battleTeammates>
+		<battleTeammateEntIDs>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	[]		</Default>
+		</battleTeammateEntIDs>
+		<planeID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</planeID>
+		<gameStatus>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</gameStatus>
+		<isInPoisonArea>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</isInPoisonArea>
+		<fallPhase>
+			<Type>		INT8		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN </Flags>
+		</fallPhase>
+		<glidePhase>
+			<Type>		INT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</glidePhase>
+		<battleState>
+			<Type>		INT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</battleState>
+		<timerCalDis>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</timerCalDis>
+		<battleKillNum>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</battleKillNum>
+		<isKillByCultivateSkinWeapon>
+			<Type>	BOOL		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</isKillByCultivateSkinWeapon>
+		<recordMovDisTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</recordMovDisTimerID>
+		<showMoveDistance>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</showMoveDistance>
+		<battleStartTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>		-1.0		</Default>
+		</battleStartTime>
+		<moveDistance>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>		0.0		</Default>
+		</moveDistance>
+		<movePath>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		[]		</Default>
+		</movePath>
+		<totalTeamNum>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		-1		</Default>
+		</totalTeamNum>
+		<gameEndRank>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0		</Default>
+		</gameEndRank>
+		<gameRobotCnt>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0		</Default>
+		</gameRobotCnt>
+		<leftPlayerNumOnPlane>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN		</Flags>
+		</leftPlayerNumOnPlane>
+		<lastRecPosition>
+			<Type>		VECTOR3		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</lastRecPosition>
+		<lastHurtTick>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</lastHurtTick>
+		<knockDownPlayerID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</knockDownPlayerID>
+		<killerOverviewPlayerInfoAndDamageSourceList>
+			<Type>	ARRAY <of>	KILLER_OVERVIEW_PLAYER_INFO_AND_DAMAGE_SOURCE	</of>	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</killerOverviewPlayerInfoAndDamageSourceList>
+		<nonplayerDamageSourceList>
+			<Type>	ARRAY <of>	DAMAGE_SOURCE	</of>	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</nonplayerDamageSourceList>
+
+		<huiliuIsReturnState>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0		</Default>
+		</huiliuIsReturnState>
+		<prepareActionRecord> <!-- 准备区行为记录 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</prepareActionRecord>
+		<prepareActionRecordTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</prepareActionRecordTimerID>
+
+		<onDamageActionRecord> <!-- 受击行为记录 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</onDamageActionRecord>
+		<onDamageActionRecordTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</onDamageActionRecordTimerID>
+		<onDamageActionRecordCancelTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</onDamageActionRecordCancelTimerID>
+
+		<dtsSpecialLevelState>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</dtsSpecialLevelState>
+
+		<knockDownRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</knockDownRecord>
+		<isFighter>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</isFighter>
+		<isInTransforming>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isInTransforming>
+		<transformPropType>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</transformPropType>
+		<transformAnimName>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</transformAnimName>
+		<hasGotOnPlane>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</hasGotOnPlane>
+	</Properties>
+	<CellMethods>
+		<onChangeFpsMode>  <Exposed/>
+			<Arg>		INT8			</Arg>
+		</onChangeFpsMode>
+		<onEatZombieBuff> </onEatZombieBuff>
+		<startHeal> <Exposed/>
+		</startHeal>
+		<stopHeal> <Exposed/>
+		</stopHeal>
+		<recordHealTime> <Exposed/>
+			<Arg>		FLOAT			</Arg>
+		</recordHealTime>
+		<showPackageCapacityTips>
+			<Arg>		INT32			</Arg>
+		</showPackageCapacityTips>
+		<syncBattleTeamID>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</syncBattleTeamID>
+		<syncBattleTeamIDLeader>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		GID 			</Arg>
+		</syncBattleTeamIDLeader>
+		<appendBattleTeammate>
+			<Arg>		BATTLE_TEAMMATE		</Arg>
+			<Arg>		INT32			</Arg>
+		</appendBattleTeammate>
+		<updateBattleTeammate>
+			<Arg>		BATTLE_TEAMMATE		</Arg>
+			<Arg>		STRING			</Arg>
+		</updateBattleTeammate>
+		<getOnPlane>
+			<Arg>		INT32			</Arg>
+		</getOnPlane>
+
+		<notifyDamageStatic>
+			<Arg>		INT32			</Arg>
+		</notifyDamageStatic>
+
+		<syncGameStatus>
+			<Arg>		INT32			</Arg>
+		</syncGameStatus>
+		<syncPlanePlayerNum>
+			<Arg>		INT32			</Arg>
+		</syncPlanePlayerNum>
+		<recordDtsTakePlaneState>
+			<Arg>		INT32			</Arg>
+			<Arg>		PY_DICT			</Arg>
+		</recordDtsTakePlaneState>
+		<getOffPlane>
+			<Arg>		VECTOR3			</Arg>
+		</getOffPlane>
+		<requestGetOffPlane> <Exposed/>
+		</requestGetOffPlane>
+		<requestGetOffAircraft> <Exposed/>
+		</requestGetOffAircraft>
+		<onBattleGroundKill>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		INT32			</Arg>
+		</onBattleGroundKill>
+		<onHealOther>
+		</onHealOther>
+		<onBattleGroundPickItem>
+			<Arg>		BOOL			</Arg>
+			<Arg>		INT32			</Arg>
+		</onBattleGroundPickItem>
+		<discardDtsProp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</discardDtsProp>
+		<markPos>	<Exposed/>
+			<Arg>		VECTOR2			</Arg>
+		</markPos>
+		<onGetBombDamage>	<Exposed/>
+		</onGetBombDamage>
+		<onWoundOther>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onWoundOther>
+		<onCircleStageChange>
+			<Arg>		INT32			</Arg>
+		</onCircleStageChange>
+		<onDtsWeaponBombPrepare>	<Exposed/>
+		</onDtsWeaponBombPrepare>
+		<onDtsWeaponBombThrow>	<Exposed/>
+			<Arg>		INT32			</Arg>	<!-- bombID -->
+			<Arg>		INT32			</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>	<!-- railID -->
+			<Arg>		DTS_WEAPON_BOMB_THROW_INFO	</Arg>  <!-- throwInfo -->
+		</onDtsWeaponBombThrow>
+		<onDtsBombCarrierCreateBomb> 	<Exposed/>
+			<Arg>		INT32			</Arg>	<!-- bombID -->
+			<Arg>		INT32			</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>	<!-- railID -->
+			<Arg>		DTS_BOMB_CARRIER_CREATE_INFO	</Arg>  <!-- throwInfo -->
+		</onDtsBombCarrierCreateBomb>
+		<onDtsRangeGunFire>	<Exposed/>
+			<Arg>		INT32			</Arg>	<!-- bulletID -->
+			<Arg>		INT32			</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>	<!-- railID -->
+			<Arg>		INT32			</Arg>	<!-- itemID -->
+			<Arg>		BOOL			</Arg>	<!-- is block -->
+			<Arg>		DTS_RANGE_GUN_FIRE_INFO	</Arg>	<!-- fireInfo -->
+		</onDtsRangeGunFire>
+		<onDtsTrackingWeaponFire>	<Exposed/>
+			<Arg>		INT32			</Arg>	<!-- bulletID -->
+			<Arg>		INT32			</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>	<!-- railID -->
+			<Arg>		ENTITY_ID		</Arg>	<!-- lock entityID -->
+			<Arg>		DTS_RANGE_GUN_FIRE_INFO	</Arg>	<!-- fireInfo -->
+			<Arg>		VECTOR3			</Arg>	<!-- offset -->
+		</onDtsTrackingWeaponFire>
+		<onDtsFlowerWeaponFire>	<Exposed/>
+			<Arg>		INT32			</Arg>	<!-- bombID -->
+			<Arg>		INT32			</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>	<!-- railID -->
+			<Arg>		DTS_WEAPON_BOMB_THROW_INFO	</Arg>  <!-- throwInfo -->
+		</onDtsFlowerWeaponFire>
+		<judgeFallPhase>
+			<Arg>		INT8			</Arg>
+		</judgeFallPhase>
+		<updateBattleKillNum>
+			<Arg>		INT32			</Arg> <!-- kill number -->
+			<Arg>		PYTHON			</Arg> <!-- weapon info -->
+		</updateBattleKillNum>
+		<updateTotalTeamNum>
+			<Arg>		INT32			</Arg>
+		</updateTotalTeamNum>
+		<onGetFallDamage>	<Exposed/>
+			<Arg>		FLOAT			</Arg>
+		</onGetFallDamage>
+		<requestShowingKillerOverview>
+		</requestShowingKillerOverview>
+		<onBattleTeamEndAvatar>
+		</onBattleTeamEndAvatar>
+		<doWeaponDance>	<Exposed/>
+		</doWeaponDance>
+		<doG89BombDance>	<Exposed/>
+		</doG89BombDance>
+		<doG89RobotBombDance>	<Exposed/>
+		</doG89RobotBombDance>
+		<useItemStartG89PlayerTransform>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</useItemStartG89PlayerTransform>
+		<recoverG89RobotPrepareShow>	<Exposed/>
+		</recoverG89RobotPrepareShow>
+		<onG89PlayerTransformEnd> <Exposed/>
+		</onG89PlayerTransformEnd>
+		<onG89FoolBoxTransformEnd> <Exposed/>
+		</onG89FoolBoxTransformEnd>
+		<onWeaponDanceEnd> <Exposed/>
+		</onWeaponDanceEnd>
+		<onG89BombDanceEnd> <Exposed/>
+		</onG89BombDanceEnd>
+		<doCommonGameAction> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		BOOL			</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</doCommonGameAction>
+		<doInGameAction>	<Exposed/>
+			<Arg>		INT32			</Arg>
+		</doInGameAction>
+		<onInGameActionEnd> <Exposed/>
+		</onInGameActionEnd>
+		<doSuitTransform>	<Exposed/>
+		</doSuitTransform>
+		<onSuitTransformEnd> <Exposed/>
+		</onSuitTransformEnd>
+		<doRobotZombieJump> <Exposed/>
+			<Arg>		BOOL			</Arg>
+		</doRobotZombieJump>
+		<resetDtsPropData>
+		</resetDtsPropData>
+		<initWearableAppearance>
+		</initWearableAppearance>
+		<teleportCalMoveDis>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</teleportCalMoveDis>
+		<DtsRangeGunSummonEntityRequireCurState> <Exposed/>
+			<Arg>		ENTITY_ID		</Arg>
+		</DtsRangeGunSummonEntityRequireCurState>
+		<updateGameEndRank>
+			<Arg>		INT32		</Arg>
+		</updateGameEndRank>
+		<updateGameRobotCnt>
+			<Arg>		INT32		</Arg>
+		</updateGameRobotCnt>
+		<setFighter>
+		</setFighter>
+		<logTutorialMap> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</logTutorialMap>
+		<requestLeaveSpaceBeforeWin> <Exposed/>
+		</requestLeaveSpaceBeforeWin>
+		<notifyGodObserverDrawTrajectory> <Exposed/>
+			<Arg>		DTS_RANGE_GUN_TRAJECTORY	</Arg>
+		</notifyGodObserverDrawTrajectory>
+		<updateWeaponProficiency>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</updateWeaponProficiency>
+		<updateWeaponAccumulateDamage>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</updateWeaponAccumulateDamage>
+		<checkEverKnockedDown>
+		</checkEverKnockedDown>
+		<clearEverKnockedDown>
+		</clearEverKnockedDown>
+		<checkEverKnockedDown>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</checkEverKnockedDown>
+	</CellMethods>
+	<ClientMethods>
+		<onOtherDoWeaponDance>
+			<Arg>		STRING		</Arg>
+		</onOtherDoWeaponDance>
+		<onOtherDoG89BombDance>
+			<Arg>		STRING		</Arg>
+		</onOtherDoG89BombDance>
+		<onOtherDoG89PlayerTransform>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+		</onOtherDoG89PlayerTransform>
+		<onOwnDoG89PlayerTransform>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+		</onOwnDoG89PlayerTransform>
+		<onOtherG89PlayerTransformEnd>
+		</onOtherG89PlayerTransformEnd>
+		<onOtherG89FoolBoxTransformEnd>
+		</onOtherG89FoolBoxTransformEnd>
+		<onOwnDoWeaponDance>
+			<Arg>		STRING		</Arg>
+		</onOwnDoWeaponDance>
+		<onOwnDoG89BombDance>
+			<Arg>		STRING		</Arg>
+		</onOwnDoG89BombDance>
+		<onOtherG89BombDanceEnd>
+		</onOtherG89BombDanceEnd>
+		<onOtherWeaponDanceEnd>
+		</onOtherWeaponDanceEnd>
+		<onOwnWeaponDanceEnd>
+		</onOwnWeaponDanceEnd>
+		<onOtherCommonGameAction>
+			<Arg>		STRING		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</onOtherCommonGameAction>
+		<onOwnCommonGameAction>
+			<Arg>		STRING		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</onOwnCommonGameAction>
+		<onOtherDoInGameAction>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+		</onOtherDoInGameAction>
+		<onOwnDoInGameAction>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+		</onOwnDoInGameAction>
+		<onOtherInGameActionEnd>
+		</onOtherInGameActionEnd>
+		<onOwnInGameActionEnd>
+		</onOwnInGameActionEnd>
+		<onOtherDoSuitTransform>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+		</onOtherDoSuitTransform>
+		<onOwnDoSuitTransform>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+		</onOwnDoSuitTransform>
+		<onOtherSuitTransformEnd>
+		</onOtherSuitTransformEnd>
+		<onOwnSuitTransformEnd>
+		</onOwnSuitTransformEnd>
+		<onHealed>
+		</onHealed>
+		<onHealEntityFail>
+			<Arg>		STRING		</Arg>
+		</onHealEntityFail>
+		<onBattleTeammateUpdate>
+			<Arg>		INT8		</Arg>
+		</onBattleTeammateUpdate>
+		<dtsKillTip>
+			<Arg>		STRING		</Arg>
+		</dtsKillTip>
+		<onBattleGroundDie>
+			<Arg>		PYTHON		</Arg>
+		</onBattleGroundDie>
+		<onBattleGroundResult>
+			<Arg>		INT32		</Arg>	<!-- gameType -->
+			<Arg>		INT8		</Arg>	<!-- teamSize -->
+			<Arg>		INT32		</Arg>	<!-- rank -->
+			<Arg>		INT32		</Arg>	<!-- total -->
+			<Arg>		INT32		</Arg>	<!-- bannerID -->
+			<Arg> PY_DICT </Arg>
+			<Arg>	PY_DICT		</Arg>
+		</onBattleGroundResult>
+		<onBattleGroundGoldBattleResult>
+			<Arg>		INT32		</Arg>	<!-- rank -->
+			<Arg>		INT32		</Arg>	<!-- total -->
+			<Arg>		INT32		</Arg>	<!-- bannerID -->
+			<Arg> PY_DICT </Arg>
+			<Arg>	PY_DICT		</Arg>
+		</onBattleGroundGoldBattleResult>
+		<onBattleGroundYuanbaoBattleResult>
+			<Arg>		INT32		</Arg>	<!-- rank -->
+			<Arg>		INT32		</Arg>	<!-- total -->
+			<Arg>		INT32		</Arg>	<!-- bannerID -->
+			<Arg> PY_DICT </Arg>
+			<Arg>	PY_DICT		</Arg>
+		</onBattleGroundYuanbaoBattleResult>
+		<onBattleGroundRankedResult>
+			<Arg>		INT32		</Arg>	<!-- gameType -->
+			<Arg>		INT8		</Arg>	<!-- teamSize -->
+			<Arg>		INT32		</Arg>	<!-- rank -->
+			<Arg>		INT32		</Arg>	<!-- total -->
+			<Arg>		INT32		</Arg>	<!-- bannerID -->
+			<Arg> PY_DICT </Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>	PY_DICT		</Arg>
+		</onBattleGroundRankedResult>
+		<dtsTutorialFreezesPlayer>
+		</dtsTutorialFreezesPlayer>
+		<dtsTutorialRecoverPlayer>
+		</dtsTutorialRecoverPlayer>
+		<onDtsWeaponBombPrepare>
+		</onDtsWeaponBombPrepare>
+		<onRequestCircleRestTime>
+			<Arg>	INT32	</Arg>
+		</onRequestCircleRestTime>
+		<onTeammateUpdateMarkPosition>
+			<Arg>	INT32	</Arg>
+			<Arg>	VECTOR2	</Arg>
+		</onTeammateUpdateMarkPosition>
+		<onEnterWounedState>
+			<Arg>	STRING	</Arg>
+		</onEnterWounedState>
+		<onRequestShareAddtionShow>
+			<Arg>	INT32	</Arg>
+		</onRequestShareAddtionShow>
+		<showKillerOverview>
+			<Arg> KILLER_OVERVIEW_PLAYER_INFO_AND_DAMAGE_SOURCE </Arg> <!-- culprits player info and the damage -->
+			<Arg>	ARRAY <of>	DAMAGE_SOURCE	</of>	</Arg>  <!-- damageSourceList -->
+		</showKillerOverview>
+		<skipKillerOverview>
+		</skipKillerOverview>
+		<DtsRangeGunSummonEntityResponseCurState>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	FLOAT		</Arg> 	<!-- lifespan -->
+			<Arg>	FLOAT		</Arg>	<!-- total distance -->
+			<Arg>	VECTOR3		</Arg>	<!-- cur speed -->
+			<Arg>	VECTOR3		</Arg>	<!-- cur position -->
+		</DtsRangeGunSummonEntityResponseCurState>
+		<enterFlyingAccessoryParachuteState>
+		</enterFlyingAccessoryParachuteState>
+		<decSuitWeaponDanceChargeData>
+			<Arg>	STRING	</Arg>
+		</decSuitWeaponDanceChargeData>
+		<onSplashWaitReborn>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT32	</Arg>
+		</onSplashWaitReborn>
+		<showCanExitSpaceInfo>
+		</showCanExitSpaceInfo>
+	</ClientMethods>
+	<BaseMethods>
+		<dtsTutorialFreezesPlayer>
+		</dtsTutorialFreezesPlayer>
+		<dtsTutorialRecoverPlayer>
+		</dtsTutorialRecoverPlayer>
+		<requestCircleRestTime> <Exposed/>
+		</requestCircleRestTime>
+		<onRequestCircleRestTime>
+			<Arg>	INT32	</Arg>
+		</onRequestCircleRestTime>
+
+		<requestShareAddtionShow> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</requestShareAddtionShow>
+		<onRequestShareAddtionShow>
+			<Arg>	INT32	</Arg>
+		</onRequestShareAddtionShow>
+
+		<requestDoNavigationLog> <Exposed/>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</requestDoNavigationLog>
+
+		<decSuitWeaponDanceChargeData>
+			<Arg>	STRING	</Arg>
+		</decSuitWeaponDanceChargeData>
+
+		<onSyncBattleTeammateEntID>
+			<Arg>	INT32	</Arg>
+		</onSyncBattleTeammateEntID>
+
+	</BaseMethods>
+</root>

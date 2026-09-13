@@ -1,0 +1,41 @@
+<root>
+	<Implements>
+	</Implements>
+
+	<Properties>
+		<reloadTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</reloadTimerID>
+
+		<ringBuffer>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</ringBuffer>
+
+		<removedGroups>
+			<Type>		ARRAY <of> ENTITY_ID </of>	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</removedGroups>
+
+		<curBuffIndx>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</curBuffIndx>
+
+	</Properties>
+
+	<CellMethods>
+		<onSpotPropCreated>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	PY_DICT	</Arg>
+		</onSpotPropCreated>
+
+		<removeEntity>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	PY_DICT	</Arg>
+		</removeEntity>
+	</CellMethods>
+</root>

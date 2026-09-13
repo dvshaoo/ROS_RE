@@ -1,0 +1,20 @@
+<root>
+	<Parent>	SkillExplosiveSummonEntityBase		</Parent>
+
+	<Implements>
+	</Implements>
+
+	<ClientName>	SkillExplosiveSummonEntity	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<explode> <Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</explode>
+	</CellMethods>
+</root>

@@ -1,0 +1,88 @@
+<root>
+	<Properties>
+		<braveBookDataList>
+			<Type> BRAVE_BOOK_DATA_LIST </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Persistent> true </Persistent>
+		</braveBookDataList>
+	</Properties>
+	<BaseMethods>
+		<requestBraveBookAllAvailableRewardsBySeasonID>
+			<Exposed/>
+			<Arg> INT32 </Arg>  <!-- 赛季 -->
+		</requestBraveBookAllAvailableRewardsBySeasonID>
+		<requestBraveBookAllExtraRewardsBySeasonID>
+			<Exposed/>
+			<Arg> INT32 </Arg>  <!-- 赛季 -->
+		</requestBraveBookAllExtraRewardsBySeasonID>
+		<requestBraveBookTaskReward>
+			<Exposed/>
+			<Arg> INT32 </Arg>  <!-- 任务列表序号 -->
+		</requestBraveBookTaskReward>
+		<requestRefreshingBraveBookTask>
+			<Exposed/>
+			<Arg> INT32 </Arg>  <!-- 任务列表序号 -->
+		</requestRefreshingBraveBookTask>
+		<requestUpdatingBraveBookTask>
+			<Exposed/>
+		</requestUpdatingBraveBookTask>
+		<requestBuyingBraveBookPass>
+			<Exposed/>
+			<Arg> INT32 </Arg>  <!-- 令状类型 -->
+			<Arg> INT32 </Arg>
+		</requestBuyingBraveBookPass>
+		<requestBraveBookAllAvailableRewardsBySeasonIDList>
+			<Exposed/>
+			<Arg> ARRAY <of> INT32 </of> </Arg>  <!-- 赛季列表 -->
+		</requestBraveBookAllAvailableRewardsBySeasonIDList>
+	</BaseMethods>
+	<ClientMethods>
+
+		<_OnBraveBookLevelUpgraded>
+			<Arg> INT32 </Arg>  <!-- 旧等级 -->
+		</_OnBraveBookLevelUpgraded>
+		<_OnBraveBookExperienceChanged>
+			<Arg> INT32 </Arg>  <!-- 旧经验值 -->
+			<Arg> INT32 </Arg>  <!-- 总变化量：包括影响等级提升的部分，旧经验值加上变化量不一定就是新经验值 -->
+		</_OnBraveBookExperienceChanged>
+		<_OnBraveBookDataChanged>
+			<Arg> BRAVE_BOOK_DATA </Arg>
+		</_OnBraveBookDataChanged>
+		<_OnBraveBookDataListChanged>
+			<Arg> BRAVE_BOOK_DATA_LIST </Arg>
+		</_OnBraveBookDataListChanged>
+		<_OnRequestBraveBookAllAvailableRewardsBySeasonIDFinished>
+			<Arg> INT32 </Arg>  <!-- 返回码 -->
+			<Arg> INT32 </Arg>  <!-- 赛季 -->
+			<Arg> PYTHON </Arg>  <!-- 奖励列表 -->
+		</_OnRequestBraveBookAllAvailableRewardsBySeasonIDFinished>
+		<_OnBraveBookPassStateChanged>
+			<Arg> INT32 </Arg> <!-- 旧令状类型 -->
+			<Arg> BOOL </Arg>  <!-- 旧令状状态 -->
+		</_OnBraveBookPassStateChanged>
+		<_OnBraveBookTaskDataChanged>
+			<Arg> PYTHON </Arg>  <!-- 任务列表 -->
+			<Arg> INT32 </Arg>  <!-- 刷新数 -->
+			<Arg> LONGTIME </Arg>  <!-- 时间戳 -->
+		</_OnBraveBookTaskDataChanged>
+		<_OnRequestBraveBookTaskRewardFinished>
+			<Arg> INT32 </Arg>  <!-- 返回码 -->
+			<Arg> INT32 </Arg>  <!-- 任务列表序号 -->
+		</_OnRequestBraveBookTaskRewardFinished>
+		<_OnRequestRefreshingBraveBookTaskFinished>
+			<Arg> INT32 </Arg>  <!-- 返回码 -->
+			<Arg> INT32 </Arg>  <!-- 任务列表序号 -->
+		</_OnRequestRefreshingBraveBookTaskFinished>
+		<_OnRequestBuyingBraveBookPassFinished>
+			<Arg> INT32 </Arg>  <!-- 返回码 -->
+			<Arg> INT32 </Arg>  <!-- 令状类型 -->
+			<Arg> INT32 </Arg>
+		</_OnRequestBuyingBraveBookPassFinished>
+
+		<_OnRequestBraveBookAllAvailableRewardsBySeasonIDListFinished>
+			<Arg> INT32 </Arg>  <!-- 返回码 -->
+			<Arg> ARRAY <of> INT32 </of> </Arg>  <!-- 赛季列表 -->
+			<Arg> PYTHON </Arg>  <!-- 奖励列表 -->
+		</_OnRequestBraveBookAllAvailableRewardsBySeasonIDListFinished>
+	</ClientMethods>
+</root>

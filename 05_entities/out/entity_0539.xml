@@ -1,0 +1,65 @@
+<root>
+	<Properties>
+		<halfAnniversaryMemoryInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</halfAnniversaryMemoryInfo>
+		<hasRequestedFriendInMemory>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasRequestedFriendInMemory>
+		<applyFriendRemarkType>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</applyFriendRemarkType>
+		<applyFriendRemarkContent>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</applyFriendRemarkContent>
+	</Properties>
+
+	<BaseMethods>
+		<getMyMemoryInfo> <Exposed/>
+		</getMyMemoryInfo>
+		<memoryRequestFriend> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</memoryRequestFriend>
+		<doMemoryRequestFriend>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+		</doMemoryRequestFriend>
+		<claimShareMemoryReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</claimShareMemoryReward>
+		<claimPCShareMemoryReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</claimPCShareMemoryReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetMyMemoryInfo>
+			<Arg>	PYTHON	</Arg>
+		</onGetMyMemoryInfo>
+		<memoryRequestFriendSucceed>
+			<Arg>	PYTHON	</Arg>
+		</memoryRequestFriendSucceed>
+		<onClaimPCShareMemoryReward>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onClaimPCShareMemoryReward>
+	</ClientMethods>
+</root>

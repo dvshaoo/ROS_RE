@@ -1,0 +1,31 @@
+<root>
+	<Implements>
+		<Interface>	iFestivalActivityTaskStub </Interface>
+	</Implements>
+
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<requestGetFestivalTask>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestGetFestivalTask>
+
+		<onPlayerGetFestivalTaskRewardSuccess>
+			<Arg>		INT64			</Arg>
+			<Arg>		STRING			</Arg>
+		</onPlayerGetFestivalTaskRewardSuccess>
+		
+		<onPlayerGetFestivalTaskRewardFailure>
+			<Arg>		INT64			</Arg>
+			<Arg>		STRING			</Arg>
+		</onPlayerGetFestivalTaskRewardFailure>
+		
+		<slaveStubRequestFestivalRoundTask>
+			<Arg>			MAILBOX			</Arg>
+		</slaveStubRequestFestivalRoundTask>
+	</BaseMethods>
+</root>

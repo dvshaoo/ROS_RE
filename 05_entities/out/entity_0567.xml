@@ -1,0 +1,75 @@
+<root>
+	<Properties>
+		<redPacketValue>
+			<Type>	ARRAY	<of>	RED_PACKET_INFO	</of>	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</redPacketValue>
+		<ownRedPacketInfo>
+			<Type>	ARRAY	<of>	OWN_RED_PACKET_INFO	</of>	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</ownRedPacketInfo>
+		<loadRedPacketWhenEnterSpace>
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False			</Default>
+		</loadRedPacketWhenEnterSpace>
+	</Properties>
+	<BaseMethods>
+		<onAvatarUseRedPacket>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onAvatarUseRedPacket>
+		<onAvatarUseWeaponRedPacket>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onAvatarUseWeaponRedPacket>
+		<createRedPacketItem>
+			<Arg>	ARRAY	<of>	OWN_RED_PACKET_INFO	</of>	</Arg>
+		</createRedPacketItem>
+		<onGetRedPacket>
+			<Arg>	ARRAY	<of>	RED_PACKET_INFO	</of>	</Arg>
+		</onGetRedPacket>
+	</BaseMethods>
+	<CellMethods>
+		<requestRedPacket> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</requestRedPacket>
+		<requestWeaponRedPacket> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</requestWeaponRedPacket>
+		<onGetRedPacketAvatar>
+			<Arg>		UUID			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</onGetRedPacketAvatar>
+		<onCheckRedPacketLimitResult>
+			<Arg>		BOOL			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onCheckRedPacketLimitResult>
+		<onAthleteUseRedPacketConfirm>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onAthleteUseRedPacketConfirm>
+		<onAthleteUseWeaponRedPacketConfirm>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onAthleteUseWeaponRedPacketConfirm>
+		<onSpaceConfirmAvatarGetRedPacket>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</onSpaceConfirmAvatarGetRedPacket>
+	</CellMethods>
+	<ClientMethods>
+		<onThrowRedPacketSuccess>
+		</onThrowRedPacketSuccess>
+	</ClientMethods>
+</root>

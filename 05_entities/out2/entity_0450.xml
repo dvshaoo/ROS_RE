@@ -1,0 +1,357 @@
+<root>
+	<Implements>
+		<Interface>	iVehicle	</Interface>
+		<Interface>	iBattleRule	</Interface>
+		<Interface>	iAutoRoyaleVehicleComps	</Interface>
+		<Interface>	iAutoRoyaleProp	</Interface>
+		<Interface> iAutoRoyalePackage </Interface>
+	</Implements>
+
+	<Properties>
+		<inRangeAvts>
+			<Type>		ARRAY <of> ENTITY_ID </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</inRangeAvts>
+
+		<pickDist>
+			<Type>		FLOAT				</Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</pickDist>
+
+		<hasDriver>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</hasDriver>
+
+		<unsetCntlTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</unsetCntlTimer>
+
+		<posSyncTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</posSyncTimerID>
+
+		<imp2DamageFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</imp2DamageFactor>
+
+		<speed2DamageFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</speed2DamageFactor>
+
+		<throwPlayerTb>
+			<Type>		 PYTHON			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</throwPlayerTb>
+
+		<canStretch>
+			<Type>          BOOL		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</canStretch>
+
+		<curAppearanceID>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</curAppearanceID>
+
+		<isLocked>
+			<Type>          INT32		</Type>
+			<Flags>        ALL_CLIENTS	</Flags>
+			<Default>		0		</Default>
+		</isLocked>
+
+		<battleGroundTickTimerID>
+			<Type>          INT32		</Type>
+			<Flags>        CELL_PRIVATE	</Flags>
+		</battleGroundTickTimerID>
+
+		<highOctaneTimerID>
+			<Type>          INT32		</Type>
+			<Flags>        CELL_PRIVATE	</Flags>
+		</highOctaneTimerID>
+
+		<outOfWaterTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</outOfWaterTimerID>
+
+		<outOfWaterCheckTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</outOfWaterCheckTimerID>
+
+		<validPositionList>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</validPositionList>
+
+		<validPositionRecordTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</validPositionRecordTimerID>
+
+		<vehicleDestroyTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</vehicleDestroyTimerID>
+
+		<onInvincibleEndTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</onInvincibleEndTimerID>
+
+		<invincibleEndTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</invincibleEndTime>
+
+		<isHealing>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>		False		</Default>
+		</isHealing>
+
+		<transparentTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</transparentTimerID>
+
+		<hasVehicleTransfer>
+			<Type>		 BOOL			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</hasVehicleTransfer>
+
+		<vehicleTransferTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</vehicleTransferTimerID>
+
+		<vehicleTransferStartTime>
+			<Type>		FLOAT			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</vehicleTransferStartTime>
+
+		<isAfterTransfer>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</isAfterTransfer>
+
+		<medicinePropUsingNum>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</medicinePropUsingNum>
+	</Properties>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<CellMethods>
+		<reqDriver>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqDriver>
+
+		<reqPassenger>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqPassenger>
+
+		<reqHangOn>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</reqHangOn>
+
+		<reqGetOff>
+			<Arg>	ENTITY_ID		</Arg>
+			<Arg>		 BOOL		</Arg>
+		</reqGetOff>
+
+		<reqSwitchToDrive>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	STRING		</Arg>
+		</reqSwitchToDrive>
+
+		<reqSwitchToPassenger>
+			<Arg>	ENTITY_ID	</Arg>
+		</reqSwitchToPassenger>
+
+		<reqSwitchToHang>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT32		</Arg>
+		</reqSwitchToHang>
+
+		<hitScene><Exposed/>
+			<Arg>	VECTOR3	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</hitScene>
+
+		<getStepInWater> <Exposed/>
+		</getStepInWater>
+
+		<getStepOutWater> <Exposed/>
+		</getStepOutWater>
+
+		<updateLockState>
+			<Arg>	BOOL		</Arg>
+		</updateLockState>
+
+		<doSwapSeat>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32			</Arg>
+		</doSwapSeat>
+
+		<useItemJump>
+			<Arg>	FLOAT	</Arg>
+		</useItemJump>
+
+		<applyHighOctane>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</applyHighOctane>
+
+		<reqOutOfStuck> <Exposed/>
+		</reqOutOfStuck>
+
+		<onCorrosiveGasDamage>
+			<Arg>	FLOAT	</Arg>
+		</onCorrosiveGasDamage>
+
+		<vehicleTransfer>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</vehicleTransfer>
+
+		<registerVehicleTransferTimer>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</registerVehicleTransferTimer>
+
+		<onInvincibleStart>
+			<Arg>	FLOAT	</Arg>
+		</onInvincibleStart>
+
+		<addWeaponBuff>
+			<Arg>		INT8			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</addWeaponBuff>
+
+		<setTransparent>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</setTransparent>
+
+		<setCampTeamID>
+			<Arg>		INT32			</Arg>
+		</setCampTeamID>
+
+		<setController>
+			<Arg>		ENTITY_ID 		</Arg>
+		</setController>
+
+		<startMedicinePropSing>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</startMedicinePropSing>
+
+		<stopMedicinePropSing>
+		</stopMedicinePropSing>
+	</CellMethods>
+
+	<ClientMethods>
+		<onAddAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onAddAvatarSocket>
+
+		<onDelAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onDelAvatarSocket>
+
+		<onAvtSwitchToSock>
+			<Arg>		ENTITY_ID			</Arg>
+			<Arg>		STRING			</Arg>
+		</onAvtSwitchToSock>
+
+		<onPlayerEnter>
+			<Arg>		ENTITY_ID			</Arg>
+		</onPlayerEnter>
+
+		<onPlayerLeave>
+			<Arg>		ENTITY_ID			</Arg>
+		</onPlayerLeave>
+		<onControlledBy>
+			<Arg>		ENTITY_ID			</Arg>
+		</onControlledBy>
+		<onUncontrolledBy>
+			<Arg>		ENTITY_ID			</Arg>
+		</onUncontrolledBy>
+
+		<onSyncPos>
+			<Arg>		VECTOR3			</Arg>
+		</onSyncPos>
+
+		<onStepInWater>
+		</onStepInWater>
+
+		<onStepOutWater>
+		</onStepOutWater>
+
+		<updateLockState>
+			<Arg>		INT32			</Arg>
+		</updateLockState>
+
+		<onEnterOutOfWaterStuck>
+			<Arg>		FLOAT			</Arg>
+		</onEnterOutOfWaterStuck>
+
+		<onLeaveOutOfWaterStuck>
+		</onLeaveOutOfWaterStuck>
+
+		<onCarPropertyChanged>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onCarPropertyChanged>
+
+		<setTransparent>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</setTransparent>
+
+		<unsetTransparent>
+		</unsetTransparent>
+
+		<onUseItemJump>
+		</onUseItemJump>
+
+		<startMedicinePropSing>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</startMedicinePropSing>
+
+		<stopMedicinePropSing>
+		</stopMedicinePropSing>
+	</ClientMethods>
+
+</root>

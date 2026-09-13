@@ -1,0 +1,35 @@
+<root>
+	<ClientName>	BattleAccount	</ClientName>
+	<Implements>
+		<Interface>	iProxyNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<avatarProperties>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE	</Flags>
+		</avatarProperties>
+		<avatarType>
+			<Type>		STRING	</Type>
+			<Flags>		BASE	</Flags>
+		</avatarType>
+		<avatarIndex>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</avatarIndex>
+		<athleteMailBox>
+			<Type>	GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		BASE		</Flags>
+		</athleteMailBox>
+		<password>
+			<Type>		BLOB		</Type>
+			<Flags>		BASE		</Flags>
+		</password>
+	</Properties>
+	<BaseMethods>
+		<handshake> <Exposed/>
+		</handshake>
+		<onNextProxyDestroy>
+			<Arg>	INT32	</Arg>
+		</onNextProxyDestroy>
+	</BaseMethods>
+</root>

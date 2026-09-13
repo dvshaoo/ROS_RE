@@ -1,0 +1,42 @@
+<root>
+	<Properties>
+		<virusPoint>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</virusPoint>	
+
+		<zombieTickTimer>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</zombieTickTimer>
+		
+		<zombieKillCnt>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</zombieKillCnt>
+
+		<maxVirusLevel>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</maxVirusLevel>
+
+		<zombieTick>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</zombieTick>
+
+		<curVirusLevel>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</curVirusLevel>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>	
+</root>

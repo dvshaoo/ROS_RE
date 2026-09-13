@@ -1,0 +1,112 @@
+<root>
+	<Implements>
+		<Interface> iTrainCarriage </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName> TrainCarriagePassager </ClientName>
+
+	<Properties>
+		<characterType>
+			<Type>  INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</characterType>
+		<tpsVehicleID>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</tpsVehicleID>
+
+		<hangSockets>
+			<Type> PYTHON </Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> [] </Default>
+		</hangSockets>
+
+		<hangSockNames>
+			<Type> ARRAY <of> STRING </of>
+			</Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> [] </Default>
+		</hangSockNames>
+
+		<usedHangSockets>
+			<Type> ARRAY <of> VEHICLE_SOCKET_INFO </of>
+			</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</usedHangSockets>
+
+		<vehicleInfo>
+			<Type> PY_DICT </Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</vehicleInfo>
+
+		<createByAvatar>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</createByAvatar>
+
+		<canStretch>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> False </Default>
+		</canStretch>
+
+		<curAppearanceID>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> 0 </Default>
+		</curAppearanceID>
+
+		<canDriveInWater>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> False </Default>
+		</canDriveInWater>
+
+		<canDriveOutWater>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> False </Default>
+		</canDriveOutWater>
+	</Properties>
+
+	<CellMethods>
+		<reqPassenger>
+			<Arg> ENTITY_ID </Arg>
+		</reqPassenger>
+
+		<reqHangOn>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> INT32 </Arg>
+		</reqHangOn>
+
+		<reqGetOff>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> BOOL </Arg>
+		</reqGetOff>>
+	</CellMethods>
+
+	<ClientMethods>
+		<onAddAvatarSocket>
+			<Arg> STRING </Arg>
+			<Arg> ENTITY_ID </Arg>
+		</onAddAvatarSocket>
+
+		<onDelAvatarSocket>
+			<Arg> STRING </Arg>
+			<Arg> ENTITY_ID </Arg>
+		</onDelAvatarSocket>
+
+		<onAvtSwitchToSock>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> STRING </Arg>
+		</onAvtSwitchToSock>
+	</ClientMethods>
+</root>

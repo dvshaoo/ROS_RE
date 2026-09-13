@@ -1,0 +1,195 @@
+<root>
+	<Parent>	Space		</Parent>
+	<Properties>
+		<gameUUID>
+			<Type>		UUID		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</gameUUID>
+		<gameStartTime>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</gameStartTime>
+		<initRecycleTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</initRecycleTimerID>
+		<forceRecycleTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</forceRecycleTimerID>
+		<isFree>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	1		</Default>
+		</isFree>
+		<isInitialized>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	 </Flags>
+			<Default>	0		</Default>
+		</isInitialized>
+		<isClearing>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</isClearing>
+		<reuseIndex>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	1		</Default>
+		</reuseIndex>
+
+		<gameStatus>
+			<!-- 		副本状态 0未开始 1进行中 2失败 3胜利 	-->
+			<Type>		INT8			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0			</Default>
+		</gameStatus>
+
+		<gameTimingTimerID>
+			<Type>		INT32		</Type>
+			<Flags> 	CELL_PRIVATE </Flags>
+		</gameTimingTimerID>
+
+		<clientStatus>
+			<!--  记录客户端表现类的状态 	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	{}			</Default>
+		</clientStatus>
+
+		<globalBlackBoard>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</globalBlackBoard>
+		<spaceHolder>
+			<Type>		GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</spaceHolder>
+		<spaceHolderReleaseTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</spaceHolderReleaseTimerID>
+		<gameEnterType>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</gameEnterType>
+		<allocateTimerCount>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</allocateTimerCount>
+		<observerRegisterDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</observerRegisterDict>
+	</Properties>
+	<CellMethods>
+		<gameEnd>
+			<Arg>		INT32		</Arg>
+		</gameEnd>
+		<onAllocated>
+			<Arg>		PYTHON		</Arg>
+		</onAllocated>
+
+		<beforeKill>
+			<Arg>		PYTHON					</Arg>	<!-- killerInfo -->
+			<Arg>		ENTITY_ID				</Arg>	<!-- killedID -->
+			<Arg>		PYTHON					</Arg>	<!-- weaponInfo -->
+			<Arg>		PYTHON					</Arg>	<!-- hitInfo -->
+		</beforeKill>
+		<kill>
+			<Arg>		PYTHON					</Arg>	<!-- killerInfo -->
+			<Arg>		ENTITY_ID				</Arg>	<!-- killedID -->
+			<Arg>		PYTHON					</Arg>	<!-- weaponInfo -->
+			<Arg>		PYTHON					</Arg>	<!-- hitInfo -->
+		</kill>
+		<registSpaceHolder>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</registSpaceHolder>
+		<unregistSpaceHolder>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</unregistSpaceHolder>
+		<onRelease>
+		</onRelease>
+
+		<onPlayerEnterFail>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPlayerEnterFail>
+		<onPlayerLoaded>
+			<Arg>		INT32			</Arg>
+		</onPlayerLoaded>
+		<requestLoadingInfo>
+			<Arg>		MAILBOX			</Arg>
+		</requestLoadingInfo>
+		<cancelGameTimingTimer>
+		</cancelGameTimingTimer>
+		<requestObserve>
+			<Arg>		MAILBOX			</Arg>
+		</requestObserve>
+		<requestObserveNext>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestObserveNext>
+		<requestObserveLast>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestObserveLast>
+		<chatFightMates>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>	<!-- channel -->
+			<Arg>		STRING			</Arg>	<!-- content -->
+			<Arg>		PY_DICT			</Arg>	<!-- senderInfo -->
+			<Arg>		PY_DICT			</Arg>	<!-- params -->
+		</chatFightMates>
+		<cancelGameStatusTimer>
+		</cancelGameStatusTimer>
+		<showGeneralDotInMiniMap>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</showGeneralDotInMiniMap>
+		<hideGeneralDotInMiniMap>
+			<Arg> INT32 </Arg>
+		</hideGeneralDotInMiniMap>
+		<initObserve>
+			<Arg>		INT32			</Arg>
+		</initObserve>
+		<onForceClearSpaceStatus>
+			<Arg>		PYTHON			</Arg>
+		</onForceClearSpaceStatus>
+	</CellMethods>
+
+	<ClientMethods>
+		<gameTiming>
+			<Arg>		FLOAT		</Arg>
+		</gameTiming>
+
+		<playeRouteGuide>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</playeRouteGuide>
+
+		<closeRouteGuide>
+			<Arg>		INT32		</Arg>
+		</closeRouteGuide>
+
+		<openGlassWall>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		BOOL		</Arg>
+		</openGlassWall>
+		<closeGlassWall>
+			<Arg>		INT32		</Arg>
+		</closeGlassWall>
+		<showGeneralDotInMiniMap>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</showGeneralDotInMiniMap>
+		<hideGeneralDotInMiniMap>
+			<Arg> INT32 </Arg>
+		</hideGeneralDotInMiniMap>
+	</ClientMethods>
+</root>

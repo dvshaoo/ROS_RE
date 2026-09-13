@@ -1,0 +1,111 @@
+<root>
+  <Properties>
+    <quizRebornCard>
+      <Type>    INT32   </Type>
+      <Flags>   BASE_AND_CLIENT  </Flags>
+      <Default> 0   </Default>
+      <Persistent>  true      </Persistent>
+    </quizRebornCard>
+
+    <chongdingAward>
+      <Type>    FLOAT   </Type>
+      <Flags>   BASE_AND_CLIENT  </Flags>
+      <Default> 0   </Default>
+      <Persistent>  true      </Persistent>
+    </chongdingAward>
+
+    <lastGetQuizRebornCardTime>
+      <Type>    FLOAT   </Type>
+      <Flags>   BASE  </Flags>
+      <Default> 0.0   </Default>
+      <Persistent>  true      </Persistent>
+    </lastGetQuizRebornCardTime>
+
+    <inviterSetted>
+      <Type>    BOOL   </Type>
+      <Flags>   BASE_AND_CLIENT   </Flags>
+      <Default> False   </Default>
+      <Persistent>  true      </Persistent>
+    </inviterSetted>
+  </Properties>
+
+  <BaseMethods>
+    <onEnterChongdingUI> <Exposed/>
+    </onEnterChongdingUI>
+
+    <onLeaveChongdingUI> <Exposed/>
+    </onLeaveChongdingUI>
+
+    <requestOnlineChongdingNum> <Exposed/>
+    </requestOnlineChongdingNum>
+
+    <requestChongdingState> <Exposed/>
+    </requestChongdingState>
+
+    <sendChongdingAnswer> <Exposed/>
+      <Arg> INT32 </Arg>
+      <Arg> INT32 </Arg>
+    </sendChongdingAnswer>
+
+    <getQuizRebornCard> <Exposed/>
+    </getQuizRebornCard>
+
+    <onEnterChongdingUI> <Exposed/>
+    </onEnterChongdingUI>
+
+    <onLeaveChongdingUI> <Exposed/>
+    </onLeaveChongdingUI>
+
+    <requestCash> <Exposed/>
+      <Arg>     STRING     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     STRING     </Arg>
+    </requestCash>
+
+    <requestExchange> <Exposed/>
+      <Arg>     STRING     </Arg>
+    </requestExchange>
+
+    <setChongDingInviter> <Exposed/>
+      <Arg>     GID     </Arg>
+    </setChongDingInviter>
+
+    <onInviteChongDing>
+    </onInviteChongDing>
+  </BaseMethods>
+
+  <ClientMethods>
+    <onEnterChongdingState>
+      <Arg> INT32 </Arg>
+      <Arg> PY_DICT </Arg>
+    </onEnterChongdingState>
+
+    <updateQuizRebornCard>
+      <Arg> INT32 </Arg>
+    </updateQuizRebornCard>
+
+    <onGetQuizRebornCardByGID>
+      <Arg> BOOL </Arg>
+    </onGetQuizRebornCardByGID>
+
+    <onGetOnlineChongdingNum>
+      <Arg> INT32 </Arg>
+    </onGetOnlineChongdingNum>
+
+    <updateChongDingAward>
+      <Arg> FLOAT </Arg>
+    </updateChongDingAward>
+
+    <onGetCash>
+      <Arg> BOOL </Arg>
+    </onGetCash>
+
+    <onGetExchange>
+      <Arg> BOOL </Arg>
+    </onGetExchange>
+
+  </ClientMethods>
+
+</root>

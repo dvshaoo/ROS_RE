@@ -1,0 +1,22 @@
+<root>
+	<Properties>
+		<accountLock>		
+			<Type>			PY_DICT			</Type>
+			<Flags>			BASE			</Flags>
+			<Default>		{}			</Default>
+		</accountLock>
+	</Properties>
+
+	<BaseMethods>
+		<acquireLock>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		UINT16		</Arg>
+		</acquireLock>
+		<releaseLock>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		UINT16		</Arg>
+		</releaseLock>
+	</BaseMethods>
+</root>

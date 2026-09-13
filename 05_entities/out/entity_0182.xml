@@ -1,0 +1,18 @@
+<Root>
+	<Properties>
+		<lastKillNum>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastKillNum>
+	</Properties>
+	<ClientMethods>
+	</ClientMethods>
+	<BaseMethods>
+		<onAddValentineWeaponMarkByKill>
+			<Arg>		INT32		</Arg>
+		</onAddValentineWeaponMarkByKill>
+	</BaseMethods>
+</Root>
+

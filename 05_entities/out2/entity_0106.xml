@@ -1,0 +1,151 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iSpaceRequester	</Interface>
+	</Implements>
+
+	<Properties>
+		<curDayNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 0 </Default>
+			<Persistent>	true	</Persistent>
+		</curDayNo>
+		<dayNoList>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> [] </Default>
+			<Persistent>	true	</Persistent>
+		</dayNoList>
+		<mpmGidInfo>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmGidInfo>
+		<mpmSignTypeGIDs>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmSignTypeGIDs>
+		<mpmDayNo>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmDayNo>
+		<mpmState>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmState>
+		<mpmRunStates>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmRunStates>
+		<mpmBattleInfo>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmBattleInfo>
+		<mpmYuanbaoBet>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmYuanbaoBet>
+		<mpmFreeBetResultList>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	[]	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmFreeBetResultList>
+		<mpmYuanbaoBetResultList>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	[]	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmYuanbaoBetResultList>
+		<mpmRanks>
+			<Type>		ARRAY <of>	MPM_RANK_DATA	</of> 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	[]	</Default>
+			<Persistent>	true	</Persistent>
+		</mpmRanks>
+	</Properties>
+
+	<BaseMethods>
+		<getTopList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32			</Arg>
+		</getTopList>
+		<getMasterPrizeMatchTopList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32			</Arg>
+		</getMasterPrizeMatchTopList>
+		<updateMasterPrizeMatchPlayerInfo>
+			<Arg> 		GID 		</Arg>
+			<Arg> 		PYTHON 		</Arg>
+		</updateMasterPrizeMatchPlayerInfo>
+		<updateMasterPrizeMatchBattleInfo>
+			<Arg> 		STRING 		</Arg>
+			<Arg> 		PYTHON 		</Arg>
+		</updateMasterPrizeMatchBattleInfo>
+		<openMasterPrizeMatchMain>
+			<Arg> 		MAILBOX 		</Arg>
+		</openMasterPrizeMatchMain>
+		<openMasterPrizeMatchYuanbaoBetMain>
+			<Arg> 		MAILBOX 		</Arg>
+		</openMasterPrizeMatchYuanbaoBetMain>
+		<signUpMasterPrizeMatch>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		GID			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</signUpMasterPrizeMatch>
+		<cancelSignUpMasterPrizeMatch>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		GID			</Arg>
+			<Arg>		INT8			</Arg>
+		</cancelSignUpMasterPrizeMatch>
+		<masterPrizeMatchFreeBet>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		GID			</Arg>
+			<Arg> 		PYTHON			</Arg>
+		</masterPrizeMatchFreeBet>
+		<masterPrizeMatchYuanbaoBet>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		GID			</Arg>
+			<Arg> 		PYTHON			</Arg>
+		</masterPrizeMatchYuanbaoBet>
+		<masterPrizeMatchComplaint>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		GID			</Arg>
+			<Arg>		GID			</Arg>
+			<Arg>		INT8			</Arg>
+		</masterPrizeMatchComplaint>
+		<recordMasterPrizeMatchPlayerInfo>
+			<Arg>		GID			</Arg>
+			<Arg> 		PYTHON			</Arg>
+		</recordMasterPrizeMatchPlayerInfo>
+		<gmHandleMasterPrizeMatchComplaint>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>		INT8			</Arg>
+			<Arg>		INT32			</Arg>
+		</gmHandleMasterPrizeMatchComplaint>
+		<gmTestOpenMPMBattle>
+		</gmTestOpenMPMBattle>
+		<gmResetMasterPrizeMatchStubData>
+		</gmResetMasterPrizeMatchStubData>
+	</BaseMethods>
+</root>
+
+

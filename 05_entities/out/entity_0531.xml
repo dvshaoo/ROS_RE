@@ -1,0 +1,90 @@
+<root>
+	<Properties>
+		<buildMaterialCount>
+			<Type>  INT32 </Type>
+			<Flags>	CELL_PUBLIC_AND_OWN </Flags>
+		</buildMaterialCount>
+
+		<buildMaterialLevel>
+			<Type>  INT32 </Type>
+			<Flags>	CELL_PUBLIC_AND_OWN </Flags>
+		</buildMaterialLevel>
+
+		<buildMatLvTimestamp>
+			<Type>  FLOAT </Type>
+			<Flags>	CELL_PUBLIC_AND_OWN </Flags>
+		</buildMatLvTimestamp>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<addMaterial>
+			<Arg>	INT32  </Arg>
+		</addMaterial>
+
+		<removeMaterial>
+			<Arg>	INT32  </Arg>
+		</removeMaterial>
+
+		<clearMaterial>
+		</clearMaterial>
+
+		<setMaterialLevel>
+			<Arg>	INT32  </Arg>
+			<Arg>	FLOAT  </Arg>
+		</setMaterialLevel>
+
+		<onBuildGroupResultUsingItem>
+			<Arg>	INT32  </Arg>
+			<Arg>	BOOL  </Arg>
+		</onBuildGroupResultUsingItem>
+
+		<shootHitVoxelBuildUnit>  <Exposed/>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32	</Arg>
+			<Arg> INT32	</Arg>
+		</shootHitVoxelBuildUnit>
+
+		<onDamageVoxelBuildUnitResult>
+			<Arg> INT32		</Arg>
+			<Arg> BOOL		</Arg>
+			<Arg> PY_DICT	</Arg>
+		</onDamageVoxelBuildUnitResult>
+
+		<onGmGetServerBuildDumpData>
+		  	<Arg> PY_DICT	</Arg>
+		  	<Arg> PY_DICT	</Arg>
+		</onGmGetServerBuildDumpData>
+
+		<debugServerRaycast> <Exposed/>
+			<Arg>	VECTOR3	</Arg>
+			<Arg>	VECTOR3	</Arg>
+		</debugServerRaycast>
+	</CellMethods>
+
+	<ClientMethods>
+		<onAddMaterial>
+		</onAddMaterial>
+
+		<onRemoveMaterial>
+		</onRemoveMaterial>
+
+		<onClearMaterial>
+		</onClearMaterial>
+
+		<onGmGetServerBuildDumpData>
+		  	<Arg> PY_DICT	</Arg>
+		  	<Arg> PY_DICT	</Arg>
+		</onGmGetServerBuildDumpData>
+
+		<onDebugServerRaycast>
+			<Arg>	VECTOR3	</Arg>
+		</onDebugServerRaycast>
+	</ClientMethods>
+</root>

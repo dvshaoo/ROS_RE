@@ -1,0 +1,86 @@
+<root>
+  <Properties>
+    <anticheatCheckFileList>
+      <Type>    PYTHON    </Type>
+      <Flags>   BASE    </Flags>
+    </anticheatCheckFileList>
+    <anticheatCheckFileTimer>
+      <Type>    TIMER_ID    </Type>
+      <Flags>   BASE    </Flags>
+      <Default> 0  </Default>
+    </anticheatCheckFileTimer>
+    <anticheatNpkVersionInfo>
+      <Type>    PYTHON    </Type>
+      <Flags>   BASE    </Flags>
+    </anticheatNpkVersionInfo>
+  </Properties>
+
+  <BaseMethods>
+    <requestFileList> <Exposed/>
+    </requestFileList>
+    <checkKeyFile> <Exposed/>
+      <Arg> ARRAY <of> STRING   </of> </Arg>
+    </checkKeyFile>
+    <checkBundleID> <Exposed/>
+      <Arg> BOOL </Arg>
+      <Arg> STRING </Arg>
+    </checkBundleID>
+    <checkIPATeamID> <Exposed/>
+      <Arg> BOOL </Arg>
+      <Arg> STRING </Arg>
+    </checkIPATeamID>
+    <uploadGameClientProcess> <Exposed/>
+      <Arg> STRING </Arg>  <!-- EXE PATH -->
+      <Arg> STRING </Arg>  <!-- EXE MD5 -->
+      <Arg> BOOL </Arg>  <!-- is 64bits -->
+    </uploadGameClientProcess>
+    <uploadGameNpkVersionInfo> <Exposed/>
+      <Arg> ARRAY <of> INT32  </of> </Arg>
+    </uploadGameNpkVersionInfo>
+    <onClientExeMD5Error> <Exposed/>
+      <Arg> STRING </Arg>  <!-- EXE PATH -->
+      <Arg> STRING </Arg>  <!-- EXE MD5 -->
+      <Arg> STRING </Arg>  <!-- DEFAULT MD5 -->
+    </onClientExeMD5Error>
+    <uploadGameConfigFile> <Exposed/>
+      <Arg> STRING </Arg>  <!-- FILE MD5 -->
+      <Arg> INT8  </Arg>  <!-- PLATFORM TYPE -->
+    </uploadGameConfigFile>
+    <presentMLighting> <Exposed/>
+      <Arg> STRING </Arg>  <!-- mlightingResult -->
+    </presentMLighting>
+    <onReportClientCodeChanged> <Exposed/>
+      <Arg> STRING </Arg>  <!-- resutl_str -->
+    </onReportClientCodeChanged>
+    <checkBLFileList>  <Exposed/>
+      <Arg> STRING </Arg> <!-- black file list -->
+    </checkBLFileList>
+    <onCheckReadyBanFingerprint> <Exposed/>
+    </onCheckReadyBanFingerprint>
+    <uploadAntiCheatingData> <Exposed/>
+      <Arg> STRING </Arg>
+    </uploadAntiCheatingData>
+  </BaseMethods>
+
+  <CellMethods>
+  </CellMethods>
+
+  <ClientMethods>
+    <forceKillGame>
+      <Arg>   STRING    </Arg>
+    </forceKillGame>
+    <onRequestFileList>
+      <Arg> ARRAY <of> STRING   </of> </Arg>
+    </onRequestFileList>
+    <onRequestBLFileList>
+      <Arg> ARRAY <of> STRING   </of> </Arg>
+    </onRequestBLFileList>
+    <onSyncMachineFingerprint>
+      <Arg>   STRING    </Arg>
+      <Arg>   INT8    </Arg>
+    </onSyncMachineFingerprint>
+    <onSyncBanRelatedInfo>
+      <Arg>   PYTHON    </Arg>
+    </onSyncBanRelatedInfo>
+  </ClientMethods>
+</root>

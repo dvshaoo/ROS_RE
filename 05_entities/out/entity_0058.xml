@@ -1,0 +1,122 @@
+<root>
+	<Properties>
+		<lastTimeResetSuperTurnTable>	<!--	上一次重置超级转盘的时间 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		 BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastTimeResetSuperTurnTable>
+		<superTurnTableAppearTimeLeft>	<!--	超级转盘周期内剩余次数 -->
+			<Type>		INT8	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</superTurnTableAppearTimeLeft>	
+		<superTurnTableStatusNow>			
+			<Type>		INT8	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</superTurnTableStatusNow>
+		<hasShowTurnTableEffect>			
+			<Type>		BOOL	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	False	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasShowTurnTableEffect>
+		<superTurnTableWeaponTimeLeft>	<!--	超级转盘weapon周期内剩余次数 -->
+			<Type>		INT8	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	1	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</superTurnTableWeaponTimeLeft>	
+		<superTurnTableCarTimeLeft>	<!--	超级转盘low_car周期内剩余次数 -->
+			<Type>		INT8	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	1	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</superTurnTableCarTimeLeft>
+		<isOldVersionTurntable>	<!--	判断是不是迭代后的转盘 -->
+			<Type>		INT8	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	1	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</isOldVersionTurntable>		
+	</Properties>
+	<BaseMethods>
+		<onDoLuckyLottery> <Exposed/> <!--	开始抽奖 -->
+			<Arg>	INT64	</Arg> <!--	小周期的编号 -->
+		</onDoLuckyLottery>
+		<onOpenLuckyCarnival> <Exposed/> <!--	开始点击幸运大转盘 -->
+			<Arg>	INT64	</Arg> <!--	小周期的编号 -->
+		</onOpenLuckyCarnival>
+		<onGetLuckySeasonGift> <Exposed/> <!--	领取奖励 -->
+			<Arg>	INT64	</Arg> <!--	领奖的季度 -->
+			<Arg>	INT8	</Arg> <!--	领奖的ID号 -->
+		</onGetLuckySeasonGift>
+		<tryGetCurrentLuckyCarnivalDiamond> <Exposed/> <!--	获取当前奖金池的数量 -->
+		</tryGetCurrentLuckyCarnivalDiamond>
+		<tryGetLuckyCarnivalDiamondPrizeRecord> <Exposed/> <!--	获取当前奖金池的记录 -->
+		</tryGetLuckyCarnivalDiamondPrizeRecord>
+		<tryGetLuckyCarnivalRoundTempGift> <Exposed/>  <!--	尝试获取奖励或者获取钻石 -->
+			<Arg>	INT64	</Arg> <!--	物品的ID -->
+			<Arg>	BOOL	</Arg> <!--	是否获取物品 -->
+			<Arg>	BOOL	</Arg> <!--	是否客户端提示 -->
+		</tryGetLuckyCarnivalRoundTempGift>
+		<tryGetCelebrationPrize> <Exposed/>
+			<Arg>	INT64	</Arg> <!--	中间的ORDER -->
+		</tryGetCelebrationPrize>
+		<onGetCurrentLuckyCarnivalDiamond>
+			<Arg>	INT64	</Arg> <!--	获取当前奖金池的数量 -->
+		</onGetCurrentLuckyCarnivalDiamond>
+		<onGetLuckyCarnivalDiamondPrize>
+			<Arg>	INT64	</Arg> <!--	中奖前钻石的数量 -->
+			<Arg>	INT64	</Arg> <!--	中奖得到的钻石的数量 -->
+			<Arg>	INT64	</Arg> <!--	ORDER	-->
+		</onGetLuckyCarnivalDiamondPrize>
+		<onGetLuckyCarnivalDiamondPrizeRecord>
+			<Arg>	PYTHON	</Arg> <!--	中奖记录查询	-->
+		</onGetLuckyCarnivalDiamondPrizeRecord>
+		<onGetLuckyCelebrationPrize> <!--	普天同庆奖励 -->
+			<Arg>	INT64	</Arg>     <!-- prizeOrder -->
+			<Arg>	PYTHON	</Arg>     <!-- itemIDs-->
+		</onGetLuckyCelebrationPrize>
+		<queryCurrenyLuckyCarnivalData> <Exposed/>
+		</queryCurrenyLuckyCarnivalData>
+		<onGetCheckBigPriceResult>
+			<Arg>	BOOL	</Arg>
+		</onGetCheckBigPriceResult>
+		<onShowTurnTableEffect> <Exposed/>
+		</onShowTurnTableEffect>
+	</BaseMethods>
+	<ClientMethods>
+		<onUpdateLuckyCarnivalDiamondPrize>
+			<Arg>	INT64	</Arg>     <!-- currentPrize(after get prize) -->
+			<Arg>	INT64	</Arg>     <!-- got prize -->
+		</onUpdateLuckyCarnivalDiamondPrize>
+		<onUpdateLuckyCarnivalData>
+			<Arg>			PYTHON					</Arg> 
+		</onUpdateLuckyCarnivalData>
+		<onGetLuckyCarnivalDiamondPrizeRecord>
+			<Arg>	PYTHON	</Arg> <!--	中奖记录查询	-->
+		</onGetLuckyCarnivalDiamondPrizeRecord>
+		<onGetLuckyCarnivalTempGift> <!--	中奖记录查询	-->
+			<Arg>	INT64	</Arg>     <!-- propID -->
+			<Arg>	INT64	</Arg>     <!-- prop number -->
+		</onGetLuckyCarnivalTempGift>
+
+		<onGetLuckyCelebrationPrize> <!--	普天同庆奖励 -->
+			<Arg>	PYTHON	</Arg>     <!-- itemIDs-->
+		</onGetLuckyCelebrationPrize>
+
+		<syncTurnTableStatus>
+			<Arg>	INT8	</Arg>
+		</syncTurnTableStatus>
+
+		<onShowOldCarnivalBg>
+		</onShowOldCarnivalBg>
+		<onShowNewCarnivalBg>
+		</onShowNewCarnivalBg>
+	</ClientMethods>
+</root>
+

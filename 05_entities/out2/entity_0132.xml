@@ -1,0 +1,256 @@
+<root>
+	<Implements>
+		<Interface>	iBaseNoCell </Interface>
+		<Interface>	iOfflineOperation </Interface>
+	</Implements>
+	<Properties>
+		<hallTeamSize>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+		</hallTeamSize>
+		<teamType>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</teamType>
+		<matchingRandom>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+		</matchingRandom>
+		<matchingRandomSize>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+		</matchingRandomSize>
+		<members>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</members>
+		<leaderGID>
+			<Type>		GID		</Type>
+			<Flags>		BASE		</Flags>
+		</leaderGID>
+		<isDismissed>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE		</Flags>
+		</isDismissed>
+		<ignoreRequests>
+			<Type>     PYTHON  </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</ignoreRequests>
+		<ignoreRequestsDict>
+			<Type>     PYTHON  </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</ignoreRequestsDict>
+		<enableGrass>
+			<Type>     BOOL  </Type>
+			<Flags>		BASE		</Flags>
+		</enableGrass>
+		<joinStream>
+			<Type>     BOOL  </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	False		</Default>
+		</joinStream>
+		<hallTeamMapID>
+			<Type>     INT32  </Type>
+			<Flags>		BASE		</Flags>
+		</hallTeamMapID>
+		<hallTeamMapGroup>
+			<Type>     INT32  </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+		</hallTeamMapGroup>
+		<yuanbaoBattleMatchID>
+			<Type>     INT32  </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+		</yuanbaoBattleMatchID>
+		<heroSelectEndTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	BASE	</Flags>
+		</heroSelectEndTime>
+		<heroSelectEndTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+		</heroSelectEndTimerID>
+		<matchedTeammate>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE	</Flags>
+		</matchedTeammate>
+		<heroMatchedspaceInfo>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE	</Flags>
+		</heroMatchedspaceInfo>
+	</Properties>
+	<BaseMethods>
+		<onUpdateMatchingProgress>
+			<Arg>	PYTHON	</Arg>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg>	FLOAT	</Arg>
+		</onUpdateMatchingProgress>
+		<onUpdateYuanbaoMatchingProgress>
+			<Arg>	PYTHON	</Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateYuanbaoMatchingProgress>
+		<setReadyForBattleGround>
+			<Arg> GID </Arg>
+			<Arg> BOOL </Arg>
+		</setReadyForBattleGround>
+		<onPlayerEnter>
+			<Arg>		HALL_TEAM_MEMBER	</Arg>
+		</onPlayerEnter>
+		<invitePlayer>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</invitePlayer>
+		<invitePlayerWithMoney>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</invitePlayerWithMoney>
+		<onPlayerLeave>
+			<Arg>		GID			</Arg>
+		</onPlayerLeave>
+		<assignLeader>
+			<Arg>		GID			</Arg>
+			<Arg>		GID			</Arg>
+		</assignLeader>
+		<kickMember>
+			<Arg>		GID			</Arg>
+			<Arg>		GID			</Arg>
+		</kickMember>
+		<updateMemberData>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</updateMemberData>
+		<setHallTeamModeSetting>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</setHallTeamModeSetting>
+		<setHallTeamMatchingRandom>
+			<Arg>		GID		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</setHallTeamMatchingRandom>
+		<matchBattleGround>
+			<Arg>		GID			</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		BOOL			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</matchBattleGround>
+		<cancelMatchBattleGround>
+			<Arg>		GID			</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</cancelMatchBattleGround>
+		<onCancelMatch>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onCancelMatch>
+		<onYuanbaoBattleTimeEnd>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onYuanbaoBattleTimeEnd>
+		<onUnitedBattleValentineMatchResult>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUnitedBattleValentineMatchResult>
+
+		<onMatchBattleStart>
+			<Arg>		PYTHON			</Arg>
+		</onMatchBattleStart>
+		<onMatchBattleSuccess>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onMatchBattleSuccess>
+		<onMatchBattleVoteFinish>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onMatchBattleVoteFinish>
+
+		<onHeroMatchBattleVoteFinish>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>	<!-- List of Matched Player Info -->
+		</onHeroMatchBattleVoteFinish>
+
+		<onMatchBattleVoteContinue>
+		</onMatchBattleVoteContinue>
+		<onMatchBattleVoteCancel>
+		</onMatchBattleVoteCancel>
+		<updateBattleVoteCancelRecord>
+		</updateBattleVoteCancelRecord>
+		<onGetMatchedTeamInfo>
+			<Arg>	ARRAY <of>	PLAYER_LOADING_INFO	</of>	</Arg>
+		</onGetMatchedTeamInfo>
+		<onReceiveJoinTeamRequest>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID		</Arg>
+		</onReceiveJoinTeamRequest>
+		<onRequestPassFailure>
+			<Arg>		STRING		</Arg>
+		</onRequestPassFailure>
+		<onInvitePlayerFail>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvitePlayerFail>
+		<onInvitePlayerFailByOffline>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvitePlayerFailByOffline>
+		<onInvitePlayerSend>
+			<Arg>		GID		</Arg>
+			<Arg>		GID		</Arg>
+		</onInvitePlayerSend>
+		<onUpdateMatchTargetTime>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateMatchTargetTime>
+		<changeOccupation>
+		    <Arg>		GID		</Arg>
+			<Arg>		INT8	</Arg>
+		</changeOccupation>
+		<updateYuanbaoBattleMatchID>
+			<Arg>		INT32		</Arg>
+		</updateYuanbaoBattleMatchID>
+		<notifyTeammateUpdateIntimacyDegree>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</notifyTeammateUpdateIntimacyDegree>
+		<playHallTeamAnimation>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING	</Arg>
+			<Arg>		INT8	</Arg>
+		</playHallTeamAnimation>
+		<notifyHallTeamMsg>
+			<Arg>		STRING	</Arg>
+		</notifyHallTeamMsg>
+		<onSelectHero>
+			<Arg>		GID	</Arg>
+			<Arg>		INT32	</Arg>
+		</onSelectHero>
+		<checkGuideModeState>
+		</checkGuideModeState>
+		<broadcastMemberShowBestWeaponSign>
+			<Arg>		INT32	</Arg>
+			<Arg>		INT32	</Arg>
+		</broadcastMemberShowBestWeaponSign>
+	</BaseMethods>
+</root>

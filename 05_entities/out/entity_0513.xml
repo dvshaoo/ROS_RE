@@ -1,0 +1,132 @@
+<root>
+	<Properties>
+		<limitPackageBuyTimes>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</limitPackageBuyTimes>
+		<limitPackageBuyTimesLastResetTime>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</limitPackageBuyTimesLastResetTime>
+		<availLimitPackage>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+		</availLimitPackage>
+
+
+		<halfMonthPackageBuyTimes>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</halfMonthPackageBuyTimes>
+		<halfMonthPackageBuyTimesLastResetTime>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</halfMonthPackageBuyTimesLastResetTime>
+		<availHalfMonthPackage>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+		</availHalfMonthPackage>
+		<halfAnniversaryExtraBoxBuyTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</halfAnniversaryExtraBoxBuyTimes>
+		<thirdAnniversaryExtraBoxBuyTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</thirdAnniversaryExtraBoxBuyTimes>
+	</Properties>
+
+	<BaseMethods>
+		<queryAvailableLimitPackage> <Exposed/>
+		</queryAvailableLimitPackage>
+		<resetLimitPackageBuyTimes>
+			<Arg>	INT32	</Arg>
+		</resetLimitPackageBuyTimes>
+		<hasBoughtLimitPackage>
+			<Arg>	STRING	</Arg>
+		</hasBoughtLimitPackage>
+		<buyLimitPackageWithCurrency> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</buyLimitPackageWithCurrency>
+
+		<queryAvailableHalfMonthPackage> <Exposed/>
+		</queryAvailableHalfMonthPackage>
+		<resetHalfMonthPackageBuyTimes>
+			<Arg>	INT32	</Arg>
+		</resetHalfMonthPackageBuyTimes>
+		<hasBoughtHalfMonthPackage>
+			<Arg>	STRING	</Arg>
+		</hasBoughtHalfMonthPackage>
+		<buyHalfMonthPackageWithCurrency> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</buyHalfMonthPackageWithCurrency>
+
+		<getNationalRefund>
+		</getNationalRefund>
+
+		<withdrawNationalRefund> <Exposed/>
+		</withdrawNationalRefund>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onQueryAvailableLimitPackage>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableLimitPackage>
+		<onUpdateLimitPackageBuyTimes>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onUpdateLimitPackageBuyTimes>
+		<onBoughtLimitPackage>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>   	     STRING     	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onBoughtLimitPackage>
+		<onBuyLimitPackageFailed>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onBuyLimitPackageFailed>
+
+		<onQueryAvailableHalfMonthPackage>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableHalfMonthPackage>
+		<onUpdateHalfMonthPackageBuyTimes>
+			<Arg>		PYTHON		</Arg>
+		</onUpdateHalfMonthPackageBuyTimes>
+		<onBoughtHalfMonthPackage>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onBoughtHalfMonthPackage>
+		<onBuyHalfMonthPackageFailed>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onBuyHalfMonthPackageFailed>
+
+		<onNationalRefundUpdate>
+			<Arg>	INT32	</Arg>
+		</onNationalRefundUpdate>
+	</ClientMethods>
+</root>

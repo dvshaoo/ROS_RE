@@ -1,0 +1,272 @@
+<root>
+  <Properties>
+    <invalidColliderOffsetCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidColliderOffsetCount>
+
+    <invalidHeightCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidHeightCount>
+
+    <dataGrashs>
+      <Type>    PY_DICT   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </dataGrashs>
+    
+
+    <repairHeightCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </repairHeightCount>
+
+    <timerDelayKickout>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </timerDelayKickout>
+
+    <invalidWeaponFireSpeedCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidWeaponFireSpeedCount>
+
+    <invalidWeaponMagazineCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidWeaponMagazineCount>
+
+    <invalidWeaponReloadSpeedCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidWeaponReloadSpeedCount>
+
+    <invalidWeaponMechanicalCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidWeaponMechanicalCount>
+
+    <invalidModelVertexBoundingCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidModelVertexBoundingCount>
+
+    <checkWeaponStatusCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </checkWeaponStatusCount>
+
+    <invalidSceneLightCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidSceneLightCount>
+
+    <invalidSceneViewerPositionCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidSceneViewerPositionCount>
+
+    <invalidCameraOffsetCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidCameraOffsetCount>
+
+    <invalidCharacterValuesCount>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0   </Default>
+    </invalidCharacterValuesCount>
+
+    <heightMax>
+      <Type>    FLOAT   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </heightMax>
+    <heightMin>
+      <Type>    FLOAT   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </heightMin>
+
+    <verifyConstantValueTimerID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default>   0   </Default>
+    </verifyConstantValueTimerID>
+
+    <calculateConstantValueTimerID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default>   0   </Default>
+    </calculateConstantValueTimerID>
+
+    <verifyVehicleSpeedTimerID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default>   0   </Default>
+    </verifyVehicleSpeedTimerID>
+
+    <verifyVehicleSpeedLastPosition>
+      <Type>    VECTOR3   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </verifyVehicleSpeedLastPosition>
+
+    <verifyAvatarFallTimeOutTimerID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default>   0   </Default>
+    </verifyAvatarFallTimeOutTimerID>
+
+    <verifyAvatarFallStatus>
+      <Type>    BOOL   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default>   0   </Default>
+    </verifyAvatarFallStatus>
+
+    <verifyAvatarFallData>
+      <Type>    PYTHON   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </verifyAvatarFallData>
+
+    <antiCheatDecBulletTimeStamp>
+       <Type>    FLOAT   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default>   0   </Default>
+    </antiCheatDecBulletTimeStamp>
+
+    <anticheatMgr>
+      <Type>    PYTHON   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </anticheatMgr>
+
+    <ping>
+      <Type>    FLOAT   </Type>
+      <Flags>   CELL_PUBLIC  </Flags>
+    </ping>
+
+    <inRunning>
+      <Type>    BOOL   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </inRunning>
+
+  </Properties>
+
+  <BaseMethods>
+  </BaseMethods>
+
+  <CellMethods>
+    <verifyClientValue> <Exposed/>
+      <Arg>     CLIENT_VALUES        </Arg>
+    </verifyClientValue>
+    <onTryingToRun> <Exposed/>
+      <Arg>     BOOL        </Arg>
+    </onTryingToRun>
+    <verifyClientWeaponValue> <Exposed/>
+      <Arg>     CLIENT_WEAPON_VALUES        </Arg>
+    </verifyClientWeaponValue>
+    <verifyRC2ClientValue> <Exposed/>
+      <Arg>     CLIENT_RC2_VALUES     </Arg>
+    </verifyRC2ClientValue>
+    <verifyRC4ClientValue> <Exposed/>
+      <Arg>     CLIENT_RC4_VALUES     </Arg>
+    </verifyRC4ClientValue>
+    <verifyClientConstantValue> <Exposed/>
+      <Arg>     CLIENT_CONSTANT_VALUES    </Arg>
+    </verifyClientConstantValue>
+    <verifyClientCollisionValue> <Exposed/>
+      <Arg>     CLIENT_COLLISION_CHECK_VALUES    </Arg>
+    </verifyClientCollisionValue>
+
+    <verifyClientSweepTestValue> <Exposed/>
+      <Arg>     SWEEP_TEST_CHECK_VALUES    </Arg>
+    </verifyClientSweepTestValue>
+
+    <verifyClientGameValue> <Exposed/>
+      <Arg>     CLIENT_GAME_CHECK_VALUES    </Arg>
+    </verifyClientGameValue>
+    <veriftClientProcessNum> <Exposed/>
+      <Arg> ARRAY <of> CLIENT_PROCESS_VALUES   </of> </Arg>
+    </veriftClientProcessNum>
+    <veriftClientRawinputMessage> <Exposed/>
+      <Arg>     CLIENT_GAME_RAWINPUT_VALUES   </Arg>
+    </veriftClientRawinputMessage>
+    <reportClientMemSegmentInfo>  <Exposed/>
+      <Arg>     STRING    </Arg>  <!-- mem seginfo -->
+    </reportClientMemSegmentInfo>
+    <reportClientMemSegmentDiff> <Exposed/>
+      <Arg>     STRING    </Arg>  <!-- right value -->
+      <Arg>     STRING    </Arg>  <!-- error value -->
+    </reportClientMemSegmentDiff>
+    <verifyClientWeaponMechanical> <Exposed/>
+      <Arg>     STRING    </Arg>
+    </verifyClientWeaponMechanical>
+    <reportClientMemDigestDiff> <Exposed/>
+      <Arg>     STRING    </Arg>  <!-- right value -->
+      <Arg>     STRING    </Arg>  <!-- error value -->
+    </reportClientMemDigestDiff>
+    <reportClientRandomMemDiff> <Exposed/>
+      <Arg>     STRING    </Arg>  <!-- right value -->
+      <Arg>     STRING    </Arg>  <!-- error value -->
+      <Arg>     STRING     </Arg>  <!-- extra data -->
+    </reportClientRandomMemDiff>
+    <reportAndroidACSDKReport> <Exposed/>
+      <Arg>     STRING    </Arg>  <!-- acsdk report -->
+    </reportAndroidACSDKReport>
+    <engineVersionInvalid> <Exposed/>
+    </engineVersionInvalid>
+
+    <onHeartbeatUpdate>
+       <Arg>     FLOAT    </Arg>  <!-- ping -->
+    </onHeartbeatUpdate>    
+
+    <checkAnticheatValue> <Exposed/>
+      <Arg>   INT64     </Arg>
+      <Arg>     ARRAY <of> STRING </of>    </Arg> 
+    </checkAnticheatValue>
+
+    <ServerCheckWeaponComp>  <Exposed/>
+        <Arg>     INT32    </Arg>   
+        <Arg>     INT32    </Arg>   
+        <Arg>     STRING    </Arg>   
+        <Arg>     STRING    </Arg>   
+        <Arg>     STRING    </Arg>   
+    </ServerCheckWeaponComp>
+
+    <verifyCurrentWeaponProperty> <Exposed/>
+      <Arg>     INT32    </Arg>
+      <Arg>     STRING   </Arg>
+      <Arg>     FLOAT64  </Arg>
+    </verifyCurrentWeaponProperty>
+    <reportInvalidRuntimeModify> <Exposed/>
+      <Arg>     STRING   </Arg>
+      <Arg>     STRING   </Arg>
+    </reportInvalidRuntimeModify>
+    <onCheckTimeSpeedResponse>  <Exposed/>
+     <Arg>     INT64   </Arg>
+     <Arg>     INT32   </Arg>
+    </onCheckTimeSpeedResponse>
+    
+  </CellMethods>
+
+  <ClientMethods>
+    <kickOutToHall> </kickOutToHall>
+    <excuteAnticheatTask>
+      <Arg>   INT64     </Arg>
+      <Arg> ARRAY <of> STRING </of>  </Arg>
+    </excuteAnticheatTask>
+    <checkFireSpeed>
+    </checkFireSpeed>
+    <checkClientTimeSpeed>
+    </checkClientTimeSpeed>
+  </ClientMethods>
+</root>

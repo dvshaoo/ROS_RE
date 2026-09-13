@@ -1,0 +1,112 @@
+<root>
+	<Properties>
+		<blackMarketState>
+			<Type>	INT32			</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</blackMarketState>
+		<blackMarketBuyTimes>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</blackMarketBuyTimes>
+		<blackMarketTotalMoney>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</blackMarketTotalMoney>
+
+		<currentBlackMarketItemID>
+			<Type>	INT32			</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</currentBlackMarketItemID>
+		<boughtBlackMarketItemID>
+			<Type>	INT32			</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</boughtBlackMarketItemID>
+		<lastBlackMarketItemID>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</lastBlackMarketItemID>
+
+		<CDDurationPassedTime>	<!-- 黑市出现所需在线时间，已经满足的时间 -->
+			<Type>	FLOAT			</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</CDDurationPassedTime>
+		<CDDurationCurLoginStartTimestamp>	<!-- 黑市出现所需在线时间，本次登录中开始计时的时间戳 -->
+			<Type>	FLOAT			</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+		</CDDurationCurLoginStartTimestamp>
+
+		<ExistDurationPassedTime>	<!-- 黑市持续时间，已经经过的时间 -->
+			<Type>	FLOAT			</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</ExistDurationPassedTime>
+		<ExistDurationCurLoginStartTimestamp>	<!-- 黑市持续时间，本次登录中开始计时的时间戳 -->
+			<Type>	FLOAT			</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+		</ExistDurationCurLoginStartTimestamp>
+
+		<blackMarketNextStateTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	BASE		</Flags>
+			<Default>	0	</Default>
+		</blackMarketNextStateTimerID>
+
+		<blackMarketLevelWeight>	<!-- 黑市档位权重值，用于推荐物品 -->
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE		</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</blackMarketLevelWeight>
+	</Properties>
+
+	<BaseMethods>
+		<requestGetBlackMarketAward> <Exposed/>
+		</requestGetBlackMarketAward>
+		<queryBlackMarketInfo> <Exposed/>
+		</queryBlackMarketInfo>
+		<checkBlackMarket> <Exposed/>
+		</checkBlackMarket>
+
+		<onBoughtBlackMarket>
+			<Arg>	STRING	</Arg>
+		</onBoughtBlackMarket>
+
+		<startBlackMarketNextStateTimer>
+		</startBlackMarketNextStateTimer>
+		<cancelBlackMarketNextStateTimer>
+		</cancelBlackMarketNextStateTimer>
+
+		<!-- 
+		黑市统计相关，后续内容用于推荐 
+		<onCheckedBlackMaket> <Exposed/>
+		</onCheckedBlackMaket>
+		黑市统计相关，后续内容用于推荐
+		-->
+	</BaseMethods>
+	
+	<ClientMethods>
+		<onGetBlackMarketAward>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onGetBlackMarketAward>
+		<onUpdateBlackMarketInfo>
+			<Arg>	PYTHON 	</Arg>
+		</onUpdateBlackMarketInfo>
+	</ClientMethods>
+</root>

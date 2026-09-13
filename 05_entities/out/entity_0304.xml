@@ -1,0 +1,71 @@
+<root>
+	<Implements>
+	</Implements>
+	<Properties>
+		<behaviorTree>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</behaviorTree>
+		<behaviorName>
+			<Type>		STRING		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</behaviorName>
+		<btTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	0			</Default>
+		</btTimerID>
+		<difficulty>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	1			</Default>
+		</difficulty>
+		<successInterval>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</successInterval>
+		<runningInterval>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</runningInterval>
+		<failureInterval>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</failureInterval>
+		<btRunning>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</btRunning>
+		<running_action>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</running_action>
+		<btList>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</btList>
+	</Properties>
+	<CellMethods>
+		<onRequestBT>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT64		</Arg>
+		</onRequestBT>
+		<startBT></startBT>
+		<stopBT></stopBT>
+		<pauseBT></pauseBT>
+		<resumeBT></resumeBT>
+		<changeBT>
+			<Arg>		STRING		</Arg>
+		</changeBT>
+		<setDifficulty>
+			<Arg>		INT32		</Arg>
+		</setDifficulty>
+		<setBTList>
+			<Arg>		PYTHON		</Arg>
+		</setBTList>
+		<changeTarget>
+			<Arg>		UINT32		</Arg>
+		</changeTarget>
+	</CellMethods>
+</root>

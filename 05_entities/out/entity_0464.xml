@@ -1,0 +1,91 @@
+<root>
+	<Properties>
+		<!-- 大逃杀背包 -->
+		<dtsAppearancePackage>
+			<Type>			DTS_APPEARANCE_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+			<Persistent> 	true				</Persistent>
+		</dtsAppearancePackage>
+		<recentGotPropIDList>
+			<Type>		ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</recentGotPropIDList>
+	</Properties>
+
+	<BaseMethods>
+		<addDtsAppearanceItem>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+		</addDtsAppearanceItem>
+		<checkAppearance> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</checkAppearance>
+		<gmDelAppearanceItem>
+		    <Arg>			INT32			</Arg>
+		</gmDelAppearanceItem>
+		<requestLoadOtherServerItemList> <Exposed/>
+		</requestLoadOtherServerItemList>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onAddDtsAppearanceItem>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ARRAY <of> ITEM_DATA_CONVERT </of>		</Arg>
+			<Arg>		INT32									</Arg>
+			<Arg>		INT32									</Arg>
+		</onAddDtsAppearanceItem>
+
+		<onDelDtsAppearanceItem> <!--删除道具, 用于同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelDtsAppearanceItem>
+
+		<onDelDtsAppearanceFoldedItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onDelDtsAppearanceFoldedItem>
+
+		<onCheckItem>
+			<Arg>		INT32		</Arg>
+		</onCheckItem>
+
+		<onUpdateDtsAppearanceItemNumber> <!--道具数量同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onUpdateDtsAppearanceItemNumber>
+
+		<onUpdateRecentGotPropIDList>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</onUpdateRecentGotPropIDList>
+
+		<onGetCollectPropAwards>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</onGetCollectPropAwards>
+
+		<onLoadOtherServerItemList>
+			<Arg>		INT8		</Arg>
+		</onLoadOtherServerItemList>
+		<onRedoLoadOtherServerItemList>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			BLOB				</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+		</onRedoLoadOtherServerItemList>
+
+	</ClientMethods>
+</root>

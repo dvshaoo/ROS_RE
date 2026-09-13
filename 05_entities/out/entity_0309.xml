@@ -1,0 +1,82 @@
+<root>
+  <Implements>
+    <Interface>  iChat  </Interface>
+  </Implements>
+  <Properties>
+    <muzzledStartTime>
+      <Type>    INT64   </Type>
+      <Flags>   BASE    </Flags>
+      <Persistent>  true    </Persistent>
+    </muzzledStartTime>
+    <muzzledTime>
+      <Type>    INT32   </Type>
+      <Flags>   BASE    </Flags>
+      <Persistent>  true    </Persistent>
+    </muzzledTime>
+
+    <isJingmo>
+      <Type>    BOOL    </Type>
+      <Flags>   BASE    </Flags>
+      <Default> False   </Default>
+      <Persistent>  true    </Persistent>
+    </isJingmo>
+    <jingmoStartTime>
+      <Type>    INT64   </Type>
+      <Flags>   BASE    </Flags>
+      <Persistent>  true    </Persistent>
+    </jingmoStartTime>
+    <jingmoTime>
+      <Type>    INT32   </Type>
+      <Flags>   BASE    </Flags>
+      <Persistent>  true    </Persistent>
+    </jingmoTime>
+
+    <isChatVIP>
+      <Type>    BOOL    </Type>
+      <Flags>   BASE    </Flags>
+      <Default> False   </Default>
+      <PersistentMongo>  true    </PersistentMongo>
+    </isChatVIP>
+    <chatRoomID>
+      <Type>    STRING    </Type>
+      <Flags>   BASE    </Flags>
+      <PersistentMongo>  true    </PersistentMongo>
+    </chatRoomID>
+    <lastChatMsgID>
+      <Type>    STRING    </Type>
+      <Flags>   BASE    </Flags>
+      <PersistentMongo>  true    </PersistentMongo>
+    </lastChatMsgID>
+  </Properties>
+
+  <BaseMethods>
+    <shieldChat> <Exposed/>
+      <Arg>     GID           </Arg>  <!-- gid  -->
+    </shieldChat>
+    <onSystemMsg>
+      <Arg>     STRING          </Arg>  <!-- content -->
+      <Arg>     INT32         </Arg>  <!-- type -->
+      <Arg>     PY_DICT         </Arg>  <!-- params -->
+    </onSystemMsg>
+
+    <chatPrivate> <Exposed/>
+      <Arg>     GID           </Arg>  <!-- gid  -->
+      <Arg>     STRING          </Arg>  <!-- content -->
+      <Arg>     CHAT_PARAMS       </Arg>  <!-- params -->
+    </chatPrivate>
+
+    <onChatPrivate>
+      <Arg>     GID           </Arg>  <!-- gid  -->
+      <Arg>     STRING          </Arg>  <!-- content -->
+      <Arg>     CHAT_PARAMS         </Arg>  <!-- params -->
+      <Arg>     STRING          </Arg>  <!-- nationalFlag -->
+    </onChatPrivate>
+
+    <setDesignerChatVIP>
+      <Arg>     BOOL           </Arg>
+    </setDesignerChatVIP>
+  </BaseMethods>
+
+  <ClientMethods>
+  </ClientMethods>
+</root>

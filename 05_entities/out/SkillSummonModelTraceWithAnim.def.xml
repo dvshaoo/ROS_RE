@@ -1,0 +1,74 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillSummonModelTraceWithAnim		</ClientName>
+
+	<Properties>
+		<relativePosition>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</relativePosition>
+		<initSpeedFactor>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</initSpeedFactor>
+		<timeToAppear>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</timeToAppear>
+		<timeToDisappear>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</timeToDisappear>
+		<idleBulletRelativeDirection>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</idleBulletRelativeDirection>
+		<bulletSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</bulletSpeed>
+		<shootInterval>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</shootInterval>
+		<disAnimInitSpeed>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</disAnimInitSpeed>
+		<disAnimAcceSpeed>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</disAnimAcceSpeed>
+		<disAnimLifetime>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</disAnimLifetime>
+		<casterPosition>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</casterPosition>
+		<cameraDirection>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</cameraDirection>
+		<isForward>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isForward>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+</root>

@@ -1,0 +1,98 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<getCPMatchTaskRewards><Exposed/>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</getCPMatchTaskRewards>
+
+		<onDtsActivityTaskMsg>
+			<Arg>			INT32				</Arg><!--msg type-->
+			<Arg>			PY_DICT				</Arg><!--msg param-->
+		</onDtsActivityTaskMsg>
+
+		<onFinishCoupleShareToSNS><Exposed/>
+		</onFinishCoupleShareToSNS>
+
+		<onFinishShareToSNS><Exposed/>
+			<Arg>			INT32				</Arg><!--msg type-->
+		</onFinishShareToSNS>
+
+		<onFinishNextGenDLC><Exposed/>
+		</onFinishNextGenDLC>
+
+		<onFinishTrainDLC><Exposed/>
+		</onFinishTrainDLC>
+
+		<getSchoolSeasonRewards><Exposed/>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</getSchoolSeasonRewards>
+		<getDtsActivityTaskRewards><Exposed/>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</getDtsActivityTaskRewards>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onAddTask>
+			<Arg> 		TASK_ID		</Arg>
+		</onAddTask>
+
+		<onDelTask>
+			<Arg> 		TASK_ID		</Arg>
+		</onDelTask>
+
+		<loadCreateTasks>
+			<Arg> ARRAY <of> DTS_ACTIVIY_TASK_DATA </of>  </Arg><!--create_task-->
+		</loadCreateTasks>
+
+		<onDtsActivityTaskContentUpdate>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg>			INT32				</Arg><!--content index -->
+			<Arg>			PYTHON				</Arg><!--content key -->
+			<Arg>			PYTHON				</Arg><!--content value-->
+		</onDtsActivityTaskContentUpdate>
+
+		<onGetCPMatchTaskReward>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg>			PYTHON 	</Arg><!--award_list-->
+		</onGetCPMatchTaskReward>
+
+		<onTaskDoneSuc>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</onTaskDoneSuc>
+
+		<onResetDailyTasks>
+		</onResetDailyTasks>
+
+		<onUpdateCurrentTaskList>
+			<Arg> ARRAY <of> TASK_ID </of> </Arg>
+		</onUpdateCurrentTaskList>
+
+		<onUpdateDoneTaskList>
+			<Arg> ARRAY <of> TASK_ID </of> </Arg>
+		</onUpdateDoneTaskList>
+
+		<onUpdateRewardTaskList>
+			<Arg> ARRAY <of> TASK_ID </of> </Arg>
+		</onUpdateRewardTaskList>
+
+		<onUpdatePreCreatedTaskList>
+			<Arg> ARRAY <of> TASK_ID </of> </Arg>
+		</onUpdatePreCreatedTaskList>
+
+		<onUpdateDailyTaskList>
+			<Arg> ARRAY <of> TASK_ID </of> </Arg>
+		</onUpdateDailyTaskList>
+		<!--开学季-->
+		<onSchoolSeasonReward>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg>			PYTHON 	</Arg><!--award_list-->
+		</onSchoolSeasonReward>
+		<onDtsActivityTaskReward>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg>			PYTHON 	</Arg><!--award_list-->
+		</onDtsActivityTaskReward>
+	</ClientMethods>
+</root>
+

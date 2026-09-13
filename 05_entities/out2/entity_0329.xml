@@ -1,0 +1,34 @@
+<root>
+	<Properties>
+		<drawBoxGottenReward>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{} 			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</drawBoxGottenReward>
+		<drawBoxLuckyValue>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</drawBoxLuckyValue>
+        <drawBoxMaterialAmountDict>
+			<Type>		PYTHON				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}					</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+        </drawBoxMaterialAmountDict>
+		<drawBoxGetPropIDList>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</drawBoxGetPropIDList>
+    </Properties>
+    <ClientMethods>
+        <onUpdateActivityDrawBoxMaterialAmount>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+        </onUpdateActivityDrawBoxMaterialAmount>
+    </ClientMethods>
+</root>

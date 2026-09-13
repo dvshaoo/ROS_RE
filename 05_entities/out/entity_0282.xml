@@ -1,0 +1,115 @@
+<root>
+	<Properties>
+		<battleGiftInfoTemp>
+			<!-- 		战斗奖励领取状态 <id, state>		 	-->
+			<!-- 	临时，为了红点，存盘属性是childPropertyList[0].battleGiftInfo	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</battleGiftInfoTemp>
+		
+		<battleGiftIdTaskMap>
+			<!-- 		根据表不会被重置的任务数据记录 <id: {taskEventType: cnt}>	-->
+			<Type>		PYTHON			</Type> 
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</battleGiftIdTaskMap>
+
+		<matchTeamTaskState>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</matchTeamTaskState>
+		<matchTeamTaskProgress>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</matchTeamTaskProgress>
+		<isBattleGiftPlayerHuiliuState>
+			<Type>	BOOL		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	False	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</isBattleGiftPlayerHuiliuState>
+
+        <battleGiftRandomTask>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </battleGiftRandomTask>
+	</Properties>
+	<BaseMethods>
+		<queryAvailableBattleGift> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</queryAvailableBattleGift>
+		<getBattleGift> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- giftId -->
+		</getBattleGift>
+		<refreshBattleInfo>
+			<Arg>		INT32		</Arg>		<!-- gameType -->
+			<Arg>		INT32		</Arg>		<!-- killNum -->
+		</refreshBattleInfo>
+		<checkBattleTimes> <Exposed/>
+		</checkBattleTimes>
+		<refreshPeiwanTaskEvent> <Exposed/>
+			<Arg>	INT32	</Arg> <!-- State -->
+			<Arg>	INT32	</Arg> <!-- ReceivedOrders -->
+			<Arg>	INT32	</Arg> <!-- TotalTime -->
+			<Arg>	INT32	</Arg> <!-- ScoreTotal -->
+			<Arg>	INT32	</Arg> <!-- ScoreCount -->
+		</refreshPeiwanTaskEvent>
+		<refreshSpecifiedTimeLoginTaskEvent> <Exposed/>
+		</refreshSpecifiedTimeLoginTaskEvent>
+		<refreshBattleTaskEvent>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</refreshBattleTaskEvent>
+
+		<gmClearMatchTeamData>
+		</gmClearMatchTeamData>
+		<updateMatchTeamTaskProgress>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateMatchTeamTaskProgress>
+		<queryTimeLimitMatchTeamInfo> <Exposed/>
+		</queryTimeLimitMatchTeamInfo>
+		<getTimeLimitMatchTeamReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getTimeLimitMatchTeamReward>
+		
+	</BaseMethods>
+	<ClientMethods>
+		<onQueryAvailableBattleGift>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableBattleGift>
+		<onUpdateBattleGiftInfo>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateBattleGiftInfo>
+		<onGetBattleGift>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetBattleGift>
+		<onGetBattleGiftFailed>
+			<Arg>		STRING		</Arg>
+		</onGetBattleGiftFailed>
+
+		<queryTimeLimitMatchTeamInfo>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</queryTimeLimitMatchTeamInfo>
+		<onGetTimeLimitMatchTeamReward>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetTimeLimitMatchTeamReward>
+		<syncBattleGiftPlayerHuiliuState>
+			<Arg>		BOOL		</Arg>
+		</syncBattleGiftPlayerHuiliuState>
+	</ClientMethods>
+</root>

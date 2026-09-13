@@ -1,0 +1,72 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<spaceDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+		</spaceDict>
+		<dynamicSpaceDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+		</dynamicSpaceDict>
+		<spaceRequesterQueue>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+		</spaceRequesterQueue>
+	</Properties>
+	<BaseMethods>
+		<onSpaceInit>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onSpaceInit>
+		<onSpaceReady>
+			<Arg>		INT32		</Arg>
+		</onSpaceReady>
+		<onSpaceFree>
+			<Arg>		INT32		</Arg>
+		</onSpaceFree>
+		<reportSpaceStatus>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</reportSpaceStatus>
+		<onSpaceDestroy>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onSpaceDestroy>
+		<onSpaceHeartbeat>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</onSpaceHeartbeat>
+		<requestDynamicSpace>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestDynamicSpace>
+		<requestEnterCutInDungeon>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestEnterCutInDungeon>
+		<cancelRequestDynamicSpace>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</cancelRequestDynamicSpace>
+		<onReportLoad>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT16		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</onReportLoad>
+
+		<gmEnableMap>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			BOOL			</Arg>
+		</gmEnableMap>
+
+		<serverErrorAlarm>
+			<Arg>		STRING		</Arg>
+		</serverErrorAlarm>
+	</BaseMethods>
+</root>

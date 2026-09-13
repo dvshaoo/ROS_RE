@@ -1,0 +1,21 @@
+<root>
+	<Implements>
+		<Interface>	iMatchSpace		</Interface>
+	</Implements>
+	<Properties>
+		<robotPools>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</robotPools>
+		<robotGame>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotGame>
+	</Properties>
+	<CellMethods>
+		<onGetMatchRobotData>
+			<Arg>		PYTHON			</Arg>
+		</onGetMatchRobotData>
+	</CellMethods>
+</root>

@@ -1,0 +1,628 @@
+<root>
+	<Properties>
+		<dtsWeapon0>  <!-- 大枪1 -->
+			<Type>		BATTLE_GROUND_WEAPON_ITEM		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon0>
+
+		<dtsWeapon1>  <!-- 大枪2 -->
+			<Type>		BATTLE_GROUND_WEAPON_ITEM		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon1>
+
+		<dtsWeapon2>  <!-- 手枪 -->
+			<Type>		BATTLE_GROUND_WEAPON_ITEM		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon2>
+
+		<dtsWeapon3>  <!-- 冷武器 -->
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon3>
+
+		<dtsWeapon4>  <!-- 手雷 -->
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon4>
+
+		<dtsWeapon5>  <!-- 空手，仅用于盾牌入水时表现的兼容 -->
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon5>
+
+		<dtsWeapon6>  <!-- 技能创建的临时武器，技能结束时销毁此武器 -->
+			<Type>		BATTLE_GROUND_WEAPON_ITEM							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon6>
+
+		<dtsWeapon9>  <!-- 临时枪械（载具等） -->
+			<Type>		BATTLE_GROUND_WEAPON_ITEM		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon9>
+		
+        <dtsWeapon8>  <!-- 无人机武器 -->
+			<Type>		BATTLE_GROUND_WEAPON_ITEM		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsWeapon8>
+
+		<dtsCurWeapon>	 <!-- 当前武器 -->
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsCurWeapon>
+
+		<dtsDefaultColdWeapon>	<!-- 默认冷兵器 -->
+			<Type>		INT32							</Type>
+			<Flags>		CELL_PRIVATE					</Flags>
+			<Default>	0								</Default>
+		</dtsDefaultColdWeapon>
+
+		<dtsWeaponMagazineBullets>
+			 <Type> ARRAY <of> INT32 </of> <size> 10 </size> </Type>
+			 <Flags>  CELL_PUBLIC_AND_OWN </Flags>
+		</dtsWeaponMagazineBullets>
+
+		<dtsWeaponOperateTypes>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	{}	</Default>
+		</dtsWeaponOperateTypes>
+
+		<bullletProofVest>  <!-- 防弹衣 -->
+			<Type>		BATTLE_GROUND_SAFETY_GEAR		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</bullletProofVest>
+
+		<bullletProofHelmet>  <!-- 防弹头盔 -->
+			<Type>		BATTLE_GROUND_SAFETY_GEAR		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</bullletProofHelmet>
+
+		<bullletProofHandedDefender>  <!-- 手持防具 -->
+			<Type>		BATTLE_GROUND_SAFETY_GEAR		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</bullletProofHandedDefender>
+
+		<WeaponCoolDownProp0>  <!-- M134 1枪 属性记录 -->
+			<Type>		BATTLE_GROUND_COOL_DOWN_PROP		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</WeaponCoolDownProp0>
+
+		<WeaponCoolDownProp1>  <!-- M134 2枪 属性记录 -->
+			<Type>		BATTLE_GROUND_COOL_DOWN_PROP		</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</WeaponCoolDownProp1>
+
+		<dtsGunCompPropertyData> <!-- 当前武器的配件属性 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</dtsGunCompPropertyData>
+
+		<dtsWeaponBuffData> <!-- 武器的BUFF属性 -->
+			<Type>		ARRAY <of> WEAPON_BUFF </of>		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</dtsWeaponBuffData>
+
+		<dtsWeaponBuffTimerIDs> <!-- 武器的BUFF属性TimerID用于清理BUFF -->
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</dtsWeaponBuffTimerIDs>
+
+		<dtsHelmet>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsHelmet>
+
+		<dtsVest>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</dtsVest>
+
+		<dtsPackage>	<!-- 背包 -->
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsPackage>
+
+		<!-- 外装 -->
+		<cloth0>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth0>
+
+		<cloth1>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth1>
+
+		<cloth2>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth2>
+
+		<cloth3>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth3>
+
+		<cloth4>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth4>
+
+		<cloth5>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth5>
+
+		<cloth6>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth6>
+
+		<cloth7>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth7>
+
+		<cloth8>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</cloth8>
+
+		<prevWeaponIdx>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</prevWeaponIdx>
+
+		<slaveWpIdx>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</slaveWpIdx>
+
+		<slaveWpID>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</slaveWpID>
+
+		<hasSlaveWeapon>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</hasSlaveWeapon>
+
+		<transformReplaceWeapon>
+			<Type>		ARRAY <of> INT32 </of>	</Type>
+			<Flags>		ALL_CLIENTS 	</Flags>
+		</transformReplaceWeapon>
+		<vestWildModeBuff>  <!-- 狂野模式防弹衣buff -->
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</vestWildModeBuff>
+
+		<helmetWildModeBuff>  <!-- 狂野模式防弹头盔buff -->
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</helmetWildModeBuff>
+        
+		<freeparadiseDisplayWeaponInfo>
+			<Type>		PYTHON 			</Type>
+			<Flags>		CELL_PRIVATE 	</Flags>
+			<Default>	{}				</Default>
+		</freeparadiseDisplayWeaponInfo>
+
+		<freeparadiseTempWeaponAppearance>
+			<Type>		PYTHON 			</Type>
+			<Flags>		ALL_CLIENTS 	</Flags>
+			<Default>	{}			</Default>
+		</freeparadiseTempWeaponAppearance>
+		
+		<equipedExtraRails>
+			<Type>		PYTHON 		</Type>
+			<Flags>		ALL_CLIENTS 	</Flags>
+			<Default>	{}		</Default>
+		</equipedExtraRails>
+		
+		<dtsCurRailID>	 <!-- 当前导轨 -->
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</dtsCurRailID>
+		
+		<slot2CurRailID>	 <!-- slot对应当前导轨 -->
+			<Type>		PYTHON							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+			<Default>	{}		</Default>
+		</slot2CurRailID>
+	</Properties>
+	<ClientMethods>
+		<onChangeDtsWeapon>
+		</onChangeDtsWeapon>
+
+		<onOtherChangeDtsWeapon>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onOtherChangeDtsWeapon>
+
+		<onWearDtsWeapon>
+			<Arg>		INT32			</Arg>
+		</onWearDtsWeapon>
+
+		<onGotGunWildModeExtraComp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onGotGunWildModeExtraComp>
+
+		<onOtherWearDtsWeapon>
+			<Arg>		INT32			</Arg>
+		</onOtherWearDtsWeapon>
+
+		<onWearDtsPackage>
+		</onWearDtsPackage>
+
+		<onOtherWearDtsPackage>
+		</onOtherWearDtsPackage>
+
+		<onWearDtsSafetyGear>
+			<Arg>		STRING			</Arg>
+		</onWearDtsSafetyGear>
+
+		<onOtherWearDtsSafetyGear>
+			<Arg>		STRING			</Arg>
+		</onOtherWearDtsSafetyGear>
+
+		<onWearDtsGunComp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onWearDtsGunComp>
+
+		<onOtherWearDtsGunComp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onOtherWearDtsGunComp>
+
+		<onDiscardGun>
+		</onDiscardGun>
+
+		<onOtherDiscardGun>
+		</onOtherDiscardGun>
+
+		<onDiscardColdWeapon>
+		</onDiscardColdWeapon>
+
+		<onOtherDiscardColdWeapon>
+		</onOtherDiscardColdWeapon>
+
+		<onRecycleDtsWeaponBullet>
+			<Arg>		INT32			</Arg>
+		</onRecycleDtsWeaponBullet>
+
+		<onReloadDtsWeaponBullet>
+			<Arg>		INT32			</Arg>  <!-- 子弹ITEMID -->
+			<Arg>		INT32			</Arg>	<!-- 子弹数目 -->
+		</onReloadDtsWeaponBullet>
+
+		<onDiscardOldDtsSafetyGear>
+		</onDiscardOldDtsSafetyGear>
+
+		<onOtherDiscardOldDtsSafetyGear>
+		</onOtherDiscardOldDtsSafetyGear>
+
+		<onDiscardDtsGunComp>
+			<Arg>		STRING     		</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</onDiscardDtsGunComp>
+
+		<onOtherDiscardDtsGunComp>
+			<Arg>		STRING     		</Arg>
+			<Arg>		STRING			</Arg>
+		</onOtherDiscardDtsGunComp>
+
+		<onExchangeGunComponent>
+			<Arg>		INT32     		</Arg>
+			<Arg>		BOOL     		</Arg>
+			<Arg>		INT32     		</Arg>
+			<Arg>		INT32     		</Arg>
+			<Arg>		BOOL     		</Arg>
+			<Arg>		INT32     		</Arg>
+			<Arg>		STRING     		</Arg>
+		</onExchangeGunComponent>
+
+		<onResetAllDtsEquipment>
+		</onResetAllDtsEquipment>
+
+		<onOtherResetAllDtsEquipment>
+		</onOtherResetAllDtsEquipment>
+
+		<onExchangeLongGun>
+		</onExchangeLongGun>
+
+		<onWearDtsAppearance>
+			<Arg>		INT32			</Arg>
+		</onWearDtsAppearance>
+
+		<onOtherWearDtsAppearance>
+			<Arg>		INT32			</Arg>
+		</onOtherWearDtsAppearance>
+
+		<addWeaponBuff>
+			<Arg>		INT8			</Arg>
+		</addWeaponBuff>
+
+		<removeWeaponBuff>
+			<Arg>		INT8			</Arg>
+		</removeWeaponBuff>
+
+		<clearWeaponBuff>
+		</clearWeaponBuff>
+
+		<onSetSlaveWeapon>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onSetSlaveWeapon>
+		<onUnsetSlaveWeapon>
+		</onUnsetSlaveWeapon>
+
+		<fillGunWithBullet>
+			<Arg>		INT32			</Arg>	<!-- gunItemID -->
+			<Arg>		INT32			</Arg>	<!-- bulletID -->
+			<Arg>		INT32			</Arg>	<!-- bulletNum -->
+		</fillGunWithBullet>
+
+		<updateTransformData>
+		</updateTransformData>
+
+		<replaceTransformWeapon>
+		</replaceTransformWeapon>
+
+		<onBeginTransform>
+		</onBeginTransform>
+
+		<onWearWildModeGunComponent>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		BOOL			</Arg>
+		</onWearWildModeGunComponent>
+		<onOtherWearWildModeGunComp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onOtherWearWildModeGunComp>
+		<onAutoWearWildModeGunComp>
+			<Arg>		INT32			</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+		</onAutoWearWildModeGunComp>
+		<onOtherAutoWearWildModeGunComp>
+			<Arg>		INT32			</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+		</onOtherAutoWearWildModeGunComp>
+		<onHideOnePendant>
+			<Arg>		INT32			</Arg>
+		</onHideOnePendant>
+		<onShowOnePendant>
+			<Arg>		INT32			</Arg>
+		</onShowOnePendant>
+		<onOtherCallPendant>
+		</onOtherCallPendant>
+		<onChangeDtsRail>
+			<Arg>		BOOL			</Arg>
+			<Arg>		BOOL			</Arg>
+			<Arg>		INT32			</Arg>
+		</onChangeDtsRail>
+		<onOthersChangeDtsRail>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onOthersChangeDtsRail>
+	</ClientMethods>
+	<CellMethods>
+		<doDiscardPropRequest>
+			<Arg>		INT32 			</Arg>
+			<Arg>		INT32 			</Arg>
+			<Arg>		PYTHON			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</doDiscardPropRequest>
+		<changeDtsWeapon>	<Exposed/> <!-- 更换武器 -->
+			<Arg>		INT32			</Arg>
+			<Arg>		BOOL			</Arg>
+		</changeDtsWeapon>
+
+		<wearDtsWeapon>			     <!-- 装备武器 -->
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		BOOL			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</wearDtsWeapon>
+
+		<wearDtsPackage>
+			<Arg>		INT32 			</Arg>
+		</wearDtsPackage>
+
+		<wearDtsAppearance>
+			<Arg>		INT32			</Arg>
+		</wearDtsAppearance>
+
+		<gmWearDtsAppearance>
+			<Arg>		INT32			</Arg>
+		</gmWearDtsAppearance>
+
+		<clearDtsAppearance>
+			<Arg>		INT32			</Arg>
+		</clearDtsAppearance>
+
+		<wearDtsLongGun>
+			<Arg>		INT32			</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		PYTHON			</Arg>
+		</wearDtsLongGun>
+
+		<wearDtsSafetyGear>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</wearDtsSafetyGear>
+
+		<resetDtsSafetyGear>
+			<Arg>		STRING			</Arg>
+		</resetDtsSafetyGear>
+
+		<discardGun>
+			<Arg>		STRING			</Arg>
+		</discardGun>
+
+		<discardColdWeapon>
+		</discardColdWeapon>
+
+		<wearDtsGunComp>
+			<Arg>		INT32			</Arg>	<!-- 武器序号 -->
+			<Arg>		INT32			</Arg>	<!-- 部件ID -->
+		</wearDtsGunComp>
+
+		<wearDtsGunCompWithoutPackage>
+			<Arg>		INT32			</Arg>	<!-- 武器序号 -->
+			<Arg>		INT32			</Arg>	<!-- 部件ID -->
+		</wearDtsGunCompWithoutPackage>
+
+		<smartWearDtsGunComp>
+			<Arg>		INT32			</Arg>
+		</smartWearDtsGunComp>
+
+		<changeCoolDownProp>  <Exposed/>
+			<Arg>		UINT8			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		UINT8			</Arg>
+		</changeCoolDownProp>
+		
+		<discardOldDtsSafetyGear>
+			<Arg>		STRING			</Arg>
+		</discardOldDtsSafetyGear>
+
+		<requestDiscardDtsGunComp>
+			<Arg>		STRING     		</Arg>
+			<Arg>		STRING			</Arg>
+		</requestDiscardDtsGunComp>
+
+		<requestDiscardDtsGunCompToNearby>  <Exposed/>
+			<Arg>		STRING     		</Arg>
+			<Arg>		STRING			</Arg>
+		</requestDiscardDtsGunCompToNearby>
+
+		<exchangeLongGun> <Exposed/>
+		</exchangeLongGun>
+
+		<exchangeGunComponent> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</exchangeGunComponent>
+
+		<tryExchangeGunComponent> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</tryExchangeGunComponent>
+
+		<syncDtsWeaponMagazineBullet> <Exposed/>
+			<Arg>		INT8     		</Arg>
+			<Arg>		INT16     		</Arg>
+		</syncDtsWeaponMagazineBullet>
+
+		<onDecBulletFromMagazine> <Exposed/>
+			<Arg>		INT8     		</Arg>
+			<Arg>		INT16     		</Arg>
+			<Arg>		INT32     		</Arg>
+			<Arg>		INT32     		</Arg>
+		</onDecBulletFromMagazine>
+
+		<syncDtsWeaponOperate> <Exposed/>
+			<Arg>		INT32     		</Arg>
+			<Arg>		INT32     		</Arg>
+		</syncDtsWeaponOperate>
+
+		<wearBombWeapon>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</wearBombWeapon>
+
+		<wearSlotBombWeapon>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</wearSlotBombWeapon>
+
+		<discardBombWeaponToNearby> <Exposed/>
+		</discardBombWeaponToNearby>
+
+		<moveBombWeaponToPacakge> <Exposed/>
+		</moveBombWeaponToPacakge>
+
+		<onDtsBombWeaponUsedUp>
+		</onDtsBombWeaponUsedUp>
+
+		<smartOldGunComps>
+			<Arg>		INT32						</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		PYTHON			</Arg>
+		</smartOldGunComps>
+
+		<unloadCurGunAllComponents> <Exposed/>
+			<Arg>		STRING						</Arg>
+		</unloadCurGunAllComponents>
+
+		<requestRecycleBullet> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestRecycleBullet>
+
+		<resetAllDtsEquipment>
+		</resetAllDtsEquipment>
+
+		<addWeaponBuff>
+			<Arg>		INT8			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</addWeaponBuff>
+		<initGunWithBullet>
+			<Arg>		INT32			</Arg>	<!-- gunItemID -->
+			<Arg>		INT32			</Arg>	<!-- bulletID -->
+			<Arg>		INT32			</Arg>	<!-- bulletNum -->
+		</initGunWithBullet>
+		<wearValentineSuit>
+			<Arg>		INT32			</Arg>
+		</wearValentineSuit>
+		<switchManAndBeast>
+		</switchManAndBeast>
+		<decBulletFromBucket> <Exposed/>
+		</decBulletFromBucket>
+		<checkCanTransform> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</checkCanTransform>
+		<replaceDtsAppearanceByClient> <Exposed/>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</replaceDtsAppearanceByClient>
+		<reqWearVehicleTransformCloth><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</reqWearVehicleTransformCloth>
+		<wearDtsGunWildModeComp>	<Exposed/>
+			<Arg>		INT32			</Arg>	<!-- 武器序号 -->
+			<Arg>		INT32			</Arg>	<!-- 部件ID -->
+			<Arg>		INT32			</Arg>	<!-- 格子编号 -->
+		</wearDtsGunWildModeComp>
+		<smartWearWildModeGunComp>
+			<Arg>		INT32			</Arg>
+		</smartWearWildModeGunComp>
+		<exchangeWildModeGunComponent> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</exchangeWildModeGunComponent>
+		<changeDtsRail> <Exposed/>
+			<Arg>		BOOL			</Arg>
+			<Arg>		BOOL			</Arg>
+		</changeDtsRail>
+	</CellMethods>
+</root>

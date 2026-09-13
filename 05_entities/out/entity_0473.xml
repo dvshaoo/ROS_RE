@@ -1,0 +1,350 @@
+<root>
+	<Properties>
+		<inLandVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inLandVehicle>
+
+		<inAutoRoyaleVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inAutoRoyaleVehicle>
+
+		<isLandDriver>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isLandDriver>
+
+		<inCarryVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inCarryVehicle>
+
+		<delayGetOffTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</delayGetOffTimerID>
+
+		<takingBackVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</takingBackVehicle>
+
+		<inVehicleStretch>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inVehicleStretch>
+
+		<hangSockName>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</hangSockName>
+		<reqqingFuel>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</reqqingFuel>
+
+		<inEquipVehWeapon>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inEquipVehWeapon>
+		<flightStage>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</flightStage>
+		<jumpingFlight>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</jumpingFlight>
+
+		<nextVehicleID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</nextVehicleID>
+
+		<nextSeatIdx>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</nextSeatIdx>
+
+		<swapSeatRequests>
+			<Type>		ARRAY <of> PYTHON </of>		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		[]			</Default>
+		</swapSeatRequests>
+
+		<swapSeatIgnoreRequest>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		{}			</Default>
+		</swapSeatIgnoreRequest>
+		<delayStretchTimerID>
+			<Type>		TIMER_ID		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</delayStretchTimerID>
+
+		<enableDrive>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>		1		</Default>
+		</enableDrive>
+		<swapSeatTimerID>
+			<Type>		TIMER_ID		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</swapSeatTimerID>
+
+		<carryVehicleLandVehicleID>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</carryVehicleLandVehicleID>
+		<carryVehicleAppearanceID>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</carryVehicleAppearanceID>
+		<canUseCarryVehicleLandVehicleIDs>
+			<Type>		ARRAY <of> INT32 </of>		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</canUseCarryVehicleLandVehicleIDs>
+		<preprocessVehicleAppearanceDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</preprocessVehicleAppearanceDict>
+		<inTrainCannon>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inTrainCannon>
+		<inEquipTrainWeapon>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inEquipTrainWeapon>
+	</Properties>
+	<CellMethods>
+		<chooseCarryVehicleInfo><Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</chooseCarryVehicleInfo>
+		<reqGetOnLandVehicleAsDriver><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqGetOnLandVehicleAsDriver>
+
+		<reqGetOnLandVehicleAsPassenger><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqGetOnLandVehicleAsPassenger>
+
+		<reqGetOnTrainCannon><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqGetOnTrainCannon>
+
+		<reqGetOnTrainPassager><Exposed/>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> INT32 </Arg>
+		</reqGetOnTrainPassager>
+
+		<reqGetOffLandVehicle><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqGetOffLandVehicle>
+
+		<reqSwitchToDriveLandVehicle><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqSwitchToDriveLandVehicle>
+
+		<reqSwitchDriveState><Exposed/>
+		</reqSwitchDriveState>
+
+		<reqSwitchToSeat><Exposed/>
+			<Arg>		INT32 		</Arg>
+		</reqSwitchToSeat>
+
+		<onGetOnLandVehicle>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg> 		UINT32   </Arg>
+			<Arg>		UUID			</Arg>
+			<Arg>		PY_DICT			</Arg>
+		</onGetOnLandVehicle>
+
+		<onGetOffLandVehicle>
+			<Arg> 		UINT32   </Arg>
+			<Arg>		UUID			</Arg>
+			<Arg> 		INT32   </Arg>
+		</onGetOffLandVehicle>
+
+		<onSwitchToSock>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		STRING			</Arg>
+		</onSwitchToSock>
+		<onCrashVehicleDamage>
+			<Arg> PYTHON	</Arg>
+			<Arg> PYTHON 	</Arg>
+			<Arg> PY_DICT	</Arg>
+			<Arg> FLOAT 	</Arg>
+		</onCrashVehicleDamage>	
+		<useFuelTank>
+			<Arg>		ITEM_ID 		</Arg>
+		</useFuelTank>
+		<onVehicleFuelEmpty>
+			<Arg>		ENTITY_ID 		</Arg>
+		</onVehicleFuelEmpty>
+		<onVehicleFuelFull>
+			<Arg>		ENTITY_ID 		</Arg>
+		</onVehicleFuelFull>
+		<requestUseFuel>
+			<Arg>		ENTITY_ID 		</Arg>
+		</requestUseFuel>
+		<cancleUseFuel>
+			<Arg>		ENTITY_ID 		</Arg>
+		</cancleUseFuel>
+		<kickOffVehicle>
+			<Arg>		ENTITY_ID 		</Arg>
+		</kickOffVehicle>
+		<reqStretchInVehicle><Exposed/>
+		</reqStretchInVehicle>
+		<reqStretchOutVehicle><Exposed/>
+		</reqStretchOutVehicle>
+		<reqDyeingVehicle><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</reqDyeingVehicle>
+		<reqDiscardVehicleDyeing><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqDiscardVehicleDyeing>
+		<reqPlayVehicleTransformExitEff><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+		</reqPlayVehicleTransformExitEff>
+		<reqPlayVehicleAnims><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</reqPlayVehicleAnims>
+		<vehicleJumpStay><Exposed/>
+		    <Arg>       FLOAT       </Arg>
+		</vehicleJumpStay>
+		<vehicleJumpShow><Exposed/>
+		</vehicleJumpShow>
+		<snowboardTakeBack><Exposed/>
+		</snowboardTakeBack>
+
+		<trySummonCurrentSelectedVehicle><Exposed/>
+		</trySummonCurrentSelectedVehicle>
+
+		<trySummonCarryVehicle>
+			<Arg>		INT32 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</trySummonCarryVehicle>
+
+		<autoEquipVehicleWeapon>
+			<Arg>		INT32 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</autoEquipVehicleWeapon>
+		<autoDiscardVehicleWeapon>
+		</autoDiscardVehicleWeapon>
+		<onChangeFlightStage>
+			<Arg>		INT32 		</Arg>
+		</onChangeFlightStage>
+		<jumpFlight>
+			<Arg> 		ENTITY_ID 		</Arg>
+		</jumpFlight>
+		<tryAutoLoadCar>
+		</tryAutoLoadCar>
+		<onAutoLoadCarFinished>
+			<Arg> 		ENTITY_ID 		</Arg>
+		</onAutoLoadCarFinished>
+		<switchToNextVehicle>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</switchToNextVehicle>
+		<switchToNextVehicle2>
+			<Arg> 		UINT32   </Arg>
+			<Arg>		UUID			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32 		</Arg>
+		</switchToNextVehicle2>
+		<onRequestSwapSeat>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		STRING 		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onRequestSwapSeat>
+		<acceptSwapSeat><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</acceptSwapSeat>
+		<refuseSwapSeat><Exposed/>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		INT32			</Arg>
+		</refuseSwapSeat>
+		<driveVehicleRangeGunFire>
+			<Arg>		INT32			</Arg>	<!-- bulletID -->
+			<Arg>		INT32			</Arg>	<!-- weaponID -->
+			<Arg>		INT32			</Arg>	<!-- railID -->
+			<Arg>		BOOL			</Arg>	<!-- is block -->
+			<Arg>		DTS_RANGE_GUN_FIRE_INFO	</Arg>	<!-- fireInfo -->
+		</driveVehicleRangeGunFire>
+		<autoEquipTrainWeapon>
+			<Arg>		INT32 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</autoEquipTrainWeapon>
+	</CellMethods>
+	<ClientMethods>
+		<onSwitchToDriver>
+			<Arg> 		ENTITY_ID 		</Arg>
+		</onSwitchToDriver>
+
+		<onSwitchToPassger>
+			<Arg> 		ENTITY_ID 		</Arg>
+			<Arg>		STRING			</Arg>
+		</onSwitchToPassger>
+
+		<onSwitchToOffVehicle>
+		</onSwitchToOffVehicle>
+
+		<ensureClientOffVehicle>
+		</ensureClientOffVehicle>
+
+		<playerGetOffSnowboardAnim>
+		</playerGetOffSnowboardAnim>
+
+		<showUseFuelTip>
+		</showUseFuelTip>
+
+		<hideUseFuelTip>
+		</hideUseFuelTip>
+
+		<stretchInVehicle> 
+			<Arg>		INT32			</Arg>
+		</stretchInVehicle>
+
+		<stretchOutVehicle> 
+		</stretchOutVehicle>
+
+		<equipVehicleWeapon> 
+			<Arg>		INT32			</Arg>
+		</equipVehicleWeapon>
+		
+		<discardVehicleWeapon> 
+			<Arg>		INT32			</Arg>
+		</discardVehicleWeapon>
+		<jumpFlight> 
+		</jumpFlight>
+		<onRequestSwapSeat>
+			<Arg>		ENTITY_ID 		</Arg>
+			<Arg>		STRING 		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onRequestSwapSeat>
+		<onCarryVehicleTakeBack> 
+		</onCarryVehicleTakeBack>
+		<onSummonCarryVehicle>
+			<Arg>		ENTITY_ID 		</Arg>
+		</onSummonCarryVehicle>
+		<stretchInJumpRobot> 
+			<Arg>		INT32			</Arg>
+		</stretchInJumpRobot>
+		<equipTrainWeapon> 
+			<Arg>		INT32			</Arg>
+		</equipTrainWeapon>
+		<discardTrainWeapon> 
+			<Arg>		INT32			</Arg>
+		</discardTrainWeapon>
+	</ClientMethods>
+</root>

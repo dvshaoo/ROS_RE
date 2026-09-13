@@ -1,0 +1,32 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<checkVipGoldRedPoint> <Exposed/>
+		</checkVipGoldRedPoint>
+		<getVipReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</getVipReward>
+		<useRebateCoupon> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</useRebateCoupon>
+		<getAllVipReward> <Exposed/>
+		</getAllVipReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncVipInfo>
+			<Arg>			PYTHON					</Arg>
+		</syncVipInfo>
+		<onGetVipReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetVipReward>
+		<onGetAllVipReward>
+			<Arg>			PYTHON					</Arg>
+		</onGetAllVipReward>
+	</ClientMethods>
+</root>

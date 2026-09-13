@@ -1,0 +1,40 @@
+<root>
+	<Properties>
+		<customLayoutData>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> {} </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</customLayoutData>
+		<customLayoutSid>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</customLayoutSid>
+	</Properties>
+
+	<BaseMethods>
+		<modifyCustomLayoutData>
+			<Exposed/>
+			<Arg> INT32 </Arg> <!-- scheme id -->
+			<Arg> ARRAY <of> CUSTOM_LAYOUT_ITEM </of> </Arg> <!-- layout item list -->
+		</modifyCustomLayoutData>
+		<modifyCustomLayoutSid>
+			<Exposed/>
+			<Arg> INT32 </Arg> <!-- scheme id -->
+		</modifyCustomLayoutSid>
+		<modifyScaleRevisedVariable>
+			<Exposed/>
+			<Arg> INT32 </Arg> <!-- isScaleRevised -->
+		</modifyScaleRevisedVariable>
+	</BaseMethods>
+
+	<ClientMethods>
+		<notifyCustomLayoutData>
+			<Arg> INT32 </Arg> <!-- modifyCustomLayoutSid -->
+			<Arg> PYTHON </Arg> <!-- the whole custom layout data -->
+		</notifyCustomLayoutData>
+	</ClientMethods>
+
+</root>

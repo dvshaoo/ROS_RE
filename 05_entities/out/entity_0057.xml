@@ -1,0 +1,191 @@
+<root>
+	<Properties>
+		<jetWingsAppearanceID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</jetWingsAppearanceID>
+		<jetWingsID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</jetWingsID>
+		<jetWingsSocket>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</jetWingsSocket>
+		<dtsShowAircraftAppearanceID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</dtsShowAircraftAppearanceID>
+		<lastJetWingsID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</lastJetWingsID>
+		<showAircraftID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</showAircraftID>
+		<onAircraftDriverID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</onAircraftDriverID>
+		<everOnAircraft>
+			<Type>		BOOL	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	False		</Default>
+		</everOnAircraft>
+		<carryAircraftPassengers>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS </Flags>
+			<Default>	{}		</Default>
+		</carryAircraftPassengers>
+		<fallFollowAndInviteMsgs>
+			<Type>		ARRAY <of> FALL_FOLLOW_INVITE_MSG </of>	</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	[]		</Default>
+		</fallFollowAndInviteMsgs>
+		<driverCanCarry>
+			<Type>		BOOL	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	False		</Default>
+		</driverCanCarry>
+	</Properties>
+	<BaseMethods>
+	</BaseMethods>
+	<CellMethods>
+		<updateJetWingsSocket>
+			<Arg>	INT8	</Arg>  <!-- SOCKET ID -->
+		</updateJetWingsSocket>
+		<changeToGliderAppear> <Exposed/>
+		</changeToGliderAppear>
+		<changeToNormalAppear> <Exposed/>
+		</changeToNormalAppear>
+		<inviteGetOnCarryAircraft> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</inviteGetOnCarryAircraft>
+		<receiveGetOnCarryAircraftInvitation>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</receiveGetOnCarryAircraftInvitation>
+		<replyGetOnCarryAircraftInvitation> <Exposed/>
+			<Arg>	STRING	</Arg>
+		</replyGetOnCarryAircraftInvitation>
+		<checkCarryAircraftSeat>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</checkCarryAircraftSeat>
+		<receiveCarryAircraftRejection>
+			<Arg>	PYTHON	</Arg>
+		</receiveCarryAircraftRejection>
+		<canGetOnCarryAircraft>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	STRING	</Arg>
+		</canGetOnCarryAircraft>
+		<noCarryAircraftSeatReply> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</noCarryAircraftSeatReply>
+		<receiveNoCarryAircraftSeatReply>
+			<Arg>	STRING	</Arg>
+		</receiveNoCarryAircraftSeatReply>
+		<kickPlayerOnCarryAircraft> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</kickPlayerOnCarryAircraft>
+		<broadcastPassengerBindAircraft> <Exposed/>
+		</broadcastPassengerBindAircraft>
+		<getOffCarryAircraft>
+			<Arg>	STRING	</Arg>
+		</getOffCarryAircraft>
+		<removeCarryAircraftPassenger>
+			<Arg>	INT32	</Arg>
+		</removeCarryAircraftPassenger>
+		<bindToAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</bindToAircraft>
+		<cancelFollowCarryAircraft> <Exposed/>
+		</cancelFollowCarryAircraft>
+		<broadcastCancelFollowCarryAircraft> <Exposed/>
+		</broadcastCancelFollowCarryAircraft>
+		<unfollowCarryAircraft>
+		</unfollowCarryAircraft>
+		<cannotInviteFollowerAndLeader>
+		</cannotInviteFollowerAndLeader>
+
+		<chooseParachute> <Exposed/>
+		</chooseParachute>
+		
+		<chooseGlider> <Exposed/>
+		</chooseGlider>
+		<notifyPassengerSwitchAnim> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</notifyPassengerSwitchAnim>
+		<switchPassengerGlideAnim>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</switchPassengerGlideAnim>
+		<leaveCarryAircraft> <Exposed/>
+		</leaveCarryAircraft>
+		<setDriverCanCarry>
+		</setDriverCanCarry>
+	</CellMethods>
+	<ClientMethods>
+		<onChangeToGliderAppear>
+		</onChangeToGliderAppear>
+		<onChangeToNormalAppear>
+		</onChangeToNormalAppear>
+		<receiveGetOnCarryAircraftInvitation>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</receiveGetOnCarryAircraftInvitation>
+		<cannotInvitePassenger>
+			<Arg>	STRING	</Arg>
+		</cannotInvitePassenger>
+		<canInvitePassenger>
+			<Arg>	INT32	</Arg>
+		</canInvitePassenger>
+		<getOnCarryAircraft>
+			<Arg>	INT32	</Arg>
+		</getOnCarryAircraft>
+		<receiveCarryAircraftRejection>
+			<Arg>	PYTHON	</Arg>
+		</receiveCarryAircraftRejection>
+		<getOffCarryAircraft>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</getOffCarryAircraft>
+		<bindToCarryAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</bindToCarryAircraft>
+		<destroyModelOnCarryAircraft>
+			<Arg>	INT32	</Arg>
+		</destroyModelOnCarryAircraft>
+		<resetCameraAfterOffCarryAircraft>
+		</resetCameraAfterOffCarryAircraft>
+		<driverGetOnCarryAircraftReply>
+		</driverGetOnCarryAircraftReply>
+		<syncCarryAircraftPassengers>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</syncCarryAircraftPassengers>
+		<syncJetWingsID>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</syncJetWingsID>
+		<switchPassengerGlideAnim>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</switchPassengerGlideAnim>
+		<onLeaveCarryAircraft>
+			<Arg>	INT32	</Arg>
+		</onLeaveCarryAircraft>
+	</ClientMethods>
+</root>

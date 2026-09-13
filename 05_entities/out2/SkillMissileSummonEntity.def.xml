@@ -1,0 +1,33 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface> iCombatUnit	</Interface>
+		<Interface>	iSkill	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillMissileSummonEntity	</ClientName>
+
+	<Properties>
+		<firstExplosed>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	True	</Default>
+		</firstExplosed>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<explode>
+			<Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</explode>
+	</CellMethods>
+</root>

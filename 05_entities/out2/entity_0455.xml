@@ -1,0 +1,126 @@
+<root>
+	<Properties>
+		<nmcEndTs>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcEndTs>
+		<nmcSignTs>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcSignTs>
+		<nmcSignLeft>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcSignLeft>
+		<nmcPt>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcPt>
+		<nmcLC>
+			<Type>		INT8			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcLC>
+		<nmcDecPtTs>
+			<Type>		INT8			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcDecPtTs>
+		<nmcBetLog>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	[]			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcBetLog>
+		<nmcOld>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default> 	{}			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</nmcOld>
+	</Properties>
+	<BaseMethods>
+		<openNewMonthcardMain> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</openNewMonthcardMain>
+		<getNewMonthcardLuckyCoin> <Exposed/>
+		</getNewMonthcardLuckyCoin>
+		<buyNewMonthcardResignChance> <Exposed/>
+		</buyNewMonthcardResignChance>
+		<getNewMonthcardCurYB> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</getNewMonthcardCurYB>
+		<tryNewMonthcardBet> <Exposed/>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+		</tryNewMonthcardBet>
+		<openNewMonthcardShopMain> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</openNewMonthcardShopMain>
+		<buyNewMonthcardShopGoods> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</buyNewMonthcardShopGoods>
+		<reqCheckNewMonthcardActive> <Exposed/>
+		</reqCheckNewMonthcardActive>
+		<selectNewMonthcardResignType> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</selectNewMonthcardResignType>
+	</BaseMethods>
+	<ClientMethods>
+		<onShowNewMonthcardRedDot>
+		</onShowNewMonthcardRedDot>
+		<onOpenNewMonthcardFirst>
+			<Arg>		INT8		</Arg>
+		</onOpenNewMonthcardFirst>
+		<onOpenNewMonthcardMain>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT8		</Arg>
+		</onOpenNewMonthcardMain>
+		<onGetNewMonthcardLuckyCoin>
+		</onGetNewMonthcardLuckyCoin>
+		<onBuyNewMonthcardResignChance>
+			<Arg>		INT32		</Arg>
+		</onBuyNewMonthcardResignChance>
+		<onTryNewMonthcardBet>
+			<Arg>		INT8		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onTryNewMonthcardBet>
+		<onGetNewMonthcardCurYB>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+		</onGetNewMonthcardCurYB>
+		<onShowNewMonthcardShopMainEntrance>
+		</onShowNewMonthcardShopMainEntrance>
+		<onOpenNewMonthcardShopMain>
+			<Arg>		PYTHON		</Arg>
+		</onOpenNewMonthcardShopMain>
+		<onBuyNewMonthcardShopGoods>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onBuyNewMonthcardShopGoods>
+		<onCheckNewMonthcardActive>
+			<Arg>		BOOL		</Arg>
+		</onCheckNewMonthcardActive>
+	</ClientMethods>
+</root>

@@ -1,0 +1,31 @@
+<root>
+	<Properties>
+
+	</Properties>
+
+	<BaseMethods>
+		<requestDoubleSevenSupport> <Exposed/>
+		</requestDoubleSevenSupport>
+		<requestSupportValue><Exposed/>
+		</requestSupportValue>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSetLastSupportTime>
+			<Arg>			INT32					</Arg>
+		</onSetLastSupportTime>
+
+		<onRequestDoubleSevenSupport>
+			<Arg>			BOOL									</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 			</Arg>
+		</onRequestDoubleSevenSupport>
+
+		<onSetCheckTotaySupport>
+			<Arg>			BOOL									</Arg>
+		</onSetCheckTotaySupport>
+
+		<onRequestSupportValue>
+			<Arg>			INT64					</Arg>
+		</onRequestSupportValue>
+	</ClientMethods>
+</root>

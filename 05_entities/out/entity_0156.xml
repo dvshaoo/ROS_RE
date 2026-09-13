@@ -1,0 +1,36 @@
+<root>
+	<Implements>
+		<Interface>	iBehavior	</Interface>
+	</Implements>
+	<Properties>
+		<stages>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	[]	</Default>
+		</stages>
+		<curStage>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	-1	</Default>
+		</curStage>
+		<checkPoint>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	-1	</Default>
+		</checkPoint>
+	</Properties>
+
+
+	<CellMethods>
+		<gotoStage>
+			<Arg>	INT32		</Arg>
+		</gotoStage>
+	</CellMethods>
+	
+	<ClientMethods>
+		<loadMap>
+			<Arg>		INT32			</Arg>
+		</loadMap>
+		<supplyBullet></supplyBullet>
+	</ClientMethods>
+</root>

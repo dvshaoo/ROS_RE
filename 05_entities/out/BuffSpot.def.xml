@@ -1,0 +1,55 @@
+<root>
+	<Implements>
+		<Interface>	iCell	</Interface>
+		<Interface>	iTrap	</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+	</Implements>
+	<ClientName>	BuffSpot	</ClientName>
+	<Properties>
+		<radius>
+			<Type>	FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</radius>
+
+		<direction>
+			<Type>	VECTOR3	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</direction>
+
+		<trapID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</trapID>
+
+		<characterType>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</characterType>
+
+		<refreshTimerID>
+			<Type> INT32 </Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</refreshTimerID>
+
+		<currentBuffID>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</currentBuffID>
+	</Properties>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+		<showBuff>
+			<Arg>	INT32	</Arg>
+		</showBuff>
+		<hideBuff>
+		</hideBuff>
+		<showLoadingBar>
+		</showLoadingBar>
+		<showTips>
+			<Arg> 	INT32 	</Arg>
+		</showTips>
+	</ClientMethods>
+</root>

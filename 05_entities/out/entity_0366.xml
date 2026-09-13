@@ -1,0 +1,26 @@
+<root>
+	<Properties>
+		<isActivated>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+			<Persistent>	true			</Persistent>
+		</isActivated>
+		<activatedUDID>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+			<DatabaseLength>	40			</DatabaseLength>
+			<Persistent>	true			</Persistent>
+		</activatedUDID>
+	</Properties>
+	<BaseMethods>
+		<doActivation> <Exposed/>
+			<Arg> 		STRING 		</Arg>
+		</doActivation>
+	</BaseMethods>
+	<ClientMethods>
+		<onRequireActivation>
+			<Arg> 	INT16 	</Arg>
+		</onRequireActivation>
+	</ClientMethods>
+</root>

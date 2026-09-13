@@ -1,0 +1,98 @@
+<root>
+	<Properties>
+		<sumYBInCreditSys>
+			<Type>		INT64		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</sumYBInCreditSys>	
+		<isInitCredit>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	False		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</isInitCredit>	
+		<lastTimeNaturalAddCredit>
+			<Type>		STRING 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	"" 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastTimeNaturalAddCredit>
+		<creditSystemBalanceTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</creditSystemBalanceTimes>
+
+		<creditGiftLastWeek>
+			<Type>		ARRAY <of> INT32 </of>		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</creditGiftLastWeek>
+		<creditBalanceTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</creditBalanceTime>
+		<creditCoupletsTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</creditCoupletsTime>
+		<creditStatusLastWeek>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</creditStatusLastWeek>
+		<g89CreditScore>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	100		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</g89CreditScore>
+	</Properties>
+	<BaseMethods>
+		<queryCreditStatus> <Exposed/>
+		</queryCreditStatus>
+
+		<queryCreditScore> <Exposed/>
+		</queryCreditScore>
+
+		<requireCreditReward> <Exposed/>
+		</requireCreditReward>
+		<queryOtherCreditScore> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</queryOtherCreditScore>
+		<checkNatureAddCredit>
+		</checkNatureAddCredit>
+	</BaseMethods>
+	<ClientMethods>
+		<queryCreditStatusCB>
+			<Arg>	INT32	</Arg>
+		</queryCreditStatusCB>
+
+		<queryCreditScoreCB>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</queryCreditScoreCB>
+
+		<requireCreditRewardCB>
+			<Arg>	PYTHON	</Arg>
+		</requireCreditRewardCB>
+		<syncCreditStatus>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</syncCreditStatus>
+		<queryOtherCreditScoreCB>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</queryOtherCreditScoreCB>
+	</ClientMethods>
+</root>

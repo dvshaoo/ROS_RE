@@ -1,0 +1,228 @@
+<root>
+	<Parent>	AvatarSecretTreasure	</Parent>
+	<ClientName>	AvatarHero		</ClientName>
+	<Properties>
+		<damageValue>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</damageValue>
+
+		<selectedHero>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</selectedHero>
+
+		<nearAttackCharegeArgs>
+			<Type>	NEAR_ATTACK_CHARGE_ARGS	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</nearAttackCharegeArgs>
+
+		<candidateSecretTreasure>
+			<Type>	ARRAY <of> INT32 </of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</candidateSecretTreasure>
+		<nextCircle>
+			<Type> CIRCLE_DATA </Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</nextCircle>
+
+		<curSingDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</curSingDict>
+
+
+		<nextSingIndex>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</nextSingIndex>
+
+		<ownedHeros>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</ownedHeros>
+
+		<heroWaitRebornTimer>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</heroWaitRebornTimer>
+
+		<heritageID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</heritageID>
+
+		<rebornItems>
+			<Type>	PY_DICT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rebornItems>
+
+		<modelScaleRatio>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	100	</Default>
+		</modelScaleRatio>
+		<lockedColdWeapon>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</lockedColdWeapon>
+
+		<dressOwnCloth>
+			<Type>	BOOL	</Type>
+			<Flags> ALL_CLIENTS	</Flags>
+		</dressOwnCloth>
+
+		<detectSpeedThresholds>
+			<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			<Flags>			OWN_CLIENT	</Flags>
+			<Default>		[]				</Default>
+		</detectSpeedThresholds>
+	</Properties>
+	
+	<CellMethods>
+		<setDamageValue>
+			<Arg>	INT32	</Arg>
+		</setDamageValue>
+
+		<setChargeNearAttackArgs>
+			<Arg>	FLOAT	</Arg>	<!-- speed -->
+			<Arg>	FLOAT	</Arg>	<!-- duration -->
+			<Arg>	FLOAT	</Arg>	<!-- sight angle -->
+		</setChargeNearAttackArgs>
+
+		<showSelectedSecretItems>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</showSelectedSecretItems>
+
+		<showNextCircleInfo> <Exposed/>
+		</showNextCircleInfo>
+
+		<addHpForVehicle>
+			<Arg>	PYTHON	</Arg>
+		</addHpForVehicle>
+
+		<startServerSing>
+			<Arg>	FLOAT	</Arg>	<!-- sing seconds -->
+			<Arg>	STRING	</Arg>	<!-- sing text -->
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>	<!-- states ids -->
+		</startServerSing>
+
+		<onCreateAirDrop> <Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</onCreateAirDrop>
+
+		<resetHeroSkillCd>  <Exposed/>
+			<Arg>	INT32	</Arg>
+		</resetHeroSkillCd>
+
+		<onSingFinish>	<Exposed/>
+			<Arg>	INT32	</Arg>	<!-- sing index -->	
+			<Arg>	BOOL	</Arg>	<!-- isSuccess -->
+		</onSingFinish>
+
+		<onRebornTeammateSuccess>	<Exposed/>
+			<Arg>	INT32	</Arg>	<!-- reborned teammate id -->
+			<Arg>	INT32	</Arg>	<!-- heritage id -->
+		</onRebornTeammateSuccess>
+
+		<onRebornedByTeammate>
+		</onRebornedByTeammate>
+
+		<onCreateHeritage>
+			<Arg>	INT32	</Arg>	<!-- heritage id -->
+		</onCreateHeritage>
+
+		<onGetOwnHeritageItemsForReborn>
+			<Arg>	PY_DICT	</Arg>
+		</onGetOwnHeritageItemsForReborn>
+
+		<lockColdWeapon>
+			<Arg>	INT32	</Arg>
+			<Arg>	BOOL	</Arg>
+		</lockColdWeapon>
+
+		<saLogPlayerPerformWhenLeave>
+			<Arg>	PY_DICT	</Arg>
+		</saLogPlayerPerformWhenLeave>
+
+		<saLogPlayerPerformWhenKillOther>
+		</saLogPlayerPerformWhenKillOther>
+
+		<onHeroRobotCreate>
+			<Arg>	PYTHON	</Arg>
+		</onHeroRobotCreate>
+
+		<onHeroRobotDestroy>
+			<Arg>	INT32	</Arg>
+		</onHeroRobotDestroy>
+
+		<onFindRangePlayers>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onFindRangePlayers>
+
+		<onHeroRobotDie>
+		</onHeroRobotDie>
+
+		<onRushingChanged><Exposed/>
+			<Arg>	BOOL	</Arg>
+		</onRushingChanged>
+
+		<onSpeedOverOrUnderThresholds><Exposed/>
+			<Arg>	FLOAT	</Arg>
+		</onSpeedOverOrUnderThresholds>
+	</CellMethods>
+
+	<ClientMethods>
+		<onGetCandidateHeros>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onGetCandidateHeros>
+
+		<onStartSing>
+			<Arg>	STRING	</Arg>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	INT32	</Arg>
+		</onStartSing>
+
+		<updateAvatarModelScale>
+		</updateAvatarModelScale>
+		<playHealTeammateSkillEff>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+		</playHealTeammateSkillEff>
+
+		<resetHeroSkillCd>
+			<Arg>	INT32	</Arg>
+		</resetHeroSkillCd>
+
+		<onCooldownOnLand>
+			<Arg>	INT32	</Arg>
+		</onCooldownOnLand>
+		<onDestinyEffectPlay>
+		</onDestinyEffectPlay>
+
+		<castWeaponEffect>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	BOOL	</Arg>
+		</castWeaponEffect>
+		<stopWeaponEffect>
+		</stopWeaponEffect>
+
+		<onStagnation>
+		</onStagnation>
+		<onStopStagnation>
+		</onStopStagnation>
+		<onHitFlyToPosition>
+			<Arg> VECTOR3	</Arg>	<!-- direction relative to world -->
+			<Arg>	FLOAT	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</onHitFlyToPosition>
+	</ClientMethods>
+
+	<BaseMethods>
+		<supplyWhenReborn>
+			<Arg>	PY_DICT	</Arg>
+		</supplyWhenReborn>
+	</BaseMethods>
+</root>

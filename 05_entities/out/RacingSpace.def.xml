@@ -1,0 +1,151 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface>	iGameStage	</Interface>
+		<Interface>	iMonsterGenerate</Interface>
+		<Interface>	iMonsterGroup	</Interface>
+		<Interface>	iRobotGenerate	</Interface>
+		<Interface>	iMatchSingleSideSpace	</Interface>
+		<Interface>	iTrap	</Interface>
+	</Implements>
+	
+	<ClientName>	RacingSpace	</ClientName>
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<racingStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</racingStartTime>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<rankTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rankTimerID>
+		<racingStartTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racingStartTimerID>
+		<racingFinishTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racingFinishTimerID>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<hasFirstArrival>
+			<Type>	BOOL		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</hasFirstArrival>
+		<rankListInRacing>
+			<Type>	ARRAY <of> ENTITY_ID </of>	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</rankListInRacing>
+		<rankListInGame>
+			<Type>	ARRAY <of> ENTITY_ID </of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rankListInGame>
+		<racerRankDict>
+			<Type>	PYTHON 	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racerRankDict>
+		<racerValueDict>
+			<Type>	PYTHON 	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racerValueDict>
+		<playerWithDraw>
+			<Type>	ARRAY <of> DBID </of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerWithDraw>
+		<playerFinished>
+			<Type>	ARRAY <of> DBID </of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerFinished>
+		<nRacers>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</nRacers>
+
+		<nCompletedRacer>
+			<Type>	INT32			</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</nCompletedRacer>
+
+		<clientStatus> <!--  记录客户端表现类的状态 	--> 
+			<Type>		PYTHON			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	{}			</Default>
+		</clientStatus>
+
+		<racingType>
+			<Type>	INT32			</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racingType>
+		<racingRobotNum>
+			<Type>	INT32			</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racingRobotNum>
+		<creatingRobots>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</creatingRobots>
+
+		<robotSerials>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</robotSerials>
+
+	</Properties>
+
+	<CellMethods>
+		<onRacerPassArea> <Exposed/>
+			<Arg>	INT32		</Arg> <!-- pass area id-->
+		</onRacerPassArea>
+
+		<onRacerPassFinishLine> <Exposed/>
+			<Arg>	FLOAT		</Arg> <!-- pass finish line time -->
+		</onRacerPassFinishLine>
+
+		<onEnterRaceJudgeArea>
+			<Arg>	INT32		</Arg> <!-- racer id-->
+			<Arg>	INT32		</Arg> <!-- area id-->
+		</onEnterRaceJudgeArea>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<onStageChanged>
+		</onStageChanged>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		RACE_GAME_RESULT </Arg>
+		</gameEnd>
+		<onGameEndTiming>
+			<Arg>		RACE_GAME_RESULT_ITEM		</Arg>
+		</onGameEndTiming>
+		<syncRealTimeRankData>
+			<Arg>		ARRAY <of> RACER_RANK_DATA </of>  </Arg>
+		</syncRealTimeRankData>
+
+		<playSoundBGM>
+			<Arg>		STRING		</Arg>
+		</playSoundBGM>
+
+		<onRacingStart>
+		</onRacingStart>
+	</ClientMethods>
+	
+</root>

@@ -1,0 +1,123 @@
+<root>
+	<Properties>
+		<newYearGoalSendInfo>    <!-- 玩家发送的共享任务列表{taskID: gid} -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newYearGoalSendInfo>
+		<newYearGoalReceiveInfo>    <!-- 玩家收到的共享任务列表{taskID: gid} -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newYearGoalReceiveInfo>
+		<globalNewYearGoalTaskInfo>    <!-- 全服所有任务的完成情况 -->
+		    <Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</globalNewYearGoalTaskInfo>
+		<newYearGoalTaskIDList>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newYearGoalTaskIDList>
+		<newYearGoalLoginTime>    <!-- 每日登入时间 -->
+			<Type>		INT64		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newYearGoalLoginTime>
+		<newYearGoalInviteRedPointList>    <!-- 是否有新邀请 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newYearGoalInviteRedPointList>
+		<forbidedNewYearGoalTaskIDList>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</forbidedNewYearGoalTaskIDList>
+		<currentNewYearGoalDataID>    <!-- 当前活动的ID -->
+			<Type>		INT64		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</currentNewYearGoalDataID>
+	</Properties>
+
+	<BaseMethods>
+		<payNewYearGoalTask> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</payNewYearGoalTask>
+		<invitePlayerShareNewYearGoal> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</invitePlayerShareNewYearGoal>
+		<receivePlayerShareNewYearGoal>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</receivePlayerShareNewYearGoal>
+		<declinePlayerShareNewYearGoal> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</declinePlayerShareNewYearGoal>
+		<onDeclinePlayerShareNewYearGoal>
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</onDeclinePlayerShareNewYearGoal>
+		<acceptPlayerShareNewYearGoal> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+			<Arg>			STRING				</Arg>   <!-- name -->
+		</acceptPlayerShareNewYearGoal>
+		<onAcceptPlayerShareNewYearGoal>
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+			<Arg>			STRING				</Arg>   <!-- name -->
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			FLOAT				</Arg>
+		</onAcceptPlayerShareNewYearGoal>
+		<updateNewYearGoalInviteRedPoint> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</updateNewYearGoalInviteRedPoint>
+		<getNewYearGoalReward> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- taskID -->
+		</getNewYearGoalReward>
+		<onSyncNewYearGoalTask>
+			<Arg>	INT32 	</Arg>
+			<Arg>	FLOAT 	</Arg>
+		</onSyncNewYearGoalTask>
+		<updateNewYearGoalGlobalInfo> <Exposed/>
+		</updateNewYearGoalGlobalInfo>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onPayNewYearGoalTaskSuc>
+		</onPayNewYearGoalTaskSuc>
+		<onPayNewYearGoalTaskFailed>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+		</onPayNewYearGoalTaskFailed>
+		<onUpdateNewYearGoalInfo>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+		</onUpdateNewYearGoalInfo>
+		<onGetNewYearGoalReward>
+			<Arg>	PYTHON 	</Arg>
+		</onGetNewYearGoalReward>
+	</ClientMethods>
+</root>

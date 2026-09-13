@@ -1,0 +1,29 @@
+<root>
+	<Implements>
+		<Interface>	iCell	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillClientMagicField	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+		<onActive>
+		</onActive>
+	</ClientMethods>
+
+	<CellMethods>
+		<doHit>
+			<Exposed/>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg> 
+		</doHit>
+	</CellMethods>
+
+</root>

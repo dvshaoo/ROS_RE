@@ -1,0 +1,22 @@
+<root>
+	<Properties>
+		<equipmentCultivateState>
+			<Type>			BOOL			</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		1			</Default>
+			<Persistent>	true 			</Persistent>
+		</equipmentCultivateState>
+	</Properties>
+
+	<ClientMethods>
+		<onSwitchEquipmentCultivateState>
+			<Arg>			BOOL			</Arg>
+		</onSwitchEquipmentCultivateState>
+	</ClientMethods>
+
+	<BaseMethods>
+		<switchEquipmentCultivateState>
+			<Arg>			BOOL			</Arg>
+		</switchEquipmentCultivateState>
+	</BaseMethods>
+</root>

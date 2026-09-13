@@ -1,0 +1,203 @@
+<root>
+	<Properties>
+		<lastBindMonth><!--上一次绑定时间(年-月)-->
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true			</Persistent>
+		</lastBindMonth>
+
+		<lastBindTime><!--上一次绑定时间(timestamp)-->
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE	</Flags>
+			<Persistent>	true			</Persistent>
+		</lastBindTime>
+
+		<beforeReqIDTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE	</Flags>
+		</beforeReqIDTime>
+
+		<afterReqIDTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE	</Flags>
+		</afterReqIDTime>
+
+		<bindedPhoneNumber><!--手机号-->
+			<Type>		STRING				</Type>
+			<Flags>		BASE				</Flags>
+			<Persistent>	true			</Persistent>
+		</bindedPhoneNumber>
+		<encBindedPhoneNumber><!--加密的手机号-->
+			<Type>		STRING				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</encBindedPhoneNumber>
+
+		<hasGetMonthlyAward><!--是否已领取当月奖励-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</hasGetMonthlyAward>
+
+		<hasBindPhone><!--是否绑定-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</hasBindPhone>
+
+		<firstTimeBind><!--首次绑定-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>	1		</Default>
+		</firstTimeBind>
+
+		<verifyConnectionTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	BASE	</Flags>
+		</verifyConnectionTimerID>
+
+		<firstBindTime><!--首次绑定时间-->
+			<Type>		FLOAT				</Type>
+			<Flags>		BASE		</Flags>
+			<Persistent>	true			</Persistent>
+		</firstBindTime>
+		<mobileAccountLastAwardMonth><!--手机绑定账户上次领取奖励时间-->
+			<Type>		STRING				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</mobileAccountLastAwardMonth>
+		<telNoInviteInfo> <!--手机号码邀请信息-->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>       {}                      </Default>
+		</telNoInviteInfo>
+		<telNoInviteGetAwardDayCnt><!-- 每天拿手机邀请奖励次数 -->
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>       0                      </Default>
+		</telNoInviteGetAwardDayCnt>
+		<telNoInviteGetAwardTime><!-- 每天拿手机邀请奖励的时间戳，用来检测刷新每日次数的 -->
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>       0                      </Default>
+		</telNoInviteGetAwardTime>
+	</Properties>
+
+	<BaseMethods>
+		<requestBindPhoneAward><Exposed/>
+		</requestBindPhoneAward>
+		<mobileAccountRequestAward><Exposed/>
+		</mobileAccountRequestAward>
+		<requestIdentifyCode><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- phone number -->
+		</requestIdentifyCode>
+
+		<requestBindPhone><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- phone number -->
+			<Arg>		STRING					</Arg>	<!-- sms code  -->
+		</requestBindPhone>
+
+		<requestVerifyEncNumber><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- enc number -->
+		</requestVerifyEncNumber>
+
+		<requestRebindIdentifyCode><Exposed/>
+		</requestRebindIdentifyCode>
+
+		<requestRebindPhone><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- sms code  -->
+		</requestRebindPhone>
+
+		<unbindPhone><Exposed/>
+		</unbindPhone>
+
+		<queryPhoneNumber><Exposed/>
+		</queryPhoneNumber>
+
+		<inviteTelNo><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- invite telNo -->
+		</inviteTelNo>
+		<getAwardByTelNoInvite><Exposed/>
+			<Arg>		STRING					</Arg>	<!-- invite telNo -->
+		</getAwardByTelNoInvite>
+		<getTelNoInviteInfoList><Exposed/>
+			<Arg>		STRING		</Arg>	<!-- telNoList -->
+		</getTelNoInviteInfoList>
+		<getTelNoInviteInfoListCallback>
+			<Arg>		PYTHON			</Arg>	
+		</getTelNoInviteInfoListCallback>
+
+		<!-- 绑定邮箱功能 开始 -->
+		<sendBindEmailCode><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		BOOL		</Arg>
+		</sendBindEmailCode>
+		<verifyBindEmailCode><Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</verifyBindEmailCode>
+		<cancelBindEmail><Exposed/>
+		</cancelBindEmail>
+		<!-- 绑定邮箱功能 结束 -->
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncMobileAccountState>
+			<Arg>		STRING					</Arg>
+		</syncMobileAccountState>
+		<onRequestIdentifyCodeResult>
+			<Arg>		PY_DICT					</Arg>
+		</onRequestIdentifyCodeResult>
+
+		<onRequestBindPhoneResult>
+			<Arg>		PY_DICT					</Arg>
+		</onRequestBindPhoneResult>
+
+		<onVerifyEncNumberResult>
+			<Arg>		PY_DICT					</Arg>
+		</onVerifyEncNumberResult>
+
+		<onRequestBindPhoneAwardResult>
+			<Arg>		PY_DICT					</Arg>
+		</onRequestBindPhoneAwardResult>
+
+		<onUnbindPhoneResult>
+			<Arg>		PY_DICT					</Arg>
+		</onUnbindPhoneResult>
+
+		<onResetBindPhoneResult>
+			<Arg>		PY_DICT					</Arg>
+		</onResetBindPhoneResult>
+
+		<onQueryPhoneResult>
+			<Arg>		PY_DICT					</Arg>
+		</onQueryPhoneResult>
+
+		<onVerifyConnectionDead>
+		</onVerifyConnectionDead>
+
+		<onUpdateTelInviteInfo>
+			<Arg>		PYTHON					</Arg>
+		</onUpdateTelInviteInfo>
+
+		<!-- 绑定邮箱功能 开始 -->
+		<sendBindEmailCodeCallback>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+		</sendBindEmailCodeCallback>
+		<verifyBindEmailCodeCallback>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</verifyBindEmailCodeCallback>
+		<cancelBindEmailCallback>
+			<Arg>		BOOL		</Arg>
+		</cancelBindEmailCallback>
+		<!-- 绑定邮箱功能 结束 -->
+
+	</ClientMethods>
+</root>

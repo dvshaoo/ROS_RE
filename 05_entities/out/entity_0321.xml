@@ -1,0 +1,55 @@
+<root>
+	<Properties>
+		<dtsWeekStarDiamondCnt> <!--一周内还能获得多少星钻-->
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</dtsWeekStarDiamondCnt>
+		<dtsStarDiamondTask> <!--星钻任务列表-->
+			<Type>		ARRAY <of> INT32 </of>		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+		</dtsStarDiamondTask>
+		<dtsDayDiamondCnt> <!--一天还能获得多少钻石-->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0		</Default>
+		</dtsDayDiamondCnt>
+		<dtsMaxDiamondCnt> <!--周年庆获得钻石数量-->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0		</Default>
+		</dtsMaxDiamondCnt>
+	</Properties>
+	<BaseMethods>
+		<onGetStarDiamond>
+			<Arg>		INT32		</Arg>
+		</onGetStarDiamond>
+		<onGetDtsStarDiamondTask>
+			<Arg>		INT32		</Arg>
+		</onGetDtsStarDiamondTask>
+		<onGetDtsInFightDiamond>
+			<Arg>		INT32		</Arg>
+		</onGetDtsInFightDiamond>
+	</BaseMethods>
+	<CellMethods>
+		<onGetStarDiamond>
+			<Arg>		INT32		</Arg>
+		</onGetStarDiamond>
+		<onGetDtsStarDiamondTaskProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetDtsStarDiamondTaskProp>
+		<onFinishTaskRewardStarDiamond>
+			<Arg>		INT32		</Arg>
+		</onFinishTaskRewardStarDiamond>
+		<onGetDtsInFightDiamond>
+			<Arg>		INT32		</Arg>
+		</onGetDtsInFightDiamond>
+	</CellMethods>
+
+	<ClientMethods>
+		<onGetDtsStarDiamondTask>
+			<Arg>		INT32		</Arg>
+		</onGetDtsStarDiamondTask>
+	</ClientMethods>
+</root>

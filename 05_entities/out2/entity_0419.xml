@@ -1,0 +1,168 @@
+<root>
+	<Implements>
+		<Interface>		iOnlineUpdateBase	</Interface>
+	</Implements>
+	<Properties>
+		<!-- BASE -->
+		<playerUUID><!--@玩家UUID-->
+			<Type>		OBJECT_UUID	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<DatabaseLength>16		</DatabaseLength>
+			<Persistent>	true		</Persistent>
+		</playerUUID>
+
+		<playerName><!--@账户用户名-->
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+			<DatabaseLength>255		</DatabaseLength>
+		</playerName>
+
+		<bindedPlayerName><!--@绑定账号后账户用户名-->
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+			<DatabaseLength>255		</DatabaseLength>
+		</bindedPlayerName>
+
+		<identifierName><!--@绑定账号的唯一用户名-->
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+			<DatabaseLength>255		</DatabaseLength>
+			<Identifier>	true		</Identifier>
+		</identifierName>
+
+		<baseNickname><!--@账户用户名-->
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+			<DatabaseLength>255		</DatabaseLength>
+		</baseNickname>
+		<gid>
+			<Type>		GID		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Persistent>	true		</Persistent>
+		</gid>
+		<isDestroying>
+			<Type>          BOOL            </Type>
+			<Flags>         BASE            </Flags>
+			<Default>	False		</Default>
+		</isDestroying>
+		<isClientReady>
+			<Type>          BOOL            </Type>
+			<Flags>         BASE            </Flags>
+			<Default>	False		</Default>
+		</isClientReady>
+		<baseTimerRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>         BASE            </Flags>
+			<Default>	{}		</Default>
+		</baseTimerRecord>
+		<proxyIDs>
+			<Type>		ARRAY <of> INT16 </of>	</Type>
+			<Flags>         BASE				</Flags>
+		</proxyIDs>
+
+		<channelInfo>
+			<Type>		PY_DICT			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}				</Default>
+		</channelInfo>
+		<deviceInfo>
+			<Type>		PY_DICT			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}				</Default>
+		</deviceInfo>
+		<clientEngineInfo>
+			<Type>		CLIENT_ENGINE_INFO	</Type>
+			<Flags>		BASE			</Flags>
+		</clientEngineInfo>
+		<extraAccountInfo>
+			<Type>		PY_DICT			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}				</Default>
+		</extraAccountInfo>
+		<sdkUserName>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+		</sdkUserName>
+		<!-- CELL -->
+
+	</Properties>
+	<BaseMethods>
+		<entireDestroy>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</entireDestroy>
+		<onRelogin>
+		</onRelogin>
+
+		<onRecoverFromDisconnect>
+		</onRecoverFromDisconnect>
+		
+		<onHotfixClient> <Exposed/>
+			<Arg>			BOOL				</Arg>	<!-- succ -->
+		</onHotfixClient>
+		<fetchHotfix> <Exposed/>
+		</fetchHotfix>
+
+		<updateChannelInfo>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</updateChannelInfo>
+		<updateExtraAccountInfo>
+			<Arg>		PYTHON		</Arg>
+		</updateExtraAccountInfo>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSetSwitches>
+			<Arg>			STRING				</Arg>	<!-- switch -->
+			<Arg>			UINT8				</Arg>	<!-- value -->
+		</onSetSwitches>
+
+		<onSetConst>
+			<Arg>			STRING				</Arg>	<!-- name -->
+			<Arg>			INT32				</Arg>	<!-- value -->
+		</onSetConst>
+
+		<onAddForbiddenID>
+			<Arg>   STRING   </Arg>
+			<Arg>			INT32			</Arg>
+		</onAddForbiddenID>
+
+		<onDelForbiddenID>
+			<Arg>   STRING   </Arg>
+			<Arg>			INT32			</Arg>
+		</onDelForbiddenID>
+
+		<sendHotfixMD5>
+			<Arg>			STRING				</Arg>	<!-- hotfix md5 -->
+		</sendHotfixMD5>
+		<sendHotfix>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>	<!-- hotfix md5 -->
+			<Arg>			STRING				</Arg>	<!-- hotfix md5 -->
+		</sendHotfix>
+		<syncGameMode>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</syncGameMode>
+
+		<syncServerTime>
+			<Arg>	INT64	</Arg>
+		</syncServerTime>
+		<syncServerTimeZone>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+		</syncServerTimeZone>
+		<onTimeProxy>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT64	</Arg>
+		</onTimeProxy>
+		<onTimeOrigin>
+		</onTimeOrigin>
+	</ClientMethods>
+</root>

@@ -1,0 +1,33 @@
+<root>
+	<Properties>
+		<curGuideFlows>					
+			<Type>			ARRAY <of>	UINT16 </of>	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+		</curGuideFlows>
+	</Properties>
+
+	<BaseMethods>
+		<startGuideFlow>
+			<Arg>			UINT16					</Arg>	<!--guideFlowID -->
+		</startGuideFlow>
+
+		<onTaskAccpeted>
+			<Arg>			UINT16					</Arg>	<!--taskID -->
+		</onTaskAccpeted>
+
+		<onTaskHandOver>
+			<Arg>			UINT16					</Arg>	<!--taskID -->
+		</onTaskHandOver>
+
+		<onFinishGuideFlow><Exposed/>
+			<Arg>			UINT16					</Arg>	<!--guideFlowID -->
+		</onFinishGuideFlow>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateGuideFlows>
+			<Arg>			ARRAY <of>UINT16</of>	</Arg>	<!--guideFlowsID -->
+		</onUpdateGuideFlows>
+	</ClientMethods>
+</root>

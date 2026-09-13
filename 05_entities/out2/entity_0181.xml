@@ -1,0 +1,43 @@
+<root>
+  <Implements>
+    <Interface>     iGlobal     </Interface>
+    <Interface>     iBaseNoCell   </Interface>
+  </Implements>
+  <Properties>
+  </Properties>
+  <BaseMethods>
+    <registerStronghold>
+      <Arg>     INT32       </Arg>
+      <Arg>     MAILBOX     </Arg>
+    </registerStronghold>
+
+    <unRegisterStronghold>
+      <Arg>     INT32       </Arg>
+      <Arg>     MAILBOX     </Arg>
+    </unRegisterStronghold>
+
+    <openEvent>
+      <Arg>     INT32       </Arg>
+    </openEvent>
+    <dungeonFinish>
+      <Arg>     INT32       </Arg>
+      <Arg>     PYTHON     </Arg>
+    </dungeonFinish>
+
+    <requestRunningEvents>
+      <Arg>     MAILBOX     </Arg>
+    </requestRunningEvents>
+
+    <queryEventProgress>
+      <Arg>     INT32       </Arg>
+      <Arg>     MAILBOX     </Arg>
+    </queryEventProgress>
+
+    <randomEvent>
+      <Arg>   INT32   </Arg>
+      <Arg>   BOOL    </Arg>
+      <Arg>   INT64   </Arg>
+    </randomEvent>
+  </BaseMethods>
+</root>
+

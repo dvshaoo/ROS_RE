@@ -1,0 +1,62 @@
+<root>
+	<Properties>
+		<yuanbaoBattleInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}		</Default>
+		</yuanbaoBattleInfo>
+		<yuanbaoBattleMatchID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</yuanbaoBattleMatchID>
+	</Properties>
+
+	<BaseMethods>
+		<useYuanbaoBattleChance> </useYuanbaoBattleChance>
+		<addYuanbaoBattleAwards> 
+			<Arg>		PYTHON		</Arg>
+		</addYuanbaoBattleAwards>
+		<addYuanbaoBattleGame> 
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</addYuanbaoBattleGame>
+		<refreshYuanbaoBattleYB>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshYuanbaoBattleYB>
+		<refreshYuanbaoBattleYBForObserve>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshYuanbaoBattleYBForObserve>
+	</BaseMethods>
+
+	<CellMethods>
+		<addYuanbaoBattleYB>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</addYuanbaoBattleYB>
+		<updateYuanbaoBattleTotalYB>
+			<Arg>		INT32		</Arg>
+		</updateYuanbaoBattleTotalYB>
+	</CellMethods>
+
+	<ClientMethods>
+		<showKillYuanbaoBattleYB>
+			<Arg>		INT32		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+		</showKillYuanbaoBattleYB>
+		<refreshYuanbaoBattleYB>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshYuanbaoBattleYB>
+		<refreshYuanbaoBattleYBForObserve>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshYuanbaoBattleYBForObserve>
+	</ClientMethods>
+</root>
+

@@ -1,0 +1,72 @@
+<root>
+	<Properties>
+
+		<deletedMail>
+		  <Type>			PYTHON		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       []			</Default>
+			<Persistent>	true		</Persistent>
+		</deletedMail>
+
+		<topMails>
+		  <Type>			PYTHON		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       []			</Default>
+			<Persistent>	true		</Persistent>
+		</topMails>
+	</Properties>
+
+	<BaseMethods>
+		<gmSysInformAll>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	UINT32		</Arg>
+		</gmSysInformAll>
+
+		<gmDelMail>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	INT32		</Arg>
+		</gmDelMail>
+
+		<gmSysInformSome>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	UINT32		</Arg>
+		</gmSysInformSome>
+
+		<loadOfflineMulticastMails>
+			<Arg>	GID			</Arg>
+			<Arg>	MAILBOX		</Arg>
+		</loadOfflineMulticastMails>
+
+		<sendPrivateMail>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	UINT32		</Arg>
+		</sendPrivateMail>
+
+		<sendMaintainGift>
+		</sendMaintainGift>
+
+		<reqMaxMsgID>
+			<Arg> MAILBOX </Arg>
+		</reqMaxMsgID>
+
+		<setTopMail>
+			<Arg>	UINT32		</Arg>
+			<Arg>	UINT32		</Arg>
+		</setTopMail>
+
+		<addMsgIntoSendMailDeque>
+			<Arg>	PYTHON		</Arg>
+		</addMsgIntoSendMailDeque>
+
+	</BaseMethods>
+</root>

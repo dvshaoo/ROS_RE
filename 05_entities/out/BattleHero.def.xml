@@ -1,0 +1,43 @@
+<root>
+	<Parent>	BattleSecretTreasure	</Parent>
+	<ClientName>	BattleHero		</ClientName>
+
+	<CellMethods>
+		<onAvtRebornPlaneCreate>
+			<Arg>	INT32	</Arg>	<!-- plane id -->
+			<Arg>	INT32	</Arg>	<!-- avt id -->
+		</onAvtRebornPlaneCreate>
+
+		<rebornAvatar>
+			<Arg>	INT32	</Arg>	<!-- avt id -->
+		</rebornAvatar>
+
+		<createHeroRobot>
+			<Arg>	PYTHON	</Arg>
+		</createHeroRobot>
+
+		<onHeroCreateAirDrop>
+			<Arg>	VECTOR3	</Arg>
+		</onHeroCreateAirDrop>
+
+		<destroyHeroRobot>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</destroyHeroRobot>
+
+		<findRangePlayers>
+			<Arg>	INT32	</Arg>
+			<Arg>	ARRAY	<of>	STRING	</of>	</Arg>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>	BOOL	</Arg>
+		</findRangePlayers>
+	</CellMethods>
+
+	<ClientMethods>
+		<startWaitReborn>
+			<Arg>	INT32	</Arg>	<!-- avt id -->
+			<Arg>	FLOAT	</Arg>	<!-- reborn time -->
+		</startWaitReborn>
+	</ClientMethods>
+</root>

@@ -1,0 +1,51 @@
+<root>
+	<Properties>
+		<!-- 已装备可装载外观列表 -->
+		<purchasedWelfare>
+			<Type>			ARRAY <of> PURCHASED_WELFARE_INFO </of>		</Type>
+			<Flags>			BASE_AND_CLIENT				</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</purchasedWelfare>
+		<availWelfare>
+			<Type>			PYTHON						</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+		</availWelfare>
+	</Properties>
+
+	<BaseMethods>
+		<queryAvailableWelfare> <Exposed/>
+		</queryAvailableWelfare>
+		<requestReceiveWelfare> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestReceiveWelfare>
+		<onBoughtWelfare>
+			<Arg>		INT32		</Arg>
+		</onBoughtWelfare>
+		<refreshWelfareTimestamp>
+		</refreshWelfareTimestamp>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onQueryAvailableWelfare>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		ARRAY <of> PURCHASED_WELFARE_INFO </of>		</Arg>
+		</onQueryAvailableWelfare>
+		<onReceiveWelfare>
+			<Arg>	PYTHON 	</Arg>
+		</onReceiveWelfare>
+		<onReceiveWelfareFailed>
+			<Arg>	STRING		</Arg>
+		</onReceiveWelfareFailed>
+		<onUpdatePurchasedWelfareInfo>
+			<Arg>		ARRAY <of> PURCHASED_WELFARE_INFO </of>		</Arg>
+		</onUpdatePurchasedWelfareInfo>
+		<onBoughtWelfare>
+			<Arg>		INT32		</Arg>
+		</onBoughtWelfare>
+		<syncWelfareCardFirstBuyInfo>
+			<Arg>		PYTHON		</Arg>
+		</syncWelfareCardFirstBuyInfo>
+	</ClientMethods>
+</root>

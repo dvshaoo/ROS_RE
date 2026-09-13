@@ -1,0 +1,105 @@
+<root>
+	<Properties>
+		<collectNewYearWordTaskInfo>    <!-- 任务进度信息 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</collectNewYearWordTaskInfo>
+		<collectNewYearWordRefreshTimes>    <!-- 每日刷新次数 -->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</collectNewYearWordRefreshTimes>
+		<isCollectNewYearWordFinished>    <!-- 是否已经集齐所有的字 -->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</isCollectNewYearWordFinished>
+		<newYearWordInfo>    <!-- 每个字的相关信息 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</newYearWordInfo>
+		<lastTimeRefreshNewYearWordTask>    <!-- 每日刷新次数时间 -->
+			<Type>		INT64		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastTimeRefreshNewYearWordTask>
+	</Properties>
+
+	<BaseMethods>
+		<getNewYearWordTaskReward> <Exposed/>
+			<Arg>	INT32 	</Arg>
+		</getNewYearWordTaskReward>
+
+		<getRandomNewYearWord> <Exposed/>
+		</getRandomNewYearWord>
+
+		<sendNewYearWordToFriend> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</sendNewYearWordToFriend>
+
+		<onReceiveFriendNewYearWord>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</onReceiveFriendNewYearWord>
+
+		<requestNewYearWordFromFriend> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</requestNewYearWordFromFriend>
+
+		<onReceiveRequestNewYearWordFromFriend>
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</onReceiveRequestNewYearWordFromFriend>
+
+		<receiveFriendNewYearWord> <Exposed/>
+			<Arg>			INT32				</Arg>   <!-- serverID -->
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</receiveFriendNewYearWord>
+
+		<onFeedBackReceiveWord>
+			<Arg>			INT64				</Arg>   <!-- gid -->
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</onFeedBackReceiveWord>
+
+		<getSendNewYearWordReward>
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</getSendNewYearWordReward>
+
+		<getNewYearWordAdvanceReward> <Exposed/>
+		</getNewYearWordAdvanceReward>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateNewYearWordInfo>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+		</onUpdateNewYearWordInfo>
+
+		<onGetNewYearWordReward>
+			<Arg>	PYTHON 	</Arg>
+		</onGetNewYearWordReward>
+
+		<onSendNewYearWordSuc>
+			<Arg>			INT32				</Arg>   <!-- idx -->
+		</onSendNewYearWordSuc>
+
+		<onGetNewYearWord>
+			<Arg>			INT32				</Arg>   <!-- idx -->
+			<Arg>	PYTHON 	</Arg>
+		</onGetNewYearWord>
+
+	</ClientMethods>
+</root>

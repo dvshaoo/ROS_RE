@@ -1,0 +1,25 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+	</Implements>
+	<ClientName>	TaskArea	</ClientName>
+	<Properties>
+		<areaID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</areaID>
+		<length>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</length>
+		<width>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</width>
+		<height>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</height>
+	</Properties>
+</root>

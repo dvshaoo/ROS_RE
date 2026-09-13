@@ -1,0 +1,18 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<getTopList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32				</Arg>	<!-- buffer version -->
+			<Arg>		INT32				</Arg>	<!-- buffer length-->
+			<Arg>		BOOL				</Arg>	<!-- next batch -->
+		</getTopList>
+	</BaseMethods>
+</root>

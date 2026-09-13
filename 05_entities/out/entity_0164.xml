@@ -1,0 +1,51 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<dayNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       0       </Default>
+			<Persistent>	true	</Persistent>
+		</dayNo>
+		<clearRankListDayNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       0       </Default>
+			<Persistent>	true	</Persistent>
+		</clearRankListDayNo>
+		
+        <anniversaryLotteryReward>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       []       </Default>
+			<Persistent>	true	</Persistent>
+		</anniversaryLotteryReward>
+        
+        <anniversaryLotteryResult>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       {}       </Default>
+			<Persistent>	true	</Persistent>
+		</anniversaryLotteryResult>
+		
+        <curAnniversaryLotteryRound>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>       0       </Default>
+			<Persistent>	true	</Persistent>
+        </curAnniversaryLotteryRound>
+	</Properties>
+
+	<BaseMethods>
+		<queryAnniversary3rdLotteryInfo>
+			<Arg>		MAILBOX			</Arg>
+		</queryAnniversary3rdLotteryInfo>
+		<gmClearAnniversary3rdLotteryData>
+		</gmClearAnniversary3rdLotteryData>
+	</BaseMethods>
+</root>
+

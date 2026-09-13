@@ -1,0 +1,99 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<getLotteryBetRecord> <Exposed/>
+			<Arg>		STRING		</Arg>
+		</getLotteryBetRecord>
+		<getLotteryMatchList> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</getLotteryMatchList>
+		<getLotteryBetReward> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</getLotteryBetReward>
+		<lotteryBet> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</lotteryBet>
+		<getSerialGuessReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getSerialGuessReward>
+		<getSerialGuessBetRecord> <Exposed/>
+			<Arg>		STRING		</Arg>
+		</getSerialGuessBetRecord>
+		<nationSerialGuessBet> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</nationSerialGuessBet>
+		<getCurSerialGuess> <Exposed/>
+			<Arg>		STRING		</Arg>
+		</getCurSerialGuess>
+		<getNationSerialGuessWinPlayerList> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</getNationSerialGuessWinPlayerList>
+		<checkLotteryAvailReward> <Exposed/>
+		</checkLotteryAvailReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<lotteryBetCallback>
+			<Arg>		INT8		</Arg>
+		</lotteryBetCallback>
+		<nationSerialGuessBetCallback>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</nationSerialGuessBetCallback>
+		<updateLotteryMatchList>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</updateLotteryMatchList>
+		<getLotteryBetRecordCallback>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</getLotteryBetRecordCallback>
+		<getLotteryBetRewardCallback>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</getLotteryBetRewardCallback>
+		<getSerialGuessRewardCallback>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</getSerialGuessRewardCallback>
+		<getSerialGuessBetRecordCallback>
+			<Arg>		INT8		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</getSerialGuessBetRecordCallback>
+		<onGetCurSerialGuess>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		STRING		</Arg>
+		</onGetCurSerialGuess>
+		<getNationSerialGuessWinPlayerListCallback>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</getNationSerialGuessWinPlayerListCallback>
+		<onCheckLotteryAvailReward>
+			<Arg>		BOOL		</Arg>
+		</onCheckLotteryAvailReward>
+	</ClientMethods>
+</root>

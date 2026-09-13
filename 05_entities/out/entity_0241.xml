@@ -1,0 +1,31 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<updateFacebookAccountID> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</updateFacebookAccountID>
+		<updateFacebookFriendAccountIDList> <Exposed/> 
+			<Arg>		STRING			</Arg>
+		</updateFacebookFriendAccountIDList>
+		<updateFacebookShortAccessToken> <Exposed/>
+			<Arg>		STRING			</Arg>
+		</updateFacebookShortAccessToken>
+		<requestFacebookStreamReward>	<Exposed/>
+		</requestFacebookStreamReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSyncFacebookFrdGidList>
+			<Arg>		PYTHON			</Arg>
+		</onSyncFacebookFrdGidList>
+		<updateFacebookFriendAccountIDListCallback>
+		</updateFacebookFriendAccountIDListCallback>
+		<requireFacebookShortAccessToken>
+		</requireFacebookShortAccessToken>
+		<syncFacebookStreamReward>
+			<Arg>		PYTHON			</Arg>
+		</syncFacebookStreamReward>
+	</ClientMethods>
+</root>

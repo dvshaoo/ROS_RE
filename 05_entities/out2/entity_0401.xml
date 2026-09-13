@@ -1,0 +1,15 @@
+<root>
+	<Properties>
+                <dynamicDifficultyMapLevels>
+                        <Type>          PYTHON	</Type>
+                        <Flags>         BASE </Flags>
+                        <Default>       {}		</Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </dynamicDifficultyMapLevels>
+	</Properties>
+	<BaseMethods>
+		<requestUsDynamicDifficultyData>
+			<Arg>			PYTHON				</Arg>
+		</requestUsDynamicDifficultyData>
+	</BaseMethods>
+</root>

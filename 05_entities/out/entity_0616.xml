@@ -1,0 +1,56 @@
+<root>
+	<Properties>
+		<annalTimer>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalTimer>
+		<annalSnapshotTimer>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalSnapshotTimer>
+		<annalUUID>
+			<Type>			STRING				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalUUID>
+		<annalData>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalData>
+		<annalIndex>
+			<Type>			UINT32				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalIndex>
+		<annalStartTime>
+			<Type>			FLOAT				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalStartTime>
+		<annalExtraData>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalExtraData>
+		<annalCollectionForSave>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</annalCollectionForSave>
+	</Properties>
+	<CellMethods>
+		<setAnnalUUID>
+			<Arg>		UUID		</Arg>
+		</setAnnalUUID>
+
+		<startAnnal>
+			<Arg>		UUID		</Arg>
+		</startAnnal>
+
+		<stopAnnal>
+		</stopAnnal>
+
+		<takeAnnalSnapshot>
+		</takeAnnalSnapshot>
+
+		<onAnnalExtraData>
+		    <Arg>       BLOB      </Arg>
+		</onAnnalExtraData>
+	</CellMethods>
+</root>
+

@@ -1,0 +1,73 @@
+<root>
+  <Properties>
+    <lifelongChallengeLevel>
+      <Type>    INT32    </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+      <Default> 0    </Default>
+      <Persistent>  true  </Persistent>
+    </lifelongChallengeLevel>
+    <dailyChallengeLevel>
+      <Type>    INT32    </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+      <Default> 0    </Default>
+      <Persistent>  true  </Persistent>
+    </dailyChallengeLevel>
+    <todayBestDailyLevel>
+      <Type>    INT32    </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+      <Default> 0    </Default>
+      <Persistent>  true  </Persistent>
+    </todayBestDailyLevel>
+
+    <damijingMapPool>
+      <Type>    PYTHON    </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </damijingMapPool>
+
+    <lastGetDailyEarningTime>
+      <Type>    FLOAT    </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+      <Default> 0    </Default>
+      <Persistent>  true  </Persistent>
+    </lastGetDailyEarningTime>
+
+    <lastOpenDamijingTime>
+      <Type>    FLOAT    </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+      <Default> 0    </Default>
+      <Persistent>  true  </Persistent>
+    </lastOpenDamijingTime>
+  </Properties>
+
+  <BaseMethods>
+    <requestResetDamijing> <Exposed/>
+    </requestResetDamijing>
+  </BaseMethods>
+
+  <CellMethods>
+    <nextChallenge>
+      <Arg>  INT8   </Arg>
+    </nextChallenge>
+    <challengeFailed>
+      <Arg>  INT8   </Arg>
+      <Arg>  INT32   </Arg>
+    </challengeFailed>
+    <challengeSucceed>
+      <Arg>  INT8   </Arg>
+      <Arg>  INT32   </Arg>
+    </challengeSucceed>
+    <resetDamijing>
+    </resetDamijing>
+
+    <startChallenge> <Exposed/>
+      <Arg>  INT8   </Arg>
+    </startChallenge>
+
+    <requestDailyEarnings> <Exposed/>
+    </requestDailyEarnings>
+
+  </CellMethods>
+
+  <ClientMethods>
+  </ClientMethods>
+</root>

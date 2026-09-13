@@ -1,0 +1,92 @@
+<root>
+	<ClientName>	DtsTrackingWeaponSummonEntity		</ClientName>
+	<Implements>
+		<Interface> iCell </Interface>
+		<Interface> iDtsExplode </Interface>
+		<Interface> iMove </Interface>
+	</Implements>
+
+	<Properties>
+		<bulletID>
+			<Type>	INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</bulletID>
+		<curSpeed>
+			<Type>	VECTOR3	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</curSpeed>
+		<explodeTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</explodeTimerID>
+		<updateTrackingTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</updateTrackingTimerID>
+		<trackStage>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</trackStage>
+		<lifespan>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</lifespan>
+		<targetEntityID>
+			<Type>		ENTITY_ID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</targetEntityID>
+		<trackSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</trackSpeed>
+		<stopTrackMinRange>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>		0.0		</Default>
+		</stopTrackMinRange>
+		<stopTrackMaxRange>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</stopTrackMaxRange>
+		<lastUpdateTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</lastUpdateTime>
+		<yawAngularSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</yawAngularSpeed>
+		<pitchAngularSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</pitchAngularSpeed>
+		<accMagnitude>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0.0		</Default>
+		</accMagnitude>
+		<offset>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</offset>
+	</Properties>
+
+	<ClientMethods>
+		<notifyClientExplode>
+			<Arg>	VECTOR3		</Arg>
+		</notifyClientExplode>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+</root>

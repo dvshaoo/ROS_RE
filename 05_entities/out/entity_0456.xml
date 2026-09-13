@@ -1,0 +1,1360 @@
+<root>
+	<Properties>
+		<childPropertyList>
+			<Type>	ARRAY
+				<of> FIXED_DICT
+					<Properties>
+						<parentGID>
+							<Type>		GID	</Type>
+						</parentGID>
+						<friendLimitExtension>
+							<Type>		INT32			</Type>
+						</friendLimitExtension>
+						<openSupplyTimes>
+							<Type>		PYTHON			</Type>
+						</openSupplyTimes>
+						<openSupplyTimesLastResetTime>
+							<!--	弃用		-->
+							<!--	开箱次数重置时间		-->
+							<Type>		INT64			</Type>
+						</openSupplyTimesLastResetTime>
+						<openMallTimes>
+							<Type>		PYTHON			</Type>
+						</openMallTimes>
+						<openHalfMonthPackageTimes>
+							<Type>		PYTHON			</Type>
+						</openHalfMonthPackageTimes>
+						<openWorkShopScore>
+							<Type>		INT32			</Type>
+						</openWorkShopScore>
+						<shareGiftInfo>
+							<Type>		PYTHON			</Type>
+						</shareGiftInfo>
+
+						<battleTimes>
+							<!--	弃用		-->
+							<Type>		PYTHON			</Type>
+						</battleTimes>
+						<battleKillNum>
+							<!--	弃用		-->
+							<Type>		INT32			</Type>
+						</battleKillNum>
+						<battleTaskState>
+							<Type>		PYTHON			</Type>
+						</battleTaskState>
+						<battleGiftInfo>
+							<Type>		PYTHON			</Type>
+						</battleGiftInfo>
+						<battleTimesLastResetTime>
+							<!--	每日战斗次数重置时间		-->
+							<Type>		INT64			</Type>
+						</battleTimesLastResetTime>
+						<battleTimesLastResetTimeWeekly>
+							<!--	每周战斗次数重置时间		-->
+							<Type>		INT64			</Type>
+						</battleTimesLastResetTimeWeekly>
+
+						<watchLiveLogs>
+							<Type>		PYTHON			</Type>
+						</watchLiveLogs>
+						<watchLiveGiftInfo>
+							<Type>		PYTHON			</Type>
+						</watchLiveGiftInfo>
+						<watchLiveLastResetTime>
+							<!--	每日看直播时长重置时间		-->
+							<Type>		INT64			</Type>
+						</watchLiveLastResetTime>
+
+						<redPacketGiftInfo>
+							<Type>		PYTHON			</Type>
+						</redPacketGiftInfo>
+						<redPackNum>
+							<Type>		PYTHON			</Type>
+						</redPackNum>
+						<giveRedPacketCnt>
+							<Type>		PYTHON			</Type>
+						</giveRedPacketCnt>
+						<getRedPacketCnt>
+							<Type>		PYTHON			</Type>
+						</getRedPacketCnt>
+						<personalGoldBattleOpenMail>
+							<Type>		BOOL			</Type>
+						</personalGoldBattleOpenMail>
+						<vnCheckInfo>
+							<Type>		STRING			</Type>
+						</vnCheckInfo>
+						<getChannelAwardsTimestamp>
+							<Type>	INT64	</Type>
+						</getChannelAwardsTimestamp>
+						<headFrameTag>
+							<Type>		INT32		</Type>
+						</headFrameTag>
+						<chatBubbleTag>
+							<Type>		INT32		</Type>
+						</chatBubbleTag>
+						<dtsNameplateAppearance>
+							<Type>		INT32		</Type>
+						</dtsNameplateAppearance>
+						<assistantRedPoint>
+							<Type>		INT32			</Type>
+						</assistantRedPoint>
+						<firstPayStateAdvance>
+							<Type>		INT32			</Type>
+						</firstPayStateAdvance>
+						<newFirstPayState>
+							<Type>		INT32			</Type>
+						</newFirstPayState>
+						<newFirstPayTime>
+							<Type>		INT32			</Type>
+						</newFirstPayTime>
+						<newFirstPayAccumulate>
+							<Type>		INT32			</Type>
+						</newFirstPayAccumulate>
+						<newFirstPayAccumulateState>
+							<Type>		INT32			</Type>
+						</newFirstPayAccumulateState>
+						<personalRecommendTime>
+							<Type>		INT32			</Type>
+						</personalRecommendTime>
+						<personalRecommendState>
+							<Type>		INT32			</Type>
+						</personalRecommendState>
+						<personalRecommendGift>
+							<Type>		PYTHON			</Type>
+						</personalRecommendGift>
+						<personalRecommendGiftTag>
+							<Type>		INT32			</Type>
+						</personalRecommendGiftTag>
+						<randomItemGuaranteeGetPropIDList>
+							<Type>		PYTHON			</Type>
+						</randomItemGuaranteeGetPropIDList>
+						<supplementGuaranteeGetPropIDList>
+							<Type>		PYTHON			</Type>
+						</supplementGuaranteeGetPropIDList>
+						<rankHistory>
+							<Type>		PYTHON			</Type>
+						</rankHistory>
+						<welfareCardFirstBuyInfo>
+							<Type>		PYTHON			</Type>
+						</welfareCardFirstBuyInfo>
+						<huiliuTaskLoginTime>
+							<Type>		INT32			</Type>
+						</huiliuTaskLoginTime>
+						<huiliuTaskShareTime>
+							<Type>		INT32			</Type>
+						</huiliuTaskShareTime>
+						<dayCounterLastReFreshTime>
+							<Type>		INT32			</Type>
+						</dayCounterLastReFreshTime>
+						<springWeeklyRefreshNo>
+							<Type>		INT32			</Type>
+						</springWeeklyRefreshNo>
+						<pushTag>
+							<Type>	INT32	</Type>
+							<Flags>	BASE	</Flags>
+							<Default>	0	</Default>
+						</pushTag>
+						<huiliuFriendGiftList>
+							<Type>		ARRAY <of> GID </of>		</Type>
+						</huiliuFriendGiftList>
+						<huiliuFriendGiftTime>
+							<Type>		INT32		</Type>
+						</huiliuFriendGiftTime>
+						<huiliuFriendGiftNumber>
+							<Type>		INT32		</Type>
+						</huiliuFriendGiftNumber>
+						<huiliuFriendGiftNumberTime>
+							<Type>		INT32		</Type>
+						</huiliuFriendGiftNumberTime>
+						<lockDtsTip>
+							<Type>		STRING		</Type>
+						</lockDtsTip>
+						<commanderChance>
+							<Type>		INT32			</Type>
+						</commanderChance>
+						<lastRequestedHotMallGoodResDict>
+							<Type>		PYTHON			</Type>
+						</lastRequestedHotMallGoodResDict>
+						<lastRequestedHotMallTimeStamp>
+							<Type>		FLOAT			</Type>
+						</lastRequestedHotMallTimeStamp>
+						<userLoginAppChannel>
+							<Type>		STRING			</Type>
+						</userLoginAppChannel>
+						<accumulateChargeDailyCount>
+							<Type>		INT32			</Type>
+						</accumulateChargeDailyCount>
+						<accumulateChargeDailyTimestamp>
+							<Type>		INT32			</Type>
+						</accumulateChargeDailyTimestamp>
+						<accumulateChargeWeeklyCount>
+							<Type>		INT32			</Type>
+						</accumulateChargeWeeklyCount>
+						<accumulateChargeWeeklyTimestamp>
+							<Type>		INT32			</Type>
+						</accumulateChargeWeeklyTimestamp>
+						<accumulateChargeWeeklyState>
+							<Type>		INT32			</Type>
+						</accumulateChargeWeeklyState>
+						<accumulateChargeClickState>
+							<Type>		INT8			</Type>
+						</accumulateChargeClickState>
+						<pendingInvitees>
+							<Type>    PYTHON   </Type>
+						</pendingInvitees>
+						<pendingInviters>
+							<Type>    PYTHON   </Type>
+						</pendingInviters>
+						<complaintMailSendRecords>
+							<Type>    PYTHON   </Type>
+						</complaintMailSendRecords>
+						<yuanbaoBattleInfo>
+							<Type>		PYTHON			</Type>
+						</yuanbaoBattleInfo>
+						<creditScore>
+							<Type>		INT32		</Type>
+						</creditScore>
+						<unbanGiftMallTime> <!-- 解封时间 0：没有封 -1：永久封 >0:解封时间 -->
+							<Type>			INT32		</Type>
+						</unbanGiftMallTime>
+						<reset_gift_mall_timestamp>
+						  <Type>    FLOAT    </Type>
+						</reset_gift_mall_timestamp>
+						<gift_send_count>
+						  <Type>    INT32    </Type>
+						</gift_send_count>
+						<gift_receive_count>
+						  <Type>    INT32    </Type>
+						</gift_receive_count>
+						<alarmed_gift_receive_index>
+						  <Type>    INT32    </Type>
+						</alarmed_gift_receive_index>
+						<currency_consumes>
+						  <Type>    PYTHON    </Type>
+						</currency_consumes>
+						<alarmed_currency_consumes>
+						  <Type>    PYTHON    </Type>
+						</alarmed_currency_consumes>
+						<complaintTimeStamp>
+							<Type>		INT64		</Type>
+						</complaintTimeStamp>
+						<complaintCnt>
+							<Type>		INT32		</Type>
+						</complaintCnt>
+						<monthPayRebateSpecialAwardInfo>	<!--	每月特惠奖励	-->
+							<Type>		PYTHON			</Type>
+						</monthPayRebateSpecialAwardInfo>
+						<specialBuffAwardInfo>	<!--	特殊的buff类奖励,目前主要是在每月特惠中投放,如双倍金币/特殊击杀提示/免广告	-->
+
+							<Type>		PYTHON			</Type>
+						</specialBuffAwardInfo>
+
+						<clothMallSortInfo>
+							<Type>		PYTHON			</Type>
+						</clothMallSortInfo>
+						<clothMallSortInfoTag>
+							<Type>		INT32		</Type>
+						</clothMallSortInfoTag>
+						<clothMallSOrtInfoLastReqTimeStamp>
+							<Type>		FLOAT		</Type>
+						</clothMallSOrtInfoLastReqTimeStamp>
+						<facebookLongAccessToken>
+							<Type>		STRING		</Type>
+						</facebookLongAccessToken>
+						<facebookLongAccessTokenExpiredSeconds>
+							<Type>		INT32		</Type>
+						</facebookLongAccessTokenExpiredSeconds>
+						<facebookLongAccessTokenCreateTime>
+							<Type>		INT32		</Type>
+						</facebookLongAccessTokenCreateTime>
+						<cosmicSupplyRefreshNo>  <!-- 刷新时间-->
+							<Type>		INT32			</Type>
+						</cosmicSupplyRefreshNo>
+						<cosmicSupplyNewbieFlag> <!--新号标记-->
+							<Type>			BOOL		</Type>
+						</cosmicSupplyNewbieFlag>
+					</Properties>
+					<Default>
+						<pendingInvitees> {} </pendingInvitees>
+						<pendingInviters> {} </pendingInviters>
+						<parentGID>	0		</parentGID>
+						<openSupplyTimes>	{}		</openSupplyTimes>
+						<openSupplyTimesLastResetTime>	0		</openSupplyTimesLastResetTime>
+						<firstPayStateAdvance> 0 </firstPayStateAdvance>
+						<newFirstPayState> 0 </newFirstPayState>
+						<newFirstPayTime> 0 </newFirstPayTime>
+						<newFirstPayAccumulate> 0 </newFirstPayAccumulate>
+						<newFirstPayAccumulateState> 0 </newFirstPayAccumulateState>
+						<personalRecommendTime> 0 </personalRecommendTime>
+						<personalRecommendState> 0 </personalRecommendState>
+						<personalRecommendGift> {} </personalRecommendGift>
+						<personalRecommendGiftTag> -1 </personalRecommendGiftTag>
+						<openMallTimes>	{}		</openMallTimes>
+						<openHalfMonthPackageTimes>	{}		</openHalfMonthPackageTimes>
+						<openWorkShopScore>	0		</openWorkShopScore>
+						<shareGiftInfo>	{}		</shareGiftInfo>
+						<battleTimes>	{}		</battleTimes>
+						<battleKillNum>	0		</battleKillNum>
+						<battleTaskState>	{}		</battleTaskState>
+						<battleGiftInfo>	{}		</battleGiftInfo>
+						<battleTimesLastResetTime>	0		</battleTimesLastResetTime>
+						<watchLiveLogs>	{}		</watchLiveLogs>
+						<watchLiveGiftInfo>	{}		</watchLiveGiftInfo>
+						<watchLiveLastResetTime>	0		</watchLiveLastResetTime>
+						<redPacketGiftInfo>	{}		</redPacketGiftInfo>
+						<redPackNum>		{}		</redPackNum>
+						<giveRedPacketCnt>		{}		</giveRedPacketCnt>
+						<getRedPacketCnt>		{}		</getRedPacketCnt>
+						<personalGoldBattleOpenMail>		False		</personalGoldBattleOpenMail>
+						<getChannelAwardsTimestamp>	0	</getChannelAwardsTimestamp>
+						<headFrameTag> 0 </headFrameTag>
+						<chatBubbleTag> 0 </chatBubbleTag>
+						<dtsNameplateAppearance> 0 </dtsNameplateAppearance>
+						<firstPayStateAdvance> 0 </firstPayStateAdvance>
+						<assistantRedPoint> 1 </assistantRedPoint>
+						<randomItemGuaranteeGetPropIDList> {} </randomItemGuaranteeGetPropIDList>
+						<supplementGuaranteeGetPropIDList> {} </supplementGuaranteeGetPropIDList>
+						<dayCounterLastReFreshTime>	0	</dayCounterLastReFreshTime>
+						<springWeeklyRefreshNo>	0	</springWeeklyRefreshNo>
+						<pushTag> 0 </pushTag>
+						<commanderChance> 0 </commanderChance>
+						<lastRequestedHotMallGoodResDict> {} </lastRequestedHotMallGoodResDict>
+						<lastRequestedHotMallTimeStamp> 0 </lastRequestedHotMallTimeStamp>
+						<userLoginAppChannel> "-1" </userLoginAppChannel>
+						<accumulateChargeDailyCount> 0 </accumulateChargeDailyCount>
+						<accumulateChargeDailyTimestamp> 0 </accumulateChargeDailyTimestamp>
+						<accumulateChargeWeeklyCount> 0 </accumulateChargeWeeklyCount>
+						<accumulateChargeWeeklyTimestamp> 0 </accumulateChargeWeeklyTimestamp>
+						<accumulateChargeWeeklyState> 0 </accumulateChargeWeeklyState>
+						<accumulateChargeClickState> 0 </accumulateChargeClickState>
+						<complaintMailSendRecords> [] </complaintMailSendRecords>
+						<yuanbaoBattleInfo>	{}		</yuanbaoBattleInfo>
+						<welfareCardFirstBuyInfo> {} </welfareCardFirstBuyInfo>
+						<creditScore>		100		</creditScore>
+						<unbanGiftMallTime>		0		</unbanGiftMallTime>
+						<monthPayRebateSpecialAwardInfo> {} </monthPayRebateSpecialAwardInfo>
+						<specialBuffAwardInfo> {} </specialBuffAwardInfo>
+						<reset_gift_mall_timestamp> 0 </reset_gift_mall_timestamp>
+						<gift_send_count> 0 </gift_send_count>
+						<alarmed_gift_receive_index> 0 </alarmed_gift_receive_index>
+						<gift_receive_count> 0 </gift_receive_count>
+						<currency_consumes> {} </currency_consumes>
+						<alarmed_currency_consumes> {} </alarmed_currency_consumes>
+						<clothMallSortInfo> [] </clothMallSortInfo>
+						<clothMallSortInfoTag> 0 </clothMallSortInfoTag>
+						<clothMallSOrtInfoLastReqTimeStamp> 0 </clothMallSOrtInfoLastReqTimeStamp>
+                        <facebookLongAccessToken> "" </facebookLongAccessToken>
+                        <facebookLongAccessTokenExpiredSeconds> 0 </facebookLongAccessTokenExpiredSeconds>
+                        <facebookLongAccessTokenCreateTime> 0 </facebookLongAccessTokenCreateTime>
+						<cosmicSupplyRefreshNo> 0 </cosmicSupplyRefreshNo>
+						<cosmicSupplyNewbieFlag> 0 </cosmicSupplyNewbieFlag>
+					</Default>
+				</of>
+				<size> 1	</size>
+			</Type>
+			<Flags>		BASE		</Flags>
+			<Persistent>	true		</Persistent>
+		</childPropertyList>
+		<childBaseClientPropertyList>
+			<Type>	ARRAY
+				<of> FIXED_DICT
+					<Properties>
+						<clickedPeiWanHall>
+							<Type>		BOOL			</Type>
+						</clickedPeiWanHall>
+						<huiliuLastOnlineTimeInReturn>
+							<Type>		INT64			</Type>
+						</huiliuLastOnlineTimeInReturn>
+						<huiliuToNormalTime>
+							<Type>		INT64			</Type>
+						</huiliuToNormalTime>
+						<huiliuIsReturnState>
+							<Type>		BOOL			</Type>
+						</huiliuIsReturnState>
+						<huiliuOldPlayerReturnVersion>
+							<Type>		INT32			</Type>
+						</huiliuOldPlayerReturnVersion>
+						<huiliuLoginAwardLevel>
+							<Type>		INT32			</Type>
+						</huiliuLoginAwardLevel>
+						<huiliuReturnStateStartTime>
+							<Type>		INT64			</Type>
+						</huiliuReturnStateStartTime>
+						<huiliuLoginAwardGetTime>
+							<Type>		INT64			</Type>
+						</huiliuLoginAwardGetTime>
+						<package2> 	<!-- 仓库背包，用于存放限时物品 -->
+							<Type>		DTS_APPEARANCE_REPERTORY_PACKAGE3		</Type>
+						</package2>
+						<allowFirstDownloadFPSMode>
+							<Type>		BOOL			</Type>
+						</allowFirstDownloadFPSMode>
+						<isPauseDownloadingFPSMode>
+							<Type>		BOOL			</Type>
+						</isPauseDownloadingFPSMode>
+						<huiliuOldPlayerTaskProgress>
+							<Type>		INT32									</Type>
+						</huiliuOldPlayerTaskProgress>
+						<huiliuOldPlayerTaskData>
+							<Type>		PY_DICT									</Type>
+						</huiliuOldPlayerTaskData>
+						<huiliuProgressAwardInfo>
+							<Type>		ARRAY <of> INT8 </of>					</Type>
+						</huiliuProgressAwardInfo>
+						<huiliuOldPlayerTaskGetData>
+							<Type>		PY_DICT									</Type>
+						</huiliuOldPlayerTaskGetData>
+						<huiliuHadStateOnce>
+							<Type>		INT32									</Type>
+						</huiliuHadStateOnce>
+
+						<huiliuRecaller>
+							<Type>		GID 			</Type>
+						</huiliuRecaller>
+
+						<isFirstHuiliuMainShow>
+							<Type>		BOOL 			</Type>
+						</isFirstHuiliuMainShow>
+
+						<recallHuiliuerList>
+							<Type>		ARRAY <of> GID </of> 			</Type>
+						</recallHuiliuerList>
+
+						<recallHuiliuerNumAward>
+							<Type>		ARRAY <of> INT8 </of>			</Type>
+						</recallHuiliuerNumAward>
+
+						<itemConvertTimes>
+							<Type>		PYTHON			</Type>
+						</itemConvertTimes>
+						<itemConvertRemind>
+							<Type>		PYTHON			</Type>
+						</itemConvertRemind>
+						<timeRangePayAwardInfo>
+							<Type>		PYTHON			</Type>
+						</timeRangePayAwardInfo>
+						<dataRedHint>
+							<Type>		INT8			</Type>
+						</dataRedHint>
+						<portrait>
+							<Type>		STRING		</Type>
+						</portrait>
+						<!-- 勇者之书开始 -->
+						<braveBookTaskList>
+							<Type> PYTHON </Type>
+							<Flags> BASE_AND_CLIENT </Flags>
+							<Persistent> true </Persistent>
+						</braveBookTaskList>
+						<braveBookTaskRefreshCount>
+							<Type> INT32 </Type>
+							<Flags> BASE_AND_CLIENT </Flags>
+							<Persistent> true </Persistent>
+						</braveBookTaskRefreshCount>
+						<kaizhai_gift_state>
+							<Type>		INT8			</Type>
+						</kaizhai_gift_state>
+						<braveBookTaskTimestamp>
+							<Type> LONGTIME </Type>
+							<Flags> BASE_AND_CLIENT </Flags>
+							<Persistent> true </Persistent>
+						</braveBookTaskTimestamp>
+						<!-- 勇者之书结束 -->
+
+						<!-- 已装备宠物外观 -->
+						<dtsPetAppearance>
+								<Type>			INT32		</Type>
+								<Flags>			BASE_AND_CLIENT				</Flags>
+								<Default>		0						</Default>
+								<Persistent> 	true						</Persistent>
+						</dtsPetAppearance>
+						<!-- 好友赠送消息 -->
+						<giftInfoList>
+							<Type>			PYTHON				</Type>
+							<Flags>			BASE		</Flags>
+							<Default>		[]						</Default>
+							<Persistent>	true			</Persistent>
+						</giftInfoList>
+						<giftCount>
+							<Type>			INT32				</Type>
+							<Flags>			BASE_AND_CLIENT		</Flags>
+							<Persistent>	true			</Persistent>
+						</giftCount>
+						<giftSendRecord>
+							<Type>			PYTHON				</Type>
+							<Flags>			BASE		</Flags>
+							<Default>		[]						</Default>
+							<Persistent>	true			</Persistent>
+						</giftSendRecord>
+						<giftReceiveRecord>
+							<Type>			PYTHON				</Type>
+							<Flags>			BASE		</Flags>
+							<Default>		[]						</Default>
+							<Persistent>	true			</Persistent>
+						</giftReceiveRecord>
+
+
+						<!-- 等级系统开始 -->
+						<dtsExp>
+							<Type>			INT64				</Type>
+							<Flags>			BASE_AND_CLIENT		</Flags>
+							<Default>		0					</Default>
+							<Persistent>	true			</Persistent>
+						</dtsExp>
+
+						<dtsLevel>
+							<Type>			INT32				</Type>
+							<Flags>			BASE_AND_CLIENT		</Flags>
+							<Default>		1					</Default>
+							<Persistent>	true			</Persistent>
+						</dtsLevel>
+
+						<specialAwardState>
+							<Type>			DTS_LEVEL_SPECIAL_AWARD_STATE			</Type>
+							<Flags>			BASE_AND_CLIENT							</Flags>
+							<Persistent>	true									</Persistent>
+						</specialAwardState>
+
+						<curLevelAward>
+							<Type>			INT32				</Type>
+							<Flags>			BASE_AND_CLIENT		</Flags>
+							<Default>		1					</Default>
+							<Persistent>	true			</Persistent>
+						</curLevelAward>
+
+						<!-- 等级系统结束 -->
+
+						<!-- 幸运大转盘定义开始 -->
+						<luckySeasonNo> <!-- 幸运大转盘的季度 -->
+							<Type>			INT32				</Type>
+						</luckySeasonNo>
+
+						<luckySeasonEndTime> <!-- 幸运大转盘的季度结束时间 -->
+							<Type>			INT32				</Type>
+						</luckySeasonEndTime>
+
+						<luckySeasonGiftGotState> <!-- 幸运大转盘的季度奖励领取状态 -->
+							<Type>		ARRAY <of> INT8 </of>		</Type>
+						</luckySeasonGiftGotState>
+
+						<luckySeasonCharge> <!-- 幸运大转盘季度已经充能多少 -->
+							<Type>			INT32				</Type>
+						</luckySeasonCharge>
+
+						<luckySeasonDraws> <!-- 幸运大转盘季度已经抽过多少次 -->
+							<Type>			INT32				</Type>
+						</luckySeasonDraws>
+
+						<luckyRoundNo> <!-- 幸运大转盘小周期轮数 -->
+							<Type>			INT32				</Type>
+						</luckyRoundNo>
+
+						<luckyRoundDraws> <!-- 幸运大转盘季度已经抽过多少次 -->
+							<Type>			INT32				</Type>
+						</luckyRoundDraws>
+
+						<luckyRoundState>
+							<Type>			INT8				</Type>
+						</luckyRoundState>
+
+						<luckyRoundGift>
+							<Type>		ARRAY <of> INT32 </of>	</Type>
+						</luckyRoundGift>
+						<luckyRoundBuff>
+							<Type>			INT32			</Type>
+						</luckyRoundBuff>
+						<luckyRoundGotIndex>
+							<Type>		ARRAY <of> INT8	</of>	</Type>
+						</luckyRoundGotIndex>
+						<luckyRoundRefreshTime>
+							<Type>			INT32				</Type>
+						</luckyRoundRefreshTime>
+						<luckyRoundCloseTime>
+							<Type>			INT32				</Type>
+						</luckyRoundCloseTime>
+						<luckyRoundIsSuper>
+							<Type>			INT8				</Type>
+						</luckyRoundIsSuper>
+						<luckyRoundByRecommend>
+							<Type>			BOOL				</Type>
+						</luckyRoundByRecommend>
+						<!-- 幸运大转盘定义结束 -->
+
+						<signAwardTime>
+							<Type>			INT64				</Type>
+						</signAwardTime>
+						<signAwardLevel>
+							<Type>			INT32				</Type>
+						</signAwardLevel>
+						<signAwardRefreshTime>
+							<Type>			INT64				</Type>
+						</signAwardRefreshTime>
+						<!-- 日常签到结束 -->
+
+						<!-- 海发首充开始 -->
+						<newFirstPayState> <!-- 海发首充领取状态 CANT CAN DONE -->
+							<Type>	INT32	</Type>
+						</newFirstPayState>
+						<newFirstPayAccumulate> <!-- 海发首充累计金额 0.0 -->
+							<Type>	FLOAT	</Type>
+						</newFirstPayAccumulate>
+						<newFirstPayAccumulateState> <!-- 海发首充累计金额领取状态 CANT CAN DONE -->
+							<Type>	INT32	</Type>
+						</newFirstPayAccumulateState>
+						<!-- 海发首充结束 -->
+						<dailyActivityRewardState>
+							<Type>	PYTHON	</Type>
+						</dailyActivityRewardState>
+						<activityState>
+							<Type>	PYTHON	</Type>
+						</activityState>
+						<activityProgress>
+							<Type>	PYTHON	</Type>
+						</activityProgress>
+						<dtsHallThemeID>
+							<Type>		INT32			</Type>
+						</dtsHallThemeID>
+						<dtsPaintAppearanceIDs>
+							<Type>		PYTHON			</Type>
+						</dtsPaintAppearanceIDs>
+						<cosmicSupplyOpenNum>  <!-- 总的开启次数 -->
+							<Type>			INT32			</Type>
+						</cosmicSupplyOpenNum>
+						<cosmicSupplyTodayOpenNum>  <!-- 当天开启次数 -->
+							<Type>			INT32			</Type>
+						</cosmicSupplyTodayOpenNum>
+						<cosmicSupplyShareUrl>     <!-- 分享链接 -->
+							<Type>			STRING			</Type>
+						</cosmicSupplyShareUrl>
+						<cosmicSupplyShareNum>  <!-- 参与次数 -->
+							<Type>			INT32			</Type>
+						</cosmicSupplyShareNum>
+						<cosmicSupplyInviteNewNum>    <!-- 拉新次数-->
+							<Type>			INT32			</Type>
+						</cosmicSupplyInviteNewNum>
+						<cosmicSupplyInviteAwardList>  <!-- 拉新奖励-->
+							<Type>	PYTHON </Type>
+						</cosmicSupplyInviteAwardList>
+						<cosmicSupplyBindInviteCode> <!-- 绑定邀请码-->
+							<Type>			STRING			</Type>
+						</cosmicSupplyBindInviteCode>
+						<cosmicSupplySumCash> <!-- 海外新春纳福累计充值-->
+							<Type>			FLOAT			</Type>
+						</cosmicSupplySumCash>
+						<cosmicSupplyBonusPool> <!-- 海外新春纳福奖金池-->
+							<Type>			INT32		</Type>
+						</cosmicSupplyBonusPool>
+						<cosmicSupplyHasGetBindInviteCodeReward>
+							<Type>			BOOL		</Type>
+						</cosmicSupplyHasGetBindInviteCodeReward>
+
+						<allowFirstDownloadDLC>
+							<Type>		PYTHON			</Type>
+						</allowFirstDownloadDLC>
+						<pauseDownloadDLC>
+							<Type>		PYTHON			</Type>
+						</pauseDownloadDLC>
+					</Properties>
+					<Default>
+						<clickedPeiWanHall> 0 </clickedPeiWanHall>
+						<huiliuLastOnlineTimeInReturn> 0 	</huiliuLastOnlineTimeInReturn>
+						<huiliuToNormalTime>	0	</huiliuToNormalTime>
+						<huiliuIsReturnState> 0 	</huiliuIsReturnState>
+						<huiliuOldPlayerReturnVersion> 0 	</huiliuOldPlayerReturnVersion>
+						<huiliuLoginAwardLevel> 0 	</huiliuLoginAwardLevel>
+						<huiliuReturnStateStartTime> 0 	</huiliuReturnStateStartTime>
+						<huiliuLoginAwardGetTime> 0 	</huiliuLoginAwardGetTime>
+						<huiliuOldPlayerTaskData> {} 	</huiliuOldPlayerTaskData>
+						<package2>
+							<itemList> [] </itemList>
+							<layoutInfo> [] </layoutInfo>
+							<_packageCapacity> 0 </_packageCapacity>
+						</package2>
+						<allowFirstDownloadFPSMode>0</allowFirstDownloadFPSMode>
+						<isPauseDownloadingFPSMode>0</isPauseDownloadingFPSMode>
+						<huiliuOldPlayerTaskProgress> 0 	</huiliuOldPlayerTaskProgress>
+						<huiliuProgressAwardInfo> [] </huiliuProgressAwardInfo>
+						<huiliuOldPlayerTaskGetData> {} </huiliuOldPlayerTaskGetData>
+						<huiliuHadStateOnce> 0 </huiliuHadStateOnce>
+						<recallHuiliuerNumAward> [] </recallHuiliuerNumAward>
+						<isFirstHuiliuMainShow> 1 </isFirstHuiliuMainShow>
+						<itemConvertTimes>	{}		</itemConvertTimes>
+						<itemConvertRemind>	{}		</itemConvertRemind>
+						<timeRangePayAwardInfo>	{}		</timeRangePayAwardInfo>
+						<dataRedHint>	0		</dataRedHint>
+						<!-- 勇者之书开始 -->
+						<braveBookTaskList> {} </braveBookTaskList>
+						<braveBookTaskRefreshCount> 0 </braveBookTaskRefreshCount>
+						<braveBookTaskTimestamp> 0 </braveBookTaskTimestamp>
+						<!-- 勇者之书结束 -->
+						<!-- 等级系统开始 -->
+						<dtsExp> 0 </dtsExp>
+						<dtsLevel> 1 </dtsLevel>
+						<curLevelAward> 1 </curLevelAward>
+						<!-- 等级系统结束 -->
+
+						<!-- 幸运嘉年华开始 -->
+						<luckySeasonNo>	0		</luckySeasonNo>
+						<luckySeasonEndTime>	0		</luckySeasonEndTime>
+						<luckySeasonGiftGotState>	[]		</luckySeasonGiftGotState>
+						<luckySeasonDraws>	0		</luckySeasonDraws>
+						<luckySeasonCharge>	0		</luckySeasonCharge>
+						<luckyRoundNo>	0		</luckyRoundNo>
+						<luckyRoundDraws>	0		</luckyRoundDraws>
+						<luckyRoundState>	0		</luckyRoundState>
+						<luckyRoundGift>	[]		</luckyRoundGift>
+						<luckyRoundBuff>	0		</luckyRoundBuff>
+						<luckyRoundGotIndex>	[]		</luckyRoundGotIndex>
+						<luckyRoundRefreshTime>	0		</luckyRoundRefreshTime>
+						<luckyRoundCloseTime>	0		</luckyRoundCloseTime>
+						<!-- 幸运嘉年华结束 -->
+						<!-- 日常签到开始 -->
+						<kaizhai_gift_state>		0		</kaizhai_gift_state>
+						<signAwardTime>		0			</signAwardTime>
+						<signAwardLevel>	0			</signAwardLevel>
+						<signAwardRefreshTime>  0		</signAwardRefreshTime>
+						<!-- 日常签到结束 -->
+						<newFirstPayState>  0		</newFirstPayState>
+						<newFirstPayAccumulate>  0.0		</newFirstPayAccumulate>
+						<newFirstPayAccumulateState>  0		</newFirstPayAccumulateState>
+						<dailyActivityRewardState>	[]	</dailyActivityRewardState>
+						<activityState>	[]			</activityState>
+						<activityProgress>	[]	</activityProgress>
+						<dtsHallThemeID> 0 </dtsHallThemeID>
+						<dtsPaintAppearanceIDs> [] </dtsPaintAppearanceIDs>
+						<cosmicSupplyOpenNum> 0 </cosmicSupplyOpenNum>
+						<cosmicSupplyTodayOpenNum> 0 </cosmicSupplyTodayOpenNum>
+						<cosmicSupplyShareNum> 0 </cosmicSupplyShareNum>
+						<cosmicSupplyInviteNewNum> 0 </cosmicSupplyInviteNewNum>
+						<cosmicSupplyInviteAwardList> [] </cosmicSupplyInviteAwardList>
+						<cosmicSupplySumCash> 0.0 </cosmicSupplySumCash>
+						<cosmicSupplyBonusPool> 0 </cosmicSupplyBonusPool>
+						<cosmicSupplyHasGetBindInviteCodeReward> False </cosmicSupplyHasGetBindInviteCodeReward>
+						<!-- 允许下载的dlc -->
+						<allowFirstDownloadDLC>	{}		</allowFirstDownloadDLC>
+						<pauseDownloadDLC>	{}		</pauseDownloadDLC>
+					</Default>
+				</of>
+				<size> 1	</size>
+			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true		</Persistent>
+		</childBaseClientPropertyList>
+		<childPropertyList2>
+			<Type>	ARRAY
+				<of> FIXED_DICT
+					<Properties>
+						<isNTESVIP>
+							<Type>	BOOL </Type>
+						</isNTESVIP>
+						<ntesVIPValidMonth>
+							<Type>	PYTHON </Type>
+						</ntesVIPValidMonth>
+						<ntesVIPOrderID>
+							<Type>	STRING </Type>
+						</ntesVIPOrderID>
+						<ntesVIPPurchaseInfo>
+							<Type>	PYTHON </Type>
+						</ntesVIPPurchaseInfo>
+						<ntesVIPIconInfo>
+							<Type>	PYTHON </Type>
+						</ntesVIPIconInfo>
+						<lastGetNationalRefundTime>
+							<Type>	INT64	</Type>
+						</lastGetNationalRefundTime>
+						<todayNationalRefundCount>
+							<Type>	INT32	</Type>
+						</todayNationalRefundCount>
+						<hasEnterAutoRoyale>
+							<Type>	BOOL	</Type>
+						</hasEnterAutoRoyale>
+						<lastLoginMailTime>
+							<Type>	INT64	</Type>
+						</lastLoginMailTime>
+						<personalRecommendVersion>
+							<Type>		INT32	</Type>
+						</personalRecommendVersion>
+						<luckyRoundGiftItemID>
+							<Type>	PYTHON	</Type>
+						</luckyRoundGiftItemID>
+						<openItemConvertTimes>
+							<Type>		PYTHON			</Type>
+						</openItemConvertTimes>
+						<openSupplyGiftLastResetTime>
+							<!--	开箱奖励重置时间 <id(data_open_supply_gift) : lastResetTime(int)>	-->
+							<Type>		PYTHON			</Type>
+						</openSupplyGiftLastResetTime>
+						<!-- 等级相关 -->
+						<totalPlayGameMinute>
+							<Type>		INT32		</Type>
+						</totalPlayGameMinute>
+
+						<playGameMinuteData>
+							<Type>		DATETIME_RECORD_DATE	</Type>
+						</playGameMinuteData>
+						<accumulateChargeVersion>
+							<Type>		INT8			</Type>
+						</accumulateChargeVersion>
+						<accumulateChargeWeeklyGotList>
+							<Type>		PYTHON </Type>
+						</accumulateChargeWeeklyGotList>
+						<luckyCarnivalVersion>
+							<Type>		INT8			</Type>
+						</luckyCarnivalVersion>
+						<luckyRoundTempGiftBox>
+							<Type>		PYTHON			</Type>
+						</luckyRoundTempGiftBox>
+						<luckyRoundRecommendByUS>
+							<Type>		PYTHON			</Type>
+						</luckyRoundRecommendByUS>
+						<luckyCelebrationPrizeGotList>
+							<!--	已经获取的普天同庆开宝箱的编号	-->
+							<Type>		PYTHON			</Type>
+						</luckyCelebrationPrizeGotList>
+						<telkomseGoodsInfo>
+							<Type>		PYTHON			</Type>
+						</telkomseGoodsInfo>
+
+						<vid>
+							<Type>		INT32		</Type>
+						</vid>
+						<intimacyTaskStates>
+							<!-- 亲密度任务状态 -->
+							<Type>		PYTHON		</Type>
+						</intimacyTaskStates>
+						<highestIntimacyDegree>
+							<Type>		INT32		</Type>
+						</highestIntimacyDegree>
+						<!--	七夕配对活动	-->
+						<doubleSevenCouple>
+							<Type>		FRIEND_INFO		</Type>
+						</doubleSevenCouple>
+						<coupleRequestList>
+							<Type>			PYTHON	</Type>
+						</coupleRequestList>
+						<coupleSend>
+							<Type>			GID			</Type>
+						</coupleSend>
+						<sendGunList1>
+							<Type>			PYTHON	</Type>
+						</sendGunList1>
+						<sendGunList2>
+							<Type>			PYTHON	</Type>
+						</sendGunList2>
+						<!--	七夕配对活动结束	-->
+						<haveGotSingleCat>
+							<Type>			BOOL			</Type>
+						</haveGotSingleCat>
+						<!-- 单身喵分享开始 -->
+						<shareCatRefreshTime>
+							<Type>			INT64				</Type>
+						</shareCatRefreshTime>
+						<!-- 单身喵分享结束 -->
+						<!--创建的任务-->
+						<createdTasks>
+							<Type>			DTS_ACTIVIY_TASK_SERVER_MAP		</Type>
+						</createdTasks>
+						<timeLastRecord>
+							<Type> INT32 </Type>
+						</timeLastRecord>
+
+						<curDayTaskLastLoginDayNo>
+							<Type> INT32 </Type>
+						</curDayTaskLastLoginDayNo>
+
+						<personalRecommendBuyTimes>
+							<Type> INT32 </Type>
+						</personalRecommendBuyTimes>
+						<!-- 绑定邮箱功能 开始 -->
+						<bindEmailCode>
+							<Type> STRING </Type>
+						</bindEmailCode>
+						<!-- 绑定邮箱功能 结束 -->
+						<everyDayExtraGP>
+							<Type> INT32 </Type>
+						</everyDayExtraGP>
+						<vipInfo>
+							<Type>		PYTHON			</Type>
+						</vipInfo>
+						<dtsInGameActionAppearanceIDs>
+							<Type>		PYTHON			</Type>
+						</dtsInGameActionAppearanceIDs>
+						<anniversaryMissionFinishList> <!-- 任务完成列表 -->
+							<Type>		ARRAY <of> INT32 </of>	 </Type>
+						</anniversaryMissionFinishList>
+						<anniversaryRefreshNo> <!-- 刷新时间 -->
+							<Type> INT32 </Type>
+						</anniversaryRefreshNo>
+						<anniversaryOldPlayerHasGetReward>
+							<Type> BOOL </Type>
+						</anniversaryOldPlayerHasGetReward>
+						<anniversaryNewbieFlag>
+							<Type> BOOL </Type>
+						</anniversaryNewbieFlag>
+						<anniversaryContinuousLogin>
+							<Type> INT32 </Type>
+						</anniversaryContinuousLogin>
+						<anniversaryEverydayKillReward>
+							<Type>  BOOL	</Type>
+						</anniversaryEverydayKillReward>
+						<anniversaryEverydayKillFlag>
+							<Type>  BOOL	</Type>
+						</anniversaryEverydayKillFlag>
+						<anniversaryFirstPayRebateHasGet>
+							<Type>  BOOL	</Type>
+						</anniversaryFirstPayRebateHasGet>
+						<createdNewPlayerTasks>
+							<Type>			DTS_ACTIVIY_TASK_SERVER_MAP		</Type>
+						</createdNewPlayerTasks>
+						<anniversaryHasNewMission>
+							<Type>  BOOL	</Type>
+						</anniversaryHasNewMission>
+						<anniversaryInviteFriend>
+							<Type>  BOOL	</Type>
+						</anniversaryInviteFriend>
+						<compensateNewPlayerTask>
+							<Type>		BOOL			</Type>
+						</compensateNewPlayerTask>
+						<hasCompensateWelfareReward>
+							<Type>		BOOL			</Type>
+						</hasCompensateWelfareReward>
+						<currentClientRCVersion>
+							<Type>		INT32			</Type>
+						</currentClientRCVersion>
+						<doubleTwelveTaskInfo>
+							<Type>		PYTHON			</Type>
+						</doubleTwelveTaskInfo>
+						<lastTimeRefreshDoubleTwelveInfo>
+							<Type>		INT32			</Type>
+						</lastTimeRefreshDoubleTwelveInfo>
+						<doubleTwelveConvertInfo>
+							<Type>		PYTHON			</Type>
+						</doubleTwelveConvertInfo>
+						<cosmicRewardRefreshKey>
+							<Type>		STRING			</Type>
+						</cosmicRewardRefreshKey>
+						<newMonthPayRebateSpecialAwardInfo>	<!--	新每月特惠奖励，支持若干个特惠同时存在	-->
+							<Type>		PYTHON			</Type>
+						</newMonthPayRebateSpecialAwardInfo>
+						<newSpecialBuffAwardInfo>	<!--	新特殊的buff类奖励，支持若干个特惠同时存在	-->
+							<Type>		PYTHON			</Type>
+						</newSpecialBuffAwardInfo>
+						<currency_get_times>
+							<Type>		PYTHON			</Type>
+						</currency_get_times>
+						<alarmed_currency_get_times>
+							<Type>		PYTHON			</Type>
+						</alarmed_currency_get_times>
+						<backState>
+							<Type>		INT32			</Type>
+						</backState>
+						<lastBackTime>
+							<Type>		INT32			</Type>
+						</lastBackTime>
+						<meetBackState>
+							<Type>		INT32			</Type>
+						</meetBackState>
+						<makeupSendRecord>
+							<Type>		INT32		</Type>
+						</makeupSendRecord>
+					</Properties>
+					<Default>
+						<hasEnterAutoRoyale> 0 </hasEnterAutoRoyale>
+						<luckyRoundGiftItemID>	{}		</luckyRoundGiftItemID>
+						<personalRecommendVersion> 1 </personalRecommendVersion>
+						<personalRecommendBuyTimes> 0 </personalRecommendBuyTimes>
+						<hasGetRCReward> {} </hasGetRCReward>
+						<lastLoginMailTime>	0	</lastLoginMailTime>
+						<accumulateChargeVersion> 0 </accumulateChargeVersion>
+						<accumulateChargeWeeklyGotList> [] </accumulateChargeWeeklyGotList>
+						<luckyCarnivalVersion> 0 </luckyCarnivalVersion>
+						<luckyRoundTempGiftBox> [] </luckyRoundTempGiftBox>
+						<luckyRoundRecommendByUS> [] </luckyRoundRecommendByUS>
+						<luckyCelebrationPrizeGotList> [] </luckyCelebrationPrizeGotList>
+						<openItemConvertTimes> {} </openItemConvertTimes>
+						<openSupplyGiftLastResetTime> {} </openSupplyGiftLastResetTime>
+						<telkomseGoodsInfo>	{}	</telkomseGoodsInfo>
+						<intimacyTaskStates> {} </intimacyTaskStates>
+						<highestIntimacyDegree> 0 </highestIntimacyDegree>
+						<haveGotSingleCat> 0 </haveGotSingleCat>
+						<curDayTaskLastLoginDayNo> 0 </curDayTaskLastLoginDayNo>
+						<createdTasks> [] </createdTasks>
+						<timeLastRecord>  0 </timeLastRecord>
+						<coupleRequestList> [] </coupleRequestList>
+						<sendGunList1> [] </sendGunList1>
+						<sendGunList2> [] </sendGunList2>
+						<vipInfo>	{}	</vipInfo>
+						<isNTESVIP> 0 </isNTESVIP>
+						<dtsInGameActionAppearanceIDs> [] </dtsInGameActionAppearanceIDs>
+						<anniversaryMissionFinishList> [] </anniversaryMissionFinishList>
+						<anniversaryRefreshNo> 0 </anniversaryRefreshNo>
+						<anniversaryOldPlayerHasGetReward> False </anniversaryOldPlayerHasGetReward>
+						<anniversaryNewbieFlag> Flase </anniversaryNewbieFlag>
+						<anniversaryContinuousLogin> 0 </anniversaryContinuousLogin>
+						<anniversaryEverydayKillReward> False </anniversaryEverydayKillReward>
+						<anniversaryEverydayKillFlag> False </anniversaryEverydayKillFlag>
+						<anniversaryFirstPayRebateHasGet> False </anniversaryFirstPayRebateHasGet>
+						<createdNewPlayerTasks> [] </createdNewPlayerTasks>
+						<anniversaryInviteFriend> 1 </anniversaryInviteFriend>
+						<currentClientRCVersion> 0 </currentClientRCVersion>
+						<doubleTwelveTaskInfo> {} </doubleTwelveTaskInfo>
+						<doubleTwelveConvertInfo> {} </doubleTwelveConvertInfo>
+						<cosmicRewardRefreshKey> "" </cosmicRewardRefreshKey>
+						<newMonthPayRebateSpecialAwardInfo> {} </newMonthPayRebateSpecialAwardInfo>
+						<newSpecialBuffAwardInfo> {} </newSpecialBuffAwardInfo>
+						<currency_get_times> {} </currency_get_times>
+						<alarmed_currency_get_times> {} </alarmed_currency_get_times>
+						<backState> 0 </backState>
+						<lastBackTime> 0 </lastBackTime>
+						<meetBackState> 0 </meetBackState>
+						<makeupSendRecord> 0 </makeupSendRecord>
+					</Default>
+				</of>
+				<size> 1	</size>
+			</Type>
+			<Flags>		BASE		</Flags>
+			<Persistent>	true		</Persistent>
+		</childPropertyList2>
+		<childClientPropertyList2>
+			<Type>	ARRAY
+				<of> FIXED_DICT
+					<Properties>
+						<nationalRefundPool>
+							<Type>	INT32	</Type>
+						</nationalRefundPool>
+						<nationalRefund>
+							<Type>	INT32	</Type>
+						</nationalRefund>
+						<currentVidFont>
+							<Type>		INT32		</Type>
+						</currentVidFont>
+						<vidFontList>
+							<Type>		ARRAY <of> INT32 </of>	 </Type>
+						</vidFontList>
+						<historyVidPrice>
+							<Type>		ARRAY <of> INT32 </of>	 </Type>
+						</historyVidPrice>
+						<roomCardExpireTime>
+							<Type>	INT64	</Type>
+						</roomCardExpireTime>
+						<gotLevelAwardList>
+							<Type>			PYTHON				</Type>
+						</gotLevelAwardList>
+						<bigSpeakerNum>
+							<Type>	INT32	</Type>
+						</bigSpeakerNum>
+						<hasGetRCRewards>
+							<!--	是否已领取新版本奖励		-->
+							<Type>			PYTHON		</Type>
+						</hasGetRCRewards>
+						<hasAlreadyShowMonthSupply>
+							<!--	是否已显示过月度特购		-->
+							<Type>			INT32		</Type>
+						</hasAlreadyShowMonthSupply>
+						<!-- 每日助力开始 -->
+						<supportRefreshTime>
+							<Type>			INT64				</Type>
+						</supportRefreshTime>
+						<lastSupportTime>
+							<Type>			INT64				</Type>
+						</lastSupportTime>
+						<checkTotaySupport>
+							<Type>		BOOL			</Type>
+						</checkTotaySupport>
+						<!-- 每日助力结束 -->
+
+						<dtsPlayerSfxAppearanceIDs>
+							<Type>			ARRAY <of> INT32 </of> 					</Type>
+						</dtsPlayerSfxAppearanceIDs>
+						<intimateRelationshipInfo>
+							<!--	亲密度关系记录		-->
+							<Type>			PYTHON		</Type>
+						</intimateRelationshipInfo>
+						<intimateRelationshipRequestList>
+							<!--	亲密度关系请求列表		-->
+							<Type>			PYTHON		</Type>
+						</intimateRelationshipRequestList>
+						<doubleSevenWords>
+							<Type>		STRING		</Type>
+						</doubleSevenWords>
+						<checkTodayShareCat>
+							<Type>		BOOL			</Type>
+						</checkTodayShareCat>
+						<!--已经完成了的任务-->
+						<doneTaskIDs>
+							<Type> PYTHON </Type>
+						</doneTaskIDs>
+
+						<!--真在做的任务-->
+						<currentTaskIDs>
+							<Type> PYTHON </Type>
+						</currentTaskIDs>
+
+						<awardedTaskIDs>
+							<Type>	PYTHON </Type>
+						</awardedTaskIDs>
+
+						<dailyTaskIDs>
+							<Type> PYTHON </Type>
+						</dailyTaskIDs>
+						<zhongqiuSkinKillNumber>
+							<Type> INT32 </Type>
+						</zhongqiuSkinKillNumber>
+						<preCreatedTaskIDs>
+							<!--只能看的任务-->
+							<Type> PYTHON </Type>
+						</preCreatedTaskIDs>
+						<!-- 绑定邮箱功能 开始 -->
+						<bindEmail>
+							<Type> STRING </Type>
+						</bindEmail>
+						<!-- 自定义房间配置积分标志 -->
+						<customInviteAuthority>
+							<Type> BOOL	</Type>
+						</customInviteAuthority>
+						<carnivalRecommendTag>
+							<Type> INT32 </Type>
+						</carnivalRecommendTag>
+						<bindEmailState>
+							<Type> INT8 </Type>
+						</bindEmailState>
+						<lastBindEmailTime>
+							<Type> INT32 </Type>
+						</lastBindEmailTime>
+						<!-- 绑定邮箱功能 结束 -->
+
+						<curDayTaskID>
+							<Type> INT32 </Type>
+						</curDayTaskID>
+						<curDayTaskTotalScore>
+							<Type> INT32 </Type>
+						</curDayTaskTotalScore>
+						<curDayTaskProgress>
+							<Type> PYTHON </Type>
+						</curDayTaskProgress>
+						<curDayTaskTotalScoreRewards>
+							<Type> PYTHON </Type>
+						</curDayTaskTotalScoreRewards>
+
+						<freeModifyRosMatchTeamLogoChance>
+							<Type> INT8 </Type>
+						</freeModifyRosMatchTeamLogoChance>
+
+						<extraBattleAwardCurrency>
+							<Type> PYTHON </Type>
+						</extraBattleAwardCurrency>
+						<extraBattleAwardIntimacyDegree>
+							<Type> PYTHON </Type>
+						</extraBattleAwardIntimacyDegree>
+						
+						<redPackageActityChance> <!-- 记录玩家每种来源的可领取次数与已领取次数-->
+							<Type> PYTHON </Type>
+						</redPackageActityChance>
+						<redPackageRecordByQuality><!-- 记录玩家各种品质的红包的已领取次数-->
+							<Type> PYTHON </Type>
+						</redPackageRecordByQuality>
+						<getRedPackageTotalChance> <!-- 记录玩家每天可领取的红包次数-->
+							<Type> INT32 </Type>
+						</getRedPackageTotalChance>
+						<getRedPackageTotalChanceUsed> <!-- 已领取的次数-->
+							<Type> INT32 </Type>
+						</getRedPackageTotalChanceUsed>
+						<nationalLastGetRedPackageResetTime> <!-- 红包领取次数重置时间-->
+							<Type> INT32 </Type>
+						</nationalLastGetRedPackageResetTime>
+						<complementSignTimes>
+							<Type>			INT32				</Type>
+						</complementSignTimes>
+						# 飞行配饰
+						<dtsFlyingAccessoryList>
+							<Type>			ARRAY <of> INT32 </of>		</Type>
+						</dtsFlyingAccessoryList>
+						<mallDefaultUIContent>
+							<Type>		PYTHON			</Type>
+						</mallDefaultUIContent>
+						<mallDefaultUITag>
+							<Type>		INT32		</Type>
+						</mallDefaultUITag>
+						<mallDefaultUILastReqTimeStamp>
+							<Type>		FLOAT		</Type>
+						</mallDefaultUILastReqTimeStamp>
+						<lastTimeSignWishPool>
+							<Type>			INT32				</Type>
+						</lastTimeSignWishPool>
+						<totalSignWishPool>
+							<Type>			INT32				</Type>
+						</totalSignWishPool>
+						<wishedTargetPropID>
+							<Type>			INT32				</Type>
+						</wishedTargetPropID>
+						<gotWishPoolPropList>
+							<Type> PYTHON </Type>
+						</gotWishPoolPropList>
+						<anniversaryEggs>
+							<Type>		PYTHON			</Type>
+						</anniversaryEggs>
+						<anniversaryEggCanShare>
+							<Type>  BOOL	</Type>
+						</anniversaryEggCanShare>
+						<anniversaryMissionId>
+							<Type>		INT32			</Type>
+						</anniversaryMissionId>
+						<anniversaryMissionRewardState>
+							<Type>	PYTHON  		</Type>
+						</anniversaryMissionRewardState>
+						<anniversaryBindInviteCode>
+							<Type>			STRING		</Type>
+						</anniversaryBindInviteCode>
+						<anniversaryTimeLimitApperance>
+							<Type>	PYTHON  		</Type>
+						</anniversaryTimeLimitApperance>
+						<anniversaryFriendGift>
+							<Type>	PYTHON  		</Type>
+						</anniversaryFriendGift>
+						<anniversaryInviteRewardNum>
+							<Type>	INT32		</Type>
+						</anniversaryInviteRewardNum>
+						<anniversaryH5GameShareUrl>
+							<Type>			STRING		</Type>
+						</anniversaryH5GameShareUrl>
+						<anniversaryH5GameRewardList>
+							<Type>		ARRAY <of> INT64 </of>			</Type>
+						</anniversaryH5GameRewardList>
+						<newPlayerTaskStartTime>
+							<Type>			INT32				</Type>
+						</newPlayerTaskStartTime>
+						<doneNewPlayerTaskIDs>
+							<Type> PYTHON </Type>
+						</doneNewPlayerTaskIDs>
+						<awardedNewPlayerTaskIDs>
+							<Type> PYTHON </Type>
+						</awardedNewPlayerTaskIDs>
+						<awardedNewPlayerTaskScore>
+							<Type> PYTHON </Type>
+						</awardedNewPlayerTaskScore>
+						<newPlayerTaskScore>
+							<Type>			INT32				</Type>
+						</newPlayerTaskScore>
+						<isLevelUpNewPlayerTask>
+							<Type>		BOOL			</Type>
+						</isLevelUpNewPlayerTask>
+						<totalAnniversaryAnchorGift>
+							<Type>	PYTHON		</Type>
+						</totalAnniversaryAnchorGift>
+						<dtsAppearanceSuitList>
+							<Type>	PYTHON		</Type>
+						</dtsAppearanceSuitList>
+						<supplementGotExtraGiftPropRecord>
+							<Type>	PYTHON		</Type>
+						</supplementGotExtraGiftPropRecord>
+						<doubleTwelveHotValue>
+							<Type>		INT32			</Type>
+						</doubleTwelveHotValue>
+						<suitWeaponDanceChargeData>
+							<Type>	PYTHON		</Type>
+						</suitWeaponDanceChargeData>
+						<payRebateScore>
+							<Type>		INT32			</Type>
+						</payRebateScore>
+						<payRebateScoreBoxExchangeTimes>
+							<Type>	PYTHON		</Type>
+						</payRebateScoreBoxExchangeTimes>
+						<supplementFreeLotteryTimeStampDict>
+							<Type>	PYTHON		</Type>
+						</supplementFreeLotteryTimeStampDict>
+						<newYearGoalTaskInfo>
+							<Type>	PYTHON		</Type>
+						</newYearGoalTaskInfo>
+						<hallPropBuyTimes>
+							<Type>	PYTHON		</Type>
+						</hallPropBuyTimes>
+						<mainpageIntimateVisibleByOthers>
+							<Type> BOOL		</Type>
+						</mainpageIntimateVisibleByOthers>
+						<isIntimateRelationshipVisibleInTeam>
+							<Type> BOOL 	</Type>
+						</isIntimateRelationshipVisibleInTeam>
+						<shouldCreatePetInBattle>
+							<Type> BOOL 	</Type>
+						</shouldCreatePetInBattle>
+						<customizedSuitData>
+							<Type> ARRAY <of> CUSTOMIZED_SUIT_DATA </of>	</Type>
+						</customizedSuitData>
+						<transformSuitsCollected>
+							<Type> PYTHON 	</Type>
+						</transformSuitsCollected>
+					</Properties>
+					<Default>
+						<gotLevelAwardList>	[]	</gotLevelAwardList>
+						<bigSpeakerNum> 0 </bigSpeakerNum>
+						<hasGetRCRewards> {} </hasGetRCRewards>
+						<currentVidFont> 0 </currentVidFont>
+						<dtsPlayerSfxAppearanceIDs> [] </dtsPlayerSfxAppearanceIDs>
+						<hasAlreadyShowMonthSupply> 0 </hasAlreadyShowMonthSupply>
+						<intimateRelationshipInfo> {} </intimateRelationshipInfo>
+						<intimateRelationshipRequestList> [] </intimateRelationshipRequestList>
+						<doubleSevenWords> 确认过眼神，我遇上对的人 </doubleSevenWords>
+						<doneTaskIDs> [] </doneTaskIDs>
+						<currentTaskIDs> [] </currentTaskIDs>
+						<awardedTaskIDs> [] </awardedTaskIDs>
+						<dailyTaskIDs> [] </dailyTaskIDs>
+						<preCreatedTaskIDs> [] </preCreatedTaskIDs>
+
+						<bindEmailState> 0 </bindEmailState>
+
+						<curDayTaskID> 0 </curDayTaskID>
+						<curDayTaskTotalScore> 0 </curDayTaskTotalScore>
+						<curDayTaskProgress> {} </curDayTaskProgress>
+						<curDayTaskTotalScoreRewards> {} </curDayTaskTotalScoreRewards>
+
+						<customInviteAuthority>  False </customInviteAuthority>
+						<carnivalRecommendTag>  -1	</carnivalRecommendTag>
+						<lastBindEmailTime> 0 </lastBindEmailTime>
+						<freeModifyRosMatchTeamLogoChance> 0 </freeModifyRosMatchTeamLogoChance>
+						<extraBattleAwardCurrency> {} </extraBattleAwardCurrency>
+						<extraBattleAwardIntimacyDegree> {} </extraBattleAwardIntimacyDegree>
+						<redPackageActityChance> {}     </redPackageActityChance>
+						<redPackageRecordByQuality> {} </redPackageRecordByQuality>
+						<getRedPackageTotalChance> 1 </getRedPackageTotalChance>
+						<nationalRefundPool> -1 </nationalRefundPool>
+						<!-- 本周补签次数 -->
+						<complementSignTimes>	0			</complementSignTimes>
+						<!-- 飞行配饰 -->
+						<dtsFlyingAccessoryList> [] </dtsFlyingAccessoryList>
+						<mallDefaultUIContent> {} </mallDefaultUIContent>
+						<mallDefaultUILastReqTimeStamp> 0 </mallDefaultUILastReqTimeStamp>
+						<mallDefaultUITag> 0 </mallDefaultUITag>
+						<gotWishPoolPropList> [] </gotWishPoolPropList>
+						<anniversaryEggs> {} </anniversaryEggs>
+						<anniversaryMissionId> -1 </anniversaryMissionId>
+						<anniversaryMissionRewardState> {} </anniversaryMissionRewardState>
+						<anniversaryEggCanShare> True </anniversaryEggCanShare>
+						<anniversaryTimeLimitApperance> [] </anniversaryTimeLimitApperance>
+						<anniversaryFriendGift> {} </anniversaryFriendGift>
+						<anniversaryInviteRewardNum> 0 </anniversaryInviteRewardNum>
+						<anniversaryH5GameRewardList> [] </anniversaryH5GameRewardList>
+						<doneNewPlayerTaskIDs> [] </doneNewPlayerTaskIDs>
+						<awardedNewPlayerTaskIDs> [] </awardedNewPlayerTaskIDs>
+						<awardedNewPlayerTaskScore> [] </awardedNewPlayerTaskScore>
+						<totalAnniversaryAnchorGift> [] </totalAnniversaryAnchorGift>
+						<dtsAppearanceSuitList> [] </dtsAppearanceSuitList>
+						<supplementGotExtraGiftPropRecord> {} </supplementGotExtraGiftPropRecord>
+						<suitWeaponDanceChargeData> {} </suitWeaponDanceChargeData>
+						<payRebateScore> 0 </payRebateScore>
+						<payRebateScoreBoxExchangeTimes> {} </payRebateScoreBoxExchangeTimes>
+						<supplementFreeLotteryTimeStampDict> {} </supplementFreeLotteryTimeStampDict>
+						<newYearGoalTaskInfo> [] </newYearGoalTaskInfo>
+						<hallPropBuyTimes> {} </hallPropBuyTimes>
+						<mainpageIntimateVisibleByOthers> 1 </mainpageIntimateVisibleByOthers>
+						<isIntimateRelationshipVisibleInTeam> 1 </isIntimateRelationshipVisibleInTeam>
+						<shouldCreatePetInBattle> 1 </shouldCreatePetInBattle>
+						<customizedSuitData> [] </customizedSuitData>
+						<transformSuitsCollected> {} </transformSuitsCollected>
+					</Default>
+				</of>
+				<size> 1        </size>
+				</Type>
+				<Flags>         BASE_AND_CLIENT         </Flags>
+				<Persistent>    true            </Persistent>
+			 </childClientPropertyList2>
+	 </Properties>
+</root>

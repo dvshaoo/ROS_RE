@@ -1,0 +1,18 @@
+<root>
+	<Properties>
+		<starDiamondNpc>
+			<Type>	ARRAY <of> STAR_DIAMOND_NPC_POS_INFO </of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</starDiamondNpc>
+	</Properties>
+	<CellMethods>
+		<leaveNpcHeritage>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>		PY_DICT			</Arg>
+		</leaveNpcHeritage>
+		<onStarNpcDestroy>
+			<Arg>		INT32			</Arg>
+		</onStarNpcDestroy>
+	</CellMethods>
+</root>

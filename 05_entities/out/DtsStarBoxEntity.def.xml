@@ -1,0 +1,51 @@
+<root>
+
+	<Implements>
+		<Interface> iCell </Interface>
+		<Interface>	iRotate		</Interface>
+		<Interface>	iDtsEquipAppearanceAvatar	</Interface>
+		<Interface>	iDtsStarDiamondBox	</Interface>
+	</Implements>
+
+	<ClientName>  DtsStarBoxEntity  </ClientName>
+
+	<Properties>
+		<boxSurvivalTime>
+			<Type>  FLOAT </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</boxSurvivalTime>
+		<healBoxTime>
+			<Type>  FLOAT </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</healBoxTime>
+		<characterType>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</characterType>
+	</Properties>
+
+	<ClientMethods>
+		<onHealBoxEntityFail>
+			<Arg>		STRING		</Arg>
+		</onHealBoxEntityFail>
+		<onHealBoxEntity>
+		</onHealBoxEntity>
+		<onBoxEntityDie>
+		</onBoxEntityDie>
+		<onUpdatePose>
+		    <Arg> INT32    </Arg>
+		    <Arg> INT32    </Arg>
+		</onUpdatePose>
+	</ClientMethods>
+	
+	<CellMethods>
+		<startHealStarBoxEntity> <Exposed/>
+		</startHealStarBoxEntity> 
+		<stopHealStarBoxEntity> <Exposed/>
+		</stopHealStarBoxEntity>
+	</CellMethods>
+	
+	<BaseMethods>
+	</BaseMethods>
+
+</root>

@@ -1,0 +1,28 @@
+<root>
+	<Properties>
+		<xmasTopPlayerPositionInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</xmasTopPlayerPositionInfo>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<gmCreateHalloweenRobot>
+			<Arg>		VECTOR3		</Arg>
+		</gmCreateHalloweenRobot>
+		
+		<gmCreateDtsSnowmanEntity>
+			<Arg>		VECTOR3		</Arg>
+		</gmCreateDtsSnowmanEntity>
+	</CellMethods>
+
+	<ClientMethods>
+		<refreshXmasTop3PlayerComingUpSfx>
+		            <Arg>           INT32            </Arg>
+		</refreshXmasTop3PlayerComingUpSfx>
+	</ClientMethods>
+</root>
+

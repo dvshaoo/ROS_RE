@@ -1,0 +1,216 @@
+<root>
+	<Properties>
+		<godObservers>
+			<!-- gid: base mail box -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	{}	</Default>
+		</godObservers>
+		<isGod>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	FALSE		</Default>
+		</isGod>
+		<isObservedByGod>	<!-- is observed by god observer -->
+			<Type>		BOOL			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	FALSE			</Default>
+		</isObservedByGod>
+		<observedPlaneId>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</observedPlaneId>
+		<observedEntityEventBuffer>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</observedEntityEventBuffer>
+		<needAddEventToBuffer>
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	FALSE	</Default>
+		</needAddEventToBuffer>
+		<godObserveMode> <!-- god ob 的类型 -->
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+		</godObserveMode>
+		<observeType>
+			<Type>		UINT8		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</observeType>
+		<lastGodObEntIdx> <!-- free ob前ob的人-->
+			<Type>		INT32			</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0	</Default>
+		</lastGodObEntIdx> <!-- free ob前ob的人-->
+	</Properties>
+	<BaseMethods>
+		<addGodObserver>
+			<Arg>		INT32			</Arg>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		UINT8			</Arg>
+		</addGodObserver>
+
+		<removeGodObserver>
+			<Arg>			INT32 			</Arg>
+		</removeGodObserver>
+
+		<clearAllGodObservers>
+		</clearAllGodObservers>
+
+		<onObservedEntityEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onObservedEntityEvent>
+		<onObservedBulletsChanged>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onObservedBulletsChanged>
+		<onObservedPosChanged>
+			<Arg>		VECTOR3		</Arg>
+		</onObservedPosChanged>
+
+		<onObservedSecretTreasureChanged>
+			<Arg>	PYTHON	</Arg>
+		</onObservedSecretTreasureChanged>
+	</BaseMethods>
+	<CellMethods>
+		<getOnObservedPlane>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</getOnObservedPlane>
+		<getOffObservedPlane>
+			<Arg>		VECTOR3			</Arg>
+		</getOffObservedPlane>
+		<requestGodObserve> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestGodObserve>
+		<requestObserveKiller> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestObserveKiller>
+		<requestObserveTeammate> <Exposed/>
+		</requestObserveTeammate>
+		<requestGodObserveNext> <Exposed/>
+			<Arg>		BOOL			</Arg>
+		</requestGodObserveNext>
+		<setAsCustomGameObserver>
+			<Arg>		BOOL			</Arg>
+		</setAsCustomGameObserver>
+		<enterGodObserveMode>
+		</enterGodObserveMode>
+		<leaveGodObserveMode>
+		</leaveGodObserveMode>
+		<updateGodObserveEntityID>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX			</Arg>
+		</updateGodObserveEntityID>
+
+		<setCustomObservedByGod>
+			<Arg>		BOOL			</Arg>
+		</setCustomObservedByGod>
+
+		<onFindObservedEntityInClient> <Exposed/>
+		</onFindObservedEntityInClient>
+
+		<clientFindingObservedPlane> <Exposed/>
+		</clientFindingObservedPlane>
+
+		<onObservedEntityEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onObservedEntityEvent>
+
+		<onObservedEntityEventExposed> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</onObservedEntityEventExposed>
+
+		<onObservedBulletsChanged>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onObservedBulletsChanged>
+
+		<onObservedPosChanged>
+			<Arg>		VECTOR3		</Arg>
+		</onObservedPosChanged>
+
+		<onObservedCamRotChanged> <Exposed/>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</onObservedCamRotChanged>
+
+		<prepareObservedDataToGod>
+			<Arg>		MAILBOX			</Arg>
+		</prepareObservedDataToGod>
+
+		<getObservedDataFromObEntity>
+			<Arg> ARRAY <of> INT32 </of> <size> 10 </size> </Arg>
+		</getObservedDataFromObEntity>
+
+		<setObserveType>
+			<Arg>		UINT8			</Arg>
+		</setObserveType>
+
+		<onAddNewGodObserverOnCell>
+		</onAddNewGodObserverOnCell>
+		<requestRealtimeBattleData> <Exposed/>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</requestRealtimeBattleData>
+		<requestFinalBattleData> <Exposed/>
+		</requestFinalBattleData>
+
+		<onObservedSecretTreasureChanged>
+			<Arg>	PYTHON	</Arg>
+		</onObservedSecretTreasureChanged>
+
+        <requestExchangeGodOBMode> <Exposed/>
+        </requestExchangeGodOBMode>
+		
+        <onChangeGodOBFreeMode>
+			<Arg>		BOOL			</Arg>
+		</onChangeGodOBFreeMode>
+	</CellMethods>
+	<ClientMethods>
+		<onObservedEntityEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onObservedEntityEvent>
+		<onObservedBulletsChanged>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onObservedBulletsChanged>
+		<onObservedEntityTotalCntChanged>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onObservedEntityTotalCntChanged>
+		<onReGetOnSamePlane>
+			<Arg>		INT32			</Arg>
+		</onReGetOnSamePlane>
+		<onObservedCamRotChanged>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</onObservedCamRotChanged>
+		<observeKillerAck>
+			<Arg>		UINT8		</Arg>
+		</observeKillerAck>
+		<onAddNewGodObserver>
+		</onAddNewGodObserver>
+		<onGetRealtimeBattleData>
+			<Arg>		PYTHON		</Arg>
+		</onGetRealtimeBattleData>
+		<onGetFinalBattleData>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetFinalBattleData>
+
+        <!-- free ob -->
+		<onChangeGodOBMode>
+			<Arg>		UINT8		</Arg>
+			<Arg>		GID		</Arg>
+		</onChangeGodOBMode>
+		<onDrawGunTrajectory>
+			<Arg>		DTS_RANGE_GUN_TRAJECTORY	</Arg>
+			<Arg>		INT32		</Arg>
+		</onDrawGunTrajectory>
+        <!-- free ob -->
+	</ClientMethods>
+</root>

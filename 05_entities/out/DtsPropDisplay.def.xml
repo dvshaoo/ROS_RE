@@ -1,0 +1,39 @@
+<root>
+
+  <Parent>  DtsPropRegeneration  </Parent>
+  <ClientName>  DtsPropDisplay  </ClientName>
+
+  <Properties>
+    <displayPropId> 
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </displayPropId> 
+    <appearanceId> 
+      <Type>  UINT64 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </appearanceId> 
+    <nickname> 
+      <Type>  STRING </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </nickname> 
+  </Properties>
+
+  <ClientMethods>
+  </ClientMethods>
+
+  <CellMethods>
+    <setDisplayWeaponPosition>
+        <Arg>       VECTOR3     </Arg>
+    </setDisplayWeaponPosition>
+    <setDisplayWeaponDirection>
+        <Arg>       VECTOR3     </Arg>
+    </setDisplayWeaponDirection>
+    <setDisplayWeaponNickName>
+        <Arg>       STRING    </Arg>
+    </setDisplayWeaponNickName>
+  </CellMethods>
+
+  <BaseMethods>
+  </BaseMethods>
+
+</root>

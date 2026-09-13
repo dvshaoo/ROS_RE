@@ -1,0 +1,124 @@
+<root>
+	<Parent>	BattleGroundSpace	</Parent>
+	<ClientName>	BattleCampWarSpace </ClientName>
+	<Properties>
+		<teamIDToCampWarID>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</teamIDToCampWarID>
+		<playerInitCampIDs>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerInitCampIDs>
+		<campTeamCnt>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</campTeamCnt>
+
+		<entityIDToCampWarID>
+			<Type>	PYTHON	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</entityIDToCampWarID>
+
+		<campAliveAmountDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</campAliveAmountDict>
+		<playerStats>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</playerStats>			
+		<gameEndTimer>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameEndTimer>
+
+		<gameEndTime>
+			<Type>	LONGTIME </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</gameEndTime>
+		<diedPlayers>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</diedPlayers>
+		<cachedPlayerDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</cachedPlayerDict>
+		
+		<needAirDropEnts>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</needAirDropEnts>
+		<campWarGenDropTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</campWarGenDropTimerID>
+		<gameStrengthenTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStrengthenTimerID>
+		<isRebornPlaneCreating>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	false	</Default>
+		</isRebornPlaneCreating>
+		<zombieQueenTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</zombieQueenTimerID>
+	</Properties>
+
+	<CellMethods>
+		<onActiveCampWarID>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onActiveCampWarID>
+		<chatToCampWar>
+			<Arg>     INT32		</Arg>  <!-- campwarid -->
+			<Arg>     INT32         </Arg>  <!-- channel -->
+			<Arg>     STRING        </Arg>  <!-- content -->
+			<Arg>     CHAT_RECIVER  </Arg>  <!-- sender -->
+			<Arg>     CHAT_PARAMS   </Arg>  <!-- params -->
+		</chatToCampWar>
+		<broadcastQuickMessageToCampMember>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</broadcastQuickMessageToCampMember>
+		<broadcastQuickMessageVoToCompMember>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</broadcastQuickMessageVoToCompMember>
+	</CellMethods>
+
+	<ClientMethods>
+		<onActiveCampWarID>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onActiveCampWarID>
+
+		<syncCampAliveAmountDict>
+			<Arg>	PYTHON	</Arg>
+		</syncCampAliveAmountDict>
+
+		<syncCampAliveAmount>
+			<Arg>	PYTHON	</Arg>	<!-- camp alive amount dict -->
+		</syncCampAliveAmount>
+
+		<showGameResult>
+			<Arg>	INT32	</Arg>	<!-- winner camp -->
+			<Arg>	ARRAY	<of>	AVATAR_CAMP_WAR_GAME_STATUS	</of>	</Arg>
+			<Arg>	FLOAT	</Arg>	<!-- show Time -->
+		</showGameResult>
+		<syncCampWarID>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</syncCampWarID>
+		<showStrengthTips>
+			<Arg>	STRING	</Arg>
+		</showStrengthTips>
+	</ClientMethods>
+</root>

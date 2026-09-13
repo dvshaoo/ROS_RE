@@ -1,0 +1,90 @@
+<root>
+	<Properties>
+		<timerGentleHeal>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</timerGentleHeal>
+
+		<intHealOnDamage>
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+			<Default>	0				</Default>
+		</intHealOnDamage>
+
+		<timerResetSpeedAdd>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</timerResetSpeedAdd>
+
+		<remainGentleHealTimes>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</remainGentleHealTimes>
+
+		<createPropTimerIDs>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</createPropTimerIDs>
+
+		<slotPropUsedTime>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</slotPropUsedTime>
+
+	</Properties>
+	<ClientMethods>
+		<onPickProp>
+		</onPickProp>
+
+		<onRecoverHP>
+			<Arg>	INT32	</Arg>
+		</onRecoverHP>
+
+		<showPickVehicleItemToast>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</showPickVehicleItemToast>
+
+		<startCreateProp>
+			<Arg>	INT32	</Arg>
+		</startCreateProp>
+
+		<stopCreateProp>
+			<Arg>	INT32	</Arg>
+		</stopCreateProp>
+	</ClientMethods>
+
+	<CellMethods>
+		<pickProp>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</pickProp>
+		<startGentleHeal>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</startGentleHeal>
+
+		<doHeal>
+			<Arg>	FLOAT	</Arg>
+		</doHeal>
+
+		<startCreateProp>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</startCreateProp>
+
+		<useVehiclePropInSlot>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+		</useVehiclePropInSlot>
+	</CellMethods>
+</root>

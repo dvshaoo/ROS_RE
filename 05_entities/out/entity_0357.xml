@@ -1,0 +1,22 @@
+<root>
+	<Properties>
+		<customLayoutData>
+			<Type> PYTHON </Type>
+			<Default> {} </Default>
+			<Flags> BASE_AND_CLIENT </Flags>
+		</customLayoutData>
+		<customLayoutSid>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</customLayoutSid>
+	</Properties>
+
+	<BaseMethods>
+		<modifyCustomLayoutData>
+			<Exposed/>
+			<Arg> INT32 </Arg> <!-- scheme id -->
+			<Arg> ARRAY <of> CUSTOM_LAYOUT_ITEM </of> </Arg> <!-- layout item list -->
+		</modifyCustomLayoutData>
+	</BaseMethods>
+</root>

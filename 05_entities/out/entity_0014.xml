@@ -1,0 +1,21 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<getTimeRangePayAward> <Exposed />
+			<Arg>			INT32					</Arg>	<!-- params -->
+		</getTimeRangePayAward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncTimeRangePayAwardInfo>
+			<Arg>			PYTHON					</Arg>
+		</syncTimeRangePayAwardInfo>
+		<syncTimeRangePayAwardStatus>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</syncTimeRangePayAwardStatus>
+
+	</ClientMethods>
+</root>

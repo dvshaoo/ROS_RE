@@ -1,0 +1,69 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface> iDtsMultipleExplode </Interface>
+	</Implements>
+	<ClientName>	DtsRangeGunSummonEntity		</ClientName>
+	<Properties>
+		<bulletID>
+			<Type>	INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</bulletID>
+		<firePos>
+			<Type>	VECTOR3	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</firePos>
+		<fireDirection>
+			<Type>	VECTOR3 </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</fireDirection>
+		<totalLength>
+			<Type>	FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</totalLength>
+		<casterCampType>
+			<Type> CAMP_TYPE </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</casterCampType>
+		<isRunning>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</isRunning>
+		<isBlook>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</isBlook>
+		<speedRatio>
+			<Type>	FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</speedRatio>
+		<targetID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</targetID>
+		<trackIntensity>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>	
+		</trackIntensity>
+		<aimCrossWhenNoTarget>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</aimCrossWhenNoTarget>
+	</Properties>
+
+	<CellMethods>
+		<requireCurState>
+			<Arg>	ENTITY_ID	</Arg>
+		</requireCurState>
+	</CellMethods>
+
+	<ClientMethods>
+		<responseCurState>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	FLOAT		</Arg> 	<!-- lifespan -->
+			<Arg>	FLOAT		</Arg>	<!-- total distance -->
+			<Arg>	VECTOR3		</Arg>	<!-- cur speed -->
+			<Arg>	VECTOR3		</Arg>	<!-- cur position -->
+		</responseCurState>
+	</ClientMethods>
+</root>

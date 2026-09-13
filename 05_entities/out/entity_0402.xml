@@ -1,0 +1,39 @@
+<root>
+	<Properties>
+		<videoAdvertisementInfo>
+			<Type> ARRAY <of> PYTHON </of> </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Persistent> true </Persistent>
+		</videoAdvertisementInfo>
+	</Properties>
+
+	<BaseMethods>
+		<videoSpeedUpTreasure> <Exposed />
+			<Arg>	INT32	</Arg>
+		</videoSpeedUpTreasure>
+		<videoAddExtraReward> <Exposed />
+			<Arg>	INT32	</Arg>
+		</videoAddExtraReward>
+		<videoAddExtraRewardFromAvatar>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</videoAddExtraRewardFromAvatar>
+		<onGetNewAdOrder>
+			<Arg>	PYTHON	</Arg>
+		</onGetNewAdOrder>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncVideoAdvertisementInfo>
+			<Arg> PYTHON  </Arg>
+		</syncVideoAdvertisementInfo>
+		<syncVideoAddExtraRewardResult>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT32	</Arg>
+		</syncVideoAddExtraRewardResult>
+		<onGetNewAdOrderCallback>
+			<Arg>	STRING	</Arg>
+			<Arg> PYTHON  </Arg>
+		</onGetNewAdOrderCallback>
+	</ClientMethods>
+</root>

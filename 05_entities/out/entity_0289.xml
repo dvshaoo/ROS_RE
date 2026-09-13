@@ -1,0 +1,57 @@
+<root>
+	<Properties>
+	    <dtsPetAppearance>
+			<Type> UINT32 </Type>
+			<Flags> BASE	 </Flags>
+			<Default> 0	</Default>
+		</dtsPetAppearance>
+	    <petType>
+			<Type> UINT32 </Type>
+			<Flags> ALL_CLIENT	 </Flags>
+			<Default> 0	</Default>
+		</petType>
+		<petStyle>
+			<Type> UINT32 </Type>
+			<Flags> ALL_CLIENT	 </Flags>
+			<Default> 0	</Default>
+		</petStyle>
+		<petId>
+			<Type>  INT32   </Type>
+			<Flags> ALL_CLIENT	 </Flags>
+			<Default> 0	</Default>
+		</petId>
+		<hideflag>
+			<Type> UINT8	</Type>
+			<Flags> ALL_CLIENT </Flags>
+			<Default> 0	</Default>
+		</hideflag>
+		<shouldCreatePetInBattle>
+			<Type>  INT32   </Type>
+			<Flags> OWN_CLIENT	 </Flags>
+			<Default> 0	</Default>
+		</shouldCreatePetInBattle>
+
+	</Properties>
+
+	<ClientMethods>
+	    <syncPetId>
+	         <Arg>	INT32		</Arg>
+	    </syncPetId>
+	</ClientMethods>
+
+	<CellMethods>
+		<tryCreatePet><Exposed/>
+		    <Arg>	UINT8		</Arg>
+		</tryCreatePet>
+		<tryFirstCreatePetInBattle><Exposed/>
+		    <Arg>	UINT8		</Arg>
+		</tryFirstCreatePetInBattle>
+		<removePet><Exposed/>
+		    <Arg>	UINT8		</Arg>
+		</removePet>
+		<playWithPet><Exposed/>
+		    <Arg> UINT8 </Arg>
+		    <Arg>	BOOL	</Arg>
+		</playWithPet>
+	</CellMethods>
+</root>

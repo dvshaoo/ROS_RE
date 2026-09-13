@@ -1,0 +1,204 @@
+<Root>
+	<Properties>
+        <dtsDroneEntityID>  <!--无人机 -->
+            <Type>      INT32           </Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</dtsDroneEntityID>
+        
+        <dtsLandDroneItemID>  <!--无人机DtsPropID -->
+            <Type>      INT32           </Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0		</Default>
+		</dtsLandDroneItemID>
+        
+        <dtsLandDroneInfo>  <!--无人机一些属性 -->
+            <Type>      PYTHON   </Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	{}		</Default>
+		</dtsLandDroneInfo>
+        
+        <dtsLandDroneEquipComps>  <!--无人机装备的组件 -->
+            <Type>      LAND_DRONE_COMPS   </Type>
+			<Flags>		CELL_PUBLIC_AND_OWN</Flags>
+		</dtsLandDroneEquipComps>
+        
+        <dtsLandDroneEquipBattery>  <!--无人机装备的电池 -->
+            <Type>      LAND_DRONE_BATTERY   </Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+		</dtsLandDroneEquipBattery>
+		
+        <inEquipLandDroneWeapon>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inEquipLandDroneWeapon>
+
+        <dtsLandDroneBattery>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+        </dtsLandDroneBattery>
+
+        <inControlLandDrone>
+			<Type>		BOOL	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+        </inControlLandDrone>
+        
+        <inLandDroneNoiseStateMark>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+        </inLandDroneNoiseStateMark>
+        
+        <dtsLandDroneCompsSlot>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+        </dtsLandDroneCompsSlot>
+
+        <dtsLandDroneCompsLevel>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+        </dtsLandDroneCompsLevel>
+        
+        <teammateLandDroneInfo>
+			<Type>		PYTHON	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}		</Default>
+        </teammateLandDroneInfo>
+    </Properties>
+	<ClientMethods>
+		<onEnterControlDroneMode>
+			<Arg>		BOOL		</Arg>
+		</onEnterControlDroneMode>
+
+        <equipLandDroneWeapon>
+			<Arg>		INT32			</Arg>
+        </equipLandDroneWeapon>
+        
+        <discardLandDroneWeapon>
+			<Arg>		INT32			</Arg>
+        </discardLandDroneWeapon>
+
+
+		<onEquipDtsLandDrone>
+		</onEquipDtsLandDrone>
+		<onDiscardDtsLandDrone>
+		</onDiscardDtsLandDrone>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+	<CellMethods>
+		<reqSummonDtsLandDrone> <Exposed/>
+		</reqSummonDtsLandDrone>
+		<reqControlDroneAsOwner> <Exposed/>
+		</reqControlDroneAsOwner>
+		<reqUncontrolDroneAsOwner> <Exposed/>
+			<Arg>		ENTITY_ID		</Arg>
+		</reqUncontrolDroneAsOwner>
+
+        <takeBackDtsLandDroneBattery>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+        </takeBackDtsLandDroneBattery>
+        
+        <takeBackDtsLandDroneComps>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+        </takeBackDtsLandDroneComps>
+        
+        <takeBackDtsLandDroneBaseInfo>
+            <Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+        </takeBackDtsLandDroneBaseInfo>
+        
+        <onFullFillLandDroneWeaponBullet>
+            <Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+        </onFullFillLandDroneWeaponBullet>
+
+        <onDtsDronePowerEmpty>
+        </onDtsDronePowerEmpty>
+        
+        <onDtsDroneLostControl>
+        </onDtsDroneLostControl>
+
+		<autoEquipLandDroneWeapon>
+			<Arg>		INT32 		</Arg>
+			<Arg>		INT32 		</Arg>
+		</autoEquipLandDroneWeapon>
+		
+        <autoDiscardLandDroneWeapon>
+		</autoDiscardLandDroneWeapon>
+
+        <equipDtsLandDrone>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+        </equipDtsLandDrone>
+        
+        <discardDtsLandDrone>
+        </discardDtsLandDrone>
+        
+        <wearDtsLandDroneComp>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+        </wearDtsLandDroneComp>
+        
+        <smartWearDtsDroneComps>
+			<Arg>		INT32						</Arg>
+        </smartWearDtsDroneComps>
+
+        <reqExchangeDtsDroneComps> <Exposed/>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+        </reqExchangeDtsDroneComps>
+
+        <requestPutBackDtsLandDroneComp>
+			<Arg>		INT32						</Arg>
+        </requestPutBackDtsLandDroneComp>
+
+        <putBackLandDronePropToPackage>
+			<Arg>		INT32						</Arg>
+			<Arg>		INT32						</Arg>
+			<Arg>		PYTHON					</Arg>
+        </putBackLandDronePropToPackage>
+        
+        <discardDtsLandDroneCompsNearBy> <Exposed/>
+			<Arg>		INT32						</Arg>
+        </discardDtsLandDroneCompsNearBy>
+
+        <pickLandDroneBatteryItem>
+			<Arg>		INT32						</Arg>
+			<Arg>		PYTHON			</Arg>
+        </pickLandDroneBatteryItem>
+        
+        <discardLandDroneBatteryItem>
+			<Arg>		STRING				</Arg>
+        </discardLandDroneBatteryItem>
+
+        <equipDtsLandDroneBattery> <Exposed/>
+			<Arg>		STRING				</Arg>
+        </equipDtsLandDroneBattery>
+
+        <reqDiscardDtsLandDroneBatteryNearBy> <Exposed/>
+        </reqDiscardDtsLandDroneBatteryNearBy>
+
+        <reqPutBackDtsLandDroneBattery> <Exposed/>
+        </reqPutBackDtsLandDroneBattery>
+
+        <reqPutBackAllLandDroneItems> <Exposed/>
+        </reqPutBackAllLandDroneItems>
+
+        <onLandDroneNoiseTakeEffect>
+        </onLandDroneNoiseTakeEffect>
+        
+        <onLandDroneNoiseRemoveEffect>
+        </onLandDroneNoiseRemoveEffect>
+
+        <updateLandDroneBattleGrounInfo>
+			<Arg>		PYTHON			</Arg>
+        </updateLandDroneBattleGrounInfo>
+
+        <syncTeammateLandDroneInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+        </syncTeammateLandDroneInfo>
+        
+	</CellMethods>
+</Root>

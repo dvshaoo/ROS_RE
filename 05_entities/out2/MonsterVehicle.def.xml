@@ -1,0 +1,171 @@
+<root>
+	<Implements>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iVehicle	</Interface>
+		<Interface>	iBehavior		</Interface>
+		<Interface>	iGenSpotCreated		</Interface>
+		<Interface>	iMove		</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName>	MonsterVehicle		</ClientName>
+
+	<Properties>
+		<nickname>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</nickname>
+		<monsterGenID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</monsterGenID>
+
+		<monsterGenGroup>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</monsterGenGroup>
+
+		<showOnCreate>
+			<Type>		 BOOL 		</Type>
+			<Flags> 	ALL_CLIENTS </Flags>
+		</showOnCreate>
+
+		<clientStatus>
+			<Type>		 MONSTER_VEHICLE_CLIENT_STATUS 		</Type>
+			<Flags> 		ALL_CLIENTS 				</Flags>
+		</clientStatus>
+
+		<level>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</level>
+
+		<routeID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	-1		</Default>
+		</routeID>
+
+  		<serialID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</serialID>
+
+		<started>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	False		</Default>
+		</started>
+
+		<mutiShared><!-- 是否多人共享 -->
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	False		</Default>
+		</mutiShared>
+
+		<isServerControled>
+			<Type>    BOOL   		</Type>
+			<Flags>   CELL_PRIVATE  </Flags>
+			<Default> 0				</Default>
+		</isServerControled>
+
+		<firstHasClientsAndNoServerCon>
+			<Type>    BOOL   		</Type>
+			<Flags>   CELL_PRIVATE  </Flags>
+			<Default> 0				</Default>
+		</firstHasClientsAndNoServerCon>
+
+		<vehicleType>
+			<Type>		 INT32 		</Type>
+			<Flags> 	ALL_CLIENTS </Flags>
+			<Default>	0		</Default>
+		</vehicleType>
+
+		<removeOnDie>
+			<Type>		 BOOL 		</Type>
+			<Flags> 	CELL_PRIVATE </Flags>
+			<Default>	1	</Default>
+		</removeOnDie>
+
+	</Properties>
+
+	<ClientMethods>
+		<autoDriveBegin>
+			<Arg>	BOOL		</Arg>
+		</autoDriveBegin>
+
+		<autoDriveEnd>
+		</autoDriveEnd>
+
+		<followTargetStart>
+			<Arg>	ENTITY_ID		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</followTargetStart>
+
+		<dynamicSpeed>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	BOOL		</Arg>
+		</dynamicSpeed>
+
+		<closeDynamicSpeed>
+		</closeDynamicSpeed>
+
+		<enablePhysicsClosed>
+			<Arg>	FLOAT		</Arg> <!-- LOS -->
+		</enablePhysicsClosed>
+
+		<disablePhysicsClosed>
+		</disablePhysicsClosed>
+
+		<resetPos>
+			<Arg>	VECTOR3		</Arg>
+		</resetPos>
+
+		<resetToPoint>
+			<Arg>	INT32		</Arg>
+		</resetToPoint>
+
+		<ShowConstantHpBar>
+		</ShowConstantHpBar>
+
+		<ShutConstantHpBar>
+		</ShutConstantHpBar>
+	</ClientMethods>
+
+	<CellMethods>
+		<setNickname>
+			<Arg>		STRING		</Arg>
+		</setNickname>
+		<setMutiShared>
+			<Arg>		BOOL		</Arg>
+		</setMutiShared>
+		<setVehicleType>
+			<Arg>		INT32		</Arg>
+		</setVehicleType>
+		<setRemoveOnDie>
+			<Arg>		BOOL		</Arg>
+		</setRemoveOnDie>
+		<onControlled> <Exposed/>
+		</onControlled>
+
+		<onLeaveWorld> <Exposed/>
+		</onLeaveWorld>
+
+		<setRouteId>
+			<Arg>		INT32		</Arg>
+		</setRouteId>
+
+	</CellMethods>
+
+</root>

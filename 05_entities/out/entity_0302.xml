@@ -1,0 +1,60 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<curDayNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 0 </Default>
+			<Persistent>	true	</Persistent>
+		</curDayNo>
+		<curWeekNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 0 </Default>
+			<Persistent>	true	</Persistent>
+		</curWeekNo>
+		<curCheckTeamRank1WeekNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 0 </Default>
+			<Persistent>	true	</Persistent>
+		</curCheckTeamRank1WeekNo>
+		<weekRank1TeamID>
+			<Type>		 INT64 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 0 </Default>
+			<Persistent>	true	</Persistent>
+		</weekRank1TeamID>
+		<weekRank1TeamName>
+			<Type>		 STRING		</Type>
+			<Flags>			BASE		</Flags>
+			<Persistent>	true	</Persistent>
+		</weekRank1TeamName>
+	</Properties>
+
+	<BaseMethods>
+		<getTopList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32				</Arg>	<!-- buffer version -->
+			<Arg>		INT32				</Arg>	<!-- buffer length-->
+			<Arg>		BOOL				</Arg>	<!-- next batch -->
+		</getTopList>
+		<getRankListDetail>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		BOOL				</Arg>	<!-- next batch -->
+		</getRankListDetail>
+		<getWeekRank1Team>
+			<Arg> 		MAILBOX 		</Arg>
+		</getWeekRank1Team>
+		<gmSetVal>
+			<Arg> 		STRING      </Arg>
+			<Arg> 		STRING      </Arg>
+		</gmSetVal>
+	</BaseMethods>
+</root>
+

@@ -1,0 +1,41 @@
+<root>
+	<Properties>
+		<warGrowthOpen>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</warGrowthOpen>
+		<!-- <warLevel>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	1		</Default>
+		</warLevel>
+		<warExp>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</warExp> -->
+		<warAttackLevel>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	1		</Default>
+		</warAttackLevel>
+		<warGold>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</warGold>
+		<warProperties>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</warProperties>
+	</Properties>
+	<CellMethods>
+		<!-- <addWarExperience>
+			<Arg>		FLOAT		</Arg>
+		</addWarExperience> -->
+
+		<gmSetWarAtkLevel>
+			<Arg>		INT32		</Arg>
+		</gmSetWarAtkLevel>
+	</CellMethods>
+</root>

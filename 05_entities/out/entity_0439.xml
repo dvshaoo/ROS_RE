@@ -1,0 +1,38 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<supplementDiscounts>
+			<Type>			PYTHON		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		{}			</Default>
+			<Persistent>	true		</Persistent>
+		</supplementDiscounts>
+	</Properties>
+
+	<BaseMethods>
+		<getXmasGiftsTopList>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT8		</Arg>
+		</getXmasGiftsTopList>
+		<onGetOnlineNum>
+			<Arg>	INT32	</Arg>
+		</onGetOnlineNum>
+		<reqBlackFridaySupplementDiscounts>
+			<Arg>		MAILBOX		</Arg>
+		</reqBlackFridaySupplementDiscounts>
+		<reqSubBlackFridaySupplementDiscountNum>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</reqSubBlackFridaySupplementDiscountNum>
+		<reqAddBlackFridaySupplementDiscountNum>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</reqAddBlackFridaySupplementDiscountNum>
+		<gmClearBlackFridayData>
+		</gmClearBlackFridayData>
+	</BaseMethods>
+</root>

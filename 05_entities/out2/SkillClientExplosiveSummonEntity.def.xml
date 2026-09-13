@@ -1,0 +1,22 @@
+<root>
+	<Parent>	SkillExplosiveSummonEntityBase		</Parent>
+
+	<Implements>
+	</Implements>
+
+	<ClientName>	SkillClientExplosiveSummonEntity	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<explode>
+			<Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg> 
+		</explode>
+	</CellMethods>
+</root>

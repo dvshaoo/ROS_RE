@@ -1,0 +1,61 @@
+<root>
+	<Properties>
+		<explodeIDs>
+			<Type>	ARRAY <of>	INT32	</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</explodeIDs>
+		<weaponID>
+			<Type>	INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</weaponID>
+		<railID>
+			<Type>	INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</railID>
+		<itemID>
+			<Type>	INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</itemID>
+		<casterCampType>
+			<Type> CAMP_TYPE </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</casterCampType>
+		<casterID>
+			<Type> ENTITY_ID </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</casterID>
+		<casterTeamID>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</casterTeamID>
+		<hasExploded>
+			<Type>	BOOL	</Type>
+			<Flags> CELL_PRIVATE	</Flags>
+		</hasExploded>
+		<skillCasterType>
+			<Type>	INT32	</Type>
+			<Flags> CELL_PRIVATE	</Flags>
+		</skillCasterType>
+		<skillID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</skillID>
+	</Properties>
+
+	<CellMethods>
+		<explode>	<Exposed/>
+			<Arg>	VECTOR3		</Arg>	<!-- explode position -->
+			<Arg>	ARRAY <of>	VECTOR3	</of>	</Arg> <!-- subSfx position -->
+		</explode>
+		<takeDamage>	<Exposed/>
+			<Arg>	INT32	</Arg>	<!-- range state index -->
+			<Arg>	BOOL	</Arg>	<!-- if raycast mask -->
+		</takeDamage>
+	</CellMethods>
+
+	<ClientMethods>
+		<onExploded>
+			<Arg>	VECTOR3		</Arg>
+		</onExploded>
+	</ClientMethods>
+</root>

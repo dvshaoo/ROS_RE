@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""
+neox_decrypt.py — NXPK entity def extractor for ROS v1117219
+Usage:
+    python neox_decrypt.py <input.npk> [output_dir]
+    python neox_decrypt.py 05_entities/entities.npk 05_entities/out/
+
+Writes one .xml file per entity def found.
+No external dependencies — stdlib only.
+"""
+import sys
+import os
+import zlib
+import struct
+
+def extract_npk(npk_path: str, out_dir: str) -> list[str]:
+    with open(npk_path, 'rb') as f:
+        data = f.read()
+
+    # ── Header ────────────────────────────────────────────────────────────────
+    magic = data[0:4]
+    if magic != b'NXPK':
+        raise ValueError(f'Not an NXPK file (magic={magic!r})')
+
+    # Offset 0x10 = entry_count (u32 LE) — informational only; we scan all streams.
+    # Offset 0x14 = compressed_size of first payload (u32 LE).
+    # Actual content: packed consecutive zlib streams starting at offset 0x18.
+    # No per-entry encryption observed in entities.npk v1117219.
+
+    entry_count = struct.unpack_from('<I', data, 0x10)[0]
+    print(f'[*] NXPK: {os.path.basename(npk_path)}, file={len(data)}B, '
+          f'header_entry_count={entry_count}')
+
+    # ── Scan for zlib streams ─────────────────────────────────────────────────
+    ZLIB_MAGIC = {b'\x78\x9c', b'\x78\xda', b'\x78\x01'}
+    os.makedirs(out_dir, exist_ok=True)
+
+    extracted = []
+    i = 0x18  # skip 24-byte NXPK header
+    hit_count = 0
+    xml_count = 0
+
+    while i < len(data) - 1:
+        if data[i:i+2] in ZLIB_MAGIC:
+            try:
+                dec = zlib.decompress(data[i:])
+                if len(dec) < 20:
+                    i += 1
+                    continue
+                hit_count += 1
+
+                # Determine filename from content
+                name = _guess_name(dec, xml_count)
+                out_path = os.path.join(out_dir, name)
+
+                with open(out_path, 'wb') as out:
+                    out.write(dec)
+
+                extracted.append(out_path)
+                xml_count += 1
+                print(f'  [+] 0x{i:05X}  {len(dec):6d}B  -> {name}')
+
+                # Skip past this stream (next stream starts after compressed block)
+                # Find the next non-overlapping offset: advance by at least 4 bytes
+                # to avoid re-triggering on inner bytes of this stream.
+                # Compressed size is unknown without index; advance conservatively.
+                comp_len = _find_compressed_len(data, i)
+                i += max(comp_len, 4)
+                continue
+            except zlib.error:
+                pass
+        i += 1
+
+    print(f'[*] Done: {xml_count} entities written to {out_dir}')
+    return extracted
+
+
+def _find_compressed_len(data: bytes, start: int) -> int:
+    """Estimate compressed length by trying to decompress and measuring.
+    Falls back to 4 on failure."""
+    try:
+        dec = zlib.decompress(data[start:])
+        # Re-compress at default level to estimate; real length differs but
+        # this avoids re-scanning interior bytes.
+        recomp = zlib.compress(dec)
+        # Use actual zlib overhead: roughly len(recomp) but capped.
+        return max(len(recomp), 4)
+    except Exception:
+        return 4
+
+
+def _guess_name(dec: bytes, index: int) -> str:
+    """Try to extract entity name from XML content."""
+    text = dec.decode('utf-8', errors='replace')
+
+    # Look for <ClientName> tag value
+    import re
+    m = re.search(r'<ClientName>\s*(\S+)', text)
+    if m:
+        return f'{m.group(1).strip()}.def.xml'
+
+    # Look for entities.xml comment
+    if 'BigWorld engine' in text or '<entity' in text.lower():
+        return 'entities.xml'
+
+    return f'entity_{index:04d}.xml'
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print(__doc__)
+        sys.exit(1)
+
+    npk = sys.argv[1]
+    out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(
+        os.path.dirname(npk), 'out')
+
+    extract_npk(npk, out)

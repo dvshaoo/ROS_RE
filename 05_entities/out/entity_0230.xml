@@ -1,0 +1,26 @@
+<root>
+	<Implements>
+	</Implements>
+
+	<Properties>
+		<usedHangSockets>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</usedHangSockets>
+	</Properties>
+
+	<CellMethods>
+		<syncPlanePlayerIDs>
+			<Arg>	PYTHON		</Arg>  <!-- playerID list -->
+		</syncPlanePlayerIDs>
+	</CellMethods>
+
+	<ClientMethods>
+		<updateHangSocket>
+			<Arg>	ENTITY_ID	</Arg>	<!-- playerID -->
+			<Arg>	BOOL		</Arg>	<!-- bind or unbind -->
+			<Arg>	INT32		</Arg>	<!-- planeID -->
+		</updateHangSocket>
+	</ClientMethods>
+
+</root>

@@ -1,0 +1,22 @@
+<root>
+	<Implements>
+		<Interface>	iBase	</Interface>
+	</Implements>
+	<Properties>
+		<baseSpaceMailBox>
+			<Type>		MAILBOX 				</Type>
+			<Flags>		BASE					</Flags>
+		</baseSpaceMailBox>
+	</Properties>
+	<BaseMethods>
+		<createCellNearSelf>
+			<Arg>		MAILBOX		</Arg>
+		</createCellNearSelf>
+
+		<createCellNearHere>
+			<Arg>		MAILBOX		</Arg>
+		</createCellNearHere>
+		<onCreateCellNearFailure>
+		</onCreateCellNearFailure>
+	</BaseMethods>	
+</root>

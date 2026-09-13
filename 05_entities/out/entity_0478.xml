@@ -1,0 +1,52 @@
+<root>
+	<Properties>
+		<moveBatch>
+			<Type>		PYTHON				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+		</moveBatch>
+		<moveBatchType>
+			<Type>		INT32				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+		</moveBatchType>
+		<disabled>
+			<Type>		BOOL				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+			<Default>	False				</Default>
+		</disabled>
+		<unMoveCheckDisabled>
+			<Type>		BOOL				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+			<Default>	False				</Default>
+		</unMoveCheckDisabled>
+		<moveSpeed>
+			<Type>		FLOAT				</Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+			<Default>	0.0				</Default>
+		</moveSpeed>
+		<autoRestart>
+			<Type>		BOOL				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+			<Default>	False				</Default>
+		</autoRestart>
+		<autoRestartTimer>
+			<Type>		TIMER_ID				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+			<Default>	0				</Default>
+		</autoRestartTimer>
+		<lastMovePosition>
+			<Type>		VECTOR3				</Type>
+			<Flags>		CELL_PRIVATE			</Flags>
+		</lastMovePosition>
+	</Properties>
+
+	<CellMethods>
+		<setDisabled>
+			<Arg>		BOOL		</Arg>
+		</setDisabled>
+		<stopMoving>
+		</stopMoving>
+		<setAutoRestart>
+			<Arg>  		BOOL  		</Arg>
+		</setAutoRestart>
+	</CellMethods>
+</root>

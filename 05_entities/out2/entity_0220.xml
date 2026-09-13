@@ -1,0 +1,93 @@
+<root>
+	<Properties>
+		<allowFirstDownloadBigMap>
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0					</Default>
+			<Persistent>	true			</Persistent>
+		</allowFirstDownloadBigMap>
+
+		<isPauseDownloadingBigMap>
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0					</Default>
+			<Persistent>	true			</Persistent>
+		</isPauseDownloadingBigMap>
+
+		<curGameEnterMapType>
+			<Type>		INT32				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0					</Default>
+			<Persistent>	true			</Persistent>
+		</curGameEnterMapType>
+		<hasReceivedClothDLCAward>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0					</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</hasReceivedClothDLCAward>
+	</Properties>
+
+	<BaseMethods>
+		<requestFirstDownloadDLC> <Exposed/>
+		    <Arg>			INT32			</Arg>
+		</requestFirstDownloadDLC>
+
+		<requestPauseDownloadDLC> <Exposed/>
+		    <Arg>			INT32			</Arg>
+		</requestPauseDownloadDLC>
+
+		<requestResumeDownloadDLC> <Exposed/>
+		    <Arg>			INT32			</Arg>
+		</requestResumeDownloadDLC>
+
+		<requestChangeEnterBigMapState> <Exposed/>
+			<Arg>			BOOL			</Arg>
+		</requestChangeEnterBigMapState>
+
+
+		<requestChangeMatchFPSModeState> <Exposed/>
+			<Arg>			BOOL			</Arg>
+		</requestChangeMatchFPSModeState>
+
+		<requestLogDLCDownload> <Exposed/>
+		    <Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			FLOAT			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			FLOAT			</Arg>
+		</requestLogDLCDownload>
+
+		<setCurGameEnterMapType> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</setCurGameEnterMapType>
+		<requestClothDLCAward> <Exposed/>
+		</requestClothDLCAward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onRequestClothDLCAward>
+			<Arg>			INT32			</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onRequestClothDLCAward>
+		<onRequestClothDLCAwardFailed>
+			<Arg>			INT32			</Arg>
+		</onRequestClothDLCAwardFailed>
+		<onRequestFirstDownloadDLC>
+		    <Arg>			INT32			</Arg>
+		</onRequestFirstDownloadDLC>
+
+		<onRequestPauseDownloadingDLC>
+		    <Arg>			INT32			</Arg>
+		</onRequestPauseDownloadingDLC>
+
+		<onRequestResumeDownloadDLC>
+		    <Arg>			INT32			</Arg>
+		</onRequestResumeDownloadDLC>
+
+		<onSetCurGameEnterMapType>
+			<Arg>			INT32			</Arg>
+		</onSetCurGameEnterMapType>
+	</ClientMethods>
+</root>

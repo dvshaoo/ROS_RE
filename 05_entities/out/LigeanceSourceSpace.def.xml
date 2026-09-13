@@ -1,0 +1,100 @@
+<root>
+	<Parent>	CutInDungeonSpace		</Parent>
+	<Implements>
+	</Implements>
+	<ClientName>	LigeanceSourceSpace	</ClientName>
+	<Properties>
+		<createrLegionGID>
+			<Type>		GID				</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</createrLegionGID>
+		<creatorID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</creatorID>
+		<sourceID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</sourceID>
+		<!-- 抢夺方总共可获取档数 -->
+		<totalAwardGrade>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</totalAwardGrade>
+		<!-- 抢夺方已经获取档数 -->
+		<curAwardGrade>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</curAwardGrade>
+
+		<truckHp>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</truckHp>
+
+		<maxTruckHp>
+			<Type>		FLOAT			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</maxTruckHp>
+
+		<legionAwardFactor>
+			<Type>		FLOAT			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</legionAwardFactor>
+	</Properties>
+	<CellMethods>
+		<updateMaxTruckHp>
+			<Arg>		INT32			</Arg>
+		</updateMaxTruckHp>
+
+		<updateTruckHp>
+			<Arg>		INT32			</Arg>
+		</updateTruckHp>
+
+		<showRobberGeneralTip>
+			<Arg>	STRING		</Arg>
+			<Arg>	LONGTIME	</Arg>
+			<Arg>	STRING		</Arg>
+		</showRobberGeneralTip>
+
+		<showHelperGeneralTip>
+			<Arg>	STRING		</Arg>
+			<Arg>	LONGTIME	</Arg>
+			<Arg>	STRING		</Arg>
+		</showHelperGeneralTip>
+
+		<notifyTruckBroken>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+		</notifyTruckBroken>
+	</CellMethods>
+	<ClientMethods>
+		<showRobberDungeonTip>
+			<Arg>		STRING			</Arg>
+		</showRobberDungeonTip>
+		<showHelperDungeonTip>
+			<Arg>		STRING			</Arg>
+		</showHelperDungeonTip>
+
+		<showRobberGeneralTip>
+			<Arg>	STRING		</Arg>
+			<Arg>	LONGTIME	</Arg>
+			<Arg>	STRING		</Arg>
+		</showRobberGeneralTip>
+
+		<showHelperGeneralTip>
+			<Arg>	STRING		</Arg>
+			<Arg>	LONGTIME	</Arg>
+			<Arg>	STRING		</Arg>
+		</showHelperGeneralTip>
+
+		<showKillInfo>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+	</ClientMethods>
+</root>

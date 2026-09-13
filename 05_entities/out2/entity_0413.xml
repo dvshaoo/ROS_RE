@@ -1,0 +1,62 @@
+<root>
+	<Properties>
+		<hasItem>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</hasItem>
+
+		<dropItemId>
+			<Type>		 INT32			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</dropItemId>
+
+		<dropSrc>
+			<Type>		 INT32			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</dropSrc>
+
+		<itemExpiredTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</itemExpiredTimer>
+
+		<attackBuffTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</attackBuffTimerID>
+
+		<inBuffState>
+			<Type>		 BOOL			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</inBuffState>
+
+		<addFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</addFactor>
+
+	</Properties>
+
+	<CellMethods>
+		<onDropItem>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onDropItem>
+	</CellMethods>
+
+	<ClientMethods>
+		<onDropItemCallClient>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onDropItemCallClient>
+
+		<onItemExpiredCallClient>
+			<Arg>		INT32			</Arg>
+		</onItemExpiredCallClient>
+
+		<onDelItemCallClient>
+			<Arg>		INT32			</Arg>
+		</onDelItemCallClient>
+
+	</ClientMethods>
+</root>

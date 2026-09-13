@@ -1,0 +1,38 @@
+<root>
+	<Properties>
+		<dressProperties>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</dressProperties>
+
+		<extraDress>
+			<Type> DRESS_INFO </Type>
+			<Flags> ALL_CLIENTS		</Flags>
+		</extraDress>
+
+		<extraDressBase>
+			<Type>	DRESS_INFO	</Type>
+			<Flags>	BASE		</Flags>
+		</extraDressBase>
+	</Properties>
+	<CellMethods>
+		<takeOnDress>
+			<Arg> INT32 </Arg>
+		</takeOnDress>
+		<takeOffDress>
+			<Arg> INT32 </Arg>
+		</takeOffDress>
+		<takeOffAllDress>
+		</takeOffAllDress>
+	</CellMethods>
+
+	<ClientMethods>
+		<takeOnDress>
+			<Arg> INT32 </Arg>
+		</takeOnDress>
+		<takeOffDress>
+			<Arg> INT32 </Arg>
+		</takeOffDress>
+	</ClientMethods>
+</root>

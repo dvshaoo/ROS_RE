@@ -1,0 +1,20 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+	</Implements>
+	<ClientName>	C4InstallArea		</ClientName>
+	<Properties>
+		<radius>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</radius>
+		<height>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</height>
+		<areaID>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</areaID>
+	</Properties>
+</root>

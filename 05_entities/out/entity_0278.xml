@@ -1,0 +1,32 @@
+<root>
+	<Properties>
+		<isObserver>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isObserver>
+		<observeEntityID>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</observeEntityID>
+	</Properties>
+	<CellMethods>
+		<requestObserve> <Exposed/>
+		</requestObserve>
+		<requestObserveNext> <Exposed/>
+		</requestObserveNext>
+		<requestObserveLast> <Exposed/>
+		</requestObserveLast>
+		<enterObserverMode>
+		</enterObserverMode>
+		<leaveObserverMode>
+		</leaveObserverMode>
+		<updateObserveEntityID>
+			<Arg>		INT32		</Arg>
+		</updateObserveEntityID>
+		<updateObserveEntity>
+			<Arg>		INT32		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</updateObserveEntity>
+	</CellMethods>
+</root>

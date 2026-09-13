@@ -1,0 +1,22 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<recordTeamScore>
+			<Arg>		PYTHON			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</recordTeamScore>
+		<getTopList>
+			<Arg> 		MAILBOX 		</Arg>
+			<Arg>		INT32				</Arg>	<!-- buffer version -->
+			<Arg>		INT32				</Arg>	<!-- buffer length-->
+		</getTopList>
+	</BaseMethods>
+</root>
+

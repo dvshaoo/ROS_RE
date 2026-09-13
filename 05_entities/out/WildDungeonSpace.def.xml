@@ -1,0 +1,69 @@
+<root>
+	<Parent>	DungeonSpace		</Parent>
+	<Implements>
+	</Implements>
+	<ClientName>	WildDungeonSpace	</ClientName>
+	<Properties>
+		<!-- <allowEnter>
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+			<Default>	1				</Default>
+		</allowEnter> -->
+
+		<playerDeadDict>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</playerDeadDict>
+
+		<playerNum>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0				</Default>
+		</playerNum>
+
+		<campRelation>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</campRelation>
+
+		<eventID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</eventID>
+
+		<curContentIndex>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</curContentIndex>
+	</Properties>
+	<CellMethods>
+		<onPlayerDie>
+			<Arg>		INT32		</Arg>
+		</onPlayerDie>
+
+		<gameEndNoResult>
+		</gameEndNoResult>
+
+		<resetCampRelation>
+			<Arg>		INT32		</Arg>
+		</resetCampRelation>
+
+		<giveAwards>
+			<Arg>		INT32		</Arg>
+		</giveAwards>
+
+		<showContentDescription>
+			<Arg>		INT32		</Arg>
+		</showContentDescription>
+	</CellMethods>
+	<ClientMethods>
+		<gameEndNoResult>
+			<Arg>		FLOATTIME	</Arg>
+		</gameEndNoResult>
+
+		<onPlayerDie>
+			<Arg>		INT32		</Arg>
+		</onPlayerDie>
+	</ClientMethods>
+</root>

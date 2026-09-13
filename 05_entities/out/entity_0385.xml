@@ -1,0 +1,264 @@
+<root>
+	<Properties>
+		<currencyList>
+			<!-- 	所有货币，包括金币、钻石		-->
+			<Type>	ARRAY <of>	CURRENCY_ITEM	</of>	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</currencyList>
+		<freezedCurrencyIDs>
+			<!-- 	被冻结的货币		-->
+			<Type>	ARRAY <of>	INT32	</of>	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</freezedCurrencyIDs>
+		<gp>
+			<!-- 		金币 			-->
+			<Type>		INT64			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</gp>
+		<sp>
+			<!-- 		银币 			-->
+			<Type>		UINT64			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</sp>
+		<freeYuanbao>
+			<!--		免费元宝		-->
+			<Type>		INT64			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</freeYuanbao>
+		<payYuanbao>
+			<!--		付费元宝		-->
+			<Type>		INT64			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</payYuanbao>
+		<isFreezeYuanbao>
+			<!-- 		冻结元宝 			-->
+			<Type>		BOOL			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	False				</Default>
+			<Persistent>	true			</Persistent>
+		</isFreezeYuanbao>
+		<sessionSp>
+			<!-- 本次登录期间总共获取的银币	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE  			</Flags>
+			<Default>	0				</Default>
+		</sessionSp>
+		<everyDayGP>
+			<!--		每日战斗内获得金币		-->
+			<Type>			INT32		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		0			</Default>
+			<Persistent>	true		</Persistent>
+		</everyDayGP>
+		<everyDayGPLastResetTime>
+			<!--	每日战斗内获得金币重置时间		-->
+			<Type>			INT32		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		0			</Default>
+			<Persistent>	true		</Persistent>
+		</everyDayGPLastResetTime>
+		<dailyFirstGame>
+			<!--	是否每日首场游戏		-->
+			<Type>			BOOL		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		1		</Default>
+			<Persistent>	true		</Persistent>
+		</dailyFirstGame>
+		<dailyFirstGameLastResetTime>
+			<!--	是否每日首场游戏重置时间		-->
+			<Type>			INT32		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		0			</Default>
+			<Persistent>	true		</Persistent>
+		</dailyFirstGameLastResetTime>
+		<hasGetNewVersionGPReward>
+			<!--	是否已领取新版本金币奖励		-->
+			<Type>			BOOL		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		0		</Default>
+			<Persistent>	true		</Persistent>
+		</hasGetNewVersionGPReward>
+		<hasGetRC2Reward>
+			<!--	是否已领取rc2奖励		-->
+			<Type>			BOOL		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		0		</Default>
+			<Persistent>	true		</Persistent>
+		</hasGetRC2Reward>
+		<instantExchangedCurrency>
+			<!--	快速兑换的货币类型		-->
+			<Type>			PYTHON		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		{}			</Default>
+			<Persistent>	true		</Persistent>
+		</instantExchangedCurrency>
+		<everyDayShare>
+			<!--		每日获得分享币		-->
+			<Type>			INT32		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</everyDayShare>
+		<everyDayShareLastResetTime>
+			<!--	每日每日获得分享币重置时间		-->
+			<Type>			INT32		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		0			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</everyDayShareLastResetTime>
+		<extraBattleAwardResetTime>
+			<!--	额外奖励重置时间		-->
+			<Type>			PYTHON		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>		{}			</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</extraBattleAwardResetTime>
+	</Properties>
+	<BaseMethods>
+		<addCurrency>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</addCurrency>
+		<subCurrencyFromAvatar>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</subCurrencyFromAvatar>
+
+		<subMixedCurrencyFromAvatar>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</subMixedCurrencyFromAvatar>
+		<addGP>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</addGP>
+		<subGP>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</subGP>
+		<addSP>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</addSP>
+		<subSP>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</subSP>
+		<addFreeYB>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</addFreeYB>
+		<subYB>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</subYB>
+		<exchangeYB2GP> <Exposed/>
+			<Arg>		INT64		</Arg>
+			<Arg>		INT32		</Arg>
+		</exchangeYB2GP>
+		<exchangeYB2Currency> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		INT32		</Arg>
+		</exchangeYB2Currency>
+		<resetEveryDayGetGP>
+		</resetEveryDayGetGP>
+		<resetDailyFirstGame>
+		</resetDailyFirstGame>
+		<freezeCurrency>
+			<Arg>		INT32		</Arg>
+		</freezeCurrency>
+		<unfreezeCurrency>
+			<Arg>		INT32		</Arg>
+		</unfreezeCurrency>
+		<getNewVersionGP> <Exposed/>
+		</getNewVersionGP>
+		<getRC2Award> <Exposed/>
+		</getRC2Award>
+		<getRCAward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getRCAward>
+		<nomorePromptForCurrencyExchange> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</nomorePromptForCurrencyExchange>
+		<exchangeYB2CurrencyFromAvatar>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</exchangeYB2CurrencyFromAvatar>
+		<exchangeYBToAnniversaryCoin> <Exposed/>
+			<Arg>		INT64		</Arg>
+		</exchangeYBToAnniversaryCoin>
+		<exchangeHorseRaceCoinToYB> <Exposed/>
+			<Arg>		INT64		</Arg>
+		</exchangeHorseRaceCoinToYB>
+	</BaseMethods>
+	<ClientMethods>
+		<onSPUpdated>
+			<Arg>		INT64			</Arg>
+			<Arg>		INT32			</Arg>
+		</onSPUpdated>
+		<onGPUpdated>
+			<Arg>		INT64			</Arg>
+			<Arg>		INT32			</Arg>
+		</onGPUpdated>
+		<onYBUpdated>
+			<Arg>		INT64			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		INT32			</Arg>
+		</onYBUpdated>
+		<onCurrencyUpdated>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		INT32			</Arg>
+		</onCurrencyUpdated>
+		<onCurrencyUpdatedTips>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		INT32			</Arg>
+		</onCurrencyUpdatedTips>
+		<onFreezeYuanbao>
+		</onFreezeYuanbao>
+		<onFreezeCurrency>
+			<Arg>		INT32			</Arg>
+		</onFreezeCurrency>
+		<onGetNewVersionGP>
+		</onGetNewVersionGP>
+		<onGetNewVersionGPFailed>
+		</onGetNewVersionGPFailed>
+		<onGetRCAward>
+		</onGetRCAward>
+		<onGetRCAwardFailed>
+		</onGetRCAwardFailed>
+		<onExchanged>
+		</onExchanged>
+		<onUpdateNomorePromptForCurrencyExchange>
+			<Arg>		PYTHON			</Arg>
+		</onUpdateNomorePromptForCurrencyExchange>
+		<syncGetRCRewards>
+			<Arg>		PYTHON			</Arg>
+		</syncGetRCRewards>
+		<onUpdateEveryDayShare>
+			<Arg>		INT32			</Arg>
+		</onUpdateEveryDayShare>
+	</ClientMethods>
+</root>

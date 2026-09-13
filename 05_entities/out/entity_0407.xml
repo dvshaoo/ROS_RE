@@ -1,0 +1,86 @@
+<root>
+	<Properties>
+		<airwarVoteSelectItem>
+			<Type>		ARRAY <of> INT32 </of>	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</airwarVoteSelectItem>
+		<airwarVoteCommentItem>
+			<Type>		PYTHON	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</airwarVoteCommentItem>
+		<airwarVoteLikeComment>
+			<Type>		ARRAY <of> STRING </of>	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</airwarVoteLikeComment>
+		<airwarVoteDislikeComment>
+			<Type>		ARRAY <of> STRING </of>	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</airwarVoteDislikeComment>
+		<gotAirwarVoteChosenReward>
+			<Type>		INT8	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</gotAirwarVoteChosenReward>
+	</Properties>
+
+	<BaseMethods>
+		<commitAirwarItemVote> <Exposed/>
+			<Arg>			ARRAY <of> INT32 </of>	</Arg>
+		</commitAirwarItemVote>
+		<commitAirwarItemComment> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			STRING		</Arg>
+		</commitAirwarItemComment>
+		<commitAirwarItemLike> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			STRING		</Arg>
+			<Arg>			BOOL		</Arg>
+		</commitAirwarItemLike>
+		<queryAirwarItemVote> <Exposed/>
+		</queryAirwarItemVote>
+		<queryAirwarItemCommentByCode> <Exposed/>
+			<Arg>			STRING		</Arg>
+		</queryAirwarItemCommentByCode>
+		<queryAirwarItemCommentByID> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT32		</Arg>
+		</queryAirwarItemCommentByID>
+		<getAirwarVoteChosenReward> <Exposed/>
+		</getAirwarVoteChosenReward>
+	</BaseMethods>
+	<ClientMethods>
+		<commitAirwarItemVoteCB>
+			<Arg>	ARRAY <of> INT32	</of>	</Arg>
+		</commitAirwarItemVoteCB>
+		<syncAirwarItemVoteStatus>
+			<Arg>	PYTHON		</Arg>
+		</syncAirwarItemVoteStatus>
+		<commitAirwarItemCommentCB>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	STRING		</Arg>
+		</commitAirwarItemCommentCB>
+		<querySoloAirwarItemCommentCB>
+			<Arg>	PYTHON		</Arg>
+		</querySoloAirwarItemCommentCB>
+		<queryAirwarItemCommentCB>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	INT32		</Arg>
+		</queryAirwarItemCommentCB>
+		<commitAirwarCommentLikeCB>
+			<Arg>	ARRAY <of> STRING	</of>	</Arg>
+			<Arg>	ARRAY <of> STRING	</of>	</Arg>
+		</commitAirwarCommentLikeCB>
+		<getAirwarVoteChosenRewardCB>
+			<Arg>	INT8		</Arg>
+		</getAirwarVoteChosenRewardCB>
+	</ClientMethods>
+</root>

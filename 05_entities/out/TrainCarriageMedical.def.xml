@@ -1,0 +1,49 @@
+<root>
+	<Implements>
+		<Interface> iTrainCarriage </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName> TrainCarriageMedical </ClientName>
+
+	<Properties>
+		<occupyEntID>
+		    <Type>  INT32 </Type>
+		    <Flags> ALL_CLIENTS </Flags>
+		</occupyEntID>
+	</Properties>
+
+	<ClientMethods>
+		<onStartOccupyMedicalCabin>
+		</onStartOccupyMedicalCabin>
+		<onClearOccupyMedicalCabin>
+			<Arg>		INT8			</Arg>
+		</onClearOccupyMedicalCabin>
+	</ClientMethods>
+	
+	<CellMethods>
+		<rebornPlayerByToken>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</rebornPlayerByToken>
+		<onClearOccupyMedicalCabin>
+			<Arg>		INT8			</Arg>
+		</onClearOccupyMedicalCabin>
+		<startBattleRecover>
+			<Arg>		INT32			</Arg>
+		</startBattleRecover>
+		<playerLeaveMedicalCabin>
+			<Arg>		INT32			</Arg>
+		</playerLeaveMedicalCabin>
+	</CellMethods>
+	
+	<BaseMethods>
+	</BaseMethods>
+</root>

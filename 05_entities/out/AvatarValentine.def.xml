@@ -1,0 +1,22 @@
+<root>
+	<Parent>	AvatarUnitedBattle	</Parent>
+	<ClientName>	AvatarValentine		</ClientName>
+	<Properties>
+		<totalSkillBuffMarks>
+			<Type>	PYTHON	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	{}	</Default>
+		</totalSkillBuffMarks>
+	</Properties>
+
+	<CellMethods>
+		<onDieWithLover>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onDieWithLover>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

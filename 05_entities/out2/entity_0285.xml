@@ -1,0 +1,226 @@
+<root>
+	<Properties>
+		<freeModifyRosMatchTeamLogoChance>
+			<Type>		        INT32		        </Type>
+			<Flags>				BASE_AND_CLIENT		</Flags>
+			<Default>	        0	                </Default>
+			<PersistentMongo>	true	            </PersistentMongo>
+		</freeModifyRosMatchTeamLogoChance>
+		<currentTeamAppearListCanBorrow>
+			<Type>		        PYTHON		        </Type>
+			<Flags>				BASE_AND_CLIENT		</Flags>
+			<Default>	        []	                </Default>
+		</currentTeamAppearListCanBorrow>
+		<lastRosTeamScoreTime>
+			<Type>		INT64		</Type>
+			<Flags>		BASE	</Flags>
+			<Default> -1 </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</lastRosTeamScoreTime>
+		<lastLoginTeamScoreReward>
+			<Type>		INT64		</Type>
+			<Flags>		BASE	</Flags>
+			<Default> -1 </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</lastLoginTeamScoreReward>
+	</Properties>
+
+	<BaseMethods>
+		<createRosMatchTeam> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT32				</Arg>
+		</createRosMatchTeam>
+		<modifyRosMatchTeamBasicInfo> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT32				</Arg>
+		</modifyRosMatchTeamBasicInfo>
+		<modifyRosMatchTeamLogo> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+		</modifyRosMatchTeamLogo>
+		<applyRosMatchTeam> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</applyRosMatchTeam>
+		<rosMatchTeamLeaderOperation> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT8				</Arg>
+		</rosMatchTeamLeaderOperation>
+		<quitRosMatchTeam> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</quitRosMatchTeam>
+		<getMyRosMatchTeamInfo> <Exposed/> 
+		</getMyRosMatchTeamInfo>
+		<getRosMatchTeamData> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamData>
+		<getRosMatchTeamPlayerList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamPlayerList>
+		<getRosMatchTeamApplyList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</getRosMatchTeamApplyList>
+		<getRosMatchTeamEventList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+		</getRosMatchTeamEventList>
+		<searchRosMatchTeam> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</searchRosMatchTeam>
+		<getRosMatchTeamList> <Exposed/> 
+			<Arg>			BOOL				</Arg>
+		</getRosMatchTeamList>
+		<openRosMatchTeamChatMain> <Exposed/> 
+			<Arg>			INT64				</Arg>
+		</openRosMatchTeamChatMain>
+		<addRosMatchTeamChat> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+		</addRosMatchTeamChat>
+		<getRosMatchTeamChatList> <Exposed/> 
+			<Arg>			INT64				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT32				</Arg>
+		</getRosMatchTeamChatList>
+		<onReceiveRosMatchTeamChat>
+			<Arg>	INT64		</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT32		</Arg>
+		</onReceiveRosMatchTeamChat>
+		<giveFreeModifyRosMatchTeamLogoChange>
+		</giveFreeModifyRosMatchTeamLogoChange>
+		<lendTeamAppear> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</lendTeamAppear>
+		<borrowTeamAppear> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	GID 	</Arg>
+			<Arg>	INT32		</Arg>
+		</borrowTeamAppear>
+		<requestTeamAppearanceListCanBorrow> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</requestTeamAppearanceListCanBorrow>
+		<recycleTeamAppear> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</recycleTeamAppear>
+		<onApplyTeamAccepted>
+		</onApplyTeamAccepted>
+		<getRosTeamScore> <Exposed/>
+		</getRosTeamScore>
+		<rosTeamMatchOnGameEnd>
+			<Arg>			PYTHON				</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</rosTeamMatchOnGameEnd>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onCreateRosMatchTeamCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+		</onCreateRosMatchTeamCallback>
+		<onModifyRosMatchTeamBasicInfoCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onModifyRosMatchTeamBasicInfoCallback>
+		<onModifyRosMatchTeamLogoCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT8				</Arg>
+		</onModifyRosMatchTeamLogoCallback>
+		<onApplyRosMatchTeamCallback>
+			<Arg>			BOOL				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+		</onApplyRosMatchTeamCallback>
+		<onRosMatchTeamLeaderOperationCallback>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT64				</Arg>
+			<Arg>			GID				</Arg>
+			<Arg>			INT8				</Arg>
+		</onRosMatchTeamLeaderOperationCallback>
+		<onQuitRosMatchTeamCallback>
+			<Arg>			BOOL				</Arg>
+		</onQuitRosMatchTeamCallback>
+		<onGetMyRosMatchTeamInfoCallback>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetMyRosMatchTeamInfoCallback>
+		<onGetRosMatchTeamDataCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchTeamDataCallback>
+		<onGetRosMatchTeamPlayerListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetRosMatchTeamPlayerListCallback>
+		<onGetRosMatchTeamApplyListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetRosMatchTeamApplyListCallback>
+		<onGetRosMatchTeamEventListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT8				</Arg>
+		</onGetRosMatchTeamEventListCallback>
+		<onSearchRosMatchTeam>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onSearchRosMatchTeam>
+		<onGetRosMatchTeamListCallback>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT8				</Arg>
+		</onGetRosMatchTeamListCallback>
+		<onGiveFreeModifyRosMatchTeamLogoChance>
+			<Arg>			INT8				</Arg>
+		</onGiveFreeModifyRosMatchTeamLogoChance>
+		<onGetRosMatchTeamChatListCallback>
+			<Arg>			INT64				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosMatchTeamChatListCallback>
+		<onOpenRosMatchTeamChatMainCallback>
+			<Arg>			PYTHON				</Arg>
+		</onOpenRosMatchTeamChatMainCallback>
+		<onAddRosMatchTeamChatCallback>
+			<Arg>			INT8				</Arg>
+		</onAddRosMatchTeamChatCallback>
+		<onGetTeamAppearList>
+			<Arg>			PYTHON				</Arg>
+		</onGetTeamAppearList>
+		<onGetRosTeamScore>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosTeamScore>
+		<onGetRosTeamRankInfo>
+			<Arg>			PYTHON				</Arg>
+		</onGetRosTeamRankInfo>
+	</ClientMethods>
+</root>

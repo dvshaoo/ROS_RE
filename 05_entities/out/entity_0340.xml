@@ -1,0 +1,32 @@
+<root>
+  <Properties>
+    <boost>
+      <Type>    INT32   </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+    </boost>
+    <timerBoostHealBuff>
+      <Type>    INT32   </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+    </timerBoostHealBuff>
+    <timerBoostReduce>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </timerBoostReduce>
+    <boostSpeedBuff>
+      <Type>    FLOAT   </Type>
+      <Flags>   OWN_CLIENT  </Flags>
+    </boostSpeedBuff>
+  </Properties>
+
+  <BaseMethods>
+  </BaseMethods>
+
+  <ClientMethods>
+  </ClientMethods>
+
+  <CellMethods>
+    <addBoost>
+      <Arg>    INT32   </Arg>
+    </addBoost>
+  </CellMethods>
+</root>

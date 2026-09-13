@@ -1,0 +1,88 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<roomList>
+			<Type>		ARRAY <of> 	DTS_CUSTOM_CLIENT_ROOM_INFO </of>			</Type>
+			<Flags>		BASE 													</Flags>
+			<Default>   [] 														</Default>
+		</roomList>
+		<mailBoxDict>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default>   {} 				</Default>
+		</mailBoxDict>
+		<gidToRoomInfo>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default>   {} 				</Default>
+		</gidToRoomInfo>
+		<roomIdxToInfo>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default>   {} 				</Default>
+		</roomIdxToInfo>
+		<gidToRoomFull>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default> 	{}				</Default>
+		</gidToRoomFull>
+	</Properties>
+
+	<BaseMethods>
+		<onCreateDtsCustomGame>
+			<Arg>			MAILBOX 						</Arg>
+			<Arg>			DTS_CUSTOM_CLIENT_ROOM_INFO		</Arg>
+		</onCreateDtsCustomGame>
+
+		<requestRoomListInfo>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+		</requestRoomListInfo>
+
+		<requestRoomCountInfo>
+			<Arg>		MAILBOX			</Arg>
+		</requestRoomCountInfo>
+
+		<gmJoinDtsCustomGame>
+			<Arg>		GLOBAL_MAIL_BOX_INFO		</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		SCORE			</Arg>
+			<Arg>		INT32			</Arg>
+		</gmJoinDtsCustomGame>
+
+		<onDestroyDtsCustomGame>
+			<Arg>		GID 			</Arg>
+		</onDestroyDtsCustomGame>
+
+		<requestSearchRoom>
+			<Arg>		INT32			</Arg>
+			<Arg>		MAILBOX 		</Arg>
+		</requestSearchRoom>
+
+		<onModifyCustomRoomParams>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING 			</Arg>
+			<Arg>		BOOL			</Arg>
+		</onModifyCustomRoomParams>
+
+		<onNotifyCustomGameRoomFull>
+			<Arg>		GID 			</Arg>
+		</onNotifyCustomGameRoomFull>
+
+		<onNotifyCustomGameRoomNotFull>
+			<Arg>		GID 			</Arg>
+		</onNotifyCustomGameRoomNotFull>
+
+		<requestRoomFullInfo>
+			<Arg>		MAILBOX 		</Arg>
+			<Arg>		GID 			</Arg>
+		</requestRoomFullInfo>
+	</BaseMethods>
+</root>

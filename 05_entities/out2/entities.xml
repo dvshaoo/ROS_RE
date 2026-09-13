@@ -1,0 +1,92 @@
+<root>
+	<Properties>
+		<groups>
+			<Type>			ENTITY_GROUP_DICT	</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</groups>
+
+		<dynamic_groups>
+			<Type>			DYNAMIC_ENTITY_GROUP_DICT	</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</dynamic_groups>
+
+		<bt_running_group>
+			<Type>			INT32				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</bt_running_group>
+
+		<nextGroupIdx>
+			<Type>			INT32				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</nextGroupIdx>
+
+		<entity_id_to_index>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}					</Default>
+		</entity_id_to_index>
+		<delayDestroyGroups>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		[]					</Default>
+		</delayDestroyGroups>
+		<delayDestroyTimerID>
+			<Type>			INT32			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</delayDestroyTimerID>
+		<spaceInfo>
+			<Type>			PYTHON			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</spaceInfo>
+	</Properties>
+
+	<CellMethods>
+		
+		<entityValid>
+			<Arg>		SPOT_ID					</Arg>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+			<Arg>		BOOL					</Arg>
+		</entityValid>
+
+		<entityVisible>
+			<Arg>		ENTITY_ID				</Arg>
+			<Arg>		PYTHON					</Arg>
+		</entityVisible>
+
+		<createTaskEntityGroup>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+			<Arg>		PYTHON					</Arg>
+		</createTaskEntityGroup>
+
+		<createRandomEntityGroup>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+			<Arg>		PYTHON					</Arg>
+		</createRandomEntityGroup>
+
+		<destroyGroup>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+		</destroyGroup>
+
+		<cleanGroup>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+		</cleanGroup>
+
+		<execEntityFunc>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+			<Arg>		PYTHON					</Arg>
+		</execEntityFunc>
+
+		<fetchMemberIds>
+			<Arg>		ENTITY_ID				</Arg>
+			<Arg>		ENTITY_GROUP_ID			</Arg>
+		</fetchMemberIds>
+		<delayDestroyDynamicGroup>
+			<Arg>		INT32			</Arg>
+		</delayDestroyDynamicGroup>
+
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>
+

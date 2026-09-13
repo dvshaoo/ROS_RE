@@ -1,0 +1,77 @@
+<root>
+	<Properties>
+		<dtsBasketballActivityQuizTicket>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsBasketballActivityQuizTicket>
+		<dtsBasketballActivityTask>
+			<Type>		DTS_ACTIVIY_TASK_SERVER_MAP		</Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}					</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsBasketballActivityTask>
+		<dtsDoneBasketballActivityTaskIds>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsDoneBasketballActivityTaskIds>
+		<dtsBasketballActivityRewardTaskIds>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsBasketballActivityRewardTaskIds>
+		<dtsBasketballActivityDays>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsBasketballActivityDays>
+		<dtsBasketballActivityTaskLastResetTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsBasketballActivityTaskLastResetTimes>
+	</Properties>
+	<BaseMethods>
+		<doExchangeBasketballActivityGift> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</doExchangeBasketballActivityGift>
+		<getDtsBasketballActivityTaskReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getDtsBasketballActivityTaskReward>
+		<requestDtsBasketballActivityTaskContent> <Exposed/>
+        </requestDtsBasketballActivityTaskContent>
+	</BaseMethods>
+	<ClientMethods>
+		<updateDtsBasketballQuizTicketInfo>
+			<Arg>		INT32		</Arg>
+		</updateDtsBasketballQuizTicketInfo>
+		<onGetBasketballExchangeGift>
+			<Arg>		PYTHON		</Arg>
+		</onGetBasketballExchangeGift>
+		<updateDtsBasketballActivityTaskDoneInfo>
+			<Arg>		PYTHON		</Arg>
+		</updateDtsBasketballActivityTaskDoneInfo>
+		<updateDtsBasketballActivityRewardInfo>
+			<Arg>		PYTHON		</Arg>
+		</updateDtsBasketballActivityRewardInfo>
+		<onGetDtsBasketballAcvitiyTaskReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetDtsBasketballAcvitiyTaskReward>
+		<updateDtsBasketballActivityDays>
+			<Arg>		INT32		</Arg>
+		</updateDtsBasketballActivityDays>
+		<onDtsBasketballActivityTaskContentUpdate>
+			<Arg>		PYTHON		</Arg>
+		</onDtsBasketballActivityTaskContentUpdate>
+		<onSetBasketballActivityRedPoint>
+			<Arg>	BOOL	</Arg>
+		</onSetBasketballActivityRedPoint>
+	</ClientMethods>
+</root>

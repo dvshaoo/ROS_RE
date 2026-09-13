@@ -1,0 +1,48 @@
+<root>
+	<Properties>
+		<watchLiveGiftInfoTemp>
+			<!-- 		战斗奖励领取状态 <id, state>		 	-->
+			<!-- 	临时，为了红点，存盘属性是childPropertyList[0].watchLiveGiftInfo	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</watchLiveGiftInfoTemp>
+	</Properties>
+	<BaseMethods>
+		<queryAvailableWatchLiveGift> <Exposed/>
+			<Arg>			INT32					</Arg>
+		</queryAvailableWatchLiveGift>
+		<getWatchLiveGift> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- giftId -->
+		</getWatchLiveGift>
+		<refreshWatchLiveLogs> <Exposed/>
+			<Arg>			STRING					</Arg> <!-- platform -->
+			<Arg>			STRING					</Arg> <!-- name -->
+			<Arg>			INT32					</Arg> <!-- play -->
+			<Arg>			INT32					</Arg> <!-- time.time -->
+			<Arg>			INT32					</Arg> <!-- open 1 close 0-->
+			<Arg>			INT32					</Arg> <!-- fromLog 1 notFromLog 0-->
+		</refreshWatchLiveLogs>
+		<refreshOpenWebForWatchLiveGift> <Exposed/>
+		</refreshOpenWebForWatchLiveGift>
+		<checkWatchLiveTimes> <Exposed/>
+		</checkWatchLiveTimes>
+	</BaseMethods>
+	<ClientMethods>
+		<onQueryAvailableWatchLiveGift>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableWatchLiveGift>
+		<onUpdateWatchLiveGiftInfo>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateWatchLiveGiftInfo>
+		<onGetWatchLiveGift>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetWatchLiveGift>
+		<onGetWatchLiveGiftFailed>
+			<Arg>		STRING		</Arg>
+		</onGetWatchLiveGiftFailed>
+	</ClientMethods>
+</root>

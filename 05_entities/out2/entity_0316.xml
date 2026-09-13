@@ -1,0 +1,30 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<festivalAllTaskList>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</festivalAllTaskList>
+	</Properties>
+
+	<BaseMethods>
+        <requestRoundTaskList>
+			<Arg>       MAILBOX         </Arg>	<!-- mailbox -->
+        </requestRoundTaskList>
+        <onGenerateNewRoundTaskList>
+            <Arg>       STRING       </Arg>
+            <Arg>       PYTHON       </Arg>
+        </onGenerateNewRoundTaskList>
+
+        <notifySlaveInitNewFestivalTask>
+            <Arg>       STRING       </Arg>
+            <Arg>       INT32       </Arg>
+        </notifySlaveInitNewFestivalTask>
+	</BaseMethods>
+</root>

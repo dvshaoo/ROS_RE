@@ -1,0 +1,152 @@
+<root>
+	<Properties>
+		<weaponProficiency>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponProficiency>
+		
+		<hasInitWeaponProficiency>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</hasInitWeaponProficiency>
+		
+		<weaponAccumulateDamage>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponAccumulateDamage>
+		
+		<weaponHitrate>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponHitrate>
+		
+		<weaponAccumulateShoot>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponAccumulateShoot>
+		
+		<weaponAccumulateHit>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponAccumulateHit>
+		
+		<weaponComments>
+			<Type>		PYTHON	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</weaponComments>
+		
+		<weaponVoteLikeComment>
+			<Type>		PYTHON	</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</weaponVoteLikeComment>
+		
+		<hasReviewWeaponDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</hasReviewWeaponDict>
+		
+		<weaponProficiencyRankVersion>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	1		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</weaponProficiencyRankVersion>
+		
+		<highestProficiencyWeapons>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</highestProficiencyWeapons>
+		
+		<choosedBestWeaponID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</choosedBestWeaponID>
+	</Properties>
+
+	<BaseMethods>
+		<commitWeaponComment> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			STRING		</Arg>
+		</commitWeaponComment>
+		<commitWeaponReviewLike> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			STRING		</Arg>
+			<Arg>			BOOL		</Arg>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT32		</Arg>
+		</commitWeaponReviewLike>
+		<queryWeaponCommentByID> <Exposed/>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT32		</Arg>
+		</queryWeaponCommentByID>
+		<queryWeaponCommentByCode> <Exposed/>
+			<Arg>			STRING		</Arg>
+		</queryWeaponCommentByCode>
+		<getHighestProficiencyWeapons> <Exposed/>
+			<Arg>			INT32		</Arg>
+		</getHighestProficiencyWeapons>
+		<changeBestWeaponTitle> <Exposed/>
+			<Arg>			INT32		</Arg>
+		</changeBestWeaponTitle>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateWeaponProficiency>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onUpdateWeaponProficiency>
+		<onRequestRankDataCallback>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onRequestRankDataCallback>
+		<commitWeaponCommentCB>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</commitWeaponCommentCB>
+		<queryWeaponCommentCB>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	INT32		</Arg>
+		</queryWeaponCommentCB>
+		<querySoloWeaponCommentCB>
+			<Arg>	PYTHON		</Arg>
+		</querySoloWeaponCommentCB>
+		<commitWeaponReviewLikeCB>
+			<Arg>	PYTHON	</Arg>
+			<Arg>			INT32		</Arg>
+			<Arg>			INT32		</Arg>
+		</commitWeaponReviewLikeCB>
+		<updateHighestProficiencyWeapons>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateHighestProficiencyWeapons>
+		<getHighestProficiencyWeaponsCB>
+			<Arg>	PYTHON	</Arg>
+		</getHighestProficiencyWeaponsCB>
+		<changeBestWeaponTitleCB>
+			<Arg>	INT32	</Arg>
+		</changeBestWeaponTitleCB>
+	</ClientMethods>
+</root>

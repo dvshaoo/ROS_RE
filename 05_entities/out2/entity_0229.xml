@@ -1,0 +1,64 @@
+<root>
+  <Properties>
+    <currency_awards>
+      <Type>    PYTHON    </Type>
+      <Flags>   BASE  </Flags>
+      <Default> {}    </Default>
+      <Persistent>  true            </Persistent>
+    </currency_awards>
+    <alarmed_currency_awards>
+      <Type>    PYTHON    </Type>
+      <Flags>   BASE  </Flags>
+      <Default> {}    </Default>
+      <Persistent>  true            </Persistent>
+    </alarmed_currency_awards>
+
+    <items_awards>
+      <Type>    PYTHON    </Type>
+      <Flags>   BASE  </Flags>
+      <Default> {}    </Default>
+      <Persistent>  true            </Persistent>
+    </items_awards>
+    <alarmed_items_awards>
+      <Type>    PYTHON    </Type>
+      <Flags>   BASE  </Flags>
+      <Default> {}    </Default>
+      <Persistent>  true            </Persistent>
+    </alarmed_items_awards>
+
+    <reset_award_monitor_timestamp>
+      <Type>    FLOAT    </Type>
+      <Flags>   BASE  </Flags>
+      <Default> 0    </Default>
+      <Persistent>  true            </Persistent>
+    </reset_award_monitor_timestamp>
+
+    <rose_receive_count>
+      <Type>    INT32    </Type>
+      <Flags>   BASE  </Flags>
+      <Default> 0    </Default>
+      <PersistentMongo>  true            </PersistentMongo>
+    </rose_receive_count>
+
+  </Properties>
+
+  <BaseMethods>
+    <get_currency_award>
+      <Arg>  INT32  </Arg>
+      <Arg>  INT32  </Arg>
+    </get_currency_award>
+    
+    <get_item_award>
+      <Arg>  INT32  </Arg>
+      <Arg>  INT32  </Arg>
+    </get_item_award>
+
+    <alarm_device_watch_ad_suppply>
+      <Arg>  INT32  </Arg>
+      <Arg>  INT32  </Arg>
+      <Arg>  INT32  </Arg>
+    </alarm_device_watch_ad_suppply>
+
+  </BaseMethods>
+
+</root>

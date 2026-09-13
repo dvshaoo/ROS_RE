@@ -1,0 +1,34 @@
+<root>
+	<Parent>	MonsterVehicle		</Parent>
+	<Implements>
+		<Interface>	iTrap		</Interface>
+	</Implements>
+	<ClientName>	Tank	</ClientName>
+	<Properties>
+		 <trapID>
+			<Type>    INT32   		</Type>
+			<Flags>   CELL_PRIVATE  </Flags>
+		</trapID>
+
+		 <nickname>
+			<Type>    STRING   		</Type>
+			<Flags>   CELL_PRIVATE  </Flags>
+		</nickname>
+
+	</Properties>
+
+	<CellMethods>
+		<manualStart> <Exposed/>
+			<Arg>  INT32		</Arg>
+		</manualStart>
+
+		<setDefaultRoute> <Exposed/>
+			<Arg>  INT32		</Arg>
+		</setDefaultRoute>
+	</CellMethods>
+
+	<ClientMethods>
+		<playerEnter></playerEnter>
+		<playerLeave></playerLeave>
+	</ClientMethods>
+</root>

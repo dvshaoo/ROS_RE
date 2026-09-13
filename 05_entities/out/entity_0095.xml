@@ -1,0 +1,56 @@
+<root>
+	<Properties>
+		<trainInfo>
+			<Type> PYTHON </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainInfo>
+		<trainPath>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainPath>
+		<moveFinishFlags>
+			<Type> ARRAY <of> BOOL </of> </Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</moveFinishFlags>
+		<trainCarriages>
+			<Type> ARRAY <of> INT32 </of> </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainCarriages>
+		<trainsPosition>
+			<Type> ARRAY <of> VECTOR3 </of> </Type>
+			<Flags> CELL_PUBLIC </Flags>
+		</trainsPosition>
+		<hasTrain>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</hasTrain>
+	</Properties>
+	<CellMethods>
+		<onTrainCarriageMoveFinish>
+			<Arg> INT32 </Arg>
+			<Arg> BOOL </Arg>
+		</onTrainCarriageMoveFinish>
+		<createTrainVehicleForAvatar>
+			<Arg> INT32 </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</createTrainVehicleForAvatar>
+		<createHeritageByTrain>
+			<Arg> INT32 </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</createHeritageByTrain>
+		<gmOpenAllSupplyBox>
+		</gmOpenAllSupplyBox>
+		<setDebugTrainPath>
+			<Arg> STRING </Arg>
+		</setDebugTrainPath>
+	</CellMethods>
+	<ClientMethods>
+		<trainUIMsg>
+			<Arg> INT32 </Arg>
+			<Arg> PYTHON </Arg>
+		</trainUIMsg>
+	</ClientMethods>
+</root>

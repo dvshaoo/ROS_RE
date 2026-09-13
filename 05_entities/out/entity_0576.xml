@@ -1,0 +1,43 @@
+<root>
+	<Properties>
+        <abilityDisabled>
+                <Type>		ARRAY <of> INT8 </of>		</Type>
+                <Flags>		ALL_CLIENTS	</Flags>
+        </abilityDisabled>
+        <teleportPosition>
+                <Type>		VECTOR3		</Type>
+                <Flags>		CELL_PRIVATE	</Flags>
+        </teleportPosition>
+        <teleportYaw>
+                <Type>		FLOAT		</Type>
+                <Flags>		CELL_PRIVATE	</Flags>
+        </teleportYaw>
+        <woundCount>
+            <Type>		UINT32		</Type>
+            <Flags>		ALL_CLIENTS	</Flags>
+        </woundCount>
+
+	</Properties>
+
+
+	<CellMethods>
+        <teleportTeamMate> <Exposed/>
+            <Arg>		ENTITY_ID		</Arg>
+        </teleportTeamMate>
+	</CellMethods>
+
+	<ClientMethods>
+        <preloadRobotTeleport>
+            <Arg>		VECTOR3		</Arg>
+        </preloadRobotTeleport>
+        <robotHealSelf>
+        </robotHealSelf>
+        <syncWoundedCount>
+             <Arg>		UINT32		</Arg>
+        </syncWoundedCount>
+        <onSyncWoundedMsg>
+			<Arg>	STRING	</Arg>
+			<Arg>		UINT32		</Arg>
+		</onSyncWoundedMsg>
+	</ClientMethods>
+</root>

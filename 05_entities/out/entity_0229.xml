@@ -1,0 +1,34 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<getXmas2019GiftsFromBattle>
+		</getXmas2019GiftsFromBattle>
+		<giveXmas2019GiftInBattle>	<Exposed/>
+			<Arg>			GID			</Arg>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+		</giveXmas2019GiftInBattle>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+		<onSyncXmas2019GiftsUserInfoRank>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onSyncXmas2019GiftsUserInfoRank>
+		<onSyncXmas2019GiftsInBattle>
+			<Arg>	PYTHON	</Arg>
+		</onSyncXmas2019GiftsInBattle>
+		<onGiveXmas2019GiftInBattle>
+			<Arg>	GID	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT32	</Arg>
+		</onGiveXmas2019GiftInBattle>
+	</ClientMethods>
+</root>

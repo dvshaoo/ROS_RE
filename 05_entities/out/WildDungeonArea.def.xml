@@ -1,0 +1,32 @@
+<root>
+<Implements>
+		<Interface>	iCell	</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iGenSpotCreated		</Interface>
+	</Implements>
+	<ClientName>	WildDungeonArea	</ClientName>
+	<Properties>
+		<radius>
+			<Type>		FLOAT			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</radius>
+
+		<eventID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</eventID>
+
+		<wildSpaceID>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</wildSpaceID>
+	</Properties>
+
+	<ClientMethods>
+	</ClientMethods>
+
+	<CellMethods>
+		<requestDestroy>	<Exposed/>
+		</requestDestroy>
+	</CellMethods>
+</root>

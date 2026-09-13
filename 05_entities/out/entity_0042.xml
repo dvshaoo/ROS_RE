@@ -1,0 +1,32 @@
+<root>
+	<Properties>
+		<guardGroup>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</guardGroup>
+		<spotGroupNumSet>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	set()		</Default>
+		</spotGroupNumSet>
+	</Properties>
+	<CellMethods>
+		<onMonsterStartGuard>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onMonsterStartGuard>
+		<onMonsterPatrolSpotEnemy>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onMonsterPatrolSpotEnemy>
+		<onMonsterEscapeFighting>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onMonsterEscapeFighting>
+		<onMonsterLeaveGuard>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onMonsterLeaveGuard>
+	</CellMethods>
+</root>

@@ -1,0 +1,21 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<getTelkomseGoodsInfo> <Exposed/>
+		</getTelkomseGoodsInfo>
+		<buyTelkomseGood> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</buyTelkomseGood>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncTelkomseGoodsInfo>
+			<Arg>		PYTHON		</Arg>
+		</syncTelkomseGoodsInfo>
+		<syncTelkomseOpenStatus>
+			<Arg>		BOOL		</Arg>
+		</syncTelkomseOpenStatus>
+	</ClientMethods>
+</root>

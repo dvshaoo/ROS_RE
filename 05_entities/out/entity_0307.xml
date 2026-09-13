@@ -1,0 +1,258 @@
+<root>
+	<Properties>
+		<!-- 正在进行的活动 -->
+		<currentActivity>
+			<Type>	ACTIVITY_SERVER_MAP	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</currentActivity>
+
+		<preRandomNpcIndex>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</preRandomNpcIndex>
+
+		<doneActivityCount>
+			<Type> PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</doneActivityCount>
+
+		<doneRingCount> <!-- 维护每个活动做过多少环 -->
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</doneRingCount>
+
+		<!-- 维护所有活动的状态，开启或关闭 -->
+		<activityStateMap>
+			<Type>	PYTHON </Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{} 	</Default>
+		</activityStateMap>
+
+		<!-- 活跃度,最大256 -->
+		<activeness>
+			<Type>	INT8	</Type>
+			<Flags>	CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0	</Default>
+		</activeness>
+
+		<gotActivenessAward>
+			<Type>	ARRAY <of> INT8 </of> </Type>
+			<Flags> CELL_PUBLIC_AND_OWN	</Flags>
+		</gotActivenessAward>
+
+		<lastLogOutTimeCell>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</lastLogOutTimeCell>
+
+		<!-- 永远不再开启的活动 -->
+		<closedForeverActivities>
+			<Type>	ARRAY <of> INT32 </of> </Type>
+			<Flags> CELL_PUBLIC_AND_OWN	</Flags>
+		</closedForeverActivities>
+
+		<activityStateMap>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</activityStateMap>
+		<omActivityStateMap>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</omActivityStateMap>
+		<activityHistory>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</activityHistory>
+		<quizFinishedTimes>
+			<Type> INT32 </Type>
+			<Flags> CELL_PUBLIC_AND_OWN </Flags>
+			<Default>	0		</Default>
+		</quizFinishedTimes>
+	</Properties>
+
+	<BaseMethods>
+		<onGetActivity>
+			<Arg> ACTIVITY_ID	</Arg> <!-- activity_id -->
+		</onGetActivity>
+		<onGetActivityWithDynamicData>
+			<Arg> ACTIVITY_ID	</Arg> <!-- activity_id -->
+			<Arg> PYTHON	</Arg>
+			<Arg> PYTHON	</Arg>
+		</onGetActivityWithDynamicData>
+
+		<requestActivity><Exposed/>
+			<Arg> ACTIVITY_ID	</Arg> <!-- activity_id -->
+		</requestActivity>
+
+		<onDayRefreshActivity>
+		</onDayRefreshActivity>
+		<onWeekRefreshActivity>
+		</onWeekRefreshActivity>
+
+		<synActivityStateData> <!-- 同步所有活动的状态，开启或关闭 -->
+			<Arg>	ARRAY	<of>	ACTIVITY_STATE_MAP	</of>	</Arg>
+		</synActivityStateData>
+
+		<synOMActivityStateData>
+			<Arg>	ARRAY	<of>	ACTIVITY_STATE_MAP	</of>	</Arg>
+		</synOMActivityStateData>
+
+		<onSwitchActivityState>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</onSwitchActivityState>
+
+		<onOMSwitchActivityState>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</onOMSwitchActivityState>
+
+		<sweepActivity><Exposed/>
+			<Arg>	ACTIVITY_ID	</Arg>
+		</sweepActivity>
+	</BaseMethods>
+
+	<CellMethods>
+		<onGetActivity> <!-- 接受任务 -->
+			<Arg> ACTIVITY_ID </Arg> <!-- activity_id -->
+		</onGetActivity>
+		<onGetActivityWithDynamicData>
+			<Arg> ACTIVITY_ID	</Arg> <!-- activity_id -->
+			<Arg> PYTHON	</Arg>
+			<Arg> PYTHON	</Arg>
+		</onGetActivityWithDynamicData>
+
+		<onActivityMsg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onActivityMsg>
+
+		<onActivitySuc>
+			<Arg>	ACTIVITY_ID	</Arg>
+		</onActivitySuc>
+		
+		<updateActivityState>
+			<Arg>	PYTHON		</Arg>
+		</updateActivityState>
+		<updateOMActivityState>
+			<Arg>	PYTHON		</Arg>
+		</updateOMActivityState>
+
+		<canAcceptActivity>
+			<Arg>	ACTIVITY_ID	</Arg>
+		</canAcceptActivity>
+
+		<onDayRefreshActivity>
+		</onDayRefreshActivity>
+		<onWeekRefreshActivity>
+		</onWeekRefreshActivity>
+
+		<syncActivityGet>
+			<Arg>	ACTIVITY_SERVER_DATA	</Arg>
+		</syncActivityGet>
+		<syncActivitySuc>
+			<Arg>	ACTIVITY_ID	</Arg>
+		</syncActivitySuc>
+		<syncActivityGiveUp>
+			<Arg>	ACTIVITY_ID	</Arg>
+		</syncActivityGiveUp>
+		<syncActivityMsg>
+			<Arg>	        ACTIVITY_ID	 		</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</syncActivityMsg>		
+		<syncTeamActivities>
+			<Arg> ARRAY <of> ACTIVITY_SERVER_DATA </of>  </Arg><!--cur_activity-->
+		</syncTeamActivities>
+
+		<giveActivenessAward>
+			<Exposed/>
+			<Arg>	INT8	</Arg>
+		</giveActivenessAward>
+
+		<setActiveness> <!--只用于gm指令，其他调用会出错 后续删除-->
+			<Arg>	INT32	</Arg>
+		</setActiveness>
+
+		<sweepActivity>
+			<Arg>	ACTIVITY_ID	</Arg>
+		</sweepActivity>
+
+		<recordLogoutTime>
+		</recordLogoutTime>
+		<finishedGeneralQuiz>
+		</finishedGeneralQuiz>
+	</CellMethods>
+
+	<ClientMethods>
+		<getActivityBySvr>
+			<Arg>			ACTIVITY_ID				</Arg>
+		</getActivityBySvr>
+
+		<onActivityDoneSuc>
+			<Arg>			ACTIVITY_ID				</Arg>
+		</onActivityDoneSuc>
+
+		<loadCurActivity> <!-- 重新登录后获取当前任务进度 -->
+			<Arg>	ARRAY	<of>	ACTIVITY_DATA	</of>	</Arg>
+			<Arg>	ARRAY	<of>	DONE_ACTIVITY_COUNT </of>	</Arg>
+			<Arg>	ARRAY 	<of>	DONE_ACTIVITY_COUNT	</of>	</Arg>
+			<Arg>		PYTHON				</Arg>
+		</loadCurActivity>
+
+		<synActivityState>	<!-- 同步所有活动的状态，开启或关闭 -->
+			<Arg>	ARRAY	<of>	ACTIVITY_STATE_MAP	</of>	</Arg>
+		</synActivityState>
+
+		<synOMActivityStateData>
+			<Arg>	ARRAY	<of>	ACTIVITY_STATE_MAP	</of>	</Arg>
+		</synOMActivityStateData>
+
+		<onSwitchActivityState>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</onSwitchActivityState>
+
+		<onOMSwitchActivityState>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</onOMSwitchActivityState>
+
+		<synActivityRecord> <!-- 通过RPC同步records中心，如环数等 -->
+			<Arg>	ACTIVITY_ID 	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</synActivityRecord>
+
+		<onActivityGiveUp>
+			<Arg>			ACTIVITY_ID				</Arg>
+		</onActivityGiveUp>
+
+		<onSweepActivity>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</onSweepActivity>
+
+		<onAddActivityRingCount>
+			<Arg>			ACTIVITY_ID 			</Arg>
+		</onAddActivityRingCount>
+
+		<onSyncTeamActivities>
+			<Arg> ARRAY <of> ACTIVITY_DATA </of>  </Arg><!--cur_activity-->
+		</onSyncTeamActivities>
+
+		<doneActivityFillRemind>
+			<Arg>	ACTIVITY_ID	</Arg>
+			<Arg>	INT8	</Arg>
+		</doneActivityFillRemind>
+		<onUpdateActivityHistory>
+			<Arg>	ACTIVITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</onUpdateActivityHistory>
+	</ClientMethods>
+</root>

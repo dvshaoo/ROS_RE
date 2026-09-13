@@ -1,0 +1,23 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<autoIncrementId>
+			<Type>	 INT32	 </Type>
+			<Flags>	 BASE	 </Flags>
+			<Default>	 0	 </Default>
+			<Persistent>	 true	</Persistent>
+		</autoIncrementId>
+	</Properties>
+	<BaseMethods>
+		<getAutoIncId>
+			<Arg>		MAILBOX		</Arg>   <!-- mailbox -->
+			<Arg>		STRING		</Arg>   <!-- content --> 
+		</getAutoIncId>
+		<getRandomLetterId>
+			<Arg>		MAILBOX		</Arg>   <!-- mailbox -->
+		</getRandomLetterId>
+	</BaseMethods>
+</root>

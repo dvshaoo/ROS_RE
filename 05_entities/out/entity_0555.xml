@@ -1,0 +1,28 @@
+<root>
+	<Properties>
+		<_turnSpeed>
+			<Type>		INT32				</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</_turnSpeed>
+		<_lastYaw>
+			<Type>		INT32				</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</_lastYaw>
+		<facingStatus>
+			<Type>		PYTHON				</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</facingStatus>
+		<rotateStatusStack>
+			<Type>		PYTHON				</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</rotateStatusStack>
+		<_forward>
+			<Type>		VECTOR3				</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</_forward>
+	</Properties>
+
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

@@ -1,0 +1,25 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<exchangePayRebateScoreBox>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+		</exchangePayRebateScoreBox>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdatePayRebateScore>
+			<Arg>	INT32 	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onUpdatePayRebateScore>
+		<onExchangePayRebateScoreBoxSucceed>
+			<Arg>	INT32 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+		</onExchangePayRebateScoreBoxSucceed>
+		<onExchangePayRebateScoreBoxFailed>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+		</onExchangePayRebateScoreBoxFailed>
+	</ClientMethods>
+</root>

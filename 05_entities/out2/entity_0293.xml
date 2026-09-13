@@ -1,0 +1,417 @@
+<root>
+	<Implements>
+	</Implements>
+
+	<Properties>
+		<!-- 物品包裹 -->
+		<itemPackage>
+			<Type> 	ITEM_PACKAGE2 	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>
+				<rawItemList>
+					[]
+				</rawItemList>
+
+				<_packageCapacity>
+					2
+				</_packageCapacity>
+			</Default>
+			<Persistent> true					</Persistent>
+		</itemPackage>
+
+		<!-- 任务包裹 -->
+		<missionPackage>
+			<Type> MISSION_PACKAGE2</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<rawItemList>
+					[]
+				</rawItemList>
+
+				<_packageCapacity>
+					2
+				</_packageCapacity>
+			</Default>
+			<Persistent> true					</Persistent>
+		</missionPackage>
+
+		<!-- 临时包裹列表-->
+		<temporaryPackage>
+			<Type>	TEMPORARY_PACKAGE2 </Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<rawItemList>
+					[]
+				</rawItemList>
+				
+				<_packageCapacity>
+					2
+				</_packageCapacity>
+				<seqList>
+					[]
+				</seqList>
+			</Default>
+			<Persistent> true					</Persistent>
+		</temporaryPackage>
+
+		<!-- 仓库包裹列表 -->
+		<repertoryPackage>
+			<Type> REPERTORY_PACKAGE2</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<rawRepertoryItemList>
+					[]
+				</rawRepertoryItemList>
+				<rawItemList>
+					[]
+				</rawItemList>
+
+				<_packageCapacity>
+					2
+				</_packageCapacity>
+				<repertoryCount>
+					2
+				</repertoryCount>
+			</Default>
+			<Persistent> true					</Persistent>
+		</repertoryPackage>
+
+		<!--外服包裹列表-->
+		<costumePackage>
+			<Type> COSTUME_PACKAGE2 </Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<rawItemList>
+					[]
+				</rawItemList>
+
+				<_packageCapacity>
+					40
+				</_packageCapacity>
+			</Default>
+			<Persistent> true					</Persistent>
+		</costumePackage>
+
+		<!--载具包裹列表-->
+		<vehiclePackage>
+			<Type> VEHICLE_PACKAGE2 </Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<rawItemList>
+					[]
+				</rawItemList>
+
+		
+				<_packageCapacity>
+					40
+				</_packageCapacity>
+			</Default>
+			<Persistent> true					</Persistent>
+		</vehiclePackage>
+
+		<itemExpireTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	BASE 	</Flags>
+		</itemExpireTimerID>
+
+		<expiredItems>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE		</Flags>
+			<Persistent>	true	</Persistent>
+			<Default>	set()	</Default>
+		</expiredItems>
+
+		<expiringItems>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE		</Flags>
+			<Persistent>	true	</Persistent>
+			<Default>	set()	</Default>
+		</expiringItems>
+
+		<extraDressBase>
+			<Type>	DRESS_INFO	</Type>
+			<Flags>	BASE		</Flags>
+			<Persistent>	true	</Persistent>
+		</extraDressBase>
+
+		<vehicleItemID>
+			<Type>	INT32		</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+			<Persistent>	true	</Persistent>
+		</vehicleItemID>
+	</Properties>
+
+	<BaseMethods>
+		<addItem> <Exposed/>
+			<Arg>		ITEM_ID		</Arg>
+			<Arg>		ITEM_UUID	</Arg>
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		INT8		</Arg>
+		</addItem>
+
+		<delItem><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			INT8			</Arg>
+		</delItem>
+
+		<delItemByPos><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			INT32			</Arg>
+		</delItemByPos>
+
+		<addMultiItems><Exposed/>
+			<Arg>		ITEM_ID		</Arg>
+			<Arg>		ITEM_CNT	</Arg>
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		INT8		</Arg>
+		</addMultiItems>
+
+		<delMultiItems><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+			<Arg>			INT8			</Arg>
+		</delMultiItems>
+
+		<addItemToTemporaryPackage>
+			<Arg>		ITEM_ID		</Arg>
+			<Arg>		ITEM_UUID	</Arg>
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		INT8		</Arg>	
+		</addItemToTemporaryPackage>
+
+		<getBackOneItem><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</getBackOneItem>
+
+		<movePosFromTmpToItemPackage><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</movePosFromTmpToItemPackage>
+
+		<delItemFromTemporaryPackage>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</delItemFromTemporaryPackage>
+
+		<getBackAllItemFromTemporaryPackageRequest><Exposed/>
+		</getBackAllItemFromTemporaryPackageRequest>
+
+		<moveItemFromPackageToRepertory><Exposed/> <!-- 将物品从包裹移动到仓库 -->
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</moveItemFromPackageToRepertory>
+
+		<moveItemFromRepertoryToPackage><Exposed/> <!-- 将物品从仓库移动到包裹 -->
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</moveItemFromRepertoryToPackage>
+
+		<movePosFromRepertoryToPackage><Exposed/>
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			INT32				</Arg>
+		</movePosFromRepertoryToPackage>
+
+		<movePosFromPackageToRepertory><Exposed/>
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			INT32				</Arg>
+		</movePosFromPackageToRepertory>
+
+		<unlockItemPackage><Exposed/>
+		</unlockItemPackage>
+
+		<checkItem><Exposed/>
+			<Arg> 			ITEM_ID 			</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</checkItem>
+
+		<canAddMultiItems>
+			<Arg> 			ITEM_ID 			</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</canAddMultiItems>
+
+		<exchangeItems><Exposed/> <!--兑换物品-->
+			<Arg>		ARRAY <of>	ITEM_ID		</of>		</Arg>
+			<Arg>		ARRAY <of>	ITEM_CNT	</of>		</Arg>
+			<Arg>		ARRAY <of>	ITEM_ID		</of>		</Arg>
+			<Arg>		ARRAY <of>	ITEM_CNT	</of>		</Arg>
+		</exchangeItems>  
+
+		<refreshItemPackageLayout><Exposed/>
+		</refreshItemPackageLayout>
+
+		<refreshRepertoryPackageLayout><Exposed/>
+			<Arg>			REPERTORY_ID		</Arg>
+		</refreshRepertoryPackageLayout>
+
+		<autoSellEquip><Exposed/>
+			<Arg> 			PYTHON			</Arg>
+		</autoSellEquip>
+
+		<sellEquip><Exposed/>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg> 			ITEM_UUID 			</Arg>
+		</sellEquip>
+		<sellMaterial><Exposed/>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg> 			ITEM_CNT 			</Arg>  <!--pos-->
+		</sellMaterial>
+
+
+		<useItem><Exposed/> <!--使用物品-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</useItem>
+
+		<useMultiItems><Exposed/> <!--使用物品-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</useMultiItems>
+
+		<unlockRepertoryPackage><Exposed/>
+		</unlockRepertoryPackage>
+
+		<addMultiItemsToTemporary>
+			<Arg>		ITEM_ID		</Arg>
+			<Arg>		ITEM_CNT	</Arg>
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		INT8		</Arg>
+		</addMultiItemsToTemporary>
+
+		<notifyItemCntToTaskContentGetItem>
+			<Arg>		ITEM_ID		</Arg>
+		</notifyItemCntToTaskContentGetItem>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+		<onAddItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+			<Arg>			INT8				</Arg>
+		</onAddItem>
+
+		<onDelItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItem>
+
+		<onAddMultiItems>
+			<Arg>			ITEM_ID						</Arg>
+			<Arg>			ARRAY <of> ITEM_UUID </of> 	</Arg>
+			<Arg>			PY_DICT						</Arg>
+			<Arg>			INT8						</Arg>
+		</onAddMultiItems>
+
+		<onDelMultiItems>
+			<Arg>			ITEM_ID						</Arg>
+			<Arg>			ARRAY <of> ITEM_UUID </of> 	</Arg>
+		</onDelMultiItems>
+
+		<onUpdateItemInfo>
+			<Arg>			ITEM_ID						</Arg>
+			<Arg>			ITEM_UUID					</Arg>
+			<Arg>			PY_DICT 	                </Arg>
+		</onUpdateItemInfo>
+
+		<onUnlockItemPackage>
+		</onUnlockItemPackage>
+
+		<onAddMultiItemsToTemp>
+			<Arg>			ITEM_ID						</Arg>
+			<Arg>			ARRAY <of> ITEM_UUID </of> 	</Arg>
+			<Arg>			PY_DICT						</Arg>
+			<Arg>			INT8						</Arg>
+		</onAddMultiItemsToTemp>
+
+		<onMovePosFromTmpToItemPackage>
+			<Arg>			ITEM_ID						</Arg>
+			<Arg>			ARRAY <of> ITEM_UUID </of> 	</Arg>
+		</onMovePosFromTmpToItemPackage>
+
+        <temporaryPackageChangeUICall>
+			<Arg>			ITEM_ID						</Arg>
+			<Arg>			ITEM_UUID					</Arg>
+        </temporaryPackageChangeUICall>
+
+		<onAddItemToTemporaryPackage>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+			<Arg>			INT8				</Arg>
+		</onAddItemToTemporaryPackage>
+
+		<onDelItemFromTemporaryPackage>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItemFromTemporaryPackage>
+
+		<onGetBackAllItem>
+			<Arg>			ARRAY <of>	ITEM_ID </of>	</Arg>
+			<Arg>			ARRAY <of>	ITEM_UUID	</of>	</Arg>
+		</onGetBackAllItem>
+
+		<onMovePosFromRepertoryToPackage>
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ARRAY <of>	ITEM_UUID	</of>	</Arg>
+		</onMovePosFromRepertoryToPackage>
+
+		<onMovePosFromPackageToRepertory>
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ARRAY <of>	ITEM_UUID	</of>	</Arg>
+		</onMovePosFromPackageToRepertory>
+
+		<onAddItemToRepertory>
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</onAddItemToRepertory>
+
+		<onUpdateItemProp>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</onUpdateItemProp>
+
+		<onDelItemFromRepertory>
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItemFromRepertory>
+
+		<onUnlockRepertoryPackage>
+		</onUnlockRepertoryPackage>
+
+		<onSelectVehicle>
+			<Arg>		ITEM_ID		</Arg>
+		</onSelectVehicle>
+
+		<onRefreshLayout>
+		</onRefreshLayout>
+
+		<onDelItemByPos>
+			<Arg>		ITEM_ID 	</Arg>
+			<Arg>		INT32		</Arg>
+		</onDelItemByPos>
+
+		<onRefreshRepertoryLayout>
+			<Arg>			REPERTORY_ID		</Arg>
+		</onRefreshRepertoryLayout>
+
+		<initPackages>
+		</initPackages>
+	</ClientMethods>
+</root>

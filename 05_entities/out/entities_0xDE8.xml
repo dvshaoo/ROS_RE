@@ -1,0 +1,329 @@
+<root>
+	<!-- This file is used by the BigWorld engine to determine the types of entities available for use by the engine. -->
+	<!-- Each tag must correspond to a definition file and a python implementation script for the cell, base and -->
+	<!-- client version of the distributed entity.  If an entity is derived from another entity in the list, -->
+	<!-- that parent entity must be declared first.  Each declared entity can also have a default model to show in the -->
+	<!-- BigBang editor when placed in the world.  An example of this is included below... -->
+
+	<!--
+	<Seat>
+
+		(This would show the seat in BigBang, if it were to be added via the editor.)
+		(In this demo, all our entities are loaded into the world via the scripting process.)
+		<editor>
+			<model> objects/models/ring/scenery/06_town/furnishings/t_stool </model>
+		</editor>
+
+	</Seat>
+	-->
+
+	<!-- archive below -->
+
+	<GlobalBaseStub/>
+	<VentureStub/>
+	<Channel/>
+
+	<GlobalSpaceStub/>
+	<MicroserviceRpcStub/>
+	<SpaceStub/>
+	<BehaviorStub/>
+	<PayedPartnerStub/>
+	<Space/>
+	<DynamicSpace/>
+	<DungeonSpace/>
+	<WildDungeonSpace/>
+	<LegionDungeonSpace/>
+	<BattleSpace/>
+	<SingleBattleSpace/>
+	<VehicleArenaSpace/>
+	<VehicleBattleSpace/>
+	<RacingSpace/>
+	<TimeTrialRacingSpace/>
+	<ChallengeSpace/>
+	<LegionWarSpace/>
+	<LigeanceSourceSpace/>
+	<LegionDefendSpace/>
+	<BlastSpace/>
+	<BattleGroundSpace/>
+	<BattleGroundHeroSecretTreasureModeStub/>
+	<BattleGroundHeroSecretTreasure/>
+	<BattleGroundCustomSpace/>
+	<AutoRoyaleCustomSpace/>
+	<BattleGroundQuickModeCustomSpace/>
+	<BattleSecretTreasureCustomSpace/>
+	<BattleGroundTutorialSpace/>
+	<BattleGroundFreeParadiseSpace/>
+	<BattleGroundQuickModeSpace/>
+	<BattleGroundImbaModeSpace/>
+	<BattleGroundSplashModeSpace/>
+	<BattleCampWarSpace/>
+	<BattleCampWarCustomSpace/>
+	<BattleSecretTreasure/>
+	<BattleHero/>
+	<BattleHeroCustom/>
+	<BattleUnitedBattleSpace/>
+	<BattleUnitedBattleCustomSpace/>
+	<BattleUnitedBattleValentineSpace/>
+	<AutoRoyaleSpace/>
+	<BattleGroundYuanBaoSpace/>
+	<BattleGroundCustomYuanBaoSpace/>
+	<BattleWildModeSpace/>
+	<BattleWildModeCustomSpace/>
+	<RoleStub/>
+	<GMAdminStub/>
+	<RankListStub/>
+	<RedPackageStub/>
+	<RedPackageStub2/>
+	<WildDungeonRefreshStub/>
+	<BattleGroundForceRankListStub/>
+	<BattleGroundWinningRankListStub/>
+	<BattleGroundKillingRankListStub/>
+	<BattleGroundWeekendPushStub/>
+	<CampWarHumanRankListStub/>
+	<CampWarInfectRankListStub/>
+	<CampWarOverallRankListStub/>
+	<HotValTotalStub/>
+	<HotValDailyStub/>
+	<GoldBattleRankListStub/>
+	<GoldBattleSoloRankListStub/>
+	<GoldBattleDualRankListStub/>
+	<GoldBattleQuadRankListStub/>
+	<GoldBattleFiveRankListStub/>
+	<GoldBattleOverallRankListStub/>
+	<YuanbaoBattleSoloRankListStub />
+	<YuanbaoBattleDualRankListStub />
+	<YuanbaoBattleQuadRankListStub />
+	<YuanbaoBattleFiveRankListStub />
+	<YuanbaoBattleOverallRankListStub/>
+	<RosMatchAdminConfStub/>
+	<RosMatchTeamRankListStub/>
+	<RosMatchQualifierScoreStub/>
+	<PrizeMatchStub/>
+	<HorseRacingStub/>
+	<ActivityLimitTimeStub/>
+	<TelkomseGoodsConfStub/>
+	<RosTeamTournamentRankListStub/>
+
+	<CCLiveStub/>
+	<ChickenGiftStub/>
+	<CommonLiveStub/>
+	<RankedMatchStub/>
+	<BattleGroundMatchStub/>
+	<BattleGroundRankedStub/>
+	<BattleGroundGoldStub/>
+	<BattleGroundQuickModeStub/>
+	<BattleGroundImbaModeStub/>
+	<BattleGroundSplashModeStub/>
+	<BattleGroundCampWarModeStub/>
+	<BattleGroundSecretTreasureModeStub/>
+	<BattleGroundHeroModeStub/>
+	<BattleGroundFPSStub/>
+	<BattleGroundAutoRoyaleStub/>
+	<BattleGroundYuanBaoStub/>
+	<BattleGroundPrizeMatchStub/>
+	<BattleGroundMasterPrizeMatchSpace/>
+	<BattleGroundNextGenStub/>
+	<BattleGroundTrainStub/>
+	<BattleGroundAirWarStub/>
+	<DtsRankValueStub/>
+	<QueueStub/>
+	<LegionStub/>
+	<Legion/>
+	<TreasureChest/>
+	<PayStub/>
+	<AdRewardStub/>
+	<QuizCoin201701Stub/>
+	<OBLiveControlStub/>
+	<ActivityValentine2018Stub/>
+	<InternationalChallengeCupBattleStub />
+	<InternationalChallengeCupSpace />
+	<InternationalChallengeCupSignUpStub />
+	<InternationalChallengeCupRanklistStub/>
+	<ChallengeCupSignUpSlaveStub/>
+	<HunterCouple2017Stub/>
+	<SnGiftStub/>
+	<ComplaintCenterStub/>
+	<BattleGroundWildModeStub/>
+	<BattleGroundUnitedBattleStub/>
+	<BattleGroundUnitedBattleValentineStub/>
+	<AnniversaryStub/>
+
+	<LoginProxy/>
+	<Account/>
+	<BattleAccount/>
+	<Avatar/>
+	<AvatarHeroSecretTreasure/>
+	<AutoRoyaleAvatar/>
+	<AvatarImba/>
+	<AvatarCampWar/>
+	<AvatarUnitedBattle/>
+	<AvatarValentine/>
+	<AvatarSecretTreasure/>
+	<AvatarHero/>
+	<AvatarFreeParadise/>
+	<AvatarWildMode/>
+	<Athlete/>
+	<Npc/>
+	<Robot/>
+	<RobotImba/>
+	<RobotUnited/>
+	<RobotShadow/>
+	<RobotDisplay/>
+	<RobotHalloween2020/>
+	<HelperRobot/>
+	<PetUnit/>
+	<JumpRobotUnit/>
+	<Monster/>
+	<Campsite/>
+
+	<AvatarVehicle/>
+	<MonsterVehicle/>
+
+	<SceneElement/>
+	<InteractElement/>
+	<AmmunitionBox/>
+	<SceneSwitch/>
+	<SwitchBomb/>
+	<Detector/>
+	<Sniper/>
+	<Shelter/>
+	<ShelterGroup/>
+	<BuffSpot/>
+
+	<TaskArea/>
+	<TransferStone/>
+	<RaceJudgeArea/>
+	<LegionLigeance/>
+	<CrackItem/>
+	<DroppedC4Item/>
+	<InstalledC4Item/>
+	<C4InstallArea/>
+
+	<Fucker/>
+
+	<TianZhu/>
+	<DefendTower/>
+
+	<PickableMonster/>
+
+	<DeathArea/>
+	<WildDungeonArea/>
+
+	<Tank/>
+	<LigeanceSourceTruck/>
+	<NPCVehicle/>
+
+	<NpcBase/>
+	<WildDungeonNpc/>
+	<!-- skill summon entities -->
+
+
+	<SkillMagicField/>
+	<SkillMagicFieldMove/>
+	<SkillDetectExplosiveSummonEntity/>
+	<SkillMissileSummonEntity/>
+	<SkillMissileFixedDestinationSummonEntity/>
+	<SkillExplosiveServMovePolylineSummonEntity/>
+	<SkillLockTokenSummonEntity/>
+	<SkillGunLikeSummonCreateEntity/>
+	<SkillExplosiveSummonEntity/>
+	<SkillCallDropSummonEntity/>
+	<SkillClientExplosiveSummonEntity/>
+	<SkillWingmanExplosiveSummonEntity/>
+	<SkillSummonWing/>
+	<SkillSummonModelTraceWithAnim/>
+	<SkillDamageOverTimeSummonEntity/>
+	<SkillClientMagicField/>
+
+	<CrontabStub/>
+	<ActivityStub/>
+	<LigeanceSourceStub/>
+	<BattleGroundAvatar/>
+
+	<TeleCardAwardStub/>
+	<QuizStub />
+	<QuizRoom />
+	<LegionQuizStub/>
+	<LegionQuizRoom/>
+	<LandCar/>
+	<LandBoat/>
+	<LandMotor/>
+	<LandBike/>
+	<LandExpress/>
+	<LandCraft/>
+	<LandGlider/>
+	<LandHelicopter/>
+	<LandCommanderVehicle/>
+	<LandBulldozer/>
+	<LandHoverCar/>
+	<LandSnowboard/>
+	<LandDrone/>
+
+	<LandEquippedWeaponHoverCar/>
+	
+	<AutoRoyaleCar/>
+	<AutoRoyaleHelicopter/>
+	<AutoRoyaleProp/>
+	<AutoRoyaleSpeedField/>
+
+	<DtsProp/>
+	<DtsPropRegeneration/>
+	<DtsPropDisplay/>
+	<DtsSecretTreasureBox/>
+	<DtsPlayerHeritage/>
+	<DtsSecretTreasureAirDrop/>
+	<DtsAvatarHeroAirDrop/>
+	<Plane/>
+	<AirShip/>
+	<DtsBombSummonEntity/>
+	<DtsBulletSummonBombEntity/>
+	<DtsFlowerSummonEntity/>
+	<DtsBombCarrierSummonEntity/>
+	<DtsFlowerCarrierSummonEntity/>
+	<DtsRangeGunSummonEntity/>
+	<DtsTrackingWeaponSummonEntity/>
+	<DtsZipLine/>
+
+	<HallTeam/>
+	<ClientTeammate/>
+	<ClientWeaponEntity/>
+	<LuckyCarnivalStub/>
+
+	<InternationalChallengeCupScheduleStub/>
+	<LotteryStub/>
+	<DtsCustomGameStub2/>
+	<DtsCustomGameRoom/>
+	<OldPlayerReturnStub/>
+	<FestivalActivityTaskStub/>
+	<FestivalActivityTaskSlaveStub/>
+
+	<YuanbaoBattleMatchResultStub/>
+
+	<Landmine/>
+	<AutoRoyaleLandmine/>
+	<LinePropBase/>
+	<AutoRoyaleOilFilm/>
+	<AutoRoyaleSmoke/>
+	<AutoRoyaleCorrosiveGas/>
+	<DtsPaintEntity/>
+	<DtsStarBoxEntity/>
+	<DtsStarBoxAirDropEntity/>
+	<AvatarXmasPlayer/>
+
+	<VoxelBuildUnitSpringFloor/>
+	<DtsSurpriseBoxEntity/>
+	<DtsSnowmanEntity/>
+	<DtsExplodeImmediatelyEntity/>
+	<DtsBlowerEntity/>
+	<SocialLadderStub/>
+
+	<TrainCarriageLocomotive/>
+	<TrainCarriagePassager/>
+	<TrainCarriageSupply/>
+	<TrainCarriageMedical/>
+	<TrainCarriageTest/>
+	<DtsDancingCake/>
+	<AnniversaryTreasure/>
+	<AnniversarySalute/>
+	<WeaponIllustrationStub/>
+ </root>

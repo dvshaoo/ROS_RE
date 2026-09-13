@@ -1,0 +1,40 @@
+  [0x3d4ce8] op 0x05
+  [0x3d4cea] op 0x02
+  [0x3d4cec] op 0x03
+  [0x3d4cee] op 0x00
+  [0x3d4cf0] op 0x00
+  [0x3d4cf2] op 0x00
+  [0x3d4cf4] op 0x3d
+  [0x3d4cf6] op 0x00
+  [0x3d4cf8] invoke 0x71 Lcom/netease/mpay/oversea/widget/h;->a
+  [0x3d4cfe] op 0x0c
+  [0x3d4d00] invoke 0x6e Lcom/netease/mpay/oversea/widget/h;->b
+  [0x3d4d06] i-op 0x54 Lcom/netease/mpay/oversea/h/c/c$7;->a
+  [0x3d4d0a] invoke 0x71 Lcom/netease/mpay/oversea/h/c/c;->r
+  [0x3d4d10] op 0x0c
+  [0x3d4d12] if-testz 0x38 v0, target=0x3d4d70
+  [0x3d4d16] i-op 0x54 Lcom/netease/mpay/oversea/h/c/c$7;->a
+  [0x3d4d1a] invoke 0x71 Lcom/netease/mpay/oversea/h/c/c;->s
+  [0x3d4d20] op 0x0c
+  [0x3d4d22] invoke 0x6e Landroid/app/Activity;->isFinishing
+  [0x3d4d28] op 0x0a
+  [0x3d4d2a] if-testz 0x38 v0, target=0x3d4d30
+  [0x3d4d2e] goto target=0x3d4d70
+  [0x3d4d30] i-op 0x54 Lcom/netease/mpay/oversea/h/c/c$7;->a
+  [0x3d4d34] invoke 0x71 Lcom/netease/mpay/oversea/h/c/c;->v
+  [0x3d4d3a] op 0x0c
+  [0x3d4d3c] op 0x22
+  [0x3d4d3e] op 0x66
+  [0x3d4d40] i-op 0x54 Lcom/netease/mpay/oversea/h/c/c$7;->a
+  [0x3d4d44] invoke 0x71 Lcom/netease/mpay/oversea/h/c/c;->t
+  [0x3d4d4a] op 0x0c
+  [0x3d4d4c] i-op 0x54 Lcom/netease/mpay/oversea/ui/TransmissionData$LoginData;->c
+  [0x3d4d50] invoke 0x70 Lcom/netease/mpay/oversea/ui/g$f;-><init>
+  [0x3d4d56] i-op 0x54 Lcom/netease/mpay/oversea/h/c/c$7;->a
+  [0x3d4d5a] invoke 0x71 Lcom/netease/mpay/oversea/h/c/c;->u
+  [0x3d4d60] op 0x0c
+  [0x3d4d62] invoke 0x6e Lcom/netease/mpay/oversea/ui/TransmissionData$LoginData;->c
+  [0x3d4d68] op 0x0c
+  [0x3d4d6a] invoke 0x6e Lcom/netease/mpay/oversea/ui/g;->a
+  [0x3d4d70] return-void
+  [0x3d4d72] op 0x00

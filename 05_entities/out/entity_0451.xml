@@ -1,0 +1,26 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<requestReconnectCCMini> <Exposed/>
+			<Arg>		STRING		</Arg>
+		</requestReconnectCCMini>	
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+		<syncCCMiniChannel>
+			<Arg>			STRING					</Arg>
+			<Arg>			STRING					</Arg>
+			<Arg>			PYTHON					</Arg>		
+			<Arg>			INT32					</Arg>
+		</syncCCMiniChannel>
+		<onJoinCCMiniStreamFail>
+			<Arg>			STRING					</Arg>
+			<Arg>			STRING					</Arg>
+		</onJoinCCMiniStreamFail>
+	</ClientMethods>	
+</root>

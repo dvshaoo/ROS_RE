@@ -1,0 +1,40 @@
+<root>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<getDayTaskReward> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</getDayTaskReward>
+		<getDayTaskTotalScoreReward> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</getDayTaskTotalScoreReward>
+		<clientFinishDayTask> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</clientFinishDayTask>
+	</BaseMethods>
+	<ClientMethods>
+		<onSyncDayTaskProgress>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onSyncDayTaskProgress>
+		<onSyncDayTaskTotalScore>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onSyncDayTaskTotalScore>
+		<onSyncDayTaskTotalScoreRewards>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onSyncDayTaskTotalScoreRewards>
+		<onSyncDayTaskTimeParams>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onSyncDayTaskTimeParams>
+		<onGetAwardsDayTask>
+			<Arg>			PYTHON				</Arg>
+		</onGetAwardsDayTask>
+	</ClientMethods>
+</root>

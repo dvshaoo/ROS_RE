@@ -1,0 +1,26 @@
+<root>
+  <Properties>
+  </Properties>
+
+  <BaseMethods>
+    <startChongDing>
+      <Arg> INT32 </Arg>
+    </startChongDing>
+
+    <onGetChannelRoundResult>
+      <Arg> INT32 </Arg>
+      <Arg> INT32 </Arg>
+      <Arg> PY_DICT </Arg>
+      <Arg> INT32 </Arg>
+    </onGetChannelRoundResult>
+
+    <onGetOnlineNum>
+      <Arg> INT32 </Arg>
+    </onGetOnlineNum>
+
+    <gatherFinalWinner>
+      <Arg> INT32 </Arg>
+    </gatherFinalWinner>
+  </BaseMethods>
+
+</root>

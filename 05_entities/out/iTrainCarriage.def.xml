@@ -1,0 +1,136 @@
+<root>
+	<Implements>
+		<Interface> iBaseWithCell </Interface>
+		<Interface> iCell </Interface>
+		<Interface> iMove </Interface>
+		<Interface>	iTrap	</Interface>
+		<Interface>	iRotate		</Interface>
+	</Implements>
+
+	<Properties>
+		<trainPropID>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainPropID>
+		<trainCarriageNo>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</trainCarriageNo>
+		<getInRangeEntitiesTimer>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</getInRangeEntitiesTimer>
+		<nickname>
+			<Type>	STRING	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</nickname>
+		<syncFilterTimer>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</syncFilterTimer>
+		<goods>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</goods>
+		<vmBalance>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</vmBalance>
+		<protectRange>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</protectRange>
+	</Properties>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName> iTrainCarriage </ClientName>
+	<CellMethods>
+		<forceSetPosition>
+			<Arg> VECTOR3 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</forceSetPosition>
+		<forceMoveToPosition>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32 </Arg>
+		</forceMoveToPosition>
+		<forceMoveToPositions>
+			<Arg>
+				ARRAY
+				<of> VECTOR3 </of>
+			</Arg>
+			<Arg> INT32 </Arg>
+		</forceMoveToPositions>
+		<updateOnTrainEntities>
+			<Arg> INT32 </Arg>
+			<Arg> VECTOR3 </Arg>
+		</updateOnTrainEntities>
+
+		<trainHit><Exposed/>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> ENTITY_ID </Arg>
+		</trainHit>
+		<onDamageResult>
+			<Arg> INT32 </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> UINT32 </Arg>
+			<Arg> INT8	</Arg>
+			<Arg> PYTHON	</Arg>
+			<Arg> PY_DICT </Arg>
+		</onDamageResult>
+		<onShootKillOther>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> UINT8	</Arg>
+		</onShootKillOther>
+		<tryFollowEntity>
+			<Arg> ENTITY_ID </Arg>
+		</tryFollowEntity>
+		<bindTPAvatar>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3	</Arg>
+		</bindTPAvatar>
+		<tryOpenTrainBox> <Exposed/>
+			<Arg> INT32 </Arg>
+		</tryOpenTrainBox>
+		<quitOpenTrainSupplyBox> <Exposed/>
+			<Arg> INT32 </Arg>
+		</quitOpenTrainSupplyBox>
+		<buyVendingMachineGoods>
+			<Arg> MAILBOX	</Arg>
+			<Arg> INT32	</Arg>
+		</buyVendingMachineGoods>
+		<addVendingMachineBalance>
+			<Arg> INT32 </Arg>
+		</addVendingMachineBalance>
+		<gmAddVendingMachineBalance>
+			<Arg> INT32 </Arg>
+		</gmAddVendingMachineBalance>
+	</CellMethods>
+	<ClientMethods>
+		<bindTPAvatar>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> VECTOR3	</Arg>
+		</bindTPAvatar>
+		<onTrainSupplyBoxOpenFailed>
+			<Arg> INT32 </Arg>
+		</onTrainSupplyBoxOpenFailed>
+		<onTrainSupplyBoxOpen>
+			<Arg> INT32 </Arg>
+		</onTrainSupplyBoxOpen>
+		<onBuyVendingMachineGoods>
+			<Arg> INT32	</Arg>
+			<Arg> INT32	</Arg>
+		</onBuyVendingMachineGoods>
+		<onSyncVendingMachineBalance>
+		</onSyncVendingMachineBalance>
+		<onInitVendingMachine>
+		</onInitVendingMachine>
+	</ClientMethods>
+</root>

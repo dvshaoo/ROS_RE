@@ -1,0 +1,45 @@
+<root>
+	<Parent>	BattleGroundQuickModeSpace	</Parent>
+	<ClientName>	BattleGroundSplashModeSpace	</ClientName>
+	<Properties>
+		<rebornPlaneTimer>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rebornPlaneTimer>
+
+		<rebornPlayerIDs>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rebornPlayerIDs>
+		
+		<lastRebornTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</lastRebornTime>	
+
+		<stopRebornTimeStamp>
+			<Type>	TIMESTAMP_INT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</stopRebornTimeStamp>
+		<leaveGameList>
+			<Type>	ARRAY <of> ENTITY_ID </of> </Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</leaveGameList>
+	</Properties>
+
+	<CellMethods>
+		<onRebornPlaneCreate>
+			<Arg>		INT32			</Arg>
+		</onRebornPlaneCreate>
+
+		<onWaitReborn>
+			<Arg>		INT32			</Arg>
+		</onWaitReborn>
+	</CellMethods>
+
+	<ClientMethods>
+		<notifySplashModeRankList>
+			<Arg>		PYTHON			</Arg>
+		</notifySplashModeRankList>
+	</ClientMethods>
+</root>

@@ -1,0 +1,899 @@
+<root>
+	<Properties>
+		<legionName>
+			<Type>		STRING			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<SendInPartialUpdate>	true	</SendInPartialUpdate>
+		</legionName>
+		<legionPosition>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<SendInPartialUpdate>	true	</SendInPartialUpdate>
+		</legionPosition>
+		<lastQuickJoinLegionTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE		</Flags>
+		</lastQuickJoinLegionTime>
+		<legionGID>
+			<Type>		GID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</legionGID>
+		<legionMailBox>
+			<Type>		MAILBOX		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</legionMailBox>
+		<legionActivities>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</legionActivities>
+		<legionLigeanceInfo>
+			<Type>		LEGION_LIGEANCE_INFO	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</legionLigeanceInfo>
+		<lp>
+			<!--		军团贡献	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</lp>
+		<legionLabData>
+			<!--		战争实验室点修	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionLabData>
+		<attackDefendLegionName>
+			<Type>		STRING			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	""			</Default>
+		</attackDefendLegionName>
+		<isDeclareOnLigeance>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	false			</Default>
+		</isDeclareOnLigeance>
+		<legionLabProperties>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionLabProperties>
+		<staticLegionLabProperties>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	{}			</Default>
+		</staticLegionLabProperties>
+		<memoryCopyFromCnt>
+			<Type>		INT32			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</memoryCopyFromCnt>
+		<memoryCopyFromTime>
+			<Type>		INT64			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Persistent>	true			</Persistent>
+		</memoryCopyFromTime>
+		<memoryCopyFromRequests>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	{}			</Default>
+		</memoryCopyFromRequests>
+		<memoryCopyToCnt>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Persistent>	true			</Persistent>
+		</memoryCopyToCnt>
+		<memoryCopyToTime>
+			<Type>		INT64			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Persistent>	true			</Persistent>
+		</memoryCopyToTime>
+		<memoryCopyExtraCnt>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Persistent>	true			</Persistent>
+		</memoryCopyExtraCnt>
+		<memoryCopyExtraTime>
+			<Type>		INT64			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Persistent>	true			</Persistent>
+		</memoryCopyExtraTime>
+		<memoryCopyToRequests>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	{}			</Default>
+		</memoryCopyToRequests>
+		<memoryCopyTarget>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</memoryCopyTarget>
+		<isMemoryCopyFrom>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</isMemoryCopyFrom>
+		<memoryCopyOpen>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	1			</Default>
+		</memoryCopyOpen>
+		<memoryCopyStartTime>
+			<Type>		FLOAT			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</memoryCopyStartTime>
+		<memoryCopyTimerID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</memoryCopyTimerID>
+		<legionDefendState>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+		</legionDefendState>
+	</Properties>
+	<BaseMethods>
+		<startLegionQuiz> <Exposed/>
+		</startLegionQuiz>
+		<updateAttackDefendLegionName>
+			<Arg> 		STRING 		</Arg>
+			<Arg> 		BOOL 		</Arg>
+		</updateAttackDefendLegionName>
+		<requestSelectOneLigeanceAsTaskTarget> <Exposed/>
+			<Arg> 		INT32 		</Arg>
+		</requestSelectOneLigeanceAsTaskTarget>
+		<onSelectOneLigeanceAsTaskTarget>
+			<Arg> 		GID 		</Arg>
+			<Arg> 		INT32 		</Arg>
+			<Arg> 		STRING 		</Arg>
+			<Arg> 		INT32 		</Arg>
+		</onSelectOneLigeanceAsTaskTarget>
+		<requestLegionInfo> <Exposed/>
+		</requestLegionInfo>
+		<requestStartLegionDefend> <Exposed/>
+			<Arg> INT32 </Arg>
+		</requestStartLegionDefend>
+		<requestDoLegionDefend> <Exposed/>
+		</requestDoLegionDefend>
+		<onRequestDoLegionDefend>
+			<Arg> BOOL </Arg>
+			<Arg> STRING </Arg>
+			<Arg> PYTHON </Arg>
+		</onRequestDoLegionDefend>
+		<queryLegionDefendState> <Exposed/>
+		</queryLegionDefendState>
+		<onQueryLegionDefendState>
+			<Arg> BOOL </Arg>
+			<Arg> INT32 </Arg>
+		</onQueryLegionDefendState>
+		<onRequestLegionInfo>
+			<Arg>		LEGION_DETAIL_INFO	</Arg>
+		</onRequestLegionInfo>
+		<onRequestLigeanceDeclareInfo>
+			<Arg>		GID			</Arg>
+			<Arg>		GID			</Arg>
+		</onRequestLigeanceDeclareInfo>
+		<createLegion> <Exposed/>
+			<Arg>		STRING		</Arg>		<!-- name -->
+			<Arg>		STRING		</Arg>		<!-- description -->
+			<Arg>		INT32		</Arg>		<!-- badge id -->
+		</createLegion>
+		<onCreateLegion>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		STRING		</Arg>
+		</onCreateLegion>
+		<requestModifyLegionInfo> <Exposed/>
+			<Arg>		STRING		</Arg>		<!-- description -->
+			<Arg>		INT32		</Arg>		<!-- badge id -->
+		</requestModifyLegionInfo>
+		<onModifyLegionInfo>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onModifyLegionInfo>
+		<onInitLegionMailbox>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</onInitLegionMailbox>
+		<onUpdateLegionData>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateLegionData>
+		<onResetLegionData>
+			<Arg>		GID		</Arg>
+		</onResetLegionData>
+		<onEnterLegion>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onEnterLegion>
+
+		<requestLegionList> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- buffer length -->
+			<Arg>		BOOL		</Arg>		<!-- get next batch -->
+		</requestLegionList>
+		<onRequestLegionList>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- start index -->
+			<Arg>	ARRAY <of> LEGION_BRIEF_INFO </of></Arg>	<!-- data -->
+		</onRequestLegionList>
+		<requestSearchLegion> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		STRING		</Arg>
+		</requestSearchLegion>
+		<onRequestSearchLegion>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>	ARRAY <of> LEGION_BRIEF_INFO </of></Arg>	<!-- data -->
+		</onRequestSearchLegion>
+		<requestJoinLegion> <Exposed/>
+			<Arg>		GID		</Arg>
+		</requestJoinLegion>
+		<quickJoinLegion> <Exposed/>
+		</quickJoinLegion>
+		<onQuickJoinLegion>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onQuickJoinLegion>
+		<onRequestJoinLegion>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestJoinLegion>
+		<requestLegionApplyNumber> <Exposed/>
+		</requestLegionApplyNumber>
+		<requestLegionApplies> <Exposed/>
+		</requestLegionApplies>
+		<onRequestLegionApplyNumber>
+			<Arg>		INT32		</Arg>
+		</onRequestLegionApplyNumber>
+		<onRequestLegionApplies>
+			<Arg>	ARRAY <of> LEGION_APPLY	</of>	</Arg>
+		</onRequestLegionApplies>
+		<confirmLegionApplies> <Exposed/>
+			<Arg>	ARRAY <of>	GID	</of>	</Arg>
+		</confirmLegionApplies>
+		<onConfirmLegionApply>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onConfirmLegionApply>
+		<rejectLegionApplies> <Exposed/>
+			<Arg>	ARRAY <of>	GID	</of>	</Arg>
+		</rejectLegionApplies>
+		<requestLegionMemberList> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- buffer length -->
+			<Arg>		BOOL		</Arg>		<!-- get next batch -->
+		</requestLegionMemberList>
+		<onRequestLegionMemberList>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- start index -->
+			<Arg>	ARRAY <of> LEGION_MEMBER_CLIENT_INFO</of>	</Arg>	<!-- data -->
+		</onRequestLegionMemberList>
+		<requestSearchLegionMember> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>		STRING		</Arg>
+		</requestSearchLegionMember>
+		<onRequestSearchLegionMember>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>	ARRAY <of> LEGION_MEMBER_CLIENT_INFO</of>	</Arg>	<!-- data -->
+		</onRequestSearchLegionMember>
+		<expelLegionMember> <Exposed/>
+			<Arg>		GID		</Arg>
+		</expelLegionMember>
+		<onExpelLegionMember>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onExpelLegionMember>
+		<onExpeledFromLegion>
+			<Arg>		GID		</Arg>
+		</onExpeledFromLegion>
+		<requestQuitFromLegion> <Exposed/>
+		</requestQuitFromLegion>
+		<onRequestQuitFromLegion>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onRequestQuitFromLegion>
+		<onQuitFromLegion>
+			<Arg>		GID		</Arg>
+		</onQuitFromLegion>
+		<appointLegionMember> <Exposed/>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</appointLegionMember>
+		<onAppointLegionMember>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onAppointLegionMember>
+		<onUpdateLegionMemberInfo>
+			<Arg>	LEGION_MEMBER_CLIENT_INFO	</Arg>
+		</onUpdateLegionMemberInfo>
+		<onLegionPositionUpdated>
+			<Arg>	LEGION_MEMBER_CLIENT_INFO	</Arg>
+		</onLegionPositionUpdated>
+		<resignLegionPosition> <Exposed/>
+		</resignLegionPosition>
+		<onResignLegionPosition>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onResignLegionPosition>
+		<requestLegionLeaderAbdicate> <Exposed/>
+		</requestLegionLeaderAbdicate>
+		<onLegionLeaderAbdicate>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onLegionLeaderAbdicate>
+		<requestSendLegionMail> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+		</requestSendLegionMail>
+		<onSendLegionMail>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onSendLegionMail>
+		<queryLegionMailSent> <Exposed/>
+		</queryLegionMailSent>
+		<onQueryLegionMailSent>
+			<Arg> ARRAY <of>LEGION_MAIL_INFO	</of> </Arg>
+		</onQueryLegionMailSent>
+		<removeLegionMailSent> <Exposed/>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+		</removeLegionMailSent>
+		<onRemoveLegionMailSent>
+			<Arg>	BOOL			</Arg>
+		</onRemoveLegionMailSent>
+		<queryLegionEvents> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</queryLegionEvents>
+		<onQueryLegionEvents>
+			<Arg> ARRAY <of>LEGION_EVENT_INFO	</of></Arg>
+		</onQueryLegionEvents>
+		<onLegionEventsUpdate>
+			<Arg>		INT32			</Arg>
+		</onLegionEventsUpdate>
+		<queryLegionResources> <Exposed/>
+		</queryLegionResources>
+		<onQueryLegionResources>
+			<Arg>		LEGION_RESOURCE_INFO	</Arg>
+		</onQueryLegionResources>
+		<queryLegionBuildingInfo> <Exposed/>
+		</queryLegionBuildingInfo>
+		<onQueryLegionBuildingInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>	ARRAY <of>	LEGION_BUILDING_INFO </of>	</Arg>
+		</onQueryLegionBuildingInfo>
+		<requestUpgradeLegionBuilding> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</requestUpgradeLegionBuilding>
+		<onUpgradeLegionBuilding>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onUpgradeLegionBuilding>
+		<requestUnlockLegionUpgradeQueue> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</requestUnlockLegionUpgradeQueue>
+		<onUnlockLegionUpgradeQueue>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onUnlockLegionUpgradeQueue>
+		<onLegionResourceParamUpdate>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</onLegionResourceParamUpdate>
+		<onLegionActivitiesUpdate>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onLegionActivitiesUpdate>
+		<onLegionActivitiesDelete>
+			<Arg>		INT32		</Arg>
+		</onLegionActivitiesDelete>
+		<requestMuzzleLegionMember> <Exposed/>
+			<Arg>		GID		</Arg>
+			<Arg>		BOOL		</Arg>
+		</requestMuzzleLegionMember>
+		<onRequestMuzzleLegionMember>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMuzzleLegionMember>
+		<requestConcernOnLegion> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</requestConcernOnLegion>
+
+		<invadeOnLegionLigeance> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</invadeOnLegionLigeance>
+		<onInvadeOnLegionLigeance>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvadeOnLegionLigeance>
+		<declareOnLegionLigeance> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</declareOnLegionLigeance>
+		<onDeclareOnLegionLigeance>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onDeclareOnLegionLigeance>
+		<queryLigeanceInfo> <Exposed/>
+		</queryLigeanceInfo>
+		<onQueryLigeanceInfo>
+			<Arg>	ARRAY <of> LIGEANCE_CLIENT_INFO </of>	</Arg>
+		</onQueryLigeanceInfo>
+		<onLegionLigeanceUpdate>
+			<Arg>		PYTHON		</Arg>
+		</onLegionLigeanceUpdate>
+		<queryLegionWarSpaces> <Exposed/>
+		</queryLegionWarSpaces>
+		<onQueryLegionWarSpaces>
+			<Arg>		ARRAY <of>	LEGION_WAR_INFO	</of>	</Arg>
+			<Arg>		ARRAY <of>	LEGION_WAR_INFO	</of>	</Arg>
+		</onQueryLegionWarSpaces>
+		<queryLegionLigeanceDetail> <Exposed/>
+		</queryLegionLigeanceDetail>
+		<onQueryLegionLigeanceDetail>
+			<Arg>		PYTHON		</Arg>
+		</onQueryLegionLigeanceDetail>
+		<queryLegionMallData> <Exposed/>
+		</queryLegionMallData>
+		<onQueryLegionMallData>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onQueryLegionMallData>
+		<requireBuyLegionMallItem> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</requireBuyLegionMallItem>
+		<onBuyLegionMallItem>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onBuyLegionMallItem>
+		<refreshLegionMallItem> <Exposed/>
+		</refreshLegionMallItem>
+		<onRefreshLegionMall>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRefreshLegionMall>
+		<onLegionLabLevelUpdate>
+			<Arg>		INT32		</Arg>
+		</onLegionLabLevelUpdate>
+		<requestUpgradeLegionLab> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</requestUpgradeLegionLab>
+		<onRequestUpgradeLegionLab>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onRequestUpgradeLegionLab>
+		<requestLegionDominationData> <Exposed/>
+		</requestLegionDominationData>
+		<onRequestLegionDominationData>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onRequestLegionDominationData>
+		<requestLegionDominationRankData> <Exposed/>
+		</requestLegionDominationRankData>
+		<onRequestLegionDominationRankData>
+			<Arg>		DOMINATION_OWN_RANK_INFO	</Arg>
+			<Arg>	ARRAY <of>	DOMINATION_RANK_INFO </of>	</Arg>
+		</onRequestLegionDominationRankData>
+		<requestLegionDominationAward> <Exposed/>
+			<Arg>		BOOL			</Arg>
+		</requestLegionDominationAward>
+		<armyPowerLog>
+			<Arg>		PYTHON			</Arg>
+		</armyPowerLog>
+		<notifyLPToTaskContentGetItem>
+		</notifyLPToTaskContentGetItem>
+		<updateLegionNotifier>
+			<Arg>		INT8		</Arg>
+			<Arg>		BOOL		</Arg>
+		</updateLegionNotifier>
+
+		<requestEnterLegionDungeon><Exposed/>
+			<Arg> INT32 </Arg>
+		</requestEnterLegionDungeon>
+		<onRequestEnterLegionDungeon>
+			<Arg> BOOL </Arg>
+			<Arg> STRING </Arg>
+			<Arg> PYTHON </Arg>
+		</onRequestEnterLegionDungeon>
+		<queryLegionInvadeLigeanceActivity>
+		</queryLegionInvadeLigeanceActivity>
+		<queryLegionResourceAddInfo> <Exposed/>
+		</queryLegionResourceAddInfo>
+		<onQueryLegionResourceAddInfo>
+			<Arg> PYTHON </Arg>
+		</onQueryLegionResourceAddInfo>
+	</BaseMethods>
+	<CellMethods>
+		<syncLegionActivities>
+			<Arg>		PYTHON		</Arg>
+		</syncLegionActivities>
+		<onLegionActivitiesUpdate>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onLegionActivitiesUpdate>
+		<onLegionActivitiesDelete>
+			<Arg>		INT32		</Arg>
+		</onLegionActivitiesDelete>
+		<updateLegionInfo>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</updateLegionInfo>
+		<updateLegionName>
+			<Arg>		STRING		</Arg>
+		</updateLegionName>
+		<updateLegionPosition>
+			<Arg>		INT32		</Arg>
+		</updateLegionPosition>
+		<syncLegionLigeanceInfo>
+			<Arg>		PYTHON		</Arg>
+		</syncLegionLigeanceInfo>
+		<onEnterLegionLigeance>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onEnterLegionLigeance>
+		<enterLegionLigeance> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</enterLegionLigeance>
+		<plantLegionCrackItem> <Exposed/>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</plantLegionCrackItem>
+		<onPlantLegionCrackItem>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onPlantLegionCrackItem>
+		<removeLegionCrackItem> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</removeLegionCrackItem>
+		<onRemoveLegionCrackItem>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRemoveLegionCrackItem>
+		<onRequestLegionWarSpace>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onRequestLegionWarSpace>
+		<requestEnterLegionWar> <Exposed/>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+		</requestEnterLegionWar>
+		<onLegionLabPropertiesUpdate>
+			<Arg>		PYTHON		</Arg>
+		</onLegionLabPropertiesUpdate>
+		<requestMatchLegionDomination> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestMatchLegionDomination>
+		<requestMemoryCopyFrom> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</requestMemoryCopyFrom>
+		<onRequestMemoryCopyFromResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMemoryCopyFromResult>
+		<onRequestMemoryCopyFrom>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMemoryCopyFrom>
+		<confirmMemoryCopyTo> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</confirmMemoryCopyTo>
+		<onConfirmMemoryCopyFrom>
+			<Arg>		MAILBOX		</Arg>
+		</onConfirmMemoryCopyFrom>
+		<requestMemoryCopyTo> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</requestMemoryCopyTo>
+		<onRequestMemoryCopyToResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMemoryCopyToResult>
+		<onRequestMemoryCopyTo>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMemoryCopyTo>
+		<confirmMemoryCopyFrom> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</confirmMemoryCopyFrom>
+		<onConfirmMemoryCopyTo>
+			<Arg>		MAILBOX		</Arg>
+		</onConfirmMemoryCopyTo>
+		<startCopyMemoryFrom>
+			<Arg>		MAILBOX		</Arg>
+		</startCopyMemoryFrom>
+		<startCopyMemoryTo>
+			<Arg>		MAILBOX		</Arg>
+		</startCopyMemoryTo>
+		<breakCopyMemory> <Exposed/>
+		</breakCopyMemory>
+		<onCopyMemoryBreak>
+			<Arg>		MAILBOX		</Arg>
+		</onCopyMemoryBreak>
+		<onCopyMemoryFinish>
+			<Arg>		MAILBOX		</Arg>
+		</onCopyMemoryFinish>
+		<getCopyMemoryExtraAward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getCopyMemoryExtraAward>
+		<onLeaveLegion>
+			<Arg>		GID		</Arg>
+		</onLeaveLegion>
+		<onRequestDoLegionDefend>
+			<Arg> PYTHON </Arg>
+		</onRequestDoLegionDefend>
+		<onRequestEnterLegionDungeon>
+			<Arg> PYTHON </Arg>
+		</onRequestEnterLegionDungeon>
+	</CellMethods>
+	<ClientMethods>
+		<onUpdateAttackDefendLegionName>
+			<Arg> 		STRING 		</Arg>
+			<Arg> 		BOOL 		</Arg>
+		</onUpdateAttackDefendLegionName>
+		<onAddLegionResource>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onAddLegionResource>
+		<onRequestLegionInfo>
+			<Arg>		LEGION_DETAIL_INFO	</Arg>
+		</onRequestLegionInfo>
+		<onRequestLegionList>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- start index -->
+			<Arg>	ARRAY <of> LEGION_BRIEF_INFO </of></Arg>	<!-- data -->
+		</onRequestLegionList>
+		<onRequestSearchLegion>
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>	ARRAY <of> LEGION_BRIEF_INFO </of></Arg>	<!-- data -->
+		</onRequestSearchLegion>
+		<onCreateLegion>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onCreateLegion>
+		<onModifyLegionInfo>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onModifyLegionInfo>
+		<onRequestJoinLegion>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestJoinLegion>
+		<onRequestLegionApplyNumber>
+			<Arg>		INT32		</Arg>
+		</onRequestLegionApplyNumber>
+		<onRequestLegionApplies>
+			<Arg>	ARRAY <of> LEGION_APPLY	</of>	</Arg>
+		</onRequestLegionApplies>
+		<onConfirmLegionApply>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onConfirmLegionApply>
+		<onRequestLegionMemberList>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- start index -->
+			<Arg>	ARRAY <of> LEGION_MEMBER_CLIENT_INFO</of></Arg>	<!-- data -->
+		</onRequestLegionMemberList>
+		<onRequestSearchLegionMember>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>	ARRAY <of> LEGION_MEMBER_CLIENT_INFO</of></Arg>	<!-- data -->
+		</onRequestSearchLegionMember>
+		<onUpdateLegionData>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		LEGION_MEMBER_CLIENT_INFO	</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateLegionData>
+		<onResetLegionData>
+		</onResetLegionData>
+		<onExpelLegionMember>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onExpelLegionMember>
+		<onExpeledFromLegion>
+		</onExpeledFromLegion>
+		<onRequestQuitFromLegion>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestQuitFromLegion>
+		<onQuitFromLegion>
+		</onQuitFromLegion>
+		<onAppointLegionMember>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onAppointLegionMember>
+		<onUpdateLegionMemberInfo>
+			<Arg>	LEGION_MEMBER_CLIENT_INFO	</Arg>
+		</onUpdateLegionMemberInfo>
+		<onLegionPositionUpdated>
+			<Arg>	LEGION_MEMBER_CLIENT_INFO	</Arg>
+		</onLegionPositionUpdated>
+		<onResignLegionPosition>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onResignLegionPosition>
+		<onLegionLeaderAbdicate>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onLegionLeaderAbdicate>
+		<onSendLegionMail>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onSendLegionMail>
+		<onQueryLegionMailSent>
+			<Arg> ARRAY <of>LEGION_MAIL_INFO	</of> </Arg>
+		</onQueryLegionMailSent>
+		<onRemoveLegionMailSent>
+			<Arg>	BOOL			</Arg>
+		</onRemoveLegionMailSent>
+		<onQueryLegionEvents>
+			<Arg> ARRAY <of>LEGION_EVENT_INFO	</of></Arg>
+		</onQueryLegionEvents>
+		<onLegionEventsUpdate>
+			<Arg>		INT32			</Arg>
+		</onLegionEventsUpdate>
+		<onQueryLegionResources>
+			<Arg>		LEGION_RESOURCE_INFO	</Arg>
+		</onQueryLegionResources>
+		<onQueryLegionBuildingInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>	ARRAY <of>	LEGION_BUILDING_INFO </of>	</Arg>
+		</onQueryLegionBuildingInfo>
+		<onUpgradeLegionBuilding>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onUpgradeLegionBuilding>
+		<onUnlockLegionUpgradeQueue>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onUnlockLegionUpgradeQueue>
+		<onLegionResourceParamUpdate>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onLegionResourceParamUpdate>
+		<onLegionActivitiesUpdate>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onLegionActivitiesUpdate>
+		<onLegionActivitiesDelete>
+			<Arg>		INT32		</Arg>
+		</onLegionActivitiesDelete>
+		<onRequestMuzzleLegionMember>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMuzzleLegionMember>
+		<onInvadeOnLegionLigeance>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvadeOnLegionLigeance>
+		<onDeclareOnLegionLigeance>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onDeclareOnLegionLigeance>
+		<onQueryLigeanceInfo>
+			<Arg>	ARRAY <of> LIGEANCE_CLIENT_INFO </of>	</Arg>
+		</onQueryLigeanceInfo>
+		<onPlantLegionCrackItem>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onPlantLegionCrackItem>
+		<onRemoveLegionCrackItem>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRemoveLegionCrackItem>
+		<onQueryLegionWarSpaces>
+			<Arg>		ARRAY <of>	LEGION_WAR_INFO	</of>	</Arg>
+			<Arg>		ARRAY <of>	LEGION_WAR_INFO	</of>	</Arg>
+		</onQueryLegionWarSpaces>
+		<onQueryLegionLigeanceDetail>
+			<Arg>		PYTHON		</Arg>
+		</onQueryLegionLigeanceDetail>
+		<onQueryLegionMallData>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onQueryLegionMallData>
+		<onLPUpdated>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onLPUpdated>
+		<onBuyLegionMallItem>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onBuyLegionMallItem>
+		<onLegionLabTechUpdate>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onLegionLabTechUpdate>
+		<onLegionLabLevelUpdate>
+			<Arg>		INT32		</Arg>
+		</onLegionLabLevelUpdate>
+		<onEnterLegionLigeance>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onEnterLegionLigeance>
+		<onRequestLegionDominationData>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onRequestLegionDominationData>
+		<onRequestLegionDominationRankData>
+			<Arg>		DOMINATION_OWN_RANK_INFO	</Arg>
+			<Arg>	ARRAY <of>	DOMINATION_RANK_INFO </of>	</Arg>
+		</onRequestLegionDominationRankData>
+		<onReceiveMemoryCopyTo>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onReceiveMemoryCopyTo>
+		<onReceiveMemoryCopyFrom>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onReceiveMemoryCopyFrom>
+		<onRequestMemoryCopyFromResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMemoryCopyFromResult>
+		<onRequestMemoryCopyToResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestMemoryCopyToResult>
+		<syncLegionNotifier>
+			<Arg>	ARRAY <of>	BOOL	</of>	</Arg>
+		</syncLegionNotifier>
+		<updateLegionNotifier>
+			<Arg>		INT8		</Arg>
+			<Arg>		BOOL		</Arg>
+		</updateLegionNotifier>
+		<onQueryLegionDefendState>
+			<Arg> BOOL </Arg>
+			<Arg> INT32 </Arg>
+		</onQueryLegionDefendState>
+		<onQueryLegionResourceAddInfo>
+			<Arg> PYTHON </Arg>
+		</onQueryLegionResourceAddInfo>
+	</ClientMethods>
+</root>

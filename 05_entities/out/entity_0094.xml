@@ -1,0 +1,36 @@
+<root>
+	<Properties>
+		<getLuckyTurnPropList>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</getLuckyTurnPropList>
+		<luckyTurnTaskProgress>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</luckyTurnTaskProgress>
+		<currentluckyTurnDataID>    <!-- 当前活动的ID -->
+			<Type>		INT64		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</currentluckyTurnDataID>
+	</Properties>
+
+	<BaseMethods>
+		<getLuckyTurnPropReward> <Exposed/>
+		</getLuckyTurnPropReward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetLuckyTurnPropReward>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetLuckyTurnPropReward>
+		<onUpdateLuckyTurnTaskProgress>
+			<Arg>			INT32				</Arg>
+		</onUpdateLuckyTurnTaskProgress>
+	</ClientMethods>
+</root>

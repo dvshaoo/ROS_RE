@@ -1,0 +1,35 @@
+<root>
+	<Properties>
+		<shareGiftInfoTemp>
+			<!-- 		分享奖励领取状态 <id, state>		 	-->
+			<!-- 	临时，为了红点，存盘属性是childPropertyList[0].shareGiftInfo	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+		</shareGiftInfoTemp>
+	</Properties>
+	<BaseMethods>
+		<queryAvailableShareGift> <Exposed/>
+		</queryAvailableShareGift>
+		<getShareGift> <Exposed/>
+			<Arg>		INT32		</Arg>		<!-- giftId -->
+		</getShareGift>
+		<refreshShareGiftInfo> <Exposed/>
+		</refreshShareGiftInfo>
+	</BaseMethods>
+	<ClientMethods>
+		<onQueryAvailableShareGift>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableShareGift>
+		<onUpdateShareGiftInfo>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateShareGiftInfo>
+		<onGetShareGift>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetShareGift>
+		<onGetShareGiftFailed>
+			<Arg>		STRING		</Arg>
+		</onGetShareGiftFailed>
+	</ClientMethods>
+</root>

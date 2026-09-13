@@ -1,0 +1,32 @@
+<root>
+  <Implements>
+    <Interface> iCell </Interface>
+  </Implements>
+
+  <ClientName>  VoxelBuildUnitSpringFloor  </ClientName>
+
+  <Properties>
+    <buildUnitId>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </buildUnitId>
+    <ownerEntityId>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </ownerEntityId>
+    <itemId>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </itemId>
+  </Properties>
+
+  <ClientMethods>
+  </ClientMethods>
+
+  <CellMethods>
+  </CellMethods>
+
+  <BaseMethods>
+  </BaseMethods>
+
+</root>

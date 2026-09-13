@@ -1,0 +1,34 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<setWishTargetPropID>  <Exposed/>
+			<Arg>			INT32			</Arg>
+		</setWishTargetPropID>
+		<getWishPoolAward>  <Exposed/>
+		</getWishPoolAward>
+		<getAnniveraryAnchorGift>  <Exposed/>
+			<Arg>			INT32			</Arg>
+		</getAnniveraryAnchorGift>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSetWishTargetSuccess>
+			<Arg>			INT32			</Arg>
+		</onSetWishTargetSuccess>
+		<updateWishPoolState>
+			<Arg>			BOOL			</Arg>
+		</updateWishPoolState>
+		<onGetWishPoolAward>
+			<Arg>		PYTHON 				</Arg>  <!--award_dict-->
+			<Arg>		PYTHON 				</Arg>  <!--wish_pool_award_list-->
+			<Arg>		INT32				</Arg>  <!--totalGetTimes-->
+		</onGetWishPoolAward>
+
+		<onGetAnchorGiftAward>
+			<Arg>		PYTHON 				</Arg>  <!--award_dict-->
+			<Arg>		PYTHON				</Arg>
+		</onGetAnchorGiftAward>
+	</ClientMethods>
+</root>

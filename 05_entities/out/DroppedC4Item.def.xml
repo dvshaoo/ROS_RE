@@ -1,0 +1,40 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iTrap		</Interface>
+	</Implements>
+	<ClientName>	DroppedC4Item		</ClientName>
+	<Properties>
+		<trapID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</trapID>
+		<startVelocity>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</startVelocity>
+		<dropTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</dropTimerID>
+		<isDropped>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isDropped>
+		<dropperID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</dropperID>
+		<dropPosition>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</dropPosition>
+	</Properties>
+	<CellMethods>
+		<onDrop> <Exposed/>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</onDrop>
+	</CellMethods>
+</root>
+

@@ -1,0 +1,29 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+	</Implements>
+	<ClientName>	AnniversarySalute	</ClientName>
+	<Properties>
+		<cdTime>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</cdTime>
+		<isBroken>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</isBroken>
+		<region>
+			<Type> STRING </Type>
+			<Flags> CELL_PRIVATE </Flags>
+		</region>
+	</Properties>
+	<CellMethods>
+		<tryOpenAnniversarySalute>	<Exposed/>
+			<Arg> INT32 </Arg>
+		</tryOpenAnniversarySalute>
+	</CellMethods>
+	<ClientMethods>
+		<onFireSalute>
+		</onFireSalute>
+	</ClientMethods>
+</root>

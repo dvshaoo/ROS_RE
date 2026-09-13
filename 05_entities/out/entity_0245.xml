@@ -1,0 +1,45 @@
+<root>
+	<Properties>
+		<goldBattleInfo>
+			<Type>	ARRAY <of>	PYTHON	</of>	</Type>
+			<Flags> 		BASE		</Flags>
+			<Persistent>	true		</Persistent>
+		</goldBattleInfo>
+	</Properties>
+
+	<BaseMethods>
+		<readGoldBattleNew> <Exposed/> </readGoldBattleNew>
+		<buyGoldBattleChance> <Exposed/> </buyGoldBattleChance>
+		<buyGoldBattleChanceForTeamMember> <Exposed/> 
+			<Arg>			INT32					</Arg>
+		</buyGoldBattleChanceForTeamMember>
+		<onUpdateBuyGoldBattleChance> 
+			<Arg>			INT32					</Arg>
+		</onUpdateBuyGoldBattleChance>
+		<useGoldBattleChance> </useGoldBattleChance>
+		<addGoldBattleAwards>
+			<Arg>			PYTHON					</Arg>	<!-- params -->
+		</addGoldBattleAwards>
+		<addGoldBattleEveryDayGP>
+			<Arg>			INT32					</Arg>	<!-- params -->
+		</addGoldBattleEveryDayGP>
+	</BaseMethods>
+
+	<ClientMethods>
+		<updateGoldBattleInfo>
+			<Arg>			PYTHON					</Arg>	<!-- params -->
+		</updateGoldBattleInfo>
+		<buyGoldBattleChanceCallback>
+			<Arg>			BOOL					</Arg>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</buyGoldBattleChanceCallback>
+		<syncMemberGoldBattleInfo>
+			<Arg>			INT32					</Arg>
+			<Arg>			PYTHON					</Arg>	<!-- params -->
+		</syncMemberGoldBattleInfo>
+		<onSyncEnableGoldGame>
+			<Arg>			BOOL					</Arg>
+		</onSyncEnableGoldGame>
+	</ClientMethods>
+</root>

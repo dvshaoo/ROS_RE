@@ -1,0 +1,249 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iMove		</Interface>
+		<Interface>	iRotate		</Interface>
+		<Interface>	iNormalCombatUnit</Interface>
+		<Interface>	iCombatBehavior	</Interface>
+		<Interface>	iDtsEquip	</Interface>
+		<Interface>	iOccupationUnit	</Interface>
+		<Interface>	iDtsEquipAppearanceAvatar	</Interface>
+		<Interface>	iPerspective		</Interface>
+		<Interface>	iMark			</Interface>
+		<Interface> iAirWar		</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+	<ClientName>	Robot		</ClientName>
+
+	<Properties>
+		<zombieBot>
+			<Type>		BOOL	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</zombieBot>
+		<level>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</level>
+		<nickname>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</nickname>
+		<handingWeapon>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</handingWeapon>
+		<speed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</speed>
+		<challengeAttackFactor>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</challengeAttackFactor>
+		<challengeDefenseFactor>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</challengeDefenseFactor>
+		<stateMachine>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</stateMachine>
+		<offBattleTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</offBattleTimerID>
+		<startTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</startTime>
+		<equipWeaponTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</equipWeaponTimerID>
+		<equipPackageDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</equipPackageDict>
+		<gid>
+			<Type>		GID		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</gid>
+		<robotFollowID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</robotFollowID>
+		<robotAttackStatus>
+			<Type>		BOOL	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackStatus>
+		<robotAttackTimer>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackTimer>
+		<robotAttackBulletUsed>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackBulletUsed>
+		<robotAttackBulletReload>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackBulletReload>
+		<robotAttackStartTime>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackStartTime>
+		<robotVisible>
+			<Type>		BOOL	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	1	</Default>
+		</robotVisible>
+		<robotInWater>
+			<Type>		BOOL	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</robotInWater>
+		<botType>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</botType>
+		<robotActionPrepareManager>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotActionPrepareManager>
+		<robotActionBattleManager>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotActionBattleManager>
+		<robotAIActionBattleManager>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAIActionBattleManager>
+		<robotTeammates>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</robotTeammates>
+		<playersNotAttack>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</playersNotAttack>
+		<battleLogData>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	{}			</Default>
+		</battleLogData>
+		<sendToPlayerID>
+			<Type>		ENTITY_ID		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</sendToPlayerID>
+		<robotLastHurtTime> <!-- 上次受伤时间 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotLastHurtTime>
+		<robotLastAttackTime> <!-- 上次攻击时间 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotLastAttackTime>
+		<robotLastMoveTime> <!-- 上次转移时间 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotLastMoveTime>
+		<robotRotateActionTimerID> <!-- 转向动作timer -->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotRotateActionTimerID>
+		<robotRotateActionDuration> <!-- 转向动作持续时间 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotRotateActionDuration>
+		<robotAttackActionTimerID> <!-- 攻击动作timer -->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackActionTimerID>
+		<robotAttackActionDuration> <!-- 攻击动作持续时间 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotAttackActionDuration>
+		<robotCommonSpeedFactor> <!-- 移速基础因子 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotCommonSpeedFactor>
+		<robotExtraSpeedFactor> <!-- 移速临时因子 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</robotExtraSpeedFactor>
+	</Properties>
+	<CellMethods>
+		<onGameStart>
+			<Arg>	ARRAY <of>	FLOAT	</of>	</Arg>
+		</onGameStart>
+		<shootHit><Exposed/>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32	</Arg>
+		</shootHit>
+		<reDistribute>
+			<Arg> VECTOR3 </Arg>  <!--中心点-->
+			<Arg> FLOAT </Arg>  <!--半径-->
+			<Arg>	BOOL	</Arg>
+		</reDistribute>
+		<followDistribute>
+			<Arg> ENTITY_ID </Arg>  <!--avatar ID-->
+			<Arg> VECTOR3 </Arg>  <!--刷新点-->
+		</followDistribute>
+		<addDtsBotItem>
+			<Arg>			INT32			</Arg>  <!--itemID-->
+			<Arg>			INT32			</Arg>  <!--number-->
+			<Arg>			PYTHON			</Arg>  <!--info-->
+		</addDtsBotItem>
+		<syncRobotTeammates>
+			<Arg>	ARRAY <of>  INT32  </of>	</Arg>
+		</syncRobotTeammates>
+		<fakeDie>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</fakeDie>
+		<setFree>
+		</setFree>
+		<onDelayDestroy>
+		</onDelayDestroy>
+		<startRobotEquipRefresh>
+		</startRobotEquipRefresh>
+		<robotRebornStart>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</robotRebornStart>
+		<robotRebornEnd>
+			<Arg>			PYTHON			</Arg>
+		</robotRebornEnd>
+	</CellMethods>
+
+	<ClientMethods>
+		<playSfx>
+			<Arg>	STRING	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</playSfx>
+		<onJumpStart></onJumpStart>
+		<onJumpEnd>
+			<Arg> FLOAT </Arg>
+		</onJumpEnd>
+		<onDelayDestroy>
+		</onDelayDestroy>
+		<onAutoLeaveDelayDestroy>
+		</onAutoLeaveDelayDestroy>
+	</ClientMethods>
+
+</root>

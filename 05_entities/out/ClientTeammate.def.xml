@@ -1,0 +1,25 @@
+<root>
+	<ClientName>		ClientTeammate	</ClientName>
+	<Properties>
+		<ownerID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</ownerID>
+		<nickname>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</nickname>
+		<nationalFlag>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</nationalFlag>
+		<occupation>
+			<Type>		UINT8		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</occupation>
+		<woundCount>
+			<Type>		UINT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</woundCount>
+	</Properties>
+</root>

@@ -1,0 +1,49 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iSpaceRequester	</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<setOnline>
+			<Arg>		GID		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</setOnline>
+		<setOffline>
+			<Arg>		GID		</Arg>
+		</setOffline>
+		<initBattle>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	ARRAY <of>	PYTHON	</of>	</Arg>	<!-- players -->
+			<Arg>	PYTHON	</Arg>	<!-- extraSettings -->
+		</initBattle>
+		<getTeamsData>
+			<Arg>	GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+		</getTeamsData>
+		<notifyPlayerDie>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	GID		</Arg>	<!-- gid -->
+		</notifyPlayerDie>
+		<writeBattleResultToRanklist>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	PYTHON	</Arg> <!-- battle stat-->
+		</writeBattleResultToRanklist>
+		<onAsyncGetChallengeCupPlayerInfo>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	PYTHON	</Arg> <!-- player info -->
+		</onAsyncGetChallengeCupPlayerInfo>
+		<notifyBattleEnd>
+			<Arg>	INT64	</Arg>	<!-- seasonNo -->
+			<Arg>	STRING	</Arg>	<!-- matchId -->
+			<Arg>	PYTHON	</Arg>
+		</notifyBattleEnd>
+	</BaseMethods>
+</root>

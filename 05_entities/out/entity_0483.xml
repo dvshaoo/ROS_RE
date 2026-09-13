@@ -1,0 +1,21 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<conf>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Persistent>	true		</Persistent>
+			<Default>	{}		</Default>
+		</conf>
+	</Properties>
+
+	<BaseMethods>
+		<getConf>
+			<Arg>		MAILBOX			</Arg>
+		</getConf>
+	</BaseMethods>
+</root>

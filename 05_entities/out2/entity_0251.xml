@@ -1,0 +1,35 @@
+<root>
+	<Properties>
+	</Properties>
+	<CellMethods>
+		<newQuickMessage> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg>	STRING		</Arg>
+		</newQuickMessage>
+		<newQuickMessageVo> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</newQuickMessageVo>
+		<onNewQuickMessageArrived>
+			<Arg>	INT32		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</onNewQuickMessageArrived>
+		<onNewQuickMessageVoArrived>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</onNewQuickMessageVoArrived>
+	</CellMethods>
+	<ClientMethods>
+		<onNewQuickMessageArrived>
+			<Arg>	INT32		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</onNewQuickMessageArrived>
+		<onNewQuickMessageVoArrived>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</onNewQuickMessageVoArrived>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

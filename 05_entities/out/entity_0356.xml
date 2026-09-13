@@ -1,0 +1,27 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<appearanceCultivateCompound>	<Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</appearanceCultivateCompound>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onAppearanceCultivateCompound>
+			<Arg>	INT32	</Arg>
+		</onAppearanceCultivateCompound>
+		<onAppearanceCultivateCompoundFailed>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onAppearanceCultivateCompoundFailed>
+	</ClientMethods>
+
+</root>

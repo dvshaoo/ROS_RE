@@ -1,0 +1,45 @@
+<root>
+	<Properties>
+		<newLevelup>
+			<Type> BOOL </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+		</newLevelup>
+	</Properties>
+
+	<BaseMethods>
+		<addDtsExp>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</addDtsExp>
+
+		<requestDtsLevelAward> <Exposed/>
+			<Arg>			INT32				</Arg>
+		</requestDtsLevelAward>
+		<onUIDtsLevelUpShown> <Exposed/>
+		</onUIDtsLevelUpShown>
+		<addAthleteExpIntoExtraBattleAward>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</addAthleteExpIntoExtraBattleAward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onCheckSpecialAwardState>
+			<Arg>			DTS_LEVEL_SPECIAL_AWARD_STATE			</Arg>
+		</onCheckSpecialAwardState>
+
+		<onAddDtsExp>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			BOOL				</Arg>
+		</onAddDtsExp>
+
+		<onRequestDtsLevelAward>
+			<Arg>			INT32				</Arg>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</onRequestDtsLevelAward>
+
+	</ClientMethods>
+</root>

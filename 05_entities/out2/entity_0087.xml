@@ -1,0 +1,17 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iMatchSystem	</Interface>
+		<Interface>	iCommanderSystem	</Interface>
+		<Interface>	iMatchSimulator	</Interface>
+	</Implements>
+	<Properties>
+		<matchSize>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</matchSize>
+	</Properties>
+	<BaseMethods>
+	</BaseMethods>
+</root>

@@ -1,0 +1,215 @@
+<root>
+	<Properties>
+		<frozenPrizeMatchCoin>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</frozenPrizeMatchCoin>
+		<curPrizeMatchCashReq>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</curPrizeMatchCashReq>
+		<prizeMatchWeekDayNo>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</prizeMatchWeekDayNo>
+		<prizeMatchDayData>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</prizeMatchDayData>
+		<masterPrizeMatchData>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</masterPrizeMatchData>
+	</Properties>
+	<BaseMethods>
+		<requestPrizeMatchCash> <Exposed/> 
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+		</requestPrizeMatchCash>
+		<requestPrizeMatchCashRecord> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</requestPrizeMatchCashRecord>
+		<requestPrizeMatchCancelCash> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</requestPrizeMatchCancelCash>
+		<getPrizeMatchScoreRankList> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</getPrizeMatchScoreRankList>
+		<getPrizeMatchInfo> <Exposed/> 
+		</getPrizeMatchInfo>
+		<recordPrizeMatchPlayerScore>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</recordPrizeMatchPlayerScore>
+		<getPrizeMatchDayScoreInfo> <Exposed/> 
+		</getPrizeMatchDayScoreInfo>
+		<onGetPrizeMatchScoreRankList>
+			<Arg>			INT32				</Arg>
+			<Arg>	ARRAY <of> PRIZE_MATCH_SCORE_RANK_DATA	</of>	</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetPrizeMatchScoreRankList>
+
+		<getMasterPrizeMatchTopList>
+			<Arg>			INT32				</Arg>
+		</getMasterPrizeMatchTopList>
+		<onGetMasterPrizeMatchTopList>
+			<Arg>			INT32				</Arg>
+			<Arg>	ARRAY <of> MPM_RANK_PLAYER_DATA	</of>	</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetMasterPrizeMatchTopList>
+		<openMasterPrizeMatchMain> <Exposed/>
+		</openMasterPrizeMatchMain>
+		<openMasterPrizeMatchFreeBetMain> <Exposed/>
+		</openMasterPrizeMatchFreeBetMain>
+		<openMasterPrizeMatchYuanbaoBetMain> <Exposed/>
+		</openMasterPrizeMatchYuanbaoBetMain>
+		<getMasterPrizeMatchTopList> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getMasterPrizeMatchTopList>
+		<onStartMasterPrizeMatchBattle>
+			<Arg>	PYTHON		</Arg>
+		</onStartMasterPrizeMatchBattle>
+		<onCancelMasterPrizeMatchBattle>
+		</onCancelMasterPrizeMatchBattle>
+		<notifyCancelSignMasterPrizeMatch>
+			<Arg>	INT32	</Arg>
+		</notifyCancelSignMasterPrizeMatch>
+		<signUpMasterPrizeMatch> <Exposed/>
+		</signUpMasterPrizeMatch>
+		<cancelSignUpMasterPrizeMatch> <Exposed/>
+		</cancelSignUpMasterPrizeMatch>
+		<masterPrizeMatchFreeBet> <Exposed/>
+			<Arg>	GID	</Arg>
+			<Arg>	GID	</Arg>
+		</masterPrizeMatchFreeBet>
+		<masterPrizeMatchFreeBetCallback>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</masterPrizeMatchFreeBetCallback>
+		<masterPrizeMatchYuanbaoBet> <Exposed/>
+			<Arg>	STRING	</Arg>
+		</masterPrizeMatchYuanbaoBet>
+		<masterPrizeMatchYuanbaoBetCallback>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</masterPrizeMatchYuanbaoBetCallback>
+		<masterPrizeMatchComplaint> <Exposed/>
+			<Arg>	GID	</Arg>
+			<Arg>	INT8	</Arg>
+		</masterPrizeMatchComplaint>
+		<masterPrizeMatchComplaintCallback>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</masterPrizeMatchComplaintCallback>
+		<updateMasterPrizeMatchAccumAnnalTime> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</updateMasterPrizeMatchAccumAnnalTime>
+		<requestMasterPrizeMatchAccumAnnalRewards> <Exposed/>
+			<Arg>	INT8	</Arg>
+		</requestMasterPrizeMatchAccumAnnalRewards>
+		<signUpMasterPrizeMatchCallback>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</signUpMasterPrizeMatchCallback>
+		<cancelSignUpMasterPrizeMatchCallback>
+		</cancelSignUpMasterPrizeMatchCallback>
+		<onOpenMasterPrizeMatchMain>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onOpenMasterPrizeMatchMain>
+		<onOpenMasterPrizeMatchYuanbaoBetMain>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onOpenMasterPrizeMatchYuanbaoBetMain>
+	</BaseMethods>
+	<ClientMethods>
+		<onGetPrizeMatchScoreRankList>
+			<Arg>			INT32				</Arg>
+			<Arg>	ARRAY <of> PRIZE_MATCH_SCORE_RANK_DATA	</of>	</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetPrizeMatchScoreRankList>
+		<onGetPrizeMatchCashRecord>
+			<Arg>			PYTHON				</Arg>
+		</onGetPrizeMatchCashRecord>
+		<onGetPrizeMatchInfo>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onGetPrizeMatchInfo>
+		<onChangePrizeMatchCashStatus>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT32				</Arg>
+		</onChangePrizeMatchCashStatus>
+		<onGetPrizeMatchDayScoreInfo>
+			<Arg>			PYTHON				</Arg>
+		</onGetPrizeMatchDayScoreInfo>
+		<onRequestPrizeMatchCash>
+			<Arg>			INT8				</Arg>
+		</onRequestPrizeMatchCash>
+		<onSyncFrozenPrizeMatchCoin>
+			<Arg>			INT32				</Arg>
+		</onSyncFrozenPrizeMatchCoin>
+
+		<onOpenMasterPrizeMatchMain>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onOpenMasterPrizeMatchMain>
+		<onOpenMasterPrizeMatchFreeBetMain>
+		</onOpenMasterPrizeMatchFreeBetMain>
+		<onOpenMasterPrizeMatchYuanbaoBetMain>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onOpenMasterPrizeMatchYuanbaoBetMain>
+		<onGetMasterPrizeMatchTopList>
+			<Arg>			INT32				</Arg>
+			<Arg>	ARRAY <of> MPM_RANK_PLAYER_DATA	</of>	</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onGetMasterPrizeMatchTopList>
+		<onPopupMasterPrizeMatchRemind>
+		</onPopupMasterPrizeMatchRemind>
+		<signUpMasterPrizeMatchCallback>
+			<Arg>	INT8	</Arg>
+		</signUpMasterPrizeMatchCallback>
+		<cancelSignUpMasterPrizeMatchCallback>
+		</cancelSignUpMasterPrizeMatchCallback>
+		<onSyncMasterPrizeMatchData>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onSyncMasterPrizeMatchData>
+		<masterPrizeMatchFreeBetCallback>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</masterPrizeMatchFreeBetCallback>
+		<masterPrizeMatchYuanbaoBetCallback>
+			<Arg>	INT8	</Arg>
+		</masterPrizeMatchYuanbaoBetCallback>
+		<masterPrizeMatchComplaintCallback>
+			<Arg>	INT32	</Arg>
+		</masterPrizeMatchComplaintCallback>
+		<onGetMasterPrizeMatchAccumAnnalRewards>
+		</onGetMasterPrizeMatchAccumAnnalRewards>
+		<onUpdateMasterPrizeMatchAccumAnnalTime>
+		</onUpdateMasterPrizeMatchAccumAnnalTime>
+		<onNotifyCancelSignMasterPrizeMatch>
+		</onNotifyCancelSignMasterPrizeMatch>
+	</ClientMethods>
+</root>

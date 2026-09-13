@@ -1,0 +1,38 @@
+<root>
+	<Properties>
+		<videoAdvertisementAddExtraRewardCount>	
+			<Type>	INT32	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Persistent> false	</Persistent>
+			<Default>		0			</Default>
+		</videoAdvertisementAddExtraRewardCount>	
+		<yuanbao>	
+			<Type>	INT64	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Persistent> false	</Persistent>
+			<Default>		0			</Default>
+		</yuanbao>	
+		<videoAdDoubleGold>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False	</Default>
+		</videoAdDoubleGold>
+	</Properties>
+
+	<BaseMethods>
+		<videoAddExtraReward> <Exposed />
+			<Arg>	INT32	</Arg>
+		</videoAddExtraReward>
+		<syncVideoAddExtraRewardResultFromAthlete>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT32	</Arg>
+		</syncVideoAddExtraRewardResultFromAthlete>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncVideoAddExtraRewardResult>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT32	</Arg>
+		</syncVideoAddExtraRewardResult>
+	</ClientMethods>
+</root>

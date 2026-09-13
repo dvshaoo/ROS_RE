@@ -1,0 +1,46 @@
+<root>
+	<Properties>
+		<landDroneCompsSlot>
+			<Type>	INT32		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>   0   </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</landDroneCompsSlot>
+		<landDroneCompsLevel>
+			<Type>	INT32		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</landDroneCompsLevel>
+        <landDroneTechPoint>
+			<Type>	INT32		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </landDroneTechPoint>
+	</Properties>
+
+	<BaseMethods>
+        <unLockLandDroneCompsSlot> <Exposed/>
+            <Arg>   INT32   </Arg>
+        </unLockLandDroneCompsSlot>
+        <unLockLandDroneCompsLevel> <Exposed/>
+            <Arg>   INT32   </Arg>
+        </unLockLandDroneCompsLevel>
+	</BaseMethods>
+
+	<ClientMethods>
+        <updateDtsLandDroneTechPoint>
+            <Arg>   INT32   </Arg>
+        </updateDtsLandDroneTechPoint>
+        
+        <onUnlockLandDroneSlot>
+            <Arg>   INT32   </Arg>
+        </onUnlockLandDroneSlot>
+        
+        <onUnlockLandDroneCompsLevel>
+            <Arg>   INT32   </Arg>
+        </onUnlockLandDroneCompsLevel>
+
+	</ClientMethods>
+</root>

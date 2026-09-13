@@ -1,0 +1,68 @@
+<root>
+  <Properties>
+    <hasNewVid>
+      <Type>      BOOL    </Type>
+      <Flags>     BASE_AND_CLIENT        </Flags>
+      <PersistentMongo>  true        </PersistentMongo>
+    </hasNewVid>
+    <refreshVidChance>
+      <Type>      INT32    </Type>
+      <Flags>     BASE_AND_CLIENT        </Flags>
+      <Default> 5    </Default>
+      <PersistentMongo>  true        </PersistentMongo>
+    </refreshVidChance>
+    <refreshVidChanceResetTime>
+      <Type>      INT32    </Type>
+      <Flags>     BASE_AND_CLIENT        </Flags>
+      <PersistentMongo>  true        </PersistentMongo>
+    </refreshVidChanceResetTime>
+    <vidMallSnapshot>
+      <Type>      PYTHON    </Type>
+      <Flags>     BASE_AND_CLIENT        </Flags>
+      <PersistentMongo>  true        </PersistentMongo>
+    </vidMallSnapshot>
+  </Properties>
+  <BaseMethods>
+    <reqBuyVid> <Exposed/>
+      <Arg>     INT64        </Arg>
+    </reqBuyVid>
+    <buyVidFont> <Exposed/>
+      <Arg>     INT32     </Arg>
+    </buyVidFont>
+    <setDefaultVidFont> <Exposed/>
+      <Arg>     INT32     </Arg>
+    </setDefaultVidFont>
+    <onVidUIChecked> <Exposed/>
+    </onVidUIChecked>
+    <reqVidMall> <Exposed/>
+    </reqVidMall>
+    <refreshVidMall> <Exposed/>
+    </refreshVidMall>
+    <requestVidFromClient> <Exposed/>
+    </requestVidFromClient>
+  </BaseMethods>
+  <ClientMethods>
+    <onVidFontChange>
+      <Arg>     INT32     </Arg>
+    </onVidFontChange>
+
+    <onAddVidFont>
+      <Arg>     INT32     </Arg>
+    </onAddVidFont>
+    <onAppendHistoryVidPrice>
+      <Arg>     INT32     </Arg>
+    </onAppendHistoryVidPrice>
+
+    <onVidRefreshed>
+    </onVidRefreshed>
+    <onGetVidMall>
+      <Arg>     PYTHON     </Arg>
+    </onGetVidMall>
+    <onVidChanceChanged>
+      <Arg>     INT32     </Arg>
+    </onVidChanceChanged>
+    <updateVidToClient>
+      <Arg>     INT32     </Arg>
+    </updateVidToClient>
+  </ClientMethods>
+</root>

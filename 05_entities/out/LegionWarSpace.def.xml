@@ -1,0 +1,135 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface> iBuildingGenerate  </Interface>
+		<Interface> iGameStage	</Interface>
+		<Interface> iMonsterGenerate	</Interface>
+		<Interface>	iRobotGenerate	</Interface>
+		<Interface>	iMatchDoubleSideSpace	</Interface>
+	</Implements>
+	<ClientName>	LegionWarSpace	</ClientName>
+	<Properties>
+		<campDataDict>
+			<Type>	BASE_CAMP_DATA_DICT </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</campDataDict>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags> CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<campPlayerRecords>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</campPlayerRecords>
+
+		<pathEndNodes>
+			<Type>	PY_DICT		 </Type>
+			<Flags> ALL_CLIENTS  </Flags>
+			<Default>{}		</Default>
+		</pathEndNodes>
+
+		<rebornDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags> CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</rebornDataDict>
+
+		<tankDefaultRoutes>
+			<Type>	PYTHON		</Type>
+			<Flags> CELL_PUBLIC	</Flags>
+			<Default>{}		</Default>
+		</tankDefaultRoutes>
+
+		<rebornPoints>
+			<Type>	PY_DICT		 </Type>
+			<Flags> CELL_PUBLIC	</Flags>
+			<Default>{}		</Default>
+		</rebornPoints>
+		<campsites>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</campsites>
+
+		<progress>
+			<Type>		FLOAT		</Type>
+			<Flags>		ALL_CLIENTS  </Flags>
+		</progress>
+		<ligeanceID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</ligeanceID>
+		<gameClearTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</gameClearTimerID>
+		<isLegionWar>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</isLegionWar>
+	</Properties>
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		BOOL				</Arg>  <!-- result -->
+			<Arg>		FLOATTIME			</Arg>  <!-- timeko -->
+			<Arg> 		BATTLE_GAME_RESULT 	</Arg>  <!-- details -->
+		</gameEnd>
+		<showKillInfo>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+
+		<rebornRemind>
+			<Arg>		FLOATTIME </Arg>
+		</rebornRemind>
+		<onGateDamage>
+			<Arg>		INT32			</Arg>
+		</onGateDamage>
+
+		<setBannerTip>
+			<Arg>		STRING		 </Arg>
+		</setBannerTip>
+		<eventTip>
+			<Arg>		STRING		 </Arg>
+		</eventTip>
+
+		<playVOByCamp>
+			<Arg>		STRING		 </Arg>
+		</playVOByCamp>
+
+		<legionWarMarkPosition>
+			<Arg>		INT32			</Arg>
+		</legionWarMarkPosition>
+
+		<legionWarCloseMarkPosition>
+			<Arg>		INT32			</Arg>
+		</legionWarCloseMarkPosition>
+
+		<showStageTip>
+			<Arg>		STRING		 </Arg>
+		</showStageTip>
+
+		<setStagePathEndNodes>
+			<Arg>		PY_DICT			</Arg>
+		</setStagePathEndNodes>
+
+	</ClientMethods>
+
+	<CellMethods>
+		<onGateDamage>
+			<Arg>		INT32			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</onGateDamage>
+		<setLegionWar>
+			<Arg>		BOOL			</Arg>
+		</setLegionWar>
+		<produceTank>
+			<Arg>		INT32			</Arg>
+		</produceTank>
+	</CellMethods>
+</root>

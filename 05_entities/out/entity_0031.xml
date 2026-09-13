@@ -1,0 +1,59 @@
+<Root>
+	<Properties>
+		<annniversaryCoinCnt> <!--一天还能获得多少周年庆硬币-->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0		</Default>
+		</annniversaryCoinCnt>
+		<anniversary3rdTreasureOpenTime> <!--一天还能打开多少次宝藏-->
+			<Type>		INT8		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0		</Default>
+		</anniversary3rdTreasureOpenTime>
+		<getAirShipReward>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</getAirShipReward>
+		<getAirShipCoinLimit>
+			<Type>		INT8		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+			<Default>	0		</Default>
+		</getAirShipCoinLimit>
+	</Properties>
+	<ClientMethods>
+		<showTreasureMessage>
+			<Arg>		STRING		</Arg> 
+		</showTreasureMessage>
+		<showTreasureDestroyMessage>
+		</showTreasureDestroyMessage>
+		<showTreasureOpenMessage>
+			<Arg>		INT32		</Arg> 
+			<Arg>		INT8		</Arg> 
+		</showTreasureOpenMessage>
+	</ClientMethods>
+	<BaseMethods>
+		<onPickAnniversaryCoin>
+			<Arg>		INT32		</Arg> 
+		</onPickAnniversaryCoin>
+		<onAddTreasureOpenTime>
+		</onAddTreasureOpenTime>
+		<onGetAnniversaryTreasure>
+			<Arg>		INT32		</Arg> 
+		</onGetAnniversaryTreasure>
+	</BaseMethods>
+	<CellMethods>
+		<onPickAnniversaryCoin>
+			<Arg>		INT32		</Arg> 
+			<Arg>		INT32		</Arg> 
+		</onPickAnniversaryCoin>
+		<getAnniversaryTreasure>
+			<Arg>		INT32		</Arg> 
+			<Arg>		STRING		</Arg> 
+		</getAnniversaryTreasure>
+		<showTreasureMessage>
+			<Arg>		STRING		</Arg> 
+		</showTreasureMessage>
+		<showTreasureDestroyMessage>
+		</showTreasureDestroyMessage>
+	</CellMethods>
+</Root>

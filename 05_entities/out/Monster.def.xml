@@ -1,0 +1,224 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell		</Interface>
+		<Interface>	iMove		</Interface>
+		<Interface>	iRotate		</Interface>
+		<Interface>	iCombatUnit		</Interface>
+		<Interface>	iSkill		</Interface>
+		<Interface>	iCombatBehavior	</Interface>
+		<Interface>	iTrap		</Interface>
+		<Interface>	iGenSpotCreated		</Interface>
+		<Interface>	iMonsterGenerate		</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+	</Volatile>
+	<ClientName>	Monster			</ClientName>
+
+	<Properties>
+		<combatProperties>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</combatProperties>
+		<invincibleHp>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0.0		</Default>
+		</invincibleHp>
+		<dynamicAtkFactor>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	1.0		</Default>
+		</dynamicAtkFactor>
+		<dynamicHpFactor>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	1.0		</Default>
+		</dynamicHpFactor>
+		<monsterGenID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</monsterGenID>
+		<serialID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</serialID>
+		<monsterGenGroup>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</monsterGenGroup>
+		<guardEntityID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>>
+		</guardEntityID>
+		<isGuard>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</isGuard>
+		<guardControllerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</guardControllerID>
+		<showOnCreate>
+			<Type>		 BOOL 		</Type>
+			<Flags> 	ALL_CLIENTS </Flags>
+		</showOnCreate>
+		<targetPos>
+			<Type>		VECTOR3		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</targetPos>
+		<onCar>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</onCar>
+		<speed>
+			<Type>		FLOAT		</Type>
+			<Flags> 	CELL_PRIVATE </Flags>
+			<Default>	1.0		</Default>>
+		</speed>
+		<monsterStatus>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>>
+		</monsterStatus>
+		<pose>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	1		</Default>
+		</pose>
+		<creatorName>
+			<Type>		STRING		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</creatorName>
+		<level>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</level>
+
+		<warGold>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</warGold>
+		<warExp>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</warExp>
+		<bossHitThehold>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bossHitThehold>
+		<bossHitReady>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bossHitReady>
+		<hitResumeTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</hitResumeTimerID>
+
+		<holdResource>
+			<!-- 怪物被杀死后，主角获得的资源数，用于购买buffer和修炮塔 -->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</holdResource>
+
+		<hittedAnimProb>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</hittedAnimProb>
+
+		<_lastAtkByTargetTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</_lastAtkByTargetTime>
+
+		<_lastAtkByAnyTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</_lastAtkByAnyTime>
+
+		<showOnMap>
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False				</Default>
+		</showOnMap>
+		<belongToEnts>
+			<Type>		ARRAY <of>	ENTITY_ID	</of>			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</belongToEnts>
+	</Properties>
+
+	<ClientMethods>
+		<animToPosWithShake>
+			<Arg>  	VECTOR3 </Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>  	FLOAT 	</Arg>
+			<Arg>  	FLOAT 	</Arg>
+			<Arg>  	FLOAT 	</Arg>
+			<Arg>  	FLOAT 	</Arg>
+		</animToPosWithShake>
+		<animDriveToPos>
+			<Arg>	VECTOR3 </Arg>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	VECTOR3 </Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</animDriveToPos>
+		<resetFilter></resetFilter>
+
+		<playStoryDialog>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</playStoryDialog>
+
+		<switchAppearance>
+			<Arg>		INT32		</Arg>
+		</switchAppearance>
+
+		<playSfx>
+			<Arg>	STRING	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</playSfx>
+
+		<leaveFight>
+		</leaveFight>
+
+		<dropProp>
+			<Arg>		PYTHON		</Arg>
+		</dropProp>
+
+		<onBodyBreak/>
+
+	</ClientMethods>
+
+	<CellMethods>
+		<onGroupSpotEnemy>
+			<Arg>		INT32		</Arg>
+		</onGroupSpotEnemy>
+
+		<setSpeed>
+			<Arg>		FLOAT		</Arg>
+		</setSpeed>
+
+		<stopHitedAnim><Exposed/>
+		</stopHitedAnim>
+
+		<resumeHitedAnim><Exposed/>
+		</resumeHitedAnim>
+
+		<setAbility>
+			<Arg>  	FLOAT 	</Arg>
+			<Arg>  	FLOAT 	</Arg>
+		</setAbility>
+	</CellMethods>
+
+</root>

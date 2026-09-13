@@ -1,0 +1,2261 @@
+<root>
+	<Implements>
+		<!-- BASE -->
+		<Interface>	iProxyWithCell				</Interface>
+		<Interface>	iLegion						</Interface>
+		<Interface>	iSigned						</Interface>
+		<Interface> iCredit						</Interface>
+		<Interface>	iLigeanceSourceHolder		</Interface>
+		<Interface>	iAppearanceCultivateHolder	</Interface>
+		<Interface>	iAwardMonitor				</Interface>
+		<Interface> iComplaint 					</Interface>
+		<Interface> iGuideManager				</Interface>
+		<Interface> iBugReport 					</Interface>
+		<Interface> i4GQOSAccelerator			</Interface>
+		<Interface> iLatency					</Interface>
+		<Interface> iCustomControlManagerOnPlayerAvatar </Interface>
+		<Interface> iCustomLayoutOnAvatar </Interface>
+		<Interface> iAntiCheatingWatcher		</Interface>
+		<Interface> iPet		</Interface>
+		<Interface> iAirWar		</Interface>
+		<Interface> iBattleReborn </Interface>
+		<Interface> iActivityLimitTimeAvatar		</Interface>
+		<Interface> iSettingDataSyncManagerOnAvatar	</Interface>
+
+		<!-- CELL -->
+		<Interface>	iCell				</Interface>
+		<Interface>	iNormalCombatUnit	</Interface>
+		<Interface>	iOccupationUnit     </Interface>
+		<Interface> iWildDungeonHolder	</Interface>
+		<Interface>	iObserver			</Interface>
+		<Interface>	iCustomGameObserver	</Interface>
+		<Interface>	iBlast				</Interface>
+		<Interface>	iDropItem			</Interface>
+		<Interface> iCCMiniAvatar		</Interface>
+		<Interface> iDtsPaintAvatar		</Interface>
+		<Interface> iQuickMessage		</Interface>
+		<Interface> iDtsCustomGameAvatar </Interface>
+		<Interface> iDtsSafetySystem	</Interface>
+		<Interface>	iAntiCheating	</Interface>
+		<Interface>	iSwim	</Interface>
+		<Interface>	iZipLine	</Interface>
+		<Interface>	iRedPacketAvatar	</Interface>
+		<Interface> iJetWingsAvatar		</Interface>
+		<Interface>	iDtsFlyBullet		</Interface>
+		<Interface> iFallFollow			</Interface>
+		<Interface>	iPerspective		</Interface>
+		<Interface>	iDroneControlAvatar	</Interface>
+
+		<!-- TASK BASE AND CELL -->
+		<Interface>	iTaskAvatar			</Interface>
+
+		<!-- ACTIVITY BASE AND CELL -->
+		<Interface> iActivityAvatar 	</Interface>
+		<Interface> iSingleWild 		</Interface>
+
+		<Interface> iRosMatchAvatar		</Interface>
+
+		<!-- PACKAGE BASE AND CELL -->
+		<Interface> iPackage3 			</Interface>
+
+		<!-- ENTITY CREATE BASE AND CELL -->
+		<Interface>	iGMAdmin			</Interface>
+		<Interface>	iMasterSkillCultivate	</Interface>
+		<Interface>	iChatFight				</Interface>
+		<Interface>	iWarGrowth			</Interface>
+		<Interface>	iInitialAward		</Interface>
+		<Interface>	iMonthCard			</Interface>
+		<Interface>	iGrowthFund			</Interface>
+		<Interface>	iAvatarOM			</Interface>
+		<Interface>	iGunComponent				</Interface>
+		<Interface>	iHistory			</Interface>
+		<Interface> iQuiz 				</Interface>
+		<Interface>	iLandDrive			</Interface>
+		<Interface>	iGoldBattleAvatar		</Interface>
+		<Interface>	iCommanderFight			</Interface>
+		<Interface>	iYuanbaoBattleAvatar		</Interface>
+		<Interface>	iVipAvatar	</Interface>
+		<Interface>	iDtsInGameActionAvatar		</Interface>
+		<Interface>	iNewFirstPayAvatar		</Interface>
+		<Interface>	iVideoAdvertisementAvatar	</Interface>
+		<Interface>	iXmasTreeAvatar			</Interface>
+		<Interface>	iDtsStarAvatar			</Interface>
+		<Interface>	iValentineWeaponAvatar		</Interface>
+		<Interface>	iDtsCrazyCarnivalAvatar			</Interface>
+		<Interface>	iDtsAprilFoolActivityAvatar		</Interface>
+		<Interface>	iHalloween2019Avatar		</Interface>
+		<Interface> iAnniversaryAvatar			</Interface>
+		<Interface>	iCustomPlaneAvatar		</Interface>
+	</Implements>
+	<ClientName>	Avatar			</ClientName>
+	<Indexes>
+		<gid>
+			<Type>  INDEX   </Type>
+		</gid>
+		<baseNickname>
+			<Type>  INDEX   </Type>
+			<Length> 20	</Length>
+		</baseNickname>
+	</Indexes>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<Properties>
+		<vid>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</vid>
+		<friendList>
+			<Type>		ARRAY <of>	GID	</of>		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</friendList>
+
+		<scoreOfCell>
+			<Type>		SCORE		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</scoreOfCell>
+
+		<eloScoreOfCell>
+			<Type>		SCORE		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</eloScoreOfCell>
+
+		<lastLogOutTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</lastLogOutTime>
+
+		<currentMapID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</currentMapID>
+		<initSpaceInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+		</initSpaceInfo>
+		<initSpaceIndex>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</initSpaceIndex>
+		<nationalFlag>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</nationalFlag>
+		<avatarIndex>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</avatarIndex>
+		<athleteMailBox>
+			<Type>	GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		BASE		</Flags>
+		</athleteMailBox>
+
+		<totalPlayGameMinute>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</totalPlayGameMinute>
+		<freezeAddScore>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</freezeAddScore>
+		<athMailBox>
+			<Type>	GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</athMailBox>
+
+		<gameUUID>
+			<Type>		UUID		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</gameUUID>
+		<payedRebornTimes>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</payedRebornTimes>
+		<recoilDefault>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</recoilDefault>
+		<nickname>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<SendInPartialUpdate>	true	</SendInPartialUpdate>
+		</nickname>
+		<dailyAwardRecords>
+			<!-- 每天获得的物品的计数 -->
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</dailyAwardRecords>
+		<weeklyAwardRecords>
+			<!-- 每周获得的物品的计数 -->
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</weeklyAwardRecords>
+		<prizeMatchBattleInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}		</Default>
+		</prizeMatchBattleInfo>
+
+		<freshUnlockedPVPName>
+			<!-- 		已解锁但还未播放动效的PVP内容 			-->
+			<Type>		ARRAY <of>	STRING	</of>		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</freshUnlockedPVPName>
+
+		<lastLevelUpTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+		</lastLevelUpTime>
+
+		<lastOperation>
+			<Type>		STRING		</Type>
+			<Flags>		BASE 			</Flags>
+		</lastOperation>
+		<reconnecting>
+			<Type>          BOOL				</Type>
+			<Flags>         BASE				</Flags>
+		</reconnecting>
+		<openChestCount>
+			<Type>		PY_DICT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+		</openChestCount>
+
+		<hallTeamLeaderGID>
+			<Type>		GID		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</hallTeamLeaderGID>
+
+		<exp>
+			<!-- 		经验值 			-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0				</Default>
+		</exp>
+
+		<livingInviter>
+			<Type>		GID		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</livingInviter>
+
+		<livingInviterCell>
+			<Type>		GID		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</livingInviterCell>
+
+		<livingInvitees>
+			<Type>		ARRAY <of>	GID	</of>		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</livingInvitees>
+
+		<sessionExp>
+			<!-- 本次登录期间总共获取的经验值 -->
+			<Type>		INT32			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default>	0				</Default>
+		</sessionExp>
+
+		<expPool>
+			<!-- 经验池	-->
+			<Type>			INT32			</Type>
+			<Flags>			BASE 			</Flags>
+			<Default>		0				</Default>
+		</expPool>
+
+		<level>
+			<!-- 		等级  			-->
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	1				</Default>
+		</level>
+
+		<baseLevel>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 1 </Default>
+		</baseLevel>
+
+		<force>
+			<!--		战力			-->
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0				</Default>
+		</force>
+
+
+		<keepingBattleIcon>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS  			</Flags>
+			<Default>	False				</Default>
+		</keepingBattleIcon>
+
+
+		<resource>
+			<!--  资源，用于修复炮塔和购买buffer -->
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0				</Default>
+		</resource>
+
+		<tpsVehicleID>
+			<!-- 		载具ID 			-->
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>	15001				</Default>
+		</tpsVehicleID>
+
+		<createTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</createTime>
+
+		<lastLogOutTimeCell>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</lastLogOutTimeCell>
+
+		<clientLoaded>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	False		</Default>
+		</clientLoaded>
+
+		<cellPlayerName>
+			<Type>		KEY_NAME	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</cellPlayerName>
+
+		<cellBindedPlayerName>
+			<Type>		KEY_NAME	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</cellBindedPlayerName>
+
+		<vehicleEntID>
+			<Type>		ENTITY_ID	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</vehicleEntID>
+		<inVehicle>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</inVehicle>
+		<isDriver>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isDriver>
+		<isPassenger>
+			<Type>          BOOL            </Type>
+			<Flags>         ALL_CLIENTS     </Flags>
+		</isPassenger>
+		<isVisible>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	1		</Default>
+		</isVisible>
+
+		<vehicleStage>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</vehicleStage>
+
+		<hangOnCarID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</hangOnCarID>
+
+		<!-- 玩家对载具速度加成 -->
+		<vehicleSpeedBuffByOwner>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</vehicleSpeedBuffByOwner>
+
+		<raceRank>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</raceRank>
+
+		<!-- 是否给过落地装备 -->
+		<hasGenLandProp>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</hasGenLandProp>
+
+		<isPutgun>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</isPutgun>
+
+		<transferRecord>
+			<Type>		TRANSFER_RECORD	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</transferRecord>
+
+		<spaceTransfering>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</spaceTransfering>
+		<transferParams>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</transferParams>
+		<snipeEnterPosition>
+			<Type>		VECTOR3		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</snipeEnterPosition>
+
+		<spaceEntityID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</spaceEntityID>
+		<disconnectTimerID>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			BASE				</Flags>
+		</disconnectTimerID>
+		<checkPoseAndFallPhaseTimer>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</checkPoseAndFallPhaseTimer>
+
+		<dbid>
+			<Type>		DBID		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+		</dbid>
+		<cellGID>
+			<Type>		GID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</cellGID>
+		<cellAID>
+			<Type>		STRING		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</cellAID>
+		<avatarAID>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+		</avatarAID>
+		<muzzledStartTime>
+			<Type>		INT64		</Type>
+			<Flags>		BASE		</Flags>
+		</muzzledStartTime>
+		<muzzledTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</muzzledTime>
+		<baseCharacterType>
+			<Type> UINT32 </Type>
+			<Flags> BASE_AND_CLIENT	 </Flags>
+		</baseCharacterType>
+		<baseDtsLevel>
+			<Type> UINT32 </Type>
+			<Flags> BASE	 </Flags>
+		</baseDtsLevel>
+		<dtsLevel>
+			<Type> UINT32 </Type>
+			<Flags> ALL_CLIENTS	 </Flags>
+		</dtsLevel>
+
+		<clientMapLoading>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</clientMapLoading>
+
+		<_isFirstTimeRecoverShield>
+			<Type> 		BOOL 				</Type>
+			<Flags> 	CELL_PRIVATE		</Flags>
+		</_isFirstTimeRecoverShield>
+		<recovering>
+			<Type> 		BOOL 				</Type>
+			<Flags> 	CELL_PRIVATE		</Flags>
+		</recovering>
+		<hasClient>
+			<Type>		BOOL			</Type>
+			<Flags> 	CELL_PUBLIC		</Flags>
+		</hasClient>
+
+		<dungeonKORecord>	<!-- 记录玩家副本战况 -->
+			<Type>		PY_DICT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>		{}					</Default>
+		</dungeonKORecord>
+
+		<fhbUsed>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</fhbUsed>
+		<huangyeLinkerBtnEnabled>
+			<Type>          BOOL		</Type>
+			<Flags>         OWN_CLIENT	</Flags>
+			<Default>		False		</Default>
+		</huangyeLinkerBtnEnabled>
+		<speedExtFactor>
+			<Type> 			FLOAT 			</Type>
+			<Flags> 		CELL_PRIVATE 	</Flags>
+			<Default> 		0 				</Default>
+		</speedExtFactor>
+
+		<stateSpeed>
+			<Type> 			FLOAT 			</Type>
+			<Flags> 		CELL_PRIVATE 	</Flags>
+			<Default> 		-1 				</Default>
+		</stateSpeed>
+
+		<speedExtFactorTimer>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default> 		0 			</Default>
+		</speedExtFactorTimer>
+		<currBulletFactor>	<!-- 开火时子弹的额外伤害 -->
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</currBulletFactor>
+		<entitiesInClient>
+			<Type>	ARRAY <of>	INT32		</of>	</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</entitiesInClient>
+		<spaceInfo>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</spaceInfo>
+		<timerCheckFallHeight>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>   0               </Default>
+		</timerCheckFallHeight>
+		<timerCheckPlayerFallState>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>   0               </Default>
+		</timerCheckPlayerFallState>
+		<fallControlID>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+			<Default>   0               </Default>
+		</fallControlID>
+		<transferSpaceInfo>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</transferSpaceInfo>
+
+		<!-- overwrites for persistent -->
+		<dressProperties>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</dressProperties>
+		<generalSkillProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</generalSkillProperties>
+
+		<!-- 资源购买的属性加成，副本结束会清空 -->
+		<resourceBuffProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</resourceBuffProperties>
+
+		<vBatOccp>
+			<Type>			INT32			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+			<Default>		{}			</Default>
+		</vBatOccp>
+
+		<vBatDriverID>
+			<Type>			ENTITY_ID			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+			<Default>		{}			</Default>
+		</vBatDriverID>
+
+		<syncDamageStatisticsTimerID>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		0					</Default>
+		</syncDamageStatisticsTimerID>
+
+		<checkOutMapTimerID>
+			<Type>		TIMER_ID		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</checkOutMapTimerID>
+
+		<deviceInfo>
+			<Type>		PY_DICT			</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}				</Default>
+		</deviceInfo>
+		<battleLogData>
+			<Type>		PYTHON			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	{}			</Default>
+		</battleLogData>
+		<destroyingParams>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</destroyingParams>
+
+		<dtsRankValue>
+			<Type>		DTS_RANK_VALUE		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</dtsRankValue>
+		<delayInvisibleTimerID>
+			<Type>		INT32		</Type>
+			<Flags>  	CELL_PRIVATE  	</Flags>
+		</delayInvisibleTimerID>
+
+		<everyDayGP>
+			<!--		每日获得金币		-->
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0				</Default>
+		</everyDayGP>
+		<dailyFirstGame>
+			<!--	是否每日首场游戏（首场金币加成）	-->
+			<Type>			BOOL			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+			<Default>		1			</Default>
+		</dailyFirstGame>
+		<isPCUser>
+			<Type>			BOOL			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		0			</Default>
+		</isPCUser>
+		<isVnUser>
+			<Type>			BOOL			</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0			</Default>
+		</isVnUser>
+		<realPlayerName>
+			<Type>		KEY_NAME	</Type>
+			<Flags>		BASE	</Flags>
+		</realPlayerName>
+		<cellRealPlayerName>
+			<Type>		KEY_NAME	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</cellRealPlayerName>
+		<loginHostID>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</loginHostID>
+		<specialTag>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</specialTag>
+		<identifyTagID>
+			<!-- 		身份标签ID 			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+		</identifyTagID>
+		<shouldCreateRedComet>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0			</Default>
+		</shouldCreateRedComet>
+		<landDroneAppearanceID>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0			</Default>
+		</landDroneAppearanceID>
+		<occupation>
+			<Type>		INT8		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+		</occupation>
+		<randomMatch>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>		0	</Default>
+		</randomMatch>
+		<botType>
+			<Type>		INT8		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		0	</Default>
+		</botType>
+		<vipLevel>
+			<!-- 		vip等级 		-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE		</Flags>
+		</vipLevel>
+
+		<cellVipLevel>
+			<!-- 		vip等级 		-->
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</cellVipLevel>
+
+		<hasEnterAutoRoyale>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</hasEnterAutoRoyale>
+		<isDoubleGP>
+			<!-- 		是否有2倍金币BUFF	-->
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</isDoubleGP>
+		<isSpecialKillTips>
+			<!-- 		是否有特殊击杀提示BUFF	-->
+			<Type>		BOOL			</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</isSpecialKillTips>
+		
+		<doubleSevenCoupleGid>
+			<Type>		GID					</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</doubleSevenCoupleGid>
+
+		<zhongqiuSkinTotalKillNumber>
+			<Type>		INT32					</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default> 	0			</Default>
+		</zhongqiuSkinTotalKillNumber>
+
+		<zhongqiuSkinAddKillNumber>
+			<Type>		INT32					</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default> 	0			</Default>
+		</zhongqiuSkinAddKillNumber>
+
+		<isImbaInvisible>
+			<Type>		BOOL					</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default> 	false			</Default>
+		</isImbaInvisible>
+
+		<isImbaAutoTrack>
+			<Type>		BOOL					</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default> 	false			</Default>
+		</isImbaAutoTrack>
+		<rebornDisabled>
+			<Type>		BOOL					</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default> 	false			</Default>
+		</rebornDisabled>
+		<isHallTeamFull>
+			<Type>          BOOL				</Type>
+			<Flags>         BASE			</Flags>
+		</isHallTeamFull>
+		<hallTeamSize>
+			<Type>		INT32			</Type>
+			<Flags>         BASE			</Flags>
+		</hallTeamSize>
+		<robotVisible>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	1		</Default>
+		</robotVisible>
+		<machineFingerprint>
+			<Type>		STRING		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</machineFingerprint>
+		<localMachineFingerprint>
+			<Type>		STRING		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</localMachineFingerprint>
+		<newPlayer>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</newPlayer>
+
+		<oldMaxHp>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0		</Default>
+		</oldMaxHp>
+		<needDrawCardConfirm>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</needDrawCardConfirm>
+
+		<buffIconStateList>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	[]		</Default>
+		</buffIconStateList>
+		<jumpFactor>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	1.0		</Default>
+		</jumpFactor>
+		<isWaitReborn>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</isWaitReborn>
+		<valentineSuitsCollected>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	0		</Default>
+		</valentineSuitsCollected>
+		<campWarIDInPrepareZone>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</campWarIDInPrepareZone>
+		<hasLanded>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	False	</Default>
+		</hasLanded>
+		<transformSuitsCollected>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</transformSuitsCollected>
+		<extAvatarData>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</extAvatarData>
+		<dailyWaterCoinCnt>
+			<Type>		INT8		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+		</dailyWaterCoinCnt>
+		<transformSuitsCollected>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	{}		</Default>
+		</transformSuitsCollected>
+		<extAvatarDataBase>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+		</extAvatarDataBase>
+		<isInfected>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</isInfected>
+		<perspectiveDist>
+			<Type>	FLOAT	</Type>
+			<Flags>	OWN_CLIENT </Flags>
+			<Default> 0 </Default>
+		</perspectiveDist>
+
+		<rebornInSkyTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</rebornInSkyTimerID>
+		<dtsLevel>
+			<Type>	INT32	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default>	1	</Default>
+		</dtsLevel>
+		<historyKillNum>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0	</Default>
+		</historyKillNum>
+		<finishedDtsTraining>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</finishedDtsTraining>
+		<coldWeaponLocked>
+			<Type>	BOOL	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</coldWeaponLocked>
+		<canUseDoubleSword>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</canUseDoubleSword>
+		<newBraveBookPayState>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</newBraveBookPayState>
+
+		<msToken>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT 			</Flags>
+		</msToken>
+		<msTicket>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT 			</Flags>
+		</msTicket>
+		<isMinScorePlayer>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+			<Default>	-1	</Default>
+		</isMinScorePlayer>
+
+		<detectPlayersInRange>
+			<Type>	BOOL		</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default>	False		</Default>
+		</detectPlayersInRange>
+		<detectPlayersInRangeDist>
+			<Type>	FLOAT	</Type>
+			<Flags>	OWN_CLIENT </Flags>
+			<Default> 0 </Default>
+		</detectPlayersInRangeDist>
+		<detectPlayersInRangeInterval>
+			<Type>	FLOAT	</Type>
+			<Flags>	OWN_CLIENT </Flags>
+			<Default> 0 </Default>
+		</detectPlayersInRangeInterval>
+
+		<playerIdsInRange>
+			<Type>	PYTHON		</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default>	set()	</Default>
+		</playerIdsInRange>
+
+		<perspectInRangePlayer>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	False		</Default>
+		</perspectInRangePlayer>
+
+		<newFunctionGuideRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}		</Default>
+		</newFunctionGuideRecord>
+		<isOnTrain>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	False	</Default>
+		</isOnTrain>
+		<currentTrain>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</currentTrain>
+		<trainID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0	</Default>
+		</trainID>
+		<syncTrainIDTimer>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default> 		0 			</Default>
+		</syncTrainIDTimer>
+		<inDancingCake>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	False	</Default>
+		</inDancingCake>
+		<movingToDancingCake>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	False	</Default>
+		</movingToDancingCake>
+		<hasDancingCakeSpeedBuff>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</hasDancingCakeSpeedBuff>
+		<dancingCakeSpeedBuff>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</dancingCakeSpeedBuff>
+		<dancingCakeSpeedBuffTimerID>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			CELL_PRIVATE			</Flags>
+			<Default>	0		</Default>
+		</dancingCakeSpeedBuffTimerID>
+		<remainDancingCakeSpeedBuffTime>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</remainDancingCakeSpeedBuffTime>
+		<danceAroundCakeTimes>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	0		</Default>
+		</danceAroundCakeTimes>
+		<weaponProficiency>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</weaponProficiency>
+		<weaponAccumulateDamage>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</weaponAccumulateDamage>
+		<choosedBestWeaponID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</choosedBestWeaponID>
+		<hasEverKnockedDown>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	false		</Default>
+		</hasEverKnockedDown>
+	</Properties>
+
+	<BaseMethods>
+		<getNationalRefund>
+		</getNationalRefund>
+
+		<showUIItemDisplay>
+			<Arg>		ARRAY <of>	INT32	</of>			</Arg>
+		</showUIItemDisplay>
+		<notifyEvent>
+			<Arg> INT32 </Arg>
+			<Arg> PYTHON </Arg>
+		</notifyEvent>
+
+		<syncWeaponProficiencyData>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+		</syncWeaponProficiencyData>
+
+		<notifyBraveBookEvent>  <Exposed />
+			<Arg> INT32 </Arg>
+			<Arg> STRING </Arg>
+		</notifyBraveBookEvent>
+
+		<notifyDtsActivityTaskMsg>
+			<Arg> INT32 </Arg>
+			<Arg> PY_DICT </Arg>
+		</notifyDtsActivityTaskMsg>
+
+		<recordShare> <Exposed />
+			<Arg> 			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</recordShare>
+
+		<requestFriend> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+		</requestFriend>
+
+		<tryAcceptTask>
+			<Arg>	INT32		</Arg>
+		</tryAcceptTask>
+
+		<tryHurtSelf>
+			<Arg>	INT32		</Arg>
+		</tryHurtSelf>
+
+		<finishDtsTutorial> <Exposed/>
+			<Arg>	BOOL		</Arg>
+		</finishDtsTutorial>
+
+		<loadingFinish> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</loadingFinish>
+		<logLegionWar>
+			<Arg>	 PY_DICT		</Arg>
+		</logLegionWar>
+
+		<onDailyRefresh>
+		</onDailyRefresh>
+		<onWeeklyRefresh>
+		</onWeeklyRefresh>
+
+		<enterSpace>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	MAILBOX		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</enterSpace>
+		<onTryEnterSpaceFail>
+			<Arg>	INT32		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</onTryEnterSpaceFail>
+		<subExp>
+			<Arg>	INT32		</Arg>
+		</subExp>
+		<notifySPToTaskContentGetItem>
+		</notifySPToTaskContentGetItem>
+
+		<notifyGPToTaskContentGetItem>
+		</notifyGPToTaskContentGetItem>
+
+		<notifyYBToTaskContentGetItem>
+		</notifyYBToTaskContentGetItem>
+
+		<handshake> <Exposed/>
+		</handshake>
+
+		<earnExp>
+			<Arg>	INT32		</Arg>
+			<Arg> BOOL    </Arg>
+			<Arg> INT32    </Arg>
+			<Arg> PYTHON    </Arg>
+		</earnExp>
+
+		<addExpPool>
+			<Arg>	INT32		</Arg>
+		</addExpPool>
+
+		<levelUp>
+		</levelUp>
+
+		<setLevel>
+			<Arg>	INT32		</Arg>
+		</setLevel>
+		<updateMapID>
+			<Arg>	INT32		</Arg>
+		</updateMapID>
+
+
+		<onKickOffServer>
+		</onKickOffServer>
+		<onChangeNickname>
+			<Arg>		STRING		</Arg>
+		</onChangeNickname>
+		<systemAnnouncement>
+			<Arg>		STRING					</Arg>
+		</systemAnnouncement>
+
+		<getAwards>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</getAwards>
+
+
+		<onTaskEvent>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onTaskEvent>
+
+
+		<systemJumpTip>
+			<Arg>		STRING		</Arg>
+		</systemJumpTip>
+
+		<onGameLogData>
+			<Arg>	PYTHON		</Arg>
+		</onGameLogData>
+
+		<logPVE>
+			<Arg>	PYTHON		</Arg>
+		</logPVE>
+
+		<logPVPDieData>
+			<Arg> 	PYTHON 		</Arg>
+		</logPVPDieData>
+
+		<logPVPKillData>
+			<Arg> 	PYTHON 		</Arg>
+		</logPVPKillData>
+
+		<logVehicle>
+			<Arg> 	PYTHON 		</Arg>
+		</logVehicle>
+
+		<gmKickLowVersion>
+			<Arg>		STRING		</Arg>
+		</gmKickLowVersion>
+
+		<updateDungeonKORecord>
+			<Arg>			PY_DICT			</Arg>
+		</updateDungeonKORecord>
+
+		<logPVEStage>
+			<Arg>			PY_DICT			</Arg>
+		</logPVEStage>
+		<requestPlayerInfo> <Exposed/>
+			<Arg>			GID			 </Arg>
+		</requestPlayerInfo>
+
+		<reportFP> <Exposed/>
+			<Arg>			PERFORMANCE			</Arg>
+		</reportFP>
+
+		<unlockedChallenge><Exposed/>
+			<Arg>		STRING		</Arg>
+		</unlockedChallenge>
+
+		<onClientLoadingFinish> <Exposed/>
+		</onClientLoadingFinish>
+		<updateCacheLazyData>
+			<Arg>		PYTHON		</Arg>
+		</updateCacheLazyData>
+		<loadSceneAfterReconnect>
+			<Arg>		MAILBOX					</Arg>	<!-- account -->
+		</loadSceneAfterReconnect>
+
+		<requestLeaveDynamicSpace> <Exposed/>
+		</requestLeaveDynamicSpace>
+		<onRequestDestroy>
+		</onRequestDestroy>
+
+		<queryRecastNavPath> <Exposed/>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</queryRecastNavPath>
+
+		<onQueryRecastNavPath>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		ARRAY <of>	VECTOR3	</of>			</Arg>
+			<Arg>		INT32			</Arg>
+		</onQueryRecastNavPath>
+
+		<onReceiveGift>
+			<Arg>			INT32			</Arg>	<!-- item id -->
+			<Arg>			INT32			</Arg>  <!-- item count -->
+			<Arg>			STRING			</Arg>  <!-- sender Name -->
+			<Arg>			STRING			</Arg>  <!-- sender Server -->
+		</onReceiveGift>
+		<onReportUITouch> <Exposed/>
+			<Arg>			VECTOR2			</Arg>
+			<Arg>			VECTOR2			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			BOOL			</Arg>
+		</onReportUITouch>
+		<updateBattleRecord> <!-- 更新除排名外的数据 -->
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</updateBattleRecord>
+		<updateCourseData>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		PYTHON </Arg>
+		</updateCourseData>
+		<updateWeaponSkinDamageRecord>
+			<Arg>		PYTHON </Arg>
+		</updateWeaponSkinDamageRecord>
+		<updateDeviceInfo>
+			<Arg>		PYTHON		</Arg>
+		</updateDeviceInfo>
+
+		<requestClientProcList> </requestClientProcList>
+		<requestClientSpeedUp> </requestClientSpeedUp>
+		<requestClientScreen>
+			<Arg>			INT32			</Arg>
+		</requestClientScreen>
+		<requestClientAllScreen>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</requestClientAllScreen>
+
+		<addGP>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</addGP>
+
+		<addAthleteCurrency>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</addAthleteCurrency>
+
+		<recordPrizeMatchPlayerScore>
+			<Arg> PYTHON </Arg>
+			<Arg> PYTHON </Arg>
+		</recordPrizeMatchPlayerScore>
+
+		<recordPlayerSplashModeScore>
+			<Arg> PYTHON </Arg>
+		</recordPlayerSplashModeScore>
+
+		<refreshAthleteBattleInfo>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</refreshAthleteBattleInfo>
+
+
+		<onFightEndXmas2017>
+			<Arg>		INT32		</Arg>   <!-- kills -->
+			<Arg>		INT32		</Arg>   <!-- rank -->
+		</onFightEndXmas2017>
+
+		<onFightEndActivityLimitTime>
+			<Arg>		INT32		</Arg>   <!-- kills -->
+			<Arg>		INT32		</Arg>   <!-- rank -->
+		</onFightEndActivityLimitTime>
+
+		<finishRosMatchTeamRankTask>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT8		</Arg>
+			<Arg>	INT32		</Arg>
+		</finishRosMatchTeamRankTask>
+
+		<finishBattle>
+			<Arg>		INT32		</Arg>   <!-- teamSize -->
+		</finishBattle>
+
+		<addTaskCountActivityLimitTime> <Exposed/>
+			<Arg>		INT32		</Arg>   <!-- activity_id -->
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+			<Arg>		INT32		</Arg>   <!-- count -->
+		</addTaskCountActivityLimitTime>
+
+		<backToHall> </backToHall>
+		<onAvatarClientLoadingFinish>
+		</onAvatarClientLoadingFinish>
+		<addBombDanceBallOnBornInPrepareArea>
+		</addBombDanceBallOnBornInPrepareArea>
+
+		<onSubCurrencyFailure>
+			<Arg>  STRING </Arg>
+		</onSubCurrencyFailure>
+
+		<addDtsExp>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</addDtsExp>
+
+		<addIntimacyDegreeValue>
+			<Arg>			GID 			</Arg>
+			<Arg>			INT32			</Arg>
+		</addIntimacyDegreeValue>
+
+		<tryExchangeYB2Currency>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</tryExchangeYB2Currency>
+
+		<exchangeYB2Currency> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</exchangeYB2Currency>
+		<setBaseGameID>
+			<Arg>  UUID  </Arg>
+		</setBaseGameID>
+
+		<onFinishGameWithCouple>
+		</onFinishGameWithCouple>
+		<onAddKillWithCouple>
+			<Arg>			INT32			</Arg>
+		</onAddKillWithCouple>
+
+		<onLogPerformStat>
+			<Arg>			PYTHON			</Arg>
+		</onLogPerformStat>
+
+		<onLogSaPerform>
+			<Arg>			PYTHON			</Arg>
+		</onLogSaPerform>
+
+		<onAddZhongqiuSkinKill>
+			<Arg>			INT32			</Arg>
+		</onAddZhongqiuSkinKill>
+
+		<addAthleteCurrencyIntoExtraBattleAward>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</addAthleteCurrencyIntoExtraBattleAward>
+
+		<addAthleteExpIntoExtraBattleAward>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</addAthleteExpIntoExtraBattleAward>
+
+		<addRedPackageChance>
+			<Arg>	INT32		</Arg>
+		</addRedPackageChance>
+
+		<onNewPlayerTaskMsg>
+			<Arg>		PYTHON		</Arg><!--dict{msg type: addVal}-->
+		</onNewPlayerTaskMsg>
+
+		<asOnNotify>
+			<Arg>	INT32	</Arg> <!-- msgType -->
+			<Arg>	PYTHON	</Arg> <!-- msgArgs -->
+		</asOnNotify>
+
+		<onClearFinishedNewPlayerTask>
+		</onClearFinishedNewPlayerTask>
+
+		<updateMachineFingerprint>
+			<Arg>			STRING				</Arg>
+			<Arg>			STRING				</Arg>
+		</updateMachineFingerprint>
+
+		<updateWeaponKillCount>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</updateWeaponKillCount>
+
+		<banPlayerSelf>
+			<Arg>			INT32				</Arg>
+			<Arg>			STRING				</Arg>
+		</banPlayerSelf>
+
+		<callAthleteFunction>
+			<Arg>			STRING				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</callAthleteFunction>
+		<onUpdateFinishedTaskInGame>
+			<Arg>			ARRAY <of> TASK_ID </of>	</Arg>
+		</onUpdateFinishedTaskInGame>	
+		<updateIsIntimateRelationshipVisibleInTeam>	<Exposed/>
+			<Arg>	BOOL		</Arg>
+		</updateIsIntimateRelationshipVisibleInTeam>
+		<updateShouldCreatePetInBattle>
+			<Arg>			BOOL				</Arg>
+		</updateShouldCreatePetInBattle>
+		<getHeroExp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</getHeroExp>
+		<recordNewFunctionGuide>	<Exposed/>
+			<Arg>		INT32		</Arg>
+		</recordNewFunctionGuide>
+		<recordRankTimesForCredit>
+		</recordRankTimesForCredit>
+		<getAirShipKillReward>
+		</getAirShipKillReward>
+	</BaseMethods>
+
+	<CellMethods>
+		<onNotifyKilled>
+			<Arg>			ENTITY_ID			</Arg>
+		</onNotifyKilled>
+
+		<updateCheatScore>
+			<Arg> FLOAT	</Arg>
+		</updateCheatScore>
+
+		<setStateSpeed>
+			<Arg> FLOAT	</Arg>
+		</setStateSpeed>
+
+		<getBTDungeonAwards>
+			<Arg>			INT32			</Arg>
+		</getBTDungeonAwards>
+		<shootHit><Exposed/>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32	</Arg>
+			<Arg> BOOL </Arg>
+			<Arg> BOOL </Arg>
+		</shootHit>
+		<chargeShootHit><Exposed/>
+			<Arg> SHOOT_WEAPON_INFO </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> ENTITY_ID </Arg>
+			<Arg> HIT_PART </Arg>
+			<Arg> VECTOR3 </Arg>
+			<Arg> INT32	</Arg>
+			<Arg> FLOAT	</Arg>
+		</chargeShootHit>
+		<resetBattleIcon></resetBattleIcon>
+		<logPVEStage>
+			<Arg>			PY_DICT			</Arg>
+		</logPVEStage>
+		<ensureState>
+		</ensureState>
+		<setOnline>
+		</setOnline>
+
+		<onShareMonsterDie>
+			<Arg>		INT32		</Arg> <!-- face direction -->
+			<Arg>		INT32		</Arg> <!-- client call -->
+			<Arg>       ARRAY <of> ENTITY_ID </of> </Arg> <!-- 攻击过该怪的entity id -->
+		</onShareMonsterDie>
+
+		<onSelectVehicle>
+			<Arg>		INT32		</Arg> <!-- vehicle ID -->
+		</onSelectVehicle>
+
+		<getOnVehicle> <Exposed/>
+			<Arg>		VECTOR3		</Arg> <!-- face direction -->
+			<Arg>		BOOL		</Arg> <!-- client call -->
+			<Arg>		BOOL		</Arg> <!-- need navi to vehicle -->
+		</getOnVehicle>
+
+		<enterVehicle> <Exposed/>
+		</enterVehicle>
+
+		<buyBuff> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</buyBuff>
+
+		<onClientLoadingFinish>
+		</onClientLoadingFinish>
+
+		<onClientResumeGame><Exposed/>
+		</onClientResumeGame>
+
+		<onClientTryControl><Exposed/>
+		</onClientTryControl>
+
+		<getOffVehicle> <Exposed/>
+			<Arg>			BOOL			</Arg> <!-- client call -->
+		</getOffVehicle>
+
+
+
+		<resetResource>
+		</resetResource>
+
+		<addResource>
+			<Arg>			INT32			</Arg>
+		</addResource>
+
+		<loadingFinish>
+			<Arg>	INT32		</Arg>
+		</loadingFinish>
+		<onEnterSpaceFail>
+			<Arg>	INT32		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</onEnterSpaceFail>
+		<onClientTrace> <Exposed/>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	FLOAT	</Arg>
+			<Arg>	INT32	</Arg>
+		</onClientTrace>
+		<setVisible>
+			<Arg>	BOOL	</Arg>
+		</setVisible>
+		<enterSnipeMode><Exposed/>
+			<Arg>	INT32		</Arg>
+		</enterSnipeMode>
+		<loadSceneAfterReconnect>
+			<Arg>		MAILBOX					</Arg>	<!-- account -->
+		</loadSceneAfterReconnect>
+
+		<onLeaveSnipeMode> <Exposed/>
+		</onLeaveSnipeMode>
+
+		<requestLeaveDynamicSpace>
+			<Arg>		INT32		</Arg>
+		</requestLeaveDynamicSpace>
+		<leaveDynamicSpace>
+		</leaveDynamicSpace>
+		<leaveCurrentSpace>
+		</leaveCurrentSpace>
+
+		<getAwards>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</getAwards>
+
+		<shareAwards>
+			<Arg>	PYTHON		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</shareAwards>
+
+		<setPlayerAbility>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</setPlayerAbility>
+
+		<onChangeNickname>
+			<Arg>		STRING		</Arg>
+		</onChangeNickname>
+		<updateLevel>
+			<Arg>		INT32		</Arg>
+		</updateLevel>
+		<addExp>
+			<Arg>	INT32	</Arg>
+		</addExp>
+
+		<onRecvClientPing> <Exposed/>
+		</onRecvClientPing>
+		<onRecvClientFPS> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</onRecvClientFPS>
+
+		<onEnterHangOnCar>
+			<Arg>	INT32	</Arg>
+		</onEnterHangOnCar>
+		<onLeaveHangOnCar>
+		</onLeaveHangOnCar>
+
+		<systemMsg>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING					</Arg>
+		</systemMsg>
+
+		<systemJumpTip>
+			<Arg>		STRING		</Arg>
+		</systemJumpTip>
+
+		<onFinishRacing><!--完成竞速-->
+			<Arg>	INT32			</Arg>	<!-- succeed -->
+		</onFinishRacing>
+
+		<onFinishBattle><!--完成竞技场-->
+			<Arg>			INT32		</Arg><!--succeed-->
+			<Arg>			PYTHON		</Arg>
+		</onFinishBattle>
+
+		<onFinishLegionWar><!--完成公会战-->
+			<Arg>			INT32		</Arg><!--succeed-->
+		</onFinishLegionWar>
+
+		<onFinishChallenge><!--完成单人竞技场-->
+			<Arg>			INT32		</Arg><!--succeed-->
+			<Arg>			PYTHON		</Arg>
+		</onFinishChallenge>
+		<onQuitMap><!--主动退出竞技场或者副本-->
+			<Arg>			INT32		</Arg><!--map id-->
+			<Arg>			PYTHON		</Arg>
+		</onQuitMap>
+
+		<updateForce>
+			<Arg>		INT32			</Arg>
+		</updateForce>
+
+		<notifyForceDismatch><Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</notifyForceDismatch>
+		<rebornCountdown>
+		</rebornCountdown>
+
+		<requestReborn><Exposed/>
+			<Arg>		BOOL			</Arg>
+		</requestReborn>
+		<cancelRebornTimer>
+		</cancelRebornTimer>
+		<enableHuangyeLinkerBtn><Exposed/>
+			<Arg>		BOOL			</Arg>
+		</enableHuangyeLinkerBtn>
+		<setSpeedExtFactor><Exposed/>
+			<Arg> 		FLOAT 			</Arg>
+		</setSpeedExtFactor>
+		<onHPShieldBarTouch><Exposed/>
+			<Arg> 		INT8 			</Arg>
+		</onHPShieldBarTouch>
+
+		<inviteLegionToWildDungeon><Exposed/>
+		</inviteLegionToWildDungeon>
+
+		<inviteWorldToWildDungeon><Exposed/>
+		</inviteWorldToWildDungeon>
+
+		<inviteLegionToLigeanceSourceSpace><Exposed/>
+		</inviteLegionToLigeanceSourceSpace>
+
+		<playAnimation><Exposed/>
+			<Arg> STRING </Arg>
+			<Arg> INT32 </Arg>
+		</playAnimation>
+		<stopAnimation><Exposed/>
+		</stopAnimation>
+		<hideWeapon><Exposed/>
+			<Arg>		BOOL			</Arg>
+		</hideWeapon>
+		<showWeapon><Exposed/>
+		</showWeapon>
+
+		<activeLegionCamp>
+		</activeLegionCamp>
+		<activeTeamCamp>
+		</activeTeamCamp>
+		<resetSpecialCamp>
+		</resetSpecialCamp>
+		<requestPlayerInfoByID> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</requestPlayerInfoByID>
+
+		<jumpStart><Exposed/>
+			<Arg>  BOOL  </Arg>
+		</jumpStart>
+
+		<jumpEnd><Exposed/>
+			<Arg> FLOAT </Arg>
+		</jumpEnd>
+
+		<fall><Exposed/>
+		</fall>
+
+		<vault> <Exposed/>
+			<Arg>	INT8		</Arg>
+			<Arg>	FLOAT		</Arg>
+		</vault>
+
+		<changePose> <Exposed/>
+			<Arg>	INT8		</Arg>
+		</changePose>
+		<goingInJumpArea>
+		</goingInJumpArea>
+		<changeFallPhase> <Exposed/>
+			<Arg>	INT8		</Arg>
+		</changeFallPhase>
+
+		<changeGlidePhase> <Exposed/>
+			<Arg>	INT8		</Arg>
+		</changeGlidePhase>
+
+		<switchOperateMode><Exposed/>
+			<Arg>	INT32		</Arg>
+		</switchOperateMode>
+
+		<onEntityEnterClient> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</onEntityEnterClient>
+		<onEntityLeaveClient> <Exposed/>
+			<Arg>	INT32		</Arg>
+		</onEntityLeaveClient>
+		<onRequestLoadingInfo>
+			<Arg>	ARRAY <of> PLAYER_LOADING_INFO </of>	</Arg>	<!-- red info-->
+			<Arg>	ARRAY <of> PLAYER_LOADING_INFO </of>	</Arg>	<!-- blue info-->
+		</onRequestLoadingInfo>
+
+		<repeatHit> <Exposed/> <!--连续命中-->
+		</repeatHit>
+		<repeatShoot> <Exposed/> <!--连续开火-->
+		</repeatShoot>
+		<shootNotHit> <Exposed/> <!--开火未命中-->
+		</shootNotHit>
+		<updateBulletFactor> <Exposed/> <!--更新额外的子弹伤害-->
+			<Arg> 	FLOAT 	</Arg>
+		</updateBulletFactor>
+
+		<keepBattleIcon>
+			<Arg>	INT32		</Arg>
+		</keepBattleIcon>
+
+		<extendAoi>
+			<Arg>  BOOL  </Arg>
+		</extendAoi>
+		<onVehicleDestroy>
+			<Arg>	INT32		</Arg>
+		</onVehicleDestroy>
+		<onUpdateRaceRank>
+			<Arg>	INT32		</Arg>
+		</onUpdateRaceRank>
+		<setVehicleBattleDriver>
+		</setVehicleBattleDriver>
+		<setVehicleBattleFight>
+			<Arg>	ENTITY_ID		</Arg>
+		</setVehicleBattleFight>
+		<setVehicleBattleNone>
+		</setVehicleBattleNone>
+		<onRoundStart>
+		</onRoundStart>
+		<onFinishVehicleBattle><!--完成载具竞技场-->
+			<Arg>			INT32		</Arg><!--succeed-->
+		</onFinishVehicleBattle>
+		<onFinishTimeTrial><!--完成载具计时赛-->
+			<Arg>			PYTHON		</Arg><!--resInfo-->
+		</onFinishTimeTrial>
+		<onCrashVehicle>
+            <Arg>		ENTITY_ID 		</Arg>
+		</onCrashVehicle>
+
+		<onPickUpProp> <Exposed/>
+			<Arg>  BOOL  </Arg>
+		</onPickUpProp>
+
+		<tryToSummonSnowBoard> <Exposed/>
+			<Arg>  INT32  </Arg>
+		</tryToSummonSnowBoard>
+
+		<setGameID>
+			<Arg>  UUID  </Arg>
+		</setGameID>
+		<onAssist>
+		</onAssist>
+
+		<skydiveMoveDir><Exposed/>
+			<Arg>		VECTOR3			</Arg>
+		</skydiveMoveDir>
+
+		<skydive2MoveDir><Exposed/>
+			<Arg>		FLOAT			</Arg>
+		</skydive2MoveDir>
+		<avatarDestroy>
+			<Arg>		PYTHON			</Arg>
+		</avatarDestroy>
+
+		<onSystemMsg>
+			<Arg>		STRING			</Arg>
+		</onSystemMsg>
+
+		<reportStuck><Exposed/>
+			<Arg>	VECTOR3		</Arg> <!-- chPos -->
+			<Arg>	FLOAT		</Arg> <!-- chGravity -->
+			<Arg>	INT32		</Arg> <!-- graphLevel -->
+			<Arg>	INT32		</Arg> <!-- physState -->
+		</reportStuck>
+		<createRedCometHook><Exposed/>
+		</createRedCometHook>
+
+		<doPutGun> <Exposed/>
+			<Arg>	BOOL	</Arg> <!-- is putgun -->
+		</doPutGun>
+		<coupleMatched><Exposed/>
+			<Arg>		ENTITY_ID			</Arg>
+		</coupleMatched>
+
+		<gmSetRobotVisible>
+			<Arg>		INT8		</Arg>
+		</gmSetRobotVisible>
+		<onRecvClientFrameLevel> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</onRecvClientFrameLevel>
+		<onLogDtsTutorialMap> <Exposed/>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT8			</Arg>
+		</onLogDtsTutorialMap>
+		<refreshEmojiID><Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</refreshEmojiID>
+		<refreshTeamEmojiID><Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</refreshTeamEmojiID>
+		<onRefreshFlyingAccessory><Exposed/>
+			<Arg>	STRING		</Arg>
+		</onRefreshFlyingAccessory>
+
+		<useJumpBuffItem>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+			<Arg>	INT32	</Arg>	<!-- item num -->
+			<Arg>	PYTHON	</Arg>	<!-- info -->
+		</useJumpBuffItem>
+		<onStopReborn>
+		</onStopReborn>
+		<switchBetweenManAndBeast> <Exposed/>
+		</switchBetweenManAndBeast>
+		<splashModeGetOnRebornPlane>
+			<Arg>	INT32	</Arg>	<!-- plane ID -->
+		</splashModeGetOnRebornPlane>
+		<activeCampWarID>
+		</activeCampWarID>
+
+		<setPrepareZoneCampWarID>
+			<Arg>	INT32	</Arg>
+		</setPrepareZoneCampWarID>
+		<supplyWhenLand>
+		</supplyWhenLand>
+
+		<onInfected>
+			<Arg>	INT32	</Arg>
+		</onInfected>
+		<beforeGetOnRebornPlane>
+			<Arg>	INT32	</Arg>	<!-- plane ID -->
+		</beforeGetOnRebornPlane>
+		<rebornInSky>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</rebornInSky>
+		<setPerspectiveDist>
+			<Arg>	FLOAT	</Arg>
+		</setPerspectiveDist>
+
+		<onPickHeritage>
+			<Arg>	INT32	</Arg>
+			<Arg>	BOOL	</Arg>
+		</onPickHeritage>
+		<onSetMostImportantPeople>
+			<Arg>	ENTITY_ID	</Arg>
+		</onSetMostImportantPeople>
+
+		<onImbaWaitReborn>
+			<Arg>	INT32	</Arg>	<!-- remain reborn time -->
+		</onImbaWaitReborn>
+
+		<onPlayerIdsInRange><Exposed/>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+		</onPlayerIdsInRange>
+		<onChangeYBInBattle>
+			<Arg>	INT32	</Arg>
+		</onChangeYBInBattle>
+		<getOnTrain><Exposed/>
+			<Arg>	BOOL	</Arg>
+		</getOnTrain>
+		<updateOnTrainPosition> <Exposed/>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>	ENTITY_ID	</Arg>
+		</updateOnTrainPosition>
+		<showWeeklyBestRosMatchTeamFx><Exposed/>
+		</showWeeklyBestRosMatchTeamFx>
+		<notifyShowWeeklyTeamCrown><Exposed/>
+			<Arg>	ENTITY_ID	</Arg>
+		</notifyShowWeeklyTeamCrown>
+		<showWeeklyTeamFxaWhenEnterAOI>
+		</showWeeklyTeamFxaWhenEnterAOI>
+		<getOnTrainByTrainID><Exposed/>
+			<Arg>	ENTITY_ID	</Arg>
+		</getOnTrainByTrainID>
+		<getAirShipKillReward>
+		</getAirShipKillReward>
+		<firstPlayerStartDanceAroundCake>
+			<Arg>	INT32	</Arg>
+		</firstPlayerStartDanceAroundCake>
+		<syncPlayerAroundCake>
+		</syncPlayerAroundCake>
+		<enterDancingCakeIdleState>
+		</enterDancingCakeIdleState>
+		<enterDancingCake><Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</enterDancingCake>
+		<quitDancingCake>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>	INT32	</Arg>
+		</quitDancingCake>
+		<addDancingCakeSpeedBuff>
+		</addDancingCakeSpeedBuff>
+		<notifyDancingCakeSeatNum>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>		INT32			</Arg>
+		</notifyDancingCakeSeatNum>
+		<moveToNearestCakePos>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</moveToNearestCakePos>
+		<updateDanceAroundCakeTimes>
+			<Arg>	INT32	</Arg>
+		</updateDanceAroundCakeTimes>
+		<updateWeaponAccumulateDamage>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateWeaponAccumulateDamage>
+		<showBestWeaponHolderEnterHint>
+			<Arg>	STRING		</Arg>
+		</showBestWeaponHolderEnterHint>
+		<resetTransititionDuration>
+		</resetTransititionDuration>
+	</CellMethods>
+
+	<ClientMethods>
+		<onKickOff>
+		</onKickOff>
+		<loadMap>
+			<Arg>		INT32			</Arg>
+			<Arg>	ARRAY <of> PLAYER_LOADING_INFO </of>	</Arg>	<!-- red info-->
+			<Arg>	ARRAY <of> PLAYER_LOADING_INFO </of>	</Arg>	<!-- blue info-->
+		</loadMap>
+		<onRequestLoadingInfo>
+			<Arg>	ARRAY <of> PLAYER_LOADING_INFO </of>	</Arg>	<!-- red info-->
+			<Arg>	ARRAY <of> PLAYER_LOADING_INFO </of>	</Arg>	<!-- blue info-->
+		</onRequestLoadingInfo>
+		<onRefreshSourceInfo>
+		</onRefreshSourceInfo>
+		<reloadMap>
+			<Arg>		INT32			</Arg>
+		</reloadMap>
+		<supplyBullet></supplyBullet>
+		<onTransferSpace>
+			<Arg>	BOOL	</Arg>
+		</onTransferSpace>
+		<onExpUpdated>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onExpUpdated>
+
+		<tryEnterSnipeMode></tryEnterSnipeMode>
+
+		<onEnterSnipeMode></onEnterSnipeMode>
+
+
+		<onUpdateForce>
+			<Arg>		INT32			</Arg>
+		</onUpdateForce>
+
+		<systemAnnouncement>
+			<Arg>		STRING					</Arg>
+		</systemAnnouncement>
+
+		<systemMsg>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING					</Arg>
+		</systemMsg>
+
+		<systemJumpTip>
+			<Arg>		STRING					</Arg>
+		</systemJumpTip>
+		<onRecvServerPing>
+		</onRecvServerPing>
+
+
+		<onRecoverHP>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		INT32		</Arg>
+		</onRecoverHP>
+		<onRecoverShield>
+			<Arg>		FLOAT		</Arg>
+		</onRecoverShield>
+		<preGetOnCar>
+		</preGetOnCar>
+		<preGetOffCar>
+		</preGetOffCar>
+
+
+		<gmKickLowVersion>
+			<Arg>		STRING		</Arg>
+		</gmKickLowVersion>
+
+		<onUpdateDungeonKORecord>
+			<Arg>		PYTHON			</Arg>
+			<Arg>		PY_DICT			</Arg>
+		</onUpdateDungeonKORecord>
+		<rebornCountdown>
+			<Arg>		INT32		</Arg>
+		</rebornCountdown>
+		<onRequestPlayerInfo>
+			<Arg>		PY_DICT			</Arg>
+		</onRequestPlayerInfo>
+
+		<syncServerTimeZone>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT8	</Arg>
+		</syncServerTimeZone>
+
+		<onCriticalStrike>
+			<Arg>  		UINT16  	</Arg>
+		</onCriticalStrike>
+
+		<onJumpStart></onJumpStart>
+
+		<onJumpEnd>
+			<Arg> FLOAT </Arg>
+		</onJumpEnd>
+
+		<onVaultStart>
+			<Arg>	INT8		</Arg>
+			<Arg>	FLOAT		</Arg>
+		</onVaultStart>
+
+		<onFall/>
+
+		<onSwitchOperateMode>
+			<Arg>	INT32	</Arg>
+		</onSwitchOperateMode>
+
+		<serverMsgDtsScope>
+			<Arg>	BOOL	</Arg>
+		</serverMsgDtsScope>
+
+		<onFreshUnlockPVPNameUpdate>
+			<Arg>		ARRAY <of>	STRING	</of>		</Arg>
+		</onFreshUnlockPVPNameUpdate>
+
+		<keepBattleIcon></keepBattleIcon>
+		<resetBattleIcon></resetBattleIcon>
+		<onGetOnVehicleFail>
+		</onGetOnVehicleFail>
+		<syncAddDynamicDataToTask>
+			<Arg> 		TASK_ID 		</Arg>
+			<Arg> 		INT32 		</Arg>
+			<Arg> 		PYTHON 		</Arg>
+		</syncAddDynamicDataToTask>
+
+		<hideWeapon>
+			<Arg>		BOOL			</Arg>
+		</hideWeapon>
+		<showWeapon>
+		</showWeapon>
+		<onTakeVehicleNoTeleport>
+		</onTakeVehicleNoTeleport>
+		<onFreezeYuanbao>
+		</onFreezeYuanbao>
+
+		<onPickUpProp>
+			<Arg>  BOOL  </Arg>
+		</onPickUpProp>
+		<preloadMap>
+			<Arg>	INT32	</Arg>
+		</preloadMap>
+
+		<syncClientIP>
+			<Arg>		STRING			</Arg>
+		</syncClientIP>
+
+		<skydiveMoveDir>
+			<Arg>		VECTOR3			</Arg>
+		</skydiveMoveDir>
+
+		<skydive2MoveDir>
+			<Arg>		FLOAT			</Arg>
+		</skydive2MoveDir>
+
+		<onEnterSpaceFailure>
+			<Arg>			INT32				</Arg>
+		</onEnterSpaceFailure>
+
+		<onQueryRecastNavPath>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		ARRAY <of>	VECTOR3	</of>			</Arg>
+		</onQueryRecastNavPath>
+
+		<onSystemMsg>
+			<Arg>		STRING			</Arg>
+		</onSystemMsg>
+		<transferToLoginServer>
+		</transferToLoginServer>
+
+		<requestClientProcList> </requestClientProcList>
+		<requestClientSpeedUp> </requestClientSpeedUp>
+
+		<tryExchangeYB2Currency>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT64		</Arg>
+			<Arg>	INT32		</Arg>
+		</tryExchangeYB2Currency>
+		<onCPMatched>
+		</onCPMatched>
+
+		<showUIItemDisplay>
+			<Arg>		ARRAY <of>	INT32	</of>			</Arg>
+		</showUIItemDisplay>
+		<onUpdateSkinKillAvtNumber>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</onUpdateSkinKillAvtNumber>
+		<updateEmojiID>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateEmojiID>
+		<updateTeamEmojiID>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateTeamEmojiID>
+		<enterFlyingAccessoryFlyState>
+		</enterFlyingAccessoryFlyState>
+		<refreshFlyingAccessory>
+			<Arg>	STRING		</Arg>
+		</refreshFlyingAccessory>
+		<enterFlyingAccessoryNoneState>
+		</enterFlyingAccessoryNoneState>
+
+		<onNoTeammateToObserve>
+			<Arg>	INT32		</Arg>
+		</onNoTeammateToObserve>
+
+		<onSummonSnowboard>
+		    <Arg> 		ENTITY_ID 		</Arg>
+		</onSummonSnowboard>
+		<onVehicleJumpShow>
+		</onVehicleJumpShow>
+		<onVehicleJumpStay>
+		    <Arg>   FLOAT   </Arg>  <!-- skyStayTime -->
+		</onVehicleJumpStay>
+		<onSnowboardTakeBack>
+		</onSnowboardTakeBack>
+
+		<setTransparentValue>
+			<Arg>	INT32	</Arg>	<!-- transparent val -->
+		</setTransparentValue>
+		<setVisible>
+			<Arg>	BOOL	</Arg>
+		</setVisible>
+		<onUpdateBuffIcon>
+			<Arg>	PYTHON	</Arg>	<!-- Buff icon list -->
+		</onUpdateBuffIcon>
+		<onUpdateFinishedTaskInGame>
+			<Arg>	ARRAY <of> TASK_ID </of>	</Arg>
+		</onUpdateFinishedTaskInGame>
+		<showPoisonEffect>
+		</showPoisonEffect>
+
+
+		<onImbaWaitReborn>
+			<Arg>	INT32	</Arg>	<!-- remain reborn time -->
+		</onImbaWaitReborn>
+
+		<onSyncAccompanyPlayerPosition>
+			<Arg>	PYTHON	</Arg>
+		</onSyncAccompanyPlayerPosition>
+		<onReloadVehicleAnim>
+			<Arg>		ENTITY_ID		</Arg>
+		</onReloadVehicleAnim>
+
+		<onReloadVehicleAnim>
+			<Arg>		ENTITY_ID		</Arg>
+		</onReloadVehicleAnim>
+
+		<onPushOrPullCamera>
+			<Arg>	INT32	</Arg>	<!-- push or pull -->
+			<Arg>	FLOAT	</Arg>	<!-- distance -->
+			<Arg>	FLOAT	</Arg>	<!-- speed -->
+		</onPushOrPullCamera>
+
+		<onChangeCameraFov>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onChangeCameraFov>
+
+		<onChangeCameraFovFinsish>
+			<Arg>		FLOAT		</Arg>
+		</onChangeCameraFovFinsish>
+
+		<onRecoverCamera>
+			<Arg>	FLOAT	</Arg>	<!-- speed -->
+		</onRecoverCamera>
+
+		<onRefreshMSToken>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+		</onRefreshMSToken>
+
+
+		<onHideShadow>
+			<Arg>	BOOL	</Arg>
+		</onHideShadow>
+		<syncOnTrainPosition>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>		ENTITY_ID		</Arg>
+		</syncOnTrainPosition>
+		
+		<onShowWeeklyBestRosMatchTeamFx>
+			<Arg>		ENTITY_ID		</Arg>
+		</onShowWeeklyBestRosMatchTeamFx>
+		
+		<onHideWeeklyBestRosMatchTeamFx>
+		</onHideWeeklyBestRosMatchTeamFx>
+		<onGetAirShipReward>
+		</onGetAirShipReward>
+		<moveToNearestCakePos>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</moveToNearestCakePos>
+		<onDanceInTuneWithOthersAroundCake>
+		</onDanceInTuneWithOthersAroundCake>
+		<onEnterDancingCakeIdleState>
+		</onEnterDancingCakeIdleState>
+		<onQuitDancingCake>
+			<Arg>	INT32	</Arg>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onQuitDancingCake>
+		<syncDancingCakeSpeedBuffRemainTime>
+			<Arg>		INT32		</Arg>
+		</syncDancingCakeSpeedBuffRemainTime>
+		<onEnterDancingCake>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>	INT32	</Arg>
+		</onEnterDancingCake>
+		<onNotifyDancingCakeSeatNum>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>		INT32			</Arg>
+		</onNotifyDancingCakeSeatNum>
+		<breakOpeningAnniversaryTreasure>
+		</breakOpeningAnniversaryTreasure>
+		<resetTransititionDuration>
+		</resetTransititionDuration>
+	</ClientMethods>
+
+</root>

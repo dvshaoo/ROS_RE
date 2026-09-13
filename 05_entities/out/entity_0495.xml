@@ -1,0 +1,111 @@
+<root>
+	<Properties>
+		<isMuzzled>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	False		</Default>
+			<Persistent>	true		</Persistent>
+		</isMuzzled>
+		<ownChatIntervalStartTime>
+			<Type>    INT64   </Type>
+			<Flags>   BASE    </Flags>
+			<Persistent>  true    </Persistent>
+		</ownChatIntervalStartTime>
+		<ownChatInterval>
+			<Type>    INT32   </Type>
+			<Flags>   BASE    </Flags>
+			<Persistent>  true    </Persistent>
+		</ownChatInterval>
+		<ownChatIntervalTime>
+			<Type>    INT32   </Type>
+			<Flags>   BASE    </Flags>
+			<Persistent>  true    </Persistent>
+		</ownChatIntervalTime>
+	</Properties>
+
+	<Implements>
+		<Interface>  iOfflineOperation  </Interface>
+	</Implements>
+
+	<BaseMethods>
+		<chat> <Exposed/>
+			<Arg>			INT32					</Arg>	<!-- channel -->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER					</Arg>	<!-- receiver -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+			<Arg>			BOOL		</Arg>
+		</chat>
+
+		<chatSelf> <Exposed/>
+			<Arg>			INT32					</Arg>	<!-- channel -->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+		</chatSelf>
+
+		<onChat>
+			<Arg>			INT32					</Arg>	<!-- channel -->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER					</Arg>	<!-- receiver -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+		</onChat>
+
+		<gmDeleteChat>
+			<Arg>			INT32					</Arg>
+		</gmDeleteChat>
+		<gmUpdateChatInterval>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</gmUpdateChatInterval>
+	</BaseMethods>
+
+	<ClientMethods>
+		<gmDeleteChat>
+			<Arg>			INT32					</Arg>
+		</gmDeleteChat>
+		<onChat>
+			<Arg>			INT32					</Arg>	<!-- channel -->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER					</Arg>	<!-- sender -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+		</onChat>
+		<onNotice>
+			<Arg>			STRING					</Arg>	<!-- content -->
+		</onNotice>
+
+		<onChatPrivate>
+			<Arg>			GID						</Arg>	<!-- gid 	-->
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			PY_DICT					</Arg>	<!-- params -->
+			<Arg>			STRING					</Arg>	<!-- nationalFlag -->
+		</onChatPrivate>
+
+		<chatPrivateCallback>
+			<Arg>			INT32					</Arg>
+			<Arg>			GID						</Arg>	<!-- gid 	-->
+			<Arg>			STRING					</Arg>
+			<Arg>			PY_DICT					</Arg>	<!-- params -->
+		</chatPrivateCallback>
+
+		<onAnnounceChat>
+			<Arg>			STRING					</Arg>	<!-- params -->
+			<Arg>			INT8					</Arg>	<!-- params -->
+		</onAnnounceChat>
+
+		<onAnnounceChatInHall>
+			<Arg>			STRING					</Arg>	<!-- params -->
+			<Arg>			INT8					</Arg>	<!-- params -->
+		</onAnnounceChatInHall>
+
+		<setMuzzled>
+		</setMuzzled>
+
+		<unsetMuzzled>
+		</unsetMuzzled>
+
+		<showSystemMsg>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	BOOL	</Arg>
+		</showSystemMsg>
+	</ClientMethods>
+</root>

@@ -1,0 +1,38 @@
+<root>
+	<Implements>
+		<Interface>	iVehicleComps	</Interface>
+	</Implements>
+
+	<Properties>
+		<nosCap>
+			<Type>			FLOAT		</Type>
+			<Flags>			ALL_CLIENTS			</Flags>
+		</nosCap>
+
+		<nosAmount>
+			<Type>			FLOAT		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</nosAmount>
+
+		<boomComsume>
+			<Type>			FLOAT		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</boomComsume>
+
+		<nosEmpty>
+			<Type>			BOOL		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</nosEmpty>
+
+		<nosFull>
+			<Type>			BOOL		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</nosFull>
+	</Properties>
+
+	<CellMethods>
+		<onBoomComsumeNos><Exposed/>
+		</onBoomComsumeNos>
+
+	</CellMethods>
+</root>

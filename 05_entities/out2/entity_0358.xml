@@ -1,0 +1,51 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<complaint>	<Exposed/>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>	<!--手填的举报内容-->
+			<Arg>	STRING	</Arg>	<!--获取到的被举报人前十条聊天信息，可能不全-->
+		</complaint>
+
+		<onComplaintResult>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING	</Arg>
+		</onComplaintResult>
+
+		<requestAllPlayersData>	<Exposed/>
+		</requestAllPlayersData>
+
+		<onRequestAllPlayersData>
+			<Arg>	PYTHON	</Arg>
+		</onRequestAllPlayersData>
+	</BaseMethods>
+	<CellMethods>
+		<complaint>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>	<!--手填的举报内容-->
+			<Arg>	STRING	</Arg>	<!--获取到的被举报人前十条聊天信息，可能不全-->
+		</complaint>
+	</CellMethods>
+
+	<ClientMethods>
+		<onComplaintResult>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING	</Arg>
+		</onComplaintResult>
+
+		<onRequestAllPlayersData>
+			<Arg>	PYTHON	</Arg>
+		</onRequestAllPlayersData>
+
+		<startCheatJudge>
+		</startCheatJudge>
+	</ClientMethods>
+</root>

@@ -1,0 +1,1115 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface>	iMatchSingleSideSpace	</Interface>
+		<Interface>	iRobotGenerate	</Interface>
+		<Interface>	iSpaceObserve	</Interface>
+		<Interface> iSpaceWeatherControl </Interface>
+		<Interface> iRedPacketSpace			 </Interface>
+		<Interface> iSpaceCommander			 </Interface>
+		<Interface> iCheatSupervisor			 </Interface>
+		<Interface>	iSpaceVoxelBuild	</Interface>
+		<Interface>	iStarDiamondSpace	</Interface>
+		<Interface>	iActivityLimitTimeSpace	</Interface>
+		<Interface>	iRosMatchSpace		</Interface>
+		<Interface>	iTrainSpace </Interface>
+	</Implements>
+	<ClientName>	BattleGroundSpace	</ClientName>
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<alreadyReminedCanExit>
+			<Type>	BOOL		</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</alreadyReminedCanExit>
+		<startTimeStamp>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTimeStamp>
+		<useSeason>
+			<Type>	BOOL		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</useSeason>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</gameStatus>
+		<alreadySetNameList>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</alreadySetNameList>
+		<allPlayerNameStrList0>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList0>
+		<allPlayerNameStrList1>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList1>
+		<allPlayerNameStrList2>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList2>
+
+		<allPlayerNameStrList3>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList3>
+
+		<allPlayerNameStrList4>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList4>
+
+		<allPlayerNameStrList5>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList5>
+
+		<allPlayerNameStrList6>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList6>
+
+		<allPlayerNameStrList7>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList7>
+
+		<allPlayerNameStrList8>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList8>
+
+		<allPlayerNameStrList9>
+			<Type>	BLOB </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</allPlayerNameStrList9>
+
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<gameStageStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</gameStageStartTime>
+		<initCheckTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</initCheckTimerID>
+		<gameStartCheckTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStartCheckTimerID>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<playerAirRouteDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerAirRouteDict>
+		<teamResultDict>
+			<Type> PYTHON </Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> {} </Default>
+		</teamResultDict>
+		<memberUpdatedRank>
+			<Type> PYTHON </Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> set() </Default>
+		</memberUpdatedRank>
+		<campRecordData>
+			<Type> BATTLE_GROUND_CAMP_DATA		</Type>
+			<Flags> CELL_PRIVATE	</Flags>
+		</campRecordData>
+		<circleShowTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleShowTimerID>
+		<circleStartScaleTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleStartScaleTimerID>
+		<circleScaleTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleTimerID>
+		<timerEnterAirDrop>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</timerEnterAirDrop>
+		<timerStartOneAirDrop>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</timerStartOneAirDrop>
+		<triggerTimestamp>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</triggerTimestamp>
+		<nextCircleTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</nextCircleTime>
+		<circleNotifyTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleNotifyTimerID>
+		<circleStage>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</circleStage>
+		<blueCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleCenter>
+		<blueCircleRadius>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleRadius>
+		<blueCircleStartRadius>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleStartRadius>
+		<blueCircleStartCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleStartCenter>
+		<whiteCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</whiteCircleCenter>
+		<preCalcCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</preCalcCircleCenter>
+		<preCalcCircleRadius>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</preCalcCircleRadius>
+		<preCalCircleHeight>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</preCalCircleHeight>
+		<whiteCircleRadius>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</whiteCircleRadius>
+		<circleScaleStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleStartTime>
+		<circleScaleStartCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleStartCenter>
+		<circleScaleStartRadius>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleStartRadius>
+		<targetCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</targetCircleCenter>
+		<teamIndex>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</teamIndex>
+		<teamsData>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</teamsData>
+		<teamMemberNumber>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</teamMemberNumber>
+		<gidToTeamID>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</gidToTeamID>
+		<finishedPlayers>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</finishedPlayers>
+		<finishedTeams>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	set()	</Default>
+		</finishedTeams>
+		<closedPlayers>
+			<!-- 		已经结算过的玩家（游戏中死亡之后退出） 			-->
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</closedPlayers>
+		<aliveClosedPlayers>
+			<!-- 		非正常退出的玩家 			-->
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</aliveClosedPlayers>
+		<knockDownRecord>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</knockDownRecord>
+		<teamKnockDownRecord>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</teamKnockDownRecord>
+		<planeEntityIDs>
+			<Type>	ARRAY <of>	INT32	</of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</planeEntityIDs>
+		<planeCnt>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	1	</Default>
+		</planeCnt>
+		<playersOnPlaneDict>
+			<!-- key : plane entity id; value: player set -->
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</playersOnPlaneDict>
+		<openedElements>
+			<Type>		ARRAY <of>	DTS_ELEMENT	</of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</openedElements>
+		<blastObjectStates>
+			<Type>		ARRAY <of>	BLAST_SYNC_DATA	</of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</blastObjectStates>
+
+		<bombRoundTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombRoundTimerID>
+		<bombReleaseTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombReleaseTimerID>
+		<bombReleaseTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombReleaseTimerID>
+		<bombRoundCounter>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombRoundCounter>
+		<bombCounter>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombCounter>
+		<bombCircleRadius>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombCircleRadius>
+		<bombCount>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombCount>
+		<bombRange>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombRange>
+		<bombFirstDelay>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombFirstDelay>
+		<bombRoundLimit>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombRoundLimit>
+		<bombRegionInterval>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombRegionInterval>
+		<bombDuration>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombDuration>
+		<bombPersistTime>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombPersistTime>
+		<bombStartDelay>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</bombStartDelay>
+		<gameUUID>
+			<Type>		UUID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</gameUUID>
+		<rebornPointIdx>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</rebornPointIdx>
+		<teamSize>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</teamSize>
+		<specialType>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</specialType>
+		<botType>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</botType>
+		<section>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</section>
+		<dynBotRate>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</dynBotRate>
+		<damageRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</damageRecord>
+		<movePath>
+			<Type>	ARRAY <of> VECTOR3 </of>  <size> 3 </size> </Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</movePath>
+		<planeDir>
+			<Type>	VECTOR3		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</planeDir>
+		<prepareTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</prepareTime>
+		<prepareTimeMoment>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</prepareTimeMoment>
+		<circlePrepareStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</circlePrepareStartTime>
+		<generatingProps>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</generatingProps>
+		<generatingLandmineTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</generatingLandmineTimerID>
+		<generatingPropTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</generatingPropTimerID>
+		<generatingCars>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</generatingCars>
+		<generatingCarTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</generatingCarTimerID>
+		<generatingJumpRobotTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</generatingJumpRobotTimerID>
+		<generatingZipLines>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</generatingZipLines>
+		<generatingZipLineTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</generatingZipLineTimerID>
+		<aliveNum>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</aliveNum>
+		<!-- Close Client Compass -->
+		<closeCompass>
+			<Type>	BOOL 		</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</closeCompass>
+		<robotCnt>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotCnt>
+		<robotTeamsData>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</robotTeamsData>
+		<getOnPlaneTime>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</getOnPlaneTime>
+		<robotIndex>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotIndex>
+		<robotPrefixes>
+			<Type>	ARRAY <of>	STRING	</of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotPrefixes>
+		<robotPostfixes>
+			<Type>	ARRAY <of>	STRING	</of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotPostfixes>
+		<shrinkCenter>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</shrinkCenter>
+		<goldRate>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+			<Default>	0		</Default>
+		</goldRate>
+		<allPaintInfo>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</allPaintInfo>
+		<syncAllHumansOnMapTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</syncAllHumansOnMapTimerID>
+  		<crazyCarnivalTicketsPlayer>
+			<Type>	ARRAY <of> ENTITY_POS_INFO </of>	</Type>
+			<Flags>         ALL_CLIENTS     </Flags>
+		</crazyCarnivalTicketsPlayer>
+
+		<rebornPlaneTimer>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rebornPlaneTimer>
+
+		<rebornPlayerIDs>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</rebornPlayerIDs>
+		
+		<lastRebornTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</lastRebornTime>	
+		<mostImportantPeople>
+			<Type>	ENTITY_ID </Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</mostImportantPeople>	
+		<planeCustomPlan>
+			<Type>		PYTHON	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</planeCustomPlan>
+		<planeAuctionLock>
+			<Type>	BOOL	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</planeAuctionLock>
+		<planeAuctionStage>
+			<Type>	INT8	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</planeAuctionStage>
+		<planeCustomAvatar>
+			<Type>	ENTITY_ID		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</planeCustomAvatar>
+		<planeAuctionTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</planeAuctionTimerID>
+
+		<landDroneHeartBeatScanData>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</landDroneHeartBeatScanData>
+        
+		<landDroneHeartBeatSyncScanData>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</landDroneHeartBeatSyncScanData>
+
+		<airdropEntityPos>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	[]	</Default>
+		</airdropEntityPos>
+		<airShipID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</airShipID>
+		<salutePosition>
+			<Type>	ARRAY <of>	VECTOR3	</of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</salutePosition>
+		<airShipData>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+        	</airShipData>
+		<anniversaryTreasureData>
+			<Type>	ARRAY <of> PYTHON </of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+        	</anniversaryTreasureData>
+		<dancingCakeEntID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0	</Default>
+		</dancingCakeEntID>
+	</Properties>
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		SINGLE_BATTLE_GAME_RESULT	</Arg>
+		</gameEnd>
+		<showCircleNotify>
+			<Arg>		STRING			</Arg>
+		</showCircleNotify>
+		<showCircleMessage>
+			<Arg>		INT8			</Arg>
+			<Arg>		STRING			</Arg>
+		</showCircleMessage>
+		<showKillInfo>
+			<Arg>		STRING			</Arg>
+			<Arg>		PYTHON			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</showKillInfo>
+		<showBattleRebornFinishTips>
+			<Arg>		STRING			</Arg>
+			<Arg>		STRING			</Arg>
+		</showBattleRebornFinishTips>
+		<onElementOpen>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+		</onElementOpen>
+		<onElementClose>
+			<Arg>		INT32			</Arg>
+		</onElementClose>
+		<blastOnGunShoot>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</blastOnGunShoot>
+		<notifyBombRegion>
+			<Arg>		BOOL			</Arg>
+			<Arg>		VECTOR2			</Arg>
+			<Arg>		INT32			</Arg>
+		</notifyBombRegion>
+		<bombInPoint>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		INT32			</Arg>
+		</bombInPoint>
+		<updateCircleRestTime>
+			<Arg>		INT32			</Arg>
+		</updateCircleRestTime>
+		<onNotifyEnterWorld>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onNotifyEnterWorld>
+		<playDtsDialogue>
+			<Arg>		INT32			</Arg>
+		</playDtsDialogue>
+		<onShowUseRedPacketKillInfo>
+			<Arg>		STRING			</Arg>
+		</onShowUseRedPacketKillInfo>
+		<onSyncAllHumansOnMap>
+			<Arg>		ARRAY <of> BATTLE_HUMAN_SYNC_INFO </of>		</Arg>
+		</onSyncAllHumansOnMap>
+		<initNameCache>
+			<Arg>		ARRAY <of> STRING </of>		</Arg>
+		</initNameCache>
+
+
+		<updateOtherPlayerDress>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</updateOtherPlayerDress>
+		<enableSkillPanel>
+		</enableSkillPanel>
+		<preparePlaneAuctionTimer>
+		</preparePlaneAuctionTimer>
+		<startPlaneAuctionTimer>
+		</startPlaneAuctionTimer>
+		<stopPlaneAuctionTimer>
+			<Arg>	STRING	</Arg>
+		</stopPlaneAuctionTimer>
+		<showPlaneAuctionWarning>
+		</showPlaneAuctionWarning>
+		<startCreateAirShip>
+		</startCreateAirShip>
+		<broadcastAirShipKillInfo>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT8	</Arg>
+		</broadcastAirShipKillInfo>
+		<broadcastAirShipShowTime>
+			<Arg>	INT32	</Arg>
+		</broadcastAirShipShowTime>
+		<broadcastAirShipLeaveInfo>
+		</broadcastAirShipLeaveInfo>
+		<broadcastAnniversaryTreasureMessage>
+			<Arg>		STRING			</Arg>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>		STRING			</Arg>
+		</broadcastAnniversaryTreasureMessage>
+	</ClientMethods>
+	<CellMethods>
+		<setNextCircleHeight>
+			<Arg>		INT32			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</setNextCircleHeight>
+		<setPreCalcCircleCenter>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</setPreCalcCircleCenter>
+		<onPlayerWounded>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+			<Arg>		SHOOT_WEAPON_INFO	</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onPlayerWounded>
+		<onPlayerHealed>
+			<Arg>		INT32			</Arg>
+		</onPlayerHealed>
+		<discardProp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+		</discardProp>
+		<createPaintEntity>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>		PY_DICT			</Arg>
+		</createPaintEntity>
+		<leaveHeritage>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>		PYTHON			</Arg>
+		</leaveHeritage>
+		<airDrop>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+		</airDrop>
+		<updateTeamMemberInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</updateTeamMemberInfo>
+		<onPlaneCreate>
+			<Arg>		INT32			</Arg>
+		</onPlaneCreate>
+		<onPlaneEnter>
+			<Arg>		INT32			</Arg>
+		</onPlaneEnter>
+		<onPlaneLeave>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onPlaneLeave>
+		<onForceLeavePlane>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onForceLeavePlane>
+		<playerGetOffPlane>
+			<Arg>		INT32			</Arg>
+		</playerGetOffPlane>
+		<openElement> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+		</openElement>
+		<closeElement> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</closeElement>
+		<blastGunShoot> <Exposed/>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</blastGunShoot>
+		<uploadBlastState> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		BLOB			</Arg>
+		</uploadBlastState>
+		<gmNextStage>
+		</gmNextStage>
+		<gmCreatEntity>
+			<Arg>		STRING		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</gmCreatEntity>
+		<gmCreateCellEntity>
+			<Arg>		STRING		</Arg>
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</gmCreateCellEntity>
+		<gmFlyToRobot>
+			<Arg>		INT32		</Arg>
+		</gmFlyToRobot>
+		<gmFlyToNearestRobot>
+			<Arg>		INT32		</Arg>
+		</gmFlyToNearestRobot>
+		<gmShowAllHumansOnMap>
+			<Arg>		INT32		</Arg>
+		</gmShowAllHumansOnMap>
+		<gmCreateLandmine>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</gmCreateLandmine>
+		<damage>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</damage>
+
+		<notifyTeammates>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</notifyTeammates>
+		<syncPlayerNum>
+		</syncPlayerNum>
+
+		<sendSysMsg>
+			<Arg>		STRING			</Arg>
+		</sendSysMsg>
+		<requestCircleRestTime>
+			<Arg>		MAILBOX			</Arg>
+		</requestCircleRestTime>
+		<broadcastQuickMessageToTeamMember>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</broadcastQuickMessageToTeamMember>
+		<broadcastQuickMessageVoToTeamMember>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</broadcastQuickMessageVoToTeamMember>
+		<requestAllPlayersInfoForComplaint>
+			<Arg>		INT32			</Arg>
+			<Arg>		MAILBOX			</Arg>
+		</requestAllPlayersInfoForComplaint>
+		<notifyEnterWorld> <Exposed/>
+		</notifyEnterWorld>
+		<onGameingQuit>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onGameingQuit>
+		<registerObserver>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		PYTHON			</Arg>
+		</registerObserver>
+		<unRegisterObserver>
+			<Arg>			GID				</Arg>
+		</unRegisterObserver>
+		<getDtsSpaceType>
+		</getDtsSpaceType>
+		<updateScoreRelatedRecord>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</updateScoreRelatedRecord>
+		<createSnowBoardForAvatar>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		INT32			</Arg>
+		</createSnowBoardForAvatar>
+
+		<createCarryVehicleByAvatar>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</createCarryVehicleByAvatar>
+
+		<createVehicleForAvatar>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		INT32			</Arg>
+		</createVehicleForAvatar>
+		<autoLoadCarOnEnterSpace>
+		    <Arg>			GID				</Arg>
+		    <Arg>			PYTHON			</Arg>
+		</autoLoadCarOnEnterSpace>
+		<showUseRedPacketKillInfo>
+			<Arg>		STRING			</Arg>
+		</showUseRedPacketKillInfo>
+		<addPlayerGoldBattleCoin>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</addPlayerGoldBattleCoin>
+		<bombInPoint>
+			<Arg>		VECTOR2			</Arg>
+		</bombInPoint>
+		<onPlayerLand>
+			<Arg>		INT32			</Arg>
+		</onPlayerLand>
+		<generatePlayerLandProp>
+			<Arg>		INT32			</Arg>
+		</generatePlayerLandProp>
+		<updateDestroyVehicleNum>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</updateDestroyVehicleNum>
+		<createEntityWithBaseInSpace>
+			<Arg>		STRING		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</createEntityWithBaseInSpace>
+		<onExplodeOnce>
+			<Arg> INT32		</Arg>
+			<Arg> INT32		</Arg>
+			<Arg> VECTOR3	</Arg>
+		</onExplodeOnce>
+
+		<onCreateVehicle>
+			<Arg>	INT32		</Arg> <!-- vehicleID -->
+			<Arg>	INT32		</Arg> <!-- vehicleID -->
+		</onCreateVehicle>
+		<updateCampRecordDamage>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</updateCampRecordDamage>
+		<broadcastTeamEmojiID>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</broadcastTeamEmojiID>
+		<receiveInviteGetOnCarryAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+		</receiveInviteGetOnCarryAircraft>
+		<noCarryAircraftSeatReply>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</noCarryAircraftSeatReply>
+		<cannotBeInvitedToCarryAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</cannotBeInvitedToCarryAircraft>
+		<canInvitePassenger>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</canInvitePassenger>
+		<checkCarryAircraftSeat>
+			<Arg>	PYTHON	</Arg>
+		</checkCarryAircraftSeat>
+		<driverGetOnCarryAircraftReply>
+			<Arg>	INT32	</Arg>
+		</driverGetOnCarryAircraftReply>
+		<canGetOnCarryAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	STRING	</Arg>
+		</canGetOnCarryAircraft>
+		<kickPlayerOnCarryAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</kickPlayerOnCarryAircraft>
+		<removeCarryAircraftPassenger>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</removeCarryAircraftPassenger>
+		<broadcastPassengerBindAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</broadcastPassengerBindAircraft>
+		<passengerGetOffAircraft>
+			<Arg>	INT32	</Arg>
+			<Arg>	VECTOR3	</Arg>
+		</passengerGetOffAircraft>
+		<broadcastCancelFollowCarryAircraft>
+			<Arg>	INT32	</Arg>
+		</broadcastCancelFollowCarryAircraft>
+		<notifyPassengerSwitchAnim>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</notifyPassengerSwitchAnim>
+		<sendValentineTShirt>
+			<Arg>		INT32			</Arg>
+		</sendValentineTShirt>
+		<onPlayerGetCrazyCarnivalTickets>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onPlayerGetCrazyCarnivalTickets>
+		<onPlayerDiscardCrazyCarnivalTickets>
+			<Arg>		INT32			</Arg>
+		</onPlayerDiscardCrazyCarnivalTickets>
+
+		<onRebornPlaneCreate>
+			<Arg>		INT32			</Arg>
+		</onRebornPlaneCreate>
+
+		<onWaitReborn>
+			<Arg>		INT32			</Arg>
+		</onWaitReborn>
+
+		<rebornPlayerByToken>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</rebornPlayerByToken>
+		<regMedicalCabin>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</regMedicalCabin>
+		<unregMedicalCabin>
+			<Arg>		MAILBOX			</Arg>
+		</unregMedicalCabin>
+		<startRebornPlayerInCabin>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</startRebornPlayerInCabin>
+
+		<changeAllToZombie>
+		</changeAllToZombie>
+
+		<killerObserverLeave> <Exposed/>
+		</killerObserverLeave>
+
+		<broadcastAccompanyFlyDress>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</broadcastAccompanyFlyDress>
+		<requirePlaneAuction>
+			<Arg>		INT32			</Arg>
+		</requirePlaneAuction>
+		<onAuctionPlaneSuccess>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onAuctionPlaneSuccess>
+		<onAuctionPlaneFail>
+		</onAuctionPlaneFail>
+		<changeCustomPlanePlan>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON		</Arg>
+		</changeCustomPlanePlan>
+		<syncLandDroneHeartBeatScanData>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON		</Arg>
+		</syncLandDroneHeartBeatScanData>
+		<notifyShowWeeklyTeamCrown>
+			<Arg>		ENTITY_ID	</Arg>
+		</notifyShowWeeklyTeamCrown>
+		<addAirdropPos>
+			<Arg>		PYTHON	</Arg>
+		</addAirdropPos>
+		<notifyGodObserverDrawTrajectory>
+			<Arg>		DTS_RANGE_GUN_TRAJECTORY	</Arg>
+			<Arg>		INT32			</Arg>
+		</notifyGodObserverDrawTrajectory>
+		<onAirShipCreate>
+			<Arg>		INT32			</Arg>
+		</onAirShipCreate>
+		<onAirShipDestory>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32			</Arg>
+		</onAirShipDestory>
+		<notifyDanceAroundCake>
+			<Arg>		INT32			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</notifyDanceAroundCake>
+		<lastPlayerQuitDancingCake>
+		</lastPlayerQuitDancingCake>
+		<addSpeedBuffToDancePlayer>
+			<Arg>		PYTHON			</Arg>
+		</addSpeedBuffToDancePlayer>
+		<notifyQuitDancingCake>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</notifyQuitDancingCake>
+		<notifyDancingCakeSeatNum>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>		INT32			</Arg>
+		</notifyDancingCakeSeatNum>
+		<createAnniversaryTreasure>
+			<Arg>		PYTHON			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		STRING			</Arg>
+		</createAnniversaryTreasure>
+		<onAnniversaryTreasureCreate>
+			<Arg>		INT32			</Arg>
+		</onAnniversaryTreasureCreate>
+		<onAnniversaryTreasureDestroy>
+			<Arg>		INT32			</Arg>
+		</onAnniversaryTreasureDestroy>
+		<doCreateAirShip>
+		</doCreateAirShip>
+		<resetDancingCakeEntID>
+		</resetDancingCakeEntID>
+		<broadcastAirShipKillInfo>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+		</broadcastAirShipKillInfo>
+		<updateWeaponAccumulateDamage>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32		</Arg>
+		</updateWeaponAccumulateDamage>
+		<checkEverKnockedDownCB>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</checkEverKnockedDownCB>
+		<broadcastPassengersChangePose>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32			</Arg>
+		</broadcastPassengersChangePose>
+		<broadcastPassengersChangeFallPhase>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32			</Arg>
+		</broadcastPassengersChangeFallPhase>
+		<notifyPassengerDriverCanCarry>
+			<Arg>		PYTHON		</Arg>
+		</notifyPassengerDriverCanCarry>
+	</CellMethods>
+	<BaseMethods>
+		<updateCourseData>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+			<Arg>		PY_DICT			</Arg>
+		</updateCourseData>
+	</BaseMethods>
+</root>

@@ -1,0 +1,26 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<initPhases>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+		</initPhases>
+	</Properties>
+
+	<BaseMethods>
+		<onRestoreCrontab>
+			<Arg>		BOOL	</Arg>	<!-- succ -->
+		</onRestoreCrontab>
+		<execGlobalAppCmd>
+			<Arg>		STRING	</Arg>
+			<Arg>		PYTHON	</Arg>
+		</execGlobalAppCmd>
+		<broadcastBaseApp>
+			<Arg>		STRING	</Arg>
+			<Arg>		PYTHON	</Arg>
+		</broadcastBaseApp>
+	</BaseMethods>
+</root>

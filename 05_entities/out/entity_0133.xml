@@ -1,0 +1,58 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<diamondPool>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0.0	</Default>
+			<Persistent>	true	</Persistent>
+		</diamondPool>
+		<diamondBuffPool>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0.0	</Default>
+			<Persistent>	true	</Persistent>
+		</diamondBuffPool>
+		<prizeOrder>
+			<Type>		INT64	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0	</Default>
+			<Persistent>	true	</Persistent>
+		</prizeOrder>
+		<prizeRecord>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	[]	</Default>
+			<Persistent>	true	</Persistent>
+		</prizeRecord>
+	</Properties>
+	<BaseMethods>
+		<getCurrentDiamond>
+			<Arg>   GLOBAL_MAIL_BOX_INFO	</Arg>
+		</getCurrentDiamond>
+		<addDiamondToPool>
+			<Arg>   GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>   GID	</Arg>						<!-- GID -->
+			<Arg>   FLOAT	</Arg>						<!-- GIVE DIAMOND -->
+		</addDiamondToPool>
+		<getDiamondPrize>
+			<Arg>   GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>   GID	</Arg>						<!-- GID -->
+			<Arg>   STRING	</Arg>						<!-- GID -->
+		</getDiamondPrize>
+		<getDiamondPrizeRecord>
+			<Arg>   GLOBAL_MAIL_BOX_INFO	</Arg>
+		</getDiamondPrizeRecord>
+		<getCelebrationPrize>
+			<Arg>   GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>   INT64	</Arg>						<!-- prizeCount -->
+		</getCelebrationPrize>
+		<gmClearPool>
+		</gmClearPool>
+
+	</BaseMethods>
+</root>
+

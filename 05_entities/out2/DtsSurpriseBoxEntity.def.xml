@@ -1,0 +1,28 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface>	iCombatUnit </Interface>
+		<Interface>	iSkill </Interface>
+	</Implements>
+	<ClientName>	DtsSurpriseBoxEntity		</ClientName>
+	<Properties>
+		<boxId>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</boxId>
+		<hasOpen>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</hasOpen>
+	</Properties>
+	<CellMethods>
+		<tryOpenSurpriseBox> <Exposed/>
+		</tryOpenSurpriseBox> 
+	</CellMethods>
+	<ClientMethods>
+		<onOpenSurpriseBox>
+		</onOpenSurpriseBox>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

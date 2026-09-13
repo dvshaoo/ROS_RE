@@ -1,0 +1,59 @@
+<root>
+	<Properties>
+		<creatorType>
+			<Type>			INT8			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+		</creatorType>
+		<creatorID>
+			<Type>			NUID			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+		</creatorID>
+		<creatorMailBox>
+			<Type>			MAILBOX			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</creatorMailBox>
+
+		<entity_group_id>
+			<Type>			ENTITY_GROUP_ID		</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+			<Default>		0					</Default>
+		</entity_group_id>
+
+		<entity_group_subid>
+			<Type>			ENTITY_GROUP_ID		</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		0					</Default>
+		</entity_group_subid>
+
+		<entity_group_idx>
+			<Type>			ENTITY_GROUP_IDX	</Type>
+			<Flags>			CELL_PRIVATE	    </Flags>
+			<Default>		0					</Default>
+		</entity_group_idx>
+		
+		<ruleIndex>
+			<Type>			INT32	</Type>
+			<Flags>			CELL_PRIVATE	    </Flags>
+			<Default>		0					</Default>
+		</ruleIndex>
+
+		<taskID>
+			<Type> 			TASK_ID 	        </Type>
+			<Flags>			CELL_PRIVATE	    </Flags>
+			<Default>       0					</Default>
+		</taskID>
+		<isWipedOut>
+			<Type>			BOOL			</Type>
+			<Flags>			CELL_PRIVATE	    </Flags>
+			<Default>		False			</Default>
+		</isWipedOut>
+		<spaceInfo>
+			<Type>			PYTHON			</Type>
+			<Flags>			CELL_PRIVATE	    </Flags>
+		</spaceInfo>
+	</Properties>
+	<CellMethods>
+		<refresh>	<!--状态刷新，目前只处理可见性-->
+		</refresh>
+	</CellMethods>
+</root>

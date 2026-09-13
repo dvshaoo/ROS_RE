@@ -1,0 +1,36 @@
+<root>
+	<Parent>	Robot	</Parent>
+	<ClientName>	RobotShadow		</ClientName>
+
+	<Properties>
+		<ownerId>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</ownerId>
+		<ownerTeammates>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]	</Default>
+		</ownerTeammates>
+		<weaponItemInit>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</weaponItemInit>
+
+		<effectParam>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</effectParam>
+	</Properties>
+
+	<CellMethods>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<onDressPlayer>
+		</onDressPlayer>
+
+
+	</ClientMethods>
+</root>

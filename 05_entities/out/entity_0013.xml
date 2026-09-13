@@ -1,0 +1,41 @@
+<root>
+	<Properties>
+	    <updateStampsCheckList> <!--  记录更新时间戳的更新记录  -->
+            <Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+	    </updateStampsCheckList>
+	</Properties>
+
+	<BaseMethods>
+		<getMonthPayRebateSpecialAward> <Exposed />
+		</getMonthPayRebateSpecialAward>
+		<getMonthPayRebateUpgradeProps> <Exposed />
+			<Arg>			INT32					</Arg>
+		</getMonthPayRebateUpgradeProps>
+		<payForMonthRebateUpgrade> <Exposed />
+			<Arg>			INT32					</Arg>
+		</payForMonthRebateUpgrade>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncMonthPayRebateSpecialAwardInfo>
+			<Arg>			PYTHON					</Arg>
+		</syncMonthPayRebateSpecialAwardInfo>
+		<syncMonthPayRebateSpecialAwardStatus>
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>
+		</syncMonthPayRebateSpecialAwardStatus>
+		<syncSpecialBuffAwardInfo>
+			<Arg>			PYTHON					</Arg>
+		</syncSpecialBuffAwardInfo>
+		<onSyncMonthPayRebateUpgradeExp>
+			<Arg>			INT32					</Arg>
+		</onSyncMonthPayRebateUpgradeExp>
+		<onGetMonthPayRebateUpgradePropsCallback>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</onGetMonthPayRebateUpgradePropsCallback>
+	
+	</ClientMethods>
+</root>

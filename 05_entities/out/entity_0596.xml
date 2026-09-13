@@ -1,0 +1,31 @@
+<root>
+	<Implements>
+		<Interface>	iProxy		</Interface>
+	</Implements>
+	<Properties>
+		<recovering>
+			<Type>          BOOL				</Type>
+			<Flags>         CELL_PRIVATE		</Flags>
+		</recovering>
+	</Properties>
+	<BaseMethods>
+		<createCellNearSelf>
+			<Arg>		MAILBOX		</Arg>
+		</createCellNearSelf>
+
+		<createCellNearHere>
+			<Arg>		MAILBOX		</Arg>
+		</createCellNearHere>
+		<onCreateCellNearFailure>
+		</onCreateCellNearFailure>
+	</BaseMethods>
+
+	<CellMethods>
+		<onDisconnect>
+			<Arg>			INT16 				</Arg>	<!-- reason -->
+		</onDisconnect>
+
+		<onRecoverFromDisconnect>
+		</onRecoverFromDisconnect>
+	</CellMethods>	
+</root>

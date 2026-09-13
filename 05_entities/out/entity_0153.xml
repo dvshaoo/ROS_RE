@@ -1,0 +1,155 @@
+<root>
+	<Properties>
+		<skills>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</skills>
+		<psSkillStartTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</psSkillStartTime>
+		<psSkillCDStartTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</psSkillCDStartTime>
+		<lastCastSkillTime>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</lastCastSkillTime>
+		<skillStartTime>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</skillStartTime>
+		<cooldownFinishTime>
+			<Type>		PYTHON			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</cooldownFinishTime>
+	</Properties>
+	<CellMethods>
+		<setSkillStartTime>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT64	</Arg>
+		</setSkillStartTime>
+		<skillRequest>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- skillid -->
+			<Arg>	INT32	</Arg> <!-- targetID -->
+			<Arg>	VECTOR3	</Arg> <!-- targetPosition -->
+			<Arg>	VECTOR3	</Arg>	<!-- cameraDirection -->
+		</skillRequest>
+		<skillFocusTarget> <Exposed/>
+			<Arg>	INT32	</Arg>	<!-- skillid -->
+			<Arg>	INT32	</Arg>	<!-- stage index -->
+			<Arg>	ARRAY <of>	INT32 </of>	</Arg> <!-- targets -->
+		</skillFocusTarget>
+		<skillFocusPosition> <Exposed/>
+			<Arg>	INT32	</Arg>	<!-- skillid -->
+			<Arg>	INT32	</Arg>	<!-- stage index -->
+			<Arg>	VECTOR3	</Arg> <!-- target position -->
+		</skillFocusPosition>
+		<onSkillMsg>
+			<Arg>	INT32	</Arg>	<!-- msgType -->
+			<Arg>	INT32	</Arg>	<!-- msgType -->
+			<Arg>	PYTHON	</Arg>	<!-- srcInfo -->
+		</onSkillMsg>
+		
+		<breakSkillRequest> <Exposed/>
+		    <Arg>	INT32	</Arg>	<!-- skillid -->
+		</breakSkillRequest>
+		<castPerspectiveSkill> <Exposed/>
+		</castPerspectiveSkill>
+
+	</CellMethods>
+	<ClientMethods>
+		<skillStart>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+		</skillStart>
+
+		<skillFinish>
+			<Arg>	INT32	</Arg> <!-- skillID -->
+			<Arg>	FLOAT	</Arg> <!-- cdstartTime -->
+		</skillFinish>
+
+		<skillStageStart>
+			<Arg>	INT32	</Arg> <!-- skillID -->
+			<Arg>	INT32	</Arg> <!-- stageIndex -->
+		</skillStageStart>
+
+		<skillStageFinish>
+			<Arg>	INT32	</Arg> <!-- skillID -->
+			<Arg>	INT32	</Arg> <!-- stageIndex -->
+		</skillStageFinish>
+
+		<skillStageCancel>
+			<Arg>	INT32	</Arg> <!-- skillID -->
+			<Arg>	INT32	</Arg> <!-- stageIndex -->
+		</skillStageCancel>
+
+		<syncSkillTarget>
+			<Arg>	INT32	</Arg> <!-- skillID -->
+			<Arg>	CASTER_TARGET_INFO	</Arg> <!-- targetInfo -->
+			<Arg>	ARRAY <of>	INT32	</of></Arg>
+		</syncSkillTarget>
+
+		<syncSwitchState>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+			<Arg>	INT32	</Arg> <!-- stageindex -->
+			<Arg>	BOOL	</Arg> <!-- flag -->
+		</syncSwitchState>
+
+		<syncSkillLogicData>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+			<Arg>	ARRAY <of> LOGIC_DICT_ITEM </of></Arg> <!-- logicDict -->
+		</syncSkillLogicData>
+
+		<onSkillInstantSummonActivate>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+			<Arg>	INT32	</Arg> <!-- summonId -->
+			<Arg>	VECTOR3	</Arg> <!-- position -->
+		</onSkillInstantSummonActivate>
+		
+		<skillBreak>
+		</skillBreak>
+
+		<onSkillDebugLineDraw>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onSkillDebugLineDraw>
+		
+		<skillClearCoolDown>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+		</skillClearCoolDown>
+		
+		<skillResetCoolDown>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+		</skillResetCoolDown>
+
+		<skillReduceCoolDown>
+			<Arg>	INT32	</Arg> <!-- skillId -->
+			<Arg>	FLOAT	</Arg>
+			<Arg>	BOOL	</Arg>
+		</skillReduceCoolDown>
+
+		<skillLoadCoolDown>
+			<Arg>	INT32	</Arg> 
+			<Arg>	FLOAT	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</skillLoadCoolDown>
+
+		<onSkillAlert>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onSkillAlert>
+
+		<onPerspectiveSkillStart>
+			<Arg>	FLOAT	</Arg>
+			 <Arg>	INT8	</Arg>
+		</onPerspectiveSkillStart>
+		<onPerspectiveSkillStop>
+		    <Arg>	FLOAT	</Arg>
+			<Arg>	INT8	</Arg>
+		</onPerspectiveSkillStop>
+
+	</ClientMethods>
+</root>

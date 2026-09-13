@@ -1,0 +1,45 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<ClientName>	VehicleArenaSpace	</ClientName>
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<initCheckTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</initCheckTimerID>
+		<campDataDict>
+			<Type>	BASE_CAMP_DATA_DICT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</campDataDict>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+	</Properties>
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		BATTLE_GAME_RESULT	</Arg>
+		</gameEnd>
+		<showKillInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+	</ClientMethods>
+</root>

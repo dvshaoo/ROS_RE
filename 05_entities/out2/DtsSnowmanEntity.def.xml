@@ -1,0 +1,42 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface>	iCombatUnit </Interface>
+	</Implements>
+	<ClientName>	DtsSnowmanEntity		</ClientName>
+	<Properties>
+		<snowmanHasBroken>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	False		</Default>
+		</snowmanHasBroken>
+		<currentScaleIdx>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	1		</Default>
+		</currentScaleIdx>
+		<currentHitCount>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</currentHitCount>
+		<hitSnowmanAvatarList>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</hitSnowmanAvatarList>
+		<snowmanBrokenTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</snowmanBrokenTimerID>
+	</Properties>
+	<CellMethods>
+	</CellMethods>
+	<ClientMethods>
+		<onDtsSnowmanHit>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	BOOL	</Arg>
+		</onDtsSnowmanHit>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

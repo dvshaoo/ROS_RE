@@ -1,0 +1,172 @@
+<root>
+	<Properties>
+		<powerStatTimerID>
+			<Type>			INT32		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</powerStatTimerID>
+
+		<powerStatInterval>
+			<Type>			FLOAT		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+		</powerStatInterval>
+
+		<basePower>
+			<Type>			INT64		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</basePower>
+
+		<batteryPower>
+			<Type>			INT64		</Type>
+			<Flags>			ALL_CLIENTS				</Flags>
+		</batteryPower>
+
+        <batteryInfo>
+			<Type>			PYTHON		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </batteryInfo>
+        
+        <dtsLandDroneCompsItem>
+			<Type>			PYTHON		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </dtsLandDroneCompsItem>
+        
+        <dtsLandDroneCompsProp>
+			<Type>			PYTHON		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </dtsLandDroneCompsProp>
+
+        <isInExplodeState>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </isInExplodeState>
+        
+        <isInSearchState>
+			<Type>			INT32		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </isInSearchState>
+        
+        <isInHeartBeatScanState>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </isInHeartBeatScanState>
+
+        <heartBeatScanTimerID>
+			<Type>			INT32		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+        </heartBeatScanTimerID>
+        
+        <isInEMIState>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </isInEMIState>
+
+        <landDroneEMIEffectTimerID>
+			<Type>			INT32		</Type>
+			<Flags>			CELL_PRIVATE				</Flags>
+        </landDroneEMIEffectTimerID>
+
+        <landDroneEMIEntitySet>
+			<Type>			PYTHON	</Type>
+			<Flags>			CELL_PUBLIC	</Flags>
+			<Default>	    set()       </Default>
+        </landDroneEMIEntitySet>
+
+        <landDroneEMIEntityMark>
+			<Type>			INT32	</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </landDroneEMIEntityMark>
+
+        <isInNoisingState>
+			<Type>			BOOL		</Type>
+			<Flags>			ALL_CLIENTS	</Flags>
+        </isInNoisingState>
+
+        <landDroneNoiseTimerID>
+            <Type>  INT32   </Type>
+            <Flags> CELL_PRIVATE </Flags>
+        </landDroneNoiseTimerID>
+
+        <landDroneNoiseEntitySet>
+			<Type>			PYTHON	</Type>
+			<Flags>			CELL_PUBLIC	</Flags>
+			<Default>	    set()       </Default>
+        </landDroneNoiseEntitySet>
+
+	</Properties>
+
+	<CellMethods>
+        <equipLandDroneComps>
+            <Arg>   INT32   </Arg>
+            <Arg>   INT32   </Arg>
+        </equipLandDroneComps>
+        
+        <equipLandDroneBattery>
+            <Arg>   INT32   </Arg>
+            <Arg>   PYTHON   </Arg>
+        </equipLandDroneBattery>
+        
+        <prepareExplode> <Exposed/>
+        </prepareExplode>
+
+        <reqLandDroneExplode> <Exposed/>
+        </reqLandDroneExplode>
+
+        <reqLandDroneSearch> <Exposed/>
+            <Arg>   INT32   </Arg>
+        </reqLandDroneSearch>
+        
+        <stopLandDroneSearch> <Exposed/>
+        </stopLandDroneSearch>
+
+        <reqLandDroneStartEMI> <Exposed/>
+        </reqLandDroneStartEMI>
+        
+        <stopLandDroneEMI> <Exposed/>
+        </stopLandDroneEMI>
+        
+        <reqLandDroneStartHeartBeatScan> <Exposed/>
+        </reqLandDroneStartHeartBeatScan>
+        
+        <stopLandDroneHeartBeatScan> <Exposed/>
+        </stopLandDroneHeartBeatScan>
+
+        <reqLandDroneStartToNoise> <Exposed/>
+        </reqLandDroneStartToNoise>
+
+        <stopLandDroneNoising> <Exposed/>
+        </stopLandDroneNoising>
+
+        <onLandDroneEMITakeEffect>
+        </onLandDroneEMITakeEffect>
+        
+        <onLandDroneEMIRemoveEffect>
+        </onLandDroneEMIRemoveEffect>
+
+	</CellMethods>
+
+    <ClientMethods>
+        <onEquipLandDroneComps>
+            <Arg>   INT32   </Arg>
+            <Arg>   INT32   </Arg>
+        </onEquipLandDroneComps>
+        <onDiscardLandDroneComps>
+            <Arg>   INT32   </Arg>
+        </onDiscardLandDroneComps>
+
+        <doLandDroneServerExplode>
+        </doLandDroneServerExplode>
+
+        <onLandDroneStartEMI>
+        </onLandDroneStartEMI>
+        
+        <onLandDroneStopEMI>
+        </onLandDroneStopEMI>
+
+        <onLandDroneStartHearBeatScan>
+        </onLandDroneStartHearBeatScan>
+        
+        <onLandDroneStopHearBeatScan>
+        </onLandDroneStopHearBeatScan>
+
+    </ClientMethods>
+</root>

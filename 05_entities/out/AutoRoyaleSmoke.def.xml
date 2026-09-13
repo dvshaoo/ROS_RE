@@ -1,0 +1,29 @@
+<root>
+	<Implements>
+	</Implements>
+	<Parent>	LinePropBase	</Parent>
+	<ClientName>  AutoRoyaleSmoke  </ClientName>
+
+	<Properties>
+		<vehicleEntID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</vehicleEntID>
+	</Properties>
+
+	<ClientMethods>
+		<onAddPoint>
+			<Arg>	VECTOR3	</Arg>
+		</onAddPoint>
+		<onDelPoint>
+			<Arg>	VECTOR3	</Arg>
+		</onDelPoint>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+</root>

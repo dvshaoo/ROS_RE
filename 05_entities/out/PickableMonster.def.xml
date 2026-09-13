@@ -1,0 +1,44 @@
+<root>
+	<Parent>	Monster 	</Parent>
+
+	<ClientName>	PickableMonster			</ClientName>
+
+	<Properties>
+		<curDialogueIndex>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0			</Default>
+		</curDialogueIndex>
+
+		<curDialogueState>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	0			</Default>
+		</curDialogueState>
+
+		<allowPickable>
+			<Type>		BOOL		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	1			</Default>
+		</allowPickable>
+	</Properties>
+
+	<ClientMethods>		
+	</ClientMethods>
+
+	<CellMethods>
+		<setDialogueState><Exposed/>
+			<Arg>			BOOL			</Arg>
+		</setDialogueState>
+
+		<setDialogueIndex>
+			<Arg>			INT32			</Arg>
+		</setDialogueIndex>
+
+		<setAllowPickable>
+			<Arg>			BOOL			</Arg>
+		</setAllowPickable>
+	</CellMethods>
+
+</root>
+

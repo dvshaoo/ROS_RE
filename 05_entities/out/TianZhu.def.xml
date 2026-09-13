@@ -1,0 +1,60 @@
+<root>
+  <Implements>
+    <Interface> iCell </Interface>
+    <Interface> iBaseWithCell   </Interface>
+    <Interface> iTrap </Interface>
+    <Interface> iGenSpotCreated </Interface>
+  </Implements>
+
+  <ClientName>  TianZhu  </ClientName>
+
+  <Properties>
+    <trapID>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </trapID>
+
+    <charId>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </charId>
+
+    <occupied>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+      <Default> 0 </Default>
+    </occupied>
+
+    <playerInTrap>
+      <Type>    PYTHON   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </playerInTrap>
+
+    <life>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </life>
+
+    <timerRefresh>
+      <Type>    INT32   </Type>
+      <Flags>   CELL_PRIVATE  </Flags>
+    </timerRefresh>
+  </Properties>
+
+  <ClientMethods>
+    <playerEnter></playerEnter>
+    <playerLeave></playerLeave>
+  </ClientMethods>
+
+  <CellMethods>
+    <requestOccupy> <Exposed/>
+    </requestOccupy>
+
+    <cancelOccupy> <Exposed/>
+    </cancelOccupy>
+
+    <requestAward> <Exposed/>
+    </requestAward>
+  </CellMethods>
+
+</root>

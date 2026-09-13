@@ -1,0 +1,61 @@
+<root>
+	<Properties>
+		<appearanceWarehousePoint>
+			<Type>	INT32			</Type>
+			<Flags>	BASE_AND_CLIENT </Flags>
+			<Default>	0			</Default>
+		</appearanceWarehousePoint>
+		<appearanceWarehouseLevel>
+			<Type>	INT32			</Type>
+			<Flags>	BASE_AND_CLIENT </Flags>
+			<Default>	1			</Default>
+		</appearanceWarehouseLevel>
+
+		<cellAppearanceWarehouseLevel>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	1			</Default>
+		</cellAppearanceWarehouseLevel>
+
+		<appearanceWarehouseProperties>
+			<Type>		PY_DICT			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</appearanceWarehouseProperties>
+	</Properties>
+
+	<BaseMethods>
+		<upgradeAppearanceWareHouse><Exposed/>
+		</upgradeAppearanceWareHouse>
+
+		<unlockAppearance><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+		</unlockAppearance>
+
+		<onLockAppearance>
+			<Arg>			ITEM_ID				</Arg>
+		</onLockAppearance>
+	</BaseMethods>
+
+	<CellMethods>
+		<unlockAppearance>
+			<Arg>			ITEM_ID				</Arg>
+		</unlockAppearance>
+
+		<onUpgradeAppearanceWareHouse>
+			<Arg>			INT32				</Arg>
+		</onUpgradeAppearanceWareHouse>
+	</CellMethods>
+
+	<ClientMethods>
+		<onLockAppearance>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			INT32				</Arg>
+		</onLockAppearance>
+
+		<onUpgradeAppearanceWareHouse>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onUpgradeAppearanceWareHouse>
+	</ClientMethods>
+</root>

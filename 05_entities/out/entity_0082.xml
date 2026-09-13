@@ -1,0 +1,45 @@
+<root>
+	<Properties>
+		<markLevelDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+			<Default>	{}	</Default>
+		</markLevelDict>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<addMarks>
+			<Arg>	PYTHON	</Arg>
+		</addMarks>
+
+		<removeMarks>
+			<Arg>	PYTHON	</Arg>
+		</removeMarks>
+
+		<addMark>
+			<Arg>	INT32	</Arg>	
+			<Arg>	INT32	</Arg>
+		</addMark>
+
+		<removeMark>
+			<Arg>	INT32	</Arg>	
+			<Arg>	INT32	</Arg>
+		</removeMark>
+
+		<clearMark>
+			<Arg>	INT32	</Arg>
+		</clearMark>
+	</CellMethods>
+
+	<ClientMethods>
+		<onUpdateMarkLevel>
+			<Arg>	INT32	</Arg>	<!-- mark ID -->
+			<Arg>	INT32	</Arg>	<!-- mark level -->
+		</onUpdateMarkLevel>
+		<clearAllMarks>
+		</clearAllMarks>
+	</ClientMethods>	
+</root>

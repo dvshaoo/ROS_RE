@@ -1,0 +1,61 @@
+<root>
+	<Properties>
+		<dtsPaintInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</dtsPaintInfo>
+		<loadPaintWhenEnterSpace>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</loadPaintWhenEnterSpace>
+	</Properties>
+	<BaseMethods>
+		<createPaintItem>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</createPaintItem>
+		<useDtsPaintItem>
+			<Arg>		INT32		</Arg>  <!-- 喷漆ID -->
+			<Arg>		INT32		</Arg>  <!-- 消耗数量 -->
+			<Arg>		INT32		</Arg>  <!-- 使用后的物品数 -->
+		</useDtsPaintItem>
+	</BaseMethods>
+	<CellMethods>
+
+		<onSprayPaint> <Exposed/>
+			<Arg>		INT32			</Arg>  <!-- 喷漆ID -->
+			<Arg>		VECTOR3			</Arg>  <!-- 位置 -->
+			<Arg>		VECTOR3			</Arg>  <!-- forward向量 -->
+			<Arg>		VECTOR3			</Arg>  <!-- up向量 -->
+			<Arg>		INT32			</Arg>  <!-- 喷漆所在的碰撞体类型 -->
+		</onSprayPaint>
+
+		<sprayPaintCallback>
+			<Arg>		INT32			</Arg>  <!-- 喷漆ID -->
+			<Arg>		BOOL		</Arg>
+		</sprayPaintCallback>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<onSelfSprayPaint>
+			<Arg>		INT32			</Arg>  <!-- 喷漆ID -->
+			<Arg>		VECTOR3			</Arg>  <!-- 位置 -->
+			<Arg>		VECTOR3			</Arg>  <!-- 法线向量 -->
+		</onSelfSprayPaint>
+
+		<successSprayPaint>
+		</successSprayPaint>
+
+		<failSprayPaint>
+		</failSprayPaint>
+
+		<onOtherSprayPaint>
+			<Arg>		INT32			</Arg>  <!-- 喷漆ID -->
+			<Arg>		VECTOR3			</Arg>  <!-- 位置 -->
+			<Arg>		VECTOR3			</Arg>  <!-- 法线向量 -->
+		</onOtherSprayPaint>
+	</ClientMethods>
+</root>

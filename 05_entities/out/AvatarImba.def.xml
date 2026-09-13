@@ -1,0 +1,271 @@
+<root>
+	<Parent>	BattleGroundAvatar	</Parent>
+	<Implements>
+		<Interface>	iMark	</Interface>
+		<Interface>	iMonsterBility	</Interface>
+	</Implements>
+	<ClientName>	AvatarImba	</ClientName>
+
+	<Properties>
+
+		<drawCardRoundCnt>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</drawCardRoundCnt>
+
+		<curDrawCntInRound>
+			<Type>	INT32	</Type>
+			<Flags>	OWN_CLIENT </Flags>
+		</curDrawCntInRound>
+
+		<showCardRound>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</showCardRound>
+		
+		<excludedItem>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</excludedItem>
+
+		<braveBookPassType>
+			<Type>	PYTHON	</Type>
+			<Flags>	OWN_CLIENT </Flags>
+		</braveBookPassType>
+
+		<bestItem>
+			<Type>	INT32	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</bestItem>
+
+		<flippedItemSet>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</flippedItemSet>
+
+		<propItemTimerDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</propItemTimerDict>
+
+		<hasAccepted>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</hasAccepted>
+		<drawCardCnt>
+			<Type>	INT32	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</drawCardCnt>
+		<curCardRound>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</curCardRound>
+		<drawCardStopTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</drawCardStopTime>
+		<nextDrawCardTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</nextDrawCardTime>
+		<drawCardResultList>
+			<Type>	PYTHON	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+		</drawCardResultList>
+		<superEnergy>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</superEnergy>
+		<superLevel>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</superLevel>
+		<drawAllNeedConfirm>
+			<Type>	BOOL	</Type>
+			<Flags>	OWN_CLIENT </Flags>
+		</drawAllNeedConfirm>
+	
+		<incHp>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default> 0 </Default>
+		</incHp>
+		<imbaBuffStates>
+			<Type>	PYTHON	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default> {} </Default>
+		</imbaBuffStates>
+
+		<driveVehicleRecords>
+			<Type>	PYTHON	</Type>
+			<Flags>	OWN_CLIENT	</Flags>
+			<Default> {} </Default>
+		</driveVehicleRecords>
+
+		<lastDrawAllCardTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default> 0 </Default>
+		</lastDrawAllCardTime>
+	</Properties>
+
+	<BaseMethods>
+		<resetPackagesOnReborn>
+		</resetPackagesOnReborn>
+
+		<drawCardCost>
+			<Arg>	INT32	</Arg>	<!-- currency amount -->
+			<Arg>	INT32	</Arg>	<!-- currency type -->
+		</drawCardCost>
+
+		<drawCardCostAll>
+			<Arg>	PYTHON	</Arg>	<!-- currencytype to currencyAmount dict -->
+		</drawCardCostAll>
+
+		<stopDrawCardConfirm>
+		</stopDrawCardConfirm>
+	</BaseMethods>
+
+	<ClientMethods>
+
+		<startDrawCard>
+			<Arg>	INT32	</Arg>	<!-- cnt down time -->
+			<Arg>	INT32	</Arg>	<!-- best item id -->
+		</startDrawCard>
+
+		<stopDrawCard>
+		</stopDrawCard>
+
+		<onDrawCardResult>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+		</onDrawCardResult>
+
+
+		<onDrawCardAllResult>
+			<Arg>	PYTHON	</Arg>	<!-- item id list-->
+		</onDrawCardAllResult>
+
+		<onTryLocked>
+			<Arg>	INT32	</Arg>	<!-- locker id -->
+		</onTryLocked>
+
+		<onAcceptImbaItem>
+			<Arg>	INT32	</Arg>	<!-- itemID -->
+		</onAcceptImbaItem>
+		<onDropImbaItems>
+			<Arg>	PYTHON	</Arg>	<!-- item id list -->
+		</onDropImbaItems>
+
+		<onUpdateImbaBuffState>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateImbaBuffState>
+
+		<onRemoveImbaBuffState>
+			<Arg>	INT32	</Arg>
+		</onRemoveImbaBuffState>
+
+		<onTriggerImbaBuffState>
+			<Arg>	INT32	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</onTriggerImbaBuffState>
+		
+		<onUseImbaItem>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onUseImbaItem>
+	</ClientMethods>
+	<CellMethods>
+
+		<drawCard>	<Exposed/>
+		</drawCard>
+
+		<drawAllCard>	<Exposed/>
+		</drawAllCard>
+
+		<startDrawCard>
+			<Arg>	INT32	</Arg>	<!-- cnt down time -->
+			<Arg>	INT32	</Arg>	<!-- show card round -->	
+			<Arg>	FLOAT	</Arg>	<!-- next draw card time -->
+		</startDrawCard>
+
+		<notifyCauseDamage>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</notifyCauseDamage>
+
+		<stopDrawCard>
+		</stopDrawCard>
+
+		<onCheckEnoughCurrencyResult>
+		</onCheckEnoughCurrencyResult>
+
+		<onCheckEnoughMixedCurrencyResult>
+		</onCheckEnoughMixedCurrencyResult>
+
+		<useImbaPropItem>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+			<Arg>	INT32	</Arg>	<!-- number -->
+			<Arg>	PYTHON	</Arg>	<!-- info -->
+			<Arg>	BOOL	</Arg>	<!-- isActive -->
+		</useImbaPropItem>
+
+	
+		<useImbaBuffItem>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+			<Arg>	INT32	</Arg>	<!-- number -->
+			<Arg>	BOOL	</Arg>	<!-- isActive -->
+		</useImbaBuffItem>
+		<summonVehicle>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+			<Arg>	INT32	</Arg>	<!-- number -->
+			<Arg>	PYTHON	</Arg>	<!-- info -->
+		</summonVehicle>
+		<acceptImbaItem><Exposed/>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+		</acceptImbaItem>
+		<onCreateVehicle>
+			<Arg>	INT32	</Arg>	<!-- vehicle id -->
+		</onCreateVehicle>
+		<addSuperEnergy>
+			<Arg>	INT32	</Arg>	<!-- energy val -->
+		</addSuperEnergy>
+
+		<useImbaPropAsImbaBuff>
+			<Arg>	INT32	</Arg>
+		</useImbaPropAsImbaBuff>
+		<finishImbaPropAsImbaBuff>
+			<Arg>	INT32	</Arg>
+		</finishImbaPropAsImbaBuff>
+
+		<stopDrawCardConfirm>	<Exposed/>
+		</stopDrawCardConfirm>
+
+		<addImbaBuffState>
+			<Arg>	PYTHON	</Arg>
+		</addImbaBuffState>
+
+		<removeImbaBuffState>
+			<Arg>	INT32	</Arg>
+		</removeImbaBuffState>
+
+		<clearAllImbaBuffStates>
+		</clearAllImbaBuffStates>
+
+		<tryTriggerImbaBuffState><Exposed/>
+			<Arg>	INT32	</Arg>
+		</tryTriggerImbaBuffState>
+		
+		<onFocusVehicleDie>
+			<Arg>	INT32	</Arg>
+			<Arg>	VECTOR3	</Arg>
+		</onFocusVehicleDie>
+
+		<debugAddImbaBuffStateTest><Exposed/>
+			<Arg>	INT32	</Arg>
+		</debugAddImbaBuffStateTest>
+	</CellMethods>
+
+</root>

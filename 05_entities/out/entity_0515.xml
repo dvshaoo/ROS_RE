@@ -1,0 +1,30 @@
+<root>
+	<Properties>
+		<hasC4>
+			<Type>			BOOL			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+		</hasC4>
+		<c4Time>
+			<Type>			FLOAT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</c4Time>
+	</Properties>
+	<CellMethods>
+		<onGetC4>
+		</onGetC4>
+		<clearC4>
+		</clearC4>
+		<dropC4> <Exposed/>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</dropC4>
+		<startInstallC4><Exposed/>
+		</startInstallC4>
+		<finishInstallC4><Exposed/>
+		</finishInstallC4>
+		<startUninstallC4><Exposed/>
+		</startUninstallC4>
+		<finishUninstallC4><Exposed/>
+		</finishUninstallC4>
+	</CellMethods>
+</root>

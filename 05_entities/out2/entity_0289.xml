@@ -1,0 +1,141 @@
+<root>
+  <Properties>
+    <gunCompPkg>
+      <Type> ARRAY <of> GUN_COMP_DATA </of> </Type>
+      <Flags>  BASE </Flags>
+    </gunCompPkg>
+
+    <gunSlotsList>
+      <Type> ARRAY <of> GUN_SLOT </of> </Type>
+      <Flags>  BASE </Flags>
+    </gunSlotsList>
+
+    <holdingWeapon>
+      <Type> UUID </Type>
+      <Flags>  BASE_AND_CLIENT </Flags>
+    </holdingWeapon>
+
+    <weaponBag>
+      <Type> ARRAY <of> UUID </of> <size> 2 </size> </Type>
+      <Flags>  BASE_AND_CLIENT </Flags>
+    </weaponBag>
+
+    <gunCompArgs>
+      <Type> PY_DICT </Type>
+      <Flags>  OWN_CLIENT </Flags>
+      <Default> {} </Default>
+    </gunCompArgs>
+  </Properties>
+
+  <BaseMethods>
+    <requestInitData> <Exposed/>
+    </requestInitData>
+    <createGunComponent>
+      <Arg>    INT32   </Arg>
+      <Arg>    INT32   </Arg>
+    </createGunComponent>
+
+    <takeOnWeapon>
+      <Arg>    INT8   </Arg>
+      <Arg>    UUID   </Arg>
+    </takeOnWeapon>
+
+    <takeOffWeapon>
+      <Arg>    INT8   </Arg>
+    </takeOffWeapon>
+
+    <changeHoldingWeapon>
+      <Arg>    INT8   </Arg>
+    </changeHoldingWeapon>
+
+    <switchGunComp> <Exposed/>
+      <Arg>    UUID   </Arg>
+      <Arg>    UUID   </Arg>
+      <Arg>    INT8   </Arg>
+    </switchGunComp>
+
+    <attachCompToGun> <Exposed/>
+      <Arg>    UUID   </Arg>
+      <Arg>    UUID   </Arg>
+    </attachCompToGun>
+
+    <detachCompFromGun> <Exposed/>
+      <Arg>    INT8   </Arg>
+      <Arg>    UUID   </Arg>
+    </detachCompFromGun>
+
+    <feedGunComp> <Exposed/>
+      <Arg>    UUID   </Arg>
+      <Arg>    UUID   </Arg>
+    </feedGunComp>
+
+    <feedGunComps> <Exposed/>
+      <Arg>    ARRAY <of> UUID </of>    </Arg>
+      <Arg>    UUID   </Arg>
+    </feedGunComps>
+
+    <lockComp> <Exposed/>
+      <Arg> UUID </Arg>
+      <Arg> BOOL </Arg>
+    </lockComp>
+
+    <checkGunCompsWithSlot> <Exposed/>
+      <Arg> INT32 </Arg>
+    </checkGunCompsWithSlot>
+  </BaseMethods>
+
+  <CellMethods>
+    <changeGunCompArgs>
+      <Arg>    PY_DICT   </Arg>
+    </changeGunCompArgs>
+
+    <cleanGunCompArgs></cleanGunCompArgs>
+
+    <onWeaponSuitSkillChanged>
+      <Arg>    ARRAY <of> UINT32 </of>   </Arg>
+      <Arg>    ARRAY <of> UINT32 </of>   </Arg>
+    </onWeaponSuitSkillChanged>
+  </CellMethods>
+
+  <ClientMethods>
+    <syncCompAttached>
+      <Arg> UUID </Arg>
+      <Arg> UUID </Arg>
+    </syncCompAttached>
+    <syncCompDetached>
+      <Arg> UUID </Arg>
+      <Arg> UUID </Arg>
+    </syncCompDetached>
+
+    <syncAddGunComp>
+      <Arg>    PY_DICT   </Arg>
+    </syncAddGunComp>
+
+    <syncDelGunComp>
+      <Arg>    UUID   </Arg>
+    </syncDelGunComp>
+
+    <syncCompUpgrade>
+      <Arg>  PY_DICT  </Arg>
+    </syncCompUpgrade>
+
+    <syncCompLock>
+      <Arg> UUID </Arg>
+      <Arg> BOOL </Arg>
+    </syncCompLock>
+
+    <syncTransferGunComp>
+      <Arg> UUID </Arg>
+      <Arg> UUID </Arg>
+    </syncTransferGunComp>
+
+    <onRequestInitData>
+      <Arg> ARRAY <of> GUN_COMP_DATA </of>   </Arg>
+      <Arg> ARRAY <of> GUN_SLOT </of> </Arg>
+    </onRequestInitData>
+
+    <checkGunCompsWithSlot>
+      <Arg> INT32 </Arg>
+    </checkGunCompsWithSlot>
+  </ClientMethods>
+</root>

@@ -1,0 +1,29 @@
+<root>
+	<Properties>
+		<innerLatencyPacketIdx>
+			<Type> UINT8 	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> 0	</Default>
+		</innerLatencyPacketIdx>
+		<innerLatencyTimes>
+			<Type> PYTHON 	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> {}	</Default>
+		</innerLatencyTimes>
+		<innerLatencyPackets>
+			<Type> PYTHON 	</Type>
+			<Flags> CELL_PRIVATE </Flags>
+			<Default> {}	</Default>
+		</innerLatencyPackets>
+	</Properties>
+	<ClientMethods>
+		<onReqLatencyState>
+			<Arg> UINT8 </Arg> <!-- ID -->
+		</onReqLatencyState>
+	</ClientMethods>
+	<CellMethods>
+		<onResLatencyState> <Exposed/>
+			<Arg> UINT8 </Arg> <!-- ID -->
+		</onResLatencyState>
+	</CellMethods>
+</root>

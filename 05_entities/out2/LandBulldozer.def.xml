@@ -1,0 +1,11 @@
+<root>
+	<Parent>	LandCar		</Parent>
+	<ClientName>	LandBulldozer			</ClientName>
+
+	<CellMethods>
+		<hitVoxelBuildUnit>	<Exposed/>
+			<Arg>   INT32	</Arg> <!-- voxel build unit entity id -->
+			<Arg>	INT32	</Arg> <!-- voxel build unit id -->
+		</hitVoxelBuildUnit>
+	</CellMethods>
+</root>

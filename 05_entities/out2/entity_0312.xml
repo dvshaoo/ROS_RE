@@ -1,0 +1,50 @@
+<root>
+	<Properties>
+		<redPacketInfo>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</redPacketInfo>
+		<redPackets>
+			<Type>	ARRAY	<of>	RED_PACKET_POS_INFO	</of>	</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	[]				</Default>
+		</redPackets>
+		<redPacketCnt>
+			<Type>		INT32			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0				</Default>
+		</redPacketCnt>
+		<redPacketIconTimer>
+			<Type>		PYTHON			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	set()				</Default>
+		</redPacketIconTimer>
+	</Properties>
+	<CellMethods>
+		<onRedPacketCreate>
+			<Arg>		UUID			</Arg>
+			<Arg>		GID			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onRedPacketCreate>
+		<onAvatarGetRedPacket>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		UUID			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT64			</Arg>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</onAvatarGetRedPacket>
+		<checkRedPacketLimit>
+			<Arg>		MAILBOX			</Arg>			
+			<Arg>		INT32			</Arg>			
+			<Arg>		VECTOR3			</Arg>			
+		</checkRedPacketLimit>
+	</CellMethods>
+</root>

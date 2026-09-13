@@ -1,0 +1,823 @@
+<root>
+	<Implements>
+		<Interface>			iBaseNoCell		</Interface>
+		<Interface>			iSpaceRequester		</Interface>
+	</Implements>
+	<Properties>
+		<isInitialized>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+			<Persistent>	true			</Persistent>
+		</isInitialized>
+		<isDismissed>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+			<Persistent>	true			</Persistent>
+		</isDismissed>
+		<members>
+			<Type>		LEGION_MEMBER_DICT	</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</members>
+		<applyingMembers>
+			<Type>		LEGION_APPLY_DICT	</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</applyingMembers>
+		<creatorGID>
+			<Type>		GID			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</creatorGID>
+		<leaderGID>
+			<Type>		GID			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</leaderGID>
+		<leaderAssumeTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</leaderAssumeTime>
+		<name>
+			<Type>		KEY_NAME		</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</name>
+		<description>
+			<Type>		BLOB			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</description>
+		<level>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>	1			</Default>
+		</level>
+		<badgeID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</badgeID>
+		<force>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</force>
+		<mailIndex>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</mailIndex>
+		<mails>
+			<Type>		ARRAY <of>	PYTHON	</of>	</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</mails>
+		<eventIndex>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</eventIndex>
+		<events>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>	[]			</Default>
+		</events>
+		<upgradeQueueLength>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</upgradeQueueLength>
+		<buildings>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>	{}			</Default>
+		</buildings>
+		<resources>
+			<Type>		LEGION_RESOURCE_INFO	</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+			<Default>	{}			</Default>
+		</resources>
+		<lastResourceRefreshTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</lastResourceRefreshTime>
+		<ligeanceIDs>
+			<Type>	ARRAY <of> INT32 </of>		</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</ligeanceIDs>
+		<invadeLigeanceID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</invadeLigeanceID>
+		<invadeLigeanceTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</invadeLigeanceTime>
+		<invadeLigeanceScore>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</invadeLigeanceScore>
+		<declareLigeanceID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLigeanceID>
+		<declareLigeanceState>
+			<Type>		INT8			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLigeanceState>
+		<declareLigeanceScore>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLigeanceScore>
+		<declareLegionGID>
+			<Type>		GID			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLegionGID>
+		<declareLegionName>
+			<Type>		BLOB			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLegionName>
+		<declareLegionBadgeID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLegionBadgeID>
+		<declareLigeanceFightTime>
+			<Type>		FLOAT			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</declareLigeanceFightTime>
+		<declareCrackItemCnt>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+		</declareCrackItemCnt>
+
+		<attackLigeanceID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</attackLigeanceID>
+		<attackLegionName>
+			<Type>		BLOB			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</attackLegionName>
+		<attackLegionBadgeID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</attackLegionBadgeID>
+
+<!--		<attackLegionInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Persistent> true </Persistent>
+			<Default> {} </Default>
+		</attackLegionInfo>
+		-->
+
+		<defendLegionInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Persistent> true </Persistent>
+			<Default> {} </Default>
+		</defendLegionInfo>
+
+<!--		<defendLegionGID>
+			<Type>		GID			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</defendLegionGID>
+		<defendLegionName>
+			<Type>		BLOB			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</defendLegionName>
+		<defendLegionBadgeID>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</defendLegionBadgeID>
+-->
+		<currentCrackItemIndex>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</currentCrackItemIndex>
+		<nextActiveCrackIndex>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+		</nextActiveCrackIndex>
+		<plantedCrackItems>
+			<Type>	ARRAY <of> PLANTED_CRACK_ITEM </of>	</Type>
+			<Flags>		BASE			</Flags>
+		</plantedCrackItems>
+		<legionWarState>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</legionWarState>
+		<legionWarPlayers>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionWarPlayers>
+		<mallData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</mallData>
+		<dominationState>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</dominationState>
+		<dominationKey>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</dominationKey>
+		<dominationTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</dominationTime>
+		<dominationData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</dominationData>
+		<markerLegions>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</markerLegions>
+
+		<weekLegionDefendCnt>
+			<Type> INT32 </Type>
+			<Flags> BASE </Flags>
+			<Default> 0 </Default>
+			<Persistent> true </Persistent>
+		</weekLegionDefendCnt>
+
+		<lastActivenessCalcTime>
+		  <Type>      FLOAT    </Type>
+		  <Flags>     BASE    </Flags>
+		  <Default>       0.0      </Default>
+		  <Persistent>  true    </Persistent>
+		</lastActivenessCalcTime>
+		<currentActivenessScore>
+		  <Type>      INT32    </Type>
+		  <Flags>     BASE    </Flags>
+		  <Default>       0      </Default>
+		  <Persistent>  true    </Persistent>
+		</currentActivenessScore>
+		<yesterdayActivinessScore>
+		  <Type>      INT32    </Type>
+		  <Flags>     BASE    </Flags>
+		  <Default>       0      </Default>
+		  <Persistent>  true    </Persistent>
+		</yesterdayActivinessScore>
+
+		<legionDailyActivenessData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionDailyActivenessData>
+		<legionChallengeActivenessData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionChallengeActivenessData>
+		<legionPayActivenessData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionPayActivenessData>
+		<legionPVPData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionPVPData>
+		<legionPVEData>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</legionPVEData>
+		<legionPVPScore>
+		  <Type>      INT32    </Type>
+		  <Flags>     BASE    </Flags>
+		  <Default>       0      </Default>
+		  <Persistent>  true    </Persistent>
+		</legionPVPScore>
+		<legionPVEScore>
+		  <Type>      INT32    </Type>
+		  <Flags>     BASE    </Flags>
+		  <Default>       0      </Default>
+		  <Persistent>  true    </Persistent>
+		</legionPVEScore>
+
+	</Properties>
+	<BaseMethods>
+		<onInit>
+			<Arg>		GID			</Arg>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		LEGION_APPLY		</Arg>
+		</onInit>
+		<updateLegionDefendWarTmpResult>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</updateLegionDefendWarTmpResult>
+		<updateLegionAttackWarTmpResult>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</updateLegionAttackWarTmpResult>
+
+		<setOnline>
+			<Arg>		GID			</Arg>
+			<Arg>		MAILBOX			</Arg>
+		</setOnline>
+		<setOffline>
+			<Arg>		GID			</Arg>
+		</setOffline>
+		<onUpdateRank>
+			<Arg>		INT32			</Arg>
+		</onUpdateRank>
+		<requestDetailInfo>
+			<Arg>		MAILBOX			</Arg>
+		</requestDetailInfo>
+		<requestLigeanceDeclareInfo>
+			<Arg>		MAILBOX			</Arg>
+		</requestLigeanceDeclareInfo>
+		<requestModifyInfo>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>		STRING		</Arg>		<!-- description -->
+			<Arg>		INT32		</Arg>		<!-- badge id -->
+		</requestModifyInfo>
+		<requestJoin>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		LEGION_APPLY		</Arg>
+			<Arg>		BOOL			</Arg>
+		</requestJoin>
+		<requestApplyNumber>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</requestApplyNumber>
+		<requestApplies>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</requestApplies>
+		<confirmApplies>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	ARRAY <of>	GID	</of>	</Arg>
+		</confirmApplies>
+		<onConfirmApply>
+			<Arg>	BOOL				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</onConfirmApply>
+		<rejectApplies>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	ARRAY <of>	GID	</of>	</Arg>
+		</rejectApplies>
+		<requestMemberList>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>		INT32		</Arg>		<!-- version -->
+			<Arg>		INT32		</Arg>		<!-- buffer length -->
+			<Arg>		BOOL		</Arg>		<!-- get next batch -->
+		</requestMemberList>
+		<requestSearchMember>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>		<!-- sorted type -->
+			<Arg>		STRING		</Arg>
+		</requestSearchMember>
+		<onMemberUpdate>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onMemberUpdate>
+		<expelMember>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>		GID		</Arg>
+		</expelMember>
+		<memberQuit>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</memberQuit>
+		<appointMember>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	INT32				</Arg>
+		</appointMember>
+		<memberResignPosition>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</memberResignPosition>
+		<leaderAbdicate>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</leaderAbdicate>
+		<requestSendMail>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+		</requestSendMail>
+		<queryMailSent>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</queryMailSent>
+		<removeMailSent>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+		</removeMailSent>
+		<queryEvents>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+		</queryEvents>
+		<queryResources>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</queryResources>
+		<queryBuildingInfo>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</queryBuildingInfo>
+		<upgradeBuilding>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+		</upgradeBuilding>
+		<unlockUpgradeQueue>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+		</unlockUpgradeQueue>
+		<addResource>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT32				</Arg>
+		</addResource>
+		<chat>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			PY_DICT					</Arg>	<!-- params -->
+		</chat>
+		<requestMuzzleMember>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	BOOL				</Arg>
+		</requestMuzzleMember>
+		<concernOn>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	BOOL				</Arg>
+		</concernOn>
+		<syncLegionLigeance>
+			<Arg>	PYTHON				</Arg>
+			<Arg>	GID				</Arg>
+		</syncLegionLigeance>
+		<invadeOnLigeance>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+		</invadeOnLigeance>
+		<onConfirmInvadeOnLigeance>
+			<Arg>	BOOL				</Arg>
+			<Arg>	STRING				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</onConfirmInvadeOnLigeance>
+		<onConfirmInvadeWinOnLigeance>
+			<Arg>	BOOL				</Arg>
+			<Arg>	INT32				</Arg>
+		</onConfirmInvadeWinOnLigeance>
+		<onLigeanceInvaded>
+			<Arg>	INT32				</Arg>
+		</onLigeanceInvaded>
+		<declareOnLigeance>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+		</declareOnLigeance>
+		<onConfirmDeclareOnLigeance>
+			<Arg>	BOOL				</Arg>
+			<Arg>	STRING				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	PYTHON				</Arg>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</onConfirmDeclareOnLigeance>
+		<queryInvadeLigeanceActivity>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</queryInvadeLigeanceActivity>
+		<resetLigeance>
+		</resetLigeance>
+		<onDungeonFinish>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onDungeonFinish>
+		<gmUpgradeBuilding>
+			<Arg>	GID				</Arg>
+			<Arg>	GM_PROXY			</Arg>
+			<Arg>	INT32				</Arg>
+		</gmUpgradeBuilding>
+		<gmInvadeWinLigeance>
+			<Arg>	GID				</Arg>
+			<Arg>	GM_PROXY			</Arg>
+		</gmInvadeWinLigeance>
+		<gmDeclareWinLigeance>
+			<Arg>	GID				</Arg>
+			<Arg>	GM_PROXY			</Arg>
+		</gmDeclareWinLigeance>
+		<requestPlantCrackItem>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	PLANTED_CRACK_ITEM		</Arg>
+		</requestPlantCrackItem>
+		<plantCrackItem>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	PLANTED_CRACK_ITEM		</Arg>
+		</plantCrackItem>
+		<onPlantLegionCrackItemFailure>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	STRING				</Arg>
+			<Arg>	PLANTED_CRACK_ITEM		</Arg>
+		</onPlantLegionCrackItemFailure>
+		<removeCrackItem>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+		</removeCrackItem>
+		<onPlantedCrackItemRemoved>
+			<Arg>	INT32				</Arg>
+			<Arg>	PLANTED_CRACK_ITEM		</Arg>
+		</onPlantedCrackItemRemoved>
+		<onPlantedCrackItemActived>
+			<Arg>	INT32				</Arg>
+			<Arg>	PLANTED_CRACK_ITEM		</Arg>
+			<Arg>	INT32				</Arg>
+		</onPlantedCrackItemActived>
+		<onConfirmDeclareWinOnLigeance>
+			<Arg>	BOOL				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	PYTHON				</Arg>
+		</onConfirmDeclareWinOnLigeance>
+		<onLigeanceDeclared>
+			<Arg>	INT32				</Arg>
+			<Arg>	PYTHON				</Arg>
+		</onLigeanceDeclared>
+		<onDeclareLegionChange>
+			<Arg>	BOOL				</Arg>
+			<Arg>	GID 				</Arg>
+			<Arg>	LEGION_BRIEF_INFO	</Arg>
+		</onDeclareLegionChange>
+		<onAttackLigeanceFree>
+			<Arg>	INT32				</Arg>
+		</onAttackLigeanceFree>
+		<onDeclareLigeanceFree>
+			<Arg>	INT32				</Arg>
+		</onDeclareLigeanceFree>
+		<onDefendLigeanceFree>
+			<Arg>	INT32				</Arg>
+		</onDefendLigeanceFree>
+		<syncLegionWarState>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT64				</Arg>
+		</syncLegionWarState>
+		<onUpdateLegionWarSpace>
+			<Arg>	PYTHON				</Arg>
+			<Arg>	BOOL				</Arg>
+		</onUpdateLegionWarSpace>
+		<onUpdateLegionWarProgress>
+			<Arg>	PYTHON				</Arg>
+			<Arg>	FLOAT				</Arg>
+			<Arg>	BOOL				</Arg>
+		</onUpdateLegionWarProgress>
+		<onCloseLegionWarSpace>
+			<Arg>	INT32				</Arg>
+			<Arg>	BOOL				</Arg>
+		</onCloseLegionWarSpace>
+		<requestTeamLegionWarSpaceV2>
+			<Arg>	ARRAY <of> INT32</of>		</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	BOOL				</Arg>
+			<Arg>	INT32				</Arg>
+		</requestTeamLegionWarSpaceV2>
+		<requestLegionWarSpace>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	BOOL				</Arg>
+			<Arg>	INT32				</Arg>
+		</requestLegionWarSpace>
+		<onLeaveLegionWarSpace>
+			<Arg>		INT32			</Arg>
+		</onLeaveLegionWarSpace>
+		<onLegionWarResult>
+			<Arg>	PYTHON				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	BOOL				</Arg>
+		</onLegionWarResult>
+		<queryLegionWarSpaces>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</queryLegionWarSpaces>
+		<queryLegionLigeanceDetail>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</queryLegionLigeanceDetail>
+		<refreshMall>
+			<Arg>	BOOL				</Arg>
+		</refreshMall>
+		<queryMallData>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</queryMallData>
+		<requestBuyMallItem>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT32				</Arg>
+		</requestBuyMallItem>
+		<requestRefreshMall>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+		</requestRefreshMall>
+		<requestUpgradeLab>
+			<Arg>	GID				</Arg>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	BOOL				</Arg>
+		</requestUpgradeLab>
+		<syncDominationState>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT64				</Arg>
+		</syncDominationState>
+		<matchLegionDominationV2>
+			<Arg>	MAILBOX				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	ARRAY <of> GID	</of>		</Arg>
+			<Arg>	PYTHON				</Arg>
+		</matchLegionDominationV2>
+		<cancelMatchLegionDominationV2>
+			<Arg>	MAILBOX				</Arg>
+		</cancelMatchLegionDominationV2>
+		<onDominationGameResult>
+			<Arg>		GID			</Arg>
+			<Arg>		BOOL			</Arg>
+		</onDominationGameResult>
+		<requestDominationData>
+			<Arg>		GID			</Arg>
+			<Arg>		MAILBOX			</Arg>
+		</requestDominationData>
+		<requestDominationAward>
+			<Arg>		GID			</Arg>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		BOOL			</Arg>
+		</requestDominationAward>
+		<sendNotifaction>
+			<Arg>		STRING			</Arg>
+		</sendNotifaction>
+		<addContribution>
+			<Arg>		GID			</Arg>
+			<Arg>		MAILBOX			</Arg>
+			<Arg>		INT32			</Arg>
+		</addContribution>
+		<clearWeekContribution>
+		</clearWeekContribution>
+		<clearDeclareData>
+		</clearDeclareData>
+		<clearAttackData>
+		</clearAttackData>
+		<onHomePlayerUpdate>
+			<Arg>		INT32			</Arg>
+		</onHomePlayerUpdate>
+		<gmClearResource>
+		</gmClearResource>
+		<gmDismiss>
+		</gmDismiss>
+		<requestDoLegionDefend>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</requestDoLegionDefend>
+		<requestStartLegionDefend>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+			<Arg> INT32 </Arg>
+		</requestStartLegionDefend>
+		<queryLegionDefendState>
+			<Arg> MAILBOX </Arg>
+		</queryLegionDefendState>
+		<clearWeekDefendCnt>
+		</clearWeekDefendCnt>
+		<onLegionDefendSpaceEnded>
+		</onLegionDefendSpaceEnded>
+		<onLeaveLegionDefendMap>
+			<Arg> GID </Arg>
+		</onLeaveLegionDefendMap>
+		<requestEnterLegionDungeon>
+			<Arg> INT32 </Arg>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</requestEnterLegionDungeon>
+		<onLeaveLegionDungeonMap>
+			<Arg> INT32 </Arg>
+			<Arg> GID </Arg>
+		</onLeaveLegionDungeonMap>
+
+		<startLegionQuiz>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</startLegionQuiz>
+		<onQueryLegionQuizVariable>
+			<Arg> PYTHON </Arg>
+		</onQueryLegionQuizVariable>
+		<quizFinishJoin>
+		</quizFinishJoin>
+		<switchOnLegionQuiz>
+		</switchOnLegionQuiz>
+
+		<!-- 军团排行榜 -->
+		<onUpdateMemberDailyActiveness>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateMemberDailyActiveness>
+		<onUpdateMemberChallengeActiveness>
+			<Arg> GID </Arg>
+			<Arg> BOOL </Arg>
+		</onUpdateMemberChallengeActiveness>
+		<onUpdateMemberPayActiveness>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateMemberPayActiveness>
+		<onUpdateMemberPVPScore>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateMemberPVPScore>
+		<onUpdateMemberPVEScore>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</onUpdateMemberPVEScore>
+
+		<queryLegionActiveness>
+		</queryLegionActiveness>
+		<queryLegionPVPScore>
+		</queryLegionPVPScore>
+		<queryLegionPVEScore>
+		</queryLegionPVEScore>
+
+		<clearRankListData>
+		</clearRankListData>
+
+		<queryLegionResourceAddInfo>
+			<Arg> MAILBOX </Arg>
+		</queryLegionResourceAddInfo>
+
+	</BaseMethods>
+</root>

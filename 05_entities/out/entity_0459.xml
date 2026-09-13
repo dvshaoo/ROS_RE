@@ -1,0 +1,34 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<CellMethods>
+		<requestEnterCutInDungeon> <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</requestEnterCutInDungeon>
+
+		<requestCreateCutInDungeon>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestCreateCutInDungeon>
+
+		<joinCutInDungeonSpace>
+			<Arg>	PYTHON		</Arg>
+		</joinCutInDungeonSpace>
+
+		<doCreateCutInDungeon>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</doCreateCutInDungeon>
+	</CellMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+	
+	<ClientMethods>
+	</ClientMethods>
+</root>

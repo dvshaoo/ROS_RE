@@ -1,0 +1,84 @@
+<root>
+	<Properties>
+		<awardedNewPlayerStepGroups>
+			<Type>	ARRAY <of> INT32 </of>  </Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</awardedNewPlayerStepGroups>
+		<isTaskStarted>
+			<Type>	INT32  </Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</isTaskStarted>
+		<isWatchTaskGuide>
+			<Type>	BOOL  </Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	False	</Default>
+			<PersistentMongo> true </PersistentMongo>
+		</isWatchTaskGuide>
+	</Properties>
+	<BaseMethods>
+		<onNewPlayerTaskMsg> <Exposed/>
+			<Arg>		INT32		</Arg><!--msg type-->
+			<Arg>		INT32		</Arg><!--addVal-->
+		</onNewPlayerTaskMsg>
+		<onClearFinishedNewPlayerTask> <Exposed/>
+		</onClearFinishedNewPlayerTask>
+		<levelUpNewPlayerTask>  <Exposed/>
+		</levelUpNewPlayerTask>
+		<getNewPlayerTaskAward>  <Exposed/>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</getNewPlayerTaskAward>
+		<getNewPlayerTaskScoreAward>  <Exposed/>
+			<Arg>			INT32				</Arg><!--score id-->
+		</getNewPlayerTaskScoreAward>
+		<getAllNewPlayerTaskAward>  <Exposed/>
+		</getAllNewPlayerTaskAward>
+		<onWatchNewPlayerTaskGuide>  <Exposed/>
+		</onWatchNewPlayerTaskGuide>
+		
+	</BaseMethods>
+	<ClientMethods>
+		<loadNewPlayerTasks>
+			<Arg> ARRAY <of> DTS_ACTIVIY_TASK_DATA </of>  </Arg><!--create_task-->
+			<Arg>		INT32		</Arg><!--open days-->
+		</loadNewPlayerTasks>
+
+		<onUpdateDoneNewPlayerTaskList>
+			<Arg>	ARRAY <of> TASK_ID </of>	</Arg>
+		</onUpdateDoneNewPlayerTaskList>
+
+		<onUpdateFinishedTaskInGame>
+			<Arg>	ARRAY <of> TASK_ID </of>	</Arg>
+		</onUpdateFinishedTaskInGame>
+
+		<onUpdateAwardedNewPlayerTaskList>
+			<Arg>	ARRAY <of> TASK_ID </of>	</Arg>
+		</onUpdateAwardedNewPlayerTaskList>
+		
+		<onNewPlayerTaskDoneSuc>
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg>			INT32		</Arg>		<!--task score-->
+		</onNewPlayerTaskDoneSuc>
+
+		<onLevelUpNewPlayerTaskSuc>
+			<Arg>		PYTHON		</Arg>
+		</onLevelUpNewPlayerTaskSuc>
+
+		<onGetNewPlayerTaskAward>
+			<Arg>		PYTHON		</Arg> <!--award dict-->
+			<Arg>		PYTHON		</Arg> <!--awarded taskIDs-->
+			<Arg>		INT32		</Arg>		<!--task score-->
+		</onGetNewPlayerTaskAward>
+
+		<onGetNewPlayerTaskScoreAward>
+			<Arg>		PYTHON		</Arg> <!--award dict-->
+			<Arg>		PYTHON		</Arg> <!--awarded scoreIDs-->
+		</onGetNewPlayerTaskScoreAward>
+
+		<onGetNewPlayerStepAward>
+			<Arg>		INT32		</Arg> <!--group-->
+			<Arg>		BOOL		</Arg> <!--is level up-->
+		</onGetNewPlayerStepAward>
+	</ClientMethods>
+</root>

@@ -1,0 +1,21 @@
+<root>
+	<Properties>
+		<settingData>
+			<Type> TYPE_SETTING </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+		</settingData>
+	</Properties>
+
+	<BaseMethods>
+		<sSyncSettingDataToServer>
+			<Exposed/>
+			<Arg> TYPE_SETTING </Arg>
+		</sSyncSettingDataToServer>
+	</BaseMethods>
+	
+	<ClientMethods>
+		<cSyncSettingDataToClient>
+			<Arg> TYPE_SETTING </Arg>
+		</cSyncSettingDataToClient>
+	</ClientMethods>
+</root>

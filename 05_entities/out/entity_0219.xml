@@ -1,0 +1,233 @@
+<root>
+	<Properties>
+		<buyMallGoodTimes>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</buyMallGoodTimes>
+		<buyMallTimeLastResetTime>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</buyMallTimeLastResetTime>
+		<availMallGoods>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+		</availMallGoods>
+		<weaponAppearanceSortInfoLastReqTimeStamp>
+			<Type>	FLOAT		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</weaponAppearanceSortInfoLastReqTimeStamp>
+		<weaponAppearanceSortInfoTag>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</weaponAppearanceSortInfoTag>
+		<weaponAppearanceSortInfo>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</weaponAppearanceSortInfo>
+		<dtsMallHeroInfo>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</dtsMallHeroInfo>
+	</Properties>
+
+	<BaseMethods>
+		<buyMallGood>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	STRING	</Arg>
+		</buyMallGood>
+		<buyMultipleMallGood>	<Exposed/>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	STRING	</Arg>
+		</buyMultipleMallGood>
+		<buySuitMallGood>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+		</buySuitMallGood>
+		<buyMallGoodUseHallProp>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>
+		</buyMallGoodUseHallProp>
+
+		<giftMallGood>	<Exposed/>
+			<Arg>	GID 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	STRING	</Arg>
+		</giftMallGood>
+		<giftMallSuitGood>  <Exposed/>
+		    <Arg>   GID     </Arg>
+		    <Arg>	INT32 	</Arg>
+		    <Arg>	INT32 	</Arg>
+		    <Arg>	ARRAY <of> INT32 </of>	</Arg>
+		    <Arg>	STRING 	</Arg>
+			<Arg>	STRING	</Arg>
+		</giftMallSuitGood>
+		<giftRoseToAddIntimacy> <Exposed/>
+		    <Arg>	GID 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	STRING	</Arg>
+		</giftRoseToAddIntimacy>
+		<giftMallGoodNoLimit>
+			<Arg>	GID 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	STRING	</Arg>
+		</giftMallGoodNoLimit>
+		<buyMallGoodInAppearanceMall>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	STRING	</Arg>
+		</buyMallGoodInAppearanceMall>
+		<queryAvailableMallGoods> <Exposed/>
+		</queryAvailableMallGoods>
+		<queryAvailableMallGoodsByType> <Exposed/>
+		    <Arg>	UINT32	</Arg>
+		</queryAvailableMallGoodsByType>
+		<queryAvailableMallGoodsForAppearanceMall> <Exposed/>
+		</queryAvailableMallGoodsForAppearanceMall>
+		<resetMallBuyTimes>
+			<Arg>	INT32	</Arg>
+		</resetMallBuyTimes>
+
+		<buyDtsHallProp> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	STRING	</Arg>
+		</buyDtsHallProp>
+
+		<buyDtsHallPropWithPrice> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</buyDtsHallPropWithPrice>
+
+		<doSaLogMallClick> <Exposed/>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	ARRAY <of> CLICK_INFO </of>	</Arg>
+		</doSaLogMallClick>
+
+		<logItemPushInfo> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</logItemPushInfo>
+		<logClothMallPushInfo> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+		</logClothMallPushInfo>
+		<queryGiftInfo> <Exposed/>
+		</queryGiftInfo>
+		<requestGiftSendRecord> <Exposed/>
+		</requestGiftSendRecord>
+		<requestGiftReceiveRecord> <Exposed/>
+		</requestGiftReceiveRecord>
+		<logRecommendGunList> <Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</logRecommendGunList>
+		<buyDtsMallHero> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</buyDtsMallHero>
+	</BaseMethods>
+	
+	<ClientMethods>
+		<onBuyMallGood>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onBuyMallGood>
+		<onGetGift>
+			<Arg>	INT32	</Arg>
+		</onGetGift>
+		<showGiftInfo>
+		    <Arg>	GID 	</Arg>
+		    <Arg>	STRING 	</Arg>
+		    <Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>   INT32   </Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+		</showGiftInfo>
+		<showSuitGiftInfo>
+		    <Arg>	GID 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>   INT32   </Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+		</showSuitGiftInfo>
+		<respondGiftSendRecord>
+		    <Arg>	PYTHON	</Arg>
+		</respondGiftSendRecord>
+		<respondGiftReceiveRecord>
+		    <Arg>	PYTHON	</Arg>
+		</respondGiftReceiveRecord>
+
+		<onBuyMallGoodFailed>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+			<Arg>	STRING	</Arg>
+		</onBuyMallGoodFailed>
+		<onQueryAvailableMallGoods>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableMallGoods>
+		<onQueryAvailableMallGoodsByType> <Exposed/>
+		    <Arg>	UINT32	</Arg>
+		    <Arg>	PYTHON	</Arg>
+		</onQueryAvailableMallGoodsByType>
+		<onQueryAvailableMallGoodsForAppearanceMall>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableMallGoodsForAppearanceMall>
+		<onUpdateClothMallSortInfo>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateClothMallSortInfo>
+		<onGetPropFromFriend>
+			<Arg>	INT32	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetPropFromFriend>
+		<onGetMallDefaultUIInfo>
+			<Arg>	PYTHON	</Arg>
+		</onGetMallDefaultUIInfo>
+		<onUpdateHallPropBuyTimes>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateHallPropBuyTimes>
+		<onUpdateWeaponAppearanceSortInfo>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateWeaponAppearanceSortInfo>
+		<onBuyDtsMallHero> <Exposed/>
+			<Arg>	PYTHON	</Arg>
+		</onBuyDtsMallHero>
+	</ClientMethods>
+</root>

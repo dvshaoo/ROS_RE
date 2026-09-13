@@ -1,0 +1,38 @@
+<root>
+	<Properties>
+		<activityProgressXmas2017>
+			<Type>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</activityProgressXmas2017>
+	</Properties>
+	<BaseMethods>
+		<requestActivityInfoXmas2017> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestActivityInfoXmas2017>
+		<getTaskRewardXmas2017> <Exposed/>
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+		</getTaskRewardXmas2017>
+		<onFightEndXmas2017>
+			<Arg>		INT32		</Arg>   <!-- kills -->
+			<Arg>		INT32		</Arg>   <!-- rank -->
+		</onFightEndXmas2017>
+		<addTaskCountXmas2017> <Exposed/>
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+			<Arg>		INT32		</Arg>   <!-- count -->
+		</addTaskCountXmas2017>
+	</BaseMethods>
+	<ClientMethods>
+		<onGetActivityInfoXmas2017>
+			<Arg>		INT32		</Arg>   <!-- open -->
+			<Arg>		INT32		</Arg>   <!-- begin_ts -->
+			<Arg>		INT32		</Arg>   <!-- end_ts -->
+			<Arg>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Arg>
+		</onGetActivityInfoXmas2017> 
+		<onGetTaskRewardXmas2017>
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+			<Arg>		INT32		</Arg>   <!-- st -->
+			<Arg>		STRING		</Arg>   <!-- ext_info --> 
+		</onGetTaskRewardXmas2017> 
+	</ClientMethods>
+</root>

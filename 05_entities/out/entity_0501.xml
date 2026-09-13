@@ -1,0 +1,706 @@
+<root>
+	<Properties>
+		<activityProgress201701>
+			<Type>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</activityProgress201701>
+		<quizCoin201701>
+			<Type>	ARRAY	<of>	QUIZ_COIN_201701_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</quizCoin201701>
+		<activityProgressValentine2018>
+			<Type>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</activityProgressValentine2018>
+		<activityProgressSpring2018>
+			<Type>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</activityProgressSpring2018>
+		<activityProgressSpring2018_2>
+			<Type>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</activityProgressSpring2018_2>
+		<activityProgressEaster2018>
+			<Type>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Type>
+			<Flags> 	BASE </Flags>
+			<Persistent>	true		</Persistent>
+		</activityProgressEaster2018>
+		<xmas2018CollectProps>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2018CollectProps>
+		<xmas2018CollectAwards>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2018CollectAwards>
+		<xmas2018LotteryTasks>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2018LotteryTasks>
+		<xmas2018MaxLotteryIdx>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	-1 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2018MaxLotteryIdx>
+		<xmas2018LotteryTimes>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2018LotteryTimes>
+		<xmas2018LuckyVal>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2018LuckyVal>
+		<xmas2019Gifts>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</xmas2019Gifts>
+		<xmas2019OldUserGiftGotIdx>
+			<!-- 记录玩家回归礼物获取到哪个 -->
+			<Type>          INT32       </Type>
+			<Flags>         BASE            </Flags>
+			<Default>       0              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</xmas2019OldUserGiftGotIdx>
+		<xmas2019OldUserFlag>
+			<!-- 判断回流玩家的标记 -->
+			<Type>          INT32       </Type>
+			<Flags>         BASE            </Flags>
+			<Default>       0              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</xmas2019OldUserFlag>
+		<xmas2019OldUserLastTs>
+			<!-- 记录玩家上一次拿回归礼物的时间戳 -->
+			<Type>          INT32       </Type>
+			<Flags>         BASE            </Flags>
+			<Default>       0              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</xmas2019OldUserLastTs>
+		<xmas2019GenerousRewards>
+			<!-- 记录玩家拿慷慨值礼物 -->
+			<Type>          PYTHON		</Type>
+			<Flags>         BASE            </Flags>
+			<Default>       {}              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</xmas2019GenerousRewards>
+		<valentine2019CollectProps>
+			<Type>          PYTHON          </Type>
+			<Flags>         BASE            </Flags>
+			<Default>       []              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</valentine2019CollectProps>
+		<kofSupply>
+			<!-- kof补给活动，抽补给用于显示获得了什么 -->
+			<Type>          PYTHON          </Type>
+			<Flags>         BASE_AND_CLIENT            </Flags>
+			<Default>       {}              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</kofSupply>
+		<kofSupplys>
+			<!-- kof补给活动，抽补给用于显示获得了什么，按groupID分 -->
+			<Type>          PYTHON          </Type>
+			<Flags>         BASE_AND_CLIENT            </Flags>
+			<Default>       {}              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</kofSupplys>
+		<kofSupplyCnt>
+			<!-- kof补给活动，显示抽了多少次 -->
+			<Type>          INT32		</Type>
+			<Flags>         BASE_AND_CLIENT            </Flags>
+			<Default>       0              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</kofSupplyCnt>
+		<bf2019carnival>
+			<!-- 2019黑五转盘的五折券机会，用一次就没了 -->
+			<Type>          INT8		</Type>
+			<Flags>         BASE_AND_CLIENT            </Flags>
+			<Default>       0              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</bf2019carnival>
+		<bf2019accumYB>
+			<!-- 2019黑五商城累计消耗钻石-->
+			<Type>          INT32		</Type>
+			<Flags>         BASE_AND_CLIENT            </Flags>
+			<Default>       0              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</bf2019accumYB>
+		<bf2019getYBs>
+			<!-- 2019黑五领取返现标记-->
+			<Type>          PYTHON		</Type>
+			<Flags>         BASE_AND_CLIENT            </Flags>
+			<Default>       {}              </Default>
+			<PersistentMongo>       true    </PersistentMongo>
+		</bf2019getYBs>
+		<commonHolidaySignInRecord>
+			<Type>		 PYTHON 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</commonHolidaySignInRecord>
+
+		<dtsLTLotteryTableData>
+			<Type>      PYTHON	        </Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsLTLotteryTableData>
+
+		<!-- 2020-05-27回流活动 begin-->
+		<ra527ver>
+			<!-- 版本号，用来清数据 -->
+			<Type>			INT8	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527ver>
+		<ra527utype>
+			<!-- 玩家类型 -->
+			<Type>			INT8	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527utype>
+		<ra527utypeTs>
+			<!-- 玩家类型转换时间戳 -->
+			<Type>			INT32	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527utypeTs>
+		<ra527welR>
+			<!-- 曝光页奖励标记位 -->
+			<Type>			INT8	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527welR>
+		<ra527specInvRs>
+			<!-- 召回奖励标记位 1 2 3 5 -->
+			<Type>			PYTHON	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		{}	</Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527specInvRs>
+		<ra527tasks>
+			<!-- 任务数据 -->
+			<Type>			PYTHON	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		{}	</Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527tasks>
+		<ra527pt>
+			<!-- 路点积分 -->
+			<Type>			INT32	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527pt>
+		<ra527ptRs>
+			<!-- 路点积分奖励领取标记 -->
+			<Type>			PYTHON	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		{}	</Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527ptRs>
+		<ra527finalR>
+			<!-- 永久皮肤奖励标记位 -->
+			<Type>			INT8	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527finalR>
+		<ra527kill>
+			<!-- 活动期间击杀，用于判断活跃玩家是否可领取永久皮肤 -->
+			<Type>			INT32	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527kill>
+		<ra527game>
+			<!-- 活动期间战斗次数，用于判断确立回流绑定 -->
+			<Type>			INT32	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527game>
+		<ra527invgid>
+			<!-- 召回人gid 0未绑定，>0预绑定，-1已真正绑定，记录到微服务-->
+			<Type>			INT64	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527invgid>
+		<ra527pay>
+			<!-- 活动期间购买礼包次数，用于限购 -->
+			<Type>			INT32	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527pay>
+		<ra527pflag>
+			<!-- 判断是否点了优惠礼包开启提示 -->
+			<Type>			INT8	</Type>
+			<Flags>			BASE	</Flags>
+			<Default>		0       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</ra527pflag>
+		<!-- 2020-05-27回流活动 end -->
+
+		<hasGetHalfYearFinalReward>
+			<Type>			BOOL	</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		False       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</hasGetHalfYearFinalReward>
+		
+		<hasGetLTLotteryFinalReward>
+			<Type>			PYTHON	</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		{}       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</hasGetLTLotteryFinalReward>
+		
+		<commonDailyClickGameRecord>
+			<Type>			PYTHON	</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		{}       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</commonDailyClickGameRecord>
+
+		<hasGetLTLotteryFinalReward>
+			<Type>			PYTHON	</Type>
+			<Flags>			BASE_AND_CLIENT	</Flags>
+			<Default>		{}       </Default>
+			<PersistentMongo>	true    </PersistentMongo>
+		</hasGetLTLotteryFinalReward>
+
+		<dtsLTLotteryPartFinalReward>
+			<Type>      PYTHON	        </Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsLTLotteryPartFinalReward>
+
+	</Properties>
+	<BaseMethods>
+		<requestActivityLTInfo> <Exposed/>
+			<Arg>		INT32		</Arg>   <!-- activity_id -->
+		</requestActivityLTInfo>
+		<getActivityLTTaskReward> <Exposed/>
+			<Arg>		INT32		</Arg>   <!-- activity_id -->
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+		</getActivityLTTaskReward>
+		<onFightEndActivityLimitTime>
+			<Arg>		INT32		</Arg>   <!-- kills -->
+			<Arg>		INT32		</Arg>   <!-- rank -->
+		</onFightEndActivityLimitTime>
+		<finishBattleActivityLimitTime>
+			<Arg>		INT32		</Arg>   <!-- teamSize -->
+		</finishBattleActivityLimitTime>
+		<addTaskCountActivityLimitTime> <Exposed/>
+			<Arg>		INT32		</Arg>   <!-- activity_id -->
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+			<Arg>		INT32		</Arg>   <!-- count -->
+		</addTaskCountActivityLimitTime>
+		<queryHunterCouple2017Sign> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</queryHunterCouple2017Sign>
+		<query2018BlackFridayDiscount> <Exposed/>
+		</query2018BlackFridayDiscount>
+		<playXmas2018Lottery> <Exposed/>
+		</playXmas2018Lottery>
+		<getXmas2018CollectPropsAwards> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</getXmas2018CollectPropsAwards>
+		<getXmas2019GiftsFromBattle>
+			<Arg>			PYTHON			</Arg>
+		</getXmas2019GiftsFromBattle>
+		<addXmas2019DayGiftsFromBattle>
+			<Arg>			PYTHON			</Arg>
+		</addXmas2019DayGiftsFromBattle>
+		<broadcastXmas2019GiveGiftFromBattle>
+			<Arg>			STRING			</Arg>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+		</broadcastXmas2019GiveGiftFromBattle>
+		<buyXmas2019Gift>	<Exposed/>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+		</buyXmas2019Gift>
+		<giveXmas2019Gift>	<Exposed/>
+			<Arg>			GID			</Arg>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+			<Arg>			STRING			</Arg>
+		</giveXmas2019Gift>
+		<getXmas2019Gift>	<Exposed/>
+			<Arg>			GID			</Arg>
+		</getXmas2019Gift>
+		<getXmas2019GiftByCardID>	<Exposed/>
+			<Arg>			GID			</Arg>
+			<Arg>			INT64			</Arg>
+		</getXmas2019GiftByCardID>
+		<getXmas2019GiftPartCards>	<Exposed/>
+			<Arg>			GID			</Arg>
+			<Arg>			GID			</Arg>
+			<Arg>			INT64			</Arg>
+		</getXmas2019GiftPartCards>
+		<getXmas2019GiftsShowWindow>	<Exposed/>
+			<Arg>			GID			</Arg>
+		</getXmas2019GiftsShowWindow>
+		<getXmas2019WindowPartGifts>	<Exposed/>
+			<Arg>			GID			</Arg>
+			<Arg>			INT32			</Arg>
+		</getXmas2019WindowPartGifts>
+		<getXmas2019GiftsRankList>	<Exposed/>
+			<Arg>			INT8			</Arg>
+		</getXmas2019GiftsRankList>
+		<onGetXmas2019GiftsRankList>
+			<Arg>			INT8			</Arg>
+			<Arg>	ARRAY <of> XMAS_GIFTS_RANK_DATA	</of>	</Arg>
+		</onGetXmas2019GiftsRankList>
+		<getXmas2019GiftsRankListByFriendGIDs>	<Exposed/>
+			<Arg>			INT8			</Arg>
+		</getXmas2019GiftsRankListByFriendGIDs>
+		<getXmas2019GiftsMain>	<Exposed/>
+		</getXmas2019GiftsMain>
+		<getXmas2019GenerousReward>	<Exposed/>
+			<Arg>			INT8			</Arg>
+		</getXmas2019GenerousReward>
+		<checkPopupXmas2019OldUserGift>	<Exposed/>
+		</checkPopupXmas2019OldUserGift>
+		<getXmas2019OldUserGift>	<Exposed/>
+		</getXmas2019OldUserGift>
+		<kofOpenSupplyBox> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</kofOpenSupplyBox>
+		<kofOpenMultipleSupplyBox> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</kofOpenMultipleSupplyBox>
+		<getBlackFriday2019ReturnYB> <Exposed/>
+			<Arg>			INT8			</Arg>
+		</getBlackFriday2019ReturnYB>
+		<changeBlackFriday2019CarnivalFlag> <Exposed/>
+			<Arg>			INT8			</Arg>
+		</changeBlackFriday2019CarnivalFlag>
+		<queryBlackFriday2019LeftTime> <Exposed/>
+		</queryBlackFriday2019LeftTime>
+		<selectUnitedBattleValentineCamp> <Exposed/>
+			<Arg>			INT8			</Arg>
+		</selectUnitedBattleValentineCamp>
+		<onUnitedBattleValentineMatchResult>
+			<Arg>			INT32			</Arg>
+		</onUnitedBattleValentineMatchResult>
+		<reqCommonHolidaySignIn> <Exposed/>
+		</reqCommonHolidaySignIn>
+		
+		<requestGenerateDtsLTBaseTable> <Exposed/>
+		</requestGenerateDtsLTBaseTable> 
+
+		<requestDtsLTDoLottery> <Exposed/>
+		</requestDtsLTDoLottery>
+		
+		<requestDtsLTDoAdvanceLottery> <Exposed/>
+			<Arg>			INT8			</Arg>
+		</requestDtsLTDoAdvanceLottery>
+		<getRetAct527WelcomeReward> <Exposed/>
+		</getRetAct527WelcomeReward>
+		<bindRetAct527User> <Exposed/>
+			<Arg>		INT64		</Arg>
+		</bindRetAct527User>
+		<openRetAct527InviteMain> <Exposed/>
+		</openRetAct527InviteMain>
+		<getRetAct527InviteReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getRetAct527InviteReward>
+		<openRetAct527TaskMain> <Exposed/>
+		</openRetAct527TaskMain>
+		<getRetAct527TaskReward> <Exposed/>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+		</getRetAct527TaskReward>
+		<getRetAct527RoadPointReward> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</getRetAct527RoadPointReward>
+		<getRetAct527FinalAppearanceReward> <Exposed/>
+		</getRetAct527FinalAppearanceReward>
+		<getRetAct527TmpFinalAppearanceReward> <Exposed/>
+		</getRetAct527TmpFinalAppearanceReward>
+		<finishRetAct527TaskFromClient> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</finishRetAct527TaskFromClient>
+		<openRetAct527PayMain> <Exposed/>
+		</openRetAct527PayMain>
+		
+		<requestLTLotteryFinalReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestLTLotteryFinalReward>
+
+		<requestLTLotteryPartFinalReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</requestLTLotteryPartFinalReward>
+		<requestLTLotteryFinalReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestLTLotteryFinalReward>
+		<getBlackFridayNextSupplementDiscountTs> <Exposed/>
+		</getBlackFridayNextSupplementDiscountTs>
+		<onCheckBlackFridaySupplementDiscounts>
+			<Arg>	PYTHON	</Arg>
+		</onCheckBlackFridaySupplementDiscounts>
+		<onReqSubBlackFridaySupplementDiscountNum>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onReqSubBlackFridaySupplementDiscountNum>
+		
+		<requestCommonDailyClickGift> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestCommonDailyClickGift>
+	</BaseMethods>
+	<ClientMethods>
+		<onGetActivityLTInfo>
+			<Arg>		INT32		</Arg>   <!-- activity_id -->
+			<Arg>		INT32		</Arg>   <!-- open -->
+			<Arg>		INT32		</Arg>   <!-- begin_ts -->
+			<Arg>		INT32		</Arg>   <!-- end_ts -->
+			<Arg>	ARRAY	<of>	COMMON_ACTIVITY_DATA	</of>	</Arg>
+		</onGetActivityLTInfo> 
+		<onGetActivityLTTaskReward>
+			<Arg>		INT32		</Arg>   <!-- activity_id -->
+			<Arg>		INT32		</Arg>   <!-- task_id -->
+			<Arg>		INT32		</Arg>   <!-- st -->
+			<Arg>		STRING		</Arg>   <!-- ext_info --> 
+		</onGetActivityLTTaskReward> 
+		<onGetRetAct527PayExtraReward>
+			<Arg>			PYTHON			</Arg>
+		</onGetRetAct527PayExtraReward>
+		<onQueryHunterCouple2017Sign>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onQueryHunterCouple2017Sign>
+		<onQuery2018BlackFridayDiscount> 
+			<Arg>			INT32			</Arg>
+		</onQuery2018BlackFridayDiscount>
+		<onSyncXmas2018LuckyVal> 
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onSyncXmas2018LuckyVal>
+		<onSyncXmas2018LotteryTimes> 
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onSyncXmas2018LotteryTimes>
+		<onSyncXmas2018CollectProps> 
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onSyncXmas2018CollectProps>
+		<onSyncXmas2018CollectAwards> 
+			<Arg>			INT32			</Arg>
+		</onSyncXmas2018CollectAwards>
+		<onSyncXmas2019Gifts> 
+			<Arg>			PYTHON			</Arg>
+		</onSyncXmas2019Gifts>
+		<onPopupXmas2019OldUserGift> 
+			<Arg>			INT8			</Arg>
+		</onPopupXmas2019OldUserGift>
+		<onGetXmas2019OldUserGift> 
+		</onGetXmas2019OldUserGift>
+		<onBuyXmas2019Gift> 
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onBuyXmas2019Gift>
+		<onGiveXmas2019Gift> 
+			<Arg>			GID			</Arg>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onGiveXmas2019Gift>
+		<onGetXmas2019Gift> 
+			<Arg>			GID			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT8			</Arg>
+		</onGetXmas2019Gift>
+		<onGetXmas2019GiftByCardID> 
+			<Arg>			GID			</Arg>
+			<Arg>			INT64			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT8			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onGetXmas2019GiftByCardID>
+		<onGetXmas2019GiftsShowWindow> 
+			<Arg>			GID			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetXmas2019GiftsShowWindow>
+		<onGetXmas2019WindowPartGifts> 
+			<Arg>			GID			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetXmas2019WindowPartGifts>
+		<onGetXmas2019GiftsRankList>
+			<Arg>			INT8			</Arg>
+			<Arg>	ARRAY <of> XMAS_GIFTS_RANK_DATA	</of>	</Arg>
+			<Arg>			INT64			</Arg>
+		</onGetXmas2019GiftsRankList>
+		<onGetXmas2019GiftsRankListByFriendGIDs>
+			<Arg>			INT8			</Arg>
+			<Arg>	ARRAY <of> XMAS_GIFTS_RANK_DATA	</of>	</Arg>
+		</onGetXmas2019GiftsRankListByFriendGIDs>
+		<onGetXmas2019GiftsMain> 
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetXmas2019GiftsMain>
+		<onGetXmas2019GiftPartCards> 
+			<Arg>			GID			</Arg>
+			<Arg>			GID			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+		</onGetXmas2019GiftPartCards>
+		<onGetXmas2019GenerousReward> 
+			<Arg>			INT8			</Arg>
+		</onGetXmas2019GenerousReward>
+		<onSyncKofSupply> 
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onSyncKofSupply>
+		<onUseBlackFriday2019CarnivalChance> 
+		</onUseBlackFriday2019CarnivalChance>
+		<onSyncBlackFriday2019AccumYB> 
+			<Arg>			INT32			</Arg>
+		</onSyncBlackFriday2019AccumYB>
+		<onGetBlackFriday2019ReturnYB> 
+			<Arg>			INT8			</Arg>
+		</onGetBlackFriday2019ReturnYB>
+		<onShowBlackFriday2019UI> 
+		</onShowBlackFriday2019UI>
+		<onChangeBlackFriday2019CarnivalFlag> 
+			<Arg>			INT8			</Arg>
+		</onChangeBlackFriday2019CarnivalFlag>
+		<onQueryBlackFriday2019LeftTime> 
+			<Arg>			INT32			</Arg>
+		</onQueryBlackFriday2019LeftTime>
+		<onSelectUnitedBattleValentineCamp> 
+			<Arg>			INT8			</Arg>
+		</onSelectUnitedBattleValentineCamp>
+		<onGetCommonHolidaySignInReward>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>			PYTHON			</Arg>
+		</onGetCommonHolidaySignInReward>
+		
+        <onGenerateDtsLTBaseTable>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGenerateDtsLTBaseTable>
+
+		<onDtsLTDoLottery>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onDtsLTDoLottery>
+
+		<onGetRetAct527WelcomeReward>
+		</onGetRetAct527WelcomeReward>
+		<onBindRetAct527User>
+			<Arg>			INT8			</Arg>
+		</onBindRetAct527User>
+		<onOpenRetAct527InviteMain>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT64		</Arg>
+		</onOpenRetAct527InviteMain>
+		<onGetRetAct527InviteReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetRetAct527InviteReward>
+		<onOpenRetAct527TaskMain>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onOpenRetAct527TaskMain>
+		<onGetRetAct527TaskReward>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+		</onGetRetAct527TaskReward>
+		<onGetRetAct527RoadPointReward>
+			<Arg>		INT8		</Arg>
+		</onGetRetAct527RoadPointReward>
+		<onGetRetAct527FinalAppearanceReward>
+		</onGetRetAct527FinalAppearanceReward>
+		<onGetRetAct527TmpFinalAppearanceReward>
+		</onGetRetAct527TmpFinalAppearanceReward>
+		<onShowRetAct527HallEntrance>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>		INT8		</Arg>
+		</onShowRetAct527HallEntrance>
+		<onPopupRetAct527AdvUI>
+			<Arg>		INT8		</Arg>
+		</onPopupRetAct527AdvUI>
+		<onOpenRetAct527PayMain>
+			<Arg>		INT32		</Arg>
+		</onOpenRetAct527PayMain>
+		<onSyncRetAct527PayCnt>
+			<Arg>		INT32		</Arg>
+		</onSyncRetAct527PayCnt>
+		<onGetLTLotteryPartFinalRewardReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetLTLotteryPartFinalRewardReward>
+		<onGetLTLotteryFinalReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetLTLotteryFinalReward>
+		<onSyncBlackFridayInfo>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onSyncBlackFridayInfo>
+		<onSyncBlackFridaySupplementDiscounts>
+			<Arg>	PYTHON	</Arg>
+		</onSyncBlackFridaySupplementDiscounts>
+		<onGetBlackFridayNextSupplementDiscountTs>
+			<Arg>		INT32		</Arg>
+		</onGetBlackFridayNextSupplementDiscountTs>
+		
+		<onGetCommonDailyClickReward>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onGetCommonDailyClickReward>
+	</ClientMethods>
+</root>

@@ -1,0 +1,83 @@
+<root>
+	<Properties>
+		<autoRoyaleVehicleProp0>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</autoRoyaleVehicleProp0>
+
+		<autoRoyaleVehicleProp1>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</autoRoyaleVehicleProp1>
+
+		<autoRoyaleVehicleProp2>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</autoRoyaleVehicleProp2>
+
+		<autoRoyaleVehicleProp3>
+			<Type>		INT32							</Type>
+			<Flags>		ALL_CLIENTS						</Flags>
+		</autoRoyaleVehicleProp3>
+	</Properties>
+
+	<ClientMethods>
+		<onSetAutoRoyaleVehicleProp>
+		</onSetAutoRoyaleVehicleProp>
+	</ClientMethods>
+
+	<CellMethods>
+		<setAutoRoyaleVehicleProp>
+			<Arg>		INT32							</Arg>
+			<Arg>		INT32							</Arg>
+			<Arg>		INT32							</Arg>
+		</setAutoRoyaleVehicleProp>
+
+		<moveVehiclePropFromSlotToVehiclePackage> <Exposed/>
+			<Arg>		INT32							</Arg>
+		</moveVehiclePropFromSlotToVehiclePackage>
+
+		<onMoveVehiclePropFromSlotToVehiclePackage>
+			<Arg>		INT32							</Arg>
+			<Arg>		INT32							</Arg>
+		</onMoveVehiclePropFromSlotToVehiclePackage>
+
+		<movePropFromAyPackageToIndexSlot> <Exposed/>
+			<Arg>		INT32							</Arg>
+			<Arg>		INT32							</Arg>
+		</movePropFromAyPackageToIndexSlot>
+
+		<delVehiclePropFromAyPackage> <Exposed/>
+			<Arg>		INT32							</Arg>
+			<Arg>		INT32							</Arg>
+		</delVehiclePropFromAyPackage>
+
+		<exchangeVehicleSlot> <Exposed/>
+			<Arg>		INT8							</Arg>
+			<Arg>		INT8							</Arg>
+		</exchangeVehicleSlot>
+
+		<delUuidVehiclePropFromAyPackage> <Exposed/>
+			<Arg>		INT32							</Arg>
+			<Arg>		ITEM_UUID						</Arg>
+		</delUuidVehiclePropFromAyPackage>
+
+		<movePropFromAyPackageToSlot>
+			<Arg>		INT32			</Arg>
+		</movePropFromAyPackageToSlot>
+
+		<addPropToAutoRoyalePackage>
+			<Arg>		INT32							</Arg>
+			<Arg>		INT32							</Arg>
+			<Arg>		PYTHON							</Arg>
+		</addPropToAutoRoyalePackage>
+
+		<notifyAutoRoyalePropEnterPackage>
+			<Arg>		INT32							</Arg>
+		</notifyAutoRoyalePropEnterPackage>
+
+		<notifyAutoRoyalePropLeavePackage>
+			<Arg>		INT32							</Arg>
+		</notifyAutoRoyalePropLeavePackage>
+	</CellMethods>
+</root>

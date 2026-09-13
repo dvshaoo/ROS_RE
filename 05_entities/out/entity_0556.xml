@@ -1,0 +1,115 @@
+<root>
+	<Properties>
+		<boxItemId>
+			<Type>		INT64		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</boxItemId>
+		<boxPerspectiveNum>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</boxPerspectiveNum>
+		<boxPerspective>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</boxPerspective>
+		<enemyPerspectiveNum>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</enemyPerspectiveNum>
+		<targetPerspectiveState>
+			<Type>		INT64		</Type>
+			<Flags>		CELL_PUBLIC		</Flags>
+		</targetPerspectiveState>
+		<playerSelfPerspective>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</playerSelfPerspective>
+		<playerTeamPerspective>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</playerTeamPerspective>
+		<playerSectorPerspective>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</playerSectorPerspective>
+		<sectorPerspectiveAngle>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</sectorPerspectiveAngle>
+		<sectorPerspectiveRadius>
+			<Type>		FLOAT		</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+		</sectorPerspectiveRadius>
+		<perspectivedDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+		</perspectivedDict>
+		<perspectPlayerList>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	[]		</Default>
+		</perspectPlayerList>
+
+		<assignPerspectIds>
+			<Type>		PYTHON		</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	{}		</Default>
+		</assignPerspectIds>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<addBoxPerspective>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT64				</Arg>
+		</addBoxPerspective>
+
+		<addEnemyPerspective>
+			<Arg>			INT64				</Arg>
+		</addEnemyPerspective>
+
+		<resetPerspective>
+		</resetPerspective>
+
+		<addPerspectivedState>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT64				</Arg>
+		</addPerspectivedState>
+
+		<setTeamPerspective>
+			<Arg>			INT64				</Arg>
+			<Arg>			BOOL				</Arg>
+		</setTeamPerspective>
+
+		<setSelfPerspective>
+			<Arg>			BOOL				</Arg>
+		</setSelfPerspective>
+
+		<setPerspectPlayers> <Exposed/>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+		</setPerspectPlayers>
+		<syncPerspected>
+			<Arg>			INT64				</Arg>
+			<Arg>			BOOL				</Arg>
+		</syncPerspected>
+
+		<setAssignPerspctPlayers>
+			<Arg>	STRING		</Arg>
+			<Arg>	ARRAY <of>	INT32	</of>	</Arg>
+			<Arg>	INT64	</Arg>
+		</setAssignPerspctPlayers>
+	</CellMethods>
+
+	<ClientMethods>
+		<startPerspect>
+			<Arg>	INT64	</Arg>
+		</startPerspect>
+		<stopPerspect>
+			<Arg>	INT64	</Arg>
+		</stopPerspect>
+		<onPerspectived>
+		</onPerspectived>
+	</ClientMethods>	
+</root>

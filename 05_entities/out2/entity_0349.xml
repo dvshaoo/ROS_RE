@@ -1,0 +1,234 @@
+<root>
+	<Properties>
+        <dtsFestivalTaskDayNo>
+			<Type>		INT64		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>   0       </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalTaskDayNo>
+        
+        <dtsFestivalRoundTask>
+			<Type>		STRING		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalRoundTask>
+
+        <dtsFestivalTaskReward>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>   []  </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalTaskReward>
+        
+        <dtsFestivalTaskHasReward>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>   []  </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalTaskHasReward>
+
+        <dtsFestivalTaskRewardPoint>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>   0     </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalTaskRewardPoint>
+        
+        <dtsFestivalTaskRewardPointDayLimit>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>   0     </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalTaskRewardPointDayLimit>
+        
+        <dtsFestivalTaskQualityDayLimit>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>   {}     </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalTaskQualityDayLimit>
+        
+        <dtsFestivalPointReward>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>   {}     </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalPointReward>
+        
+        <dtsFestivalBuyDiscountProp>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>   {}     </Default>
+			<PersistentMongo>	true			</PersistentMongo>
+        </dtsFestivalBuyDiscountProp>
+        
+	</Properties>
+
+	<BaseMethods>
+        <requestDtsFestivalRoundTaskList> <Exposed/>
+        </requestDtsFestivalRoundTaskList>
+        
+        <onGetDtsFestivalRoundTaskList>
+		    <Arg>       INT32			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onGetDtsFestivalRoundTaskList>
+
+        <requestGetDtsFestivalTask> <Exposed/>
+			<Arg>       STRING			</Arg>
+			<Arg>       INT32			</Arg>
+        </requestGetDtsFestivalTask>
+
+        <onGetDtsFestivalTaskResult>
+		    <Arg>       PYTHON			</Arg>
+        </onGetDtsFestivalTaskResult>
+
+        <requestQueryDtsFestivalTeamTaskList> <Exposed/>
+			<Arg>       INT32			</Arg>
+			<Arg>       INT32			</Arg>
+        </requestQueryDtsFestivalTeamTaskList>
+        
+        <onQueryDtsFestivalTeamTaskList> 
+			<Arg>       INT32			</Arg>
+			<Arg>       PYTHON			</Arg>
+        </onQueryDtsFestivalTeamTaskList> 
+
+        <requestQueryDtsFestivalPersonalTaskList> <Exposed/>
+        </requestQueryDtsFestivalPersonalTaskList>
+
+        <inviteFriendJoinDtsFestivalTaskTeam> <Exposed/>
+			<Arg>       INT64			</Arg>
+			<Arg>       STRING			</Arg>
+        </inviteFriendJoinDtsFestivalTaskTeam>
+        
+        <invitedToJoinDtsFestivalTaskTeam>
+			<Arg>       STRING			</Arg>
+			<Arg>       STRING			</Arg>
+			<Arg>       INT64			</Arg>
+			<Arg>       PYTHON			</Arg>
+        </invitedToJoinDtsFestivalTaskTeam>
+
+        <requestJoinDtsFestivalTaskTeam> <Exposed/>
+			<Arg>       STRING			</Arg>
+			<Arg>       INT64			</Arg>
+        </requestJoinDtsFestivalTaskTeam>
+        
+        <requestDtsFestivalTaskTeamApplyList> <Exposed/>
+        </requestDtsFestivalTaskTeamApplyList>
+        
+        <checkDtsFestivalTaskInviteOp> <Exposed/>
+			<Arg>       INT32			</Arg>
+			<Arg>       STRING			</Arg>
+        </checkDtsFestivalTaskInviteOp>
+
+        <requestCheckApplyFestivalTaskTeam> <Exposed/>
+			<Arg>       INT32			</Arg>
+			<Arg>       STRING			</Arg>
+			<Arg>       INT64			</Arg>
+        </requestCheckApplyFestivalTaskTeam>
+        
+        <requestUpdateDtsFestivalTeamJoinSet> <Exposed/>
+			<Arg>       STRING			</Arg>
+			<Arg>       BOOL			</Arg>
+        </requestUpdateDtsFestivalTeamJoinSet>
+        
+        <requestKickDtsFestivalTaskTeamMember> <Exposed/>
+			<Arg>       STRING			</Arg>
+			<Arg>       INT64			</Arg>
+        </requestKickDtsFestivalTaskTeamMember>
+
+        <requestQuitDtsFestivalTaskTeam> <Exposed/>
+			<Arg>       STRING			</Arg>
+        </requestQuitDtsFestivalTaskTeam>
+
+        <onGetDtsFestivalTaskReward>
+			<Arg>       STRING			</Arg>
+			<Arg>       BOOL			</Arg>
+        </onGetDtsFestivalTaskReward>
+
+        <requestDtsFestivalTaskReward> <Exposed/>
+			<Arg>       STRING			</Arg>
+        </requestDtsFestivalTaskReward>
+        
+        <requestDtsFestivalPointReward> <Exposed/>
+			<Arg>       INT32			</Arg>
+        </requestDtsFestivalPointReward>
+        
+        <buyDtsFestivalDiscountProp> <Exposed/>
+			<Arg>       INT32			</Arg>
+        </buyDtsFestivalDiscountProp>
+
+	</BaseMethods>
+
+    <ClientMethods>
+        <onQueryDtsFestivalTeamTaskList>
+		    <Arg>       INT32			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onQueryDtsFestivalTeamTaskList>
+
+        <onQueryDtsFestivalPersonalTaskList>
+		    <Arg>       PYTHON			</Arg>
+		    <Arg>       PYTHON			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onQueryDtsFestivalPersonalTaskList>
+
+        <onGetDtsFestivalRoundTaskList>
+		    <Arg>       INT32			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onGetDtsFestivalRoundTaskList>
+        
+        <onGetDtsFestivalTaskResult>
+			<Arg>       STRING			</Arg>
+        </onGetDtsFestivalTaskResult>
+        
+        <onKickDtsFestivalTaskTeamMember>
+			<Arg>       STRING			</Arg>
+		    <Arg>       INT64			</Arg>
+        </onKickDtsFestivalTaskTeamMember>
+        
+        <onInvitedToJoinDtsFestivalTaskTeam>
+			<Arg>       STRING			</Arg>
+			<Arg>       STRING			</Arg>
+		    <Arg>       INT64			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onInvitedToJoinDtsFestivalTaskTeam>
+        
+        <onGetAllDtsFestivalTaskTeamApplyList>
+		    <Arg>       PYTHON			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onGetAllDtsFestivalTaskTeamApplyList>
+
+        <onGetDtsFestivalTaskReward>
+		    <Arg>       PYTHON			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onGetDtsFestivalTaskReward>
+        
+        <onUpdateFestivalPointReward>
+		    <Arg>       PYTHON			</Arg>
+        </onUpdateFestivalPointReward>
+        
+        <onGetDtsFestivalTaskPoint>
+		    <Arg>    INT32		</Arg>
+		    <Arg>    INT32		</Arg>
+        </onGetDtsFestivalTaskPoint>
+        
+        <onGetDtsFestivalPointReward>
+		    <Arg>       PYTHON			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onGetDtsFestivalPointReward>
+        
+        <onGetDtsFestivalDiscountProp>
+		    <Arg>       PYTHON			</Arg>
+		    <Arg>       PYTHON			</Arg>
+        </onGetDtsFestivalDiscountProp>
+
+        <onCheckDtsFestivalTaskInviteReply>
+			<Arg>       STRING			</Arg>
+        </onCheckDtsFestivalTaskInviteReply>
+
+        <onUpdateDtsFestivalTeamJoinSetReply>
+			<Arg>       STRING			</Arg>
+			<Arg>       BOOL			</Arg>
+			<Arg>       BOOL			</Arg>
+        </onUpdateDtsFestivalTeamJoinSetReply>
+    </ClientMethods>
+</root>

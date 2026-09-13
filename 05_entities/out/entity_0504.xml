@@ -1,0 +1,30 @@
+<root>
+	<Properties>
+		<extraProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</extraProperties>
+		<extraPropertiesCaches>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</extraPropertiesCaches>
+		<extraPropertiesSyncTimer>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		0			</Default>
+		</extraPropertiesSyncTimer>
+		<interruptProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</interruptProperties>
+	</Properties>
+	<ClientMethods>
+		<onUpdateEquipExtraProperty>
+			<Arg>	UINT32	</Arg>
+			<Arg>	FLOAT	</Arg>
+		</onUpdateEquipExtraProperty>
+	</ClientMethods>
+</root>

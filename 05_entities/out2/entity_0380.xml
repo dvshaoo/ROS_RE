@@ -1,0 +1,66 @@
+<root>
+	<Properties>
+		<signKofAwardLevel>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</signKofAwardLevel>
+		<kofSignAwardTime>
+			<Type>		INT64		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</kofSignAwardTime>
+		<kofSignAwardRefreshTime>
+			<Type>		INT64		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</kofSignAwardRefreshTime>
+	</Properties>
+
+	<BaseMethods>
+		<requestDtsSigninAward> <Exposed/>
+		</requestDtsSigninAward>
+		<requestComplementSign> <Exposed/>
+			<Arg>			INT32					</Arg>
+		</requestComplementSign>
+		<requestKofSigninAward> <Exposed/>
+		</requestKofSigninAward>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSetSignAwardTime>
+			<Arg>			INT32					</Arg>
+		</onSetSignAwardTime>
+
+		<onRequestDtsSignInAward>
+			<Arg>			ARRAY <of> INT32 </of>					</Arg>
+			<Arg>			INT32									</Arg>
+		</onRequestDtsSignInAward>
+
+		<onSetSignAwardLevel>
+			<Arg>			INT32									</Arg>
+		</onSetSignAwardLevel>
+		<onRequestComplementSignFail>
+			<Arg>			INT32									</Arg>
+		</onRequestComplementSignFail>
+
+		<onRequestComplementSign>
+			<Arg>			INT32									</Arg>
+		</onRequestComplementSign>
+		
+		<onSetKofSignAwardTime>
+			<Arg>			INT32					</Arg>
+		</onSetKofSignAwardTime>
+
+		<onSetKofSignAwardLevel>
+			<Arg>			INT32									</Arg>
+		</onSetKofSignAwardLevel>
+		<onRequestDtsKofSignInAward>
+			<Arg>			ARRAY <of> INT32 </of>					</Arg>
+			<Arg>			INT32									</Arg>
+		</onRequestDtsKofSignInAward>
+	</ClientMethods>
+</root>

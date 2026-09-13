@@ -1,0 +1,95 @@
+<root>
+	<Properties>
+		<girlsDayTaskTreeProgress>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayTaskTreeProgress>
+
+		<girlsDayExchangeCount>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayExchangeCount>
+
+		<girlsDayLastLoginTime>
+			<Type> LONGTIME </Type>
+			<Flags> BASE </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayLastLoginTime>
+
+		<girlsDayOnlineTime>
+			<Type> LONGTIME </Type>
+			<Flags> BASE </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayOnlineTime>
+
+		<girlsDayTaskInfo>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayTaskInfo>
+
+		<girlsDayFavorTotal>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayFavorTotal>
+
+		<girlsDayFavorPersonal>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</girlsDayFavorPersonal>
+	</Properties>
+
+	<BaseMethods>
+		<girlsDayOnRequestUpdateInfo>
+			<Exposed/>
+		</girlsDayOnRequestUpdateInfo>
+
+		<girlsDayOnRequestCompleteTask>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</girlsDayOnRequestCompleteTask>
+
+		<girlsDayOnRequestPhaseAward>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</girlsDayOnRequestPhaseAward>
+
+		<girlsDayOnRequestFinalAward>
+			<Exposed/>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</girlsDayOnRequestFinalAward>
+
+		<addGirlsDayFavor>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</addGirlsDayFavor>
+
+		<addGirlsDayOnlineTime>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</addGirlsDayOnlineTime>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateGirlsDayInfo>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateGirlsDayInfo>
+
+		<onGetGirlsDayAward>
+			<Exposed/>
+			<Arg>	PYTHON	</Arg>
+		</onGetGirlsDayAward>
+	</ClientMethods>
+
+</root>

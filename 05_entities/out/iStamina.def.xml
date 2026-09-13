@@ -1,0 +1,34 @@
+<root>
+	<ClientName>	iStamina			</ClientName>
+	<Properties>
+		<refreshInterval>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</refreshInterval>
+
+		<cost>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</cost>
+
+		<stamina>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	-1		</Default>
+			<Persistent>	true	</Persistent>
+		</stamina>
+
+		<maxStamina>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	-1		</Default>
+			<Persistent>	true	</Persistent>
+		</maxStamina>
+	</Properties>
+
+	<CellMethods>
+		<addStamina>
+			<Arg>	INT32		</Arg>
+		</addStamina>
+	</CellMethods>
+</root>

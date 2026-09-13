@@ -1,0 +1,16 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+		<maxId>
+			<Type>	 INT32	 </Type>
+			<Flags>	 BASE	 </Flags>
+			<Default>	 0	 </Default>
+			<Persistent>	 true	</Persistent>
+		</maxId>
+	</Properties>
+	<BaseMethods>
+	</BaseMethods>
+</root>

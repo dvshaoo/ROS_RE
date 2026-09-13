@@ -1,0 +1,16 @@
+<root>
+    <Parent>    BattleGroundRankListStub    </Parent>
+
+    <BaseMethods>
+        <updateStatistics>
+            <Arg>		DBID			</Arg>	<!-- player databaseID -->
+            <Arg>		INT32			</Arg>	<!-- win cnt -->
+            <Arg>		INT32			</Arg>	<!-- top5 cnt -->
+            <Arg>		INT32			</Arg>	<!-- game count -->
+            <Arg>		INT32			</Arg>	<!-- kill count -->
+            <Arg>		INT32			</Arg>	<!-- death count -->
+            <Arg>		SCORE			</Arg>	<!-- score -->
+        </updateStatistics>
+    </BaseMethods>
+
+</root>

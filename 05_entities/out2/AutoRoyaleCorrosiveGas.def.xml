@@ -1,0 +1,35 @@
+<root>
+	<Implements>
+	</Implements>
+	<Parent>	LinePropBase	</Parent>
+	<ClientName>  AutoRoyaleCorrosiveGas  </ClientName>
+
+	<Properties>
+		<vehicleEntID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</vehicleEntID>
+	</Properties>
+
+	<ClientMethods>
+		<onAddPoint>
+			<Arg>	VECTOR3	</Arg>
+		</onAddPoint>
+		<onDelPoint>
+			<Arg>	VECTOR3	</Arg>
+		</onDelPoint>
+		<onAutoRoyaleVehicleEnter>
+			<Arg>	INT32	</Arg>
+		</onAutoRoyaleVehicleEnter>
+		<onAutoRoyaleVehicleLeave>
+			<Arg>	INT32	</Arg>
+		</onAutoRoyaleVehicleLeave>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<BaseMethods>
+	</BaseMethods>
+
+</root>

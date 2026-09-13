@@ -1,0 +1,203 @@
+<root>
+  <Properties>
+    <openServerTime>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </openServerTime>
+
+    <createRoleTime>
+        <Type>      FLOAT    </Type>
+        <Flags>     BASE    </Flags>
+        <Default>       0.0      </Default>
+        <Persistent>  true    </Persistent>
+    </createRoleTime>
+
+    <lastSevenAward>
+      <Type>      INT32    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0      </Default>
+      <Persistent>  true    </Persistent>
+    </lastSevenAward>
+
+    <lastSevenAwardTimestamp>
+      <Type>      FLOAT   </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0      </Default>
+      <Persistent>  true    </Persistent>
+    </lastSevenAwardTimestamp>
+
+    <levelAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </levelAwards>
+
+    <forceAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </forceAwards>
+
+    <firstPayAward>
+      <Type>      INT32    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0      </Default>
+      <Persistent>  true    </Persistent>
+    </firstPayAward>
+
+    <onlineAward>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </onlineAward>
+
+    <onlineSeconds>
+      <Type>      INT32    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0      </Default>
+      <Persistent>  true    </Persistent>
+    </onlineSeconds>
+
+    <lastPayTime>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </lastPayTime>
+
+    <payHistory>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </payHistory>
+
+    <payAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </payAwards>
+
+    <dailyPayHistory>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </dailyPayHistory>
+
+    <dailyPayAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </dailyPayAwards>
+
+    <lastConsumeTime>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </lastConsumeTime>
+
+    <consumeHistory>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </consumeHistory>
+
+    <consumeAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </consumeAwards>
+
+    <dailyConsumeHistory>
+      <Type>      FLOAT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       0.0      </Default>
+      <Persistent>  true    </Persistent>
+    </dailyConsumeHistory>
+
+    <dailyConsumeAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+      <Persistent>  true    </Persistent>
+    </dailyConsumeAwards>
+
+    <unGetAwards>
+      <Type>      PY_DICT    </Type>
+      <Flags>     BASE_AND_CLIENT    </Flags>
+      <Default>       {}      </Default>
+    </unGetAwards>
+  </Properties>
+
+  <BaseMethods>
+    <requestLevelAward><Exposed/>
+      <Arg> INT32  </Arg>
+    </requestLevelAward>
+
+    <requestForceAward><Exposed/>
+      <Arg> INT32  </Arg>
+    </requestForceAward>
+
+    <requestFirstPayAward> <Exposed/>
+    </requestFirstPayAward>
+
+    <requestOnlineAward> <Exposed/>
+      <Arg> INT32  </Arg>
+    </requestOnlineAward>
+
+    <requestSevenDaysAward> <Exposed/>
+      <Arg> INT32  </Arg>
+    </requestSevenDaysAward>
+
+    <requestPayAward> <Exposed/>
+      <Arg> FLOAT  </Arg>
+    </requestPayAward>
+
+    <requestDailyPayAward> <Exposed/>
+      <Arg> FLOAT  </Arg>
+    </requestDailyPayAward>
+
+    <onPay>
+      <Arg> FLOAT  </Arg>
+    </onPay>
+
+    <requestConsumeAward> <Exposed/>
+      <Arg> FLOAT  </Arg>
+    </requestConsumeAward>
+
+    <requestDailyConsumeAward> <Exposed/>
+      <Arg> FLOAT  </Arg>
+    </requestDailyConsumeAward>
+  </BaseMethods>
+
+  <ClientMethods>
+    <onFirstPay> </onFirstPay>
+
+    <onPay>
+      <Arg> FLOAT  </Arg>
+    </onPay>
+
+    <onConsume>
+      <Arg> FLOAT  </Arg>
+    </onConsume>
+
+    <updateOnlineSeconds>
+      <Arg> INT32  </Arg>
+    </updateOnlineSeconds>
+
+    <resetOnlineAward>
+      <Arg> INT32  </Arg>
+    </resetOnlineAward>
+  </ClientMethods>
+</root>

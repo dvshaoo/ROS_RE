@@ -1,0 +1,51 @@
+<Root>
+	<Properties>
+		<dtsPumpkingItem2020DayCnt>
+			<Type>  INT32 </Type>
+			<Flags> CELL_PUBLIC </Flags>
+			<Default>	0		</Default>
+		</dtsPumpkingItem2020DayCnt>
+	</Properties>
+	<ClientMethods>
+		<onGetHalloweenPumpkingItem2020>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetHalloweenPumpkingItem2020>
+	</ClientMethods>
+	<BaseMethods>
+		<onGetHalloweenPumpkinStamp>
+			<Arg>		INT32		</Arg>
+		</onGetHalloweenPumpkinStamp>
+		<onSyncHalloweenPumpkinStampFromAthlete>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onSyncHalloweenPumpkinStampFromAthlete>
+		<onPickHalloweenPumpkingItem2020>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPickHalloweenPumpkingItem2020>
+	</BaseMethods>
+	<CellMethods>
+		<onPickHalloweenPumpkinStamp>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPickHalloweenPumpkinStamp>
+		<onSyncHalloweenPumpkinStamp>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onSyncHalloweenPumpkinStamp>
+		<onPickHalloweenPumpkingItem2020>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPickHalloweenPumpkingItem2020>
+		
+		<onHalloweenRobotDamage>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onHalloweenRobotDamage>
+
+		<onKillHalloweenRobot>
+			<Arg>		INT32		</Arg>
+		</onKillHalloweenRobot>
+	</CellMethods>
+</Root>

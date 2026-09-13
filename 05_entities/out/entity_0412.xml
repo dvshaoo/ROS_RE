@@ -1,0 +1,71 @@
+<root>
+	<Implements>
+		<Interface>			iGlobal			</Interface>
+		<Interface>			iBaseNoCell		</Interface>
+	</Implements>
+
+	<Properties>
+		<rankList>
+			<Type>		BUCKET_RANK_LIST		</Type>
+			<Flags>		BASE				</Flags>
+			<Persistent> true				</Persistent>
+		</rankList>
+		<rankDataVersion>
+			<Type>		INT32				</Type>
+			<Flags>		BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>	0				</Default>
+		</rankDataVersion>
+		<isRankListOpen>
+			<Type>		BOOL				</Type>
+			<Flags>		BASE				</Flags>
+			<Default>	False				</Default>
+		</isRankListOpen>
+		<playerMailBoxes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE 		</Flags>
+			<Default>	{}		</Default>
+		</playerMailBoxes>
+		<bannedPlayers>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE 		</Flags>
+			<Persistent>	true		</Persistent>
+			<Default>	{}		</Default>
+		</bannedPlayers>
+	</Properties>
+	<BaseMethods>
+		<updateValue>
+			<Arg>		GID				</Arg>	<!-- gid -->
+			<Arg>		INT32				</Arg>	<!-- value -->
+		</updateValue>
+
+		<getTopList>
+			<Arg>		MAILBOX				</Arg>	<!-- mailbox -->
+			<Arg>		INT32				</Arg>	<!-- buffer version -->
+			<Arg>		INT32				</Arg>	<!-- buffer length-->
+			<Arg>		BOOL				</Arg>	<!-- next batch -->
+		</getTopList>
+
+		<getPlayerRank>
+			<Arg>		MAILBOX				</Arg>	<!-- mailbox -->
+			<Arg>		GID				</Arg>	<!-- gid -->
+		</getPlayerRank>
+
+		<openRankList>
+		</openRankList>
+		<gmOpenRankList>
+			<Arg>		INT32				</Arg>
+		</gmOpenRankList>
+		<gmBanPlayer>
+			<Arg>		GM_PROXY		</Arg>	<!-- gmBox -->
+			<Arg>		GID				</Arg>
+			<Arg>		INT32				</Arg>
+		</gmBanPlayer>
+
+		<archive></archive>
+		<onGetArchive>
+			<Arg>  BUCKET_RANK_LIST  </Arg>
+		</onGetArchive>
+	</BaseMethods>
+</root>
+

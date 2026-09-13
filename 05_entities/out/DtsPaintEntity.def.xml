@@ -1,0 +1,33 @@
+<root>
+
+    <Implements>
+        <Interface> iCell </Interface>
+        <Interface> iBaseWithCell </Interface>
+    </Implements>
+
+    <ClientName>  DtsPaintEntity  </ClientName>
+
+    <Properties>
+        <paintID>
+            <Type>  INT32 </Type>
+            <Flags> ALL_CLIENTS </Flags>
+        </paintID>
+
+        <forwardVec>
+            <Type>  VECTOR3 </Type>
+            <Flags> ALL_CLIENTS </Flags>
+        </forwardVec>
+
+        <upVec>
+            <Type>  VECTOR3 </Type>
+            <Flags> ALL_CLIENTS </Flags>
+        </upVec>
+
+        <info>
+            <Type>  PY_DICT </Type>
+            <Flags> ALL_CLIENTS </Flags>
+        </info>
+
+  </Properties>
+
+</root>

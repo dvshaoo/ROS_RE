@@ -1,0 +1,33 @@
+<root>
+	<Properties>
+		<customControlSchemeDicts>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+		</customControlSchemeDicts>
+		<uisettingModeIdx>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Persistent> true </Persistent>
+			<Default>	0	</Default>
+		</uisettingModeIdx>
+	</Properties>
+
+	<BaseMethods>
+		<_SyncCustomControlSchemeToServer>
+			<Exposed/>
+			<Arg> CUSTOM_CONTROL_SCHEME </Arg>
+		</_SyncCustomControlSchemeToServer>
+		<_SyncUISettingModeToServer><Exposed/>
+			<Arg> INT32 </Arg>
+		</_SyncUISettingModeToServer>
+	</BaseMethods>
+	
+	<ClientMethods>
+		<_SyncCustomControlSchemeDictsToClient>
+			<Arg> PYTHON </Arg>
+		</_SyncCustomControlSchemeDictsToClient>
+		<_SyncUISettingModeToClient>
+			<Arg> INT32 </Arg>
+		</_SyncUISettingModeToClient>		
+	</ClientMethods>
+</root>

@@ -1,0 +1,513 @@
+<root>
+	<Properties>
+		<isEnteringRoom>
+			<Type>			BOOL			</Type>
+			<Flags>			BASE			</Flags>
+		</isEnteringRoom>
+		<needOBRoomTip>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		1					</Default>
+			<Persistent>	true			</Persistent>
+		</needOBRoomTip>
+
+		<needNormalRoomTip>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		1					</Default>
+			<Persistent>	true			</Persistent>
+		</needNormalRoomTip>
+
+		<canCreateRoom>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>
+		</canCreateRoom>
+
+		<canCreateMultiRoom>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE 				</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>
+		</canCreateMultiRoom>
+
+		<customGameRoomMailBox>
+			<Type>			GLOBAL_MAIL_BOX_INFO	 			</Type>
+			<Flags>  		BASE 				</Flags>
+		</customGameRoomMailBox>
+
+		<searchCoolDown>
+			<Type>			BOOL	 			</Type>
+			<Flags>  		BASE 				</Flags>
+			<Default>		0					</Default>
+		</searchCoolDown>
+		<requestListCoolDown>
+			<Type>			BOOL	 			</Type>
+			<Flags>  		BASE 				</Flags>
+			<Default>		0					</Default>
+		</requestListCoolDown>
+
+
+		<requestListCDTimer>
+			<Type>			INT32	 			</Type>
+			<Flags>  		BASE 				</Flags>
+			<Default>		0					</Default>
+		</requestListCDTimer>
+	</Properties>
+
+	<BaseMethods>
+		<createDtsCustomGame> <Exposed/>
+			<Arg>	CUSTOM_ROOM_PARAMS	</Arg>
+			<Arg>	STRING				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	STRING				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT8				</Arg>
+			<Arg>	INT8				</Arg>
+			<Arg>	INT8				</Arg>
+			<Arg>	INT8				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT32				</Arg>
+			<Arg>	INT32				</Arg>
+		</createDtsCustomGame>
+
+		<requestEnterWorldOpenUI> <Exposed/>
+		</requestEnterWorldOpenUI>
+
+		<joinDtsCustomGame> <Exposed/>
+			<Arg>		GID				</Arg>
+			<Arg>		STRING			</Arg>
+		</joinDtsCustomGame>
+		<onJoinDtsCustomGameFailure>
+			<Arg>		STRING			</Arg>
+		</onJoinDtsCustomGameFailure>
+
+		<gmJoinDtsCustomGame>
+			<Arg>		GID				</Arg>
+		</gmJoinDtsCustomGame>
+
+		<enterDtsCustomGame> <Exposed/>
+		</enterDtsCustomGame>
+
+		<removeDtsCustomRoom> <Exposed/>
+		</removeDtsCustomRoom>
+
+		<requestRoomListInfo> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</requestRoomListInfo>
+
+		<requestRoomCountInfo> <Exposed/>
+		</requestRoomCountInfo>
+
+		<onRequestRoomCountInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onRequestRoomCountInfo>
+
+		<onRequestRoomListInfo>
+			<Arg>		ARRAY <of> 	DTS_CUSTOM_CLIENT_ROOM_INFO </of>		</Arg>
+			<Arg>		INT32												</Arg>
+		</onRequestRoomListInfo>
+
+		<onCreateDtsCustomGame>
+			<Arg>		DTS_CUSTOM_ROOM_INFO_FOR_CLIENT		</Arg>
+		</onCreateDtsCustomGame>
+
+		<moveFreeItemToPrepare> <Exposed/>
+			<Arg>		GID			</Arg>
+		</moveFreeItemToPrepare>
+
+		<requestSearchRoom> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestSearchRoom>
+
+		<movePrepareItemToFree> <Exposed/>
+			<Arg>		GID			</Arg>
+		</movePrepareItemToFree>
+
+		<moveNormalFreeItemToPrepare> <Exposed/>
+		</moveNormalFreeItemToPrepare>
+
+		<moveNormalPrepareItemToFree> <Exposed/>
+		</moveNormalPrepareItemToFree>
+
+		<unRegisterCreatorCustomGameRoom>
+		</unRegisterCreatorCustomGameRoom>
+
+		<onJoinDtsCustomGame>
+			<Arg>		PYTHON		</Arg>
+		</onJoinDtsCustomGame>
+
+		<moveOBFreeItemToPrepareFixedPoint> <Exposed/>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</moveOBFreeItemToPrepareFixedPoint>
+
+		<moveOBWatchItemToPrepareFixedPoint> <Exposed/>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</moveOBWatchItemToPrepareFixedPoint>
+
+		<moveNormalWatchItemToPrepareFixedPoint> <Exposed/>
+			<Arg>		GID 			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</moveNormalWatchItemToPrepareFixedPoint>
+
+		<moveNormalFreeItemToPrepareFixedPoint> <Exposed/>
+			<Arg>		GID				</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</moveNormalFreeItemToPrepareFixedPoint>
+
+		<hideOBRoomTips> <Exposed/>
+		</hideOBRoomTips>
+
+		<hideNormalRoomTips> <Exposed/>
+		</hideNormalRoomTips>
+
+		<removePlayerFromRoom> <Exposed/>
+			<Arg>		GID				</Arg>
+		</removePlayerFromRoom>
+
+		<removeNormalPlayerFromRoom> <Exposed/>
+		</removeNormalPlayerFromRoom>
+
+		<unRegisterCustomGameRoom>
+		</unRegisterCustomGameRoom>
+
+		<modifyCustomRoomParams> <Exposed/>
+			<Arg>		STRING					</Arg>
+			<Arg>		STRING 					</Arg>
+			<Arg>		INT32					</Arg>
+		</modifyCustomRoomParams>
+
+		<onQuitCustomRoom>
+			<Arg>		GLOBAL_MAIL_BOX_INFO			</Arg>
+		</onQuitCustomRoom>
+
+		<gmChangeRoomCreateAuthority>
+			<Arg>		BOOL					</Arg>
+		</gmChangeRoomCreateAuthority>
+
+		<gmRequestSetInviteAuthority>
+			<Arg>		BOOL					</Arg>
+		</gmRequestSetInviteAuthority>
+
+		<onBroadCastJoinInfo>
+			<Arg>		GID						</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+		</onBroadCastJoinInfo>
+
+		<onBroadCastFreeToPrepare>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadCastFreeToPrepare>
+
+		<onBroadCastCustomGameCountdownFive>
+		</onBroadCastCustomGameCountdownFive>
+
+		<onBroadCastWatchToPrepare>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadCastWatchToPrepare>
+
+		<onBroadcastPreapreToFree>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadcastPreapreToFree>
+
+		<onBroadcastPreapreToWatch>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadcastPreapreToWatch>
+
+		<onBroadcastRemovePlayerFromRoomInPrepare>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+		</onBroadcastRemovePlayerFromRoomInPrepare>
+
+		<onBroadcastRemovePlayerFromRoomInFree>
+			<Arg>		GID 					</Arg>
+		</onBroadcastRemovePlayerFromRoomInFree>
+
+		<onBroadcastRemovePlayerFromRoomInWatch>
+			<Arg>		GID 					</Arg>
+		</onBroadcastRemovePlayerFromRoomInWatch>
+
+		<onBroadCastRoomNameChange>
+			<Arg>		STRING 					</Arg>
+		</onBroadCastRoomNameChange>
+
+		<requestRefreshWhiteList>
+			<Arg>		ARRAY <of> GID </of> 	</Arg>
+		</requestRefreshWhiteList>
+
+		<requestCustomRoomScoreConfigID> <Exposed/>
+		</requestCustomRoomScoreConfigID>
+
+		<onRequestCustomRoomScoreConfigID>
+			<Arg>		INT32		</Arg>
+		</onRequestCustomRoomScoreConfigID>
+
+		<requestSetCustomRoomScoreConfigID> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestSetCustomRoomScoreConfigID>
+
+		<changeLockMoveState> <Exposed/>
+		</changeLockMoveState>
+
+		<onBroadCastLockMoveChange>
+			<Arg>		BOOL 					</Arg>
+		</onBroadCastLockMoveChange>
+
+		<gmRequestPlayerJoinCustomGame> <Exposed/>
+			<Arg>		GID	</Arg>				
+		</gmRequestPlayerJoinCustomGame>
+
+		<gmSendInviteMail> <Exposed/>
+			<Arg>		GID	</Arg>				
+			<Arg>		STRING	</Arg>				
+			<Arg>		STRING	</Arg>				
+		</gmSendInviteMail>
+
+		<movePrepareItemToWatch> <Exposed/>
+			<Arg>		GID 					</Arg>
+		</movePrepareItemToWatch>
+
+		<moveFreeItemToWatch> <Exposed/>
+			<Arg>		GID 					</Arg>
+		</moveFreeItemToWatch>
+
+		<onBroadcastFreeToWatch>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadcastFreeToWatch>
+
+		<moveWatchItemToFree> <Exposed/>
+			<Arg>		GID 					</Arg>
+		</moveWatchItemToFree>
+
+		<moveNormalWatchItemToFree> <Exposed/>
+			<Arg>		GID 					</Arg>
+		</moveNormalWatchItemToFree>
+
+		<onBroadCastWatchItemToFree>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>		
+		</onBroadCastWatchItemToFree>
+
+		<registerCustomGameRoom>
+			<Arg>		GLOBAL_MAIL_BOX_INFO					</Arg>
+		</registerCustomGameRoom>
+
+		<requestRoomPassWord> <Exposed/>
+		</requestRoomPassWord>
+		<requestCheckPlayerExist> <Exposed/>
+			<Arg>		GID		</Arg>
+		</requestCheckPlayerExist>
+		<onRequestCheckPlayerExist>
+			<Arg>		GID					</Arg>
+			<Arg>		BOOL					</Arg>
+		</onRequestCheckPlayerExist>
+
+		<onRequestRoomPassWord>
+			<Arg>		STRING 					</Arg>
+			<Arg>		INT8					</Arg>
+			<Arg>		INT8					</Arg>
+			<Arg>		INT8					</Arg>
+			<Arg>		INT8					</Arg>
+		</onRequestRoomPassWord>
+
+		<onCreateRoom>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		PYTHON					</Arg>
+		</onCreateRoom>
+		<banPlayerFromCustomRoom> <Exposed/>
+			<Arg>	GID </Arg>
+		</banPlayerFromCustomRoom>
+
+		<reportCustomRoomHost> <Exposed/>
+			<Arg>		INT32					</Arg>		
+			<Arg>		STRING 					</Arg>
+			<Arg>		INT32					</Arg>
+		</reportCustomRoomHost>
+
+		<checkPlayerHasDownloadedMap> <Exposed/>
+			<Arg>	GID	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</checkPlayerHasDownloadedMap>
+
+		<canMatchBigAndNextGenMap>
+			<Arg>	GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>	GID	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</canMatchBigAndNextGenMap>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onQuitCustomRoom>
+		</onQuitCustomRoom>
+
+		<onGmChangeRoomCreateAuthority>
+			<Arg>		INT32		</Arg>
+		</onGmChangeRoomCreateAuthority>
+		
+		<onRequestRoomListInfo>
+			<Arg>		ARRAY <of> 	DTS_CUSTOM_CLIENT_ROOM_INFO </of>		</Arg>
+			<Arg>		INT32												</Arg>
+		</onRequestRoomListInfo>
+
+		<onRequestCustomRoomScoreConfigID>
+			<Arg>		INT32		</Arg>
+		</onRequestCustomRoomScoreConfigID>
+
+		<onCreateDtsCustomGame>
+			<Arg>		DTS_CUSTOM_ROOM_INFO_FOR_CLIENT		</Arg>
+		</onCreateDtsCustomGame>
+
+		<onJoinDtsCustomGame>
+			<Arg>		PYTHON		</Arg>
+		</onJoinDtsCustomGame>
+
+		<onHideOBRoomTips>
+		</onHideOBRoomTips>
+
+		<onHideNormalRoomTips>
+		</onHideNormalRoomTips>
+
+		<onBroadCastRoomNameChange>
+			<Arg>		STRING					</Arg>
+		</onBroadCastRoomNameChange>
+
+		<onBroadCastCustomGameCountdownFive>
+		</onBroadCastCustomGameCountdownFive>
+
+		<onBroadCastJoinInfo>
+			<Arg>		GID						</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+		</onBroadCastJoinInfo>
+
+		<onRequestRoomCountInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onRequestRoomCountInfo>
+
+		<onBroadCastFreeToPrepare>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadCastFreeToPrepare>
+
+		<onBroadCastWatchToPrepare>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadCastWatchToPrepare>
+
+		<onBroadcastPreapreToFree>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadcastPreapreToFree>
+
+		<onBroadcastRemovePlayerFromRoomInPrepare>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+		</onBroadcastRemovePlayerFromRoomInPrepare>
+
+		<onBroadcastRemovePlayerFromRoomInFree>
+			<Arg>		GID 					</Arg>
+		</onBroadcastRemovePlayerFromRoomInFree>
+
+		<onBroadCastLockMoveChange>
+			<Arg>		BOOL 					</Arg>
+		</onBroadCastLockMoveChange>
+
+		<onBroadcastPreapreToWatch>
+			<Arg>		INT32					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadcastPreapreToWatch>
+
+		<onBroadcastFreeToWatch>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>
+		</onBroadcastFreeToWatch>
+
+		<onBroadcastRemovePlayerFromRoomInWatch>
+			<Arg>		GID 					</Arg>
+		</onBroadcastRemovePlayerFromRoomInWatch>
+
+		<onBroadCastWatchItemToFree>
+			<Arg>		GID 					</Arg>
+			<Arg>		STRING					</Arg>
+			<Arg>		INT32					</Arg>		
+		</onBroadCastWatchItemToFree>
+
+		<onRequestRoomPassWord>
+			<Arg>		STRING 					</Arg>
+			<Arg>		INT8					</Arg>
+			<Arg>		INT8					</Arg>
+			<Arg>		INT8					</Arg>
+			<Arg>		INT8					</Arg>
+		</onRequestRoomPassWord>
+		<syncRoomCardExpireTime>
+			<Arg>		INT64					</Arg>
+		</syncRoomCardExpireTime>
+
+		<onRequestCheckPlayerExist>
+			<Arg>		GID					</Arg>
+			<Arg>		BOOL					</Arg>
+		</onRequestCheckPlayerExist>
+		<gmRequestSetInviteAuthority>
+			<Arg>		BOOL					</Arg>
+		</gmRequestSetInviteAuthority>
+
+		<onCheckPlayerHasDownloadedMap>
+			<Arg>	BOOL	</Arg>
+			<Arg>	GID	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onCheckPlayerHasDownloadedMap>
+	</ClientMethods>
+</root>

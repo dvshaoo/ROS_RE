@@ -1,0 +1,131 @@
+<root>
+	<Properties>
+		<battleRebornTimes>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</battleRebornTimes>
+		<lastRebornTokenTs>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</lastRebornTokenTs>
+		<playersRebornTokenInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}		</Default>
+		</playersRebornTokenInfo>
+		<battleRecoverTimes>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</battleRecoverTimes>
+		<lastRecoverTs>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</lastRecoverTs>
+		<occupyMedicalCabinID>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+		</occupyMedicalCabinID>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<checkPickBattleRebornToken>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</checkPickBattleRebornToken>
+		<rebornPlayerByToken>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</rebornPlayerByToken>
+		<onRebornPlayerByToken>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onRebornPlayerByToken>
+		<onBattleReborn>
+			<Arg>		PYTHON			</Arg>
+		</onBattleReborn>
+		<onNotifyPlayerRebornTokenInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+			<Arg>		INT32			</Arg>
+		</onNotifyPlayerRebornTokenInfo>
+		<onUpdatePlayerRebornTokenPlace>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onUpdatePlayerRebornTokenPlace>
+		<onSyncEnemyRebornTokenInPackage>
+			<Arg>		PYTHON			</Arg>
+		</onSyncEnemyRebornTokenInPackage>
+		<onStartBattleRebornProcess>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		BOOL			</Arg>
+		</onStartBattleRebornProcess>
+		<onStartBattleRecoverPlayer>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onStartBattleRecoverPlayer>
+		<startBattleRecoverSing><Exposed/>
+			<Arg>		INT32			</Arg>
+		</startBattleRecoverSing>
+		<cancelBattleRecoverSing><Exposed/>
+		</cancelBattleRecoverSing>
+		<onFinishBattleRecover>
+		</onFinishBattleRecover>
+		<buyVendingMachineGoods><Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</buyVendingMachineGoods>
+		<onBuyVendingMachineGoods>
+			<Arg> INT32	</Arg>
+			<Arg> INT32	</Arg>
+		</onBuyVendingMachineGoods>
+		<sellAllEnemyRebornTokens><Exposed/>
+			<Arg>		INT32			</Arg>
+		</sellAllEnemyRebornTokens>
+		<onDelAllEnemyRebornTokensForSell>
+			<Arg> INT32	</Arg>
+			<Arg> INT32	</Arg>
+		</onDelAllEnemyRebornTokensForSell>
+	</CellMethods>
+
+	<ClientMethods>
+		<onBattleReborn>
+		</onBattleReborn>
+		<onNotifyPlayerRebornTokenInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+			<Arg>		INT32			</Arg>
+		</onNotifyPlayerRebornTokenInfo>
+		<onUpdatePlayerRebornTokenPlace>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+			<Arg>		VECTOR3			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</onUpdatePlayerRebornTokenPlace>
+		<onStartBattleRebornProcess>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		BOOL			</Arg>
+		</onStartBattleRebornProcess>
+		<onGenBattleRebornTokenInfo>
+			<Arg>		PYTHON			</Arg>
+		</onGenBattleRebornTokenInfo>
+		<onStartBattleRecoverSing>
+		</onStartBattleRecoverSing>
+		<onStartBattleRecoverPlayer>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onStartBattleRecoverPlayer>
+		<onFinishBattleRecover>
+		</onFinishBattleRecover>
+	</ClientMethods>
+</root>
+
+

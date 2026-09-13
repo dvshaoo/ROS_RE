@@ -1,0 +1,70 @@
+<root>
+	<Properties>
+		<weekendPushWindowOpen>
+			<Type>	BOOL	</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+		</weekendPushWindowOpen>
+		<weekendPushRecordScore>
+			<Type>	BOOL	</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+		</weekendPushRecordScore>
+		<weekendPushGetReward>
+			<Type>	BOOL	</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+		</weekendPushGetReward>
+		<weekendPushScoreDiff>
+			<Type>	INT32	</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+		</weekendPushScoreDiff>
+		<weekendPushRewardsHaveGotten>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+		</weekendPushRewardsHaveGotten>
+		<weekendPushLastCollectionPrefix>
+			<Type>	STRING	</Type>
+			<Flags>	BASE	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</weekendPushLastCollectionPrefix>
+		<weekendPushRequestTimer>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+		</weekendPushRequestTimer>
+	</Properties>
+	<BaseMethods>
+		<requireWeekendPushReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</requireWeekendPushReward>
+		<requireWeekendPushData> <Exposed/>
+		</requireWeekendPushData>
+		<onWeekendPushScoreUpdate>
+			<Arg>	INT32	</Arg>
+		</onWeekendPushScoreUpdate>
+	</BaseMethods>
+	<ClientMethods>
+		<updateWeekendPushWindowOpen>
+			<Arg>	BOOL	</Arg>
+		</updateWeekendPushWindowOpen>
+		<updateWeekendPushRecordScore>
+			<Arg>	BOOL	</Arg>
+		</updateWeekendPushRecordScore>
+		<updateWeekendPushGetReward>
+			<Arg>	BOOL	</Arg>
+		</updateWeekendPushGetReward>
+		<onGetWeekendPushRankData>
+			<Arg>	PYTHON	</Arg>
+		</onGetWeekendPushRankData>
+		<onGetWeekendPushData>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetWeekendPushData>
+		<onGetWeekendPushReward>
+			<Arg>	INT32	</Arg>
+		</onGetWeekendPushReward>
+		<onRequireBattleGroundWeekendPushRankList>
+			<Arg>	INT32		</Arg>	<!-- start -->
+			<Arg>	ARRAY <of> DTS_WEEKEND_PUSH_RANK_DATA </of>	</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg><!-- rankType -->
+		</onRequireBattleGroundWeekendPushRankList>
+	</ClientMethods>
+</root>

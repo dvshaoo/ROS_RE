@@ -1,0 +1,65 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<setCustomizedSuitOneCloth>  <Exposed/>
+			<Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+			<Arg> STRING </Arg>	<!-- CustomizedSuitSlotName -->
+			<Arg> INT32 </Arg>	<!-- appearanceID -->
+		</setCustomizedSuitOneCloth>
+		<unloadCustomizedSuitOneCloth>  <Exposed/>
+		    <Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+			<Arg> STRING </Arg>	<!-- CustomizedSuitSlotName -->
+		</unloadCustomizedSuitOneCloth>
+		<setCustomizedSuitName>  <Exposed/>
+			<Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+			<Arg> STRING </Arg>	<!-- CustomizedSuitName -->
+		</setCustomizedSuitName>
+		<tryUnlockCustomizedSuit>  <Exposed/>
+			<Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+		</tryUnlockCustomizedSuit>
+		<putOnCustomizedSuit>  <Exposed/>
+			<Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+		</putOnCustomizedSuit>
+		<tryPutOnCustomizedSuit>  <Exposed/>
+			<Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+		</tryPutOnCustomizedSuit>
+		<onAppearncePropExpired>
+			<Arg> INT32	</Arg>	<!-- AppearanceID -->
+		</onAppearncePropExpired>
+		<clearAllAppearanceInSuit>  <Exposed/>
+			<Arg> INT32	</Arg>	<!-- CustomizedSuitID -->
+		</clearAllAppearanceInSuit>
+	</BaseMethods>
+
+	<ClientMethods>
+		<syncOneCustomizedSuit>
+			<Arg> INT32	</Arg>
+			<Arg> CUSTOMIZED_SUIT_DATA </Arg>
+		</syncOneCustomizedSuit>
+		<syncAllCustomizedSuit>
+			<Arg> ARRAY <of> CUSTOMIZED_SUIT_DATA </of> </Arg>
+		</syncAllCustomizedSuit>
+		<onSetCustomizedSuitName>
+			<Arg> BOOL	</Arg>
+			<Arg> STRING </Arg>
+		</onSetCustomizedSuitName>
+		<onSetCustomizedSuitOneCloth>
+			<Arg> BOOL	</Arg>
+			<Arg> STRING </Arg>
+		</onSetCustomizedSuitOneCloth>
+		<onUnlockCustomizedSuit>
+			<Arg> BOOL	</Arg>
+			<Arg> STRING </Arg>
+		</onUnlockCustomizedSuit>
+		<onEquipedCustomizedSuit>
+			<Arg> INT32	</Arg>
+			<Arg> BOOL	</Arg>
+			<Arg> STRING </Arg>
+		</onEquipedCustomizedSuit>
+		<onUpdateCustomizedSuit>
+		</onUpdateCustomizedSuit>
+	</ClientMethods>
+
+</root>

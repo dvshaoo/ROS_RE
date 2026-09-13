@@ -1,0 +1,301 @@
+<root>
+	<Implements>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iCacheBase	</Interface>
+		<Interface>	iCrossServer	</Interface>
+		<Interface>	iChongDingChannel	</Interface>
+		<Interface>	iOfflineOperation	</Interface>
+	</Implements>
+
+	<Properties>
+		<customRoomListInfo>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default>   {} 				</Default>
+		</customRoomListInfo>
+
+		<customRoomFullInfo>
+			<Type>		PYTHON				 	</Type>
+			<Flags>		BASE 					</Flags>
+			<Default> 	{} 						</Default>
+ 		</customRoomFullInfo>
+
+ 		<lastJoinRoomGID>
+ 			<Type>		GID 				 	</Type>
+			<Flags>		BASE 					</Flags>
+ 		</lastJoinRoomGID>
+
+ 		<requestJoinTimer>
+ 			<Type>		INT32 				 	</Type>
+			<Flags>		BASE 					</Flags>
+ 		</requestJoinTimer>
+		<roomCntOfBaseApps>
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE 			</Flags>
+			<Default>   {} 				</Default>
+		</roomCntOfBaseApps>
+	</Properties>
+
+	<BaseMethods>
+		<broadcastAthlete>
+			<Arg>		STRING					</Arg>	<!-- func -->
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastAthlete>
+		<broadcastAvatar>
+			<Arg>		STRING					</Arg>	<!-- func -->
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastAvatar>
+		<broadcastLegion>
+			<Arg>		STRING					</Arg>	<!-- func -->
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastLegion>
+		<broadcastClient>
+			<Arg>		INT64					</Arg>	<!-- tag -->
+			<Arg>		STRING					</Arg>	<!-- func -->
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastClient>
+		<broadcastBanIpList>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastBanIpList>
+		<broadcastBanUdidList>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastBanUdidList>
+		<broadcastAddAccountIdentifierName>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastAddAccountIdentifierName>
+
+		<onBaseAppProxyCall>
+			<Arg>		STRING					</Arg>	<!-- func -->
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</onBaseAppProxyCall>
+		<systemAnnouncement>
+			<Arg>		STRING					</Arg>
+		</systemAnnouncement>
+		<setGlobalMatchOccupation>
+			<Arg>		BOOL					</Arg>	<!-- args -->
+		</setGlobalMatchOccupation>
+		<setGlobalMatchGameType>
+			<Arg>		INT32				</Arg>
+			<Arg>		BOOL					</Arg>	<!-- args -->
+		</setGlobalMatchGameType>
+		<setGlobalGameTypeGoingToStart>
+			<Arg>		INT32				</Arg>
+			<Arg>		INT64				</Arg>
+		</setGlobalGameTypeGoingToStart>
+		<setGlobalWeekendPushWindowOpen>
+			<Arg>		BOOL				</Arg>
+		</setGlobalWeekendPushWindowOpen>
+		<setGlobalWeekendPushRecordScore>
+			<Arg>		BOOL				</Arg>
+		</setGlobalWeekendPushRecordScore>
+		<setGlobalWeekendPushGetReward>
+			<Arg>		BOOL				</Arg>
+		</setGlobalWeekendPushGetReward>
+		<setGlobalWeekendPushCollectionPrefix>
+			<Arg>		STRING				</Arg>
+		</setGlobalWeekendPushCollectionPrefix>
+		<gmAddReg>
+			<Arg>		INT32				</Arg>
+			<Arg>		STRING				</Arg>
+		</gmAddReg>
+		<gmDelReg>
+			<Arg>		INT32				</Arg>
+			<Arg>		STRING				</Arg>
+		</gmDelReg>
+		<gmDelAllReg>
+			<Arg>		INT32				</Arg>
+		</gmDelAllReg>
+
+		<gmSysInformAll>
+			<Arg>		PYTHON				</Arg>
+			<Arg>		INT32				</Arg>
+		</gmSysInformAll>
+
+		<gmDelMail>
+			<Arg>		INT32				</Arg>
+		</gmDelMail>
+
+		<gmKickLowVersion>
+			<Arg>		STRING					</Arg>
+		</gmKickLowVersion>
+		<gmForbidPayChannel>
+			<Arg>		STRING					</Arg>
+		</gmForbidPayChannel>
+		<gmUnforbidPayChannel>
+			<Arg>		STRING					</Arg>
+		</gmUnforbidPayChannel>
+		<gmForbidLiveChannel>
+			<Arg>		STRING					</Arg>
+		</gmForbidLiveChannel>
+			<Arg>		STRING					</Arg>
+		<gmUnforbidLiveChannel>
+			<Arg>		STRING					</Arg>
+		</gmUnforbidLiveChannel>
+		<gmSetRedPoints>
+			<Arg>		INT32				</Arg>
+			<Arg>		INT8				</Arg>
+			<Arg>		INT8				</Arg>
+		</gmSetRedPoints>
+		<gmRemoveRedPoints>
+			<Arg>		INT32				</Arg>
+		</gmRemoveRedPoints>
+		<gmRestartService>
+			<Arg>		STRING					</Arg>
+		</gmRestartService>
+		<gmAddWhiteListDevice>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</gmAddWhiteListDevice>
+		<gmDelWhiteListDevice>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</gmDelWhiteListDevice>
+		<gmAddBlackListDevice>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</gmAddBlackListDevice>
+		<gmDelBlackListDevice>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</gmDelBlackListDevice>
+		<gmAddNpkCheckWhiteList>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</gmAddNpkCheckWhiteList>
+		<gmDelNpkCheckWhiteList>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+		</gmDelNpkCheckWhiteList>
+		<gmSetAdvertisementRelease>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL	</Arg>
+		</gmSetAdvertisementRelease>
+		<gmSetDtsActivityRelease>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL	</Arg>
+		</gmSetDtsActivityRelease>
+		<gmModifyActivityOfflineTime>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING	</Arg>
+		</gmModifyActivityOfflineTime>
+		<gmModifyActivityOnlineTime>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING	</Arg>
+		</gmModifyActivityOnlineTime>
+		<gmModifyAdvertisementOfflineTime>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING	</Arg>
+		</gmModifyAdvertisementOfflineTime>
+		<gmModifyAdvertisementOnlineTime>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING	</Arg>
+		</gmModifyAdvertisementOnlineTime>
+		<gmAddS3Bucket>
+			<Arg>		STRING	</Arg>
+		</gmAddS3Bucket>
+		<gmRemoveS3Bucket>
+			<Arg>		STRING	</Arg>
+		</gmRemoveS3Bucket>
+		<gmClearRandomMode>
+		</gmClearRandomMode>
+		<gmSetRandomMode>
+			<Arg>		INT32	</Arg>
+			<Arg>		INT32	</Arg>
+			<Arg>		INT32	</Arg>
+			<Arg>		FLOAT	</Arg>
+		</gmSetRandomMode>
+		<gmForbiddenHero>
+			<Arg>		INT32	</Arg>
+		</gmForbiddenHero>
+		<gmUnForbiddenHero>
+			<Arg>		INT32	</Arg>
+		</gmUnForbiddenHero>
+		<onGetRoomList>
+			<Arg>	INT32				</Arg> <!-- channel -->
+			<Arg>	ARRAY	<of>	COMMON_LIVE_ROOM	</of>	</Arg>
+			<Arg>	PYTHON								</Arg>
+		</onGetRoomList>
+
+		<onGetFollowList>
+			<Arg>	INT32				</Arg> <!-- channel -->
+			<Arg>	ARRAY	<of>	COMMON_LIVE_ROOM	</of>	</Arg>
+			<Arg>	PYTHON								</Arg>s
+		</onGetFollowList>
+
+		<onGetRecommendList>
+			<Arg>	INT32				</Arg> <!-- channel -->
+			<Arg>	ARRAY	<of>	COMMON_LIVE_RECOMMEND_ROOM	</of>	</Arg>
+		</onGetRecommendList>
+
+		<requestCustomRoomListInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		MAILBOX 		</Arg>
+		</requestCustomRoomListInfo>
+
+		<onRequestRoomListInfo>
+			<Arg>		ARRAY <of> 	DTS_CUSTOM_CLIENT_ROOM_INFO </of>		</Arg>
+			<Arg>		INT32												</Arg>
+		</onRequestRoomListInfo>
+
+
+		<requestJoinDtsCustomGame>
+			<Arg>		GID 			</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO 	</Arg>
+			<Arg>		GID 			</Arg>
+			<Arg>		STRING 			</Arg>
+			<Arg>		STRING 			</Arg>
+			<Arg>		SCORE			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		BOOL			</Arg>
+			<Arg>		INT32			</Arg>
+ 		</requestJoinDtsCustomGame>
+
+ 		<onRequestRoomFullInfo>
+ 			<Arg>		ARRAY <of> DTS_CUSTOM_ROOM_FULL_INFO </of> 		</Arg>
+ 		</onRequestRoomFullInfo>
+
+		<setTopMail>
+			<Arg>	UINT32		</Arg>
+			<Arg>	UINT32		</Arg>
+		</setTopMail>
+		<onCreateRoomOnBaseApp>
+			<Arg>	STRING		</Arg>
+		</onCreateRoomOnBaseApp>
+		<onDestroyRoom>
+			<Arg>	STRING		</Arg>
+			<Arg>	BOOL		</Arg>
+		</onDestroyRoom>
+
+		<onGetRosMatchAdminConfCallback>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</onGetRosMatchAdminConfCallback>
+		<onGetRosMatchWebLinkCallback>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</onGetRosMatchWebLinkCallback>
+
+		<onGetTelkomseGoodsConfCallback>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</onGetTelkomseGoodsConfCallback>
+
+		<broadcastCheckCodeList>
+			<Arg>		PYTHON					</Arg>	<!-- args -->
+		</broadcastCheckCodeList>
+		<onOpenMaintenanceFightTip>
+			<Arg>		INT32				</Arg>
+		</onOpenMaintenanceFightTip>
+		<onGetOnlineNumByChannel>
+			<Arg> INT32 </Arg>
+		</onGetOnlineNumByChannel>
+
+		<gmSetBlackCasePropMagnification>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</gmSetBlackCasePropMagnification>
+
+		<onSyncRosMatchTeamConfInMS>
+			<Arg>	PYTHON		</Arg>
+		</onSyncRosMatchTeamConfInMS>
+
+	</BaseMethods>
+</root>

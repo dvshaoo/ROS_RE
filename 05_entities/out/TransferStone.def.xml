@@ -1,0 +1,38 @@
+<root>
+  <Implements>
+    <Interface> iCell   </Interface>
+    <Interface> iBaseWithCell </Interface>
+  </Implements>
+  <ClientName>    TransferStone </ClientName>
+  <Properties>
+    <stoneID>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </stoneID>
+    <zoneID>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </zoneID>
+    <nickname>
+      <Type>    STRING   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </nickname>
+    <dungeonID>
+      <Type>    INT32   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+    </dungeonID>
+
+    <eventOpen>
+      <Type>    BOOL   </Type>
+      <Flags>   ALL_CLIENTS  </Flags>
+      <Default> False  </Default>
+    </eventOpen>
+  </Properties>
+
+  <CellMethods>
+    <onEventOpen>
+    </onEventOpen>
+    <onEventClose>
+    </onEventClose>
+  </CellMethods>
+</root>

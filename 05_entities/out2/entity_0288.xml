@@ -1,0 +1,150 @@
+<root>
+	<Properties>
+		<hasRequestRecalledHuiliuerList>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		0					</Default>
+		</hasRequestRecalledHuiliuerList>
+        <huiliuRebate>
+            <Type>      INT32        </Type>
+            <Flags>     BASE_AND_CLIENT </Flags>
+            <Default>		0					</Default>
+            <PersistentMongo>   true            </PersistentMongo>
+        </huiliuRebate>
+	</Properties>
+
+	<BaseMethods>
+		<requestOldPlayerReturnLoginAward> <Exposed/>
+		</requestOldPlayerReturnLoginAward>
+
+		<requestGetTaskChainAward> <Exposed/>
+			<Arg>			INT32					</Arg>
+		</requestGetTaskChainAward>
+
+		<requestGetTaskProgress> <Exposed/>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</requestGetTaskProgress>
+
+		<getRecallerInfo> <Exposed/>
+		</getRecallerInfo>
+
+		<requestBindHuiliuRecaller> <Exposed/>
+			<Arg>			GID						</Arg>
+		</requestBindHuiliuRecaller>
+
+		<onRequestBindRecallHuiliuer>
+			<Arg>		ARRAY <of> GID </of> 		</Arg>
+		</onRequestBindRecallHuiliuer>
+
+		<onGetRecalledHuiliuListInfo>
+			<Arg>		ARRAY <of> GID </of> 		</Arg>
+		</onGetRecalledHuiliuListInfo>
+
+		<getRecalledHuiliuListInfo> <Exposed/>
+		</getRecalledHuiliuListInfo>
+
+		<requestGetRecallHuilierNumAward> <Exposed/>
+			<Arg>		INT32						</Arg>
+		</requestGetRecallHuilierNumAward>
+
+		<requestCloseFirstHuiliuMainShow> <Exposed/>
+		</requestCloseFirstHuiliuMainShow>
+
+		<onMyHuiliuerPay>
+			<Arg>			GID					</Arg>
+			<Arg>			INT32					</Arg>
+		</onMyHuiliuerPay>
+
+		<withdrawHuiliuRebate>  <Exposed/>
+		</withdrawHuiliuRebate>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetRecallerInfo>
+			<Arg>			PY_DICT					</Arg>
+		</onGetRecallerInfo>
+
+		<syncIsFirstHuiliuMainShow>
+			<Arg>			BOOL					</Arg>
+		</syncIsFirstHuiliuMainShow>
+
+		<onSyncRecallHuiliuerNumAward>
+			<Arg>			ARRAY <of> INT8 </of>	</Arg>
+		</onSyncRecallHuiliuerNumAward>
+
+		<onGetRecalledHuiliuListInfo>
+			<Arg>			PY_DICT					</Arg>
+		</onGetRecalledHuiliuListInfo>
+
+		<onSetReturnState>
+			<Arg>			BOOL					</Arg>
+		</onSetReturnState>
+
+		<onSetLoginAwardLevel>
+			<Arg>			INT32					</Arg>
+		</onSetLoginAwardLevel>
+
+		<onSetReturnStateStartTime>
+			<Arg>			INT32					</Arg>
+		</onSetReturnStateStartTime>
+
+		<onRequestOldPlayerReturnLoginAward>
+			<Arg>			ARRAY <of> INT32 </of>					</Arg>
+			<Arg>			INT32									</Arg>
+		</onRequestOldPlayerReturnLoginAward>
+
+		<onRequestGetRecallHuilierNumAward>
+			<Arg>			ARRAY <of> INT32 </of>					</Arg>
+		</onRequestGetRecallHuilierNumAward>
+
+		<onSetLoginAwardGetTime>
+			<Arg>			INT32					</Arg>
+		</onSetLoginAwardGetTime>
+
+		<onResetProgressAwardInfo>
+		</onResetProgressAwardInfo>
+
+		<onRequestGetTaskChainAward>
+			<Arg>			ARRAY <of> INT32 </of>					</Arg>
+			<Arg>			INT32									</Arg>
+		</onRequestGetTaskChainAward>
+
+		<onResetOldPlayerTaskInfo>
+		</onResetOldPlayerTaskInfo>
+
+		<onResetRecallerList>
+		</onResetRecallerList>
+
+		<onUpdateOldPlayerTaskData>
+			<Arg>			PYTHON									</Arg>
+		</onUpdateOldPlayerTaskData>
+
+		<onRequestGetTaskProgress>
+			<Arg>			INT32									</Arg>
+			<Arg>			INT32									</Arg>
+			<Arg>			INT32									</Arg>
+		</onRequestGetTaskProgress>
+
+		<onRequestBindRecallHuiliuer>
+			<Arg>		ARRAY <of> GID </of> 		</Arg>
+		</onRequestBindRecallHuiliuer>
+
+		<onRequestBindHuiliuRecaller>
+			<Arg>		GID							</Arg>
+		</onRequestBindHuiliuRecaller>
+
+		<onGmHuiliuTask>
+			<Arg>			INT32									</Arg>
+			<Arg>			INT32									</Arg>
+		</onGmHuiliuTask>
+
+		<onSyncProgressAwardInfo>
+			<Arg>			ARRAY <of> INT32 </of>					</Arg>
+		</onSyncProgressAwardInfo>
+
+		<onHuiliuRebateUpdated>
+			<Arg>  INT32  </Arg>
+		</onHuiliuRebateUpdated>
+	</ClientMethods>
+</root>

@@ -1,0 +1,233 @@
+<root>
+	<Properties>
+		<channelList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		{}					</Default>
+		</channelList>
+
+		<followList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}					</Default>
+		</followList>
+
+		<ccurs>
+			<Type>			STRING				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Persistent>	true				</Persistent>
+		</ccurs>
+
+		<ccid>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>
+		</ccid>
+
+		<ccbind>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		FALSE				</Default>
+			<Persistent>	true				</Persistent>		
+		</ccbind>
+
+		<ccliveLastTimeStamp>
+			<Type>			FLOAT				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+		</ccliveLastTimeStamp>
+
+		<ccAccumulate>
+			<Type>			FLOAT				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>	
+			<Persistent>	true				</Persistent>	
+		</ccAccumulate>
+
+		<ccDailyAccumulate>
+			<Type>			FLOAT				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>	
+			<Persistent>	true				</Persistent>	
+		</ccDailyAccumulate>
+
+		<ccDailyExpAccumulate>
+			<Type>			FLOAT				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>	
+			<Persistent>	true				</Persistent>	
+		</ccDailyExpAccumulate>
+
+		<ccliving>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>	
+			<Default>		FALSE				</Default>		
+		</ccliving>	
+
+		<ccexp>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>		
+		</ccexp>		
+
+		<cclv>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		1					</Default>
+			<Persistent>	true				</Persistent>		
+		</cclv>
+
+		<expUpdateTimerID>
+			<Type>			TIMER_ID			</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		0					</Default>
+		</expUpdateTimerID>	
+
+		<ccPoint>
+			<Type>			INT32				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>			
+		</ccPoint>
+
+		<ccWeeklyPoint>
+			<Type>			INT32				</Type>
+			<Flags>			BASE		 		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>			
+		</ccWeeklyPoint>		
+
+		<ccMonthlyPoint>
+			<Type>			INT32				</Type>
+			<Flags>			BASE		 		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>			
+		</ccMonthlyPoint>	
+
+		<ccTotalPoint>
+			<Type>			INT32				</Type>
+			<Flags>			BASE		 		</Flags>
+			<Default>		0					</Default>
+			<Persistent>	true				</Persistent>			
+		</ccTotalPoint>
+
+		<ccPointTimeStamp>
+			<Type>			FLOAT				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+		</ccPointTimeStamp>		
+	</Properties>
+
+	<BaseMethods>
+		<requestPostMsg> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel_id -->
+			<Arg>			STRING					</Arg> <!-- msg -->
+		</requestPostMsg>
+
+		<requestPostGift> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- cid == channel_id -->
+			<Arg>			INT32					</Arg> <!-- gift id -->
+			<Arg>			STRING					</Arg> <!-- gift name -->
+			<Arg>			INT32					</Arg> <!-- gift number -->
+		</requestPostGift>
+
+
+		<requestGetLiveList> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- page -->
+			<Arg>			INT8					</Arg> <!-- islive -->
+		</requestGetLiveList>
+
+		<requestGetLiveLabel> <Exposed/>
+		</requestGetLiveLabel>
+
+		<requestShowFollow> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel id -->
+		</requestShowFollow>
+
+		<requestFollow> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel id -->
+		</requestFollow>
+
+		<requestUnfollow> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel id -->
+		</requestUnfollow>
+
+		<requestBindToCC> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- bindcode -->
+		</requestBindToCC>
+
+		<onBindToCC>
+			<Arg>			BOOL					</Arg>	<!-- success -->
+			<Arg>			STRING					</Arg>	<!-- urs -->
+			<Arg>			INT32					</Arg>	<!-- ccid -->
+		</onBindToCC>
+
+		<inviteBindToCC>
+		</inviteBindToCC>
+
+		<requestBindInfo> <Exposed/>
+		</requestBindInfo>
+
+		<gotGiftFromCC>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			STRING				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			GID					</Arg>
+		</gotGiftFromCC>
+
+		<requestCCLive> <Exposed/>
+			<Arg>			BOOL				</Arg>	<!-- start/end -->
+			<Arg>			BOOL				</Arg>	<!-- audience -->
+		</requestCCLive>
+
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+		<onGetLiveList>
+			<Arg>			INT32						</Arg> <!-- total -->
+			<Arg>			INT16						</Arg> <!-- page -->
+			<Arg>			INT8						</Arg> <!-- size -->
+			<Arg>    ARRAY <of>	CC_LIVE_ROOM	</of>	</Arg>
+		</onGetLiveList>
+
+		<onGetLiveListFailed>
+		</onGetLiveListFailed>
+
+		<onFollowSuccess>
+			<Arg>			INT32					</Arg>	<!-- ccid -->		
+			<Arg>			STRING					</Arg>	<!-- nickname -->
+		</onFollowSuccess>
+
+		<onRequestShowFollow>
+			<Arg>			INT8						</Arg> <!-- follow -->
+		</onRequestShowFollow>
+
+		<onFollowFailed>
+		</onFollowFailed>
+
+		<onUnfollowSuccess>
+		</onUnfollowSuccess>
+
+		<onUnfollowFailed>
+		</onUnfollowFailed>
+
+		<onBindSuccess>
+		</onBindSuccess>
+
+		<onBindFailed>
+		</onBindFailed>
+
+		<onInviteBindToCC>
+		</onInviteBindToCC>
+
+		<onBindInfo>
+		</onBindInfo>
+
+		<onCCLevelup>
+		</onCCLevelup>
+
+	</ClientMethods>
+</root>

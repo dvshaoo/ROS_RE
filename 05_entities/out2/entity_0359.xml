@@ -1,0 +1,27 @@
+<root>
+	<Properties>
+		<matchedPlayers>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</matchedPlayers>
+		<joinLimitTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</joinLimitTimerID>
+		<killLimitStarted>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</killLimitStarted>
+		<matchStub>
+			<Type>		GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</matchStub>
+	</Properties>
+	<CellMethods>
+		<addMatchedPlayers>
+			<Arg>	PYTHON		</Arg>	<!-- teams info-->
+			<Arg>	PYTHON		</Arg>	<!-- match config -->
+		</addMatchedPlayers>
+	</CellMethods>
+</root>

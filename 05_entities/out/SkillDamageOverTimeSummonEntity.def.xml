@@ -1,0 +1,35 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface> iCombatUnit	</Interface>
+		<Interface>	iSkill	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillDamageOverTimeSummonEntity	</ClientName>
+
+	<Properties>
+		<allowActivate>
+			<Type>	BOOL	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	False	</Default>
+		</allowActivate>
+	</Properties>
+
+	<ClientMethods>
+		<activate>
+		</activate>
+	</ClientMethods>
+
+	<CellMethods>
+		<explode>
+			<Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</explode>
+	</CellMethods>
+</root>

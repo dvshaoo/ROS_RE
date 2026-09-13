@@ -1,0 +1,47 @@
+<root>
+    <Properties>
+
+	<ntesVIPExpireDate>
+		<Type>	STRING	</Type>	
+		<Flags>	BASE	</Flags>
+		<PersistentMongo>	true			</PersistentMongo>
+	</ntesVIPExpireDate>
+    </Properties>
+
+    <BaseMethods>
+        <checkVIPStatus> <Exposed/>
+        </checkVIPStatus>
+
+        <buyNTESVIPGood> <Exposed/>
+            <Arg> INT32 </Arg>
+        </buyNTESVIPGood>
+
+        <reqUseCoupon> <Exposed/>
+        </reqUseCoupon>
+
+        <getNTESVIPIcon> <Exposed/>
+        </getNTESVIPIcon>
+
+        <getNTESGameVIPIcon> <Exposed/>
+        </getNTESGameVIPIcon>
+
+        <getQiyuIcon>
+        </getQiyuIcon>
+
+        <buyNTESVip> <Exposed/>
+        </buyNTESVip>
+    </BaseMethods>
+
+    <ClientMethods>
+        <refreshNTESVIPMall>
+            <Arg> PYTHON </Arg>
+        </refreshNTESVIPMall>
+        <onUseCoupon>
+            <Arg> INT32 </Arg>
+        </onUseCoupon>
+        <openNTESVipBuyUrl>
+            <Arg> INT32 </Arg>
+            <Arg> STRING </Arg>
+        </openNTESVipBuyUrl>
+    </ClientMethods>
+</root>

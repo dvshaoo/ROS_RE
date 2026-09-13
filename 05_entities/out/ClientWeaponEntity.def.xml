@@ -1,0 +1,35 @@
+<root>
+	<ClientName>		ClientWeaponEntity	</ClientName>
+	<Properties>
+		<ownerID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</ownerID>
+		<hp>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</hp>
+		<campType>
+			<Type> CAMP_TYPE </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</campType>
+		<deadInGame>
+			<Type> BOOL </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> False </Default>
+		</deadInGame>
+		<invincible>
+			<Type> INT16	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Default> 0	</Default>
+		</invincible>
+		<itemID>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</itemID>
+		<appearWeaponID>
+			<Type> INT32	</Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</appearWeaponID>
+	</Properties>
+</root>

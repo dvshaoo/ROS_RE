@@ -1,0 +1,29 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface>	iDtsExplode </Interface>
+	</Implements>
+	<ClientName>	DtsBombSummonEntity		</ClientName>
+	<Properties>
+		<lifespan>
+			<Type>	FLOAT 	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</lifespan>
+		<bombID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</bombID>
+		<throwPos>
+			<Type>	VECTOR3	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</throwPos>
+		<throwDirection>
+			<Type>	VECTOR3 </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</throwDirection>
+		<throwAngle>
+			<Type>	FLOAT 	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</throwAngle>
+	</Properties>
+</root>

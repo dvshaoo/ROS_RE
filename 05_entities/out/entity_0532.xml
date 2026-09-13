@@ -1,0 +1,72 @@
+<root>
+	<Properties>
+		<specTrainID>
+			<Type>		INT32	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</specTrainID>
+		<specTrainRewards>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</specTrainRewards>
+		<specTrainGroupOpen>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</specTrainGroupOpen>
+		<hasViewedSpecTrainNewProps>
+			<Type>		PYTHON	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</hasViewedSpecTrainNewProps>
+	</Properties>
+	<BaseMethods>
+		<reqSpecTrainGroupOpenInfo> <Exposed/> 
+		</reqSpecTrainGroupOpenInfo>
+		<reqUnlockSpecTrainRewardList> <Exposed/> 
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+		</reqUnlockSpecTrainRewardList>
+		<reqGetSpecTrainLvReward> <Exposed/> 
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+		</reqGetSpecTrainLvReward>
+		<reqGetSpecTrainAllLvReward> <Exposed/> 
+		</reqGetSpecTrainAllLvReward>
+		<openSpecTrainRewardMain> <Exposed/> 
+		</openSpecTrainRewardMain>
+		<reqLogSpecTrainInfo> <Exposed/> 
+			<Arg>			STRING				</Arg>
+		</reqLogSpecTrainInfo>
+		<setHasViewedSpecTrainNewProps> <Exposed/>
+			<Arg>			INT32				</Arg>
+		</setHasViewedSpecTrainNewProps>
+	</BaseMethods>
+	<ClientMethods>
+		<onSyncSpecTrainExp>
+			<Arg>			INT32				</Arg>
+		</onSyncSpecTrainExp>
+		<onSyncSpecTrainGroupOpenInfo>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onSyncSpecTrainGroupOpenInfo>
+		<onSyncSpecTrainRewardMain>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			INT32				</Arg>
+		</onSyncSpecTrainRewardMain>
+		<onSyncSpecTrainRewards>
+			<Arg>			INT8				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</onSyncSpecTrainRewards>
+	</ClientMethods>
+</root>
+

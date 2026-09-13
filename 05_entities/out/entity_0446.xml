@@ -1,0 +1,44 @@
+<root>
+	<Properties>
+    </Properties>
+    <ClientMethods>
+		<inviteToJoinFreeParadise>
+			<Arg>			GID			</Arg>
+			<Arg>			INT32		</Arg>
+			<Arg>			STRING		</Arg>
+		</inviteToJoinFreeParadise>
+    </ClientMethods>
+    <BaseMethods>
+		<onRequestJoinFreeParadiseSpace>
+			<Arg>			GLOBAL_MAIL_BOX_INFO			</Arg>
+			<Arg>			GID			</Arg>
+		</onRequestJoinFreeParadiseSpace>
+		<onRequestJoinFreeParadiseResult>
+			<Arg>			BOOL				</Arg>
+			<Arg>			STRING				</Arg>
+		</onRequestJoinFreeParadiseResult>
+		<onRequestJoinFreeParadiseCallback>
+			<Arg>			PYTHON			</Arg>
+		</onRequestJoinFreeParadiseCallback>
+        <inviteFriendsJoinFreeParadise> <Exposed />
+			    <Arg>			GID			</Arg>
+	    		<Arg>		ARRAY <of>	GID	</of>		</Arg>
+			    <Arg>			INT32		</Arg>
+        </inviteFriendsJoinFreeParadise>
+        <onInviteEnterOtherFreeParadiseSpace> <Exposed />
+			    <Arg>			GID			</Arg>
+        </onInviteEnterOtherFreeParadiseSpace>
+        <onRefusedJoinFreeParadiseSpace> <Exposed />
+        </onRefusedJoinFreeParadiseSpace>
+		<inviteToJoinFreeParadise>
+			<Arg>			GID			</Arg>
+			<Arg>			INT32		</Arg>
+		</inviteToJoinFreeParadise>
+        <enterOwnFreeParaidseSpace> <Exposed/>
+			<Arg>			BOOL			</Arg>
+        </enterOwnFreeParaidseSpace>
+        <enterOtherFreeParaidseSpace> <Exposed/>
+			<Arg>			GID			</Arg>
+        </enterOtherFreeParaidseSpace>
+    </BaseMethods>
+</root>

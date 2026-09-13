@@ -1,0 +1,74 @@
+<root>
+	<Properties>
+		<getChickenGiftTimes>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</getChickenGiftTimes>
+		<lastTimeGetChickenGift>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	20180101	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastTimeGetChickenGift>
+		<receiveXmasGiftTimes>
+			<Type>		INT32		</Type>
+			<Flags>			BASE		</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</receiveXmasGiftTimes>
+		<currentXmasGiftID>
+			<Type>		ARRAY <of> INT32 </of>	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</currentXmasGiftID>
+		<lastTimeGetBonusGift>
+			<Type>		INT32		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>	20180101	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastTimeGetBonusGift>
+		<christmasH5GameRewardList>
+			<Type>		ARRAY <of> INT32 </of>	</Type>
+			<Flags>			BASE		</Flags>
+			<Default>	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</christmasH5GameRewardList>
+	</Properties>
+	<BaseMethods>
+		<sendChickenGift> <Exposed/> 
+			<Arg>			INT32				</Arg>
+		</sendChickenGift>
+		<sendChristmasGift> <Exposed/>
+			<Arg>			INT32				</Arg>
+		</sendChristmasGift>
+		<requestGenerateBonus> <Exposed/>
+			<Arg>			ARRAY <of> INT32 </of>	</Arg>
+		</requestGenerateBonus>
+		<queryTicketNum> <Exposed/>
+		</queryTicketNum>
+		<requestChristmasH5GameReward> <Exposed/>
+		</requestChristmasH5GameReward>
+		<getChristmasH5ShareLink> <Exposed/>
+		</getChristmasH5ShareLink>
+	</BaseMethods>
+	<ClientMethods>
+		<onReceiveChristmasBonus>
+			<Arg>	ARRAY <of> INT32	</of>	</Arg>
+		</onReceiveChristmasBonus>
+		<onReceiveChristmasBonusFail>
+			<Arg>			INT32				</Arg>
+		</onReceiveChristmasBonusFail>
+		<onGenerateChristmasBonus>
+			<Arg> 	ARRAY <of> INT32	</of>	</Arg>
+		</onGenerateChristmasBonus>
+		<updateChristmasTicket>
+			<Arg>			INT32				</Arg>
+		</updateChristmasTicket>
+		<openChristmasURL>
+			<Arg>			STRING				</Arg>
+		</openChristmasURL>
+	</ClientMethods>
+</root>

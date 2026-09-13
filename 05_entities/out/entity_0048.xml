@@ -1,0 +1,50 @@
+<root>
+	<Properties>
+		<customControlSchemeDicts>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Persistent> true </Persistent>
+		</customControlSchemeDicts>
+		<uisettingModeIdx>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<PersistentMongo> true </PersistentMongo>
+		</uisettingModeIdx>
+		<isScaleRevised>
+			<Type> INT32 </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> 0 </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</isScaleRevised>
+	</Properties>
+
+	<BaseMethods>
+		<_SyncCustomControlSchemeToServer>
+			<Exposed/>
+			<Arg> CUSTOM_CONTROL_SCHEME </Arg>
+		</_SyncCustomControlSchemeToServer>
+
+		<_SyncCustomControlSchemeDictPlayerAvatarToAthlete>
+			<Arg> PYTHON </Arg>
+		</_SyncCustomControlSchemeDictPlayerAvatarToAthlete>
+
+		<_SyncUISettingModeToServer><Exposed/>
+			<Arg> INT32 </Arg>
+		</_SyncUISettingModeToServer>
+
+		<_SyncUISettingModeToAthlete>
+			<Arg> INT32 </Arg>
+		</_SyncUISettingModeToAthlete>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<_SyncCustomControlSchemeDictsToClient>
+			<Arg> PYTHON </Arg>
+		</_SyncCustomControlSchemeDictsToClient>
+		<_SyncUISettingModeToClient>
+			<Arg> INT32 </Arg>
+		</_SyncUISettingModeToClient>		
+	</ClientMethods>
+
+</root>

@@ -1,0 +1,277 @@
+<root>
+	<Implements>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iVehicle	</Interface>
+	</Implements>
+	
+	<ClientName>	AvatarVehicle		</ClientName>
+	
+	<Properties>
+		<dragMonsters>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</dragMonsters>
+		<socketFaceDir>
+			<Type>		ARRAY <of> INT32 </of>	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</socketFaceDir>
+		<jumpSockets>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</jumpSockets>
+		<numUsedJumpSockets>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</numUsedJumpSockets>
+
+		<hangSockets>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</hangSockets>
+
+		<usedHangSockets>
+			<Type>		ARRAY <of> VEHICLE_SOCKET_INFO </of> </Type>
+			<Flags>		ALL_CLIENTS			</Flags>
+		</usedHangSockets>
+
+		<clientStatus>
+			<Type>		 AVATAR_VEHICLE_CLIENT_STATUS 		</Type>
+			<Flags> 		ALL_CLIENTS 				</Flags>
+		</clientStatus>
+
+		<needNavi>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</needNavi>
+
+		<avtDrive>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</avtDrive>
+
+		<needCallVehicle>
+			<Type>		 BOOL			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</needCallVehicle>
+
+		<cancelStageTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</cancelStageTimer>
+
+		<stopCrashTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</stopCrashTimer>
+
+		<updateStageTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</updateStageTimer>
+
+		<invincTimerID>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</invincTimerID>
+
+		<timeTrialCDTimer>
+			<Type>		 INT32			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</timeTrialCDTimer>
+
+		<lockedTime>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</lockedTime>
+
+		<locked>
+			<Type>		 BOOL			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</locked>
+
+		<lockedTargetId>
+			<Type>		 ENTITY_ID			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</lockedTargetId>
+
+		<stageStatus>
+			<Type>		 INT32			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</stageStatus>
+
+		<isCasteringAirAttack>
+			<Type>		 BOOL			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</isCasteringAirAttack>
+
+		<comboTimer>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</comboTimer>
+
+		<lastRoundFinishTime>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</lastRoundFinishTime>
+
+		<waitingMembers>
+			<Type>		ARRAY <of> ENTITY_ID </of>	</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</waitingMembers>
+
+	</Properties>
+	
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+	
+	<CellMethods>
+		<onJumpMonsterChanged> <Exposed/>
+			<Arg>	STRING		</Arg>
+			<Arg>	ENTITY_ID	</Arg>
+			<Arg>	INT32		</Arg>
+		</onJumpMonsterChanged>
+
+		<avatarEnterVehicle> <Exposed/>
+		</avatarEnterVehicle>
+		
+		<vehicleThrow> <Exposed/>
+			<Arg> ARRAY <of> ENTITY_ID </of> </Arg>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+			<Arg> ARRAY <of> VECTOR3 </of> </Arg>
+		</vehicleThrow>
+
+		<setNumUsedJumpSockets>
+			<Arg>	INT32		</Arg>
+		</setNumUsedJumpSockets>
+
+		<onAvatarEnterd>
+		</onAvatarEnterd>
+
+		<onAvatarLeave>
+		</onAvatarLeave>
+
+		<onAvatarReqHangOnCar> <Exposed/>
+		</onAvatarReqHangOnCar>
+
+		<onAvatarLeaveHangOnCar> <Exposed/>
+		</onAvatarLeaveHangOnCar>
+		<addExp>
+			<Arg>	INT32	</Arg>
+		</addExp>
+
+		<onUsedItem><Exposed/>
+		</onUsedItem>
+
+		<startStageLock><Exposed/>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+		</startStageLock>
+
+		<startStageCrash><Exposed/>
+			<Arg>		INT32			</Arg>
+		</startStageCrash>
+		
+		<finishStageCrash><Exposed/>
+		</finishStageCrash>
+
+		<casterAirAttack><Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		INT32			</Arg>
+		</casterAirAttack>
+
+		<casterEMPBomb><Exposed/>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		FLOAT			</Arg>
+			<Arg>		INT32			</Arg>
+		</casterEMPBomb>
+
+		<casterNOS><Exposed/>
+			<Arg>		INT32			</Arg>
+		</casterNOS>
+
+		<casterInvincible><Exposed/>
+			<Arg>		INT32			</Arg>
+		</casterInvincible>
+
+		<casterSuddBomb><Exposed/>
+			<Arg>		INT32			</Arg>
+		</casterSuddBomb>
+
+		<casterAttackBuff><Exposed/>
+			<Arg>		INT32			</Arg>
+		</casterAttackBuff>
+		
+		<requestRebornLocal><Exposed/>
+			<Arg>		BOOL			</Arg>
+		</requestRebornLocal>
+
+		<addTakeCarMember>
+			<Arg>		ENTITY_ID			</Arg>
+		</addTakeCarMember>
+
+		<onUpdateVehicleSpeedBuffByOwner>
+		</onUpdateVehicleSpeedBuffByOwner>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<onAddAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onAddAvatarSocket>
+
+		<onDelAvatarSocket>
+			<Arg>		STRING			</Arg>
+			<Arg>		ENTITY_ID			</Arg>
+		</onDelAvatarSocket>
+
+		<onAvatarEnterVehicle>
+		</onAvatarEnterVehicle>
+
+		<onAvatarAfterEntered>
+		</onAvatarAfterEntered>
+
+		<finishStageLock>
+			<Arg>		ENTITY_ID		</Arg>
+			<Arg>		FLOAT			</Arg>
+		</finishStageLock>
+
+		<cancelStageLock>
+			<Arg>		INT32			</Arg>
+		</cancelStageLock>
+
+		<onLockTarget>
+			<Arg>		ENTITY_ID		</Arg>
+		</onLockTarget>
+
+		<onUnlock>
+		</onUnlock>
+
+		<rebornCountdownLocal>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</rebornCountdownLocal>
+
+		<delRacingItem>
+			<Arg>		INT32		</Arg>
+		</delRacingItem>
+		<onUpdateTimeTrialRound>
+		</onUpdateTimeTrialRound>
+		<onBeginWaitMember>
+		</onBeginWaitMember>
+		<onStopWaitMember>
+		</onStopWaitMember>
+	</ClientMethods>
+
+</root>

@@ -1,0 +1,288 @@
+<root>
+	<Properties>
+		<!--正在进行中的任务-->
+		<currentTask>
+			<Type>			TASK_SERVER_MAP		</Type>
+			<Flags>			CELL_PUBLIC		</Flags>
+		</currentTask>
+
+		<!--已经完成了的任务-->
+		<doneTask>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PUBLIC			</Flags>
+			<Default>			[]				</Default>
+		</doneTask>
+
+		<!--任务领取的历史次数-->
+		<taskHistory>
+			<Type>			TASK_SERVER_HISTORY_MAP				</Type>
+			<Flags>			CELL_PRIVATE			</Flags>
+		</taskHistory>
+
+		<taskMonsterGroupInfoDict>
+			<Type>		TASK_GEN_INFO_DICT		</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</taskMonsterGroupInfoDict>
+		<taskNpcInfoDict>
+			<Type>		TASK_GEN_INFO_DICT		</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+		</taskNpcInfoDict>
+		<taskGroupInfoDict>
+			<Type>		PYTHON				</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>			{}				</Default>
+		</taskGroupInfoDict>
+		<taskAvailableState>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE			</Flags>
+			<Default>			{}				</Default>
+		</taskAvailableState>
+		<taskTriggerMap>
+			<Type>			PYTHON				</Type>
+			<Flags>			CELL_PRIVATE			</Flags>
+			<Default>			{}				</Default>
+		</taskTriggerMap>
+
+	</Properties>
+
+	<CellMethods>
+		<syncAddDynamicDataToTask>
+			<Arg> 		TASK_ID 		</Arg>
+			<Arg> 		INT32 		</Arg>
+			<Arg> 		PYTHON 		</Arg>
+		</syncAddDynamicDataToTask>
+		<onGetTask><Exposed/><!--接受任务-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</onGetTask>
+
+		<clickedTask><Exposed/>
+		</clickedTask>
+		<skipGuideTask><Exposed/>
+		    <Arg>           INT32               </Arg><!--TaskMsgType-->
+		</skipGuideTask>
+		<playedNewContentGuide><Exposed/>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</playedNewContentGuide>
+
+		<onTaskMsg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onTaskMsg>
+		<onTaskMsgFromTeamMember>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onTaskMsgFromTeamMember>
+		<onTaskMsgFromTeamLeader>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onTaskMsgFromTeamLeader>
+
+		<onTaskSuc><Exposed/><!--交任务-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</onTaskSuc>
+
+		<onTaskGiveUp><Exposed/><!--放弃任务-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</onTaskGiveUp>
+
+		<setTaskFail>
+			<Arg>			TASK_ID				</Arg>
+		</setTaskFail>
+
+		<onDialogFinish><Exposed/><!--对话结束-->
+			<Arg>			INT32			</Arg>
+			<Arg>			TASK_ID			</Arg>
+			<Arg>			INT32			</Arg>
+		</onDialogFinish>
+
+		<onActiveTrap><!--触发陷阱-->
+			<Arg>			INT32			</Arg>
+		</onActiveTrap>
+
+		<onFinishDungeon><!--退出副本-->
+			<Arg>			INT32			</Arg><!--taskID-->
+			<Arg>			BOOL			</Arg><!--succeed-->
+			<Arg>			INT32			</Arg><!--difficulty-->
+			<Arg>			FLOATTIME		</Arg><!--timeKO-->
+		</onFinishDungeon>
+
+		<onActiveArea><Exposed/><!--触发区域-->
+			<Arg>			MAP_ID			</Arg>
+			<Arg>			AREA_ID			</Arg>
+		</onActiveArea>
+
+		<onSelectDialogueBtn><Exposed/><!--点击任务对话按键-->
+			<Arg>			TASK_ID			</Arg><!-- taskID -->
+			<Arg>			INT32			</Arg><!-- buttonID -->
+		</onSelectDialogueBtn>
+
+		<onTaskEventComplete><Exposed/><!--任务事件完成-->
+			<Arg>			TASK_ID			</Arg><!-- taskID -->
+			<Arg>			INT32			</Arg><!-- eventID -->
+		</onTaskEventComplete>
+
+		<onMonsterStop>
+			<Arg>	ENTITY_GROUP_ID		</Arg>
+			<Arg>	ENTITY_GROUP_IDX	</Arg>
+			<Arg>	ENTITY_ID			</Arg>
+		</onMonsterStop>
+
+		<syncTaskGet>
+			<Arg>	TASK_SERVER_DATA	</Arg>
+		</syncTaskGet>
+		<syncTaskSuc>
+			<Arg>	TASK_ID	</Arg>
+		</syncTaskSuc>
+		<syncTaskGiveUp>
+			<Arg>	TASK_ID	</Arg>
+		</syncTaskGiveUp>
+		<syncTeamTasks>
+			<Arg> ARRAY <of> TASK_SERVER_DATA </of> </Arg>
+			<Arg> ARRAY <of> TASK_GEN_INFO</of> </Arg><!--taskNpcInfoDatas-->
+			<Arg> ARRAY <of> TASK_GEN_INFO</of> </Arg><!--taskMonsterGroupInfoDatas-->
+			<Arg>	PYTHON		</Arg>	<!-- taskGroupInfo -->
+		</syncTeamTasks>
+
+		<syncAddTaskNpcInfo>
+			<Arg> TASK_GEN_INFO </Arg><!--taskNpcInfo-->
+		</syncAddTaskNpcInfo>
+
+		<syncRemoveTaskNpcInfo>
+			<Arg>		INT32			</Arg>
+		</syncRemoveTaskNpcInfo>
+
+		<syncAddTaskMonsterGroupInfo>
+			<Arg> TASK_GEN_INFO </Arg><!--taskMonsterGroupInfo-->
+		</syncAddTaskMonsterGroupInfo>
+
+		<syncRemoveTaskMonsterGroupInfo>
+			<Arg>		INT32			</Arg>
+		</syncRemoveTaskMonsterGroupInfo>
+
+		<onWebViewCallBack><Exposed/><!--调查问卷回调-->
+			<Arg>			BOOL				</Arg><!--isFinished-->
+		</onWebViewCallBack>
+
+        <onAimedTargetPoint><Exposed/><!-- 瞄准了某个点 -->
+            <Arg>       INT32       </Arg>
+       </onAimedTargetPoint>
+        
+
+
+		<addTaskEntityInfo>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</addTaskEntityInfo>
+		<onTaskEntityRemoved>
+			<Arg>		PYTHON		</Arg>
+		</onTaskEntityRemoved>
+		<addTaskGroupInfo>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</addTaskGroupInfo>
+		<delTaskGroupInfo>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+		</delTaskGroupInfo>
+	</CellMethods>
+
+	<ClientMethods>
+		<loadCurTask><!--进入世界时获取当前任务进度-->
+			<Arg> ARRAY <of> TASK_DATA </of>  </Arg><!--cur_task-->
+			<Arg> ARRAY <of> TASK_GEN_INFO</of> </Arg>
+			<Arg> ARRAY <of> TASK_GEN_INFO</of> </Arg>
+		</loadCurTask>
+
+		<loadDoneTask><!--初始化时获取已经完成的任务-->
+			<Arg> ARRAY <of> TASK_ID </of>  </Arg><!--done_task-->
+		</loadDoneTask>
+
+		<addTaskMonsterGroupInfo>
+			<Arg>		TASK_GEN_INFO		</Arg>
+		</addTaskMonsterGroupInfo>
+		<delTaskMonsterGroupInfo>
+			<Arg>		INT32			</Arg>
+		</delTaskMonsterGroupInfo>
+		<addTaskNpcInfo>
+			<Arg>		TASK_GEN_INFO		</Arg>
+		</addTaskNpcInfo>
+		<delTaskNpcInfo>
+			<Arg>		INT32			</Arg>
+		</delTaskNpcInfo>
+
+		<TaskFal><!--任务失败-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</TaskFal>
+
+		<onTaskContentUpdate><!--任务进度更新后同步给客户端-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg>			INT32				</Arg><!--content index -->
+			<Arg>			PYTHON				</Arg><!--content key -->
+			<Arg>			PYTHON				</Arg><!--content value-->
+		</onTaskContentUpdate>
+
+		<onTaskUpdateCustomMsg><!--自定义消息同步给客户端-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+			<Arg> 		ARRAY <of> INT32 </of> 	</Arg><!--msg indexs-->
+		</onTaskUpdateCustomMsg>
+
+		<onTaskDoneSuc><!--交任务通过了服务端验证后的回调-->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</onTaskDoneSuc>
+		<onTaskGiveup><!-- 放弃任务给客户端的回调 -->
+			<Arg>			TASK_ID				</Arg><!--task_id-->
+		</onTaskGiveup>
+
+		<getTaskBySvr>
+			<Arg>			TASK_ID				</Arg>
+		</getTaskBySvr>
+		<getTaskBySvrWithDynamicData>
+			<Arg>			TASK_ID				</Arg>
+			<Arg> 			PYTHON 				</Arg>
+			<Arg> 			PYTHON 				</Arg>
+		</getTaskBySvrWithDynamicData>
+
+		<refuseTaskBySvr>
+			<Arg>			TASK_ID				</Arg>
+			<Arg>           STRING              </Arg>
+		</refuseTaskBySvr>
+
+		<onTaskFail>
+			<Arg>			TASK_ID				</Arg>
+		</onTaskFail>
+
+		<setTaskGiveUp>
+			<Arg>			TASK_ID				</Arg>
+		</setTaskGiveUp>
+
+		<onRestoreTask>
+		</onRestoreTask>
+
+		<onSyncTeamTasks>
+			<Arg> ARRAY <of> TASK_DATA </of>  </Arg><!--cur_task-->
+			<Arg> ARRAY <of> TASK_GEN_INFO</of> </Arg><!--taskNpcInfoDatas-->
+			<Arg> ARRAY <of> TASK_GEN_INFO</of> </Arg><!--taskMonsterGroupInfoDatas-->
+		</onSyncTeamTasks>
+		<onRequestTaskDungeon>
+			<Arg>		TASK_ID		</Arg>
+			<Arg>		INT8		</Arg>
+		</onRequestTaskDungeon>
+		<setTaskCostTime>
+			<Arg>		TASK_ID 	</Arg>
+			<Arg> 		FLOATTIME 	</Arg>
+		</setTaskCostTime>
+		<gmGetTask>
+			<Arg>		TASK_ID		</Arg>
+		</gmGetTask>
+		<gmDoneTask>
+			<Arg>		TASK_ID		</Arg>
+		</gmDoneTask>
+		<gmTaskGiveUp>
+			<Arg>		TASK_ID		</Arg>
+		</gmTaskGiveUp>
+	</ClientMethods>
+</root>
+

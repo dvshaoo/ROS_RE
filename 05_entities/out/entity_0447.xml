@@ -1,0 +1,107 @@
+<root>
+	<Properties>
+		<crazyCarnivalCurrency>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</crazyCarnivalCurrency>
+		<crazyCarnivalExchangeTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</crazyCarnivalExchangeTimes>
+		<crazyCarnivalExchangeLastResetTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</crazyCarnivalExchangeLastResetTimes>
+		<crazyCarnivalYBCost>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</crazyCarnivalYBCost>
+		<crazyCarnivalYBCostRewardState>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</crazyCarnivalYBCostRewardState>
+		<dtsCrazyCarnivalTask>
+			<Type>		DTS_ACTIVIY_TASK_SERVER_MAP		</Type>
+			<Flags>		BASE				</Flags>
+			<Default>	{}					</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsCrazyCarnivalTask>
+		<dtsDoneCrazyCarnivalTaskIds>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsDoneCrazyCarnivalTaskIds>
+		<dtsCrazyCarnivalRewardTaskIds>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsCrazyCarnivalRewardTaskIds>
+		<dtsCrazyCarnivalActiviytDays>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsCrazyCarnivalActiviytDays>
+		<dtsCrazyCarnivalTaskLastResetTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsCrazyCarnivalTaskLastResetTimes>
+		<dtsCrazyCarnivalTicketsDayCnt>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</dtsCrazyCarnivalTicketsDayCnt>
+	</Properties>
+	<BaseMethods>
+		<exchangeCrazyCarnivalGift> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</exchangeCrazyCarnivalGift>
+		<tryGetCrazyCarnivalAccumulateYBCostReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</tryGetCrazyCarnivalAccumulateYBCostReward>
+		<getDtsCrazyCarnivalTaskReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</getDtsCrazyCarnivalTaskReward>
+		<onPickUpCrazyCarnivalItem>
+			<Arg>		INT32		</Arg>
+		</onPickUpCrazyCarnivalItem>
+		<requestDtsCrazyCarnivalTaskContent> <Exposed/>
+		</requestDtsCrazyCarnivalTaskContent>
+	</BaseMethods>
+	<ClientMethods>
+		<onCrazyCarnivalExchangeGift>
+			<Arg>	PYTHON	</Arg>
+		</onCrazyCarnivalExchangeGift>
+		<updateCrazyCarnivalYBCostRewardInfo>
+			<Arg>		PYTHON		</Arg>
+		</updateCrazyCarnivalYBCostRewardInfo>
+		<onGetCrazyCarnivalYBCostReward>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onGetCrazyCarnivalYBCostReward>
+		<onGetDtsCrazyCarnivalTaskReward>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onGetDtsCrazyCarnivalTaskReward>
+		<updateDtsCrazyCarnivalInfo>
+			<Arg>		PYTHON		</Arg>
+		</updateDtsCrazyCarnivalInfo>
+		<onDtsCrazyCarnivalTaskContentUpdate>
+			<Arg>		PYTHON		</Arg>
+		</onDtsCrazyCarnivalTaskContentUpdate>
+	</ClientMethods>
+</root>

@@ -1,0 +1,66 @@
+<root>
+	<Implements>
+		<Interface> iTrainCarriage </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName> TrainCarriageSupply </ClientName>
+
+	<Properties>
+		<supplyItems>
+			<Type>  PY_DICT </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</supplyItems>
+		<hasOpen>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</hasOpen>
+		<currentBox>
+			<Type>	ARRAY <of>	INT32	</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</currentBox>
+		<hasOpenVehicleBox>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</hasOpenVehicleBox>
+		<hasVehicle>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</hasVehicle>
+		<supplyVehicleID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</supplyVehicleID>
+	</Properties>
+
+	<CellMethods>
+		<tryPickUp> <Exposed/>
+			<Arg>	UUID	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT32	</Arg>
+		</tryPickUp>
+		<tryOpenVehicleSupplyBox> <Exposed/>
+		</tryOpenVehicleSupplyBox> 
+		<arriveStation>
+		</arriveStation> 
+		<leaveStation>
+		</leaveStation> 
+	</CellMethods>
+	<ClientMethods>
+		<updataItemAmount>
+			<Arg> UUID </Arg>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+		</updataItemAmount>
+		<onOpenVehicleSupplyBox>
+		</onOpenVehicleSupplyBox>
+	</ClientMethods>
+</root>

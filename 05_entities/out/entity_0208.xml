@@ -1,0 +1,44 @@
+<root>
+	<Properties>
+		<casterInfo>
+			<Type>	CASTER_TARGET_INFO	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</casterInfo>
+
+		<targetInfo>
+			<Type>	CASTER_TARGET_INFO </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</targetInfo>
+
+		<skillID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</skillID>
+
+		<summonID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</summonID>
+
+		<summonObj>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</summonObj>
+		<summonUpdateTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</summonUpdateTimerID>
+		<forceDestroyTimer>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</forceDestroyTimer>
+	</Properties>
+
+	<CellMethods>
+		<pick_entities>
+			<Arg> FLOAT	</Arg>
+		</pick_entities>
+		<release>
+		</release>
+	</CellMethods>
+</root>

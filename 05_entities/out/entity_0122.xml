@@ -1,0 +1,111 @@
+<root>
+	<Properties>
+	<!-- repertoryPackage 的定义在iChildTable中 -->
+
+		<timerUsePropTimerDict>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Default> {} </Default>
+			<PersistentMongo> true </PersistentMongo>
+		</timerUsePropTimerDict>
+		<timerUsePropGottenDict>
+			<Type> PYTHON </Type>
+			<Flags> BASE_AND_CLIENT </Flags>
+			<Default> {} </Default>
+		</timerUsePropGottenDict>
+	</Properties>
+
+	<BaseMethods>
+		<addItemIntoRepertoryPackage>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+			<Arg>			INT32			</Arg>
+		</addItemIntoRepertoryPackage>
+		<operatePropSell> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropSell>
+		<operatePropTimeLimitUse> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropTimeLimitUse>
+		<operatePropPermanentUse> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropPermanentUse>
+		<operatePropCommonUse> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropCommonUse>
+		<operatePropRoomAuthority> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropRoomAuthority>
+		<operatePropOpenURL> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropOpenURL>
+		<operatePropSendMail> <Exposed/>
+			<Arg>			INT32			</Arg>
+			<Arg>			UINT32			</Arg>
+		</operatePropSendMail>
+		<operatePropBroadcastDeclare> <Exposed/>
+		    <Arg>           INT32           </Arg>
+		    <Arg>           UINT32          </Arg>
+		</operatePropBroadcastDeclare>
+
+		<queryTimerUseProp> <Exposed/>
+		</queryTimerUseProp>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onAddItemIntoRepertoryPackage>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ARRAY <of> ITEM_DATA_CONVERT </of>		</Arg>
+			<Arg>		INT32									</Arg>
+			<Arg>		INT32									</Arg>
+		</onAddItemIntoRepertoryPackage>
+
+		<onDelItemFromRepertoryPackage> <!--删除道具, 用于同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItemFromRepertoryPackage>
+
+		<onDelFoldedItemFromRepertoryPackage>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onDelFoldedItemFromRepertoryPackage>
+
+		<onUpdateRepertoryPackageItemNumber> <!--道具数量同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onUpdateRepertoryPackageItemNumber>
+
+		<onOperatePropFailed>
+			<Arg>			STRING			</Arg>
+		</onOperatePropFailed>
+
+		<onOperatePropSellSucc>
+			<Arg>			PYTHON			</Arg>
+		</onOperatePropSellSucc>
+		<onOperatePropTimeLimitUseSucc>
+			<Arg>			PYTHON			</Arg>
+		</onOperatePropTimeLimitUseSucc>
+		<onOperatePropPermanentUseSucc>
+			<Arg>			PYTHON			</Arg>
+		</onOperatePropPermanentUseSucc>
+
+		<onOperatePropOpenURL>
+			<Arg>			ITEM_ID				</Arg>
+		</onOperatePropOpenURL>
+
+		<onTimerUsePropUpdate>
+			<Arg>			PYTHON				</Arg>
+		</onTimerUsePropUpdate>
+		<onGetTimerUseProp>
+			<Arg>			PYTHON				</Arg>
+		</onGetTimerUseProp>
+	</ClientMethods>
+</root>

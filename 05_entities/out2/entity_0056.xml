@@ -1,0 +1,128 @@
+<root>
+	<Implements>
+		<Interface>		iGlobal					</Interface> 
+		<Interface>		iBaseNoCell				</Interface> 
+	</Implements>
+
+	<Properties>
+		<whiteLists>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}					</Default>
+		</whiteLists>	
+
+		<blackLists>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}					</Default>
+		</blackLists>
+
+		<recommendList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}					</Default>
+		</recommendList>							
+
+		<banChannelList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		[]					</Default>
+		</banChannelList>	
+
+		<autoRecommend>
+			<Type>			BOOL				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		1					</Default>
+		</autoRecommend>						
+
+		<fixRecommendChannel>
+			<Type>			INT32				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		999					</Default>
+		</fixRecommendChannel>
+
+		<fixRecommendRooms>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		[]					</Default>		
+		</fixRecommendRooms>
+
+	</Properties>
+
+	<BaseMethods>
+		<requestRoomList>
+			<Arg>			MAILBOX				</Arg>
+			<Arg>			INT32				</Arg> <!-- channel -->
+		</requestRoomList>
+
+		<requestFollowList>
+			<Arg>			MAILBOX				</Arg>
+			<Arg>			INT32				</Arg> <!-- channel -->
+		</requestFollowList>
+
+		<requestRecommendList>
+			<Arg>			MAILBOX				</Arg>
+		</requestRecommendList>
+
+		<requestRank>
+			<Arg>			MAILBOX				</Arg>
+		</requestRank>
+		
+		<setWhiteList>
+			<Arg>			INT32				</Arg> <!-- channel -->
+			<Arg>			STRING				</Arg> <!-- roomID -->
+			<Arg>			BOOL				</Arg> <!-- add -->
+		</setWhiteList>
+
+		<setBlackList>
+			<Arg>			INT32				</Arg> <!-- channel -->
+			<Arg>			STRING				</Arg> <!-- roomID -->
+			<Arg>			BOOL				</Arg> <!-- add -->		
+		</setBlackList>
+
+		<setRecommend>
+			<Arg>			INT32				</Arg> <!-- channel -->
+			<Arg>			PYTHON				</Arg> <!-- room -->
+		</setRecommend>	
+
+		<setRecommendSimple>
+			<Arg>			INT32				</Arg> <!-- channel -->
+			<Arg>			PYTHON				</Arg> <!-- room -->
+		</setRecommendSimple>	
+		
+		<removeRecommend>
+			<Arg>			INT32				</Arg> <!-- channel -->
+		</removeRecommend>
+
+		<setBanChannel>
+			<Arg>			INT8				</Arg> <!-- channel -->
+		</setBanChannel>
+
+		<removeBanChannel>
+			<Arg>			INT8				</Arg> <!-- channel -->
+		</removeBanChannel>
+
+		<getAnchor>
+			<Arg>	GM_PROXY	</Arg>
+			<Arg>			INT8				</Arg> <!-- channel -->
+		</getAnchor>
+
+		<setAutoRecommend>
+			<Arg>			BOOL				</Arg> <!-- auto recommend open -->
+		</setAutoRecommend>
+
+		<setFixRecommend>
+			<Arg>			INT32					</Arg> <!-- channel -->
+			<Arg>			INT32					</Arg> <!-- roomID -->
+			<Arg>			BOOL					</Arg> <!-- add -->
+		</setFixRecommend>
+
+		<clearRecommend>
+		</clearRecommend>		
+	</BaseMethods>	
+
+</root>

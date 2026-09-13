@@ -1,0 +1,70 @@
+<root>
+	<Properties>
+		<goldBattleEveryDayGP>
+			<Type>			INT32			</Type>
+			<Flags>			OWN_CLIENT		</Flags>
+			<Default>		0			</Default>
+		</goldBattleEveryDayGP>
+		<goldBattleChanceCostGP>
+			<Type>			INT32			</Type>
+			<Flags>			OWN_CLIENT		</Flags>
+			<Default>		0			</Default>
+		</goldBattleChanceCostGP>
+		<goldBattleScore>
+			<Type>			INT32			</Type>
+			<Flags>			OWN_CLIENT		</Flags>
+			<Default>		0			</Default>
+		</goldBattleScore>
+	</Properties>
+
+	<BaseMethods>
+		<useGoldBattleChance> </useGoldBattleChance>
+		<addGoldBattleAwards> 
+			<Arg>		PYTHON		</Arg>
+		</addGoldBattleAwards>
+		<refreshGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshGoldBattleCoin>
+		<refreshGoldBattleCoinForObserve>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshGoldBattleCoinForObserve>
+		<checkRefreshGoldBattleCoin> </checkRefreshGoldBattleCoin>
+		<refreshObserverdGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshObserverdGoldBattleCoin>
+	</BaseMethods>
+
+	<CellMethods>
+		<addGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>			PYTHON			</Arg>
+		</addGoldBattleCoin>
+		<updateGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+		</updateGoldBattleCoin>
+	</CellMethods>
+
+	<ClientMethods>
+		<showKillGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+		</showKillGoldBattleCoin>
+		<refreshGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshGoldBattleCoin>
+		<refreshGoldBattleCoinForObserve>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshGoldBattleCoinForObserve>
+		<refreshObserverdGoldBattleCoin>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</refreshObserverdGoldBattleCoin>
+	</ClientMethods>
+</root>

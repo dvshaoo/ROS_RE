@@ -1,0 +1,120 @@
+<root>
+	<Properties>
+		<!-- 载具大逃杀背包 -->
+		<autoRoyaleItemPackage>
+			<Type>			AUTO_ROYALE_PACKAGE3		</Type>
+			<Flags>			ALL_CLIENTS					</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+		</autoRoyaleItemPackage>
+	</Properties>
+
+	<CellMethods>
+		<clearAutoRoyalePackage>
+		</clearAutoRoyalePackage>
+
+		<addAutoRoyaleItem> <!-- 此接口不可exposed -->
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			PYTHON			</Arg>
+		</addAutoRoyaleItem>
+
+		<unlockAutoRoyaleItemPackage>
+			<Arg>			INT32 			</Arg>
+		</unlockAutoRoyaleItemPackage>
+
+		<delAutoRoyaleFoldedItemBatch> <Exposed/>
+			<Arg>		ARRAY <of> DTS_ITEM_BATCH </of>			</Arg>
+		</delAutoRoyaleFoldedItemBatch>
+
+		<movePropFromVehicleToAvatar>
+			<Arg>			MAILBOX			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			ITEM_UUID 		</Arg>
+		</movePropFromVehicleToAvatar>
+
+		<movePropFromAyPackageToSlot>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			ITEM_UUID 		</Arg>
+		</movePropFromAyPackageToSlot>
+
+		<onMoveVehiclePropFromSlotToVehiclePackage>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onMoveVehiclePropFromSlotToVehiclePackage>
+
+		<movePropFromAyPackageToIndexSlot>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</movePropFromAyPackageToIndexSlot>
+
+		<delAutoRoyaleFoldedItem>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</delAutoRoyaleFoldedItem>
+
+		<delAutoRoyaleItem>
+			<Arg>			INT32			</Arg>
+			<Arg>			ITEM_UUID 		</Arg>
+		</delAutoRoyaleItem>
+
+		<copyAutoRoyalePackage>
+			<Arg>			AUTO_ROYALE_PACKAGE3			</Arg>
+		</copyAutoRoyalePackage>
+
+		<onAvatarUseVehicleProp>
+			<Arg>			ITEM_ID				</Arg>
+		</onAvatarUseVehicleProp>
+	</CellMethods>
+
+	<ClientMethods>
+		<onDelAutoRoyaleFoldedItemBatch>
+			<Arg>		ARRAY <of> DTS_ITEM_BATCH </of>			</Arg>
+		</onDelAutoRoyaleFoldedItemBatch>
+
+		<onAddAutoRoyaleItem>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ARRAY <of> ITEM_DATA_CONVERT </of>		</Arg>
+			<Arg>		INT8									</Arg>
+			<Arg>		INT32									</Arg>
+		</onAddAutoRoyaleItem>
+
+		<onDelAutoRoyaleItem> <!--删除道具, 用于同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelAutoRoyaleItem>
+
+		<onDelAutoRoyaleFoldedItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onDelAutoRoyaleFoldedItem>
+
+		<onUnlockAutoRoyaleItemPackage>
+			<Arg>		PYTHON									</Arg>
+		</onUnlockAutoRoyaleItemPackage>
+
+		<onClearAutoRoyalePackage>
+		</onClearAutoRoyalePackage>
+
+		<onAvatarUseVehicleProp>
+			<Arg>			ITEM_ID				</Arg>
+		</onAvatarUseVehicleProp>
+	</ClientMethods>
+</root>

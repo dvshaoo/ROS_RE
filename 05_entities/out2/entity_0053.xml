@@ -1,0 +1,46 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal	</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<currentActivityState>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE 	</Flags>
+			<Default>	{}	</Default>
+		</currentActivityState>
+		<omActivityState>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE 	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true	</Persistent>
+		</omActivityState>
+	</Properties>
+
+	<BaseMethods>
+		<requestActivityStateData>
+			<Arg>	MAILBOX	</Arg>
+		</requestActivityStateData>
+
+		<switchActivityState>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</switchActivityState>
+
+		<omSwitchActivityState>
+			<Arg>	ACTIVITY_ID </Arg>
+			<Arg>	INT8	</Arg>
+		</omSwitchActivityState>
+
+		<dayRefreshActivity>
+		</dayRefreshActivity>
+		<weekRefreshActivity>
+		</weekRefreshActivity>
+
+		<doCrontabRemotePush>
+			<Arg>	INT32	</Arg>
+		</doCrontabRemotePush>
+	</BaseMethods>
+
+</root>

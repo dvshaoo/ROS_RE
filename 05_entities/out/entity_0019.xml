@@ -1,0 +1,25 @@
+<root>
+	<Properties>
+		<characterType>
+			<Type> UINT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+			<Persistent>	true	</Persistent>
+			<SendInPartialUpdate>	true	</SendInPartialUpdate>
+		</characterType>
+
+		<modelRadius>
+			<Type> FLOAT </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</modelRadius>
+
+	</Properties>
+	
+	<CellMethods>
+		<gmSetCharacterType> <!-- 暂时性接口，用于gm -->
+			<Arg>	UINT32	</Arg>
+		</gmSetCharacterType>
+		<updateCharacterType>
+			<Arg>	UINT32	</Arg>
+		</updateCharacterType>
+	</CellMethods>
+</root>

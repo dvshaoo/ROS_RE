@@ -1,0 +1,90 @@
+<root>
+	<Properties>
+		<commanderDropPosList>
+			<Type>	ARRAY	<of>	COMMANDER_DROP_POS_INFO	</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	[]				</Default>
+		</commanderDropPosList>
+
+		<commanderVehicleInfoList>
+			<Type>	ARRAY	<of>	COMMANDER_VEHICLE_INFO	</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	[]				</Default>
+		</commanderVehicleInfoList>
+
+		<commanderDropIndex>
+			<Type>	UINT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	0				</Default>
+		</commanderDropIndex>
+
+		<commanderNumber>
+			<Type>	UINT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	0				</Default>
+		</commanderNumber>
+
+		<commanderIndexMap>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}				</Default>
+		</commanderIndexMap>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+		<commanderAward>
+			<Arg>  INT32    </Arg>
+			<Arg>  INT32 </Arg>
+			<Arg>  INT64    </Arg>
+		</commanderAward>
+
+		<commanderBroadcast>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING					</Arg>	<!-- content -->
+			<Arg>			CHAT_RECIVER					</Arg>	<!-- receiver -->
+			<Arg>			CHAT_PARAMS					</Arg>	<!-- params -->
+		</commanderBroadcast>
+
+		<commanderCreatePlane>
+			<Arg>  INT32    </Arg>
+			<Arg>  STRING   </Arg>
+			<Arg>  INT32    </Arg>
+			<Arg>  VECTOR3  </Arg>
+		</commanderCreatePlane>
+
+		<commanderAirDrop>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>  ARRAY <of> PY_DICT </of> </Arg>
+		</commanderAirDrop>
+
+		<createVehicleForCommander>
+			<Arg>  INT32    </Arg>
+		</createVehicleForCommander>
+
+		<commanderReqObserve>
+			<Arg>  INT32    </Arg>
+		</commanderReqObserve>
+
+		<onCommanderVehicleCreate>
+			<Arg>  INT32    </Arg>
+			<Arg>  COMMANDER_VEHICLE_INFO    </Arg>
+		</onCommanderVehicleCreate>
+
+		<updateCommanderVehiclePos>
+			<Arg>  INT32    </Arg>
+			<Arg>	VECTOR3	</Arg>
+		</updateCommanderVehiclePos>
+
+		<updateCommanderVehicleYaw>
+			<Arg>  INT32    </Arg>
+			<Arg>  FLOAT    </Arg>
+		</updateCommanderVehicleYaw>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

@@ -1,0 +1,19 @@
+# Ignore massive archives & game obb files (3.3 GB+)
+00_INBOX/
+04_obb/
+01_apk/
+*.apk
+*.obb
+*.xz
+*.zip
+*.tar.gz
+*.iso
+*.so
+
+# Ignore large binary servers
+mitm/frida-server
+mitm/frida-server.xz
+
+# Ignore Python caches
+__pycache__/
+*.pyc

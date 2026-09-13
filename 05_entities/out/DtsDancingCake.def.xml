@@ -1,0 +1,44 @@
+<root>
+	<Implements>
+		<Interface>	iCell </Interface>
+		<Interface>	iCombatUnit </Interface>
+		<Interface>	iSkill </Interface>
+	</Implements>
+	<ClientName>	DtsDancingCake		</ClientName>
+	<Properties>
+		<enteredPlayerIDs>
+			<Type>	ARRAY	<of>	INT32	</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</enteredPlayerIDs>
+		<enteredPlayerDanceTime>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+			<Default>	{}	</Default>
+		</enteredPlayerDanceTime>
+		<cakePosPlayerID>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+			<Default>	{}	</Default>
+		</cakePosPlayerID>
+	</Properties>
+	<CellMethods>
+		<tryEnterDancingCake> <Exposed/>
+		</tryEnterDancingCake> 
+		<tryQuitDancingCake> <Exposed/>
+		</tryQuitDancingCake> 
+		<updateDancingCakeParam>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</updateDancingCakeParam> 
+		<recordStartDanceTime>
+			<Arg>	INT32	</Arg>
+		</recordStartDanceTime> 
+	</CellMethods>
+	<ClientMethods>
+		<refreshCakeEnteredPlayers>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</refreshCakeEnteredPlayers> 
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

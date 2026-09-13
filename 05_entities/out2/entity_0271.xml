@@ -1,0 +1,81 @@
+<root>
+	<Properties>
+		<signedDay>
+			<Type>	INT32	</Type>
+			<Flags>	BASE 	</Flags>
+			<Persistent> true </Persistent>
+		</signedDay>
+		<currentMonth>
+			<Type>	INT8	</Type>
+			<Flags> BASE 	</Flags>
+			<Persistent> true </Persistent>
+		</currentMonth>
+		<lastSignedTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastSignedTime>
+
+		<lastResetSNCountTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastResetSNCountTime>
+
+		<dailySNGetCount>
+			<Type>		INT32	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</dailySNGetCount>
+	</Properties>
+
+	<BaseMethods>
+		<requestSignedItems>
+			<Exposed/>
+		</requestSignedItems>
+		<requestSignedAnyDay>
+			<Exposed/>
+			<Arg>	INT8	</Arg> <!-- request signed day -->
+		</requestSignedAnyDay>
+		<requestSigned>
+			<Exposed/>
+		</requestSigned>
+
+		<exchangeGift><Exposed/>
+			<Arg>	STRING		</Arg>
+		</exchangeGift>
+
+		<handleRequiredRoleCreateTimeSN>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT32		</Arg>
+		</handleRequiredRoleCreateTimeSN>
+		<handleRequiredOldRoleSN>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT32		</Arg>
+		</handleRequiredOldRoleSN>
+	</BaseMethods>
+	<ClientMethods>
+		<onShowSignedPanel>
+			<Arg>	INT8	</Arg>	<!-- month -->
+			<Arg>	INT32	</Arg>	<!-- signed -->
+		</onShowSignedPanel>
+		<onShowSignSuccess>
+			<Arg>	INT32		</Arg>	<!-- signed month -->
+			<Arg>	INT32		</Arg>	<!-- signed day -->
+			<Arg>	SIGNED_ITEM	</Arg>	<!-- reward -->
+			<Arg>	BOOL		</Arg>	<!-- double reward -->
+			<Arg>	INT8		</Arg>	<!-- lv VIP -->
+		</onShowSignSuccess>
+		<onShowSignFailed>
+			<Arg>	INT8	</Arg>	<!-- failed code -->
+		</onShowSignFailed>
+		<onSetSigned>
+			<Arg>	BOOL	</Arg>	<!-- is signed -->
+		</onSetSigned>
+	</ClientMethods>
+</root>

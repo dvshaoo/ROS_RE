@@ -1,0 +1,118 @@
+<root>
+	<Implements>
+		<Interface>	iBaseWithCell		</Interface>
+		<Interface>	iCell			</Interface>
+		<Interface>	iLevelConfig	</Interface>
+		<Interface>	iSpaceAnnal		</Interface>
+	</Implements>
+	<Properties>
+		<globalMailBox>
+			<Type>	GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>	CELL_PRIVATE		</Flags>
+		</globalMailBox>
+		<playerDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	{}		</Default>
+		</playerDict>
+		<enteringPlayers>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</enteringPlayers>
+		<heartbeatTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</heartbeatTimerID>
+		<avatarTryEnterTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</avatarTryEnterTimerID>
+		<baseMapID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+		</baseMapID>
+		<checkNavmeshTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</checkNavmeshTimerID>
+		<cellappId>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+		</cellappId>
+		<channelIndex>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+		</channelIndex>
+
+		<clearEntityTimer>
+			<Type>		TIMER_ID		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</clearEntityTimer>
+		<entitiesToClear>
+			<Type>		ARRAY <of> OBJECT_ID </of>		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>		[]	</Default>
+		</entitiesToClear>
+	</Properties>
+	<BaseMethods>
+		<onSpaceReady>
+		</onSpaceReady>
+		<createAvatar>
+			<Arg>		PYTHON		</Arg>
+		</createAvatar>
+		<queryRecastNavPath>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		MAILBOX 	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</queryRecastNavPath>
+		<onQueryRecastNavPath>
+			<Arg>		MAILBOX 	</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		ARRAY <of>	VECTOR3	</of>			</Arg>
+			<Arg>		INT32		</Arg>
+		</onQueryRecastNavPath>
+	</BaseMethods>
+	<CellMethods>
+		<onSpaceReady>
+		</onSpaceReady>
+		<avatarTryEnterSpace>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</avatarTryEnterSpace>
+		<onAvatarEnter>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onAvatarEnter>
+		<onAvatarLeave>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onAvatarLeave>
+		<saveAvatarSnapshot>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</saveAvatarSnapshot>
+		<broadcastInSpace>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</broadcastInSpace>
+		<gmGatherAll>
+			<Arg>		VECTOR3		</Arg>
+		</gmGatherAll>
+		<queryRecastNavPath>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		MAILBOX 	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</queryRecastNavPath>
+		<updatePlayerDict>
+			<Arg>		INT32		</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</updatePlayerDict>
+	</CellMethods>
+</root>

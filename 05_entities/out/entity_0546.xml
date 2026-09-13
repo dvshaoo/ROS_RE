@@ -1,0 +1,63 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<initNewSeason>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+			<Arg>   PYTHON  </Arg>						<!-- SeedsList -->
+		</initNewSeason>
+		<addBattleStat>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+			<Arg>   STRING	</Arg>						<!-- matchId-->
+			<Arg>   PYTHON </Arg>						<!-- battleStat -->
+			<Arg>   PYTHON </Arg>						<!-- extraInfo -->
+		</addBattleStat>
+		<getSeeds>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+		</getSeeds>
+		<banCertainMatch>
+			<Arg>   STRING </Arg>						<!-- matchID-->
+		</banCertainMatch>
+		<requireFlagRanklist>
+			<Arg>   MAILBOX </Arg>
+			<Arg>   GID </Arg>						<!-- GID -->
+			<Arg>   STRING	</Arg>						<!-- flag -->
+			<Arg>   INT64 </Arg>						<!-- seasonNo -->
+			<Arg>   STRING	</Arg>						<!-- tag -->
+			<Arg>   INT32	</Arg>						<!-- start -->
+			<Arg>   INT32	</Arg>						<!-- end -->
+		</requireFlagRanklist>
+		<requireSeasonHistroy>
+			<Arg>   MAILBOX </Arg>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+		</requireSeasonHistroy>
+		<requirePlayerRanklist>
+			<Arg>   MAILBOX </Arg>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+			<Arg>   GID		</Arg>						<!-- gid -->
+			<Arg>   STRING	</Arg>						<!-- tag -->
+			<Arg>   INT32	</Arg>						<!-- start -->
+			<Arg>   INT32	</Arg>						<!-- end -->
+		</requirePlayerRanklist>
+		<recoverFromSeasonMatches>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+			<Arg>   PYTHON </Arg>						<!-- matchIds -->
+			<Arg>   PYTHON </Arg>						<!-- seedsList -->
+		</recoverFromSeasonMatches>
+		<getSeedsToInitNewSeason>
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+		</getSeedsToInitNewSeason>
+		<clearUserRankInSeason>
+			<Arg>   INT64	</Arg>						<!-- gid -->
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+		</clearUserRankInSeason>
+		<clearCountryRankInSeason>
+			<Arg>   STRING	</Arg>						<!-- flag -->
+			<Arg>   INT64	</Arg>						<!-- seasonNo -->
+		</clearCountryRankInSeason>
+	</BaseMethods>
+</root>

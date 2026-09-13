@@ -1,0 +1,458 @@
+<root>
+	<Properties>
+		<anniversaryCoin>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryCoin>
+		<anniversaryCoinDailyGetInGame>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryCoinDailyGetInGame>
+		<anniversaryCoinTotalGetInGame>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryCoinTotalGetInGame>
+		<anniversaryCoinUsed>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryCoinUsed>
+		<anniversaryCoinDailyGetH5>
+			<Type>		 INT32 		</Type>
+			<Flags>			BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryCoinDailyGetH5>
+		<anv2019payRebates>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anv2019payRebates>
+		<anv2019SignInIdx>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anv2019SignInIdx>
+		<anv2019SignInTs>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anv2019SignInTs>
+		<anniversaryLimitActionStage>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryLimitActionStage>
+		<resetAnniversaryCoinTimes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</resetAnniversaryCoinTimes>
+		<anniversaryH5GameShareUrl2019>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryH5GameShareUrl2019>
+		<anniversaryH5GameRewardList2019>
+			<Type>		ARRAY <of> INT64 </of>		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	[]		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversaryH5GameRewardList2019>
+		<pzType>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</pzType>
+		<pzTasks>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</pzTasks>
+		<pzGrids>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</pzGrids>
+		<pzRewards>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</pzRewards>
+		<pzPick>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</pzPick>
+		
+		<anv2020payRebates>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anv2020payRebates>
+        <anniversarySignReward2020>
+			<Type>		BOOL 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	False			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversarySignReward2020>
+        <anniversaryPhotoSignReward2020>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversaryPhotoSignReward2020>
+        
+		<anniversaryPhotoSignReward2020OnOtherServer>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversaryPhotoSignReward2020OnOtherServer>
+        
+        <anniversaryPhotoSignCurrStageIdx>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversaryPhotoSignCurrStageIdx>
+        
+        <anniversary3rdAccumulateLogin>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdAccumulateLogin>
+        
+        <anniversary3rdBindInviteCode>
+			<Type>		STRING 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdBindInviteCode>
+        
+        <anniversary3rdRecallReward>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdRecallReward>
+
+        <anniversary3rdRecallPlayers>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	[]			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdRecallPlayers>
+        
+        <anniversary3rdLotterySignState>
+			<Type>		INT8		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdLotterySignState>
+        
+        <anniversary3rdLotteryTaskData>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	{}			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdLotteryTaskData>
+        
+        <anniversary3rdLotteryTaskLogin>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdLotteryTaskLogin>
+        
+		<anniversary3rdLotteryTaskLoginNew>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+        </anniversary3rdLotteryTaskLoginNew>
+
+		<anniversary3rdTreasureOpenTime>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</anniversary3rdTreasureOpenTime>
+		<getAirShipReward>
+			<Type>		INT8 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</getAirShipReward>
+		<isFirstTimeEnter3rd>
+			<Type>		BOOL 		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	true			</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</isFirstTimeEnter3rd>
+	</Properties>
+	<BaseMethods>
+		<requestAnniversaryMissionReward> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</requestAnniversaryMissionReward>
+		<shareEggToFriend> <Exposed/>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</shareEggToFriend>
+		<onAnniversaryClickInviteFriendBtn> <Exposed/>
+		</onAnniversaryClickInviteFriendBtn>
+		<onAnniversaryClickOpenCarnivalBtn> <Exposed/>
+		</onAnniversaryClickOpenCarnivalBtn>
+		<bindAnniversaryInviteCode> <Exposed/>
+			<Arg>		STRING	</Arg>
+		</bindAnniversaryInviteCode>
+		<onGetEggFromFriend>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetEggFromFriend>
+		<onPickAnniversaryEgg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPickAnniversaryEgg>
+		<onRefreshInviterAnniversaryRewardState>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onRefreshInviterAnniversaryRewardState>
+		<buyTimeLimitApperance> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</buyTimeLimitApperance>
+		<setAnniversaryKillAwardFlag>
+		</setAnniversaryKillAwardFlag>
+		<getAnniversaryKillAward> <Exposed/>
+		</getAnniversaryKillAward>
+		<onGetAnniversaryCurrentNum>
+			<Arg>		INT64		</Arg>
+		</onGetAnniversaryCurrentNum>
+		<requestAnniversaryShowNumber> <Exposed/>
+		</requestAnniversaryShowNumber>
+		<onConfirmAnniversaryFriendGift> <Exposed/>
+		</onConfirmAnniversaryFriendGift>
+		<requestAnniversaryInfo> <Exposed/>
+		</requestAnniversaryInfo>
+		<requestAnniversaryH5GameShareUrl> <Exposed/>
+		</requestAnniversaryH5GameShareUrl>
+		<requestAnniversaryH5GameScore> <Exposed/>
+		</requestAnniversaryH5GameScore>
+		<addAnniversaryCoinInGame>
+			<Arg>		INT32		</Arg>
+		</addAnniversaryCoinInGame>
+		<addAnniversaryCoinByH5>
+			<Arg>		INT32		</Arg>
+		</addAnniversaryCoinByH5>
+		<openAnniversary2019SignInMain> <Exposed/>
+		</openAnniversary2019SignInMain>
+		<reqAnniversary2019SignIn> <Exposed/>
+		</reqAnniversary2019SignIn>
+		<reqAnniversaryCoinAction> <Exposed/>
+		</reqAnniversaryCoinAction>
+		<getPuzzlePiece> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</getPuzzlePiece>
+		<donatePuzzlePiece> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</donatePuzzlePiece>
+		<getCollectPuzzlePieceReward> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</getCollectPuzzlePieceReward>
+		<pickPuzzlePieceInPool> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</pickPuzzlePieceInPool>
+		<openPuzzleActivityMain> <Exposed/>
+		</openPuzzleActivityMain>
+		<openPuzzlePiecePool> <Exposed/>
+		</openPuzzlePiecePool>
+		
+        <requestSignAnniversary2020> <Exposed/>
+		</requestSignAnniversary2020>
+        
+        <requestAnniversaryCurrPhotoSignCnt> <Exposed/>
+		</requestAnniversaryCurrPhotoSignCnt>
+
+        <requestGetAnniversaryPhotoSignReward> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</requestGetAnniversaryPhotoSignReward>
+
+        <requestBind3rdAnniversaryInviteCode> <Exposed/>
+			<Arg>		STRING	</Arg>
+        </requestBind3rdAnniversaryInviteCode>
+
+        <onAnniversary3rdRecallPlayerBindInviteCode>
+			<Arg>		INT64		</Arg>
+        </onAnniversary3rdRecallPlayerBindInviteCode>
+        
+        <requestGet3rdAnniversaryRecallPlayerReward> <Exposed/>
+        </requestGet3rdAnniversaryRecallPlayerReward>
+		<getAirShipDamageRank> <Exposed/>
+		</getAirShipDamageRank>
+        <requestSign3rdAnniversaryLottery> <Exposed/>
+        </requestSign3rdAnniversaryLottery>
+        
+        <queryAnniversary3rdLotteryInfo> <Exposed/>
+        </queryAnniversary3rdLotteryInfo>
+
+        <onQueryAnniversary3rdLotteryInfo>
+			<Arg>		PYTHON		</Arg>
+        </onQueryAnniversary3rdLotteryInfo>
+		<onAddTreasureOpenTime>
+		</onAddTreasureOpenTime>
+		<onGetAnniversaryTreasure>
+			<Arg>		INT32		</Arg>
+		</onGetAnniversaryTreasure>
+		<clear3rdTag> <Exposed/>
+		</clear3rdTag>
+		<updateFirstTimeEnter3rd> <Exposed/>
+		</updateFirstTimeEnter3rd>
+	</BaseMethods>
+	<ClientMethods>
+		<updateAnniversaryBaseInfo>
+			<Arg>	PYTHON	</Arg>
+		</updateAnniversaryBaseInfo>
+		<updateAnniversaryMissionInfo>
+			<Arg>	PYTHON	</Arg>
+		</updateAnniversaryMissionInfo>
+		<updateAnniversaryMissionRewardState>
+			<Arg>	PYTHON	</Arg>
+		</updateAnniversaryMissionRewardState>
+		<updateAnniversaryTimeLimitApperanceInfo>
+			<Arg>	PYTHON	</Arg>
+		</updateAnniversaryTimeLimitApperanceInfo>
+		<updateAnniversaryServerAssistShowNum>
+			<Arg>		INT64		</Arg>
+		</updateAnniversaryServerAssistShowNum>
+		<onGetAnniversaryAward>
+			<Arg>	ARRAY	<of>	INT32	</of>	</Arg>
+		</onGetAnniversaryAward>
+		<updateAnniversaryH5GameShareUrl>
+			<Arg>	STRING	</Arg>
+		</updateAnniversaryH5GameShareUrl>
+		<onAnniversary2019SignInMain>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+		</onAnniversary2019SignInMain>
+		<onSyncAnniversary2019PayRebate>
+			<Arg>	STRING	</Arg>
+		</onSyncAnniversary2019PayRebate>
+		<onAnniversaryCoinUpdated>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+		</onAnniversaryCoinUpdated>
+		<reqAnniversaryCoinActionCB>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT64	</Arg>
+		</reqAnniversaryCoinActionCB>
+		<onGetPuzzlePiece>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetPuzzlePiece>
+		<onDonatePuzzlePiece>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onDonatePuzzlePiece>
+		<onGetCollectPuzzlePieceReward>
+			<Arg>	INT8	</Arg>
+		</onGetCollectPuzzlePieceReward>
+		<onPickPuzzlePieceInPool>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	INT32	</Arg>
+		</onPickPuzzlePieceInPool>
+		<onOpenPuzzleActivityMain>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onOpenPuzzleActivityMain>
+		<onOpenPuzzlePiecePool>
+			<Arg>	PYTHON	</Arg>
+		</onOpenPuzzlePiecePool>
+
+		<onSyncAnniversary2020PayRebate>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT8	</Arg>
+		</onSyncAnniversary2020PayRebate>
+		<onGetSignAnniversary2020Reward>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	BOOL	</Arg>
+		</onGetSignAnniversary2020Reward>
+		
+		<onGetAnniversaryCurrPhotoSignCnt>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetAnniversaryCurrPhotoSignCnt>
+		
+		<onGetAnniversaryPhotoSignReward>
+			<Arg>	INT8	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetAnniversaryPhotoSignReward>
+		
+		<onUpdate3rdAnniversaryInviteCode>
+			<Arg>	STRING	</Arg>
+		</onUpdate3rdAnniversaryInviteCode>
+		
+		<onUpdate3rdAnniversaryBindInviteCode>
+			<Arg>	STRING	</Arg>
+		</onUpdate3rdAnniversaryBindInviteCode>
+		
+		<onUpdateAnniversary3rdBindRecallPlayer>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateAnniversary3rdBindRecallPlayer>
+		
+		<onGet3rdAnniversaryRecallPlayerReward>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT8	</Arg>
+		</onGet3rdAnniversaryRecallPlayerReward>
+		<onGetAnniversaryAirShipRank>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+		</onGetAnniversaryAirShipRank>
+
+        <update3rdAnniversaryLotterySignState>
+			<Arg>	BOOL	</Arg>
+			<Arg>	INT8	</Arg>
+        </update3rdAnniversaryLotterySignState>
+        
+        <update3rdAnniversaryLotteryTaskData>
+			<Arg>	PYTHON  </Arg>
+        </update3rdAnniversaryLotteryTaskData>
+        
+        <onQueryAnniversary3rdLotteryInfo>
+			<Arg>		PYTHON		</Arg>
+        </onQueryAnniversary3rdLotteryInfo>
+	</ClientMethods>
+</root>

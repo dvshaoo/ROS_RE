@@ -1,0 +1,51 @@
+<root>
+    <Properties>
+        <courseFavoriteList>
+			<Type>	ARRAY <of>	COURSE_FAVORITE_DATA	</of>		</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+			<Persistent>	true		</Persistent>
+        </courseFavoriteList>
+    </Properties>
+    <BaseMethods>
+        <requireCombatAbstract> <Exposed/>
+			<Arg> INT64 </Arg>
+			<Arg> INT8 </Arg>
+			<Arg> INT8 </Arg>
+        </requireCombatAbstract>
+		<requireCourseFavoriteAbstract> <Exposed/>
+			<Arg> INT16 </Arg>
+			<Arg> INT16 </Arg>
+		</requireCourseFavoriteAbstract>
+        <requireCombatData> <Exposed/>
+            <Arg>	GID		</Arg>
+            <Arg>	UUID		</Arg>
+        </requireCombatData>
+		<addFavoriteItem> <Exposed/>
+            <Arg>	GID		</Arg>
+            <Arg>	UUID		</Arg>
+        </addFavoriteItem>
+        <delFavoriteItem> <Exposed/>
+            <Arg>	GID		</Arg>
+            <Arg>	UUID		</Arg>
+        </delFavoriteItem>
+    </BaseMethods>
+    <ClientMethods>
+		<onGetAbstractData>
+            <Arg>	PYTHON		</Arg>
+		</onGetAbstractData>
+		<onGetFavoriteAbstractData>
+            <Arg>	PYTHON		</Arg>
+		</onGetFavoriteAbstractData>
+		<onGetCombatData>
+            <Arg>	PY_DICT		</Arg>
+		</onGetCombatData>
+		<onAddFavoriteResult>
+            <Arg>	BOOL		</Arg>
+            <Arg>	STRING		</Arg>
+		</onAddFavoriteResult>
+		<onDelFavoriteResult>
+            <Arg>	BOOL		</Arg>
+            <Arg>	STRING		</Arg>
+		</onDelFavoriteResult>
+    </ClientMethods>
+</root>

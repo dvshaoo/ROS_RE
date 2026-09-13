@@ -1,0 +1,27 @@
+<root>
+	<Properties>
+		<timerDoOfflineOp>
+			<Type>		FLOAT		</Type>
+			<Flags>		BASE	</Flags>
+		</timerDoOfflineOp>
+		<offlineOpQueue>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE	</Flags>
+		</offlineOpQueue>
+	</Properties>
+	<BaseMethods>
+		<registerOperation>
+			<Arg>			GID					</Arg>	<!-- athDBID -->
+			<Arg>			STRING				</Arg>	<!-- func -->
+			<Arg>			PYTHON				</Arg>	<!-- args -->
+			<Arg>			BOOL				</Arg>	<!-- isUniqueOp -->
+			<Arg>			INT8				</Arg>	<!-- tag -->
+		</registerOperation>
+
+		<doOperation>
+			<Arg>			GID					</Arg>	<!-- athDBID -->
+			<Arg>			MAILBOX				</Arg>	<!-- mailbox -->
+			<Arg>			INT8				</Arg>	<!-- tag -->
+		</doOperation>
+	</BaseMethods>
+</root>

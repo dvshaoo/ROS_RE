@@ -1,0 +1,345 @@
+<root>
+        <Properties>
+                <firstEnterXmasTree>
+                        <Type>          INT32           </Type>
+                        <Flags>         BASE_AND_CLIENT </Flags>
+                        <Default>       1		</Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </firstEnterXmasTree>
+                <ballColorList>
+                        <Type>          PYTHON          </Type>
+                        <Flags>         BASE            </Flags>
+                        <Default>       []              </Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </ballColorList>
+                <hasGottenBallDict>
+                        <Type>          PYTHON          </Type>
+                        <Flags>         BASE            </Flags>
+                        <Default>       {}              </Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </hasGottenBallDict>
+                <ballOnTree>
+                        <Type>          PYTHON          </Type>
+                        <Flags>         BASE            </Flags>
+                        <Default>       {}              </Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </ballOnTree>
+                <isTreeBright>
+                        <Type>          INT32		</Type>
+                        <Flags>         BASE_AND_CLIENT	</Flags>
+                        <Default>       0	        </Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </isTreeBright>
+                <canMakeWish>
+                        <Type>          INT32		</Type>
+                        <Flags>         BASE_AND_CLIENT	</Flags>
+                        <Default>       0	        </Default>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </canMakeWish>
+                <xmasTreeDate>
+                        <Type>          STRING          </Type>
+                        <Flags>         BASE            </Flags>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </xmasTreeDate>
+                <canMakeWishDate>
+                        <Type>          STRING          </Type>
+                        <Flags>         BASE            </Flags>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </canMakeWishDate>
+                <canGetBallNum>
+                        <Type>          INT32           </Type>
+                        <Flags>         BASE            </Flags>
+                        <PersistentMongo>       true    </PersistentMongo>
+                </canGetBallNum>
+		<selectedWishBallID>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</selectedWishBallID>
+		<selectedWishBallDate>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</selectedWishBallDate>
+
+			<xmasRepairArea2020SpCurrency>	
+				<Type>		INT32				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       0				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020SpCurrency>	
+			<xmasRepairArea2020Progress>	
+				<Type>		PYTHON				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       {}	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020Progress>	
+			<xmasActivity2020NormalRepairGuranatee>	
+				<Type>		PYTHON				</Type>
+				<Flags>		BASE		</Flags>
+				<Default>       {}	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasActivity2020NormalRepairGuranatee>	
+			<xmasRepairArea2020FinishRecord>	
+				<Type>		PYTHON				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       []	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020FinishRecord>	
+			<xmasRepairArea2020RewardLottery>	
+				<Type>		INT8				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       0	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020RewardLottery>	
+			<xmasRepairArea2020RewardRecord>	
+				<Type>		PYTHON				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       []	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020RewardRecord>	
+			<xmasRepairArea2020RewardLotteryRound>	
+				<Type>		PYTHON				</Type>
+				<Flags>		BASE		</Flags>
+				<Default>   0	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020RewardLotteryRound>	
+			<xmasRepairArea2020ShowTips>	
+				<Type>		BOOL				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>      1				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasRepairArea2020ShowTips>	
+			
+			<xmasActivity2020HasShowInfo>	
+				<Type>		BOOL				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>      0				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasActivity2020HasShowInfo>	
+			
+			<xmasActivity2020HasGetFinalReward>	
+				<Type>		BOOL				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>      0				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasActivity2020HasGetFinalReward>	
+			
+			<xmasActivity2020DaiySnowmanReardReset>	
+				<Type>		PYTHON				</Type>
+				<Flags>		BASE		</Flags>
+				<Default>      {}				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasActivity2020DaiySnowmanReardReset>	
+			
+			<xmasActivity2020DaiySnowmanRewardCnt>	
+				<Type>		INT32				</Type>
+				<Flags>		BASE		</Flags>
+				<Default>      0				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasActivity2020DaiySnowmanRewardCnt>	
+			
+			<xmasActivity2020DaiySpCurrencyCnt>	
+				<Type>		INT32				</Type>
+				<Flags>		BASE		</Flags>
+				<Default>      0				</Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</xmasActivity2020DaiySpCurrencyCnt>	
+			
+			<showActivity2020Guide>	
+				<Type>		BOOL				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       0	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</showActivity2020Guide>	
+			
+			<hasXmasActivity2020RookieLottery>	
+				<Type>		BOOL				</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>       0	        </Default>
+				<PersistentMongo>	true		</PersistentMongo>
+			</hasXmasActivity2020RookieLottery>	
+                
+			<hasXmasActivitySnowmanBrokenReward>
+				<Type>		BOOL		</Type>
+				<Flags>		BASE_AND_CLIENT		</Flags>
+				<Default>		0		</Default>
+			</hasXmasActivitySnowmanBrokenReward>
+        </Properties>
+        <BaseMethods>
+                <onGetXmasBall>
+                        <Arg>           INT32           </Arg>
+                </onGetXmasBall>
+		<requestXmasBallCnt> <Exposed/>
+                </requestXmasBallCnt>
+		<putBallOntoXmasTree> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</putBallOntoXmasTree>
+		<makeWish> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</makeWish>
+		<requestBallCntOnXmasTree> <Exposed/>
+                </requestBallCntOnXmasTree>
+		<requestXmasTreeReward> <Exposed/>
+		</requestXmasTreeReward>
+		<requestXmasTreeBright> <Exposed/>
+		</requestXmasTreeBright>
+		<requestXmasWishEnable> <Exposed/>
+		<requestRefreshXmasBallColor> <Exposed/>
+		</requestRefreshXmasBallColor>
+		</requestXmasWishEnable>
+		<requestXmasRemainTimeToday> <Exposed/>
+		</requestXmasRemainTimeToday>
+		<requestRefreshXmasBallColor> <Exposed/>
+		</requestRefreshXmasBallColor>
+		<requestXmasWishInfo> <Exposed/>
+		</requestXmasWishInfo>
+		<requestXmasTreeButtonBright> <Exposed/>
+		</requestXmasTreeButtonBright>
+		<sendGiftToFriend> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</sendGiftToFriend>
+		<onGetGiftFromFriend>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetGiftFromFriend>
+		<sendGiftToFriendResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</sendGiftToFriendResult>
+		<requestGiftInfo> <Exposed/>
+		</requestGiftInfo>
+		
+		<setShowActivity2020GuideFinsih> <Exposed/>
+		</setShowActivity2020GuideFinsih>
+		
+		<doRookieXmasActivity2020Lottery> <Exposed/>
+		</doRookieXmasActivity2020Lottery>
+
+		<doNormalXmasActivity2020Lottery> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</doNormalXmasActivity2020Lottery>
+
+		<doAdvanceXmasActivity2020Lottery> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</doAdvanceXmasActivity2020Lottery>
+		
+		<requestGetXmasActivity2020LotteryReward> <Exposed/>
+		</requestGetXmasActivity2020LotteryReward>
+		
+		<requestSetXmasActivity2020ShowTips> <Exposed/>
+		</requestSetXmasActivity2020ShowTips>
+		
+		<requestGetXmasActivity2020FinalReward> <Exposed/>
+		</requestGetXmasActivity2020FinalReward>
+		
+		<requestSetXmasActivity2020ShowInfo> <Exposed/>
+		</requestSetXmasActivity2020ShowInfo>
+
+		<onGetDtsSnowmanBrokenReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetDtsSnowmanBrokenReward>
+		<onGetDtsXmasActivitySpCurrencyReward>
+			<Arg>		INT32		</Arg>
+		</onGetDtsXmasActivitySpCurrencyReward>
+	</BaseMethods>
+        <ClientMethods>
+                <onUpdateXmasBallCnt>
+                        <Arg>           PYTHON          </Arg>  <!-- {ballID:ballCnt} -->
+                </onUpdateXmasBallCnt>
+                <onSetXmasTreeBright>
+                        <Arg>           BOOL            </Arg>
+                </onSetXmasTreeBright>
+		<onSetXmasTreeButtonBright>
+			<Arg>		BOOL		</Arg>
+		</onSetXmasTreeButtonBright>
+		<onSetXmasWishEnable>
+			<Arg>		BOOL		</Arg>
+		</onSetXmasWishEnable>
+		<onSetXmasRemainTimeToday>
+			<Arg>		INT32		</Arg>
+		</onSetXmasRemainTimeToday>
+                <onShowXmasTreeReward>
+                        <Arg>           PYTHON           </Arg>
+                </onShowXmasTreeReward>
+                <onPutBallOntoXmasTree>
+                        <Arg>           INT32           </Arg>
+			<Arg>		INT32		</Arg>
+		</onPutBallOntoXmasTree>
+                <onUpdateBallCntOnXmasTree>
+                        <Arg>           PYTHON          </Arg>
+                </onUpdateBallCntOnXmasTree>
+		<onMakeWishSuccess>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onMakeWishSuccess>
+		<onShareGiftResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onShareGiftResult>
+		<onReceiveGiftFromFriend>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+		</onReceiveGiftFromFriend>
+
+
+		<onUpdateXmasActivity2020SpCurrency>
+			<Arg>		INT32		</Arg>
+		</onUpdateXmasActivity2020SpCurrency>
+
+		<setShowActivity2020GuideFinsih> <Exposed/>
+		</setShowActivity2020GuideFinsih>
+		
+		<onsetShowActivity2020GuideFinsih> <Exposed/>
+			<Arg>		BOOL		</Arg>
+		</onsetShowActivity2020GuideFinsih>
+		
+		<onXmasActivity2020RookieLotteryResult>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onXmasActivity2020RookieLotteryResult>
+
+		<onXmasActivity2020NormalLotteryResult>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onXmasActivity2020NormalLotteryResult>
+		<onXmasActivity2020AdvanceLotteryResult>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onXmasActivity2020AdvanceLotteryResult>
+		
+		<onXmasActivity2020FinishLotteryResult>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onXmasActivity2020FinishLotteryResult>
+		
+		<onGetXmasActivity2020FinalReward>
+			<Arg>		PYTHON		</Arg>
+		</onGetXmasActivity2020FinalReward>
+		
+		<onUpdateXmasActivity2020ShowTips>
+		</onUpdateXmasActivity2020ShowTips>
+		
+		<onUpdateXmasActivity2020SnowmanRewardTips>
+		</onUpdateXmasActivity2020SnowmanRewardTips>
+	</ClientMethods>
+</root>

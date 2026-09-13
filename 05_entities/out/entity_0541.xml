@@ -1,0 +1,25 @@
+<root>
+	<Parent>		RankListStub		</Parent>
+
+	<Properties>
+		<dailyAwardRecord>
+			<Type>		STREAM_ARRAY			</Type>
+			<Flags>		BASE				</Flags>
+			<Persistent>	true				</Persistent>
+		</dailyAwardRecord>
+	</Properties>
+	<BaseMethods>
+		<setOnline>
+			<Arg>		DBID				</Arg>
+			<Arg>		MAILBOX				</Arg>
+		</setOnline>
+		<setOffline>
+			<Arg>		DBID				</Arg>
+		</setOffline>
+		<sendDailyAwards>
+		</sendDailyAwards>
+		<enableDailyAwards>
+			<Arg>		BOOL				</Arg>
+		</enableDailyAwards>
+	</BaseMethods>
+</root>

@@ -1,0 +1,53 @@
+<root>
+	<Implements>
+		<Interface>	iBaseNoCell	</Interface>
+		<Interface>	iGlobal		</Interface>
+	</Implements>
+	<Properties>
+		<teams>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</teams>
+		<players>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</players>
+	</Properties>
+	<BaseMethods>
+		<registTeam>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</registTeam>
+		<unregistTeam>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</unregistTeam>
+		<setOnline>
+			<Arg>		GID		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</setOnline>
+		<setOffline>
+			<Arg>		GID		</Arg>
+		</setOffline>
+		<invitePlayer>
+			<Arg>		GID		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+		</invitePlayer>
+		<acceptInvitation>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		HALL_TEAM_MEMBER	</Arg>
+		</acceptInvitation>
+		<requestJoinTeam>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</requestJoinTeam>
+	</BaseMethods>
+</root>

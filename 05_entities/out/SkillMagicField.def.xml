@@ -1,0 +1,26 @@
+<root>
+	<Implements>
+		<Interface>	iCell	</Interface>
+		<Interface>	iSkillSummon </Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillMagicField	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+		<drawMagicField>
+			<Arg>	VECTOR3	</Arg>
+		</drawMagicField>
+	</ClientMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

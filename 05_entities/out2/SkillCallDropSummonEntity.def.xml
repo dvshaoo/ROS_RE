@@ -1,0 +1,22 @@
+<root>
+	<Parent>	SkillExplosiveSummonEntityBase		</Parent>
+
+	<Implements>
+	</Implements>
+
+	<ClientName>	SkillCallDropSummonEntity	</ClientName>
+
+	<Properties>
+	</Properties>
+
+	<ClientMethods>
+		<timerAuthorizeSummonCtrl>
+		</timerAuthorizeSummonCtrl>
+	</ClientMethods>
+
+	<CellMethods>
+		<onCreateAirDrop> <Exposed/>
+			<Arg> VECTOR3	</Arg> <!-- position -->
+		</onCreateAirDrop>
+	</CellMethods>
+</root>

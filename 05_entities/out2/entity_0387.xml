@@ -1,0 +1,60 @@
+<root>
+	<Properties>
+
+	</Properties>
+
+	<BaseMethods>
+		<requestDoubleTwelveHotValue>
+		</requestDoubleTwelveHotValue>
+
+		<onNotifyDoubleTwelveTask>  <Exposed/>
+			<Arg>			INT32					</Arg>     <!--任务ID-->
+			<Arg>			INT32					</Arg>     <!--参数-->
+		</onNotifyDoubleTwelveTask>
+
+		<requestAddHotValue>  <Exposed/>
+			<Arg>			INT32					</Arg>     <!--任务ID-->
+		</requestAddHotValue>
+
+		<convertDoubleTwelveItems>  <Exposed/>
+			<Arg>			INT32					</Arg>     <!--任务ID-->
+		</convertDoubleTwelveItems>
+
+		<updateDoubleTwelveConvertRemind>  <Exposed/>
+			<Arg>			INT32					</Arg>
+			<Arg>			BOOL					</Arg>
+		</updateDoubleTwelveConvertRemind>
+
+		<onFeedBackUseDoubleTwelveTicket>  <Exposed/>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+			<Arg>			BOOL					</Arg>
+		</onFeedBackUseDoubleTwelveTicket>
+
+		<onNotifyDoubleTwelvePlayWithFriendTask>
+			<Arg>	ARRAY	<of>	INT64	</of>	</Arg>
+		</onNotifyDoubleTwelvePlayWithFriendTask>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onUpdateDoubleTwelveInfo>
+			<Arg>			INT64					</Arg>     <!--全服热力值-->
+			<Arg>			INT64					</Arg>     <!--自己的热力值-->
+			<Arg>			PYTHON					</Arg>      <!--任务信息-->
+			<Arg>			PYTHON					</Arg>      <!--兑换信息-->
+		</onUpdateDoubleTwelveInfo>
+
+		<onGetDoubleTwelveHot>
+			<Arg>			PYTHON					</Arg>
+		</onGetDoubleTwelveHot>
+
+		<checkUseDoubleTwelveTicket>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+			<Arg>			INT32					</Arg>
+		</checkUseDoubleTwelveTicket>
+
+	</ClientMethods>
+</root>

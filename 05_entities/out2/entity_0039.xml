@@ -1,0 +1,20 @@
+<root>
+	<Parent>	QuizRoom		</Parent>
+
+	<Implements>
+	</Implements>
+
+	<Properties>
+		<legionGID>
+			<Type> GID </Type>
+			<Flags> BASE </Flags>
+		</legionGID>
+	</Properties>
+
+	<BaseMethods>
+		<onNotifyQuestions>
+			<Arg> PYTHON </Arg>
+		</onNotifyQuestions>
+
+	</BaseMethods>
+</root>

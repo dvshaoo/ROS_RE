@@ -1,0 +1,64 @@
+<root>
+	<Properties>
+		<dtsWeekStarDiamondCnt> <!--一周内还能获得多少星钻-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>       0       </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dtsWeekStarDiamondCnt>
+		<lastResetWeekStarDiamondCntTime> <!--一周内还能获得多少星钻-->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>       {}    </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastResetWeekStarDiamondCntTime>
+		<lastResetCanUseHalfYuanbaoTime> <!--半价钻石购买重置时间-->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>       {}    </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastResetCanUseHalfYuanbaoTime> 
+		<dtsStarDiamondCanUseHalfYuanbao> <!--半价钻石购买-->
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>       False    </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dtsStarDiamondCanUseHalfYuanbao>
+
+		<dtsDayDiamondCnt> <!--一天还能获得多少钻石-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>       0       </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dtsDayDiamondCnt>
+		<dtsMaxDiamondCnt> <!--周年庆期间获得的钻石-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>       0       </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dtsMaxDiamondCnt>
+		<lastResetInFightDayDiamondCntTime> <!--钻石活动数量刷新-->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>       {}    </Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastResetInFightDayDiamondCntTime>
+	</Properties>
+	<BaseMethods>
+		<onGetStarDiamond>
+			<Arg>		INT32		</Arg>
+		</onGetStarDiamond>
+		<onGetDtsStarDiamondTask>
+			<Arg>		INT32		</Arg>
+		</onGetDtsStarDiamondTask>
+		
+		<onGetDtsInFightDiamond>
+			<Arg>		INT32		</Arg>
+		</onGetDtsInFightDiamond>
+	</BaseMethods>
+	<ClientMethods>
+		<updateStarDiamondCanUseHalfYuanbao>
+			<Arg>		BOOL		</Arg>
+		</updateStarDiamondCanUseHalfYuanbao>
+	</ClientMethods>
+</root>

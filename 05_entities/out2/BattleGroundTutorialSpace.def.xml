@@ -1,0 +1,192 @@
+<root>
+	<Parent>	DungeonSpace	</Parent>
+	<Implements>
+		<Interface>	iRobotGenerate	</Interface>
+	</Implements>
+	<ClientName>	BattleGroundTutorialSpace	</ClientName>
+	
+	<Properties>
+		<circleStage>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</circleStage>
+		<blueCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleCenter>
+		<blueCircleRadius>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleRadius>
+		<blueCircleStartRadius>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleStartRadius>
+		<blueCircleStartCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</blueCircleStartCenter>
+		<whiteCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</whiteCircleCenter>
+		<whiteCircleRadius>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</whiteCircleRadius>
+		<circleScaleStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleStartTime>
+		<circleScaleStartCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleStartCenter>
+		<circleScaleStartRadius>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</circleScaleStartRadius>
+		<targetCircleCenter>
+			<Type>	VECTOR2		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</targetCircleCenter>
+		<planeEntityID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</planeEntityID>
+		<playersOnPlane>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	set()		</Default>
+		</playersOnPlane>
+		<openedElements>
+			<Type>		ARRAY <of>	DTS_ELEMENT	</of>	</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</openedElements>
+		<damageRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</damageRecord>
+	</Properties>
+
+	<ClientMethods>
+		<showCircleNotify>
+			<Arg>		STRING			</Arg>
+		</showCircleNotify>
+		<showCircleMessage>
+			<Arg>		INT8			</Arg>
+			<Arg>		STRING			</Arg>
+		</showCircleMessage>
+		<showDtsDialogue>
+			<Arg>		INT32			</Arg>
+		</showDtsDialogue>
+		<showDtsRuleDialogue>
+		</showDtsRuleDialogue>
+		<showTargetPointHint>
+			<Arg>		INT32			</Arg>
+		</showTargetPointHint>
+		<stopTargetPointHint>
+		</stopTargetPointHint>
+
+		<updateCircleRestTime>
+			<Arg>		INT32			</Arg>
+		</updateCircleRestTime>
+		<enablePlayerMove>
+			<Arg>		BOOL			</Arg>
+		</enablePlayerMove>
+	<!--
+		<onElementOpen>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+		</onElementOpen>
+		<onElementClose>
+			<Arg>		INT32			</Arg>
+		</onElementClose>
+	-->
+	</ClientMethods>
+
+	<CellMethods>
+		<broadcastQuickMessageToTeamMember>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</broadcastQuickMessageToTeamMember>
+		<onPlaneCreate>
+			<Arg>		INT32			</Arg>
+		</onPlaneCreate>
+		<finishOperateGuide><Exposed/>
+		</finishOperateGuide>
+		<finishGameRuleGuide><Exposed/>
+		</finishGameRuleGuide>
+		<onPlaneEnter>
+			<Arg>		INT32			</Arg>
+		</onPlaneEnter>
+		<onPlaneLeave>
+			<Arg>		INT32			</Arg>
+			<Arg>		VECTOR3			</Arg>
+		</onPlaneLeave>
+		<playerGetOffPlane>
+			<Arg>		INT32			</Arg>
+		</playerGetOffPlane>
+		<discardProp>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+		</discardProp>
+		<leaveHeritage>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		PY_DICT			</Arg>
+			<Arg>		VECTOR3	</Arg>
+			<Arg>		PYTHON			</Arg>
+		</leaveHeritage>
+	<!--
+		<openElement> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>
+		</openElement>
+		<closeElement> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</closeElement>
+		<gmNextStage>
+		</gmNextStage>
+	-->
+		<updateTeamMemberInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		PYTHON			</Arg>
+		</updateTeamMemberInfo>
+		<damage>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</damage>
+		<startScaleCircle>
+			<Arg>		INT32		</Arg>
+		</startScaleCircle>
+		<canPlayerJumpFromPlane>
+		</canPlayerJumpFromPlane>
+		<pausePlayerFall>
+		</pausePlayerFall>
+		<resumePlayerFall>
+		</resumePlayerFall>
+		<pausePlaneFly>
+		</pausePlaneFly>
+		<resumePlaneFly>
+		</resumePlaneFly>
+		<allPlayerAcceptTask>
+			<Arg>		INT32		</Arg>
+		</allPlayerAcceptTask>
+		<onExplodeOnce>
+			<Arg> INT32		</Arg>
+			<Arg> INT32		</Arg>
+			<Arg> VECTOR3	</Arg>
+		</onExplodeOnce>
+	</CellMethods>
+</root>
+

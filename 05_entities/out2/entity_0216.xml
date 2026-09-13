@@ -1,0 +1,114 @@
+<root>
+	<Properties>
+		<!-- 普通职业技能列表 -->
+		<normalMasterSkills>
+			<Type>	ARRAY <of>	MASTER_SKILL_INFO </of> </Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</normalMasterSkills>
+
+		<normalMasterSkillsBase>
+			<Type>	ARRAY <of>	MASTER_SKILL_INFO </of> </Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default> [] </Default>
+		</normalMasterSkillsBase>
+
+		<!-- 普通职业技能ID和列表中索引的映射 -->
+		<masterSkillIDIndexMap>
+			<Type>	PY_DICT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</masterSkillIDIndexMap>
+
+		<masterSkillIDIndexMapBase>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+		</masterSkillIDIndexMapBase>
+
+		<!-- 大招信息 -->
+		<mainMasterSkill>
+			<Type>	MASTER_SKILL_INFO	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</mainMasterSkill>
+
+		<mainMasterSkillBase>
+			<Type>	MASTER_SKILL_INFO	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+		</mainMasterSkillBase>
+
+		<!-- 通用技能属性 -->
+		<generalSkillProperties>
+			<Type>			PY_DICT			</Type>
+			<Flags>			CELL_PRIVATE		</Flags>
+			<Default>		{}			</Default>
+		</generalSkillProperties>
+
+		<!-- 特殊技能属性，只在释放技能时起作用 -->
+		<speicalSkillProperties>
+			<Type>	PY_DICT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</speicalSkillProperties>
+	</Properties>
+
+	<BaseMethods>
+		<upgradeMainMasterSkill> <Exposed/> 
+		</upgradeMainMasterSkill>
+
+		<unlockNormalSkill> <Exposed/>
+			<Arg>	INT32	</Arg> 
+		</unlockNormalSkill>
+
+		<upgradeNormalSkill> <Exposed/>
+			<Arg>	INT32	</Arg> 
+		</upgradeNormalSkill>
+
+		<oneKeyUpgrade> <Exposed/> 
+		</oneKeyUpgrade>
+	</BaseMethods>
+
+	<CellMethods>
+		<updateMasterSkills>
+			<Arg>	MASTER_SKILL_INFO		</Arg>
+			<Arg>	ARRAY <of>	MASTER_SKILL_INFO	</of>	</Arg>
+		</updateMasterSkills>
+		<onUpgradeMainMasterSkill>
+		</onUpgradeMainMasterSkill>
+
+		<onUnlockNormalSkill>
+			<Arg>	INT32	</Arg> 
+		</onUnlockNormalSkill>
+
+		<onUpgradeNormalSkill>
+			<Arg>	INT32	</Arg> 
+		</onUpgradeNormalSkill>
+	</CellMethods>
+
+	<ClientMethods>
+		<onUpgradeNormalSkill>
+			<Arg>	INT32	</Arg>
+		</onUpgradeNormalSkill>
+
+		<onUnlockNormalSkill>
+			<Arg>	INT32	</Arg>
+		</onUnlockNormalSkill>
+
+		<onUpgradeMainMasterSkill>
+		</onUpgradeMainMasterSkill>
+
+		<loadCurMasterSkills>
+			<Arg> MASTER_SKILL_INFO	</Arg>
+			<Arg> ARRAY <of> MASTER_SKILL_INFO </of> </Arg>	
+		</loadCurMasterSkills>
+
+		<stopMainMasterSkillCD>
+		</stopMainMasterSkillCD>
+
+		<startMainMasterSkillID>
+		</startMainMasterSkillID>
+
+		<onOneKeyUpgrade>
+			<Arg>	PY_DICT </Arg> 
+		</onOneKeyUpgrade>
+	</ClientMethods>
+</root>

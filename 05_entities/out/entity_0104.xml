@@ -1,0 +1,26 @@
+<root>
+    <Properties>
+    </Properties>
+
+    <BaseMethods>
+        <requesetNeteaseRealNameAuthen> <Exposed/>
+            <Arg>           STRING              </Arg>
+        </requesetNeteaseRealNameAuthen>
+    </BaseMethods>
+
+    <ClientMethods>
+        <onShowRealNameAuthenWebView>
+            <Arg>           STRING              </Arg>
+            <Arg>           BOOL                </Arg>
+        </onShowRealNameAuthenWebView>
+
+        <forceLogout>
+            <Arg>           STRING              </Arg>
+            <Arg>           BOOL              </Arg>
+        </forceLogout>
+
+        <realnameAuthenAgain>
+        </realnameAuthenAgain>
+
+    </ClientMethods>
+</root>

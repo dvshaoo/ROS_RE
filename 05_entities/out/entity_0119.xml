@@ -1,0 +1,106 @@
+<root>
+  <Properties>
+    <_payedPartnerReqs>
+      <Type>    PYTHON   </Type>
+      <Flags>   BASE  </Flags>
+      <Default> {}   </Default>
+    </_payedPartnerReqs>
+    <_finishedPayedPartnerOrders>
+      <Type>    ARRAY <of>  FINISHED_PEIWAN_ORDER  </of>   </Type>
+      <Flags>   BASE_AND_CLIENT  </Flags>
+    </_finishedPayedPartnerOrders>
+  </Properties>
+  <BaseMethods>
+    <reqPayedPartner> <Exposed/>
+      <Arg>     GID     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     STRING     </Arg>
+    </reqPayedPartner>
+    <reqWithdraw> <Exposed/>
+    </reqWithdraw>
+    <replyPayedPartnerReq> <Exposed/>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     STRING     </Arg>
+    </replyPayedPartnerReq>
+    <onReplyPayedPartnerReq>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     STRING     </Arg>
+    </onReplyPayedPartnerReq>
+    <onPayedPartnerOrderEnd>
+      <Arg>     STRING     </Arg>
+      <Arg>     GID     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     GID     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     STRING     </Arg>
+    </onPayedPartnerOrderEnd>
+    <reqRandomPartners> <Exposed/>
+    </reqRandomPartners>
+    <reqRandomPartnersJson> <Exposed/>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+    </reqRandomPartnersJson>
+    <reqRateOrder> <Exposed/>
+      <Arg>     STRING     </Arg>
+      <Arg>     INT32     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>    ARRAY <of>  INT32  </of>   </Arg>
+    </reqRateOrder>
+    <reqRegLicense> <Exposed/>
+    </reqRegLicense>
+    <reqUpdateLicense> <Exposed/>
+      <Arg>     INT32     </Arg>
+      <Arg>     INT32     </Arg>
+    </reqUpdateLicense>
+    <onPayedPartnerOrderStart>
+      <Arg>     GID     </Arg>
+      <Arg>     GID     </Arg>
+    </onPayedPartnerOrderStart>
+    <clickPeiWanHall>  <Exposed/>
+    </clickPeiWanHall>
+    <notifyOrderCreated>
+      <Arg>     GID     </Arg>
+      <Arg>     STRING     </Arg>
+    </notifyOrderCreated>
+    <reqPayedPartnerRel> <Exposed/>
+    </reqPayedPartnerRel>
+    <onPayedPartnerOrderOccupy>
+      <Arg>     GID     </Arg>
+      <Arg>     STRING     </Arg>
+      <Arg>     GID     </Arg>
+      <Arg>     STRING     </Arg>
+    </onPayedPartnerOrderOccupy>
+  </BaseMethods>
+  <ClientMethods>
+    <onPayedPartnerOrdersEnd>
+      <Arg>    ARRAY <of>  FINISHED_PEIWAN_ORDER  </of>   </Arg>
+    </onPayedPartnerOrdersEnd>
+
+    <onGetRandomPayedPartners>
+      <Arg>    ARRAY <of>  FRIEND_ABSTRACT  </of>   </Arg>
+    </onGetRandomPayedPartners>
+
+    <onGetRandomPayedPartnersJson>
+      <Arg>    PYTHON   </Arg>
+    </onGetRandomPayedPartnersJson>
+
+    <onUpdateLicense>
+      <Arg>     INT32     </Arg>
+      <Arg>     PYTHON     </Arg>
+    </onUpdateLicense>
+
+    <onGetPayedPartnerRel>
+      <Arg>    ARRAY <of>  GID  </of>   </Arg>
+      <Arg>    ARRAY <of>  GID  </of>   </Arg>
+    </onGetPayedPartnerRel>
+  </ClientMethods>
+
+</root>

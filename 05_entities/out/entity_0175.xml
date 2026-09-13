@@ -1,0 +1,91 @@
+<root>
+	<Properties>
+
+	</Properties>
+
+	<BaseMethods>
+		<acceptDoubleSevenFriend><Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</acceptDoubleSevenFriend>
+
+		<getDoubleSevenFriendInfo><Exposed/>
+
+		</getDoubleSevenFriendInfo>
+
+		<requestDoubleSevenFriendReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</requestDoubleSevenFriendReceive>
+
+		<sendDoubleSevenFriend><Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</sendDoubleSevenFriend>
+
+		<setDoubleSevenFriendReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</setDoubleSevenFriendReceive>
+
+		<refuseDoubleSevenFriend><Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</refuseDoubleSevenFriend>
+		
+		<refuseDoubleSevenFriendReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</refuseDoubleSevenFriendReceive>
+		
+		<cancelDoubleSevenFriend><Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</cancelDoubleSevenFriend>
+		
+		<cancelDoubleSevenFriendReceive>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT8		</Arg>	<!-- friendType -->
+		</cancelDoubleSevenFriendReceive>
+
+		<sendGunToFriend><Exposed/>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT32			</Arg>	<!-- gunID -->
+		</sendGunToFriend>
+
+		<getDoubleSevenFriendDetailInfo><Exposed/>
+
+		</getDoubleSevenFriendDetailInfo>
+
+		<setDoubleSevenWords><Exposed/>
+			<Arg>			STRING		</Arg>
+		</setDoubleSevenWords>
+
+		<tryGetSingleCat><Exposed/>
+		</tryGetSingleCat>
+
+		<requestDoubleSevenFriendFeedback>
+			<Arg>			GID			</Arg>	<!-- friendDBID -->
+			<Arg>			UINT32			</Arg>	<!-- msgType -->
+			<Arg>			UINT32			</Arg>	<!-- opType -->
+		</requestDoubleSevenFriendFeedback>	
+	</BaseMethods>
+
+	<ClientMethods>
+		<onGetDoubleSevenFriendInfo>
+			<Arg>			FRIEND_INFO				</Arg>
+			<Arg>			GID						</Arg>
+			<Arg>			PYTHON					</Arg>
+			<Arg>			PYTHON					</Arg>
+		</onGetDoubleSevenFriendInfo>
+
+		<onGetDoubleSevenSendList>
+			<Arg>			PYTHON	</Arg>
+			<Arg>			PYTHON	</Arg>
+		</onGetDoubleSevenSendList>
+
+		<onGetSingleCat>
+			<Arg>	PYTHON 			</Arg>
+		</onGetSingleCat>
+	</ClientMethods>
+</root>

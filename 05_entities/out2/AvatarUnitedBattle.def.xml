@@ -1,0 +1,39 @@
+<root>
+	<Parent>	BattleGroundAvatar	</Parent>
+	<ClientName>	AvatarUnitedBattle	</ClientName>
+	<Implements>
+		<Interface>	iMark	</Interface>
+	</Implements>
+	<Properties>
+		<entityIdToPosition>
+			<Type> PYTHON </Type>
+			<Flags> OWN_CLIENT </Flags>
+		</entityIdToPosition>
+		<gameEndTime>
+			<Type>	FLOAT	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameEndTime>
+	</Properties>
+
+	<CellMethods>
+		<updateEntityIdPositionDict> <Exposed/>
+		</updateEntityIdPositionDict>
+		<setGameEndTime>
+			<Arg>	FLOAT	</Arg>
+		</setGameEndTime>
+	</CellMethods>
+
+	<ClientMethods>
+		<showGameResult>
+			<Arg>	PYTHON </Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</showGameResult>
+		<startWaitReborn>
+			<Arg>	INT32	</Arg>
+		</startWaitReborn>
+		<rebornFinish>
+		</rebornFinish>
+	</ClientMethods>
+</root>

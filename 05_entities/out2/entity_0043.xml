@@ -1,0 +1,62 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+
+	<Properties>
+		<spaceInfoDict>
+			<Type>		PYTHON 		</Type>
+			<Flags>		BASE 		</Flags>
+			<Default>	{}			</Default>
+		</spaceInfoDict>
+
+		<activityState>
+			<Type>		INT32		</Type>
+			<Flags>		BASE 		</Flags>
+			<Default>	0			</Default>
+		</activityState>
+	</Properties>
+
+	<BaseMethods>
+		<updateSourceSpaceInfo>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</updateSourceSpaceInfo>
+
+		<requestSpaceData>
+			<Arg>		MAILBOX		</Arg>
+		</requestSpaceData>
+
+		<requestSourceActivityState>
+			<Arg>		MAILBOX		</Arg>
+		</requestSourceActivityState>
+
+		<delSourceSpaceInfo>
+			<Arg>		INT32		</Arg>
+		</delSourceSpaceInfo>
+
+		<updateSourcePlayerNumInfo>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</updateSourcePlayerNumInfo>
+
+		<updateSourceGameProgress>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</updateSourceGameProgress>
+
+		<requestCreateLigeanceSourceSpace>
+			<Arg>		INT32		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</requestCreateLigeanceSourceSpace>
+
+		<switchLigeanceSourceState>
+			<Arg>		INT32		</Arg>
+		</switchLigeanceSourceState>
+		<startPromptToLegionUser>
+			<Arg> PYTHON </Arg>
+		</startPromptToLegionUser>
+	</BaseMethods>
+
+</root>

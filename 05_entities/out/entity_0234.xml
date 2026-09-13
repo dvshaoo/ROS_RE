@@ -1,0 +1,48 @@
+<root>
+	<Properties>
+		<pumpkinAmountGotToday>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</pumpkinAmountGotToday>
+		<dtsPumpkingItem2020DayCnt>
+			<Type>  INT32 </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dtsPumpkingItem2020DayCnt>
+		
+		<dtsPumpkingItem2020RefreshDayNo>
+			<Type>  INT32 </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</dtsPumpkingItem2020RefreshDayNo>
+	</Properties>
+	<BaseMethods>
+		<reqDrawHalloween2019Box> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</reqDrawHalloween2019Box>
+		<reqHalloween2019Info> <Exposed/>
+		</reqHalloween2019Info>
+		<onGetHalloweenPumpkinStamp>
+			<Arg>		INT32		</Arg>
+		</onGetHalloweenPumpkinStamp>
+		
+		<onGetHalloweenPumpkingItem2020>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetHalloweenPumpkingItem2020>
+	</BaseMethods>
+	<ClientMethods>
+		<onDrawHalloween2019Box>
+			<Arg>		PYTHON		</Arg>
+		</onDrawHalloween2019Box>
+		<onUpdateHalloween2019Info>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateHalloween2019Info>
+	</ClientMethods>
+</root>

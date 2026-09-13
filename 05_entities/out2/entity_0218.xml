@@ -1,0 +1,32 @@
+<root>
+	<Properties>
+		<!-- 载具Buff -->
+		<vehicleBuff>
+			<Type>		VEHICLE_BUFF			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+		</vehicleBuff>
+
+		<!-- 载具Buff -->
+		<vehicleBuffFactor>
+			<Type>		PYTHON			</Type>
+			<Flags> 	CELL_PRIVATE 	</Flags>
+		</vehicleBuffFactor>
+	</Properties>
+
+	<CellMethods>
+		<setVehicleBuffFactor>
+			<Arg>			STRING			</Arg>
+			<Arg>			INT32			</Arg>
+			<Arg>			FLOAT			</Arg>
+		</setVehicleBuffFactor>
+
+		<resetVehicleBuffFactor>
+			<Arg>			STRING			</Arg>
+			<Arg>			INT32			</Arg>
+		</resetVehicleBuffFactor>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+
+</root>

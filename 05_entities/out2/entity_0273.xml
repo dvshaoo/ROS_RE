@@ -1,0 +1,92 @@
+<root>
+	<Properties>
+		<lastRotatePoliceDataTime>
+		  <Type>      INT32    </Type>
+		  <Flags>     BASE        </Flags>
+		  <PersistentMongo>  true        </PersistentMongo>
+		</lastRotatePoliceDataTime>
+
+		<policeAwardRecord>
+		  <Type>		ARRAY <of>	INT32	</of>		</Type>
+		  <Flags>     BASE        </Flags>
+		  <PersistentMongo>  true        </PersistentMongo>
+		</policeAwardRecord>
+		<maxComplainTimesOneDay>
+		  <Type>      INT32    </Type>
+		  <Flags>     BASE        </Flags>
+		  <Default>	20	</Default>
+		  <PersistentMongo>  true        </PersistentMongo>
+		</maxComplainTimesOneDay>
+		<dtsCreditSystemComplainTimesReset>
+		  <Type>      PYTHON    </Type>
+		  <Flags>     BASE        </Flags>
+		  <Default>	{}	</Default>
+		  <PersistentMongo>  true        </PersistentMongo>
+		</dtsCreditSystemComplainTimesReset>
+		<complainedPlayerToday>
+		  <Type>      ARRAY <of>	INT32	</of>    </Type>
+		  <Flags>     BASE        </Flags>
+		  <Default>	  []	</Default>
+		  <PersistentMongo>  true        </PersistentMongo>
+		</complainedPlayerToday>
+	</Properties>
+
+	<BaseMethods>
+		<complaint>	<Exposed/>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>	<!--手填的举报内容-->
+			<Arg>	STRING	</Arg>	<!--获取到的被举报人前十条聊天信息，可能不全-->
+		</complaint>
+
+		<complaintInGame>
+			<Arg>	GID		</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>	<!--手填的举报内容-->
+			<Arg>	STRING	</Arg>	<!--获取到的被举报人前十条聊天信息，可能不全-->
+			<Arg>	PYTHON	</Arg>
+			<Arg>	STRING	</Arg>	<!--ext_info，json, 额外信息-->
+		</complaintInGame>
+
+		<complaintForYuanbaoBattle>	<Exposed/>
+			<Arg>	STRING	</Arg>	<!--gameID-->
+			<Arg>	GID	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING	</Arg>	<!--手填的举报内容-->
+			<Arg>	STRING	</Arg>	<!--获取到的被举报人前十条聊天信息，可能不全-->
+			<Arg>	STRING	</Arg>	<!--ext_info，json, 额外信息-->
+		</complaintForYuanbaoBattle>
+
+		<onGetComplaintInfo>
+			<Arg> 	BOOL	</Arg>
+			<Arg>	GID		</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetComplaintInfo>
+
+		<reqCheatList> <Exposed/>
+		</reqCheatList>
+
+		<reqWhiteList> <Exposed/>
+		</reqWhiteList>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onComplaintResult>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING	</Arg>
+		</onComplaintResult>
+		<onGetComplaintedCnt>
+			<Arg>	INT32 	</Arg>
+		</onGetComplaintedCnt>
+
+		<suspectNotFound>
+		</suspectNotFound>
+	</ClientMethods>
+</root>

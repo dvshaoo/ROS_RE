@@ -1,0 +1,23 @@
+<root>
+	<Properties>
+		<dtsAprilFoolItemDayCnt> <!--一天内还能得多少图章-->
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PUBLIC	</Flags>
+			<Default>	0		</Default>
+		</dtsAprilFoolItemDayCnt>
+	</Properties>
+	<BaseMethods>
+		<onPickDtsAprilFoolActivityItem>
+			<Arg>		INT32		</Arg>
+		</onPickDtsAprilFoolActivityItem>
+	</BaseMethods>
+	<CellMethods>
+		<onPickDtsAprilFoolActivityItem>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onPickDtsAprilFoolActivityItem>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

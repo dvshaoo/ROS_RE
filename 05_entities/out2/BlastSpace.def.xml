@@ -1,0 +1,122 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface>	iRobotGenerate	</Interface>
+		<Interface>	iMatchDoubleSideSpace	</Interface>
+	</Implements>
+	<ClientName>	BlastSpace	</ClientName>
+	<Properties>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<roundIndex>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</roundIndex>
+		<roundStartTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</roundStartTime>
+		<campDataDict>
+			<Type>	BLAST_CAMP_DATA_DICT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</campDataDict>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<playerCarryC4>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerCarryC4>
+		<droppedC4ID>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</droppedC4ID>
+		<installedC4ID>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</installedC4ID>
+		<installedC4Time>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</installedC4Time>
+		<installedC4AreaID>
+			<Type>	INT32		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</installedC4AreaID>
+		<winnerCamp>
+			<Type> PYTHON		</Type>
+			<Flags> CELL_PRIVATE	</Flags>
+			<Default> 0		</Default>
+		</winnerCamp>
+		<rankDValueRet>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default> {}		</Default>
+		</rankDValueRet>
+	</Properties>
+	<CellMethods>
+		<dropC4>
+			<Arg>	INT32		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</dropC4>
+		<onAvatarEnterDroppedC4Item>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</onAvatarEnterDroppedC4Item>
+		<installC4>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	VECTOR3		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</installC4>
+		<uninstallC4>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</uninstallC4>
+		<onGetRankDValue>
+		    <Arg>	INT32		</Arg>
+			<Arg>	PYTHON		</Arg>
+		</onGetRankDValue>
+	</CellMethods>
+	<ClientMethods>
+		<roundStart>
+		</roundStart>
+		<roundEnd>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</roundEnd>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		BATTLE_GAME_RESULT	</Arg>
+		</gameEnd>
+		<showKillInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+		<showC4InstallInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</showC4InstallInfo>
+		<showC4UninstallInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+			<Arg>		INT32			</Arg>
+		</showC4UninstallInfo>
+	</ClientMethods>
+</root>

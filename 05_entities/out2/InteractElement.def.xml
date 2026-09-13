@@ -1,0 +1,57 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell		</Interface>
+		<Interface>	iGenSpotCreated		</Interface>
+	</Implements>
+	<ClientName>	InteractElement		</ClientName>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<Properties>
+		<charId>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</charId>
+		<charType>
+			<Type>			STRING				</Type>
+			<Flags>			ALL_CLIENTS			</Flags>
+		</charType>
+		<isVisible>
+			<Type>		BOOL			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	1				</Default>
+		</isVisible>
+		<selectState>
+			<Type>		INT8			</Type>
+			<Flags>		ALL_CLIENTS		</Flags>
+			<Default>	0				</Default>
+		</selectState>
+	</Properties>
+
+	<CellMethods>
+		<onSelect><Exposed/> <!--点击元素-->
+		</onSelect>
+		
+		<conditionSelect>	<!--不检查条件的点击，仅限服务端调用-->
+			<Arg>			ENTITY_ID			</Arg>
+		</conditionSelect>
+		
+	</CellMethods>
+
+	<ClientMethods>
+		<onServerSetVisible>
+			<Arg>		BOOL					</Arg>
+		</onServerSetVisible>	
+		<onSelectState>
+			<Arg>		INT8					</Arg>
+		</onSelectState>	
+		<onSelectResult>
+			<Arg>		ENTITY_ID				</Arg>
+			<Arg>		BOOL					</Arg>
+		</onSelectResult>	
+	</ClientMethods>
+</root>

@@ -1,0 +1,353 @@
+<root>
+	<Properties>
+		<!-- 普通包裹 -->
+		<itemPackage>
+			<Type>			ITEM_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+		</itemPackage>
+
+		<!-- 任务包裹 -->
+		<missionPackage>
+			<Type>			MISSION_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+		</missionPackage>
+
+		<!-- 时装包裹 -->
+		<costumePackage>
+			<Type>			COSTUME_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+		</costumePackage>
+
+		<!-- 载具包裹 -->
+		<vehiclePackage>
+			<Type>			VEHICLE_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+			</Default>
+		</vehiclePackage>
+
+		<!-- 临时包裹 -->
+		<temporaryPackage>
+			<Type>			TEMPORARY_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>
+				<itemList>
+					[]
+				</itemList>
+				<layoutInfo>
+					[]
+				</layoutInfo>
+				<_packageCapacity>
+					0
+				</_packageCapacity>
+				<seqList>
+					[]
+				</seqList>
+			</Default>
+		</temporaryPackage>
+
+		<!-- 仓库包裹 -->
+		<repertoryPackage>
+			<Type> 			REPERTORY_PACKAGE3		</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Default>
+				<repertoryItemList>
+					[]
+				</repertoryItemList>
+				<layoutInfoList>
+					[]
+				</layoutInfoList>
+
+				<_packageCapacity>
+					2
+				</_packageCapacity>
+				<repertoryCount>
+					2
+				</repertoryCount>
+			</Default>
+		</repertoryPackage>
+
+		<itemExpireTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	BASE 	</Flags>
+		</itemExpireTimerID>
+
+		<expiredItems>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE		</Flags>
+			<Default>	set()	</Default>
+		</expiredItems>
+
+		<expiringItems>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE		</Flags>
+			<Default>	set()	</Default>
+		</expiringItems>
+
+		<vehicleItemID>
+			<Type>	INT32		</Type>
+			<Flags>	BASE_AND_CLIENT		</Flags>
+		</vehicleItemID>
+
+		<needDoVehicleSystemGuide>
+			<Type>	INT32		</Type>
+			<Flags>	BASE		</Flags>
+			<Default>	1	</Default>
+		</needDoVehicleSystemGuide>
+	</Properties>
+
+	<BaseMethods>
+		<unlockItemPackage><Exposed/>
+		</unlockItemPackage>
+
+		<addItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PY_DICT				</Arg>
+			<Arg>			INT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</addItem>
+
+		<addGrid>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</addGrid>
+
+		<delItem><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			INT32				</Arg>
+		</delItem>
+
+		<delFoldedItem><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			INT32				</Arg>
+			<Arg>			INT32				</Arg>
+		</delFoldedItem>
+
+		<exchangeItems><Exposed/> <!--兑换物品-->
+			<Arg>		ARRAY <of>	ITEM_ID		</of>		</Arg>
+			<Arg>		ARRAY <of>	ITEM_CNT	</of>		</Arg>
+			<Arg>		ARRAY <of>	ITEM_ID		</of>		</Arg>
+			<Arg>		ARRAY <of>	ITEM_CNT	</of>		</Arg>
+		</exchangeItems>
+
+		<batchSellItem><Exposed/>
+			<Arg> 			ARRAY <of> INT32 </of>			</Arg>
+		</batchSellItem>
+
+		<sellEquip><Exposed/>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg> 			ITEM_UUID 			</Arg>
+		</sellEquip>
+
+		<sellMaterial><Exposed/>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg> 			ITEM_UUID 			</Arg>
+		</sellMaterial>
+
+
+		<requestUseItem><Exposed/> <!--使用物品-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</requestUseItem>
+
+		<useItem> <!--使用物品-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</useItem>
+
+		<requestUseFoldedItem><Exposed/> <!--使用物品-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</requestUseFoldedItem>
+
+		<useFoldedItem> <!--使用物品-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</useFoldedItem>
+
+		<refreshItemPackageLayout><Exposed/>
+		</refreshItemPackageLayout>
+
+		<checkItem><Exposed/>
+			<Arg> 			ITEM_ID 			</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</checkItem>
+
+		<getBackOneItem><Exposed/>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</getBackOneItem>
+
+		<getBackAllItem><Exposed/>
+		</getBackAllItem>
+
+		<unlockRepertoryPackage><Exposed/>
+		</unlockRepertoryPackage>
+
+		<refreshRepertoryPackageLayout><Exposed/>
+			<Arg>			REPERTORY_ID		</Arg>
+		</refreshRepertoryPackageLayout>
+
+		<moveItemFromPackageToRepertory><Exposed/> <!-- 将物品从包裹移动到仓库 -->
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</moveItemFromPackageToRepertory>
+
+		<moveItemFromRepertoryToPackage><Exposed/> <!-- 将物品从仓库移动到包裹 -->
+			<Arg>			REPERTORY_ID		</Arg>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</moveItemFromRepertoryToPackage>
+
+		<notifyItemCntToTaskContentGetItem>
+			<Arg>		ITEM_ID		</Arg>
+		</notifyItemCntToTaskContentGetItem>
+	</BaseMethods>
+
+	<ClientMethods>
+		<doVehicleSystemGuide>
+			<Arg>		ITEM_ID									</Arg>	
+		</doVehicleSystemGuide>
+		<onAddItem>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ARRAY <of> ITEM_DATA_CONVERT </of>		</Arg>
+			<Arg>		INT8									</Arg>
+			<Arg>		INT32									</Arg>
+		</onAddItem>
+
+		<onAddItemToTemporary>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ARRAY <of> ITEM_DATA_CONVERT </of>		</Arg>
+			<Arg>		INT8									</Arg>
+			<Arg>		INT32									</Arg>
+		</onAddItemToTemporary>
+
+		<onAddGrid>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ITEM_UUID								</Arg>
+			<Arg>		INT32									</Arg>
+			<Arg>		PYTHON									</Arg>
+		</onAddGrid>
+
+		<onAddGridToRepertory>
+			<Arg>		ITEM_ID									</Arg>
+			<Arg>		ITEM_UUID								</Arg>
+			<Arg>		INT32									</Arg>
+			<Arg>		PYTHON									</Arg>
+		</onAddGridToRepertory>
+
+		<onUnlockItemPackage>
+		</onUnlockItemPackage>
+
+		<onDelItem> <!--删除道具, 用于同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItem>
+
+		<onDelItemFromRepertory> <!--删除道具, 用于同步-->
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItemFromRepertory>
+
+		<onDelFoldedItem>
+			<Arg>			ITEM_ID				</Arg>
+			<Arg>			ITEM_CNT			</Arg>
+		</onDelFoldedItem>
+
+		<onRefreshPackageLayout>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onRefreshPackageLayout>
+
+		<onUpdateItemProp>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</onUpdateItemProp>
+
+		<onRenewItem>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+			<Arg>			INT32				</Arg>
+		</onRenewItem>
+
+		<onUpdateItemInfo>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+			<Arg>			PY_DICT				</Arg>
+		</onUpdateItemInfo>
+
+		<setRepertoryId>
+			<Arg>			INT32				</Arg>
+		</setRepertoryId>
+
+		<onDelItemFromTemporary>
+			<Arg>			ITEM_ID 			</Arg>
+			<Arg>			ITEM_UUID			</Arg>
+		</onDelItemFromTemporary>
+
+		<onUnlockNewRepertory>
+		</onUnlockNewRepertory>
+
+		<onRefreshRepertoryPackageLayout>
+			<Arg>			PYTHON				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onRefreshRepertoryPackageLayout>
+
+		<initPackages>
+		</initPackages>
+
+		<onSelectVehicle>
+			<Arg>		ITEM_ID		</Arg>
+		</onSelectVehicle>
+	</ClientMethods>
+</root>

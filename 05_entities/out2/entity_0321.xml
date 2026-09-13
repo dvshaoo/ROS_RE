@@ -1,0 +1,276 @@
+<root>
+	<Properties>
+		<historyPayedYuanbao>
+			<!-- 		历史购买总元宝数量 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</historyPayedYuanbao>
+		<historyPayAwardYuanbao>
+			<!-- 		历史赠送总元宝数量 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</historyPayAwardYuanbao>
+		<historyPayGoodsIDs>
+			<!-- 		历史购买总元宝数量 	-->
+			<Type>	ARRAY <of>	STRING	</of>	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>	true			</Persistent>
+		</historyPayGoodsIDs>
+		<shipmentSNList>
+			<Type>	ARRAY <of>	STRING	</of>	</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</shipmentSNList>
+		<sumCash>
+			<!-- 		历史累计充值金额 	-->
+			<Type>		FLOAT			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0.0			</Default>
+			<Persistent>	true			</Persistent>
+		</sumCash>
+		<firstPayStateAdvance>
+			<!-- 		首充状态     0：未充值 1：充值了未领取物品 2：已领取物品 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</firstPayStateAdvance>
+		<vipLevel>
+			<!-- 		vip等级 		-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	-1				</Default>
+			<Persistent>	true			</Persistent>
+		</vipLevel>
+		<payYuanbaoDuringEvent>
+			<!-- 		活动期间购买总元宝数量（充值返利使用） 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</payYuanbaoDuringEvent>
+		<payRebateAwardInfo>
+			<!-- 		充值返利奖励<id：state> 	-->
+			<!-- 		state (0：未达到 1：已达到未领取 2：已领取)	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</payRebateAwardInfo>
+		<payRebateVersion>
+			<!-- 		充值返利版本号 	-->
+			<Type>		INT64			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</payRebateVersion>
+		<newFirstPayState>
+			<!-- 		新首充状态     0：未充值 1：充值了未领取物品 2：已领取物品 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</newFirstPayState>
+		<newFirstPayTime>
+			<!-- 		新首充时间     0：未充值 其他：领取首冲的时间 -->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</newFirstPayTime>
+		<newFirstPayAccumulate>
+			<!-- 		新首充累计数量     0：未充值 其他：充值数量 * 100-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</newFirstPayAccumulate>
+		<newFirstPayAccumulateState>
+			<!-- 		新首充累计奖励状态     0：未达到领取条件 1：可以领取 2. 已经领取-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT			</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</newFirstPayAccumulateState>
+
+		<payMoneyDuringMonth>
+			<!-- 		每月充值人民币（月度充值返利使用） 	-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</payMoneyDuringMonth>
+		<monthPayRebateAwardInfo>
+			<!-- 		月度充值返利奖励<id：state> 	-->
+			<!-- 		state (0：未达到 1：已达到未领取 2：已领取)	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	{}			</Default>
+			<Persistent>	true			</Persistent>
+		</monthPayRebateAwardInfo>
+		<monthPayRebateVersion>
+			<!-- 		月度充值返利版本号 	-->
+			<Type>		INT64			</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	true			</Persistent>
+		</monthPayRebateVersion>
+
+		<payGoodTime>
+			<!-- 		限购物品购买时间<goodId：time.time> 非存盘 	-->
+			<Type>		PYTHON			</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}			</Default>
+		</payGoodTime>
+		<lastPayTs>
+			<!-- 此变量后来加的，对于历史情况可能不准，但因为只用来做每日首充判断，所以问题不大 -->
+			<Type>		INT32 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastPayTs>
+		<!-- 废弃
+		<codaPayTs>
+			<Type>		INT32 		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	0 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</codaPayTs>
+		-->
+		<payExtDFts>
+			<!-- 各种每日首冲的时间戳 -->
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default> 	{} 	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</payExtDFts>
+	</Properties>
+	<BaseMethods>
+		<onGetNewOrder>
+			<Arg>		STRING		</Arg>
+		</onGetNewOrder>
+		<bindUrs> <Exposed/>
+			<Arg>	STRING		</Arg> <!-- new uid -->
+			<Arg>	STRING		</Arg> <!-- old uid -->
+		</bindUrs>
+		<requestRealNameAuthenCheckBeforeRequsetingPayGoods> <Exposed/>
+			<Arg> STRING </Arg> <!-- goodsID -->
+		</requestRealNameAuthenCheckBeforeRequsetingPayGoods>
+
+		<!-- 各种首充start -->
+		<getFirstPayedAwards> <Exposed/>
+		</getFirstPayedAwards>
+		<getNewFirstPayedAwards> <Exposed/>
+		</getNewFirstPayedAwards>
+		<getNewFirstPayedAccumulateAwards> <Exposed/>
+		</getNewFirstPayedAccumulateAwards>
+		<!-- 各种首充end -->
+
+		<!-- 充值返利start -->
+		<queryAvailblePayRebateAwards> <Exposed/>
+		</queryAvailblePayRebateAwards>
+		<getPayRebateAward> <Exposed/>
+		<Arg>		INT32		</Arg>		<!-- payReabteId -->
+		</getPayRebateAward>
+		<!-- 充值返利end -->
+		<!-- 月度充值返利start -->
+		<queryAvailbleMonthPayRebateAwards> <Exposed/>
+		</queryAvailbleMonthPayRebateAwards>
+		<getMonthPayRebateAward> <Exposed/>
+		<Arg>		INT32		</Arg>		<!-- MonthPayReabteId -->
+		</getMonthPayRebateAward>
+		<!-- 月度充值返利end -->
+
+		<querySumCash> <Exposed/>
+			<!-- 	获取历史累计充值金额 	-->
+		</querySumCash>
+		<checkPurchaseLimitAndTime> <Exposed/>
+			<!-- 	检查商品购买次数和时间 	-->
+			<Arg>		STRING		</Arg>		<!-- bid -->
+		</checkPurchaseLimitAndTime>
+		<queryPayExtDayFirstFlags> <Exposed/>
+		</queryPayExtDayFirstFlags>
+	</BaseMethods>
+	<ClientMethods>
+		<onRequirePayOrder>
+			<Arg>		STRING		</Arg>		<!-- bid -->
+			<Arg>		STRING		</Arg>		<!-- sn -->
+			<Arg>		STRING		</Arg>		<!-- etc -->
+		</onRequirePayOrder>
+		<onConfirmPayOrder>
+			<Arg>		BOOL		</Arg>
+			<Arg>		STRING		</Arg>		<!-- sn -->
+			<Arg>		INT32		</Arg>		<!-- ingot -->
+			<Arg>		INT32		</Arg>		<!-- ingot_send -->
+			<Arg>	ARRAY <of> STRING </of>	</Arg>		<!-- bids -->
+		</onConfirmPayOrder>
+		<onHistoryPayedYuanbaoUpdated>
+			<Arg>		INT32		</Arg>
+		</onHistoryPayedYuanbaoUpdated>
+		<onAddHistoryPayGoodsIDs>
+			<Arg>		STRING		</Arg>		<!-- bid -->
+		</onAddHistoryPayGoodsIDs>
+		<onRequestRealNameAuthenCheckBeforeRequsetingPayGoods>
+			<Arg> STRING </Arg> <!-- goodsID -->
+			<Arg> BOOL </Arg> <!-- need realname -->
+		</onRequestRealNameAuthenCheckBeforeRequsetingPayGoods>
+		<onFirstPayStateUpdated>
+			<Arg>		INT32		</Arg> <!-- firstPayStateAdvance -->
+			<Arg>		INT32		</Arg> <!-- newFirstPayState -->
+			<Arg>		FLOAT		</Arg> <!-- newFirstPayAccumulate -->
+			<Arg>		INT32		</Arg> <!-- newFirstPayAccumulateState -->
+			<Arg>		INT32		</Arg>	<!-- new first pay accumulate state-->
+			<Arg>		BOOL		</Arg>	<!-- bid -->
+		</onFirstPayStateUpdated>
+		<onQueryAvailblePayRebateAwards>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onQueryAvailblePayRebateAwards>
+		<onGetPayRebateAward>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetPayRebateAward>
+		<onUpdatePayRebateAwardInfo>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdatePayRebateAwardInfo>
+		<onGetPayRebateAwardFailed>
+			<Arg>		STRING		</Arg>
+		</onGetPayRebateAwardFailed>
+
+		<onQueryAvailbleMonthPayRebateAwards>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onQueryAvailbleMonthPayRebateAwards>
+		<onGetMonthPayRebateAward>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onGetMonthPayRebateAward>
+		<onUpdateMonthPayRebateAwardInfo>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateMonthPayRebateAwardInfo>
+		<onGetMonthPayRebateAwardFailed>
+			<Arg>		STRING		</Arg>
+		</onGetMonthPayRebateAwardFailed>
+
+		<onQuerySumCash>
+			<!-- 	获取历史累计充值金额回调 	-->
+			<Arg>		INT32		</Arg>
+		</onQuerySumCash>
+
+		<onCheckPurchaseLimitAndTime>
+			<Arg>		STRING		</Arg> <!-- bid -->
+		</onCheckPurchaseLimitAndTime>
+		<onCheckPurchaseLimitAndTimeFaild>
+			<Arg>		STRING		</Arg> <!-- tip -->
+		</onCheckPurchaseLimitAndTimeFaild>
+		<onPayExtDayFirstFlags>
+			<Arg>		PYTHON		</Arg>
+		</onPayExtDayFirstFlags>
+	</ClientMethods>
+</root>

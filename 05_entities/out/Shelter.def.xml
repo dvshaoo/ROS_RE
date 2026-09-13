@@ -1,0 +1,59 @@
+<root>
+	<Implements>
+		<Interface>	iCell	</Interface>
+		<Interface>	iTrap	</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+	</Implements>
+	<ClientName>	Shelter	</ClientName>
+	<Properties>
+		<height>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</height>
+
+		<length>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</length>
+
+		<width>
+			<Type>	FLOAT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</width>
+
+		<direction>
+			<Type>	VECTOR3	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</direction>
+
+		<trapID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</trapID>
+
+		<areaID>
+			<Type> 	INT32 	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</areaID>
+
+		<occupied>
+			<Type> 	BOOL 	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</occupied>
+	</Properties>
+
+	<CellMethods>
+		<onPlayerEnterShelter>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</onPlayerEnterShelter>
+
+		<onPlayerLeaveShelter>
+			<Exposed/>
+			<Arg>	INT32	</Arg>
+		</onPlayerLeaveShelter>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+</root>

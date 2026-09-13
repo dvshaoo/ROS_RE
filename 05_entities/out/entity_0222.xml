@@ -1,0 +1,18 @@
+<root>
+	<Properties>
+		<miscOpTime>
+			<!-- 		时间戳 			-->
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	0				</Default>
+			<Persistent>	true			</Persistent>
+		</miscOpTime>
+		<miscMapVar>
+			<Type>	ARRAY	<of>	PYTHON	</of>	</Type>
+			<Flags> 	BASE		</Flags>
+			<Persistent>	true		</Persistent>
+		</miscMapVar>
+	</Properties>
+	<BaseMethods>
+	</BaseMethods>
+</root>

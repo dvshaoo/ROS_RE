@@ -1,0 +1,17 @@
+<root>
+	<Properties>
+		<gmGroup>
+			<Type>		GM_GROUP				</Type>
+			<Flags>		BASE					</Flags>
+			<Default>	0						</Default>
+		</gmGroup>
+	</Properties>
+	<BaseMethods>
+		<feedbackCommand>
+			<Arg>		GM_COMMAND_ABSTRACT		</Arg>	<!-- command -->
+			<Arg>		GM_ERRCODE				</Arg>	<!-- errcode -->
+			<Arg>		STRING					</Arg>	<!-- tips -->
+			<Arg>		PYTHON				</Arg>	<!-- result -->
+		</feedbackCommand>
+	</BaseMethods>
+</root>

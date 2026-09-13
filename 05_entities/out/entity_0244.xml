@@ -1,0 +1,40 @@
+<root>
+	<Properties>
+		<growthFundPurchase>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	false		</Default>
+			<Persistent>	true		</Persistent>		
+		</growthFundPurchase>	
+		<growthFundGainDict>
+			<Type>		PY_DICT		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<Persistent>	true		</Persistent>
+		</growthFundGainDict>
+	</Properties>
+
+	<BaseMethods>
+		<purchaseGrowthFund>
+		</purchaseGrowthFund>
+
+		<requestShowGrowthFund>
+			<Exposed/>
+		</requestShowGrowthFund>
+
+		<requestGetGrowthFund>
+			<Exposed/>
+			<Arg>	INT8	</Arg>
+		</requestGetGrowthFund>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onShowGrowthFund>
+			<Arg>	BOOL	</Arg>
+		</onShowGrowthFund>	
+
+		<onRefreshGrowthFund>
+			<Arg> 	INT8	</Arg>
+		</onRefreshGrowthFund>	
+	</ClientMethods>	
+</root>

@@ -1,0 +1,33 @@
+<root>
+	<Properties>
+		<gidToRosMatchTeamID>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	{}	</Default>
+		</gidToRosMatchTeamID>
+		<rosMatchTeamBriefData>
+			<Type>	PYTHON		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default>	{}	</Default>
+		</rosMatchTeamBriefData>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+	<ClientMethods>
+		<onSyncGID2RosMatchTeamID>
+			<Arg>	GID		</Arg>
+			<Arg>	INT64	</Arg>
+		</onSyncGID2RosMatchTeamID>
+		<onSyncRosMatchTeamBriefData>
+			<Arg>	INT64	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onSyncRosMatchTeamBriefData>
+	</ClientMethods>
+</root>
+
+

@@ -1,0 +1,51 @@
+<Root>
+	<Properties>
+		<dtsCustomPlanePlan>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+		</dtsCustomPlanePlan>
+		<dtsCustomPlanePlanIdx>
+			<Type>		INT8		</Type>
+			<Flags>		CELL_PUBLIC_AND_OWN	</Flags>
+		</dtsCustomPlanePlanIdx>
+	</Properties>
+	<ClientMethods>
+		<onChangeCustomPlanePlan>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onChangeCustomPlanePlan>
+	</ClientMethods>
+	<BaseMethods>
+		<beginPlaneAuction>
+			<Arg>	INT32	</Arg>
+		</beginPlaneAuction>
+		<onPlaneAuctionResult>
+			<Arg>	INT8	</Arg>
+		</onPlaneAuctionResult>
+		<onChangeCustomPlanePlan>
+			<Arg>	INT8	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	BOOL	</Arg>
+		</onChangeCustomPlanePlan>
+	</BaseMethods>
+	<CellMethods>
+		<requirePlaneAuction> <Exposed/>
+		</requirePlaneAuction>
+		<onAuctionPlaneSuccess>
+		</onAuctionPlaneSuccess>
+		<changeCustomPlanePlan> <Exposed/>
+			<Arg>	INT8	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	BOOL	</Arg>
+		</changeCustomPlanePlan>
+		<onChangeCustomPlanePlan>
+			<Arg>	INT8	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	BOOL	</Arg>
+			<Arg>	STRING	</Arg>
+		</onChangeCustomPlanePlan>
+	</CellMethods>
+</Root>

@@ -1,0 +1,767 @@
+<root>
+	<Properties>
+		<isEnteringHallTeam>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE		</Flags>
+		</isEnteringHallTeam>
+		<canMatchBigMap>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+		</canMatchBigMap>
+		<canMatchFPSMode>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+		</canMatchFPSMode>
+		<canMatchNextGen>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+		</canMatchNextGen>
+        <canMatchOccupation>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	FALSE			</Default>
+		</canMatchOccupation>
+		<canNotMatchGameTypes>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</canNotMatchGameTypes>
+		<gameTypeGoingToStart>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</gameTypeGoingToStart>
+		<timeStampGameTypeStart>
+			<Type>		INT64		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</timeStampGameTypeStart>
+		<hallTeamMailBox>
+			<Type>		GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		BASE		</Flags>
+		</hallTeamMailBox>
+		<hallTeamData>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</hallTeamData>
+		<hallTeamSize>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+		</hallTeamSize>
+		<hallTeamType>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+		</hallTeamType>
+		<hallTeamLeaderGID>
+			<Type>		GID		</Type>
+			<Flags>		BASE		</Flags>
+		</hallTeamLeaderGID>
+		<hallTeamInviteRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	{}		</Default>
+		</hallTeamInviteRecord>
+		<hallTeamIgnoredInviters>
+			<Type> PYTHON </Type>
+			<Flags> BASE </Flags>
+			<Default> {} </Default>
+		</hallTeamIgnoredInviters>
+		<recentHallTeammates>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	[]		</Default>
+			<Persistent>	true		</Persistent>
+		</recentHallTeammates>
+		<notifiedNoGrass>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</notifiedNoGrass>
+		<joinStream>
+			<Type>     BOOL  </Type>
+			<Flags>		BASE		</Flags>
+			<Default>	False		</Default>
+		</joinStream>
+		<matchingMapID>
+			<Type>     INT32  </Type>
+			<Flags>		BASE		</Flags>
+		</matchingMapID>
+		<occupation>
+			<Type>		INT8		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default> 	0			</Default>
+		</occupation>
+		<recommanderLevel>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</recommanderLevel>
+
+		<matchedPlayerInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE		</Flags>
+		</matchedPlayerInfo>
+		<selectedHero>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</selectedHero>
+
+		<candidateHeros>
+			<Type>	ARRAY <of>	INT32 </of>	</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</candidateHeros>
+		<matchedPlayerSelectionInfo>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+		</matchedPlayerSelectionInfo>
+		<heroSelectEndTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+		</heroSelectEndTime>
+		<isHeroLocked>
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	false		</Default>
+		</isHeroLocked>
+		<recordLastTeamType>
+			<Type>		INT32		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	14		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</recordLastTeamType>
+		<refreshCandidateHeroCnt>
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</refreshCandidateHeroCnt>
+		<hallTeamLastTypeRefreshTime>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true		</PersistentMongo>
+		</hallTeamLastTypeRefreshTime>
+		<lastHallTeamSize>
+			<Type>		INT8		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastHallTeamSize>
+		<lastHallTeamType>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	4		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastHallTeamType>
+		<lastHallTeamMapGroup>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	1		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</lastHallTeamMapGroup>
+		<isMinScorePlayer>
+			<Type>	INT32	</Type>
+			<Flags>	BASE </Flags>
+			<Default>	-1	</Default>
+		</isMinScorePlayer>
+		<minScorePlayerGID>
+			<Type>	INT32	</Type>
+			<Flags>	BASE_AND_CLIENT </Flags>
+			<Default>	0	</Default>
+		</minScorePlayerGID>
+		<guideModePanelVisible>
+			<Type>	BOOL	</Type>
+			<Flags>	BASE_AND_CLIENT </Flags>
+			<Default>	FALSE	</Default>
+		</guideModePanelVisible>
+	</Properties>
+
+	<BaseMethods>
+		<requestRandomOnlinePlayers>  <Exposed/>
+		</requestRandomOnlinePlayers>
+		<clearInviterIgnores> </clearInviterIgnores>
+        <ignoreInvitation>
+			<Arg> GID </Arg>
+		</ignoreInvitation>
+    	<getReadyForBattleGround> <Exposed/>
+		</getReadyForBattleGround>
+		<notReadyForBattleGround>
+			<Exposed/>
+		</notReadyForBattleGround>
+		<createHallTeam> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</createHallTeam>
+		<syncCustomeHeroInfo> <Exposed/>
+		</syncCustomeHeroInfo>
+		<changeHallTeamModeSetting> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</changeHallTeamModeSetting>
+		<changeHallTeamMatchingRandom> <Exposed/>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</changeHallTeamMatchingRandom>
+
+		<changeOccupation> <Exposed/>
+			<Arg>		INT8		</Arg>
+		</changeOccupation>
+
+		<inviteHallTeamPlayer> <Exposed/>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</inviteHallTeamPlayer>
+		<leaveHallTeam> <Exposed/>
+		</leaveHallTeam>
+		<acceptHallTeamInvitation> <Exposed/>
+			<Arg>		INT64		</Arg>
+		</acceptHallTeamInvitation>
+		<refuseHallTeamInvitation> <Exposed/>
+			<Arg>		INT64		</Arg>
+			<Arg>		INT16		</Arg>
+			<Arg>		GID		</Arg>
+		</refuseHallTeamInvitation>
+		<ignoreHallTeamInvitation> <Exposed/>
+			<Arg>		INT64		</Arg>
+		</ignoreHallTeamInvitation>
+		<assignHallTeamLeader>	<Exposed/>
+			<Arg>		GID		</Arg>
+		</assignHallTeamLeader>
+		<kickHallTeamMember> <Exposed/>
+			<Arg>		GID		</Arg>
+		</kickHallTeamMember>
+		<onEnterHallTeam>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>	ARRAY <of>	HALL_TEAM_MEMBER	</of>	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onEnterHallTeam>
+		<onEnterHallTeamFailure>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		STRING		</Arg>
+		</onEnterHallTeamFailure>
+		<onInvitePlayerFail>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvitePlayerFail>
+		<onInvitedToHallTeam>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onInvitedToHallTeam>
+		<onInvitedToHallTeamWithMoney>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvitedToHallTeamWithMoney>
+		<onInviteTeamDismissed>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onInviteTeamDismissed>
+		<addHallTeamMember>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		HALL_TEAM_MEMBER	</Arg>
+		</addHallTeamMember>
+		<delHallTeamMember>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID		</Arg>
+		</delHallTeamMember>
+		<updateHallTeamLeaderGID>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID		</Arg>
+		</updateHallTeamLeaderGID>
+		<onKickedFromHallTeam>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onKickedFromHallTeam>
+		<matchBattleGround> <Exposed/>
+			<Arg>		BOOL		</Arg>
+		</matchBattleGround>
+		<cancelMatchBattleGround> <Exposed/>
+		</cancelMatchBattleGround>
+		<syncHallTeamModeSetting>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</syncHallTeamModeSetting>
+		<syncMatchState>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT16		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</syncMatchState>
+		<syncReadyState>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg> GID </Arg>
+			<Arg> BOOL </Arg>
+			<Arg> UINT8 </Arg>
+		</syncReadyState>
+		<syncMatchingProgress>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg>	FLOAT	</Arg>
+		</syncMatchingProgress>
+		<syncHallTeamMatchingRandom>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</syncHallTeamMatchingRandom>
+		<syncYuanbaoMatchingProgress>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg> INT32 </Arg>
+		</syncYuanbaoMatchingProgress>
+		<enterMatchBattleSpace>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+		</enterMatchBattleSpace>
+		<updateHallTeamMember>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</updateHallTeamMember>
+		<onGetMatchedTeamInfo>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>	ARRAY <of>	PLAYER_LOADING_INFO	</of>	</Arg>
+		</onGetMatchedTeamInfo>
+		<requestJoinTeam> <Exposed/>
+			<Arg>		GID		</Arg>
+			<Arg>		UINT8	</Arg>
+		</requestJoinTeam>
+		<onReceiveJoinTeamRequest>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onReceiveJoinTeamRequest>
+		<onRejectJoinTeamRequest><Exposed/>
+			<Arg>		GID		</Arg>
+		</onRejectJoinTeamRequest>
+		<onAcceptJoinTeamRequest><Exposed/>
+			<Arg>		GID		</Arg>
+		</onAcceptJoinTeamRequest>
+		<setMatchBigMap><Exposed/>
+			<Arg>		BOOL		</Arg>
+		</setMatchBigMap>
+		<setMatchFPSMode><Exposed/>
+			<Arg>		BOOL		</Arg>
+		</setMatchFPSMode>
+		<setMatchNextGen><Exposed/>
+			<Arg>		BOOL		</Arg>
+		</setMatchNextGen>
+		<onRequestJoinTeamNotPass>
+			<Arg>		STRING		</Arg>
+		</onRequestJoinTeamNotPass>
+		<onRequestJoinTeamPass>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onRequestJoinTeamPass>
+		<onReceiveJoinTeamRequestFromTeam>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+		</onReceiveJoinTeamRequestFromTeam>
+		<onRequestPassFailure>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		STRING		</Arg>
+		</onRequestPassFailure>
+
+		<onTeammateUpdateGender>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT32		</Arg>
+		</onTeammateUpdateGender>
+		<onTeammateUpdateOccupation>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT8		</Arg>
+		</onTeammateUpdateOccupation>
+		<onTeammateUpdateBodyAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateBodyAppearance>
+		<onTeammateUpdateWearableAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateWearableAppearance>
+		<onTeammateUpdateEmoji>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT32		</Arg>
+		</onTeammateUpdateEmoji>
+		<onTeammateUpdateBattlegroundPropAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateBattlegroundPropAppearance>
+		<onTeammateUpdateFlyingAccessory>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateFlyingAccessory>
+		<onTeammateUpdateVehicleAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateVehicleAppearance>
+		<onTeammateUpdatePendantAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdatePendantAppearance>
+		<clearHallTeamStatus>
+		</clearHallTeamStatus>
+		<onEnableGrassChange>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		BOOL 		</Arg>
+		</onEnableGrassChange>
+
+		<onRequestJoinTeamAck>
+			<Arg> GID	</Arg>
+		</onRequestJoinTeamAck>
+
+		<updateRankHistory>
+			<Arg>		FLOAT		</Arg>
+		</updateRankHistory>
+		<onUpdateMatchTargetTime>
+			<Arg>		GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateMatchTargetTime>
+		<addCreditScore>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+		</addCreditScore>
+		<subCreditScore>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT8		</Arg>
+		</subCreditScore>
+		<onTeammateUpdateIntimacyDegree>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onTeammateUpdateIntimacyDegree>
+		<onTeammateUpdateIntimateRelationship>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onTeammateUpdateIntimateRelationship>
+		<playHallTeamAnimation> <Exposed/>
+			<Arg>		INT32		</Arg>
+		</playHallTeamAnimation>
+		<syncHallTeamAnimation>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+		</syncHallTeamAnimation>
+		<getOpenMaintenanceFightTipFlag>  <Exposed/>
+		</getOpenMaintenanceFightTipFlag>
+		<syncMatchedPlayerInfo>
+			<Arg>		PYTHON		</Arg>
+		</syncMatchedPlayerInfo>
+		<selectHero>	<Exposed/>
+			<Arg>		INT32		</Arg>
+		</selectHero>
+		<onSyncStateToMatchedTeamate>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onSyncStateToMatchedTeamate>
+		<lockSelectHero>	<Exposed/>
+		</lockSelectHero>
+		<onAllHeroSelected>
+		</onAllHeroSelected>
+
+		<refreshCandidateHeros>	<Exposed/>
+		</refreshCandidateHeros>
+		<showGuideModeMinScoreSign>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+		</showGuideModeMinScoreSign>
+		<hideGuideModeMinScoreSign>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		PYTHON		</Arg>
+		</hideGuideModeMinScoreSign>
+		<showGuideModePanel>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+		</showGuideModePanel>
+		<hideGuideModePanel>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+		</hideGuideModePanel>
+		<setIsMinScorePlayer>
+			<Arg> INT32	</Arg>
+		</setIsMinScorePlayer>
+		<setNotMinScorePlayer>
+		</setNotMinScorePlayer>
+		<setMinScorePlayerGID>
+			<Arg> INT32	</Arg>
+		</setMinScorePlayerGID>
+		<setGuideModePanelVisible>
+			<Arg> BOOL	</Arg>
+		</setGuideModePanelVisible>
+		
+		<requestRecordUSRecomendOnlineLog> <Exposed/>
+			<Arg> INT32	</Arg>
+			<Arg> STRING	</Arg>
+		</requestRecordUSRecomendOnlineLog>
+		<showBestWeaponHolderSign>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</showBestWeaponHolderSign>
+		<hideBestWeaponHolderSign>
+			<Arg> GLOBAL_MAIL_BOX_INFO	</Arg>
+			<Arg>		PYTHON		</Arg>
+		</hideBestWeaponHolderSign>
+		<broadcastMemberShowBestWeaponSign> <Exposed/>
+		</broadcastMemberShowBestWeaponSign>
+	</BaseMethods>
+	<ClientMethods>
+		<onEnterHallTeam>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		INT8		</Arg>
+			<Arg>	ARRAY <of>	HALL_TEAM_MEMBER_CLIENT	</of>	</Arg>
+			<Arg>	INT32 </Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onEnterHallTeam>
+		<syncHallTeamMatchingRandom>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+		</syncHallTeamMatchingRandom>
+		<onInvitedToHallTeam>
+			<Arg>		INT64		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</onInvitedToHallTeam>
+		<addHallTeamMember>
+			<Arg>		HALL_TEAM_MEMBER_CLIENT		</Arg>
+		</addHallTeamMember>
+		<delHallTeamMember>
+			<Arg>		GID		</Arg>
+		</delHallTeamMember>
+		<onLeaveHallTeam>
+		</onLeaveHallTeam>
+
+		<onSetMatchBigMap>
+			<Arg>		BOOL		</Arg>
+		</onSetMatchBigMap>
+		<onSetMatchFPSMode>
+			<Arg>		BOOL		</Arg>
+		</onSetMatchFPSMode>
+		<onSetMatchNextGen>
+			<Arg>		BOOL		</Arg>
+		</onSetMatchNextGen>
+
+		<setHeroCandidate>
+			<Arg>		PYTHON		</Arg>
+		</setHeroCandidate>
+		<onSetMatchOccupation>
+			<Arg>		BOOL		</Arg>
+		</onSetMatchOccupation>
+
+		<updateHallTeamLeaderGID>
+			<Arg>		GID		</Arg>
+		</updateHallTeamLeaderGID>
+		<syncMatchState>
+			<Arg>		INT16		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</syncMatchState>
+		<syncHallTeamModeSetting>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</syncHallTeamModeSetting>
+		<syncReadyState>
+			<Arg> GID </Arg>
+			<Arg> BOOL </Arg>
+			<Arg> UINT8 </Arg>
+		</syncReadyState>
+		<syncBattleState>
+			<Arg> GID </Arg>
+			<Arg> BOOL </Arg>
+		</syncBattleState>
+		<syncHallTeamMemberNickname>
+			<Arg> GID </Arg>
+			<Arg> STRING </Arg>
+		</syncHallTeamMemberNickname>
+		<syncMatchingProgress>
+			<Arg> INT32 </Arg>
+			<Arg> INT32 </Arg>
+			<Arg>	FLOAT	</Arg>
+		</syncMatchingProgress>
+		<syncHallTeamMemberIdentifyTagID>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</syncHallTeamMemberIdentifyTagID>
+		<syncHallTeamMemberDtsNameplateAppearance>
+			<Arg> GID </Arg>
+			<Arg> INT32 </Arg>
+		</syncHallTeamMemberDtsNameplateAppearance>
+		<syncHallTeamMemberSupportSeason>
+			<Arg>	GID	</Arg>
+			<Arg>	INT8	</Arg>
+		</syncHallTeamMemberSupportSeason>
+		<syncYuanbaoMatchingProgress>
+			<Arg> INT32 </Arg>
+		</syncYuanbaoMatchingProgress>
+		<onGetMatchedTeamInfo>
+			<Arg>	ARRAY <of>	PLAYER_LOADING_INFO	</of>	</Arg>
+		</onGetMatchedTeamInfo>
+		<onMatchGameTypesUpdate>
+			<Arg> PYTHON </Arg>
+		</onMatchGameTypesUpdate>
+		<onGameTypeGoingToStartUpdate>
+			<Arg> INT32 </Arg>
+			<Arg> INT64 </Arg>
+		</onGameTypeGoingToStartUpdate>
+
+		<requestJoinTeamAck>
+			<Arg> 	UINT8	</Arg>
+		</requestJoinTeamAck>
+
+		<onReceiveJoinTeamRequest>
+			<Arg> GID	</Arg>
+			<Arg> STRING	</Arg>
+		</onReceiveJoinTeamRequest>
+
+		<onTeammateUpdateGender>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT32		</Arg>
+		</onTeammateUpdateGender>
+		<onTeammateUpdateBodyAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateBodyAppearance>
+		<onTeammateUpdateWearableAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateWearableAppearance>
+		<onTeammateUpdateEmoji>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT32		</Arg>
+		</onTeammateUpdateEmoji>
+		<onTeammateUpdateBattlegroundPropAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateBattlegroundPropAppearance>
+		<onTeammateUpdateFlyingAccessory>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateFlyingAccessory>
+		<onTeammateUpdateVehicleAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdateVehicleAppearance>
+		<onTeammateUpdatePendantAppearance>
+			<Arg>		GID 		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</onTeammateUpdatePendantAppearance>
+		<syncHallTeamMemberThemeID>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT32 	</Arg>
+		</syncHallTeamMemberThemeID>
+		<syncCanMatchNextGen>
+			<Arg>		GID 		</Arg>
+			<Arg>		INT32 	</Arg>
+		</syncCanMatchNextGen>
+		<onEnableGrassChange>
+			<Arg>		BOOL 		</Arg>
+		</onEnableGrassChange>
+		<notifyNoGrass>
+		</notifyNoGrass>
+		<onUpdateMatchTargetTime>
+			<Arg>		INT32		</Arg>
+		</onUpdateMatchTargetTime>
+
+		<onGetRandomOnlinePlayers>
+			<Arg> ARRAY <of> FRIEND_ABSTRACT </of> </Arg>
+			<Arg>		PY_DICT		</Arg>
+		</onGetRandomOnlinePlayers>
+		<onTeammateUpdateIntimacyDegree>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onTeammateUpdateIntimacyDegree>
+		<onTeammateUpdateIntimateRelationship>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onTeammateUpdateIntimateRelationship>
+		<syncHallTeamAnimation>
+			<Arg>		GID		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT8		</Arg>
+		</syncHallTeamAnimation>
+		<syncHallTeamMemberOutGameBag>
+			<Arg>		GID		</Arg>
+			<Arg>		INT32		</Arg>
+		</syncHallTeamMemberOutGameBag>
+		<onRequestJoinTeamAck>
+			<Arg> GID	</Arg>
+		</onRequestJoinTeamAck>
+		<onGetOpenMaintenanceFightTipFlag>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetOpenMaintenanceFightTipFlag>
+		<syncHallTeamIntimateRelationship>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</syncHallTeamIntimateRelationship>
+		<syncHallTeamMemberOutGameWeapon>
+			<Arg>		GID		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</syncHallTeamMemberOutGameWeapon>
+		<syncHallTeamMemberHallVehicleAppearanceList>
+			<Arg>		GID		</Arg>
+			<Arg>		ARRAY <of> INT32 </of>		</Arg>
+		</syncHallTeamMemberHallVehicleAppearanceList>
+		<startHeroSelect>
+			<Arg>		ARRAY <of>	INT32 </of>		</Arg>	<!-- candidate heros of mine -->
+			<Arg>		PYTHON		</Arg>	<!-- matched player info -->
+			<Arg>		INT32		</Arg>	<!-- hero select end server time -->
+		</startHeroSelect>
+		<onMatchedPlayerInfoChange>
+			<Arg>		GID		</Arg>	<!-- playerGID	-->
+			<Arg>		PYTHON		</Arg>	<!-- info	-->
+		</onMatchedPlayerInfoChange>
+		<onAllHeroSelected>
+		</onAllHeroSelected>
+		<onRefreshCandidateHero>
+			<Arg>		INT32		</Arg>	<!-- cur refresh cnt -->
+			<Arg>		ARRAY <of>	INT32	</of>	</Arg>	<!-- canidate heros -->
+		</onRefreshCandidateHero>
+		<onSyncCreditScore>
+			<Arg>		INT32		</Arg>
+		</onSyncCreditScore>
+		<showGuideModeMinScoreSign>
+			<Arg>		INT32		</Arg>
+		</showGuideModeMinScoreSign>
+		<hideGuideModeMinScoreSign>
+			<Arg>		PYTHON		</Arg>
+		</hideGuideModeMinScoreSign>
+		<showGuideModePanel>
+		</showGuideModePanel>
+		<hideGuideModePanel>
+		</hideGuideModePanel>
+		<unavailableForMatchTrain>
+		</unavailableForMatchTrain>
+		<showBestWeaponHolderSign>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</showBestWeaponHolderSign>
+		<hideBestWeaponHolderSign>
+			<Arg>		PYTHON		</Arg>
+		</hideBestWeaponHolderSign>
+	</ClientMethods>
+</root>

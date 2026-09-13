@@ -1,0 +1,131 @@
+<root>
+	<Parent>	BattleGroundAvatar	</Parent>
+	<Implements>
+		<Interface>	iAutoRoyaleEquip		</Interface>
+		<Interface>	iRosMatchAvatar         </Interface>
+	</Implements>
+	<ClientName>	AutoRoyaleAvatar	</ClientName>
+	<Properties>
+		<ownAutoAppearanceList>
+			<Type>		ARRAY <of>	INT32	</of>		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	[]		</Default>
+		</ownAutoAppearanceList>
+
+		<battleAutoChangeTipTimerID>
+			<Type>		INT32	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</battleAutoChangeTipTimerID>
+
+		<teamAutoAppearanceList>
+			<Type>		ARRAY <of>	AUTO_APPEARANCE_INFO	</of>		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	[]		</Default>
+		</teamAutoAppearanceList>
+
+		<battleAutoID>
+			<Type>		INT32	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</battleAutoID>
+
+		<battleAutoAppearanceID>
+			<Type>		INT32	</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</battleAutoAppearanceID>
+
+		<vehiclePropUsedTime>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</vehiclePropUsedTime>
+	</Properties>
+	<CellMethods>
+		<onUpdateTeamAutoList>
+			<Arg>	ARRAY <of>	AUTO_APPEARANCE_INFO	</of>		</Arg>
+		</onUpdateTeamAutoList>
+
+		<onUpdateBattleAutoID>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</onUpdateBattleAutoID>
+
+		<selectBattleAuto>  <Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</selectBattleAuto>
+
+		<clearPropAndEquipBeforeFight>
+		</clearPropAndEquipBeforeFight>
+
+		<!-- 用于GM指令，摧毁自身车辆 -->
+		<gmDestroyVehicle>
+		</gmDestroyVehicle>
+
+		<gmAutoRoyaleItem>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</gmAutoRoyaleItem>
+
+		<gmPickupAutoRoyaleItem>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</gmPickupAutoRoyaleItem>
+
+		<movePropFromVehicleToAvatar> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		ITEM_UUID		</Arg>
+		</movePropFromVehicleToAvatar>
+
+		<useVehiclePropInSlot> <Exposed/>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</useVehiclePropInSlot>
+
+		<createAutoRoyaleLandmine>
+			<Arg>		INT32			</Arg>
+		</createAutoRoyaleLandmine>
+
+		<onUseVehiclePropInSlot>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onUseVehiclePropInSlot>
+
+		<onFailUseVehiclePropInSlot>
+			<Arg>		INT32			</Arg>
+			<Arg>		STRING			</Arg>
+		</onFailUseVehiclePropInSlot>
+
+		<transferCar> <Exposed/>
+		</transferCar>
+
+		<onStartPropSing>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onStartPropSing>
+
+		<onStopPropSing>
+			<Arg>		INT32		</Arg>
+		</onStopPropSing>
+	</CellMethods>
+	<BaseMethods>
+ 		<movePropFromEquipToAutoRoyalePackage> <Exposed/>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		STRING		</Arg>
+		</movePropFromEquipToAutoRoyalePackage>
+	</BaseMethods>
+
+	<ClientMethods>
+		<showAutoRoyaleVehicleSlot>
+			<Arg>		BOOL			</Arg>
+		</showAutoRoyaleVehicleSlot>
+
+		<hideAutoRoyaleTrunkSlot>
+		</hideAutoRoyaleTrunkSlot>
+	</ClientMethods>
+</root>

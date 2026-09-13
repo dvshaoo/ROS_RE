@@ -1,0 +1,15 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+        <setState>
+            <Arg>		STRING			</Arg>	<!-- state -->
+            <Arg>		UINT32			</Arg>	<!-- next_match -->
+            <Arg>		STRING			</Arg>	<!-- title -->
+        </setState>
+	</BaseMethods>
+</root>

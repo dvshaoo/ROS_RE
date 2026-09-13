@@ -1,0 +1,48 @@
+<root>
+	<Properties>
+		<headFrameTag>
+			<!-- 		头像框标签 			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+		</headFrameTag>
+		<chatBubbleTag>
+			<!-- 		聊天气泡标签 			-->
+			<Type>		INT32		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	0		</Default>
+		</chatBubbleTag>
+		
+		<!-- 已装备姓名版外观 -->
+		<dtsNameplateAppearance>
+			<Type>			INT32			</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Default>		0				</Default>
+		</dtsNameplateAppearance>
+	</Properties>
+
+	<BaseMethods> 
+		<buyBigSpeaker> <Exposed/>
+			<Arg> INT32 </Arg>
+		</buyBigSpeaker>
+	</BaseMethods>
+
+	<ClientMethods>
+		<setIdentifyTagID>
+			<Arg>			INT32				</Arg>
+		</setIdentifyTagID>
+		<onUpdateHeadFrameTag>
+			<Arg>			INT32				</Arg>
+		</onUpdateHeadFrameTag>
+		<onUpdateChatBubbleTag>
+			<Arg>			INT32				</Arg>
+		</onUpdateChatBubbleTag>
+		<onUpdateDtsNameplateAppearance>
+			<Arg>			INT32				</Arg>
+		</onUpdateDtsNameplateAppearance>
+		<updateBigSpeakerNum>
+			<Arg> INT32 </Arg>
+		</updateBigSpeakerNum>
+	</ClientMethods>
+
+</root>

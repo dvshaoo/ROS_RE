@@ -1,0 +1,55 @@
+<root>
+	<Parent>	SkillExplosiveSummonEntity		</Parent>
+	<Implements>
+		<Interface> iMove	</Interface>
+	</Implements>
+	
+	<Volatile>
+		<position/>
+		<yaw/>
+	</Volatile>
+
+	<ClientName>	SkillExplosiveServMovePolylineSummonEntity	</ClientName>
+
+	<Properties>
+		<targetPosition>
+			<Type>	VECTOR3	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</targetPosition>
+		<nStage>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</nStage>
+
+		<moveStage>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</moveStage>
+		
+		<movePoints>
+			<Type>	ARRAY <of>	VECTOR3		</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</movePoints>
+		<moveSpeeds>
+			<Type>	ARRAY <of>	FLOAT		</of>	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</moveSpeeds>
+
+	</Properties>
+
+	<ClientMethods>
+		<activate>
+		</activate>
+	</ClientMethods>
+
+	<CellMethods>
+		<setMoveData>
+			<Arg>	ARRAY <of>	VECTOR3		</of>	</Arg> <!-- point list -->
+			<Arg>	ARRAY <of>	FLOAT		</of>	</Arg> <!-- speed list -->
+		</setMoveData>
+		
+		<startMoving>
+		</startMoving>
+
+	</CellMethods>
+</root>

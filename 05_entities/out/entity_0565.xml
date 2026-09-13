@@ -1,0 +1,67 @@
+<root>
+	<CellMethods>
+		<broadcastCreateDtsFlyBullet> <Exposed/>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</broadcastCreateDtsFlyBullet>
+		<broadcastCreateBowBullet> <Exposed />
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT64		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		BOOL		</Arg>
+		</broadcastCreateBowBullet>
+		<dtsFlyBulletHit> <Exposed />
+			<Arg>		ENTITY_ID	</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</dtsFlyBulletHit>
+	</CellMethods>
+
+	<ClientMethods>
+		<onBroadcastCreateDtsFlyBullet>
+			<Arg>		ENTITY_ID	</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+		</onBroadcastCreateDtsFlyBullet>
+		<onBroadcastCreateBowBullet>
+			<Arg>		ENTITY_ID	</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		BOOL		</Arg>
+		</onBroadcastCreateBowBullet>
+		<onDtsFlyBulletHitEntity>
+			<Arg>		ENTITY_ID	</Arg>
+			<Arg>		ENTITY_ID	</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onDtsFlyBulletHitEntity>
+	</ClientMethods>
+</root>

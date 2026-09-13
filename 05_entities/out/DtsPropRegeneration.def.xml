@@ -1,0 +1,35 @@
+<root>
+
+  <Parent>  DtsProp  </Parent>
+  <ClientName>  DtsPropRegeneration  </ClientName>
+
+  <Properties>
+    <isDtsItemAbandoned> <!--是否被遗弃-->
+      <Type>  BOOL </Type>
+      <Flags> ALL_CLIENTS </Flags>
+      <Default> False </Default>
+    </isDtsItemAbandoned>
+    <orginalAmount> <!--初始数量-->
+      <Type>  INT32 </Type>
+      <Flags> CELL_PRIVATE </Flags>
+    </orginalAmount>
+    <regenerationTimerId> 
+      <Type>  INT32 </Type>
+      <Flags> CELL_PRIVATE </Flags>
+    </regenerationTimerId>
+    <toBeDestroyTimerId> 
+      <Type>  INT32 </Type>
+      <Flags> CELL_PRIVATE </Flags>
+    </toBeDestroyTimerId> 
+  </Properties>
+
+  <ClientMethods>
+  </ClientMethods>
+
+  <CellMethods>
+  </CellMethods>
+
+  <BaseMethods>
+  </BaseMethods>
+
+</root>

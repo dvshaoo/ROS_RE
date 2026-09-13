@@ -1,0 +1,191 @@
+<root>
+	<Properties>
+		<wildTaskCount>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0		</Default>
+		</wildTaskCount>
+
+		<avaliableStones>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	[]		</Default>
+		</avaliableStones>
+
+		<activityDataDict>
+			<Type>		ARRAY <of> HUANGYE_ACTIVITY  </of>	 </Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</activityDataDict>
+
+		<aliveSingleWildActivities>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	[]		</Default>
+		</aliveSingleWildActivities>
+
+		<aliveHiddenActivities>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	[]		</Default>
+		</aliveHiddenActivities>
+
+		<doingSingleWildActivities>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	[]		</Default>
+		</doingSingleWildActivities>
+
+		<taskPool>
+			<Type>		PY_DICT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</taskPool>
+
+		<totalSucTasks>
+			<Type>		INT32		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	0		</Default>
+		</totalSucTasks>
+
+		<wildRunning>
+			<Type>		BOOL		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	False		</Default>
+		</wildRunning>
+
+		<areaDetectStatus>
+			<Type>		PY_DICT		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}		</Default>
+		</areaDetectStatus>
+
+		<lastRefreshHiddenTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0.0		</Default>
+		</lastRefreshHiddenTime>
+
+		<lastCheckWildTaskTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0.0		</Default>
+		</lastCheckWildTaskTime>
+
+		<lastDoneWildTaskTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0.0		</Default>
+		</lastDoneWildTaskTime>
+
+		<timerRefreshHidden>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</timerRefreshHidden>
+
+		<timerUpdate>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</timerUpdate>
+
+		<nextCloseWildTime>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0.0		</Default>
+		</nextCloseWildTime>
+
+		<timeSimulation>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	0.0		</Default>
+		</timeSimulation>
+	</Properties>
+
+	<BaseMethods>
+		<onAreaEventStart>
+			<Arg>			INT32			</Arg>
+		</onAreaEventStart>
+	</BaseMethods>
+
+	<CellMethods>
+		<detectArea> <Exposed/>
+			<Arg>			INT8				</Arg>
+		</detectArea>
+
+		<enterSingleWild> <Exposed/>
+		</enterSingleWild>
+
+		<openStone> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</openStone>
+
+		<requestCreateStrongholdDungeon>	<Exposed/>
+			<Arg>			INT32			</Arg>
+		</requestCreateStrongholdDungeon>
+
+		<requestRunningEvents>	<Exposed/>
+		</requestRunningEvents>
+
+		<onRequestRunningEvents>
+			<Arg>		PYTHON		</Arg>
+		</onRequestRunningEvents>
+
+		<requestShowMapEntityGroups>	<Exposed/>
+		</requestShowMapEntityGroups>
+
+		<onRequestShowMapEntityGroups>
+			<Arg>		PYTHON		</Arg>
+		</onRequestShowMapEntityGroups>
+
+		<queryEventProgress> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</queryEventProgress>
+
+		<onQueryEventProgress>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onQueryEventProgress>
+
+		<queryEntGroupState> <Exposed/>
+			<Arg>			INT32			</Arg>
+		</queryEntGroupState>
+
+		<onQueryEntGroupState>
+			<Arg>			INT32			</Arg>
+			<Arg>			PY_DICT			</Arg>
+		</onQueryEntGroupState>
+	</CellMethods>
+
+	<ClientMethods>
+		<onQueryEventProgress>
+			<Arg>			INT32			</Arg>
+			<Arg>			INT32			</Arg>
+		</onQueryEventProgress>
+
+		<onRequestRunningEvents>
+			<Arg>		PYTHON		</Arg>
+		</onRequestRunningEvents>
+
+		<onRequestShowMapEntityGroups>
+			<Arg>		PYTHON		</Arg>
+		</onRequestShowMapEntityGroups>
+
+		<onQueryEntGroupState>
+			<Arg>			INT32			</Arg>
+			<Arg>			PY_DICT			</Arg>
+		</onQueryEntGroupState>
+
+		<onStrongholdEventStart>
+			<Arg>			INT32			</Arg>
+		</onStrongholdEventStart>
+
+		<onAreaEventStart>
+			<Arg>			INT32			</Arg>
+		</onAreaEventStart>
+
+		<onLittleDungeonStart>
+			<Arg>			INT32			</Arg>
+		</onLittleDungeonStart>
+
+		<updateLinkerBtnStatus>
+		</updateLinkerBtnStatus>
+	</ClientMethods>
+</root>

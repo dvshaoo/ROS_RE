@@ -1,0 +1,26 @@
+<root>
+	<Properties>
+	</Properties>
+	<BaseMethods>
+		<getPersonalRecommendGift> <Exposed/>
+		</getPersonalRecommendGift>
+		<tryOutAdvanceWeapon> <Exposed/>
+		</tryOutAdvanceWeapon>
+		<tryRefreshPersonalRecommendGift>
+		</tryRefreshPersonalRecommendGift>
+		<tryUpdatePersonalRecommendState>
+		</tryUpdatePersonalRecommendState>
+		<manulRefreshPersonalRecommendGift> <Exposed/>
+		</manulRefreshPersonalRecommendGift>
+		<onOpenPersonalRecommendGift> <Exposed/>
+		</onOpenPersonalRecommendGift>
+	</BaseMethods>
+	<ClientMethods>
+		<onPersonalRecommendStateUpdated>
+			<Arg>		INT32		</Arg>		<!-- state -->
+			<Arg>		INT32		</Arg>		<!-- refresh time-->
+			<Arg>		PYTHON		</Arg>		<!-- gift -->
+			<Arg>		INT32		</Arg>		<!-- version -->
+		</onPersonalRecommendStateUpdated>
+	</ClientMethods>
+</root>

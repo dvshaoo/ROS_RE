@@ -1,0 +1,34 @@
+<root>
+
+	<Implements>
+		<Interface> iCell </Interface>
+		<Interface>	iDtsStarDiamondBox	</Interface>
+	</Implements>
+
+	<ClientName>  DtsStarBoxAirDropEntity  </ClientName>
+
+	<Properties>
+		<hasOpen>
+			<Type> INT32 </Type>
+			<Flags> ALL_CLIENTS </Flags>
+		</hasOpen>
+	</Properties>
+
+	<ClientMethods>
+		<startOpenStarBoxAirDrop>
+		</startOpenStarBoxAirDrop>
+		<onOpenStarBoxAirDrop>
+		</onOpenStarBoxAirDrop>
+		<onOpenStarBoxAirDropFailed>
+		</onOpenStarBoxAirDropFailed>
+	</ClientMethods>
+	
+	<CellMethods>
+		<tryOpenStarBoxAirDrop> <Exposed/>
+		</tryOpenStarBoxAirDrop> 
+		<quitOpenStarBoxAirDrop> <Exposed/>
+		</quitOpenStarBoxAirDrop> 
+		<doOpenStarBoxAirDrop> <Exposed/>
+		</doOpenStarBoxAirDrop>
+	</CellMethods>
+</root>

@@ -1,0 +1,54 @@
+<root>
+	<Implements>
+		<Interface>		iBaseNoCell				</Interface>
+	</Implements>
+
+	<Properties>
+		<members>
+			<Type> PLAYER_INFO_LIST </Type>
+			<Flags> BASE </Flags>
+		</members>
+		<rankList>
+			<Type> RANK_INFO_LIST </Type>
+			<Flags> BASE </Flags>
+		</rankList>
+		<gid>
+			<Type> GID </Type>
+			<Flags> BASE </Flags>
+		</gid>
+	</Properties>
+
+	<BaseMethods>
+		<addNewMember>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+			<Arg> PLAYER_INFO </Arg>
+		</addNewMember>
+		<answerQuestion>
+			<Arg> GID </Arg>
+			<Arg> ANSWER_INFO </Arg>
+		</answerQuestion>
+		<startCountDown>
+			<Arg> INT32 </Arg>
+		</startCountDown>
+		<chatInQuizRoom>
+			<Arg> GID </Arg>
+			<Arg> CHAT_INFO </Arg>
+		</chatInQuizRoom>
+		<requestLeaveQuizRoom>
+			<Arg> GID </Arg>
+		</requestLeaveQuizRoom>
+		<queryRoomInfo>
+			<Arg> GID </Arg>
+			<Arg> MAILBOX </Arg>
+		</queryRoomInfo>
+		<onCleanRoom>
+		</onCleanRoom>
+
+
+		<gmStartQuestion>
+			<Arg> GID </Arg>
+		</gmStartQuestion>
+	</BaseMethods>
+
+</root>

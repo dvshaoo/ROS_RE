@@ -1,0 +1,37 @@
+<root>
+	<Implements>
+	</Implements>
+	<Properties>
+		<sceneElements>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</sceneElements>
+		<deathAreas>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</deathAreas>
+	</Properties>
+	<CellMethods>
+		<onSceneElementCreated>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</onSceneElementCreated>
+		<onSceneElementDestroyed>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</onSceneElementDestroyed>
+		<onDeathAreaCreated>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</onDeathAreaCreated>
+
+		<openDeathArea>
+			<Arg>		INT32		</Arg>
+		</openDeathArea>
+		<closeDeathArea>
+			<Arg>		INT32		</Arg>
+		</closeDeathArea>
+	</CellMethods>
+</root>

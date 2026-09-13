@@ -1,0 +1,124 @@
+<root>
+	<Properties>
+		<channelList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE				</Flags>
+			<Default>		{}					</Default>
+		</channelList>
+
+		<followList>
+			<Type>			PYTHON				</Type>
+			<Flags>			BASE_AND_CLIENT		</Flags>
+			<Persistent>	true				</Persistent>
+			<Default>		{}					</Default>
+		</followList>	
+	</Properties>
+
+	<BaseMethods>
+		<requestRoomList> <Exposed/>
+			<Arg>			INT32				</Arg> <!-- channel -->
+		</requestRoomList>
+
+		<requestRecommendList> <Exposed/>
+		</requestRecommendList>
+
+		<requestFollowList> <Exposed/>
+			<Arg>			INT32				</Arg> <!-- channel -->
+		</requestFollowList>
+
+		<onGetRoomList>
+			<Arg>	 INT32									</Arg> <!-- channel -->
+			<Arg>    ARRAY <of>	COMMON_LIVE_ROOM	</of>	</Arg>
+			<Arg>	 PYTHON 								</Arg>
+		</onGetRoomList>
+
+		<onGetFollowList>
+			<Arg>	 INT32									</Arg> <!-- channel -->
+			<Arg>    ARRAY <of>	COMMON_LIVE_ROOM	</of>	</Arg>
+		</onGetFollowList>
+
+		<onGetRecommendList>
+			<Arg>	ARRAY <of>	COMMON_LIVE_RECOMMEND_ROOM	</of>	</Arg>
+		</onGetRecommendList>
+
+		<requestPostMsg> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel_id -->
+			<Arg>			STRING					</Arg> <!-- msg -->
+		</requestPostMsg>
+
+		<requestShowFollow> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel -->
+			<Arg>			INT32					</Arg> <!-- channel id -->
+		</requestShowFollow>
+
+		<requestFollow> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel -->
+			<Arg>			INT32					</Arg> <!-- channel id -->
+		</requestFollow>
+
+		<requestUnfollow> <Exposed/>
+			<Arg>			INT32					</Arg> <!-- channel -->
+			<Arg>			INT32					</Arg> <!-- channel id -->
+		</requestUnfollow>
+
+		<requestRank> <Exposed/>
+		</requestRank>
+
+		<onGetRank>
+			<Arg>    ARRAY <of>	COMMON_LIVE_HOTRANK	</of>	</Arg>
+		</onGetRank>	
+
+		<saLogCommonLiveOP> <Exposed/>
+			<Arg>			STRING					</Arg> <!-- platform -->
+			<Arg>			STRING					</Arg> <!-- name -->
+			<Arg>			INT32					</Arg> <!-- play -->
+			<Arg>			INT32					</Arg> <!-- duration -->
+			<Arg>			INT8					</Arg> <!-- open 1 close 0-->
+		</saLogCommonLiveOP>
+	</BaseMethods>	
+
+	<ClientMethods>
+		<onGetRoomList>
+			<Arg>    ARRAY <of>	COMMON_LIVE_ROOM	</of>	</Arg>
+		</onGetRoomList>	
+
+		<onGetFollowList>
+			<Arg>    ARRAY <of>	COMMON_LIVE_ROOM	</of>	</Arg>
+			<Arg>    ARRAY <of>	COMMON_LIVE_FOLLOW	</of>	</Arg>
+		</onGetFollowList>	
+
+		<onGetRecommendList>
+			<Arg>	 ARRAY <of>	COMMON_LIVE_RECOMMEND_ROOM	</of>	</Arg>
+		</onGetRecommendList>
+		
+		<onGetRank>
+			<Arg>    ARRAY <of>	COMMON_LIVE_HOTRANK	</of>	</Arg>
+		</onGetRank>	
+		
+		<onFollowSuccess>
+			<Arg>			INT32					</Arg>	<!-- channel -->					
+			<Arg>			INT32					</Arg>	<!-- ccid -->		
+			<Arg>			STRING					</Arg>	<!-- nickname -->
+		</onFollowSuccess>
+
+		<onRequestShowFollow>
+			<Arg>			INT8						</Arg> <!-- follow -->
+		</onRequestShowFollow>
+
+		<onFollowFailed>
+		</onFollowFailed>
+
+		<onUnfollowSuccess>
+			<Arg>			INT32					</Arg>	<!-- channel -->					
+			<Arg>			INT32					</Arg>	<!-- ccid -->			
+		</onUnfollowSuccess>
+
+		<onUnfollowFailed>
+		</onUnfollowFailed>		
+
+		<onCCNotifyAnchors>
+			<Arg>			PYTHON					</Arg>
+		</onCCNotifyAnchors>
+	</ClientMethods>
+
+</root>

@@ -1,0 +1,87 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iMove		</Interface>
+		<Interface>	iRotate		</Interface>
+		<Interface>	iDtsEquipAppearanceAvatar	</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+	</Volatile>
+	<ClientName>	PetUnit		</ClientName>
+
+	<Properties>
+	    <characterType>
+	        <Type>  INT32 </Type>
+	        <Flags> ALL_CLIENTS </Flags>
+	    </characterType>
+	    <petStyle>
+			<Type>  INT32   </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</petStyle>
+		<petType>
+			<Type>  INT32   </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</petType>
+		<isClientEntity>
+			<Type>  INT32   </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</isClientEntity>
+		<animIndex>
+			<Type>  INT32   </Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</animIndex>
+		<stateMachine>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</stateMachine>
+		<selectNextPosTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</selectNextPosTimerID>
+		<checkFarFromMasterTimer>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</checkFarFromMasterTimer>
+		<gameStarted>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</gameStarted>
+		<masterEntityId>
+			<Type>  INT32   </Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</masterEntityId>
+		<fixedPlayList>
+			<Type>	PYTHON	</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</fixedPlayList>
+	</Properties>
+	<CellMethods>
+		<destroyByMaster>
+		</destroyByMaster>
+		<syncMasterSpeed>
+		    <Arg> FLOAT </Arg>
+		</syncMasterSpeed>
+		<playByMaster>
+		    <Arg>	UINT8		</Arg>
+		    <Arg>	BOOL		</Arg>
+		</playByMaster>
+	</CellMethods>
+
+	<ClientMethods>
+	    <stopFullbodyAnim>
+	    </stopFullbodyAnim>
+	    <playAnim>
+	        <Arg>	STRING		</Arg>
+		</playAnim>
+	    <playByMaster>
+		    <Arg>	UINT8		</Arg>
+		    <Arg>	BOOL		</Arg>
+		</playByMaster>
+		<playFace>
+		    <Arg> UINT32    </Arg>
+		</playFace>
+	</ClientMethods>
+
+</root>

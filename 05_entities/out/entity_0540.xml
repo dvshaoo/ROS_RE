@@ -1,0 +1,16 @@
+<root>
+	<Implements>
+		<Interface>	iGlobal		</Interface>
+		<Interface>	iBaseNoCell	</Interface>
+	</Implements>
+	<BaseMethods>
+		<onPlayerGetNewOrderFailure>
+			<Arg>			GID			</Arg>
+			<Arg>			STRING			</Arg>
+		</onPlayerGetNewOrderFailure>
+		<onPlayerGetNewOrderSuccess>
+			<Arg>			GID			</Arg>
+			<Arg>			STRING			</Arg>
+		</onPlayerGetNewOrderSuccess>
+	</BaseMethods>
+</root>

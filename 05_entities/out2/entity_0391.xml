@@ -1,0 +1,219 @@
+<root>
+	<Properties>
+		<buySupplementTimes>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</buySupplementTimes>
+		<buyTimeLastResetTime>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</buyTimeLastResetTime>
+		<availSupplement>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+		</availSupplement>
+		<randomItemGetTimesDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</randomItemGetTimesDict>
+		<randomGetTimeLastResetTime>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<Persistent>	true			</Persistent>
+		</randomGetTimeLastResetTime>
+
+		<guaranteeBoxGetPropIDList>
+			<Type>			ARRAY <of> INT32 </of>		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		[]							</Default>	
+			<Persistent> 	true						</Persistent>
+		</guaranteeBoxGetPropIDList>
+
+		<supplementGuaranteeTypeGetPropIDList>		<!-- 某个类别抽到的物品 -->
+			<Type>			PYTHON		</Type>
+			<Flags>			BASE						</Flags>
+			<Default>		{}							</Default>	
+			<PersistentMongo> 	true						</PersistentMongo>
+		</supplementGuaranteeTypeGetPropIDList>
+
+		<isUsePreciousTicketDiscount>    <!-- 是否使用至尊补给打折券 -->
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</isUsePreciousTicketDiscount>
+
+		<hasAlreadyShowSupplyID>    <!-- 记录登录过的本周上新补给ID -->
+		    <Type>		INT32		</Type>
+		    <Flags>		BASE_AND_CLIENT		</Flags>
+		    <Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasAlreadyShowSupplyID>
+		<multipleOpenTimes>	<!-- 连抽的次数 -->
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</multipleOpenTimes>
+		<freeLotteryTimesDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</freeLotteryTimesDict>
+		<hasGotCompensation20191009>
+			<Type>			INT32			</Type>
+			<Flags>			BASE			</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</hasGotCompensation20191009>
+		<hasFinishConvertDtsGlider>    <!-- 是否完成滑翔伞碎片合成 -->
+			<Type>		BOOL		</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Default>	False	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hasFinishConvertDtsGlider>
+		<weekendBuySupplementCntDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</weekendBuySupplementCntDict>
+		<accumulateBuySupplementCntDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</accumulateBuySupplementCntDict>
+		<weekendAwardReceivedRecord>
+			<Type>	PYTHON		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true			</PersistentMongo>
+		</weekendAwardReceivedRecord>
+		<lastClearWeekendRecordTimeStr>
+			<Type>	STRING		</Type>
+			<Flags>	BASE	</Flags>
+			<PersistentMongo>	true			</PersistentMongo>
+		</lastClearWeekendRecordTimeStr>
+		<lastSelectWatchAdSupplementID>
+			<Type>	INT32		</Type>
+			<Flags>	BASE	</Flags>
+		</lastSelectWatchAdSupplementID>
+	</Properties>
+
+	<BaseMethods>
+		<openSupplyBox>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+			<Arg>	BOOL	</Arg>
+		</openSupplyBox>
+		<openSupplyBoxFree>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+		</openSupplyBoxFree>
+		<openMultipleSupplyBox>	<Exposed/>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</openMultipleSupplyBox>
+		<queryAvailableSupplement> <Exposed/>
+		</queryAvailableSupplement>
+		<resetSupplementBuyTimes>
+			<Arg>	INT32	</Arg>
+		</resetSupplementBuyTimes>
+		<setHasAlreadyShowMonthSupply> <Exposed/>
+		</setHasAlreadyShowMonthSupply>
+		<tryGetExtraGiftProp> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</tryGetExtraGiftProp>
+		<setIsUsePreciousTicketDiscount> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</setIsUsePreciousTicketDiscount>
+		<setHasAlreadyShowSupplyID> <Exposed/>
+		</setHasAlreadyShowSupplyID>
+		<tryRefreshFreeLotteryTimes> <Exposed/>
+		</tryRefreshFreeLotteryTimes>
+
+		<requireSupplementWeekendAccumulateAward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</requireSupplementWeekendAccumulateAward>
+		<updateLastWatchAdSupplementID> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</updateLastWatchAdSupplementID>
+		<openThirdAnniversarySupply> <Exposed/>
+		</openThirdAnniversarySupply>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onOpenSupplyBox>
+			<Arg>	INT32 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	BOOL 	</Arg>
+		</onOpenSupplyBox>
+		<onOpenFreeSupplyBox>
+			<Arg>	INT32 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+		</onOpenFreeSupplyBox>
+		<onMultiOpenSupplyBox>
+			<Arg>	INT32 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+		</onMultiOpenSupplyBox>
+		<onOpenSupplyBoxFailed>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</onOpenSupplyBoxFailed>
+		<onMultiOpenSupplyBoxFailed>
+			<Arg>	INT32 	</Arg>
+			<Arg>	STRING 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	INT32 	</Arg>
+			<Arg>	ARRAY <of> INT32 </of>	</Arg>
+		</onMultiOpenSupplyBoxFailed>
+		<onQueryAvailableSupplement>
+			<Arg>	PYTHON	</Arg>
+		</onQueryAvailableSupplement>
+		<onGetExtraGiftProp>
+			<Arg>	INT32 	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onGetExtraGiftProp>
+		<onUpdateFreeLotteryTimeStampDict>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onUpdateFreeLotteryTimeStampDict>
+		<onUpdateAlreadyShowSupplyID>
+		    <Arg>   INT32   </Arg>
+		</onUpdateAlreadyShowSupplyID>
+		<onUpdateMultipleOpenTimes>
+			<Arg>	PYTHON		</Arg>
+		</onUpdateMultipleOpenTimes>
+
+		<onUpdateBuySupplementCntDict>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+			<Arg>	PYTHON 	</Arg>
+		</onUpdateBuySupplementCntDict>
+
+		<onGetSupplementWeekendAccumulateAwardSucc>
+			<Arg>	INT32	</Arg>
+			<Arg>	PYTHON 	</Arg>
+		</onGetSupplementWeekendAccumulateAwardSucc>
+		<onWatchAdSupplyDataUpdate>
+			<Arg>	PYTHON 	</Arg>
+		</onWatchAdSupplyDataUpdate>
+		<onWatchAdSupplyDataRefresh>
+		</onWatchAdSupplyDataRefresh>
+		<onShowThirdAnniversarySupplyArrow>
+		</onShowThirdAnniversarySupplyArrow>
+	</ClientMethods>
+</root>

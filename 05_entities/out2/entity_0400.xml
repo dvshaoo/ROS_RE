@@ -1,0 +1,29 @@
+<root>
+	<Properties>
+		<nicknameDict>		
+			<Type>			PY_DICT			</Type>
+			<Flags>			BASE			</Flags>
+			<Default>		{}			</Default>
+		</nicknameDict>
+		<invalidNicknameSet>		
+			<Type>			PY_SET			</Type>
+			<Flags>			BASE			</Flags>
+		</invalidNicknameSet>
+	</Properties>
+
+	<BaseMethods>
+		<startChangeNickname>
+			<Arg>		STRING		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</startChangeNickname>
+		
+		<finishChangeNickname>
+			<Arg>		STRING		</Arg>
+		</finishChangeNickname>
+
+		<addInvalidNickname>
+			<Arg>		STRING		</Arg>
+		</addInvalidNickname>
+	</BaseMethods>
+</root>

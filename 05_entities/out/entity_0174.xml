@@ -1,0 +1,131 @@
+<root>
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+		<refreshIntimacyDegreeState>
+		</refreshIntimacyDegreeState>
+
+		<requestIntimacyTasks>	<Exposed/>
+		</requestIntimacyTasks>
+
+		<getIntimacyTaskAwards>	<Exposed/>
+			<Arg>	INT32		</Arg>
+		</getIntimacyTaskAwards>
+
+		<sharedIntimacyTaskAndNotify>	<Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</sharedIntimacyTaskAndNotify>
+		
+		<refreshIntimateRelationship>
+		</refreshIntimateRelationship>
+
+		<requestPlayerAsIntimateRelationship>	<Exposed/>
+			<Arg>	INT32		</Arg>
+			<Arg>	GID 		</Arg>
+			<Arg>	INT32		</Arg>
+		</requestPlayerAsIntimateRelationship>
+		<requsetIntimateRelationshipReceive>
+			<Arg>	INT32		</Arg>
+			<Arg>	GID 		</Arg>
+			<Arg>	INT32		</Arg>
+		</requsetIntimateRelationshipReceive>
+		<requestIntimateRelationshipAckReceive>
+			<Arg>	BOOL		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	GID 		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	STRING		</Arg>
+		</requestIntimateRelationshipAckReceive>
+		<acceptIntimateRelationship>	<Exposed/>
+			<Arg>	GID 		</Arg>
+		</acceptIntimateRelationship>
+		<acceptIntimateRelationshipReceive>
+			<Arg>	GID 		</Arg>
+			<Arg>	STRING 		</Arg>
+			<Arg>	INT32		</Arg>
+		</acceptIntimateRelationshipReceive>
+		<acceptIntimateRelationshipAckReceive>
+			<Arg>	GID 		</Arg>
+			<Arg>	STRING 		</Arg>
+			<Arg>	INT32		</Arg>
+		</acceptIntimateRelationshipAckReceive>
+		<refuseIntimateRelationship>	<Exposed/>
+			<Arg>	GID 		</Arg>
+		</refuseIntimateRelationship>
+		<refuseIntimateRelationshipReceive>
+			<Arg>	GID 		</Arg>
+			<Arg>	STRING 		</Arg>
+			<Arg>	INT32		</Arg>
+		</refuseIntimateRelationshipReceive>
+		<removeIntimateRelationship>	<Exposed/>
+			<Arg>	GID 		</Arg>
+			<Arg>	INT32		</Arg>
+		</removeIntimateRelationship>
+		<removeIntimateRelationshipReceive>
+			<Arg>	GID 		</Arg>
+			<Arg>	STRING 		</Arg>
+			<Arg>	INT32		</Arg>
+		</removeIntimateRelationshipReceive>
+		<getIntimacyShareInfo>	<Exposed/>
+			<Arg>	INT32		</Arg>
+		</getIntimacyShareInfo>
+		<requestIntimateRelationshipInfo>	<Exposed/>
+		</requestIntimateRelationshipInfo>
+
+		<queryExtraBattleAwardsInfo>	<Exposed/>
+		</queryExtraBattleAwardsInfo>
+		<getExtraBattleAwards>	<Exposed/>
+			<Arg>	INT32		</Arg>
+		</getExtraBattleAwards>
+		<requestOthersIntimateRelationshipInfo>	<Exposed/>
+			<Arg>	GID		</Arg>
+		</requestOthersIntimateRelationshipInfo>
+		<updateIntimateVisibleByOthersVal>	<Exposed/>
+			<Arg>	BOOL		</Arg>
+		</updateIntimateVisibleByOthersVal>
+		<updateIsIntimateRelationshipVisibleInTeam>	<Exposed/>
+			<Arg>	BOOL		</Arg>
+		</updateIsIntimateRelationshipVisibleInTeam>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onRequestIntimacyTasks>
+			<Arg>	PYTHON		</Arg>
+		</onRequestIntimacyTasks>
+
+		<onGetIntimacyTaskAwards>
+			<Arg>	PYTHON 	</Arg>
+		</onGetIntimacyTaskAwards>
+
+		<onSharedIntimacyTaskFeedback>
+			<Arg>	ARRAY <of> INT32 </of> 	</Arg>
+		</onSharedIntimacyTaskFeedback>
+
+		<onUpdateIntimateRelationship>
+			<Arg>	PYTHON 		</Arg>
+			<Arg>	PYTHON 		</Arg>
+		</onUpdateIntimateRelationship>
+		<onGetIntimacyShareInfo>
+			<Arg>	INT32		</Arg>
+			<Arg>	STRING		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+		</onGetIntimacyShareInfo>
+		<onQueryExtraBattleAwardsInfo>
+			<Arg>	PYTHON 		</Arg>
+			<Arg>	PYTHON 		</Arg>
+		</onQueryExtraBattleAwardsInfo>
+		<onGetOthersIntimateRelationshipInfo>
+			<Arg>	GID		</Arg>
+			<Arg>	PYTHON 		</Arg>
+		</onGetOthersIntimateRelationshipInfo>
+		<onIntimateVisibleByOthersValUpdated>
+			<Arg>	BOOL 	</Arg>
+		</onIntimateVisibleByOthersValUpdated>
+		<onIsIntimateRelationshipVisibleInTeamValUpdated>
+			<Arg>	BOOL 	</Arg>
+		</onIsIntimateRelationshipVisibleInTeamValUpdated>
+	</ClientMethods>
+</root>

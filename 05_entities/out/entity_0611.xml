@@ -1,0 +1,193 @@
+<root>
+	<Properties>
+		<credit_dict>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE_AND_CLIENT 	</Flags>
+			<Default>	{}		</Default>
+			<Persistent> true </Persistent>
+		</credit_dict>
+
+		<credit_daily_gain>
+			<Type>  PY_DICT	</Type>
+			<Flags> BASE_AND_CLIENT 	</Flags>
+			<Default> {}	</Default>
+			<Persistent> true </Persistent>
+		</credit_daily_gain>
+
+		<currency_daily_gain>
+			<Type>  INT32	</Type>
+			<Flags> BASE_AND_CLIENT 	</Flags>
+			<Default> 0	</Default>
+			<Persistent> true </Persistent>
+		</currency_daily_gain>
+
+		<area_task_daily_finish>
+			<Type>  INT8	</Type>
+			<Flags> BASE_AND_CLIENT 	</Flags>
+			<Persistent> true </Persistent>		
+		</area_task_daily_finish>
+
+		<area_task_get_dict>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE_AND_CLIENT 	</Flags>
+			<Default>	{}		</Default>
+			<Persistent> true </Persistent>		
+		</area_task_get_dict>
+
+		<area_pvp_task_dict>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE_AND_CLIENT 	</Flags>
+			<Default>	{}		</Default>
+			<Persistent> true </Persistent>		
+		</area_pvp_task_dict>
+
+		<currency_dict>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE_AND_CLIENT 	</Flags>
+			<Default>	{}		</Default>
+			<Persistent> true </Persistent>		
+		</currency_dict>
+
+		<credit_goods_dict>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE 	</Flags>
+			<Default>	{}		</Default>
+			<Persistent> true </Persistent>		
+		</credit_goods_dict>
+
+		<lastGainTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastGainTime>
+
+		<lastTaskTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastTaskTime>
+
+		<lastPVPTaskTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastPVPTaskTime>
+
+		<lastCreditGoodsRefreshTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastCreditGoodsRefreshTime>		
+
+		<lastCurrencyGainTime>
+			<Type>		FLOAT	</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	0		</Default>
+			<Persistent>	true		</Persistent>
+		</lastCurrencyGainTime>			
+
+	</Properties>
+
+	<BaseMethods>
+		<addCredit>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+			<Arg>	INT16	</Arg>	<!-- Value -->
+			<Arg>	INT8	</Arg>	<!-- PackageItemSourceEnum-->
+			<Arg>	INT32	</Arg>	<!-- SourceDetail -->
+		</addCredit>
+
+		<addCurrency>
+			<Arg>	INT32	</Arg>	<!-- item id -->
+			<Arg>	INT16	</Arg>	<!-- Value -->
+			<Arg>	INT8	</Arg>	<!-- PackageItemSourceEnum-->
+			<Arg>	INT32	</Arg>	<!-- SourceDetail -->
+		</addCurrency>
+
+		<finishDailyTask>
+			<Arg>	INT32	</Arg>	<!-- area -->
+		</finishDailyTask>
+
+		<requestAreaTaskAward><Exposed/>
+			<Arg>	INT8	</Arg>	<!-- level -->
+		</requestAreaTaskAward>
+
+		<requestRefreshPVPTask><Exposed/>
+		</requestRefreshPVPTask>
+
+		<requestPVPTaskAward><Exposed/>
+			<Arg>	INT32	</Arg>	<!-- task -->
+		</requestPVPTaskAward>	
+
+		<requestBuyCreditGoods><Exposed/>
+			<Arg>	INT8	</Arg>	<!-- Area -->
+			<Arg>	INT8	</Arg>	<!-- Level -->
+			<Arg>	INT32	</Arg>	<!-- Goods -->
+			<Arg>	INT8	</Arg>	<!-- Count -->
+		</requestBuyCreditGoods>	
+
+		<requestCreditShopGoods><Exposed/>
+			<Arg>	INT8	</Arg>	<!-- Area -->
+		</requestCreditShopGoods>					
+
+		<onCreditTaskMsg>
+			<Arg>			INT32				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onCreditTaskMsg>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onCreditUpdated>
+			<Arg>	INT8	</Arg>	<!-- ECredit -->
+			<Arg>	INT32	</Arg>	<!-- Value -->
+		</onCreditUpdated>
+
+		<onDailyCreditUpdated>
+			<Arg>	INT8	</Arg>	<!-- ECredit -->
+			<Arg>	INT32	</Arg>	<!-- Value -->
+		</onDailyCreditUpdated>		
+
+		<onCurrencyUpdated>
+			<Arg>	INT8	</Arg>	<!-- ECurrency -->
+			<Arg>	INT32	</Arg>	<!-- Value -->
+		</onCurrencyUpdated>	
+
+		<onDailyCurrencyUpdated>
+			<Arg>	INT8	</Arg>	<!-- ECurrency -->
+			<Arg>	INT32	</Arg>	<!-- Value -->
+		</onDailyCurrencyUpdated>			
+
+		<onAreaTaskFinish>
+			<Arg>	INT8	</Arg>	<!-- Task Count -->
+		</onAreaTaskFinish>	
+
+		<onAreaTaskAward>
+			<Arg>	INT8	</Arg>	<!-- Award -->
+		</onAreaTaskAward>
+
+		<onRefreshPVPTask>
+			<Arg>	PY_DICT	</Arg>	<!-- Task -->
+		</onRefreshPVPTask>
+
+		<onGetPVPTaskAward>
+			<Arg>	INT32	</Arg>	<!-- Award -->
+		</onGetPVPTaskAward>
+
+		<onBuyCreditGoods>
+			<Arg>	INT8	</Arg>	<!-- Area -->
+			<Arg>	INT8	</Arg>	<!-- Level -->
+			<Arg>	INT32	</Arg>	<!-- Goods -->
+			<Arg>	INT8	</Arg>	<!-- Count -->	
+			<Arg>	ARRAY <of>	ITEM_ID		</of>		</Arg>	
+		</onBuyCreditGoods>
+
+		<onCreditShopGoods>
+			<Arg>	INT8	</Arg>	<!-- Area -->
+			<Arg>	ARRAY <of>	ITEM_ID		</of>		</Arg>
+		</onCreditShopGoods>
+
+	</ClientMethods>
+</root>

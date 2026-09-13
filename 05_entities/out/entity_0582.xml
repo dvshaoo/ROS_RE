@@ -1,0 +1,72 @@
+<root>
+	<Properties>
+		<teamsInfoBuffer>
+			<Type>		PYTHON		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	{}	</Default>
+		</teamsInfoBuffer>
+	</Properties>
+
+	<BaseMethods>
+		<onRequestCustomRoomMapData>
+			<Arg>		PYTHON				</Arg>
+			<Arg>		FLOAT				</Arg>
+		</onRequestCustomRoomMapData>
+	</BaseMethods>
+
+	<CellMethods>
+		<requestCustomAllTeamsInfo> <Exposed/>
+		</requestCustomAllTeamsInfo>
+		<updateCustomAllTeamsInfo>
+			<Arg>		ARRAY <of>	BATTLE_TEAMMATE	</of>		</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>		</Arg>
+		</updateCustomAllTeamsInfo>
+		<updateCustomOneTeamInfo>
+			<Arg>		BATTLE_TEAMMATE		</Arg>
+			<Arg>		BOOL				</Arg>
+		</updateCustomOneTeamInfo>
+
+		<requestCustomRoomMapData> <Exposed/>
+		</requestCustomRoomMapData>
+
+		<requestKickCustomRoomPlayer> <Exposed/>
+			<Arg>		INT32			</Arg>
+		</requestKickCustomRoomPlayer>
+	</CellMethods>
+
+	<ClientMethods>
+		<onBattleGroundCustomResult>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onBattleGroundCustomResult>
+		<onBattleGroundCampWarCustomResult>
+			<Arg>		PYTHON		</Arg>
+		</onBattleGroundCampWarCustomResult>
+		<updateCustomTeamsInfo>
+			<Arg>		ARRAY <of>	BATTLE_TEAMMATE	</of>		</Arg>
+		</updateCustomTeamsInfo>
+		<updateCustomAllTeamsInfo>
+			<Arg>		ARRAY <of>	BATTLE_TEAMMATE	</of>		</Arg>
+			<Arg>		ARRAY <of>	INT32	</of>		</Arg>
+		</updateCustomAllTeamsInfo>
+		<onRequestCustomRoomMapData>
+			<Arg>		PYTHON				</Arg>
+			<Arg>		FLOAT				</Arg>
+		</onRequestCustomRoomMapData>
+		<onCustomBattleGroundTeamEnd>
+			<Arg>		INT32			</Arg>
+		</onCustomBattleGroundTeamEnd>
+		<onCustomBattleGroundPlayerEnd>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</onCustomBattleGroundPlayerEnd>
+		<onBeenDelByCreator>
+		</onBeenDelByCreator>
+		<onDismissRoom>
+		</onDismissRoom>
+		<onBattleUnitedBattleCustomResult>
+			<Arg>		PYTHON		</Arg>
+			<Arg>		INT32		</Arg>
+		</onBattleUnitedBattleCustomResult>
+	</ClientMethods>
+</root>

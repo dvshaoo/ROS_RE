@@ -1,0 +1,164 @@
+<root>
+	<Implements>
+		<Interface>	iOnlineUpdateCell	 </Interface>
+	</Implements>
+	<Properties>
+		<cellTimerRecord>
+			<Type>		PYTHON		</Type>
+			<Flags>         CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</cellTimerRecord>
+		<spaceMailBox>
+			<Type>		MAILBOX		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</spaceMailBox>
+		<parentMailBox>
+			<Type>		MAILBOX		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</parentMailBox>
+		<childEntities>
+			<Type>		PYTHON		</Type>
+			<Flags>         CELL_PRIVATE	</Flags>
+			<Default>	set()		</Default>
+		</childEntities>
+		<childEntitiesWithBase>
+			<Type>		PYTHON		</Type>
+			<Flags>         CELL_PRIVATE	</Flags>
+			<Default>	{}		</Default>
+		</childEntitiesWithBase>
+		<cellDestroying>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</cellDestroying>
+		<delayDestroyTimerID>
+			<Type>		INT32		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</delayDestroyTimerID>
+		<mapID>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+			<Default>	2		</Default>
+		</mapID>
+		<inStoryDialogue>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False		</Default>
+		</inStoryDialogue>
+		<socketHint>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</socketHint>
+		<globalMailBox>
+			<Type>		GLOBAL_MAIL_BOX_INFO	</Type>
+			<Flags>		CELL_PRIVATE		</Flags>
+		</globalMailBox>
+	</Properties>
+	<CellMethods>
+		<addChildEntity>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</addChildEntity>
+		<addChildEntityWithBase>
+			<Arg>		INT32		</Arg>
+			<Arg>		MAILBOX		</Arg>
+		</addChildEntityWithBase>
+		<delChildEntity>
+			<Arg>		INT32		</Arg>
+		</delChildEntity>
+		<teleportByBox>
+			<Arg>		MAILBOX		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</teleportByBox>
+		<setPosition>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+		</setPosition>
+		<safeDestroy>
+		</safeDestroy>
+		<safeDestroyByParent>
+		</safeDestroyByParent>
+		<destroyImmediate>
+		</destroyImmediate>
+		<delayDestroy>
+			<Arg>		FLOAT		</Arg> <!-- time -->
+		</delayDestroy>
+
+		<leaveStoryDialogue> <Exposed/>
+		</leaveStoryDialogue>
+
+		<syncProperties>
+			<Arg>	STRING	</Arg>
+			<Arg>	PY_DICT	</Arg>
+		</syncProperties>
+	</CellMethods>
+	<ClientMethods>
+		<playSoundVO>
+			<Arg>		STRING		</Arg>
+		</playSoundVO>
+		<playScenario>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		PYTHON		</Arg>
+		</playScenario>
+		<stopScenario>
+		</stopScenario>
+		<showGeneralTip>
+			<Arg>	STRING		</Arg>
+			<Arg>	LONGTIME	</Arg>
+			<Arg>	STRING		</Arg>
+		</showGeneralTip>
+		<closeGeneralTip>
+		</closeGeneralTip>
+		<playStoryDialogue>
+			<Arg> 	STRING		</Arg>
+			<Arg> 	INT8		</Arg>
+			<Arg> 	STRING		</Arg>
+			<Arg> 	STRING		</Arg>
+			<Arg> 	INT32		</Arg>
+			<Arg> 	INT32		</Arg>
+			<Arg> 	STRING		</Arg>
+		</playStoryDialogue>
+		<playStoryDialogNoInt>
+			<Arg> 	STRING		</Arg>
+			<Arg> 	STRING		</Arg>
+			<Arg>	FLOAT		</Arg>
+			<Arg> 	STRING		</Arg>
+		</playStoryDialogNoInt>
+		<onLeaveStoryDialogue></onLeaveStoryDialogue>
+		<castSfxAtPosition>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		VECTOR3		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		FLOAT		</Arg>
+			<Arg>		BOOL		</Arg>
+		</castSfxAtPosition>
+		<stopSfxAtPosition>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+		</stopSfxAtPosition>
+		<playUsageIntro>
+			<Arg> 	STRING		</Arg>
+		</playUsageIntro>
+		<toudingtubiao></toudingtubiao>
+
+		<closeToudingtubiao></closeToudingtubiao>
+
+		<openIAmHere>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+		</openIAmHere>
+
+		<closeIAmHere></closeIAmHere>
+
+		<attractAvatarCamera></attractAvatarCamera>
+
+		<playVO>
+			<Arg>	STRING		</Arg>
+		</playVO>
+	</ClientMethods>
+</root>

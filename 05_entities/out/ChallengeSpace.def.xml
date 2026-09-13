@@ -1,0 +1,62 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<ClientName>	ChallengeSpace	</ClientName>
+	<Implements>
+		<Interface>	iRobotGenerate	</Interface>
+	</Implements>
+	<Properties>
+		<startTime>
+			<Type>	FLOAT		</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</startTime>
+		<gameStatus>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PUBLIC	</Flags>
+		</gameStatus>
+		<gameStatusTimerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</gameStatusTimerID>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+		<campDataDict>
+			<Type>	BASE_CAMP_DATA_DICT	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</campDataDict>
+		<playerID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerID>
+		<robotID>
+			<Type>	INT32		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotID>
+		<robotProperties>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</robotProperties>
+		<avatarGID>
+			<Type>	GID		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</avatarGID>
+	</Properties>
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		BATTLE_GAME_RESULT	</Arg>
+		</gameEnd>
+		<showKillInfo>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT8			</Arg>	<!-- hitType -->
+			<Arg>		INT8			</Arg>	<!-- hitPart -->
+			<Arg>		INT32			</Arg>	<!-- weaponID or skillID -->
+			<Arg>		INT8			</Arg>	<!-- multiKill -->
+		</showKillInfo>
+	</ClientMethods>
+	<CellMethods>
+	</CellMethods>
+</root>

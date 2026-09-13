@@ -1,0 +1,65 @@
+<root>
+	<Implements>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iLandVehicle	</Interface>
+		<Interface>	iMove	</Interface>
+	</Implements>
+
+	<Volatile>
+		<position/>
+		<yaw/>
+		<pitch/>
+		<roll/>
+		<timestamp> true </timestamp>
+	</Volatile>
+
+	<ClientName>	LandHelicopter		</ClientName>
+
+	<Properties>
+		<moveStage>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</moveStage>
+
+		<flyTargetPos>
+			<Type>		VECTOR3		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</flyTargetPos>
+		
+		<isServerControled>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</isServerControled>
+
+		<flyMoveSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</flyMoveSpeed>
+
+		<fallMoveSpeed>
+			<Type>		FLOAT		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+		</fallMoveSpeed>
+	</Properties>
+
+	<CellMethods>
+		<changeStage><Exposed/>
+			<Arg>		INT32			</Arg>
+		</changeStage>
+		<uploadFlyTarget><Exposed/>
+			<Arg>		VECTOR3			</Arg>
+		</uploadFlyTarget>
+	</CellMethods>
+
+	<ClientMethods>
+		<onChangeToStage>
+			<Arg>		INT32			</Arg>
+		</onChangeToStage>
+		<movingToGroundBegin>
+		</movingToGroundBegin>
+		<movingToGroundEnd>
+		</movingToGroundEnd>
+	</ClientMethods>
+</root>
+
+

@@ -1,0 +1,78 @@
+<root>
+	<Implements>
+		<Interface>	iCell	</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+		<Interface>	iCombatUnit	</Interface>
+		<Interface> iSkill </Interface>
+	</Implements>
+	<ClientName>	ShelterGroup	</ClientName>
+	<Properties>
+		<direction>
+			<Type>	VECTOR3	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</direction>
+		<areaID>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS </Flags>
+		</areaID>
+		<delayStateTimerID>
+			<Type>	INT32	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</delayStateTimerID>
+		<shelterDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE </Flags>
+		</shelterDict>
+		<nickname>
+			<Type>	STRING	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</nickname>
+		<skillTimingTriggerTimer>
+			<Type>		INT32			</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default> 		0 			</Default>
+		</skillTimingTriggerTimer>
+		<broken>
+			<Type>	BOOL	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+			<Default> False 	</Default>
+		</broken>
+		<avatarStatesDict>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</avatarStatesDict>
+		<shelterStatesInfo>
+			<Type>	PYTHON	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</shelterStatesInfo>
+
+	</Properties>
+
+	<CellMethods>
+		<onEnterShelter>
+			<Arg>	INT32	</Arg>
+			<Arg> 	INT32 	</Arg>
+		</onEnterShelter>
+
+		<onLeaveShelter>
+			<Arg>	INT32	</Arg>
+			<Arg> 	INT32 	</Arg>
+		</onLeaveShelter>
+		<registerShelterInfo>
+			<Arg>	INT32	</Arg>
+			<Arg> 	VECTOR3 </Arg>
+		</registerShelterInfo>
+	</CellMethods>
+	
+	<ClientMethods>
+		<onEnterShelter>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onEnterShelter>
+
+		<onLeaveShelter>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onLeaveShelter>
+	</ClientMethods>
+</root>

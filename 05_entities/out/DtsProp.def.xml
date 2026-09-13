@@ -1,0 +1,82 @@
+<root>
+  <Implements>
+    <Interface> iCell </Interface>
+    <Interface> iBaseWithCell </Interface>
+  </Implements>
+
+  <ClientName>  DtsProp  </ClientName>
+
+  <Properties>
+    <groupID>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </groupID>
+
+    <propID>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </propID>
+
+    <campType>
+      <Type> CAMP_TYPE </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </campType>
+
+    <amount>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </amount>
+
+    <info>
+      <Type>  PY_DICT </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </info>
+
+    <randomRotate>
+      <Type>  FLOAT </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </randomRotate>
+    <trainID>
+      <Type>  INT32 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </trainID>
+    <trainPosition>
+      <Type>  VECTOR3 </Type>
+      <Flags> ALL_CLIENTS </Flags>
+    </trainPosition>
+  </Properties>
+
+  <ClientMethods>
+    <syncAmount>
+      <Arg>       INT32       </Arg>
+    </syncAmount>
+	<bindOnTrain>
+		<Arg> INT32 </Arg>
+		<Arg> VECTOR3 </Arg>
+	</bindOnTrain>
+  </ClientMethods>
+
+  <CellMethods>
+    <tryPickUp> <Exposed/>
+      <Arg> INT32 </Arg>
+      <Arg> BOOL  </Arg>
+    </tryPickUp>
+	
+	<tryPickUpForTeammate>	<Exposed/>
+		<Arg>	INT32	</Arg>
+		<Arg>	INT32	</Arg>
+	</tryPickUpForTeammate>
+    <eatZombieBuff> <Exposed/>
+    </eatZombieBuff>
+	<bindOnTrain>
+		<Arg> INT32 </Arg>
+		<Arg> VECTOR3 </Arg>
+	</bindOnTrain>
+  </CellMethods>
+
+  <BaseMethods>
+    <requestDestroy>
+    </requestDestroy>
+  </BaseMethods>
+
+</root>

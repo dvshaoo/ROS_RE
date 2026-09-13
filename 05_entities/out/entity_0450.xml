@@ -1,0 +1,38 @@
+<Root>
+	<Properties>
+		<hasPickupXmasBomb2020>
+			<Type>		BOOL		</Type>
+			<Flags>		CELL_PRIVATE	</Flags>
+			<Default>	False	</Default>
+		</hasPickupXmasBomb2020>
+	</Properties>
+	<ClientMethods>
+	</ClientMethods>
+	<BaseMethods>
+		<onGetXmasBall>
+			<Arg>		INT32		</Arg>
+		</onGetXmasBall>
+		
+		<onGetDtsSnowmanBrokenReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetDtsSnowmanBrokenReward>
+
+		<onGetDtsXmasActivitySpCurrencyReward>
+			<Arg>		INT32		</Arg>
+		</onGetDtsXmasActivitySpCurrencyReward>
+	</BaseMethods>
+	<CellMethods>
+		<onPickXmasBall>
+		</onPickXmasBall>
+		
+		<onGetDtsSnowmanBrokenReward>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onGetDtsSnowmanBrokenReward>
+		
+		<onGetDtsXmasActivity2020Item>
+			<Arg>		INT32		</Arg>
+		</onGetDtsXmasActivity2020Item>
+	</CellMethods>
+</Root>

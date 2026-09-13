@@ -1,0 +1,24 @@
+<root>
+	<Properties>
+		<vipInfoBattle>
+			<Type>		PYTHON		</Type>
+			<Flags>		OWN_CLIENT	</Flags>
+			<Default>	{}	</Default>
+		</vipInfoBattle>
+	</Properties>
+
+	<BaseMethods>
+	</BaseMethods>
+
+	<ClientMethods>
+		<onShowVipEnterHint>
+			<Arg>		STRING		</Arg>
+		</onShowVipEnterHint>
+	</ClientMethods>
+
+	<CellMethods>
+		<showVipEnterHint>
+			<Arg>		PYTHON		</Arg>
+		</showVipEnterHint>
+	</CellMethods>
+</root>

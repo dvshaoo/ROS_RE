@@ -1,0 +1,18 @@
+<root>
+	<Properties>
+		<hideMaterialDict>
+			<Type>		PYTHON		</Type>
+			<Flags>		BASE_AND_CLIENT	</Flags>
+			<Default>	{}		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</hideMaterialDict>
+	</Properties>
+	<ClientMethods>
+		<onUpdateHideMaterialAmount>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</onUpdateHideMaterialAmount>
+	</ClientMethods>
+	<BaseMethods>
+	</BaseMethods>
+</root>

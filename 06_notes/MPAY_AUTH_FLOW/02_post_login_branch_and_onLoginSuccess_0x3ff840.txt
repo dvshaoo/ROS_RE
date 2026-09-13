@@ -1,0 +1,99 @@
+  [0x3ff840] op 0x01
+  [0x3ff842] op 0x00
+  [0x3ff844] op 0x00
+  [0x3ff846] op 0x00
+  [0x3ff848] op 0x06
+  [0x3ff84a] op 0x00
+  [0x3ff84c] i-op 0x5b Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff850] invoke 0x70 Ljava/lang/Object;-><init>
+  [0x3ff856] return-void
+  [0x3ff858] op 0x05
+  [0x3ff85a] op 0x02
+  [0x3ff85c] op 0x04
+  [0x3ff85e] op 0x00
+  [0x3ff860] op 0x00
+  [0x3ff862] op 0x00
+  [0x3ff864] op 0xa4
+  [0x3ff866] op 0x00
+  [0x3ff868] const/16 v0, 1000
+  [0x3ff86c] if-testz 0x39 v4, target=0x3ff902
+  [0x3ff870] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff874] i-op 0x55 Lcom/netease/mpay/oversea/ui/g$1;->d
+  [0x3ff878] if-testz 0x38 v4, target=0x3ff8be
+  [0x3ff87c] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff880] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->a
+  [0x3ff884] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$e;->b
+  [0x3ff888] invoke 0x71 Lcom/netease/mpay/oversea/d/g;->a
+  [0x3ff88e] op 0x0a
+  [0x3ff890] if-testz 0x38 v4, target=0x3ff896
+  [0x3ff894] return-void
+  [0x3ff896] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff89a] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff89e] if-testz 0x38 v4, target=0x3ff9a0
+  [0x3ff8a2] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8a6] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff8aa] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8ae] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->b
+  [0x3ff8b2] const/16 v2, 102
+  [0x3ff8b6] invoke 0x72 Lcom/netease/mpay/oversea/MpayLoginCallback;->onFailure
+  [0x3ff8bc] goto target=0x3ff9a0
+  [0x3ff8be] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8c2] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->e
+  [0x3ff8c6] invoke 0x71 Lcom/netease/mpay/oversea/ui/g;->a
+  [0x3ff8cc] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8d0] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->e
+  [0x3ff8d4] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8d8] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->a
+  [0x3ff8dc] invoke 0x71 Lcom/netease/mpay/oversea/ui/g;->a
+  [0x3ff8e2] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8e6] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->e
+  [0x3ff8ea] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8ee] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->a
+  [0x3ff8f2] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff8f6] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff8fa] invoke 0x71 Lcom/netease/mpay/oversea/ui/g;->a
+  [0x3ff900] goto target=0x3ff9ae
+  [0x3ff902] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff906] i-op 0x55 Lcom/netease/mpay/oversea/ui/g$1;->d
+  [0x3ff90a] if-testz 0x38 v1, target=0x3ff964
+  [0x3ff90e] i-op 0x52 Lcom/netease/mpay/oversea/User;->loginType
+  [0x3ff912] op 0x62
+  [0x3ff914] op 0xe3
+  [0x3ff916] invoke 0x6e Lcom/netease/mpay/oversea/j/a/g;->d
+  [0x3ff91c] op 0x0a
+  [0x3ff91e] if-test 0x33 target=0x3ff964
+  [0x3ff922] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff926] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->a
+  [0x3ff92a] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$e;->b
+  [0x3ff92e] invoke 0x71 Lcom/netease/mpay/oversea/d/g;->a
+  [0x3ff934] op 0x0a
+  [0x3ff936] if-testz 0x38 v1, target=0x3ff93c
+  [0x3ff93a] return-void
+  [0x3ff93c] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff940] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff944] if-testz 0x38 v1, target=0x3ff9a0
+  [0x3ff948] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff94c] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff950] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff954] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->b
+  [0x3ff958] i-op 0x52 Lcom/netease/mpay/oversea/User;->minorStatus
+  [0x3ff95c] invoke 0x72 Lcom/netease/mpay/oversea/MpayLoginCallback;->onFailure
+  [0x3ff962] goto target=0x3ff9a0
+  [0x3ff964] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff968] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff96c] if-testz 0x38 v0, target=0x3ff97e
+  [0x3ff970] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff974] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->c
+  [0x3ff978] invoke 0x72 Lcom/netease/mpay/oversea/MpayLoginCallback;->onLoginSuccess
+  [0x3ff97e] invoke 0x71 Lcom/netease/mpay/oversea/g/c;->c
+  [0x3ff984] op 0x0c
+  [0x3ff986] i-op 0x54 Lcom/netease/mpay/oversea/g/e;->a
+  [0x3ff98a] const/4 v0, 1
+  [0x3ff98c] invoke 0x6e Ljava/util/concurrent/atomic/AtomicBoolean;->set
+  [0x3ff992] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff996] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->e
+  [0x3ff99a] invoke 0x71 Lcom/netease/mpay/oversea/ui/g;->a
+  [0x3ff9a0] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1$1;->a
+  [0x3ff9a4] i-op 0x54 Lcom/netease/mpay/oversea/ui/g$1;->e
+  [0x3ff9a8] invoke 0x6e Lcom/netease/mpay/oversea/ui/g;->a
+  [0x3ff9ae] return-void

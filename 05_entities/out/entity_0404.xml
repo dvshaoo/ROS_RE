@@ -1,0 +1,21 @@
+<root>
+	<Properties>
+		<udid>
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+		</udid>
+	</Properties>
+	<BaseMethods>
+		<QOSAccelerateRequest> <Exposed/>
+			<Arg>	STRING		</Arg>
+			<Arg>	STRING		</Arg>
+		</QOSAccelerateRequest>
+		<onChangeToWifi> <Exposed/>
+		</onChangeToWifi>
+	</BaseMethods>
+	<ClientMethods>
+		<onNeedPhoneNum>
+			<Arg>	STRING		</Arg>
+		</onNeedPhoneNum>
+	</ClientMethods>
+</root>

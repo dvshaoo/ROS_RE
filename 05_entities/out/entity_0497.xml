@@ -1,0 +1,16 @@
+<root>
+	<Implements>
+		<Interface>	iFestivalActivityTaskStub </Interface>
+	</Implements>
+
+	<Properties>
+	</Properties>
+
+	<BaseMethods>
+        <requestDtsFestivalTaskTeamList> 
+			<Arg>       MAILBOX			</Arg>
+			<Arg>       INT32			</Arg>
+			<Arg>       INT32			</Arg>
+        </requestDtsFestivalTaskTeamList>
+	</BaseMethods>
+</root>

@@ -1,0 +1,19 @@
+<root>
+	<BaseMethods>
+		<useRedPacket>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</useRedPacket>
+		<useWeaponRedPacketTable>
+			<Arg>	INT32		</Arg>
+			<Arg>	INT32		</Arg>
+			<Arg>	VECTOR3		</Arg>
+		</useWeaponRedPacketTable>
+		<onGetRedPacket>
+			<Arg>	ARRAY	<of>	RED_PACKET_INFO	</of>	</Arg>
+		</onGetRedPacket>
+	</BaseMethods>
+	<ClientMethods>
+	</ClientMethods>
+</root>

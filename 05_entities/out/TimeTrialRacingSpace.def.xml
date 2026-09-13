@@ -1,0 +1,67 @@
+<root>
+	<Parent>	DynamicSpace	</Parent>
+	<Implements>
+		<Interface>	iRacingSpace	</Interface>
+	</Implements>
+	
+	<ClientName>	TimeTrialRacingSpace	</ClientName>
+	<Properties>
+		<playerDataDict>
+			<Type>	PYTHON		</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+			<Default>{}		</Default>
+		</playerDataDict>
+
+		<racerValueDict>
+			<Type>	PYTHON 	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</racerValueDict>
+
+		<playerWithDraw>
+			<Type>	ARRAY <of> DBID </of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerWithDraw>
+
+		<playerFinished>
+			<Type>	ARRAY <of> DBID </of>	</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</playerFinished>
+	
+		<nRacers>
+			<Type>	INT32	</Type>
+			<Flags>	ALL_CLIENTS	</Flags>
+		</nRacers>
+
+		<nCompletedRacer>
+			<Type>	INT32			</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</nCompletedRacer>
+
+		<nFailedRacer>
+			<Type>	INT32			</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</nFailedRacer>
+
+	</Properties>
+
+	<CellMethods>
+		<onAddCombo>
+			<Arg>	ENTITY_ID		</Arg> 	<!-- racer id-->
+			<Arg>	INT32			</Arg> 	<!-- total points-->
+			<Arg>	INT32			</Arg> 	<!-- current combo-->
+		</onAddCombo>
+
+		<onRacerTimeOut>
+			<Arg>	ENTITY_ID		</Arg> <!-- racer id-->
+		</onRacerTimeOut>
+
+	</CellMethods>
+
+	<ClientMethods>
+		<gameEnd>
+			<Arg>		INT8			</Arg>
+			<Arg>		TIME_TRIAL_GAME_RESULT </Arg>
+		</gameEnd>
+	</ClientMethods>
+	
+</root>

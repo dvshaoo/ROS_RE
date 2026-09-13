@@ -1,0 +1,67 @@
+<root>
+	<Parent>	Robot	</Parent>
+	<ClientName>	RobotDisplay    </ClientName>
+	
+	<Properties>
+		<modelId>
+			<Type>	UINT64		</Type>
+			<Flags> ALL_CLIENTS	</Flags>
+		</modelId>
+		<gameActionID>
+			<Type>	UINT64		</Type>
+			<Flags> ALL_CLIENTS	</Flags>
+			<Persistent>  true    </Persistent>
+		</gameActionID>
+		<can_reborn>
+			<Type>	BOOL		</Type>
+			<Flags> ALL_CLIENTS	</Flags>
+			<Persistent>  true    </Persistent>
+		</can_reborn>
+		<freeParaScale>
+			<Type>	FLOAT		</Type>
+			<Flags> ALL_CLIENTS	</Flags>
+			<Persistent>  true    </Persistent>
+			<Default> 1.0 </Default>
+		</freeParaScale>
+
+	</Properties>
+
+	<CellMethods>
+	        <setFreeParadiseRobotInvincible> <Exposed/>
+	                <Arg>		BOOL		</Arg>
+	        </setFreeParadiseRobotInvincible>
+	        <setHpDirectly> <Exposed/>
+	                <Arg>		INT32		</Arg>
+	        </setHpDirectly>
+		<setFreeParaRobotBaseAttr> <Exposed/>
+			<Arg>		STRING		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		BOOL		</Arg>
+			<Arg>		INT32		</Arg>
+			<Arg>		INT32		</Arg>
+		</setFreeParaRobotBaseAttr>
+		<setFreeParaRobotAppear> <Exposed/>
+			<Arg>		ARRAY	<of>	INT32	</of>	</Arg>
+			<Arg>		ARRAY	<of>	INT32	</of>	</Arg>
+		</setFreeParaRobotAppear>
+		<setFreeParaRobotGameAction> <Exposed/>
+			<Arg>		UINT64		</Arg>
+		</setFreeParaRobotGameAction>
+		<setFreeParaRobotPosition> <Exposed/>
+			<Arg>		VECTOR3		</Arg>
+		</setFreeParaRobotPosition>
+		<setFreeParaRobotDirection> <Exposed/>
+			<Arg>		VECTOR3		</Arg>
+		</setFreeParaRobotDirection>
+		<setFreeParaRobotScale> <Exposed/>
+			<Arg>		FLOAT		</Arg>
+		</setFreeParaRobotScale>
+	</CellMethods>
+
+	<ClientMethods>
+	    <onRefreshFreeParaRobotAppear>
+	    </onRefreshFreeParaRobotAppear>
+	</ClientMethods>
+</root>
+

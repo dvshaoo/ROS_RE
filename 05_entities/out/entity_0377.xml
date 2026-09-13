@@ -1,0 +1,41 @@
+<root>
+	<Properties>
+		<vehiclePropertyLevel>
+			<Type>			ARRAY <of>	VEHICLE_PROPERTY_LEVEL	</of>			</Type>
+			<Flags>			ALL_CLIENTS		</Flags>
+			<Default>		[]			</Default>
+		</vehiclePropertyLevel>
+
+		<!-- 加速涡轮增加加速能力 -->
+		<forceEnhanceFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+			<Default>	1.0		</Default>
+		</forceEnhanceFactor>
+
+		<!-- 草地摩擦力增强因子 -->
+		<grassFrictionEnhanceFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+			<Default>	1.0		</Default>
+		</grassFrictionEnhanceFactor>
+
+		<!-- 浅水摩擦力增强因子 -->
+		<waterFrictionEnhanceFactor>
+			<Type>		 FLOAT			</Type>
+			<Flags> 	ALL_CLIENTS 	</Flags>
+			<Default>	1.0		</Default>
+		</waterFrictionEnhanceFactor>
+	</Properties>
+
+	<CellMethods>
+		<updatePropertyLevel>
+			<Arg>		INT32			</Arg>
+			<Arg>		INT32			</Arg>
+		</updatePropertyLevel>
+	</CellMethods>
+
+	<ClientMethods>
+	</ClientMethods>
+
+</root>

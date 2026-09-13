@@ -1,0 +1,29 @@
+<root>
+	<Implements>
+		<Interface>	iCell		</Interface>
+		<Interface>	iBaseWithCell	</Interface>
+	</Implements>
+	<ClientName>	CrackItem		</ClientName>
+	<Properties>
+		<ligeanceID>
+			<Type>		GID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</ligeanceID>
+		<legionGID>
+			<Type>		GID		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</legionGID>
+		<legionName>
+			<Type>		STRING		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</legionName>
+		<itemIndex>
+			<Type>		INT32		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</itemIndex>
+		<plantTime>
+			<Type>		INT64		</Type>
+			<Flags>		ALL_CLIENTS	</Flags>
+		</plantTime>
+	</Properties>
+</root>

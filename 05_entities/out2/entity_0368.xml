@@ -1,0 +1,237 @@
+<root>
+	<Properties>
+		<friendInfo>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+		</friendInfo>
+
+		<backTasks>
+			<Type>	PY_DICT		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</backTasks>
+
+		<backRewards>
+			<Type>	PY_DICT		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</backRewards>
+		
+		<recallRewards>
+			<Type>	PY_DICT		</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</recallRewards>
+		
+		<friendsTaskProgress>
+			<Type>	PY_DICT	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</friendsTaskProgress>
+
+		<recallableFriends>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	[]	</Default>
+		</recallableFriends>
+		
+		<recalledFriends>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	[]	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</recalledFriends>
+
+		<recallerGid>
+			<Type>	GID	</Type>
+			<Flags>	BASE	</Flags>
+			<PersistentMongo>	true	</PersistentMongo>
+		</recallerGid>
+
+		<recallProgress>
+			<Type>	INT32	</Type>
+			<Flags>	BASE_AND_CLIENT	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</recallProgress>
+
+		<backState>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+		</backState>
+
+		<lastBackTime>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+		</lastBackTime>
+
+		<meetBackState>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+		</meetBackState>
+
+		<backPlayerLastLoginTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</backPlayerLastLoginTime>
+		
+		<backPlayerAccumulatedLoginTime>
+			<Type>		INT32		</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	0		</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</backPlayerAccumulatedLoginTime>
+		
+		<playerReturnVersion>
+			<Type>	INT32	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	0	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</playerReturnVersion>
+
+		<friendBackInfo>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</friendBackInfo>	
+		
+		<seasonBackState>
+			<Type>	PYTHON	</Type>
+			<Flags>	BASE	</Flags>
+			<Default>	{}	</Default>
+			<PersistentMongo>	true	</PersistentMongo>
+		</seasonBackState>	
+	</Properties>
+
+	<BaseMethods>
+		<requestFriendData> <Exposed/>
+		</requestFriendData>
+
+		<getRecallableFriends> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getRecallableFriends>
+
+		<meetBack> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</meetBack>
+
+		<bindRecaller> <Exposed/>
+			<Arg>	GID	</Arg>
+		</bindRecaller>
+
+		<getRecaller> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getRecaller>
+		
+		<getRecalledFriends> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getRecalledFriends>
+
+		<getRecallProgress> <Exposed/>
+		</getRecallProgress>
+
+		<addRecalledFriend>
+			<Arg>	GID	</Arg>
+		</addRecalledFriend>
+
+		<updateRecallProgress>
+			<Arg>	GID	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateRecallProgress>
+		
+		<getTaskScore> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getTaskScore>
+
+		<getTaskReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getTaskReward>
+
+		<getRecallReward> <Exposed/>
+			<Arg>	INT32	</Arg>
+		</getRecallReward>
+
+		<startBackState>
+		</startBackState>
+
+		<updateFriendMeetState>
+			<Arg>	INT32 </Arg>
+		</updateFriendMeetState>
+		
+		<updateFriendBackInfo>
+			<Arg>	GID	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</updateFriendBackInfo>
+		
+		<resetFriendProgress>
+			<Arg>	GID	</Arg>
+		</resetFriendProgress>
+
+		<getNewRecallPlayerFriends> <Exposed/> 
+			<Arg>			UINT8				</Arg>	<!-- friendType -->
+			<Arg>	ARRAY <of> INT32 </of>		</Arg>	  
+			<Arg>		INT32			</Arg> 
+		</getNewRecallPlayerFriends>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<onSyncRecallPlayerData>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+		</onSyncRecallPlayerData>
+
+		<onSyncBackState>
+			<Arg>	INT32	</Arg>
+			<Arg>	INT32	</Arg>
+		</onSyncBackState>
+
+		<onSyncBindRecaller>
+			<Arg>	GID	</Arg>
+		</onSyncBindRecaller>
+
+		<onSyncBackTaskFinishState>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onSyncBackTaskFinishState>
+
+		<onSyncRecallRewardGetState>
+			<Arg>	PYTHON	</Arg>
+			<Arg>	INT32	</Arg>
+		</onSyncRecallRewardGetState>
+
+		<onSyncRecallProgress>
+			<Arg>	INT32	</Arg>
+		</onSyncRecallProgress>
+		
+		<onRecallPlayerGetFriends>
+			<Arg>			UINT8				</Arg>	<!-- friendType -->
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg>	<!-- friendType -->
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		INT32			</Arg>
+		</onRecallPlayerGetFriends>
+		<onNewRecallPlayerGetFriends>
+			<Arg>			UINT8				</Arg>	<!-- friendType -->
+			<Arg>	ARRAY <of> FRIEND_ABSTRACT </of>	</Arg>	<!-- friendType -->
+			<Arg>		PY_DICT		</Arg>
+			<Arg>		INT32			</Arg>
+			<Arg>		PY_DICT		</Arg>
+		</onNewRecallPlayerGetFriends>
+	</ClientMethods>
+</root>

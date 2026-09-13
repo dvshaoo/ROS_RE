@@ -1,0 +1,123 @@
+<root>
+	<Implements>
+		<Interface>	iProxyNoCell	</Interface>
+		<Interface>	iQueue	</Interface>
+		<Interface> iActivation 	</Interface>
+		<Interface> iChildCare 	</Interface>
+	</Implements>
+	<ClientName>	Account			</ClientName>
+	<Indexes>
+		<gid>
+			<Type>  INDEX   </Type>
+		</gid>
+		<playerName>
+			<Type>  INDEX   </Type>
+			<Length> 128	</Length>
+		</playerName>
+	</Indexes>
+
+	<Properties>
+		<isBan>
+			<Type>		BOOL			</Type>
+			<Flags>		BASE			</Flags>
+			<Default>	False			</Default>
+			<Persistent>	true			</Persistent>
+		</isBan>
+		<startBanTime>
+			<Type>		INT64			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</startBanTime>
+		<banTime>
+			<Type>		INT32			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</banTime>
+		<banReason>
+			<Type>		STRING			</Type>
+			<Flags>		BASE			</Flags>
+			<Persistent>	true			</Persistent>
+		</banReason>
+		<nickname>
+			<Type>			STRING			</Type>
+			<Flags>			BASE			</Flags>
+			<DatabaseLength>	20			</DatabaseLength>
+			<Persistent>		true			</Persistent>
+		</nickname>
+		<isMobileAccount><!--是否手机账号-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE_AND_CLIENT		</Flags>
+			<Persistent>		true			</Persistent>
+		</isMobileAccount>
+		<isGuest><!--是否游客账号-->
+			<Type>		BOOL				</Type>
+			<Flags>		BASE		</Flags>
+			<Default>	False			</Default>
+			<Persistent>		true			</Persistent>
+		</isGuest>
+		<finalPlatform>	<!--最终决定的登陆平台-->
+			<Type>		STRING		</Type>
+			<Flags>		BASE		</Flags>
+			<Persistent>		true			</Persistent>
+		</finalPlatform>
+	</Properties>
+	<BaseMethods>
+		<onNextProxyDestroy>
+		</onNextProxyDestroy>
+		<handshake> <Exposed/>
+			<Arg>	STRING	</Arg>	<!-- hotfix md5 -->
+			<Arg>	DEVICE_INFO		</Arg>  <!-- device info -->
+			<Arg>	CHANNEL_INFO	</Arg> 	<!-- channel info -->
+			<Arg>	CLIENT_ENGINE_INFO	</Arg>
+			<Arg>	STRING	</Arg> <!-- sauth reply -->
+		</handshake>
+		<onAcquireLock>
+			<Arg>		UINT8		</Arg>
+			<Arg>		STRING		</Arg>
+			<Arg>		UINT16		</Arg>
+		</onAcquireLock>
+		<onDuplicateLogin>
+		</onDuplicateLogin>
+		<uploadABSwitchesConfig> <Exposed/>
+			<Arg>	STRING	</Arg>	<!-- formatInfo -->
+		</uploadABSwitchesConfig>
+
+	</BaseMethods>
+
+	<ClientMethods>
+		<loadSceneAfterReconnect>
+			<Arg>		INT32					</Arg>	<!-- mapID -->
+		</loadSceneAfterReconnect>
+
+		<onLogin>
+			<Arg>			INT32			</Arg>
+			<Arg>			STRING			</Arg>
+		</onLogin>
+		<onChannelLogin> <!--验证回调-->
+			<Arg>			UINT8				</Arg>
+			<Arg>			PYTHON				</Arg>
+		</onChannelLogin>
+
+		<refreshSwitches>
+			<Arg>	PY_DICT	</Arg>
+		</refreshSwitches>
+
+		<refreshForbiddenID>
+			<Arg>	PY_DICT	</Arg>
+		</refreshForbiddenID>
+
+		<syncServerTime>
+			<Arg>	INT64	</Arg>
+		</syncServerTime>
+
+		<syncServerTimeZone>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+			<Arg>	INT64	</Arg>
+		</syncServerTimeZone>
+		<onLoginPCServer>
+			<Arg>	BOOL	</Arg>
+		</onLoginPCServer>
+
+	</ClientMethods>
+</root>
