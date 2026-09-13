@@ -9063,3 +9063,172 @@
 19:40:57 REQ GET /play/log/timestamp host=play.googleapis.com len=0
 19:40:57 REQ POST /play/log?format=raw&proto_v2=true host=play.googleapis.com len=853
 19:40:57   BODY b"\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x00\xb5\xd5mhSW\x18\x07\xf0\x9cD\xdd\xb5\x9b\x90\x851\xfc\xa0\xb4\x0c?H\xe1\xa6\xe7\xde\xdc\xdb\xde\xf4SU\x06\xe2\x1bj\x99\x94~\xf2\xa6\xde\xb0l}\xd9R\x05\x15\x04\x9bD%\x95\xb5e\x9aXK7\xfb\xa2&\xa9\x05\x89\xda\xb9&\x1ag\xbb\xba\xba&\xaej\xd5\xb6\xc8M\x1c\xb3\xbe`\xa5i7V\x1d\xa2\xb1:\xeb\xfd\x83\x1f\xe5\xc0y\x0e?\x0e\x0f\x7f\x1e8\x9c\xacQ\xc2\xcc1\xdd \x8cn\xe1\xa2\xcf\xe6\xf3<\x958\x9e\xe3W\xe4\xce\x1e\xf9O\xd6o\xb0,3sV\x9aOE3-\xe0\xad\x9cD\x85BF\x12-\x94/\xa0t\xf9\x9c
+19:54:34 REQ POST / host=unisdk.proxima.nie.netease.com len=162
+19:54:34   BODY b'{"type":"af_thirty_min","project":"unisdk","source":"appsflyerlog","eventName":"af_thirty_min","game_project":"h45naxx1gb","udid":"11178811c6a412d9","param":"{}"}'
+19:54:34   -> SERVE root / (200 OK)
+20:21:27 T14-complete plist: 482 bytes
+20:21:27 T18 server_list_ad.txt: 114 bytes
+20:21:27 === mitm_serve A START ===
+20:21:27 === SERVE-A tls :8443 ===
+20:21:27 === SERVE-A plain :8080 ===
+20:22:00 REQ POST /api/users/login/v2/sdk_token host=127.0.0.1:8080 len=30
+20:22:00   BODY b'user_id=guest_11178811c6a412d9'
+20:22:00   -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token)
+20:22:09 REQ POST /api/users/login/v2/sdk_token host=127.0.0.1:8443 len=30
+20:22:09   BODY b'user_id=guest_11178811c6a412d9'
+20:22:09   -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token)
+20:25:22 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=286
+20:25:22   BODY b'{"keypoint": "startClick", "time": 1789302322.5600519, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+20:25:22   -> SERVE root / (200 OK)
+20:25:22 REQ POST /api/users/login/guest?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=107
+20:25:22   BODY b'device_id=11178811c6a412d9&account=Guest_11178811c6a412d9&scene=login&origin_user_id=guest_11178811c6a412d9'
+20:25:22   -> SERVE /api/users/login/guest (minor_status=4 bypass)
+20:25:22 REQ GET /api/games/user/info?device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:25:22   -> SERVE /api/games/user/info
+20:25:22 REQ GET /api/minors/configs?device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:25:22   -> SERVE /api/minors/configs
+20:29:42 REQ POST /api/minors/update_birthday?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=122
+20:29:42   BODY b'device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&birthday=01-1990&country_code=US'
+20:29:42   -> SERVE /api/minors/ (minor_status=4, age_status=0 bypass)
+20:29:42 REQ POST /api/users/login/v2/sdk_token?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=118
+20:29:42   BODY b'device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&account_type=1&scene=refresh'
+20:29:42   -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token)
+20:29:42 REQ GET /api/games/user/info?device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:29:42   -> SERVE /api/games/user/info
+20:29:42 REQ GET /api/minors/configs?device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:29:42   -> SERVE /api/minors/configs
+20:35:07 REQ GET /play/log/timestamp host=play.googleapis.com len=0
+20:35:07 REQ POST /play/log?format=raw&proto_v2=true host=play.googleapis.com len=999
+20:35:07   BODY b'\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x00ES\x7fL[e\x14\xbd\xdf{\xdf\xfb\xfa\xfa\xa0\xb5\xed\xa0t\x13\x96\x8e\x1f\x8bC\xdb\xbe\xf7\xda\xd2\x96-\x93\rM\x8cn\x93A$D\xb2\xc4\x07\xaf\xc1nP\\\t\x8b\x1a\xff`l!\xa1HE\x87\xb0LI\xc8\xdc\xa4\x0ebd\x1bl\x12un\x08\x82d\x8e\x11\xc7V\xa7\x08\x85j\x10P\x87P2qj7\xb3\xf0\xcf=\xe7\x8f\x9b{rO\xce\xe1"\x88\xc5\xbaI\xc4\xf66\xd77w\xf6\x0f\x7fc5$\xa7*E\x91w\n\xa2 \xe6f\xaeQ1!o\xafu\x87Yp\xf1Y\xbc\xdd\xcc;D\x97\xe0\xe4m\xd9\xac\xd3n\xe5E\x07\xcf\xef\xc4\x07K++\x9e%\x15\x92\xaf\xd
+20:39:50 T14-complete plist: 482 bytes
+20:39:50 T18 server_list_ad.txt: 114 bytes
+20:39:50 === mitm_serve A START ===
+20:39:50 === SERVE-A tls :8443 ===
+20:39:50 === SERVE-A plain :8080 ===
+20:40:15 REQ POST /api/users/login/v2/sdk_token host=127.0.0.1:8080 len=30
+20:40:15   BODY b'user_id=guest_11178811c6a412d9'
+20:40:15   -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token, minor_status=102)
+20:40:46 REQ POST /api/minors/update_birthday?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=122
+20:40:46   BODY b'device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&birthday=01-1990&country_code=US'
+20:40:46   -> SERVE /api/minors/ (minor_status=102 adult verified bypass)
+20:40:47 REQ POST /api/users/login/v2/sdk_token?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=118
+20:40:47   BODY b'device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&account_type=1&scene=refresh'
+20:40:47   -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token, minor_status=102)
+20:40:47 REQ GET /api/games/user/info?device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:40:47   -> SERVE /api/games/user/info
+20:40:47 REQ GET /api/minors/configs?device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:40:47   -> SERVE /api/minors/configs
+20:48:18 REQ POST / host=drpf-h45na.proxima.nie.easebar.com len=316
+20:48:18   BODY b'{"type":"obb","obb_state":0,"obb_param":"1117219","udid":"11178811c6a412d9","os_name":"android","time":"2026-09-13 20:48:19 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+20:48:18   -> SERVE root / (200 OK)
+20:48:19 REQ POST / host=drpf-h45na.proxima.nie.easebar.com len=294
+20:48:19   BODY b'{"type":"obb","obb_state":5,"udid":"11178811c6a412d9","os_name":"android","time":"2026-09-13 20:48:19 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+20:48:19   -> SERVE root / (200 OK)
+20:48:19 REQ POST / host=drpf-h45na.proxima.nie.easebar.com len=294
+20:48:19   BODY b'{"type":"obb","obb_state":6,"udid":"11178811c6a412d9","os_name":"android","time":"2026-09-13 20:48:19 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+20:48:19   -> SERVE root / (200 OK)
+20:48:19 REQ POST / host=drpf-h45na.proxima.nie.easebar.com len=296
+20:48:19   BODY b'{"type":"obb","obb_state":100,"udid":"11178811c6a412d9","os_name":"android","time":"2026-09-13 20:48:19 +0800","ip":"","device_model":"22081212C","os_ver":"9","mac_addr":"","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"0.0.0","network":"WIFI","project":"h45na","source":"netease_p1"}'
+20:48:19   -> SERVE root / (200 OK)
+20:48:20 REQ POST /client/mobile_upload host=data-detect.nie.netease.com len=294
+20:48:20   BODY b'{"collect_condition":"60","transid":"11178811c6a412d9_1789303700595_588713678","product":"h45na","push_time":"1789303701","data_source":"unisdk","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","network_type":"wifi","device_id":"11178811c6a412d9","channel_name":"netease_global"}'
+20:48:20 REQ POST /config host=appdump.nie.netease.com len=238
+20:48:20   BODY b'transid=11178811c6a412d9_1789303700595_588713678&os_type=Android&client_v=1.610377.506841(1.610377.506841)&channel=unknown&version_code=1117219&project=h45na&cpu=aosp-user&model=22081212C&gpu=Adreno (TM) 750&bundle_version=1.610377.506841'
+20:48:20 REQ GET /feature2/h45naxx1gb.query.json host=unisdk.update.netease.com len=0
+20:48:21 REQ GET / host=who.nie.netease.com len=0
+20:48:21   -> SERVE root / (200 OK)
+20:48:21 REQ POST / host=unisdk.proxima.nie.netease.com len=77
+20:48:21   BODY b'{"type":"INIT","project":"unisdk","source":"appsflyerlog","eventName":"INIT"}'
+20:48:21   -> SERVE root / (200 OK)
+20:48:22 REQ POST /client/mobile_upload host=data-detect.nie.netease.com len=313
+20:48:22   BODY b'{"collect_condition":"37","transid":"11178811c6a412d9_1789303700595_588713678","product":"h45na","push_time":"1789303702","data_source":"unisdk","time_cost":"1702","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","network_type":"wifi","device_id":"11178811c6a412d9","channel_name":"netease_global"}'
+20:48:22 REQ GET /feature/h45naxx1gb.netease_global.2.13.0.json.md5 host=unisdk.update.netease.com len=0
+20:48:22 REQ GET /feature/h45naxx1gb.netease_global.2.13.0.json host=unisdk.update.netease.com len=0
+20:48:22 REQ GET /feature/h45naxx1gb.netease_global.2.13.0.google_play.json.md5 host=unisdk.update.netease.com len=0
+20:48:22 REQ GET /feature/h45naxx1gb.netease_global.2.13.0.google_play.json host=unisdk.update.netease.com len=0
+20:48:22 REQ POST /service/update2/json?cup2key=14:XNcIfNffAoCyomRYMnUkBMF2ZcnKJszOGWx0SdLureQ&cup2hreq=e67915742d2513c41f6438e6d882d13476aec24e98ae4babee57ec4c3268f90d host=update.googleapis.com len=1148
+20:48:22   BODY b'{"request":{"@os":"android","@updater":"googleandroidwebview","acceptformat":"crx3,puff","app":[{"appid":"llkgjffcdpffmhiakmfcdcblohccpfmo","cohort":"1::","enabled":true,"installdate":7194,"ping":{"ping_freshness":"{90c5084b-d334-42fc-8a56-35cb7d7a6e50}","rd":7194},"updatecheck":{},"version":"0.0.0.0"},{"_experimental_mdl_version":"","appid":"cffplpkejcbdpfnfabnjikeicbedmifn","cohort":"1:1vi9:","cohortname":"Public Phase 0","enabled":true,"installdate":7194,"packages":{"package":[{"fp":"1.cab4d1f0a6a2a1af
+20:48:26 REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+20:48:26 REQ POST / host=drpf-h45na.proxima.nie.netease.com len=552
+20:48:26   BODY b'{"project":"h45na","source":"netease_p1","type":"Activation","version":"1.610377.506841","active_time":1789303706,"udid":"11178811c6a412d9","engine_ver":610377,"os_name":"android","transid":"11178811c6a412d9_1789303700595_588713678","time":"2026-09-13 20:48:26 +0800","ip":"172.16.1.15","device_model":"22081212C","os_ver":"9","mac_addr":"02:00:00:00:00:00","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"2.13.0","network":"wifi","unisdk_deviceid":"95365da5-1d32-412b-a8ad-cc7d7631a7d9","is_root":1
+20:48:26   -> SERVE root / (200 OK)
+20:48:26 REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+20:48:26   -> SERVE T14-fixed plist (482 bytes)
+20:48:27 REQ POST / host=drpf-h45na.proxima.nie.netease.com len=576
+20:48:27   BODY b'{"project":"h45na","source":"netease_p1","type":"StartPatch","udid":"11178811c6a412d9","network":"wifi","app_ver":"1.610377.506841","os_name":"android","os_ver":"Pie","engine_ver":610377,"game_arch":"unknown","patch_version":"(0, 0)","transid":"11178811c6a412d9_1789303700595_588713678","time":"2026-09-13 20:48:27 +0800","ip":"172.16.1.15","device_model":"22081212C","mac_addr":"02:00:00:00:00:00","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"2.13.0","unisdk_deviceid":"95365da5-1d32-412b-a8ad-c
+20:48:27   -> SERVE root / (200 OK)
+20:48:27 REQ POST / host=drpf-h45na.proxima.nie.netease.com len=580
+20:48:27   BODY b'{"project":"h45na","source":"netease_p1","type":"JumpBirthStage","udid":"11178811c6a412d9","network":"wifi","app_ver":"1.610377.506841","os_name":"android","os_ver":"Pie","engine_ver":610377,"game_arch":"unknown","patch_version":"(0, 0)","transid":"11178811c6a412d9_1789303700595_588713678","time":"2026-09-13 20:48:27 +0800","ip":"172.16.1.15","device_model":"22081212C","mac_addr":"02:00:00:00:00:00","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"2.13.0","unisdk_deviceid":"95365da5-1d32-412b-a8
+20:48:27   -> SERVE root / (200 OK)
+20:48:27 REQ POST / host=drpf-h45na.proxima.nie.netease.com len=659
+20:48:27   BODY b'{"project":"h45na","source":"netease_p1","type":"Update","udid":"11178811c6a412d9","network":"wifi","app_ver":"1.610377.506841","os_name":"android","os_ver":"Pie","engine_ver":610377,"game_arch":"unknown","patch_version":"(0, 0)","reach_update_time":1789303707,"update_status":0,"update_time":1789303707,"use_time":0,"transid":"11178811c6a412d9_1789303700595_588713678","time":"2026-09-13 20:48:27 +0800","ip":"172.16.1.15","device_model":"22081212C","mac_addr":"02:00:00:00:00:00","idfa":"","imei":"","app_cha
+20:48:27   -> SERVE root / (200 OK)
+20:48:27 REQ POST / host=drpf-h45na.proxima.nie.netease.com len=577
+20:48:27   BODY b'{"project":"h45na","source":"netease_p1","type":"FinishPatch","udid":"11178811c6a412d9","network":"wifi","app_ver":"1.610377.506841","os_name":"android","os_ver":"Pie","engine_ver":610377,"game_arch":"unknown","patch_version":"(0, 0)","transid":"11178811c6a412d9_1789303700595_588713678","time":"2026-09-13 20:48:27 +0800","ip":"172.16.1.15","device_model":"22081212C","mac_addr":"02:00:00:00:00:00","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"2.13.0","unisdk_deviceid":"95365da5-1d32-412b-a8ad-
+20:48:27   -> SERVE root / (200 OK)
+20:48:32 REQ GET /v1 host=whoami.nie.easebar.com len=0
+20:48:32   -> SERVE whoami /v1
+20:48:32 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+20:48:32   -> SERVE pharos_isp.txt
+20:48:32 REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+20:48:32   -> SERVE server_list_ad.txt (114 bytes)
+20:48:32 REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+20:48:32   -> SERVE server_list_ad.txt (114 bytes)
+20:48:32 REQ POST / host=unisdk.proxima.nie.netease.com len=154
+20:48:32   BODY b'{"type":"af_launch","project":"unisdk","source":"appsflyerlog","eventName":"af_launch","game_project":"h45naxx1gb","udid":"11178811c6a412d9","param":"{}"}'
+20:48:32   -> SERVE root / (200 OK)
+20:48:32 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=329
+20:48:32   BODY b'{"keypoint": "requestServerList", "extraData": "{\\"success\\": true}", "time": 1789303713.3153319, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+20:48:32   -> SERVE root / (200 OK)
+20:48:32 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=288
+20:48:32   BODY b'{"keypoint": "channelLogin", "time": 1789303713.3259211, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+20:48:32   -> SERVE root / (200 OK)
+20:48:32 REQ POST / host=drpf-h45na.proxima.nie.netease.com len=599
+20:48:32   BODY b'{"project":"h45na","source":"netease_p1","type":"LoginUI","udid":"11178811c6a412d9","network":"wifi","app_ver":"1.610377.506841","os_name":"android","os_ver":"Pie","engine_ver":610377,"game_arch":"x86","patch_version":"(0, 0)","reach_login_time":1789303713,"transid":"11178811c6a412d9_1789303700595_588713678","time":"2026-09-13 20:48:33 +0800","ip":"172.16.1.15","device_model":"22081212C","mac_addr":"02:00:00:00:00:00","idfa":"","imei":"","app_channel":"google_play","sdk_ver":"2.13.0","unisdk_deviceid":"95
+20:48:32   -> SERVE root / (200 OK)
+20:48:32 REQ GET /api/games/config?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:48:32   -> SERVE /api/games/config
+20:48:33 REQ POST /api/users/login/guest?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=107
+20:48:33   BODY b'device_id=11178811c6a412d9&account=Guest_11178811c6a412d9&scene=login&origin_user_id=guest_11178811c6a412d9'
+20:48:33   -> SERVE /api/users/login/guest (minor_status=102 adult verified)
+20:48:33 REQ GET /api/games/user/info?device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:48:33   -> SERVE /api/games/user/info
+20:48:33 REQ GET /api/minors/configs?device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:48:33   -> SERVE /api/minors/configs
+20:48:35 REQ GET /internalquery host=nstool.netease.com len=0
+20:48:35   -> SERVE internalquery
+20:48:35 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=820
+20:48:35   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"32","server_list_host":"g61.update.easebar.com","ip_server_list_host":"2405:3200:106:b1::f4d","channel_name":"netease_global","start_time":"1789303715","finish_time":"1789303715","url":"g61.update.easebar.com/pl/npk_version_na_android.plist","push_time":"1789303715","device_model":"22081212C","download_id":"7ed11c35309c42b689999f4f0ad3642f","project
+20:48:35 REQ GET /internalquery host=nstool.netease.com len=0
+20:48:35   -> SERVE internalquery
+20:48:35 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+20:48:35   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789303716","finish_time":"1789303716","push_time":"1789303715","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"242","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4850.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+20:48:35 REQ GET /internalquery host=nstool.netease.com len=0
+20:48:35   -> SERVE internalquery
+20:48:35 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+20:48:35   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789303716","finish_time":"1789303716","push_time":"1789303715","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4850.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+20:48:42 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+20:48:42   -> SERVE notice (30 bytes)
+20:48:42 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+20:48:42   -> SERVE notice (30 bytes)
+20:48:42 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=537
+20:48:42   BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789303723.591749, "platform": "ad", "device_id": "", "sdk_version": "", "uid": "", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "7ed11c35309c42b689999f4f0ad3642f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "A
+20:48:42   -> SERVE root / (200 OK)
+20:52:18 REQ GET /play/log/timestamp host=play.googleapis.com len=0
+20:52:18 REQ POST /play/log?format=raw&proto_v2=true host=play.googleapis.com len=1211
+20:52:18   BODY b'\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x00\xad\xd4oP\x14e\x1c\x07\xf0\xdf\xb3\xfb\xecs\xcb\xc1\xd1r\t\x87\x84\x0e\xfe\xc1\xb9\xc8\xbb\xdb\xdd\xe3\xe4@3\xd0zSj*\x13\xe3\xe84\xd3\xc9\xdd\x14%\x98\xe7\xd8X\xd3\x0b@\xa1\xe1\x08t\x0c\x11A\x12D\x14\xc3TT\x14\xc9\xff\x88\x81f\xa2#\xe4e\x92\xfc\xb9L\x814\x04\x1cE\xa3go\xc7|\xeb\x8b\xde|\xbe\xbb\xcf\xed\xfe\xf6\xe6\x99y\xbeZ\x1f\xe2\xb1\xfe\x16\xe2\x8f\x14\xe5\x15\xd56\xb5^\xb0\x86GN\x0e\x90e\xd1.\xc9\x92<7\xe6\xf9\xa5<n\xe1"k\x92Y\x8a\x17g\x886\xb3\x18\'\xc7Kv16\x8
+20:58:13 T14-complete plist: 482 bytes
+20:58:13 T18 server_list_ad.txt: 114 bytes
+20:58:13 === mitm_serve A START ===
+20:58:13 === SERVE-A tls :8443 ===
+20:58:13 === SERVE-A plain :8080 ===
+20:58:32 REQ POST /api/minors/update_birthday?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=122
+20:58:32   BODY b'device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&birthday=01-1990&country_code=US'
+20:58:32   -> SERVE /api/minors/ (minor_status=102, age_status=1 verified adult)
+20:58:33 REQ POST /api/users/login/v2/sdk_token?game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=118
+20:58:33   BODY b'device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&account_type=1&scene=refresh'
+20:58:33   -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token, minor_status=102)
+20:58:33 REQ GET /api/games/user/info?device_id=11178811c6a412d9&user_id=guest_11178811c6a412d9&token=guest_token_fake_ros_2026&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:58:33   -> SERVE /api/games/user/info
+20:58:33 REQ GET /api/minors/configs?device_id=11178811c6a412d9&token=guest_token_fake_ros_2026&user_id=guest_11178811c6a412d9&game_id=123&cp=a&debug_mode=0&cv=2.13.0&gv=1117219&time_zone=Asia%2FManila&time_offset=28800&lang=en-US&app_channel=google_play&ci=11178811c6a412d9 host=sdk-os.mpsdk.easebar.com len=0
+20:58:33   -> SERVE /api/minors/configs

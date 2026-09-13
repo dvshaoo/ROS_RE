@@ -275,10 +275,10 @@ class H(BaseHTTPRequestHandler):
                 pass
             return
         if self.path.startswith('/api/users/login/guest'):
-            w('  -> SERVE /api/users/login/guest (minor_status=4 bypass)')
+            w('  -> SERVE /api/users/login/guest (minor_status=102 adult verified)')
             res = (
                 b'{"code":0,"msg":"","alert_type":0,"bound_account_types":[],"bound_account_ids":{},'
-                b'"confirm_message":"","notify_guest_bind":0,"unknown_bind_guide":0,"minor_status":4,'
+                b'"confirm_message":"","notify_guest_bind":0,"unknown_bind_guide":0,"minor_status":102,'
                 b'"age_status":0,"security_email":"",'
                 b'"user":{"id":"guest_11178811c6a412d9","account":"Guest_11178811c6a412d9",'
                 b'"login_token":"guest_token_fake_ros_2026","token":"guest_token_fake_ros_2026",'
@@ -293,11 +293,29 @@ class H(BaseHTTPRequestHandler):
             except Exception:
                 pass
             return
+        if self.path.startswith('/api/users/login/v2/sdk_token'):
+            w('  -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token, minor_status=102)')
+            res = (
+                b'{"code":0,"msg":"","user_id":"guest_11178811c6a412d9","sdk_token":"guest_token_fake_ros_2026",'
+                b'"alert_type":0,"minor_status":102,"age_status":0,"security_email":"",'
+                b'"user":{"id":"guest_11178811c6a412d9","account":"Guest_11178811c6a412d9",'
+                b'"login_token":"guest_token_fake_ros_2026","token":"guest_token_fake_ros_2026",'
+                b'"quick_login_enable":true}}'
+            )
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Length', str(len(res)))
+            self.end_headers()
+            try:
+                self.wfile.write(res)
+            except Exception:
+                pass
+            return
         if self.path.startswith('/api/users/login'):
-            w('  -> SERVE /api/users/login (generic minor_status=4 bypass)')
+            w('  -> SERVE /api/users/login (generic minor_status=102 adult verified)')
             res = (
                 b'{"code":0,"msg":"","alert_type":0,"bound_account_types":[],"bound_account_ids":{},'
-                b'"confirm_message":"","notify_guest_bind":0,"unknown_bind_guide":0,"minor_status":4,'
+                b'"confirm_message":"","notify_guest_bind":0,"unknown_bind_guide":0,"minor_status":102,'
                 b'"age_status":0,"security_email":"",'
                 b'"user":{"id":"guest_11178811c6a412d9","account":"Guest_11178811c6a412d9",'
                 b'"login_token":"guest_token_fake_ros_2026","token":"guest_token_fake_ros_2026",'
@@ -344,8 +362,8 @@ class H(BaseHTTPRequestHandler):
                 pass
             return
         if self.path.startswith('/api/minors/'):
-            w('  -> SERVE /api/minors/ (minor_status=4, age_status=0 bypass)')
-            res = b'{"code":0,"msg":"","alert_type":0,"minor_status":4,"age_status":0,"alert_msg":""}'
+            w('  -> SERVE /api/minors/ (minor_status=102, age_status=1 verified adult)')
+            res = b'{"code":0,"msg":"","alert_type":0,"minor_status":102,"age_status":1,"alert_msg":""}'
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Content-Length', str(len(res)))
