@@ -177,3 +177,22 @@ mitm/mitm_serve.py and verified live: the client now boots fully through engine 
 reaches the title/login screen (Guest already signed in, User Agreement dialog showing).
 No baseAppLogin traffic has been captured yet -- PLAY was not reached in this pass, per
 that task's explicit scope (fix the patch gate only, do not chase further gates).
+
+### 2026-09-14 (PLAY reached) -- real LogOnParams packet captured, LoginReply not yet accepted
+
+PLAY was pressed against the live client for the first time this project. A real 273-byte
+LogOnParams UDP packet was captured from the client -- confirmed RSA-2048 (256-byte
+ciphertext block), confirmed Mercury packet framing shape (constant header bytes,
+incrementing 2-byte sequence number, 4-byte plaintext-length-shaped field, constant 2-byte
+footer). See PLAY_TO_BASEAPP_CAPTURE.md for the full byte-level breakdown.
+
+Also found and fixed a real environment bug: the local LoginApp address advertised via
+server_list_ad.txt was 127.0.0.1:25000, which iptables OUTPUT DNAT cannot actually
+redirect off the loopback interface on this kernel (the rule matches, per packet counters,
+but the packet never leaves lo) -- changed to the real gateway address 172.16.1.2:25000.
+
+Two evidence-based LoginReply wire formats were tried against the real captured request
+and both were rejected (client kept retrying, same Mercury::REASON_TIMER_EXPIRED). BaseApp
+:25010 has still received zero traffic. This narrows row D in the matrix above: the
+blocker is now understood to likely be at the Mercury packet/envelope level, not only the
+LoginReplyRecord body content.

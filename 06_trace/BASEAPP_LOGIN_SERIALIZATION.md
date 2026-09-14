@@ -230,6 +230,23 @@ with a real `__class_type_info` vtable slot, and was discarded rather than repor
 limit of static-only, symbol-free analysis reached in this pass, not an oversight — the next
 section names the concrete next step.
 
+## 5c. 2026-09-14 (dynamic pass) — PLAY Reached, `baseAppLogin` Still Not Captured
+
+A live capture session (`PLAY_TO_BASEAPP_CAPTURE.md`) got the client all the way to
+pressing PLAY and captured a real `LogOnParams` UDP packet — but the local LoginApp
+responder's reply was not accepted by the client (two evidence-based envelope variants
+tried), so the flow never reached BaseApp. **No `baseAppLogin` bytes exist to report here
+yet.** This section exists only to record that the attempt happened and to point to the
+real blocker: `PLAY_TO_BASEAPP_CAPTURE.md` §11 identifies the Mercury `Nub`/`Channel`
+envelope-acceptance layer (not the 20-byte `LoginReplyRecord` body, which was already the
+known unknown) as the newly-confirmed blocking layer, since two different reply framings
+were both silently ignored in the same way.
+
+Do not read this as progress on `baseAppLogin` itself — it isn't. It is progress on the
+**LoginApp** step immediately before it, documented here only for continuity since this
+file is the natural place someone will look for the current state of the whole
+LoginApp→BaseApp chain.
+
 ## 6. Summary Table
 
 | Item | Confidence |

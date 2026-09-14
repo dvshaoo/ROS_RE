@@ -118,7 +118,7 @@ TOTAL_LIST_PAYLOAD = zlib.compress(pickle.dumps({
 # connect); port 25000 is our future fake-loginapp port (nothing there yet).
 SERVER_LIST_PAYLOAD = (
     b'North_America 1 1 1 North_America North_America '
-    b'127.0.0.1:25000 127.0.0.1:25000 127.0.0.1:25000 10001 127.0.0.1:25000\n'
+    b'172.16.1.2:25000 172.16.1.2:25000 172.16.1.2:25000 10001 172.16.1.2:25000\n'
 )
 w('T18 server_list_ad.txt: %d bytes' % len(SERVER_LIST_PAYLOAD))
 NOTICE_PAYLOAD = b"Welcome to Rules of Survival!\n"

@@ -83,6 +83,23 @@ flows into the subsequent BaseApp login send. Result:
   unaccounted for — it was not observed being read again by the `baseAppLogin` send path in
   this pass, so whether it is a session key, a port, or something else is still UNKNOWN.
 
+## 3b. 2026-09-14 (dynamic pass) — Both Tested Reply Layouts Rejected
+
+Two candidate `LoginReplyRecord` wire formats were sent to the live client in response to
+a real captured login attempt (see `PLAY_TO_BASEAPP_CAPTURE.md` §3 for full detail):
+(A) the bare 20-byte body alone, and (B) the same 20-byte body wrapped in an envelope
+mirroring the request's own observed framing bytes. **Both were rejected** — the client
+kept retransmitting its request on its normal retry timer in both cases, with identical
+`Mercury::REASON_TIMER_EXPIRED` failures. This is **negative evidence, not proof of a
+specific error**: it does not tell us whether the 20-byte body's internal layout is wrong,
+whether the envelope is wrong, or both. It does upgrade one thing from
+UNKNOWN to STRONG EVIDENCE: the plain 20-byte record without a request-matching Mercury
+envelope is **not sufficient by itself** — some form of packet-level framing/envelope is
+required before the body content is even considered, since the client's behavior (retry
+count, timing, final error) was indistinguishable between "no envelope" and "our best-guess
+envelope," suggesting the client's Mercury/Channel layer may be rejecting/ignoring the
+datagram before ever reaching whatever would parse the 20-byte body.
+
 ## 4. Classification Summary
 
 - CONFIRMED: function location, log strings, 20-byte record read+store, fingerprint compare.

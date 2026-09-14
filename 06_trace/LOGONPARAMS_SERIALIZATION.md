@@ -160,6 +160,7 @@ Disassembly of `0x997160`–`0x997244`:
 | OAEP hash function is SHA-1 (giving 42-byte overhead) | INFERRED — the `-42` constant matches SHA-1 OAEP; OpenSSL's `RSA_public_encrypt` OAEP path defaults to SHA-1 unless a `_ex`/EVP variant with alternate MGF1 hash is used. Would need to trace which OpenSSL entrypoint `x19`/`blr` resolves to (function pointer, not directly named) to be fully certain. |
 | Encryption is chunked/multi-block, not single-block | CONFIRMED (loop structure with `cbnz w0,...` at `0x997224`) |
 | Only `{flags, stringA, stringB, stringC}` are inside the RSA-encrypted region — the digest (`+0x5c`) and the trailing `uint32` (`+0x58`) are **always sent in the clear**, appended after the ciphertext | CONFIRMED (steps 9–10 in §4 execute unconditionally after the `pKey` branch merges, operating on `stream` directly, never on `out`) |
+| **Key size is RSA-2048** | **CONFIRMED BY DYNAMIC CAPTURE (2026-09-14)** — a real `LogOnParams` UDP packet was captured from the live client (see `PLAY_TO_BASEAPP_CAPTURE.md` §2): total packet 273 bytes = 15-byte header + **256-byte ciphertext block** + 2-byte footer. 256 bytes = `RSA_size()` for a 2048-bit modulus exactly. This was previously unknown from static analysis alone (only the padding scheme, not the key size, had been determined) and resolves that gap. |
 
 This directly contradicts the previous report's implication that "the logon bundle" as a
 whole is RSA-encrypted — only 4 of the 6 fields are, and the entity-defs digest / numeric
@@ -182,6 +183,19 @@ string at `0x2a62d9a`):
 
 This is **CONFIRMED** identical ordering to the write path, which is the strongest possible
 internal-consistency check available without a live capture.
+
+### 6a. Cross-Check: Captured Packet Is a Single RSA Block (2026-09-14)
+
+The captured packet (§ above, `PLAY_TO_BASEAPP_CAPTURE.md` §2) contains exactly **one**
+256-byte ciphertext block, not several concatenated blocks — meaning the plaintext
+(`flags` + 3 strings) fit within `RSA_size - 42 = 256 - 42 = 214` bytes for this login
+attempt (a fresh Guest session with short/empty credential strings), consistent with the
+multi-block chunking design in §5 without needing to exercise it. A separate 4-byte field
+immediately before the ciphertext in the captured packet (`0x2b000000` = 43, LE) is a
+plausible candidate for a plaintext-length indicator (43 is in the right range: 1 flags byte
++ three short length-prefixed strings), but this is **STRONG EVIDENCE, not CONFIRMED** —
+it could equally be an unrelated Mercury framing field. See `PLAY_TO_BASEAPP_CAPTURE.md` §2
+for the full byte-level breakdown and confidence labels.
 
 ## 7. Still Unresolved
 

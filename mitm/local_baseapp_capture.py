@@ -65,14 +65,25 @@ def serve_loginapp_udp_responder():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind(('0.0.0.0', LOGINAPP_PORT))
-    reply = build_login_reply_record(BASEAPP_HOST, BASEAPP_PORT)
+    body = build_login_reply_record(BASEAPP_HOST, BASEAPP_PORT)
     while True:
         try:
             data, addr = s.recvfrom(8192)
             log('LOGINAPP UDP RECV %d bytes from %s:%d' % (len(data), addr[0], addr[1]))
             log('  HEX: %s' % data.hex())
+            # Empirical framing mirror: the captured real LogOnParams request has the
+            # shape [4-byte const 01 00 00 04][1-byte 01][2-byte LE seq][4 zero bytes]
+            # [4-byte LE payload-length][payload][2-byte footer 02 00]. Not confirmed
+            # correct for the LoginApp->client direction - this is a live experiment,
+            # not a static claim. See PLAY_TO_BASEAPP_CAPTURE.md.
+            if len(data) >= 15:
+                seq = data[5:7]
+                reply = (b'\x01\x00\x00\x04\x01' + seq + b'\x00\x00\x00\x00'
+                          + struct.pack('<I', len(body)) + body + b'\x02\x00')
+            else:
+                reply = body
             s.sendto(reply, addr)
-            log('LOGINAPP UDP SENT LoginReplyRecord (%d bytes) to %s:%d: %s' % (len(reply), addr[0], addr[1], reply.hex()))
+            log('LOGINAPP UDP SENT framed reply (%d bytes) to %s:%d: %s' % (len(reply), addr[0], addr[1], reply.hex()))
         except Exception as e:
             log('LOGINAPP UDP error: %s' % e)
 
