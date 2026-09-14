@@ -165,3 +165,15 @@ FRIDA_BASEAPP_LOGIN_CAPTURE.md. Key durable findings for future sessions:
   matching, empty file_list ZeroDivisionError), advancing the client further through boot
   than previously recorded, but a further local-patch-server schema gap still blocks
   reaching PLAY. No baseAppLogin bytes were captured this session.
+
+### 2026-09-14 (patch-gate fix) -- Retrieving patch lists 0.00% cleared, client reaches title screen
+
+The blocker documented in the previous update (client stuck at "Retrieving patch lists
+0.00%") is now RESOLVED -- see TOTAL_LIST_SCHEMA.md for the full evidence trail. Root cause
+was two stacked bugs in the local plist response (empty file_list crashes the client's own
+ResourcePatcher.py with ZeroDivisionError; per-file metadata must be flat name+"_suffix"
+keys directly on the plist dict, not nested in total_list as previously assumed). Fixed in
+mitm/mitm_serve.py and verified live: the client now boots fully through engine init and
+reaches the title/login screen (Guest already signed in, User Agreement dialog showing).
+No baseAppLogin traffic has been captured yet -- PLAY was not reached in this pass, per
+that task's explicit scope (fix the patch gate only, do not chase further gates).

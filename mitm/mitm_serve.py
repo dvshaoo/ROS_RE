@@ -94,7 +94,10 @@ PLIST = (
     b'  "min_patch_client_version": 0,\n'
     b'  "min_patch_engine_version": 0,\n'
     b'  "use_dlc_clothes": false,\n'
-    b'  "file_list": [{"name": "dummy.npk", "size": 1, "md5": "00000000000000000000000000000000", "updated": 0}],\n'
+    b'  "file_list": ["dummy.npk"],\n'
+    b'  "dummy.npk_updated": 0,\n'
+    b'  "dummy.npk_size": 1,\n'
+    b'  "dummy.npk_md5": "00000000000000000000000000000000",\n'
     b'  "patch.1117219.com.netease.chiji.obb_updated": 0,\n'
     b'  "patch.1117219.com.netease.chiji.obb_size": 1,\n'
     b'  "patch.1117219.com.netease.chiji.obb_md5": "00000000000000000000000000000000"\n'
@@ -103,7 +106,11 @@ PLIST = (
 w('T14-complete plist: %d bytes' % len(PLIST))
 
 import zlib, pickle
-TOTAL_LIST_PAYLOAD = zlib.compress(pickle.dumps({}, 2))
+TOTAL_LIST_PAYLOAD = zlib.compress(pickle.dumps({
+    'dummy.npk_updated': 0,
+    'dummy.npk_size': 1,
+    'dummy.npk_md5': '00000000000000000000000000000000',
+}, 2))
 
 # T18: server-list 1-line payload (cited: ui/UILogin.py:197-237 positional
 # space-delimited schema; single spaces only — split(' ') shifts on doubles).
