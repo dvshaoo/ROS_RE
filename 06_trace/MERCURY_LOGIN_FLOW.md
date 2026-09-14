@@ -152,3 +152,29 @@ Once the address is resolved:
 | **5** | BaseApp addressed | `BaseAppLoginRequest::setNubAndSend` | Dispatches `baseAppLogin` bundle to BaseApp | `WAITING_BASEAPP_REPLY` |
 | **6** | BaseApp reply received | `LoginHandler::onBaseAppReply` | Establishes indexed Mercury channel | `CONNECTED_TO_BASEAPP` |
 | **7** | Entity stream received | `ServerConnection::createBasePlayer` | Instantiates `Account` base entity | `ACCOUNT_ACTIVE` |
+
+---
+
+## 6. 2026-09-14 — Live-Verified Request Packet, and Confirmed Mercury `Nub` Architecture Strings
+
+**CONFIRMED BY DYNAMIC CAPTURE**: a real `LogOnParams` request from the live client (PID
+`16332` on the project's LDPlayer test instance) was captured — 273 bytes total, a 256-byte
+RSA-2048-OAEP ciphertext block (confirming the key size for the first time), with constant
+framing bytes and an incrementing 2-byte value at request offset `[5:7]` across retries.
+Full byte-level detail: `LOGONPARAMS_SERIALIZATION.md` §6a, `PLAY_TO_BASEAPP_CAPTURE.md`
+§2.
+
+**STRONG EVIDENCE (real strings, not fabricated)**: `libclient_arm64.so` contains a large,
+coherent set of `Mercury::Nub`/`Channel` diagnostic strings describing a packet/footer
+validation architecture (flags check → checksum check → optional footers for
+piggyback/acks/indexed-channel/fragment/sequence-number/first-request-offset → message-id
+dispatch), and a reply-correlation model keyed by a 32-bit "reply id" with source-address
+verification. Exhaustive static cross-reference analysis could **not** locate the live code
+implementing this (see `LOGIN_REPLY_MERCURY_ENVELOPE.md` §3 for the full, bounded attempt
+and why these strings are believed to be vestigial/dead in this specific release build).
+This section is added here only because it materially updates the "LoginApp reply" row (row
+4 above) — the previous assumption that a bare `LoginReplyRecord` body is sufficient is now
+known to be **incomplete**: some Mercury-level envelope is required first, and three
+candidate envelopes have been tried and rejected (`LOGIN_REPLY_MERCURY_ENVELOPE.md` §5).
+`LoginHandler::onLoginReply` has **not** been confirmed reached by any local reply sent so
+far.

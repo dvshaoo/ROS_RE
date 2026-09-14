@@ -139,6 +139,33 @@ out of scope for the current static-analysis passes (which started from `onLogin
 assuming the envelope had already been stripped) and is now shown, by this dynamic capture,
 to be the actual blocking layer.
 
+## 12. 2026-09-14 (follow-up pass) — Envelope Investigation, Still Rejected
+
+A dedicated follow-up (`06_trace/LOGIN_REPLY_MERCURY_ENVELOPE.md`) worked backward from the
+client's own `Mercury::Nub` diagnostic strings (real, present in the binary — see that
+document §2) to identify the general packet-footer architecture (flags, checksum,
+piggyback/ack/sequence-number footers, a 32-bit reply-id-based correlation model), then
+tried one further evidence-constrained reply:
+
+**Attempt C**: 20-byte body + `flags=0x0000` footer (22 bytes total) —
+`ac10010261b20000ac10010261b20000785634120000`. **Rejected**, identical
+`Mercury::REASON_TIMER_EXPIRED` outcome to Attempts A and B.
+
+Two dynamic-instrumentation attempts were also made to observe the client's actual receive
+path (hooking `recvfrom`/`sendto` in libc): one via Frida's normal module API (confirmed
+working — captured real unrelated traffic — but the host `libc.so` it hooks is the wrong
+one), and one via a raw computed address in the NativeBridge-translated ARM64 `libc.so`
+(installed without error, but never fired despite a confirmed login attempt occurring
+during the capture window). Both are consistent with NativeBridge executing translated code
+from a separate JIT region rather than the mapped ARM64 library pages — see
+`LOGIN_REPLY_MERCURY_ENVELOPE.md` §4 for the full account. This means **in-process
+visibility into the Mercury receive path is not achievable with standard Frida hooking on
+this specific x86_64-host LDPlayer configuration** — a real, reproducible finding, not an
+assumption.
+
+**Status unchanged**: `LoginHandler::onLoginReply` still not confirmed reached. LoginApp
+`:25000` continues to receive real traffic; BaseApp `:25010` still has zero packets.
+
 ## Evidence Files
 
 - `mitm/captures/BASEAPP_LOGIN_CAPTURE.txt` — full raw capture log (both attempts).
