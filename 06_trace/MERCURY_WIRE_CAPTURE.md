@@ -249,3 +249,10 @@ fact would immediately resolve the A/B/C/D distinction from
 `LOGIN_REPLY_MERCURY_ENVELOPE.md` §6. No new instrumentation method is proposed here per
 this task's explicit scope (wire capture only) — this is named as the next blocker for a
 future pass, not attempted in this one.
+
+**2026-09-14 update — this blocker is now RESOLVED.** `06_trace/MERCURY_SOCKET_READ_TRACE.md`
+used `strace` (kernel-level syscall tracing via `ptrace`, unaffected by NativeBridge) to
+directly observe the client's `recvfrom()` syscall returning our exact 22-byte reply on
+every retry. **The reply is confirmed to reach the application process.** The problem is
+therefore relocated from "network/socket delivery" (this document) to "application-level
+Mercury processing after the read" — see that document for the full trace.

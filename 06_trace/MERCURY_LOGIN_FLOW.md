@@ -223,3 +223,15 @@ ruling out the local network path as a source of any corruption. A reply/no-repl
 experiment shows retry timing is **completely unaffected** by whether a reply is sent at
 all. This is new, precise, wire-level evidence, but it does **not** establish whether
 `LoginHandler::onLoginReply` executes — that remains unknown, and is not claimed here.
+
+## 10. 2026-09-14 (socket-read trace) — CONFIRMED: Reply Is Read By The Application
+
+**CONFIRMED BY DIRECT SYSCALL EVIDENCE** (`06_trace/MERCURY_SOCKET_READ_TRACE.md`): using
+`strace` attached to TID `16424`, the client's `recvfrom()` call on the Mercury LoginApp
+socket (FD 181) returns our exact 22-byte reply on all 10 retries, byte-for-byte, with a
+no-reply control confirming the same call returns nothing when nothing is sent. **This
+answers the question left open by §9**: the reply demonstrably reaches the application
+process. The retry/timeout behavior is still unaffected by this (row 4 in the state table
+above remains only partially resolved) — the rejection now provably happens in
+application-level Mercury processing after the socket read, not in network delivery.
+`LoginHandler::onLoginReply` is still not confirmed to execute.

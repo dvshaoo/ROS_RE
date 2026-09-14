@@ -176,6 +176,24 @@ passes has been exhausted without result; the next genuinely different avenue is
 kernel/wire-level packet capture (named in `MERCURY_STALKER_COMPILE_TRACE.md` §9) rather
 than further in-process instrumentation.
 
+## 6c. 2026-09-14 (socket-read pass) — Major Update: Reply Confirmed Delivered To Process
+
+`06_trace/MERCURY_SOCKET_READ_TRACE.md` used `strace` (kernel-level `ptrace`-based syscall
+tracing on TID `16424`) — a boundary not previously tried, and one that works independently
+of the NativeBridge/Houdini limitations that blocked every Frida-based attempt documented
+above. Result: the client's `recvfrom(181, ...)` syscall **directly and repeatably returns
+our exact 22-byte reply**, on all 10 retries, with a symmetric no-reply control showing the
+same call return nothing (`EAGAIN`) when nothing is sent.
+
+**This resolves part of §6b's open question**: the reply **is** read by the application
+process — this was previously unknown and is now CONFIRMED. What remains unresolved is
+unchanged in kind but now more precisely located: the dispatch/parsing path *after* the
+`recvfrom()` return (i.e., whatever code decides to accept or discard the 22 bytes) is still
+not observed by any method tried. `LoginHandler::onLoginReply` is still not confirmed to
+execute. `strace`-based tracing (e.g. attempting `-k` for stack traces, or `ltrace`) is
+named as the next concrete avenue, since `strace` is now proven to work where Stalker did
+not.
+
 ## 7. Files/Evidence
 
 - `scratch/find_recvfrom_plt.py`, `scratch/hook_recvfrom_raw.js` — reused from the previous
