@@ -141,6 +141,27 @@ self-contained task recommended as the next concrete step.
   but a concrete, reasoned candidate (`Stalker`-based syscall tracing) is named in §5 for
   the next session, distinct from the already-ruled-out `Interceptor`-based approaches.
 
+## 6a. 2026-09-14 (Stalker follow-up) — Condition C Partially Advanced
+
+A follow-up pass (`06_trace/MERCURY_STALKER_RUNTIME_TRACE.md`) used Frida Stalker
+(call-summary mode) on the exact thread (`TID 16424`, identified via `logcat` tagging) that
+runs `ServerConnection::logOnBegin`. This **positively identified**
+`/system/lib64/arm64/nb/libtcb.so` as NativeBridge's real, executable (`r-x`), file-backed
+JIT translation cache — new information superseding this document's earlier assumption
+that translated code lives only in anonymous/unidentifiable memory. Login-attempt-specific
+execution bursts were also confirmed to correlate in time (±1s) with `logOnBegin` and the
+`REASON_TIMER_EXPIRED` timeout.
+
+However, **semantic attribution to specific `libclient.so` functions (including
+`handleMessage`/`onLoginReply` itself) was not achieved** — the dominant observed
+addresses are Houdini's own generic block-dispatch machinery, shared by all ARM64 execution
+on that thread (including likely UI/script activity unrelated to Mercury), and
+`onCallSummary` only reports translated x86_64 addresses, never the original ARM64 program
+counter. Condition C (a working post-NativeBridge, pre-dispatch instrumentation point) is
+therefore still **not fully met**, but meaningfully advanced: `libtcb.so` is now a known,
+concrete target for future finer-grained Stalker configurations (e.g. `compile` events) —
+see `MERCURY_STALKER_RUNTIME_TRACE.md` §7 for the specific next steps.
+
 ## 7. Files/Evidence
 
 - `scratch/find_recvfrom_plt.py`, `scratch/hook_recvfrom_raw.js` — reused from the previous

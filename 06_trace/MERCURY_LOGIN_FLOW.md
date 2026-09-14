@@ -196,3 +196,18 @@ design) whose vtable could not be located by slot-value scanning. The dispatch p
 raw UDP receipt to this handler — and the lifecycle of the 32-bit "reply id" implied by
 `Mercury::Nub::handleMessage`'s own diagnostic string — remains **UNKNOWN**, not
 established despite a real, thorough attempt.
+
+## 8. 2026-09-14 (Stalker pass) — JIT Cache Identified, Dispatch Still Not Attributed
+
+**CONFIRMED BY DYNAMIC CAPTURE**: Frida Stalker (call-summary mode, thread `16424`,
+identified via `logcat` tagging) directly observed execution resolving into
+`/system/lib64/arm64/nb/libtcb.so` (`r-x`, real file-backed mapping) — this is
+NativeBridge's actual JIT translation cache, confirmed for the first time by direct dynamic
+evidence rather than inference. Execution bursts in this region and in `libhoudini.so`
+correlate in time (~1s resolution) with `ServerConnection::logOnBegin` and the
+`Mercury::REASON_TIMER_EXPIRED` timeout. Full detail: `MERCURY_STALKER_RUNTIME_TRACE.md`.
+
+This does **not** resolve the dispatch-path question in §6/§7 above: the observed hot
+addresses are Houdini's generic dispatch machinery (shared by all ARM64 code on that
+thread), not attributable to `LoginHandler::onLoginReply` specifically.
+`LoginHandler::onLoginReply` is still **not confirmed reached**.
