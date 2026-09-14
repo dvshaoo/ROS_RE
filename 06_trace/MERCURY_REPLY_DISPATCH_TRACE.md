@@ -206,11 +206,26 @@ and writes to the same `ServerConnection` offsets.
 
 **Correction to §2**: that section reported zero direct callers of `LogOnParams::addToStream`
 (`0x9d8014`) across five methods. This pass found a real caller targeting `0x9d8018` — 4
-bytes past that entry point — from the newly-found validation function. This resolves the
+bytes past that entry point — from the newly-found function at `0x937df0`. This resolves the
 "why no callers" puzzle without changing any of `LOGONPARAMS_SERIALIZATION.md`'s confirmed
-field-level findings about `addToStream`'s body. The semantic reason this validation
-function calls into logon-serialization code is not yet understood — flagged as UNKNOWN in
-the new document, not invented.
+field-level findings about `addToStream`'s body.
+
+## 6e. 2026-09-14 (validation-trace correction pass) — `0x937df0` Is NOT A Reply Validator
+
+`06_trace/MERCURY_LOGINREPLY_VALIDATION_TRACE.md` fully disassembled `0x937df0`–`0x937f0c`
+(§6d above only covered its failure branch) and found **§6d's "validation function"
+framing was incorrect**. The function does not read or validate the incoming reply's
+bytes at all — its vtable[0x10] calls are `reserve(n)` WRITE operations, and it calls
+directly into `LogOnParams::addToStream`'s body (`0x9d8018`, confirmed as that function's
+one and only caller in the binary) to **rebuild and resend an outgoing `LogOnParams`
+bundle**. `REASON_CORRUPTED_PACKET` is reported when this outgoing serialization call
+itself fails — a send-side signal, not evidence about what our reply contains. The
+A/B timing correlation (11/11 vs 0/0) remains valid; only the causal explanation is
+corrected. `0x937df0` has zero direct callers of its own and must be invoked via
+indirect/virtual dispatch — the mechanism connecting reply-receipt to this function
+running is UNKNOWN and is the new next blocker. See that document for full corrected
+pseudocode, the `0x9d8018` caller-argument trace, and the `0xa`-retry-count correlation
+found in an adjacent function.
 
 ## 7. Files/Evidence
 

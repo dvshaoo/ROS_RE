@@ -1,5 +1,20 @@
 # ROS v1117219 — Post-`recvfrom()` Mercury Dispatch Trace
 
+> **CORRECTION (see `MERCURY_LOGINREPLY_VALIDATION_TRACE.md`)**: the follow-up pass fully
+> disassembled `0x937df0`–`0x937f0c` (this document's Phase 5 only covered its failure
+> branch) and found it is **not** a receive-side validation function. It is an
+> **outgoing**-bundle (re)serialization routine that calls directly into
+> `LogOnParams::addToStream`'s body (`0x9d8018`) and reports
+> `REASON_CORRUPTED_PACKET` only if **that send-side serialization call** fails — it never
+> reads the incoming reply's bytes. The "reads a 4-byte value from a stream object (x21)
+> via vtable slot [0x10]" claim in Phase 5 below is **INCORRECT**: vtable[0x10] on this
+> stream type is a `reserve(n)` WRITE primitive, and the very next instruction writes the
+> literal constant `43` into the returned pointer — this is an outgoing write, not an
+> incoming read. The A/B runtime correlation below (11/11 vs 0/0) remains valid and
+> reproduced; only the causal *mechanism* explanation is corrected. See the follow-up
+> document for the full corrected pseudocode, caller-chain findings, and the honest
+> CONFIRMED/UNKNOWN breakdown.
+
 **Result up front — this pass answers the central question directly, with both runtime and
 static evidence converging on the same conclusion**: the client's own log output, captured
 live via `strace`-observed `writev()` calls to the logcat pipe, shows the exact line
@@ -7,13 +22,12 @@ live via `strace`-observed `writev()` calls to the logcat pipe, shows the exact 
 **immediately after every successful `recvfrom()` read of our reply, and only when a reply
 is sent at all** (11 occurrences with a reply, 0 without, across matched A/B captures).
 Static disassembly of the code that builds this exact string (found via a direct,
-previously-elusive cross-reference) independently confirms a real validation function that
-writes `"Mercury::REASON_CORRUPTED_PACKET"` into the same `ServerConnection`-shaped object
-used throughout this project's prior `LoginHandler`/`handleMessage` work. This is
-**OUTCOME B**: a Mercury receive/validation function is identified, and the specific,
-named reason our reply is rejected is now known. `LoginHandler::onLoginReply` is **still
-not directly observed to execute** — the evidence places the rejection at an earlier,
-Nub-level validation stage, and no claim beyond that is made.
+previously-elusive cross-reference) independently confirms a real function that writes
+`"Mercury::REASON_CORRUPTED_PACKET"` into the same `ServerConnection`-shaped object
+used throughout this project's prior `LoginHandler`/`handleMessage` work — **this pass
+mischaracterized that function as validating the incoming reply; the follow-up pass found
+it is actually an outgoing-bundle rebuild/resend routine, corrected above.** `LoginHandler::onLoginReply` is **still
+not directly observed to execute**, and no claim beyond that is made.
 
 ## Objective
 
@@ -114,11 +128,17 @@ previous static pass — the two are separated by only two other small functions
 
 ### Disassembly Findings (`0x937df0`–`0x937f0c`)
 
+> **Corrected below (see banner at top of document)**: the next line was originally
+> written as a "read." It is a WRITE — `reserve(4)` on an output stream, followed by
+> storing the literal `43` into the returned pointer. Full corrected disassembly of the
+> entire function (not just this failure branch) is in
+> `MERCURY_LOGINREPLY_VALIDATION_TRACE.md`.
+
 ```
-0x937e20-0x937e30: reads a 4-byte value from a stream object (x21) via vtable slot [0x10]
-                    (the same BinaryIStream-read pattern confirmed throughout this
-                    project's prior work, e.g. LOGONPARAMS_SERIALIZATION.md)
-0x937e34-0x937e38: writes the literal constant 0x2b (43) into the read location
+0x937e20-0x937e30: reserves 4 bytes for WRITING in an output stream object (x21) via
+                    vtable slot [0x10] (reserve(n) — the same WRITE pattern used by
+                    LogOnParams::addToStream itself, per LOGONPARAMS_SERIALIZATION.md)
+0x937e34-0x937e38: writes the literal constant 0x2b (43) into the reserved location
 0x937e3c-0x937e54: calls bl #0x9d8018 with (this=x19, stream=x21, flag=1, key-ish=x3)
 0x937e58:          tbnz w0,#0 -> branch to cleanup (0x937ec8) if return value's bit0 is set
                     (success path); otherwise fall through to the error path below
@@ -190,36 +210,37 @@ immediately (within the same poll cycle) after each successful `recvfrom()`.
 
 ## STRONGLY SUPPORTED
 
-- Our reply is read by the client's Mercury/engine polling code and is explicitly
-  classified as a **corrupted packet** by a real, live, native validation function — this
-  is the specific, named reason the login does not succeed, one level more precise than
-  "the client times out."
-- This rejection happens at what is most plausibly a **Nub-level packet validation stage**
-  (given the function's proximity to, but distinctness from, the message-specific
-  `handleMessage`/`onLoginReply` function, and given `REASON_CORRUPTED_PACKET` is
-  conceptually a lower-level framing/validation failure per the diagnostic strings
-  catalogued in `LOGIN_REPLY_MERCURY_ENVELOPE.md` §2), i.e. **before** any
-  message-type-specific dispatch to `LoginHandler`.
+- Our reply's arrival is tightly, reproducibly correlated (timing and A/B count) with the
+  `REASON_CORRUPTED_PACKET` warning firing — **superseded framing removed**: this pass had
+  claimed the rejection happens at "a Nub-level packet validation stage before any
+  message-type-specific dispatch," inferred from the function's proximity to
+  `handleMessage`. The follow-up full disassembly shows `0x937df0` doesn't inspect the
+  reply's bytes at all (it's an outgoing-bundle rebuild that fails on its own
+  `addToStream` call), so that specific "why" is no longer supported by this function
+  and is now UNKNOWN — see `MERCURY_LOGINREPLY_VALIDATION_TRACE.md`.
 
 ## UNKNOWN
 
 - Whether `LoginHandler::onLoginReply` executes at any point — **not observed, not
-  claimed**. The evidence in this pass is consistent with the rejection happening entirely
-  before that handler would ever be reached.
-- The exact byte-level reason our 22-byte packet is judged "corrupted" (length, missing
-  fields, footer/flags mismatch, or something else) — this pass identifies **that** and
-  roughly **where** the rejection happens, not the precise validation rule that fails.
-  Determining that would require disassembling the validation function called from
-  `0x937df0` itself (the target near `0x9d8018`) in full, which was not completed in this
-  pass.
-- The semantic role of the call to `0x9d8018` (near `LogOnParams::addToStream`) from this
-  receive-side validation function — flagged as a genuine open question, not resolved.
+  claimed**.
+- The exact mechanism connecting "reply received" to "this outgoing-bundle-rebuild
+  function runs and fails" — `0x937df0` has zero direct callers (must be invoked via
+  indirect/virtual dispatch not yet resolved). See follow-up document §2/UNKNOWN.
+- Whether any code in this client reads/validates the specific byte content of our
+  22-byte reply at all, as opposed to Nub-level machinery treating any
+  unexpected/unrecognized inbound data as a trigger to abandon and retry regardless of
+  content.
+- The semantic role of the call to `0x9d8018` (`LogOnParams::addToStream`'s real entry
+  point, confirmed in the follow-up pass) from this outgoing-rebuild function — it
+  reserializes a cached `LogOnParams` object; why this fails when triggered here is not
+  determined.
 
 ## Next Concrete Boundary
 
-Disassemble the function targeted by `bl #0x9d8018` in full (distinct from, though
-overlapping in address range with, `LogOnParams::addToStream`'s already-mapped body) to
-determine exactly what condition its return value (tested via `tbnz w0,#0`) represents —
-this is the precise boolean that separates "packet accepted" from
-"`REASON_CORRUPTED_PACKET`" and is now a concrete, static, well-anchored next target
-(no further dynamic instrumentation is required to make progress here).
+**Superseded** — `0x9d8018` has been fully identified as `LogOnParams::addToStream`'s
+real entry point with exactly one caller (`0x937e54`, inside this function), per
+`MERCURY_LOGINREPLY_VALIDATION_TRACE.md`. The new next concrete boundary is: resolve the
+indirect/virtual call mechanism that invokes `0x937df0` in the first place (likely a
+stored callback registered via the adjacent `0x937128`/`0x937d2c` retry-registration
+cluster) to determine when/why this outgoing-rebuild path fires relative to actual reply
+processing.
