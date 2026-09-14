@@ -190,3 +190,14 @@ actual handler execution, and none was obtained.
     dispatch machinery shared by all ARM64 execution on this thread, not Mercury-specific;
     (c) `libtcb.so`'s cache layout is runtime-dependent, so no static hook address can be
     computed in advance even though the region is now known to be genuinely executable.
+
+## 9. 2026-09-14 (follow-up) — `compile` Events Tested, Same Attribution Gap Confirmed
+
+A follow-up pass (`06_trace/MERCURY_STALKER_COMPILE_TRACE.md`) tested `events.compile`
+specifically (the next concrete step named in §7 above) and confirmed it reports the
+**same address space** as `call` events — no original ARM64 PC, no architecture tag. It
+also found a second, larger (~62.5MB) anonymous `rwx` JIT heap adjacent to `libtcb.so`, and
+**cleanly ruled out** a new alternative hypothesis (Mercury UDP I/O via Java's
+`DatagramSocket`) via live `Java.perform()` hooks left active through a full confirmed
+login attempt with zero invocations. `LoginHandler::onLoginReply` remains not observed to
+execute, by any method tried across both Stalker passes.

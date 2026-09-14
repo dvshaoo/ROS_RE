@@ -162,6 +162,20 @@ therefore still **not fully met**, but meaningfully advanced: `libtcb.so` is now
 concrete target for future finer-grained Stalker configurations (e.g. `compile` events) —
 see `MERCURY_STALKER_RUNTIME_TRACE.md` §7 for the specific next steps.
 
+## 6b. 2026-09-14 (compile-event follow-up) — Attribution Gap Confirmed, Not Closed
+
+`06_trace/MERCURY_STALKER_COMPILE_TRACE.md` tested `Stalker`'s `compile` event directly
+(the concrete next step named in §6a) and confirmed, from ~200 real parsed events, that it
+reports the same translated x86_64 address space as `call` events — no original ARM64 PC is
+exposed by this API in this environment. A live-`Java.perform()` test also cleanly ruled
+out a new, evidence-motivated alternative hypothesis (Mercury UDP I/O via
+`java.net.DatagramSocket`) by leaving hooks active through a full confirmed login attempt
+with zero invocations. The dispatch path to `LoginHandler::onLoginReply` remains
+**UNKNOWN** — every reasonably-available static and dynamic method attempted across three
+passes has been exhausted without result; the next genuinely different avenue is a
+kernel/wire-level packet capture (named in `MERCURY_STALKER_COMPILE_TRACE.md` §9) rather
+than further in-process instrumentation.
+
 ## 7. Files/Evidence
 
 - `scratch/find_recvfrom_plt.py`, `scratch/hook_recvfrom_raw.js` — reused from the previous
