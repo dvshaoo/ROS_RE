@@ -1,0 +1,15 @@
+# ROS DNS Redirect — map dead domains to local MITM PC
+# PC IP: 192.168.100.8
+# All easebar.com and netease.com game domains → local PC
+192.168.100.8 g61.gph.easebar.com
+192.168.100.8 g61.update.easebar.com
+192.168.100.8 gdl.easebar.com
+192.168.100.8 g61.patch.easebar.com
+192.168.100.8 drpf-h45na.proxima.nie.netease.com
+192.168.100.8 static.easebar.com
+192.168.100.8 api.easebar.com
+192.168.100.8 auth.easebar.com
+192.168.100.8 gph.easebar.com
+# Also intercept UniSDK domains
+192.168.100.8 unisdk.update.netease.com
+192.168.100.8 impression.update.netease.com

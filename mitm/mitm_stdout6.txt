@@ -1,0 +1,9 @@
+T14-complete plist: 445 bytes
+T18 server_list_ad.txt: 118 bytes
+=== mitm_serve A START ===
+=== SERVE-A tls :8443 ===
+=== LOGINAPP TCP :25000 LISTENING ===
+=== LOGINAPP UDP :25000 LISTENING ===
+=== SERVE-A tls :443 (VPN DNS catch) ===
+=== SERVE-A plain :80 (https->http patch catch) ===
+=== SERVE-A plain :8080 ===

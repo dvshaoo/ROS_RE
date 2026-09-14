@@ -1,0 +1,184 @@
+T14-complete plist: 482 bytes
+T18 server_list_ad.txt: 118 bytes
+=== mitm_serve A START ===
+=== SERVE-A tls :8443 ===
+=== LOGINAPP TCP :25000 LISTENING ===
+=== LOGINAPP UDP :25000 LISTENING ===
+=== SERVE-A tls :443 (VPN DNS catch) ===
+=== SERVE-A plain :8080 ===
+REQ GET http://www.google.us/generate_204 host=www.google.us len=0
+CONNECT api.al-array.com:443
+CONNECT store-quic-gl.heytapmobile.com:443
+CONNECT api.al-array.com:443
+CONNECT android.apis.google.com:443
+CONNECT app-measurement.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT app-measurement.com:443
+CONNECT shortintl.push.heytapmobile.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT obus-sg.dc.heytapmobile.com:443
+CONNECT obus-sg.dc.heytapmobile.com:443
+CONNECT obus-sg.dc.heytapmobile.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT android.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT api.v-videoapp.com:443
+REQ POST /api/misc/proxy/group host=api.v-videoapp.com len=1479
+  BODY b'anm=vidmate&appid=com.nemo.vidmate.app.websitevdmofficial&appver=6.0229&bucket=64&request_data=U8iXTiRG8gYHex02VY9rtEcsQa80Idabuo%2BMcl6PX7RppY%2FcXnynYkYtf0sByfenWK4zWib9skd9PKnvHaxPUxMWhGVmYvB2KCFI8%2Blvlan%2F00rB6uukk%2BMm7KhDqgNpp4cvMaMrpKGBjDJUU%2Bv5s2x%2FvoKnG1NDEw8cdlBO9FZZAb3u8oERRGv3t2iTG7Fvi1ZaZ1fx5%2FQYJn3ePOb9%2BPVBySjNGNCOY347k4xYMV0KMihu4a%2B0xeP8TtXNbofGcZ3AqscnA5SSAKQ5pdkQCqS6j5NPV0uyVBc0K0baG562HYtV21fJjrHUomFMEqfO6EIfjif3nnL5hhHQhwmu0Qyu5fKFGuEAI6ZxFm1jHoZtGpsO%2Fm3KbvL7DGz0J5bCf0QyXUkeO
+  -> SERVE generic /api/ (code 0)
+CONNECT android.googleapis.com:443
+CONNECT api.v-videoapp.com:443
+REQ POST /api/misc/proxy/group host=api.v-videoapp.com len=1479
+  BODY b'anm=vidmate&appid=com.nemo.vidmate.app.websitevdmofficial&appver=6.0229&bucket=64&request_data=U8iXTiRG8gYHex02VY9rtEcsQa80Idabuo%2BMcl6PX7RppY%2FcXnynYkYtf0sByfenWK4zWib9skd9PKnvHaxPUxMWhGVmYvB2KCFI8%2Blvlan%2F00rB6uukk%2BMm7KhDqgNpp4cvMaMrpKGBjDJUU%2Bv5s2x%2FvoKnG1NDEw8cdlBO9FZZAb3u8oERRGv3t2iTG7Fvi1ZaZ1fx5%2FQYJn3ePOb9%2BPVBySjNGNCOY347k4xYMV0KMihu4a%2B0xeP8TtXNbofGcZ3AqscnA5SSAKQ5pdkQCqS6j5NPV0uyVBc0K0baG562HYtV21fJjrHUomFMEqfO6EIfjif3nnL5hhHQhwmu0Qyu5fKFGuEAI6ZxFm1jHoZtGpsO%2Fm3KbvL7DGz0J5bCf0QyXUkeO
+  -> SERVE generic /api/ (code 0)
+CONNECT api.v-videoapp.com:443
+REQ POST /api/misc/proxy/group host=api.v-videoapp.com len=1479
+  BODY b'anm=vidmate&appid=com.nemo.vidmate.app.websitevdmofficial&appver=6.0229&bucket=64&request_data=U8iXTiRG8gYHex02VY9rtEcsQa80Idabuo%2BMcl6PX7RppY%2FcXnynYkYtf0sByfenWK4zWib9skd9PKnvHaxPUxMWhGVmYvB2KCFI8%2Blvlan%2F00rB6uukk%2BMm7KhDqgNpp4cvMaMrpKGBjDJUU%2Bv5s2x%2FvoKnG1NDEw8cdlBO9FZZAb3u8oERRGv3t2iTG7Fvi1ZaZ1fx5%2FQYJn3ePOb9%2BPVBySjNGNCOY347k4xYMV0KMihu4a%2B0xeP8TtXNbofGcZ3AqscnA5SSAKQ5pdkQCqS6j5NPV0uyVBc0K0baG562HYtV21fJjrHUomFMEqfO6EIfjif3nnL5hhHQhwmu0Qyu5fKFGuEAI6ZxFm1jHoZtGpsO%2Fm3KbvL7DGz0J5bCf0QyXUkeO
+  -> SERVE generic /api/ (code 0)
+CONNECT api.al-array.com:443
+CONNECT api.v-videoapp.com:443
+REQ POST /api/misc/proxy/group host=api.v-videoapp.com len=1479
+  BODY b'anm=vidmate&appid=com.nemo.vidmate.app.websitevdmofficial&appver=6.0229&bucket=64&request_data=U8iXTiRG8gYHex02VY9rtEcsQa80Idabuo%2BMcl6PX7RppY%2FcXnynYkYtf0sByfenWK4zWib9skd9PKnvHaxPUxMWhGVmYvB2KCFI8%2Blvlan%2F00rB6uukk%2BMm7KhDqgNpp4cvMaMrpKGBjDJUU%2Bv5s2x%2FvoKnG1NDEw8cdlBO9FZZAb3u8oERRGv3t2iTG7Fvi1ZaZ1fx5%2FQYJn3ePOb9%2BPVBySjNGNCOY347k4xYMV0KMihu4a%2B0xeP8TtXNbofGcZ3AqscnA5SSAKQ5pdkQCqS6j5NPV0uyVBc0K0baG562HYtV21fJjrHUomFMEqfO6EIfjif3nnL5hhHQhwmu0Qyu5fKFGuEAI6ZxFm1jHoZtGpsO%2Fm3KbvL7DGz0J5bCf0QyXUkeO
+  -> SERVE generic /api/ (code 0)
+CONNECT api.al-array.com:443
+CONNECT error: [WinError 10053] An established connection was aborted by the software in your host machine
+CONNECT api.al-array.com:443
+CONNECT error: [WinError 10053] An established connection was aborted by the software in your host machine
+CONNECT vulcan5.branch.io:443
+CONNECT error: [WinError 10053] An established connection was aborted by the software in your host machine
+CONNECT android.googleapis.com:443
+CONNECT error: [WinError 10053] An established connection was aborted by the software in your host machine
+CONNECT api.al-array.com:443
+CONNECT error: [WinError 10053] An established connection was aborted by the software in your host machine
+CONNECT www.google.us:443
+REQ GET http://conn-service-us-04.allawnos.com/generate204 host=conn-service-us-04.allawnos.com len=0
+CONNECT conn-service-us-05.allawnos.com:443
+REQ GET http://www.google.us/generate_204 host=www.google.us len=0
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT shortintl.push.heytapmobile.com:443
+CONNECT api.al-array.com:443
+CONNECT android.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT dc-dragate-sg.heytapmobile.com:443
+CONNECT dc-dragate-sg.heytapmobile.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT store-quic-gl.heytapmobile.com:443
+CONNECT infinitedata-pa.googleapis.com:443
+CONNECT infinitedata-pa.googleapis.com:443
+CONNECT classify-app-sg.allawnos.com:443
+CONNECT connectivitycheck.gstatic.com:443
+CONNECT app-measurement.com:443
+CONNECT api.al-array.com:443
+CONNECT app-measurement.com:443
+CONNECT api.al-array.com:443
+CONNECT play.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT android.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api-gl.store.heytapmobi.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT connectivitycheck.gstatic.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT prod-lt-playstoregatewayadapter-pa.googleapis.com:443
+CONNECT prod-lt-playstoregatewayadapter-pa.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT www.googleapis.com:443
+CONNECT www.googleapis.com:443
+CONNECT www.googleapis.com:443
+CONNECT connectivitycheck.gstatic.com:443
+CONNECT www.googleapis.com:443
+CONNECT play.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT api.al-array.com:443
+REQ GET http://www.google.us/generate_204 host=www.google.us len=0
+CONNECT conn-service-us-05.allawnos.com:443
+CONNECT www.google.us:443
+REQ GET http://conn-service-us-04.allawnos.com/generate204 host=conn-service-us-04.allawnos.com len=0
+CONNECT api.al-array.com:443
+CONNECT play.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT dc-dragate-sg.heytapmobile.com:443
+CONNECT dc-dragate-sg.heytapmobile.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT store-quic-gl.heytapmobile.com:443
+CONNECT infinitedata-pa.googleapis.com:443
+CONNECT infinitedata-pa.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT app-measurement.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT app-measurement.com:443
+CONNECT api.al-array.com:443
+CONNECT android.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT play.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT play-fe.googleapis.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT android.apis.google.com:443
+CONNECT api.al-array.com:443
+CONNECT api.al-array.com:443
+CONNECT dc-dragate-sg.heytapmobile.com:443
+CONNECT dc-dragate-sg.heytapmobile.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT store-quic-gl.heytapmobile.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT icosa-service-sg.allawnos.com:443
+CONNECT infinitedata-pa.googleapis.com:443
+CONNECT infinitedata-pa.googleapis.com:443
+CONNECT connectivitycheck.gstatic.com:443
+CONNECT api.al-array.com:443
+CONNECT shortintl.push.heytapmobile.com:443

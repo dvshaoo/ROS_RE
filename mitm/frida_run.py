@@ -21,7 +21,7 @@ def on_msg(msg, data):
     except Exception as e:
         print('LOG-ERR %s' % e, flush=True)
 
-dev = frida.get_usb_device(timeout=10)
+dev = frida.get_device_manager().get_device('emulator-5554')
 proc = dev.attach(pid)
 src = open(js, encoding='utf-8', errors='replace').read()
 script = proc.create_script(src)

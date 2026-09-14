@@ -1,0 +1,730 @@
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50904)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53424)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57216)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57221)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57222)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51420)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51427)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60615)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+127.0.0.1 - - [14/Sep/2026 09:14:37] "GET http://www.google.us/generate_204 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60617)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+127.0.0.1 - - [14/Sep/2026 09:14:37] "GET http://conn-service-us-04.allawnos.com/generate204 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64354)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 61848)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59319)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56664)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57016)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63419)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63424)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63425)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63426)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63427)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64025)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64026)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64034)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49170)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57924)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62565)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62566)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62567)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62568)
+Traceback (most recent call last):
+  File "C:\Python314\Lib\socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\mitm_serve.py", line 445, in do_CONNECT
+    w('CONNECT %s' % self.path)
+    ^
+UnboundLocalError: cannot access local variable 'w' where it is not associated with a value
+----------------------------------------

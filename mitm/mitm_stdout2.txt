@@ -1,0 +1,10 @@
+T14-complete plist: 482 bytes
+T18 server_list_ad.txt: 118 bytes
+=== mitm_serve A START ===
+=== SERVE-A tls :8443 ===
+=== LOGINAPP TCP :25000 LISTENING ===
+=== LOGINAPP UDP :25000 LISTENING ===
+=== SERVE-A plain :443 (HTTPDNS catch for VPN DNS) ===
+=== SERVE-A plain :8080 ===
+REQ GET http://www.google.us/generate_204 host=www.google.us len=0
+REQ GET http://conn-service-us-04.allawnos.com/generate204 host=conn-service-us-04.allawnos.com len=0

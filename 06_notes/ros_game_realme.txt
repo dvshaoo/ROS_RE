@@ -1,0 +1,208 @@
+--------- beginning of main
+09-13 22:58:02.977 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 22:58:02.977 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 22:58:02.977 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 22:58:02.978 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 22:58:02.978 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 22:58:02.978 32712  3242 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 22:58:02.978 32712  3242 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 22:58:02.978 32712  3242 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 22:58:02.980 32712  3242 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 22:58:02.983 32712  3242 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1423.2","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:58:02.983 32712  3242 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1423.2","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:58:02.983 32712  3242 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 22:58:02.983 32712  3242 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 22:58:02.983 32712  3242 I DCTOOL  : OSVersion: 13
+09-13 22:58:02.983 32712  3242 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 22:58:02.983 32712  3242 W libc    : Access denied finding property "ro.serialno"
+09-13 22:58:02.983 32712  3242 I DCTOOL  : Serialno: 
+09-13 22:58:07.440 32712  1490 I [22:58:07.440]     <SCRIPT> : lz, aall ip []
+09-13 22:58:07.440 32712  1490 I [22:58:07.440]     <SCRIPT> : alarm code:200, msg:can not resolve dns locally
+09-13 22:58:07.440 32712  1490 I [22:58:07.440]     <SCRIPT> : alarm kwargs={'host': 'g61.update.easebar.com', 'errcode': 200}
+09-13 22:58:07.504 32712  1490 I [22:58:07.504]     <SCRIPT> : resolve_httpdns domain:g61.gph.easebar.com, client_ip:None
+09-13 22:58:20.245 32712  1091 D vulkan  : searching for layers in '/data/app/~~uNTQv3-b4n0sVs6AwPCQvg==/com.netease.chiji-2iIvxjxsbrnaUSpdCkxfpA==/lib/arm64'
+09-13 22:58:20.252 32712  1091 D vulkan  : searching for layers in '/data/app/~~uNTQv3-b4n0sVs6AwPCQvg==/com.netease.chiji-2iIvxjxsbrnaUSpdCkxfpA==/base.apk!/lib/arm64-v8a'
+09-13 22:58:20.261 32712  1091 W libc    : Access denied finding property "vendor.debug.forcibly_enable_mtk_ray_tracing"
+09-13 22:58:32.991 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 22:58:32.991 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 22:58:32.991 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 22:58:32.991 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 22:58:32.991 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 22:58:32.992 32712  3510 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 22:58:32.992 32712  3510 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 22:58:32.992 32712  3510 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 22:58:32.993 32712  3510 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 22:58:32.995 32712  3510 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1439.8","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:58:32.995 32712  3510 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1439.8","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:58:32.995 32712  3510 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 22:58:32.995 32712  3510 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 22:58:32.996 32712  3510 I DCTOOL  : OSVersion: 13
+09-13 22:58:32.996 32712  3510 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 22:58:32.996 32712  3510 W libc    : Access denied finding property "ro.serialno"
+09-13 22:58:32.996 32712  3510 I DCTOOL  : Serialno: 
+09-13 22:58:37.603 32712  3510 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 22:58:37.604 32712  3510 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 22:58:37.604 32712  3510 D DCTOOL  :  fe4e6c13c3e40e982745814d954c4840 
+09-13 22:58:37.604 32712  3510 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 22:58:37.604 32712  3510 D DCTOOL  : OnToolCallback : fe4e6c13c3e40e982745814d954c4840
+09-13 22:58:37.604 32712  3510 D DCTOOL  : OnToolCallback, current thread=183
+09-13 22:58:37.604 32712  3510 D DCTOOL  : onUploadID, current thread=183
+09-13 22:58:37.604 32712  3510 I DcTool  : fe4e6c13c3e40e982745814d954c4840
+09-13 22:58:37.604 32712  3510 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 22:58:41.131 32712  1490 I [22:58:41.131]     <SCRIPT> : lz, aall ip []
+09-13 22:58:41.158 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 22:58:41.158 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 22:58:41.158 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 22:58:41.158 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 22:58:41.158 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 22:58:41.159 32712  3562 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 22:58:41.159 32712  3562 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 22:58:41.159 32712  3562 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 22:58:41.161 32712  3562 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 22:58:41.162 32712  3562 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1439.1","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:58:41.162 32712  3562 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1439.1","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:58:41.162 32712  3562 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 22:58:41.162 32712  3562 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 22:58:41.163 32712  3562 I DCTOOL  : OSVersion: 13
+09-13 22:58:41.163 32712  3562 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 22:58:41.163 32712  3562 W libc    : Access denied finding property "ro.serialno"
+09-13 22:58:41.163 32712  3562 I DCTOOL  : Serialno: 
+09-13 22:58:45.789 32712  3562 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 22:58:45.789 32712  3562 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 22:58:45.789 32712  3562 D DCTOOL  :  bbed02ce2b9e46aa04efb3c264a9e52d 
+09-13 22:58:45.789 32712  3562 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 22:58:45.789 32712  3562 D DCTOOL  : OnToolCallback : bbed02ce2b9e46aa04efb3c264a9e52d
+09-13 22:58:45.789 32712  3562 D DCTOOL  : OnToolCallback, current thread=185
+09-13 22:58:45.789 32712  3562 D DCTOOL  : onUploadID, current thread=185
+09-13 22:58:45.789 32712  3562 I DcTool  : bbed02ce2b9e46aa04efb3c264a9e52d
+09-13 22:58:45.789 32712  3562 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 22:59:11.165 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 22:59:11.165 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 22:59:11.165 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 22:59:11.165 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 22:59:11.166 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 22:59:11.166 32712  3617 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 22:59:11.167 32712  3617 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 22:59:11.167 32712  3617 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 22:59:11.168 32712  3617 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 22:59:11.170 32712  3617 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1431.4","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:59:11.170 32712  3617 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1431.4","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:59:11.170 32712  3617 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 22:59:11.170 32712  3617 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 22:59:11.171 32712  3617 I DCTOOL  : OSVersion: 13
+09-13 22:59:11.171 32712  3617 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 22:59:11.171 32712  3617 W libc    : Access denied finding property "ro.serialno"
+09-13 22:59:11.171 32712  3617 I DCTOOL  : Serialno: 
+09-13 22:59:15.804 32712  3617 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 22:59:15.804 32712  3617 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 22:59:15.804 32712  3617 D DCTOOL  :  2e8e155cc52e73c8b40e62a8bbc9b9f4 
+09-13 22:59:15.804 32712  3617 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 22:59:15.804 32712  3617 D DCTOOL  : OnToolCallback : 2e8e155cc52e73c8b40e62a8bbc9b9f4
+09-13 22:59:15.804 32712  3617 D DCTOOL  : OnToolCallback, current thread=187
+09-13 22:59:15.804 32712  3617 D DCTOOL  : onUploadID, current thread=187
+09-13 22:59:15.804 32712  3617 I DcTool  : 2e8e155cc52e73c8b40e62a8bbc9b9f4
+09-13 22:59:15.804 32712  3617 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 22:59:41.178 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 22:59:41.178 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 22:59:41.178 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 22:59:41.178 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 22:59:41.178 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 22:59:41.179 32712  3664 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 22:59:41.179 32712  3664 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 22:59:41.179 32712  3664 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 22:59:41.180 32712  3664 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 22:59:41.182 32712  3664 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1426.1","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:59:41.182 32712  3664 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1426.1","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 22:59:41.182 32712  3664 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 22:59:41.182 32712  3664 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 22:59:41.182 32712  3664 I DCTOOL  : OSVersion: 13
+09-13 22:59:41.182 32712  3664 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 22:59:41.182 32712  3664 W libc    : Access denied finding property "ro.serialno"
+09-13 22:59:41.182 32712  3664 I DCTOOL  : Serialno: 
+09-13 22:59:45.825 32712  3664 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 22:59:45.825 32712  3664 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 22:59:45.825 32712  3664 D DCTOOL  :  7361d6b2bb7c26c7064192639075768b 
+09-13 22:59:45.825 32712  3664 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 22:59:45.825 32712  3664 D DCTOOL  : OnToolCallback : 7361d6b2bb7c26c7064192639075768b
+09-13 22:59:45.825 32712  3664 D DCTOOL  : OnToolCallback, current thread=189
+09-13 22:59:45.825 32712  3664 D DCTOOL  : onUploadID, current thread=189
+09-13 22:59:45.826 32712  3664 I DcTool  : 7361d6b2bb7c26c7064192639075768b
+09-13 22:59:45.826 32712  3664 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 23:00:11.201 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 23:00:11.201 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 23:00:11.201 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 23:00:11.201 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 23:00:11.201 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 23:00:11.202 32712  3751 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 23:00:11.202 32712  3751 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 23:00:11.202 32712  3751 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 23:00:11.203 32712  3751 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 23:00:11.206 32712  3751 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1435.7","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 23:00:11.206 32712  3751 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1435.7","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 23:00:11.206 32712  3751 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 23:00:11.206 32712  3751 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 23:00:11.206 32712  3751 I DCTOOL  : OSVersion: 13
+09-13 23:00:11.206 32712  3751 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 23:00:11.206 32712  3751 W libc    : Access denied finding property "ro.serialno"
+09-13 23:00:11.206 32712  3751 I DCTOOL  : Serialno: 
+09-13 23:00:15.823 32712  3751 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 23:00:15.823 32712  3751 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 23:00:15.823 32712  3751 D DCTOOL  :  34a7036ced068c728e8cb7ddf8ce5ee0 
+09-13 23:00:15.823 32712  3751 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 23:00:15.823 32712  3751 D DCTOOL  : OnToolCallback : 34a7036ced068c728e8cb7ddf8ce5ee0
+09-13 23:00:15.823 32712  3751 D DCTOOL  : OnToolCallback, current thread=191
+09-13 23:00:15.823 32712  3751 D DCTOOL  : onUploadID, current thread=191
+09-13 23:00:15.823 32712  3751 I DcTool  : 34a7036ced068c728e8cb7ddf8ce5ee0
+09-13 23:00:15.823 32712  3751 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 23:00:41.233 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 23:00:41.233 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 23:00:41.233 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 23:00:41.233 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 23:00:41.233 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 23:00:41.234 32712  3815 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 23:00:41.234 32712  3815 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 23:00:41.234 32712  3815 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 23:00:41.235 32712  3815 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 23:00:41.238 32712  3815 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1427.6","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 23:00:41.238 32712  3815 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1427.6","cpu_model":"0","cpu_clockspeed":"500000","device_id":"1869676bca67c040"
+09-13 23:00:41.238 32712  3815 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 23:00:41.238 32712  3815 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 23:00:41.238 32712  3815 I DCTOOL  : OSVersion: 13
+09-13 23:00:41.238 32712  3815 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 23:00:41.239 32712  3815 W libc    : Access denied finding property "ro.serialno"
+09-13 23:00:41.239 32712  3815 I DCTOOL  : Serialno: 
+09-13 23:00:45.902 32712  3815 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 23:00:45.902 32712  3815 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 23:00:45.902 32712  3815 D DCTOOL  :  eb396f7e48eca23a533ea51eec5ab6c3 
+09-13 23:00:45.902 32712  3815 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 23:00:45.902 32712  3815 D DCTOOL  : OnToolCallback : eb396f7e48eca23a533ea51eec5ab6c3
+09-13 23:00:45.902 32712  3815 D DCTOOL  : OnToolCallback, current thread=193
+09-13 23:00:45.902 32712  3815 D DCTOOL  : onUploadID, current thread=193
+09-13 23:00:45.902 32712  3815 I DcTool  : eb396f7e48eca23a533ea51eec5ab6c3
+09-13 23:00:45.902 32712  3815 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 23:01:11.254 32712   728 D DCTOOL  : ntStart() queue size (1), current thread=146
+09-13 23:01:11.254 32712   728 D DCTOOL  : ntStart() after so loaded, current thread=146
+09-13 23:01:11.254 32712   728 D DCTOOL  : ntStart() with native and reset.
+09-13 23:01:11.254 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-13 23:01:11.254 32712   728 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-13 23:01:11.255 32712  4076 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-13 23:01:11.255 32712  4076 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-13 23:01:11.255 32712  4076 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-13 23:01:11.256 32712  4076 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-13 23:01:11.258 32712  4076 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"3765.6","mem_idle":"1503.4","cpu_model":"0","cpu_clockspeed":"1700000","device_id":"1869676bca67c040"
+09-13 23:01:11.258 32712  4076 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"3765.6","mem_idle":"1503.4","cpu_model":"0","cpu_clockspeed":"1700000","device_id":"1869676bca67c040"
+09-13 23:01:11.258 32712  4076 D DCTOOL  : In C++, release the returned string. detach. 
+09-13 23:01:11.258 32712  4076 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-13 23:01:11.258 32712  4076 I DCTOOL  : OSVersion: 13
+09-13 23:01:11.258 32712  4076 I DCTOOL  : brand: realme -- model: RMX3191
+09-13 23:01:11.258 32712  4076 W libc    : Access denied finding property "ro.serialno"
+09-13 23:01:11.258 32712  4076 I DCTOOL  : Serialno: 
+09-13 23:01:15.955 32712  4076 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 23:01:15.955 32712  4076 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 23:01:15.955 32712  4076 D DCTOOL  :  f9e58e175168f138c0f2e1284ee6f212 
+09-13 23:01:15.955 32712  4076 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 23:01:15.955 32712  4076 D DCTOOL  : OnToolCallback : f9e58e175168f138c0f2e1284ee6f212
+09-13 23:01:15.955 32712  4076 D DCTOOL  : OnToolCallback, current thread=195
+09-13 23:01:15.955 32712  4076 D DCTOOL  : onUploadID, current thread=195
+09-13 23:01:15.955 32712  4076 I DcTool  : f9e58e175168f138c0f2e1284ee6f212
+09-13 23:01:15.955 32712  4076 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.

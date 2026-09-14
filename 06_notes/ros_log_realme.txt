@@ -1,0 +1,103 @@
+--------- beginning of main
+09-13 23:00:41.239 32712  3815 I DCTOOL  : Serialno: 
+09-13 23:00:41.260  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:41.481  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:41.670  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:42.036  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:42.308  1172  1284 D AALLightSensor: oldLux=0 [SA:0 LA:0] newLux=0 (oriLux: 0)
+--------- beginning of system
+09-13 23:00:42.509  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:42.509  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:42.909  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:43.038  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:44.054  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:44.164  2481  2860 E OplusNetworkStackManager: callback len = 3
+09-13 23:00:44.164  2481  2860 D OplusFastRecovery: OplusNetworkScoreCbProxy invoke.....onNetworkQualityChange argslen:6
+09-13 23:00:44.165  2481  2860 D NetworkEvent: OplusNetworkScoreCbProxy invoke.....onNetworkQualityChange argslen:6
+09-13 23:00:44.166  1671  4948 E OplusNetworkStackManager: callback len = 5
+09-13 23:00:44.166  1671  4948 D OLK     : INetworkScoreCallback() networkId: 103 better = false, score = 93
+09-13 23:00:44.167  2437 21578 E OplusNetworkStackManager: callback len = 1
+09-13 23:00:44.709  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:44.709  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:45.043  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:45.109  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:45.171  1671  4948 I OplusStatusBarManagerServiceEnhance:  getTopIsFullscreen mTopIsFullscreen: true
+09-13 23:00:45.184  1671  1820 E OplusThermalService: Could not open '/sys/class/thermal/thermal_zone86/temp'
+09-13 23:00:45.195  1671  1820 E OplusThermalService: Could not open '/sys/class/thermal/thermal_zone86/temp'
+09-13 23:00:45.462  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:45.902 32712  3815 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-13 23:00:45.902 32712  3815 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-13 23:00:45.902 32712  3815 D DCTOOL  :  eb396f7e48eca23a533ea51eec5ab6c3 
+09-13 23:00:45.902 32712  3815 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-13 23:00:45.902 32712  3815 D DCTOOL  : OnToolCallback : eb396f7e48eca23a533ea51eec5ab6c3
+09-13 23:00:45.902 32712  3815 D DCTOOL  : OnToolCallback, current thread=193
+09-13 23:00:45.902 32712  3815 D DCTOOL  : onUploadID, current thread=193
+09-13 23:00:45.902 32712  3815 I DcTool  : eb396f7e48eca23a533ea51eec5ab6c3
+09-13 23:00:45.902 32712  3815 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-13 23:00:46.308  1172  1284 D AALLightSensor: oldLux=0 [SA:0 LA:0] newLux=0 (oriLux: 0)
+09-13 23:00:46.909  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:46.909  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:47.309  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:49.109  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:49.109  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:49.383  1671  1722 D AES     : AEEIOCTL_GET/SET_SF_STATE IOCTL,cmd= 1074294797, lParam=0. 
+09-13 23:00:49.384  1671  1722 D AES     : AEEIOCTL_RT_MON_Kick IOCTL,cmd= 2147774474, lParam=300. 
+09-13 23:00:49.508  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:49.989  1671  1929 D OplusNetKit: interface name from LP: [wlan0]
+09-13 23:00:49.989  1671  1929 D OplusNetKit: in getLpByInterface name from LP: [wlan0]
+09-13 23:00:49.989  1671  1929 D OplusNetKit: in getLpByInterface name from LP: [wlan0]
+09-13 23:00:49.989  1671  1929 D OplusNetKit: Route is ipv4 on wlan0 found, break
+09-13 23:00:50.309  1172  1284 D AALLightSensor: oldLux=0 [SA:0 LA:0] newLux=0 (oriLux: 0)
+09-13 23:00:50.604  2318  3854 D TrafficStats: tagSocket(128) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.604  2318  3857 D TrafficStats: tagSocket(129) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.604  2318  3855 D TrafficStats: tagSocket(130) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.604  2318  3856 D TrafficStats: tagSocket(131) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.608  2318  3854 D TrafficStats: tagSocket(129) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.608  2318  3857 D TrafficStats: tagSocket(128) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.608  2318  3855 D TrafficStats: tagSocket(130) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.608  2318  3856 D TrafficStats: tagSocket(131) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.616  2318  3854 D NetworkMonitor/103: PROBE_DNS 127.0.0.1 12ms FAIL in type ADDRCONFIG java.net.UnknownHostException
+09-13 23:00:50.616  2481  9178 D NetworkEvent: OplusNetworkEventCbProxy invoke.....onDnsEvent argslen:8
+09-13 23:00:50.617  2318  3857 D NetworkMonitor/103: PROBE_DNS 127.0.0.1 12ms FAIL in type ADDRCONFIG java.net.UnknownHostException
+09-13 23:00:50.617  2318  3855 D NetworkMonitor/103: PROBE_DNS 127.0.0.1 12ms FAIL in type ADDRCONFIG java.net.UnknownHostException
+09-13 23:00:50.618  2318  3856 D NetworkMonitor/103: PROBE_DNS 127.0.0.1 13ms FAIL in type ADDRCONFIG java.net.UnknownHostException
+09-13 23:00:50.619  2318  3854 D TrafficStats: tagSocket(128) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.619  2318  3857 D TrafficStats: tagSocket(129) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.619  2318  3855 D TrafficStats: tagSocket(132) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.619  2318  3856 D TrafficStats: tagSocket(134) with statsTag=0xffffff81, statsUid=-1
+09-13 23:00:50.882  1139  1139 I thermal_repeater: [recvMdThermalInfo] ret=33, strLen=127,  1, 32767,,, 25327, 32767, -28532
+09-13 23:00:51.044  1671  1929 E OplusArpPeer_euclid_psw: ARP read failure: android.system.ErrnoException: read failed: EAGAIN (Try again)
+09-13 23:00:51.046  1671  1929 E OplusArpPeer_euclid_psw:  OplusArpPeer close
+09-13 23:00:51.068  1671  1820 E OplusThermalService: Could not open '/sys/class/thermal/thermal_zone86/temp'
+09-13 23:00:51.078  1671  1820 E OplusThermalService: Could not open '/sys/class/thermal/thermal_zone86/temp'
+09-13 23:00:51.309  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:51.309  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:51.708  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:52.629  2318  3854 D NetworkMonitor/103: PROBE_HTTP http://conn-service-us-04.allawnos.com/generate204 Probe failed with exception java.io.IOException: unexpected end of stream on com.android.okhttp.Address@9e3bc7ce
+09-13 23:00:53.431   804   827 D power@timer: [mtkPowerTimer] visRead:0
+09-13 23:00:53.509  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:53.509  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:53.703   897   903 D ccci_mdinit: (1):monitor_time_update_thread round:475 ########
+09-13 23:00:53.908  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:54.508  1172  1284 D AALLightSensor: oldLux=0 [SA:0 LA:0] newLux=0 (oriLux: 0)
+09-13 23:00:54.635  2318  3857 D NetworkMonitor/103: PROBE_HTTPS https://www.google.us/generate_204 Probe failed with exception java.io.IOException: unexpected end of stream on null
+09-13 23:00:55.189  1671  2049 I OplusStatusBarManagerServiceEnhance:  getTopIsFullscreen mTopIsFullscreen: true
+09-13 23:00:55.709  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:55.709  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:56.108  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:56.644  2318  3856 D NetworkMonitor/103: PROBE_HTTPS https://conn-service-us-05.allawnos.com/generate204 Probe failed with exception java.io.IOException: unexpected end of stream on null
+09-13 23:00:57.212  1671  1820 E OplusThermalService: Could not open '/sys/class/thermal/thermal_zone86/temp'
+09-13 23:00:57.226  1671  1820 E OplusThermalService: Could not open '/sys/class/thermal/thermal_zone86/temp'
+09-13 23:00:57.909  1671  1773 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+09-13 23:00:57.909  1671  1773 I OplusSmartBrightnessController: handleUpdateBrightness, don`t update bright because system has been locked by proximity.
+09-13 23:00:58.175  4356  6089 I PhenotypeProcessReaper: Memory state is: 200
+09-13 23:00:58.308  1671  1771 I OplusSmartBrightnessController: brightness accelerate start...
+09-13 23:00:58.508  1172  1284 D AALLightSensor: oldLux=0 [SA:0 LA:0] newLux=0 (oriLux: 0)
+09-13 23:00:58.648  2318  3855 D NetworkMonitor/103: PROBE_HTTP http://www.google.us/generate_204 Probe failed with exception java.io.IOException: unexpected end of stream on com.android.okhttp.Address@d11702e8
+09-13 23:00:58.650  2318  3853 D NetworkMonitor/103: isCaptivePortal: isSuccessful()=false isPortal()=false RedirectUrl=null isPartialConnectivity()=false Time=8048ms
+09-13 23:00:58.651  1671  1937 D ConnectivityService: [103 WIFI] validation failed
+09-13 23:00:58.652  1671  1897 D WN_S    : notifyValidationStatus: status=2
+09-13 23:00:58.653  1671  1937 E ConnectivityService: ERROR: cannot call explicitlySelected on already-connected network
+09-13 23:00:58.658  1671  1937 D ConnectivityService: NetReassign [no changes] [c 0] [a 1] [i 3]
+09-13 23:00:58.705  5372  2405 W MediaProvider: isAppCloneUserPair failed. Users: 0 and 0
+09-13 23:00:58.705  5372  2405 W MediaProvider: isAppCloneUserPair for user 0: false
