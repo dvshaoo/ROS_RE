@@ -26,7 +26,7 @@ Every subsystem required to establish a functional local/LAN environment is clas
 | **A. Android/Java Layer** | `CLIENT-ONLY` | Android Client | Launches `Launcher.class`, unpacks OBB, initializes `libclient.so`, manages graphics surface | **SOLVED**: Existing APK/OBB runs in LDPlayer. |
 | **B. Authentication Layer (MPay/UniSDK)** | `REQUIRED` | Server-Side (HTTP) | Serves `/api/users/login/guest`, `/api/minors/` returning `minor_status: 102` (adult verified) | **SOLVED**: Lightweight Python HTTP server (`mitm_serve.py`) fulfills this. |
 | **C. Server List Service** | `REQUIRED` | Server-Side (HTTP) | Serves `server_list_ad.txt` pointing to local LAN IP and UDP port (e.g. `192.168.1.50:20013`) | **SOLVED**: Single-line text payload serves target LAN IP. |
-| **D. LoginApp Service** | `REQUIRED` | Server-Side (Mercury UDP) | Listens on port `20013` / `25000`. Holds matching RSA private key, decrypts `LogOnParams`, returns BaseApp redirect | **UNRESOLVED**: Requires BigWorld LoginApp server implementation and matching RSA key pair. |
+| **D. LoginApp Service** | `REQUIRED` | Server-Side (Mercury UDP) | Listens on port `20013` / `25000`. Returns BaseApp redirect | **REVISED (see `LOGONPARAMS_SERIALIZATION.md`/`LOCAL_SERVER_MINIMUM.md`)**: binary analysis confirms the client does not require the server to successfully decrypt `LogOnParams` to proceed — it only needs a plausible `LoginReplyRecord`. A local LoginApp does **not** need the real RSA private key; it can ignore the (undecryptable) credential block entirely and unconditionally reply with a synthetic BaseApp address. Still unresolved: exact byte layout of that reply record. |
 | **E. BaseApp Service** | `REQUIRED` | Server-Side (Mercury UDP) | Handles `BaseAppLoginRequest`, instantiates `Account` entity, runs `handshake`, transitions to `Athlete` (Lobby) | **UNRESOLVED**: Requires BaseApp Mercury bundle parser and Python entity runtime. |
 | **F. CellApp Service** | `REQUIRED` (for Battle)<br>`OPTIONAL` (for Lobby) | Server-Side (Simulation) | Manages `BattleGroundSpace`, runs physics/bullet trajectories, ticks game simulation, syncs player movements | **UNRESOLVED**: Requires 3D space manager and collision mesh evaluator. |
 | **G. Entity Definitions** | `REQUIRED` | Shared (Client & Server) | 723 XML entity specifications (`Account.def.xml`, `Athlete.def.xml`, `Avatar.def.xml`, etc.) | **SOLVED**: Full decrypted XML catalog extracted in `05_entities/out/`. |
@@ -98,3 +98,30 @@ The immediate technical barrier preventing the game client from progressing past
 > 1. An active Mercury UDP server listening on port 20013 / 25000.
 > 2. The exact binary packet serialization layout of `LogOnParams::addToStream`.
 > 3. The RSA private key corresponding to `entities\loginapp.pubkey` to decrypt the client's login bundle and formulate a valid `LoginReplyRecord`.
+
+---
+
+## 6. 2026-09-14 Update — Deeper Native Verification
+
+A follow-up pass went one level deeper into `03_lib/libclient_arm64.so` than the analysis
+above, confirming §5 point 2 at the byte level and **revising** §5 point 3. Full detail in:
+
+- **`LOGONPARAMS_SERIALIZATION.md`** — `LogOnParams::addToStream` fully mapped at the
+  instruction level: confirmed field order/offsets, confirmed the string-length encoding
+  scheme, and confirmed the encryption uses **RSA-OAEP** (not PKCS#1 v1.5 as previously
+  assumed) with multi-block chunking. Critically: **only 4 of 6 fields are inside the RSA
+  block** — the entity-defs digest and a trailing uint32 are always sent in plaintext.
+- **Revision to §5 point 3**: the client does not require the server to actually decrypt
+  the credential block to proceed past LoginApp — it only needs a plausible-shaped
+  `LoginReplyRecord` in response. This means a local LoginApp prototype does **not** need
+  the real private key at all. See `LOCAL_SERVER_MINIMUM.md` for the corrected staged plan.
+- **`LOGIN_REPLY_RECORD.md`** — confirmed `LoginHandler::onLoginReply` function location and
+  a 20-byte address-shaped record read from the reply; `SessionKey`/`AccountID` byte
+  locations from the prior report were **not** independently confirmed and are marked
+  UNKNOWN pending further work, rather than restated as fact.
+- **`MERCURY_PACKET_MAP.md`** — directly extracted the client's `BaseAppExtInterface` and
+  `ClientInterface` Mercury method name tables from rodata (`baseAppLogin`,
+  `createBasePlayer`, `createCellPlayer`, `enterAoI`, etc.) — the first byte-verified
+  artifact of the actual RPC surface, rather than names inferred from architecture alone.
+- **New top-priority blocker**: `BaseAppLoginRequest`'s bundle serialization
+  (`baseAppLogin`) was not yet traced — see `BASEAPP_LOGIN_SERIALIZATION.md`.

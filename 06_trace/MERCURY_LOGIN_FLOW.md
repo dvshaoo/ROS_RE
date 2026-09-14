@@ -37,7 +37,16 @@ LoginApp returns LoginReplyRecord over UDP
 - **Method**: `neox::bwclient::LogOnParams::addToStream(Mercury::BinaryOStream&)`
 - **Purpose**: Packages all client identification, authentication tokens, engine versions, and security digests into an encrypted binary bundle dispatched to the `loginapp`.
 
-### 2.2 Fields Sent in LoginApp Request Bundle
+> **2026-09-14 UPDATE**: The table below (§2.2) was written before instruction-level
+> disassembly of `addToStream` was performed and does not match what the binary actually
+> does. It is kept for history but is **superseded** by `LOGONPARAMS_SERIALIZATION.md`,
+> which documents the real field offsets, the real (non-BigWorld-standard) 4-argument
+> function signature, and confirms the RSA padding is **OAEP**, not PKCS#1 v1.5. In
+> particular: only 4 fields (flags + 3 strings) are inside the encrypted block — the
+> "Entity Defs MD5" and a numeric field are always sent in plaintext, contradicting the
+> "CONFIRMED" marks below for those two rows.
+
+### 2.2 Fields Sent in LoginApp Request Bundle (SUPERSEDED — see note above)
 
 | Field | Source | Purpose | Encoding / Framing | Confirmed? |
 | :--- | :--- | :--- | :--- | :--- |
@@ -65,6 +74,17 @@ LoginApp returns LoginReplyRecord over UDP
   4. Returns `false`, triggering error handler at `0x93c250`:
      - Dispatches error log: `ServerConnection::logOnBegin PUBLIC_KEY_LOOKUP_FAILED`
      - Invokes login failure callback with `LogOnStatus` code `0x701`.
+
+> **2026-09-14 UPDATE**: The exact xref addresses `0x93b448` and `0x996f50` cited in this
+> section could not be reproduced with an independent ADRP/ADD cross-reference scan of the
+> `entities\loginapp.pubkey` and `setKeyFromResource` strings (zero hits — likely referenced
+> via a pointer table rather than an inline literal load, which the scan method used does
+> not follow). The general claim (client loads a PEM RSA public key via OpenSSL
+> `BIO`/`PEM_read_bio_RSA_PUBKEY`/`RSA_size`) remains STRONG EVIDENCE — those OpenSSL symbol
+> names are genuinely present in `.dynstr` — but the specific addresses in this section are
+> UNVERIFIED, not CONFIRMED. What **was** independently confirmed at the instruction level is
+> the padding mode used at encryption time: **RSA-OAEP**, not PKCS#1 v1.5 — see
+> `LOGONPARAMS_SERIALIZATION.md` §5.
 
 ### 3.2 Key Format & OpenSSL Parsing
 Decompilation of `0x996f50` (`Mercury::EncryptionFilter::setKey`) reveals:
