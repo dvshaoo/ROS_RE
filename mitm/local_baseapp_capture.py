@@ -86,8 +86,11 @@ def serve_loginapp_udp_responder():
             # PLAY_TO_BASEAPP_CAPTURE.md; this is a single, evidence-motivated variant,
             # not brute-forcing.
             reply = body + b'\x00\x00'
-            s.sendto(reply, addr)
-            log('LOGINAPP UDP SENT framed reply (%d bytes) to %s:%d: %s' % (len(reply), addr[0], addr[1], reply.hex()))
+            if os.environ.get('NO_REPLY') == '1':
+                log('LOGINAPP UDP: NO_REPLY=1 set, deliberately NOT sending a reply (control experiment)')
+            else:
+                s.sendto(reply, addr)
+                log('LOGINAPP UDP SENT framed reply (%d bytes) to %s:%d: %s' % (len(reply), addr[0], addr[1], reply.hex()))
         except Exception as e:
             log('LOGINAPP UDP error: %s' % e)
 

@@ -211,3 +211,15 @@ This does **not** resolve the dispatch-path question in §6/§7 above: the obser
 addresses are Houdini's generic dispatch machinery (shared by all ARM64 code on that
 thread), not attributable to `LoginHandler::onLoginReply` specifically.
 `LoginHandler::onLoginReply` is still **not confirmed reached**.
+
+## 9. 2026-09-14 (wire capture) — Kernel-Level Capture Confirms Bytes, Not Dispatch
+
+**CONFIRMED BY DYNAMIC CAPTURE**: a genuine `tcpdump` capture on the Android guest's
+`wlan0` (`06_trace/MERCURY_WIRE_CAPTURE.md`) proves the client sends exactly 10
+`LogOnParams` retries at a fixed ~0.43s cadence, then waits ~5.1s of silence before
+`Mercury::REASON_TIMER_EXPIRED` at ~9.0s total — reproduced identically across two capture
+sessions. Client wire bytes match server-received bytes exactly, in both directions,
+ruling out the local network path as a source of any corruption. A reply/no-reply control
+experiment shows retry timing is **completely unaffected** by whether a reply is sent at
+all. This is new, precise, wire-level evidence, but it does **not** establish whether
+`LoginHandler::onLoginReply` executes — that remains unknown, and is not claimed here.

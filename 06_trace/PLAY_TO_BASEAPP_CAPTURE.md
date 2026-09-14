@@ -180,6 +180,17 @@ evidence). **Status unchanged**: LoginApp `:25000` continues to receive real tra
 BaseApp `:25010` remains at zero packets; `LoginHandler::onLoginReply` is still not
 confirmed reached.
 
+## 14. 2026-09-14 (wire capture) — Independent Kernel-Level Confirmation
+
+`06_trace/MERCURY_WIRE_CAPTURE.md` obtained a genuine `tcpdump` capture on the Android
+guest's `wlan0`, independent of and unaffected by the NativeBridge issues that blocked all
+prior in-process instrumentation. Confirms byte-for-byte that the client wire packet
+matches this document's §2 capture and the server's received bytes exactly, and precisely
+times the retry behavior (10 attempts at ~0.43s intervals, then ~5.1s silence, then
+timeout at ~9.0s). A reply/no-reply control experiment shows retry timing is unaffected by
+whether a reply is sent — new evidence, still consistent with (not proving) rejection prior
+to any handler dispatch. `LoginHandler::onLoginReply` remains not confirmed reached.
+
 ## Evidence Files
 
 - `mitm/captures/BASEAPP_LOGIN_CAPTURE.txt` — full raw capture log (both attempts).

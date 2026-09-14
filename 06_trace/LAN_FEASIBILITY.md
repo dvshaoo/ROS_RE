@@ -196,3 +196,18 @@ and both were rejected (client kept retrying, same Mercury::REASON_TIMER_EXPIRED
 :25010 has still received zero traffic. This narrows row D in the matrix above: the
 blocker is now understood to likely be at the Mercury packet/envelope level, not only the
 LoginReplyRecord body content.
+
+
+### 2026-09-14 (wire capture) -- kernel-level packet capture obtained, host NAT topology clarified
+
+A genuine tcpdump capture on the Android guest's own wlan0 interface (bypassing NativeBridge
+entirely) confirmed: (1) client wire bytes match server-received bytes exactly in both
+directions -- the local network path introduces no corruption; (2) the client sends exactly
+10 LogOnParams retries at a fixed ~0.43s cadence then waits ~5.1s in silence before
+Mercury::REASON_TIMER_EXPIRED at ~9.0s total, reproduced identically across two sessions;
+(3) a reply/no-reply control experiment shows retry timing is completely unaffected by
+whether a reply is sent at all. Also clarified: this LDPlayer instance has NO real Windows
+network interface carrying the 172.16.1.x traffic -- the 172.16.1.2 gateway is emulated
+entirely in userspace by LDPlayer's own NAT (slirp-style), consistent with our server
+seeing connections from 127.0.0.1 throughout every session. Full detail:
+MERCURY_WIRE_CAPTURE.md. LoginHandler::onLoginReply is still not confirmed reached.
