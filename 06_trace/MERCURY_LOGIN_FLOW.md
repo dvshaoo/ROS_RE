@@ -178,3 +178,21 @@ known to be **incomplete**: some Mercury-level envelope is required first, and t
 candidate envelopes have been tried and rejected (`LOGIN_REPLY_MERCURY_ENVELOPE.md` §5).
 `LoginHandler::onLoginReply` has **not** been confirmed reached by any local reply sent so
 far.
+
+## 7. 2026-09-14 (follow-up) — `handleMessage` Boundary Confirmed; Dispatch Path Still Opaque
+
+**CONFIRMED BY BINARY**: `LoginHandler::onLoginReply`/`handleMessage`'s exact function
+boundary is `0x938070`–`0x938724` (re-verified via a systematic 75-function prologue
+inventory of the whole `ServerConnection` code cluster, `0x936000`–`0x93d000`) — narrower
+and more precise than the loosely-quoted "0x938100–0x938940" range in earlier documents.
+
+**STRONG EVIDENCE**: this function, `LogOnParams::addToStream`, and a nearby
+log-formatting routine are each called via a mechanism that produced **zero results** across
+five independent static call-graph methods (direct `BL`, direct `B`, absolute-pointer scan,
+relocation-addend scan, relative-vtable-offset scan) — see
+`MERCURY_REPLY_DISPATCH_TRACE.md` §2 for the full account. This is consistent with genuine
+C++ virtual dispatch (expected for a message-handler interface in BigWorld's Mercury
+design) whose vtable could not be located by slot-value scanning. The dispatch path from
+raw UDP receipt to this handler — and the lifecycle of the 32-bit "reply id" implied by
+`Mercury::Nub::handleMessage`'s own diagnostic string — remains **UNKNOWN**, not
+established despite a real, thorough attempt.

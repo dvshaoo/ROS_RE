@@ -166,6 +166,20 @@ assumption.
 **Status unchanged**: `LoginHandler::onLoginReply` still not confirmed reached. LoginApp
 `:25000` continues to receive real traffic; BaseApp `:25010` still has zero packets.
 
+## 13. 2026-09-14 (dispatch-trace pass) — Handler Confirmed, Dispatch Mechanism Unresolved
+
+A follow-up pass (`06_trace/MERCURY_REPLY_DISPATCH_TRACE.md`) worked backward from
+confirmed-live code to trace the path from UDP receipt to `LoginHandler::onLoginReply`.
+Result: the handler function's exact boundary is now precisely confirmed
+(`0x938070`–`0x938724`), but the mechanism that calls it could not be found — five
+independent static cross-reference methods (direct call, tail-call, absolute pointer,
+relocation addend, relative-vtable offset) all returned zero results, consistent with
+virtual dispatch through a vtable this pass could not locate. No new reply envelope was
+tested (per the task's explicit instruction not to brute-force further without new
+evidence). **Status unchanged**: LoginApp `:25000` continues to receive real traffic;
+BaseApp `:25010` remains at zero packets; `LoginHandler::onLoginReply` is still not
+confirmed reached.
+
 ## Evidence Files
 
 - `mitm/captures/BASEAPP_LOGIN_CAPTURE.txt` — full raw capture log (both attempts).
