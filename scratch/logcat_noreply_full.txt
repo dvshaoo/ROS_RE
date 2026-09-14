@@ -1,0 +1,57 @@
+--------- beginning of main
+09-14 22:46:46.229  1415  1415 I health@2.0-serv: type=1400 audit(0.0:9799): avc: denied { read } for scontext=u:r:init:s0 tcontext=u:r:init:s0 tclass=netlink_kobject_uevent_socket permissive=1
+09-14 22:46:46.338 19874 19874 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 960 795 
+09-14 22:46:46.338 19874 19874 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-14 22:46:46.340 19874 19874 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-14 22:46:46.350 19874 19874 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-14 22:46:46.356 19874 19874 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-14 22:46:46.369 19874 19874 I main    : type=1400 audit(0.0:9800): avc: denied { mounton } for path="/proc/cpuinfo" dev="proc" ino=4026531992 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpuinfo:s0 tclass=file permissive=1
+09-14 22:46:46.372 19874 19874 I app_process: The ClassLoaderContext is a special shared library.
+09-14 22:46:46.373 19874 19874 W app_process: Could not create mount namespace.
+09-14 22:46:46.373 19874 19874 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-14 22:46:46.373 19874 19874 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-14 22:46:46.373 19874 19874 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-14 22:46:46.373 19874 19874 D nativebridge: call UnloadNativeBridge! state=2
+09-14 22:46:46.385 19874 19874 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-14 22:46:46.387 19874 19874 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=960.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=22543130, downTime=22543130, deviceId=3, source=0x1002 }
+09-14 22:46:46.396 19874 19874 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=960.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=22543130, downTime=22543130, deviceId=3, source=0x1002 }
+09-14 22:46:46.404 19874 19874 D AndroidRuntime: Shutting down VM
+09-14 22:46:46.427 16332 16424 E NeoX    : finish get cutOut info
+09-14 22:46:46.439  1558  1566 W System  : A resource failed to call close. 
+09-14 22:46:46.439  1558  1566 I chatty  : uid=1000(system) FinalizerDaemon identical 25 lines
+09-14 22:46:46.439  1558  1566 W System  : A resource failed to call close. 
+09-14 22:46:46.910 16332 16424 I [22:46:46.910] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-14 22:46:46.910 16332 16424 I [22:46:46.910] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-14 22:46:46.911 16332 16424 I [22:46:46.911] M : [INFO] Nub::recreateListeningSocket 0x76384dfef000 0.0.0.0:30091
+09-14 22:46:54.219 16332 16424 I [22:46:54.219] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: -1948659064
+09-14 22:46:55.805 16332 16424 I         : 
+09-14 22:46:55.805 16332 16424 I         : ERROR *****************************************************************************
+09-14 22:46:55.805 16332 16424 I [22:46:55.805] M : [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-14 22:46:55.904 16332 16424 I         : 
+09-14 22:46:55.904 16332 16424 I         : ERROR *****************************************************************************
+09-14 22:46:55.904 16332 16424 I [22:46:55.904] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-14 22:46:55.905 16332 16424 D DCTOOL  : ntStart() queue size (1), current thread=321
+09-14 22:46:55.905 16332 16424 D DCTOOL  : ntStart() after so loaded, current thread=321
+09-14 22:46:55.905 16332 16424 D DCTOOL  : ntStart() with native and reset.
+09-14 22:46:55.905 16332 16424 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-14 22:46:55.906 16332 16424 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-14 22:46:55.906 16332 19884 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-14 22:46:55.906 16332 19884 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-14 22:46:55.906 16332 19884 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-14 22:46:55.909 16332 16332 I Thread-92: type=1400 audit(0.0:9801): avc: denied { open } for path="/proc/cpuinfo" dev="sdb2" ino=393324 scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:system_data_file:s0 tclass=file permissive=1
+09-14 22:46:55.912 16332 19884 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-14 22:46:55.914 16332 19884 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4803.5","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-14 22:46:55.914 16332 19884 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4803.5","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-14 22:46:55.914 16332 19884 D DCTOOL  : In C++, release the returned string. detach. 
+09-14 22:46:55.914 16332 19884 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-14 22:46:55.915 16332 19884 I DCTOOL  : OSVersion: 9
+09-14 22:46:55.915 16332 19884 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-14 22:46:55.915 16332 19884 I DCTOOL  : Serialno: 00c80dd8
+09-14 22:46:55.943 16332 19884 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-14 22:46:55.943 16332 19884 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-14 22:46:55.943 16332 19884 D DCTOOL  :  NOT RUNNING TIME. 
+09-14 22:46:55.943 16332 19884 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-14 22:46:55.943 16332 19884 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-14 22:46:55.943 16332 19884 D DCTOOL  : OnToolCallback, current thread=408
+09-14 22:46:55.943 16332 19884 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-14 22:46:56.502 16332 16424 I NeoXDevice: On App CMD 114

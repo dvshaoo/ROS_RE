@@ -1,0 +1,248 @@
+--------- beginning of system
+09-14 20:31:16.232  2253  2253 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.startService:1531 android.content.ContextWrapper.startService:664 android.content.ContextWrapper.startService:664 com.android.coreservice.CoreBroadcastReceiver.onReceive:70 android.app.ActivityThread.handleReceiver:3424 
+--------- beginning of main
+09-14 21:04:15.648  1558  1566 I chatty  : uid=1000(system) FinalizerDaemon expire 27 lines
+09-14 21:04:15.648  1558  1566 W System  : A resource failed to call close. 
+09-14 21:04:29.352 16774 16774 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 960 795 
+09-14 21:04:29.353 16774 16774 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-14 21:04:29.357 16774 16774 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-14 21:04:29.382 16774 16774 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-14 21:04:29.388 16774 16774 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-14 21:04:29.421 16774 16774 I app_process: The ClassLoaderContext is a special shared library.
+09-14 21:04:29.421 16774 16774 W app_process: Could not create mount namespace.
+09-14 21:04:29.421 16774 16774 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-14 21:04:29.421 16774 16774 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-14 21:04:29.421 16774 16774 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-14 21:04:29.421 16774 16774 D nativebridge: call UnloadNativeBridge! state=2
+09-14 21:04:29.454 16774 16774 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-14 21:04:29.459 16774 16774 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=960.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=16406200, downTime=16406200, deviceId=3, source=0x1002 }
+09-14 21:04:29.473 16774 16774 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=960.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=16406200, downTime=16406200, deviceId=3, source=0x1002 }
+09-14 21:04:29.485 16774 16774 D AndroidRuntime: Shutting down VM
+09-14 21:04:29.524 16332 16424 E NeoX    : finish get cutOut info
+09-14 21:04:30.007 16332 16424 I [21:04:30.007] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-14 21:04:30.008 16332 16424 I [21:04:30.008] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-14 21:04:30.008 16332 16424 I [21:04:30.008] M : [INFO] Nub::recreateListeningSocket 0x76384dfef000 0.0.0.0:29008
+09-14 21:04:30.038 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.038 16332 16424 I [21:04:30.038] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:30.038 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.038 16332 16424 I [21:04:30.038] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:30.038 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.038 16332 16424 I [21:04:30.038] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:30.038 16332 16424 I         : 
+09-14 21:04:30.038 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.038 16332 16424 I [21:04:30.038] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:30.038 16332 16424 I         : 
+09-14 21:04:30.038 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.038 16332 16424 I [21:04:30.038] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:30.039 16332 16424 I         : 
+09-14 21:04:30.039 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.039 16332 16424 I [21:04:30.039] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:30.040 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.040 16332 16424 I [21:04:30.040] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:30.203 16332 16424 I NeoXDevice: On App CMD 28
+09-14 21:04:30.466 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:30.467 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:30.467 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:30.467 16332 16424 I         : 
+09-14 21:04:30.467 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:30.467 16332 16424 I         : 
+09-14 21:04:30.467 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:30.467 16332 16424 I         : 
+09-14 21:04:30.467 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:30.467 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.467 16332 16424 I [21:04:30.467] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:30.896 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.896 16332 16424 I [21:04:30.896] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:30.896 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.896 16332 16424 I [21:04:30.896] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:30.897 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.897 16332 16424 I [21:04:30.897] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:30.897 16332 16424 I         : 
+09-14 21:04:30.897 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.897 16332 16424 I [21:04:30.897] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:30.897 16332 16424 I         : 
+09-14 21:04:30.897 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.897 16332 16424 I [21:04:30.897] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:30.897 16332 16424 I         : 
+09-14 21:04:30.897 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:30.897 16332 16424 I [21:04:30.897] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:30.897 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:30.897 16332 16424 I [21:04:30.897] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:31.193 16332 16424 I NeoXDevice: On App CMD 29
+09-14 21:04:31.254  1558  2605 E memtrack: Couldn't load memtrack module
+09-14 21:04:31.254  1558  2605 W android.os.Debug: failed to get memory consumption info: -1
+09-14 21:04:31.326 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:31.326 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:31.326 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:31.326 16332 16424 I         : 
+09-14 21:04:31.326 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:31.326 16332 16424 I         : 
+09-14 21:04:31.326 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:31.326 16332 16424 I         : 
+09-14 21:04:31.326 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:31.326 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.326 16332 16424 I [21:04:31.326] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:31.755 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:31.755 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:31.755 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:31.755 16332 16424 I         : 
+09-14 21:04:31.755 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:31.755 16332 16424 I         : 
+09-14 21:04:31.755 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:31.755 16332 16424 I         : 
+09-14 21:04:31.755 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:31.755 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:31.755 16332 16424 I [21:04:31.755] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:32.184 16332 16424 I NeoXDevice: On App CMD 30
+09-14 21:04:32.184 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:32.184 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:32.184 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:32.184 16332 16424 I         : 
+09-14 21:04:32.184 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:32.184 16332 16424 I         : 
+09-14 21:04:32.184 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:32.184 16332 16424 I         : 
+09-14 21:04:32.184 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:32.184 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.184 16332 16424 I [21:04:32.184] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:32.613 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.613 16332 16424 I [21:04:32.613] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:32.613 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.613 16332 16424 I [21:04:32.613] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:32.613 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.613 16332 16424 I [21:04:32.613] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:32.613 16332 16424 I         : 
+09-14 21:04:32.613 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:32.613 16332 16424 I [21:04:32.613] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:32.614 16332 16424 I         : 
+09-14 21:04:32.614 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:32.614 16332 16424 I [21:04:32.614] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:32.614 16332 16424 I         : 
+09-14 21:04:32.614 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:32.614 16332 16424 I [21:04:32.614] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:32.614 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:32.614 16332 16424 I [21:04:32.614] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:33.043 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:33.043 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:33.043 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:33.043 16332 16424 I         : 
+09-14 21:04:33.043 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:33.043 16332 16424 I         : 
+09-14 21:04:33.043 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:33.043 16332 16424 I         : 
+09-14 21:04:33.043 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:33.043 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.043 16332 16424 I [21:04:33.043] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:33.175 16332 16424 I NeoXDevice: On App CMD 31
+09-14 21:04:33.472 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:33.472 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:33.472 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:33.472 16332 16424 I         : 
+09-14 21:04:33.472 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:33.472 16332 16424 I         : 
+09-14 21:04:33.472 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:33.472 16332 16424 I         : 
+09-14 21:04:33.472 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:33.472 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.472 16332 16424 I [21:04:33.472] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:33.902 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:33.902 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 4 bytes left
+09-14 21:04:33.902 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [WARNING] MemoryIStream::~MemoryIStream: There are still 1 bytes left
+09-14 21:04:33.902 16332 16424 I         : 
+09-14 21:04:33.902 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 23 for payload (9 left, needed 272)
+09-14 21:04:33.902 16332 16424 I         : 
+09-14 21:04:33.902 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-14 21:04:33.902 16332 16424 I         : 
+09-14 21:04:33.902 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-14 21:04:33.902 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-14 21:04:33.902 16332 16424 I         : WARNING ***************************************************************************
+09-14 21:04:33.902 16332 16424 I [21:04:33.902] M : [WARNING] MainApp::poll: disconnected since we have too may corruptted packet
+09-14 21:04:34.165 16332 16424 I NeoXDevice: On App CMD 32
+09-14 21:04:34.198 16332 16424 I [21:04:34.198] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: -1948659064
+09-14 21:04:37.614 16786 16786 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-14 21:04:37.614 16786 16786 D vndksupport: Loading /vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so from current namespace instead of sphal namespace.
+09-14 21:04:37.614 16786 16786 D vndksupport: Loading /vendor/lib64/hw/gralloc.default.so from current namespace instead of sphal namespace.
+09-14 21:04:37.622 16786 16786 I         : fastpipe: Connect success
+09-14 21:04:37.626 16786 16786 I         : fastpipe: Connect success
+09-14 21:04:37.626 16786 16786 D HostConnection: HostRPC::connect sucess: app=screencap, pid=16786, tid=16786, this=0x763893ee4540
+09-14 21:04:37.627 16786 16786 D HostConnection: queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:screencap
+09-14 21:04:38.891 16332 16424 I         : 
+09-14 21:04:38.891 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:38.891 16332 16424 I [21:04:38.891] M : [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-14 21:04:38.991 16332 16424 I         : 
+09-14 21:04:38.991 16332 16424 I         : ERROR *****************************************************************************
+09-14 21:04:38.991 16332 16424 I [21:04:38.991] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-14 21:04:38.992 16332 16424 D DCTOOL  : ntStart() queue size (1), current thread=321
+09-14 21:04:38.992 16332 16424 D DCTOOL  : ntStart() after so loaded, current thread=321
+09-14 21:04:38.992 16332 16424 D DCTOOL  : ntStart() with native and reset.
+09-14 21:04:38.992 16332 16424 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-14 21:04:38.992 16332 16424 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-14 21:04:38.993 16332 16789 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-14 21:04:38.993 16332 16789 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-14 21:04:38.993 16332 16789 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-14 21:04:38.998 16332 16789 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-14 21:04:38.999 16332 16789 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4902.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-14 21:04:38.999 16332 16789 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4902.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-14 21:04:38.999 16332 16789 D DCTOOL  : In C++, release the returned string. detach. 
+09-14 21:04:38.999 16332 16789 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-14 21:04:38.999 16332 16789 I DCTOOL  : OSVersion: 9
+09-14 21:04:38.999 16332 16789 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-14 21:04:38.999 16332 16789 I DCTOOL  : Serialno: 00c80dd8
+09-14 21:04:39.122 16332 16424 I NeoXDevice: On App CMD 33
+09-14 21:04:40.513 16332 16789 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-14 21:04:40.513 16332 16789 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-14 21:04:40.513 16332 16789 D DCTOOL  :  NOT RUNNING TIME. 
+09-14 21:04:40.513 16332 16789 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-14 21:04:40.513 16332 16789 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-14 21:04:40.513 16332 16789 D DCTOOL  : OnToolCallback, current thread=372
+09-14 21:04:40.514 16332 16789 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-14 21:04:59.129  1558  1566 W System  : A resource failed to call close. 
+09-14 21:04:59.129  1558  1566 I chatty  : uid=1000(system) FinalizerDaemon identical 30 lines
+09-14 21:04:59.129  1558  1566 W System  : A resource failed to call close. 
+09-14 21:05:00.002  1558  1570 W SchedPolicy: add_tid_to_cgroup failed to write '2332' (No space left on device); fd=24
+09-14 21:05:00.002  1558  1570 W SchedPolicy: add_tid_to_cgroup failed to write '2332' (No space left on device); fd=25
+09-14 21:05:06.978 16332 16424 I [21:05:06.978] M : [AUIDO]freeEventData: ui/ui_button_play, times: 1
+09-14 21:05:08.802  1481  1524 E storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
