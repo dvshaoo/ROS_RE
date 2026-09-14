@@ -192,3 +192,15 @@ per syscall, if supported by this device's `strace` build) on the `recvfrom` cal
 or **`ltrace`** if available, to see what user-space function called `recvfrom` and what it
 does immediately after — this could reveal the calling function's address even without
 Stalker, using the same ptrace-based mechanism that already worked here.
+
+## 2026-09-14 Update — Post-recv Path Traced, Rejection Reason Named
+
+A follow-up pass (`06_trace/MERCURY_POST_RECV_DISPATCH_TRACE.md`) found `strace -k`
+unsupported by this build (confirmed directly) and `-i`'s instruction pointer useless for
+attribution (it is always Houdini's shared syscall trampoline). However, `strace`'s own
+`writev()` capture incidentally revealed the client's own log output, which contains the
+literal line `MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET)`, fired
+immediately after every successful read of our reply and never fired in a matched
+NO_REPLY control. This is now the confirmed, named reason the reply is rejected — see that
+document for the full static/dynamic correlation. `LoginHandler::onLoginReply` is still not
+confirmed to execute.

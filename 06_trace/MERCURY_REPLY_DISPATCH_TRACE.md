@@ -194,6 +194,24 @@ execute. `strace`-based tracing (e.g. attempting `-k` for stack traces, or `ltra
 named as the next concrete avenue, since `strace` is now proven to work where Stalker did
 not.
 
+## 6d. 2026-09-14 (post-recv pass) — `REASON_CORRUPTED_PACKET` Confirmed, With a Correction
+
+`06_trace/MERCURY_POST_RECV_DISPATCH_TRACE.md` found the client's own log output naming
+the exact rejection reason (`Mercury::REASON_CORRUPTED_PACKET`), confirmed via a clean A/B
+(fires 11/11 times with a reply sent, 0/0 without), and traced it to a real, live function
+at `0x937df0`–`0x937f0c` — found via a direct static cross-reference to the
+`"REASON_CORRUPTED_PACKET"` string, unlike the many dead-code Mercury strings in §2/§3
+above. This function sits immediately adjacent to the confirmed `handleMessage` function
+and writes to the same `ServerConnection` offsets.
+
+**Correction to §2**: that section reported zero direct callers of `LogOnParams::addToStream`
+(`0x9d8014`) across five methods. This pass found a real caller targeting `0x9d8018` — 4
+bytes past that entry point — from the newly-found validation function. This resolves the
+"why no callers" puzzle without changing any of `LOGONPARAMS_SERIALIZATION.md`'s confirmed
+field-level findings about `addToStream`'s body. The semantic reason this validation
+function calls into logon-serialization code is not yet understood — flagged as UNKNOWN in
+the new document, not invented.
+
 ## 7. Files/Evidence
 
 - `scratch/find_recvfrom_plt.py`, `scratch/hook_recvfrom_raw.js` — reused from the previous
