@@ -426,8 +426,9 @@ The application transitions through JNI boundaries at specific lifecycle milesto
 
 **Boundary Analysis Verdict**:
 - Java DEX bytecode analysis fully reveals the flow up to `NativeInterface.NativeOnLogin(0)`.
-- Once `NativeOnLogin` executes, control transfers into native `libclient.so` and the embedded Python runtime (`script.npk`).
-- Further inspection beyond this point requires **native `.so` analysis** (`libclient.so`) and **BigWorld Mercury network protocol analysis** on port `25000`.
+- Native disassembly of `libclient_arm64.so` (`0x1bfe890`) and `libclient.so` ARMv7 (`0x13777e9`) confirms that `NativeOnLogin` allocates a 4-byte payload and calls the singleton event dispatcher vtable at offset `0x20` with Event ID `0x1b` (27).
+- Event 27 is pumped into the Python main thread loop, setting `channelLogin = True`.
+- `ui.UILogin.doLoginGame()` reads the server definition from `server_list_ad.txt` (which was set to `10.0.2.2:25000` by the MITM test script) and hands off to native `ServerConnection::logOnBegin`.
 
 ---
 
@@ -462,7 +463,6 @@ The application transitions through JNI boundaries at specific lifecycle milesto
 4. `com.netease.neox.Channel` (`02_dex/classes.dex`): Java dispatch hub bridging UniSDK callbacks to `NativeInterface.NativeOnLogin`.
 5. `com.netease.ntunisdk.SdkNeteaseGlobal` (`02_dex/classes.dex`): Primary UniSDK channel module for NetEase Overseas platform authentication.
 6. `com.netease.ntunisdk.SdkNeteaseGlobal$LoginCallback` (`02_dex/classes.dex`): Inner callback class implementing `MpayLoginCallback`; parses `User` credentials and dispatches `loginDone(0)`.
-7. `com.netease.mpay.oversea.MpayActivity` (`02_dex/classes.dex`): Transparent Activity rendering authentication dialogs, guest prompts, and LVU age verification.
 8. `com.netease.mpay.oversea.ui.g` (`02_dex/classes.dex`): Dialog controller managing the `User Age Setting` UI and cancel code mappings.
 9. `com.netease.mpay.oversea.j.d.d` (`02_dex/classes.dex`): Local session controller evaluating `isFirstLogin` and `has_minor` from SharedPreferences.
 10. `com.netease.mpay.oversea.h.a.a` (`02_dex/classes.dex`): JSON deserializer extracting top-level `user_id` and `sdk_token` from token exchange payloads.
@@ -475,47 +475,54 @@ The application transitions through JNI boundaries at specific lifecycle milesto
 2. `com.netease.neox.Launcher.startPatch()`: Pre-engine patch trigger checking network type and initiating background patch thread.
 3. `com.netease.neox.Launcher.startGame()`: Instantiates `Intent(Launcher, Client.class)`, calls `startActivity()`, and terminates launcher.
 4. `com.netease.neox.NativeInterface.NativeStartPatch(String)`: Native JNI invocation to execute C++ delta patcher in `libclient.so`.
-5. `com.netease.neox.NativeInterface.NativeOnLogin(int)`: Native JNI callback delivering login success/failure to embedded Python engine.
+5. `com.netease.neox.NativeInterface.NativeOnLogin(int)`: Native JNI callback delivering login success/failure to native EventDispatcher (Event ID 27).
 6. `com.netease.neox.Channel.loginDone(int)`: Java channel listener forwarding UniSDK completion to `NativeInterface.NativeOnLogin`.
 7. `com.netease.ntunisdk.SdkNeteaseGlobal.login()`: Initiates NetEase Overseas login flow via `MpayOverseaApi.login()`.
 8. `com.netease.ntunisdk.SdkNeteaseGlobal$LoginCallback.onLoginSuccess(User)`: Deserializes authenticated `User` record, sets UID/Session properties, and calls `loginDone(0)`.
-9. `com.netease.mpay.oversea.ui.g$2.onClick(View)`: Hardcoded cancel handler invoking `MpayLoginCallback.onFailure("Cancel login", 1000, minor_status)`.
-10. `neox::bwclient::ServerConnection::logOnBegin(...)`: Native C++ method in `libclient.so` initiating Mercury Nub connection to `10.0.2.2:25000`.
+9. `neox::bwclient::ServerConnection::logOnBegin(...)`: Native C++ method in `libclient.so` initiating Mercury UDP connection to LoginApp.
+10. `neox::bwclient::ServerConnection::setKeyFromResource(...)`: Native C++ method loading and parsing OpenSSL RSA public key from `entities\loginapp.pubkey`.
+11. `neox::bwclient::LoginHandler::onLoginReply(...)`: Native C++ callback unpacking winning BaseApp IP and port from `LoginReplyRecord`.
+12. `neox::bwclient::ServerConnection::createBasePlayer(id, stream)`: Native C++ method instantiating `Account` and `Athlete` base entities.
+13. `neox::bwclient::ServerConnection::createCellPlayer(id, stream)`: Native C++ method instantiating `Avatar` combat entity inside `BattleGroundSpace`.
 
 ---
 
 ## 15. Confirmed Findings
 
-1. **[CONFIRMED] Multi-DEX Segregation**: NetEase authentication, launcher, and native bridge logic reside strictly in `02_dex/classes.dex`. `classes2.dex` and `classes3.dex` contain only third-party SDKs (Google, Facebook, Firebase, AppsFlyer) and wrapper dispatchers.
-2. **[CONFIRMED] Pre-Engine vs. In-Engine Patching**: `Launcher.java` executes a pre-engine patch check using `NativeInterface.NativeStartPatch`. Once the engine starts, Python `ui.UIPatch` executes an in-engine resource verification against `patchVersion`, `/pl/h45na_hc`, and `/pl/npk_version_na_android.plist`.
-3. **[CONFIRMED] Root Cause of LVU Loop**: The "User Age Setting" dialog appears because `j.d.d.c` initializes `has_minor = true` when local SharedPreferences lack saved session tokens. When dismissed, `ui.g$2.onClick` delivers hardcoded error code `1000` (`"Cancel login"`), causing UniSDK to fire `ntOnLogin(1)` and resetting the Title Screen.
-4. **[CONFIRMED] MPay Age Bypass Branch**: In `com.netease.mpay.oversea.ui.g.a(g$e)` (bytecode `0x400826` and `0x400868`), if the server response contains `minor_status: 102` and `age_status: 0`, Dalvik bytecode skips dialog construction and branches directly to `0x40088c`, firing `onLoginSuccess` automatically.
-5. **[CONFIRMED] JNI Authentication Handoff**: Successful authentication transitions from Java to native C++ via `Channel.loginDone(0)` -> `NativeInterface.NativeOnLogin(0)`. Native code forwards `ntOnLogin(0)` into Python `ui.UILogin.py`.
-6. **[CONFIRMED] Gateway Destination**: Upon authentication, `ui.UILogin` fetches `server_list_ad.txt` and invokes `neox::bwclient::ServerConnection::logOnBegin` targeting `10.0.2.2:25000`.
-7. **[CONFIRMED] BigWorld Architecture**: The client is built on BigWorld Technology Mercury networking. Server entities `Account.def.xml`, `LoginProxy.def.xml`, `Avatar.def.xml`, `BattleAccount.def.xml`, and `BattleGroundSpace.def.xml` strictly govern account sessions, lobby progression, and match spaces.
+1. **[CONFIRMED] Monolithic Library Architecture**: There are no separate `libh45na.so` or `libneox.so` files. All engine, networking, and Python logic are compiled into `libclient.so` (ARM64: 72.7 MB, ARMv7: 57.3 MB).
+2. **[CONFIRMED] Multi-DEX Segregation**: NetEase authentication, launcher, and native bridge logic reside strictly in `02_dex/classes.dex`. `classes2.dex` and `classes3.dex` contain only third-party SDKs.
+3. **[CONFIRMED] Pre-Engine vs. In-Engine Patching**: `Launcher.java` executes a pre-engine patch check using `NativeInterface.NativeStartPatch`. Once the engine starts, Python `ui.UIPatch` executes in-engine resource verification against `patchVersion`, `/pl/h45na_hc`, and `/pl/npk_version_na_android.plist`.
+4. **[CONFIRMED] Root Cause of LVU Loop**: The "User Age Setting" dialog appears because `j.d.d.c` initializes `has_minor = true` when local SharedPreferences lack saved session tokens. When dismissed, `ui.g$2.onClick` delivers hardcoded error code `1000` (`"Cancel login"`), resetting the Title Screen.
+5. **[CONFIRMED] MPay Age Bypass Branch**: In `com.netease.mpay.oversea.ui.g.a(g$e)`, if the server response contains `minor_status: 102` and `age_status: 0`, Dalvik bytecode skips dialog construction and branches directly to `0x40088c`, firing `onLoginSuccess` automatically.
+6. **[CONFIRMED] JNI Authentication Handoff**: `Channel.loginDone(0)` calls `NativeInterface.NativeOnLogin(0)`. Native disassembly confirms it allocates a payload and fires Event ID `0x1b` (27) to the engine event dispatcher, setting Python `channelLogin = True`.
+7. **[CONFIRMED] Server Address Origin**: The address `10.0.2.2:25000` originates strictly from `mitm/mitm_serve.py` serving a test payload for `server_list_ad.txt`. It is not hardcoded in the binary. The binary's only hardcoded default port is `20013` (`0x4E2D`).
+8. **[CONFIRMED] Transport Protocol**: Native disassembly of `ServerConnection::logOnBegin` confirms the transport is UDP managed by `Mercury::Nub::recreateListeningSocket`.
+9. **[CONFIRMED] Public Key Encryption**: `ServerConnection::setKeyFromResource` loads `entities\loginapp.pubkey` and parses it using OpenSSL `PEM_read_bio_RSA_PUBKEY`. If the file is missing, the engine aborts with `PUBLIC_KEY_LOOKUP_FAILED` (`LogOnStatus` 0x701).
+10. **[CONFIRMED] Entity Lifecycle Progression**:
+    - `Account.def.xml` is the initial BaseApp gateway entity executing `Account.handshake`.
+    - `Athlete.def.xml` is the Lobby entity managing teams, friends, chat, and rankings.
+    - `Avatar.def.xml` is the in-game combat unit entity inside `BattleGroundSpace.def.xml` on the CellApp, linked back to `Athlete` via property `<athleteMailBox>`.
 
 ---
 
 ## 16. Inferred Findings
 
-1. **[INFERRED] RSA Key Packaging for `loginapp.pubkey`**: In `libclient.so`, strings show `entities\loginapp.pubkey` is queried by `neox::bwclient::ServerConnection::logOnBegin`. Because `05_entities/out/` contains entity definitions extracted from `res/entities.npk`, `loginapp.pubkey` is likely packed inside `res/entities.npk` or compiled directly into `libclient.so`.
-2. **[INFERRED] Matchmaking Queue Protocol**: `Avatar.cell.reqMatch(...)` dispatches over the Mercury Channel protocol to BaseApp. The BaseApp communicates with a cluster-wide BigWorld matchmaker process before allocating a `BattleGroundSpace`.
-3. **[INFERRED] Title Screen Tap Detection**: The visual "PLAY" button on the Title Screen is rendered by CocosStudio binary scene assets loaded by NeoX CSLoader (`ui/out_game/ui_login/ui_login.csb` or equivalent).
+1. **[INFERRED] Matchmaker Cluster Process**: The server-side matchmaker process coordinates between BaseApps and CellApps to allocate `BattleGroundSpace` instances and balance player loads.
+2. **[INFERRED] Title Screen Tap Detection**: The visual "PLAY" button on the Title Screen is rendered by CocosStudio binary scene assets loaded by NeoX CSLoader (`ui/out_game/ui_login/ui_login.csb`).
 
 ---
 
 ## 17. Unknown / Missing Information
 
-1. **Exact Mercury Logon Packet Framing**: The exact binary byte layout and opcode structure of the RSA-encrypted `LogOnParams` stream for this specific NetEase build (v1117219) cannot be fully reconstructed from DEX bytecode alone.
-2. **LoginApp RSA Key Pair**: The 1024/2048-bit RSA private key matching `loginapp.pubkey` (necessary for an authoritative server to decrypt client credentials) is server-side property and must be generated or patched in a custom server emulator.
-3. **`BaseAppLoginRequest` Challenge/Nonce**: The dynamic nonce exchange between `LoginHandler::onLoginReply` and `BaseAppLoginRequest` requires live packet capture on port 25000.
+1. **Exact `LogOnParams` Binary Stream Layout**: While the fields and OpenSSL RSA encryption are confirmed, the exact byte-level serialization ordering inside `LogOnParams::addToStream` requires disassembling the stream insertion operators or inspecting a captured UDP packet on port 20013/25000.
+2. **LoginApp RSA Private Key**: The matching private key corresponding to `entities\loginapp.pubkey` is proprietary to NetEase. To run a private LAN server without modifying the client, the private key would be required; alternatively, replacing `entities\loginapp.pubkey` in the client allows using a custom key pair.
 
 ---
 
-## 18. Recommended Next Investigation
+## 18. Recommended Next Steps
 
-1. **Target Component**: BigWorld Mercury Network Protocol on Port 25000 (Gate 2).
-2. **Required Analysis Type**:
-   - **Native `.so` Analysis**: Disassemble `neox::bwclient::ServerConnection::logOnBegin` and `neox::bwclient::LogOnParams::addToStream` in `03_lib/libclient_arm64.so` to extract the Mercury bundle header format, opcode IDs, and encryption scheme.
-   - **Network Protocol Analysis**: Run client against host port 25000 listener (`serve_loginapp_tcp` / `serve_loginapp_udp` in `mitm/mitm_serve.py`) to capture the live binary logon bundle.
-   - **Key Extraction**: Extract `entities/loginapp.pubkey` from `05_entities/entities.npk` or identify its hardcoded fallback in `libclient.so`.
+1. **Capture Raw Mercury UDP Bundle on Port 20013/25000**:
+   - Run a UDP packet capture listener on the host machine.
+2. **Implement Minimal BigWorld LoginApp Responder**:
+   - Construct a UDP service capable of parsing the Mercury bundle header and returning a `LoginReplyRecord` redirecting the client to a local BaseApp instance.
+   - Run client against host port 20013 / 25000 listener (`serve_loginapp_udp` in `mitm/mitm_serve.py`) to capture and respond to the live binary logon bundle.

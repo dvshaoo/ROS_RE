@@ -70,10 +70,10 @@ Python: ui.UILogin.requestServerList() -> HTTP GET /server_list_ad.txt
 Python: ui.UILogin.doLoginGame()
    │
    ▼
-neox::bwclient::ServerConnection::logOnBegin("10.0.2.2", 25000)  [libclient.so]
+neox::bwclient::ServerConnection::logOnBegin(ip, port, ...)  [libclient.so]
    │
    ▼
-[Mercury Nub Socket Handshake -> Port 25000 (loginapp)]
+[Mercury UDP Socket Handshake -> Port 20013 (default) or Port 25000 (custom)]
    │
    ▼
 neox::bwclient::LoginHandler::onLoginReply() (BaseApp Address Assigned)
@@ -82,19 +82,19 @@ neox::bwclient::LoginHandler::onLoginReply() (BaseApp Address Assigned)
 neox::bwclient::BaseAppLoginRequest (BaseApp Handshake)
    │
    ▼
-BaseApp Entity Instantiation: Account.def.xml (Account.handshake -> Account.onLogin)
+BaseApp Entity Instantiation: Account.def.xml (Account.handshake -> onChannelLogin)
    │
    ▼
-Lobby / Hall Initialization (Avatar.def.xml Instantiated)
+Lobby / Hall Initialization: Athlete.def.xml (iProxyNoCell, iHallTeam, iFriend, iMall)
    │
    ▼
-User Clicks Match / Play in Lobby (Avatar.cell.reqMatch / iRosMatchAvatar)
+User Clicks Match / Play in Lobby (iRosMatchAvatar / reqMatch)
    │
    ▼
 BigWorld Cell Space Created: BattleGroundSpace.def.xml
    │
    ▼
-Battle Entity Assigned: BattleAccount.def.xml / Athlete.def.xml
+Battle Entity Assigned: Avatar.def.xml (iProxyWithCell, iNormalCombatUnit, athleteMailBox)
    │
    ▼
 Match In-Game Session (Skydiving, Island Combat, NeoX 3D World Rendering)
@@ -186,48 +186,54 @@ Match In-Game Session (Skydiving, Island Combat, NeoX 3D World Rendering)
 ### 2.6 Stage 6: Title Screen Handshake to Gateway (loginapp)
 1. **JNI Transition**:
    - `NativeInterface.NativeOnLogin(0)` enters `libclient.so`.
-   - Native code forwards event to Python runtime: `ui.UILogin.ntOnLogin(unisdk_code=0)`.
+   - Native code allocates a 4-byte payload and calls EventDispatcher vtable with Event ID `0x1b` (27).
+   - Event 27 is pumped to embedded Python: `ui.UILogin.ntOnLogin(unisdk_code=0)`, setting `channelLogin = True`.
 2. **Server List Query**:
-   - Python client sets `channelLogin = True`.
-   - Client calls `fetch_by_vips` / `http_get` targeting `https://h45na.update.easebar.com/server_list_ad.txt`.
-   - Deserializes space-delimited server record:
+   - Python client calls `fetch_by_vips` / `http_get` targeting `/server_list_ad.txt`.
+   - In production, fetches regional server IP table from NetEase distribution CDN.
+   - In local test setup, `mitm/mitm_serve.py` returns synthetic record:
      `North_America 1 1 1 North_America North_America 10.0.2.2:25000 10.0.2.2:25000 10.0.2.2:25000 10001 10.0.2.2:25000`.
+   - Client parses `telIP` -> `server['ip'] = '10.0.2.2'`, `server['port'] = 25000`.
 3. **Game Login Trigger**:
    - User taps PLAY on title screen or auto-connect fires: `ui.UILogin.doLoginGame()`.
    - Python calls native BigWorld client: `neox.bwclient.ServerConnection.logOnBegin()`.
 
-### 2.7 Stage 7: BigWorld Mercury Handshake (Port 25000)
-1. **Mercury Socket Initialization**:
-   - `neox::bwclient::ServerConnection::logOnBegin("10.0.2.2", 25000)` creates Mercury Nub socket (`Mercury::Nub`).
+### 2.7 Stage 7: BigWorld Mercury Handshake (Port 20013 / 25000)
+1. **Mercury UDP Socket Initialization**:
+   - `neox::bwclient::ServerConnection::logOnBegin(ip, port, user, pwd, keyPath)` binds local UDP socket via `recreateListeningSocket`.
+   - If port is unspecified/0, defaults to `20013` (`0x4e2d`). If non-zero (e.g. `25000`), uses the specified port.
 2. **Credential Encryption**:
-   - Loads public key from asset `entities/loginapp.pubkey`.
-   - Calls `neox::bwclient::LogOnParams::addToStream()` using RSA public encryption.
+   - Falls back to `entities\loginapp.pubkey` if no path provided.
+   - `ServerConnection::setKeyFromResource` loads key data and parses it via OpenSSL `PEM_read_bio_RSA_PUBKEY`.
+   - `neox::bwclient::LogOnParams::addToStream()` packages credentials into an RSA-encrypted Mercury login bundle.
 3. **LoginApp Packet Transmission**:
-   - Sends Mercury logon bundle to `10.0.2.2:25000`.
+   - Dispatches UDP packet to target LoginApp address.
 4. **LoginApp Reply Processing**:
-   - `neox::bwclient::LoginHandler::onLoginReply()` parses server response.
+   - `neox::bwclient::LoginHandler::onLoginReply()` parses `LoginReplyRecord`.
    - Updates target BaseApp address: `change baseAddr from %s to %s`.
 5. **BaseApp Login & Entity Attachment**:
-   - Client creates `BaseAppLoginRequest` targeting assigned BaseApp address.
+   - Client creates `BaseAppLoginRequest` and sends `baseAppLogin` bundle to assigned BaseApp address.
    - BaseApp creates server-side `Account` entity (`05_entities/out/Account.def.xml`).
+   - Server calls `ServerConnection::createBasePlayer` on client to instantiate local `Account` entity.
    - Client executes `Account.handshake(STRING hotfix_md5, DEVICE_INFO, CHANNEL_INFO, CLIENT_ENGINE_INFO, STRING sauth_reply)`.
-   - Server returns `Account.onLogin(int result, string msg)` and `Account.onChannelLogin(uint8 code, python data)`.
+   - Server returns `Account.onChannelLogin(uint8 code, python data)`.
 
 ### 2.8 Stage 8: Lobby / Hall Progression & Matchmaking
 1. **Lobby Scene Load**:
    - Client destroys Title UI (`ui.UILogin`) and transitions to Lobby controller (`ui.UIHall`).
-   - Player character entity `Avatar` (`05_entities/out/Avatar.def.xml`) is instantiated in BigWorld client space.
-   - Base properties synchronized: `baseNickname`, appearances, inventory (`iPackage3`), currencies, and event states.
+   - BaseApp instantiates player Lobby entity `Athlete` (`05_entities/out/Athlete.def.xml`, `iProxyNoCell`).
+   - Lobby properties synchronized: `baseNickname`, appearances, friends (`iFriend`), teams (`iHallTeam`), currencies, and mall catalog (`iMall`).
 2. **Matchmaking Request**:
    - User clicks Lobby "START" / "MATCH" button.
-   - Lobby UI invokes matchmaking method on `Avatar`:
+   - Lobby UI invokes matchmaking method:
      - Method: `Avatar.cell.reqMatch(...)` / `iRosMatchAvatar`.
    - Passes parameters: game mode (Solo, Duo, Squad, Fireteam), perspective (TPP, FPP), map ID.
 3. **Matchmaking Space Creation**:
    - Server matchmaking daemon groups 100+ players.
-   - Allocates BigWorld cell space: `BattleGroundSpace.def.xml`.
-   - Instantiates `BattleAccount.def.xml` and combat unit `Athlete.def.xml` (`iNormalCombatUnit`) for each connected player.
+   - Allocates BigWorld cell space: `BattleGroundSpace.def.xml` (`DynamicSpace`).
+   - BaseApp creates CellApp entity: `Avatar.def.xml` (`iProxyWithCell`, `iNormalCombatUnit`), linked to Lobby `Athlete` via property `<athleteMailBox>`.
 4. **Game Session Entry**:
-   - BaseApp sends `loadSceneAfterReconnect(int mapID)` and `createCellPlayer` to client.
+   - BaseApp sends `createCellPlayer` to client.
+   - `ServerConnection::createCellPlayer` binds client camera to `Avatar` combat unit in `BattleGroundSpace`.
    - Client loads 3D terrain, vegetation, buildings from OBB packages (`scene.npk`, `model.npk`, `textures.npk`).
    - Game session starts: pre-match lobby island -> aircraft drop -> full battle royale loop.
