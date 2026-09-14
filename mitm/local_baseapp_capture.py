@@ -71,21 +71,17 @@ def serve_loginapp_udp_responder():
             data, addr = s.recvfrom(8192)
             log('LOGINAPP UDP RECV %d bytes from %s:%d' % (len(data), addr[0], addr[1]))
             log('  HEX: %s' % data.hex())
-            # Empirical framing mirror: the captured real LogOnParams request has the
-            # shape [4-byte const 01 00 00 04][1-byte 01][2-byte LE seq][4 zero bytes]
-            # [4-byte LE payload-length][payload][2-byte footer 02 00]. Not confirmed
-            # correct for the LoginApp->client direction - this is a live experiment,
-            # not a static claim. See PLAY_TO_BASEAPP_CAPTURE.md.
-            # Attempt C (evidence-constrained, not a blind guess): the client's own
-            # Mercury::Nub diagnostic strings (see LOGIN_REPLY_MERCURY_ENVELOPE.md) show
-            # the packet "flags" field is read as a 2-byte FOOTER at the very end of the
-            # packet, and every other optional field (checksum, acks, sequence number,
-            # first-request-offset...) is gated behind its own flag bit. The simplest
-            # valid Mercury packet is therefore [bundle bytes][flags=0x0000] with no
-            # other footers at all. Attempts A and B are left in the history in
-            # PLAY_TO_BASEAPP_CAPTURE.md; this is a single, evidence-motivated variant,
-            # not brute-forcing.
-            reply = body + b'\x00\x00'
+            # Attempt D (2026-09-14, MERCURY_REPLY_DISPATCH_TRACE.md S6f): disassembly of
+            # Nub::processFilteredPacket (0x98fa30) confirms the client reads a 2-byte
+            # little-endian "flags" field at wire offset 0 (packet-object offset +0x60)
+            # and rejects the packet if flags >= 0x400. Attempt C's body began directly
+            # with the BaseApp IP bytes (ac 10 01 02...), which is 0x10ac as LE flags -
+            # exactly the "bad flags 10ac" value logged by the client, byte-for-byte.
+            # This attempt PREPENDS a real, evidence-derived flags value: 0x0001, the
+            # exact flags our own genuine captured client requests use as their first two
+            # wire bytes (see MERCURY_WIRE_CAPTURE.md, "01 00 00 04..."). This is not a
+            # blind guess: it's the single minimal change the disassembly points to.
+            reply = struct.pack('<H', 0x0001) + body + b'\x00\x00'
             if os.environ.get('NO_REPLY') == '1':
                 log('LOGINAPP UDP: NO_REPLY=1 set, deliberately NOT sending a reply (control experiment)')
             else:
