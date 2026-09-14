@@ -148,3 +148,20 @@ UNKNOWN after three passes of static analysis -- this is reported as a genuine l
 symbol-free static analysis on this stripped 72MB binary, not a gap left unexamined. See
 BASEAPP_LOGIN_SERIALIZATION.md section 5a/5b for the full trace and the concrete recommended
 next step (dynamic instrumentation).
+
+### 2026-09-14 (dynamic capture attempt) -- environment built, capture not yet obtained
+
+A session attempted live Frida + local-server dynamic capture of baseAppLogin per
+FRIDA_BASEAPP_LOGIN_CAPTURE.md. Key durable findings for future sessions:
+- This LDPlayer instance's guest-to-host NAT gateway is **172.16.1.2**, not 10.0.2.2 or
+  the host's real LAN IP -- several existing files/comments assuming those addresses are
+  stale for this environment.
+- /etc/hosts on the guest is not writable (read-only rootfs even as root); on-device
+  iptables OUTPUT-chain DNAT rules are a more robust redirection method and were used
+  instead (see FRIDA_BASEAPP_LOGIN_CAPTURE.md section 3).
+- frida-server needs a specific version/arch combination to work on this image (16.2.1,
+  x86_64 build -- not the arm64 build, and not 17.x) -- see section 2 of that document.
+- Two real bugs in mitm/mitm_serve.py were found and fixed (total_list absolute-URI path
+  matching, empty file_list ZeroDivisionError), advancing the client further through boot
+  than previously recorded, but a further local-patch-server schema gap still blocks
+  reaching PLAY. No baseAppLogin bytes were captured this session.

@@ -161,3 +161,14 @@ correctly identified above as the next highest-value native-analysis target.
 | 3. Client→BaseApp | No | UNKNOWN — top priority follow-up |
 | 4. BaseApp→Client (entity push) | Names only, no field encoding | STRONG EVIDENCE (names), UNKNOWN (encoding) |
 | 5–7. Entity handshake / matchmaking / CellApp | Architectural only | INFERRED FROM ENTITY DEFINITIONS |
+
+## 2026-09-14 Update -- Dynamic Capture Attempted
+
+A session tried to empirically validate this document's guesses (the LoginReplyRecord
+layout in section "Stage 2", and whether baseAppLogin needs a SessionKey) by running a real
+local LoginApp/BaseApp capture harness against the live client. The harness
+(mitm/local_baseapp_capture.py) is built and running, but the client did not reach the
+PLAY button this session due to an unrelated local-patch-server schema gap -- see
+FRIDA_BASEAPP_LOGIN_CAPTURE.md for the full account, the fixes already applied, and the
+exact next blocker. None of the STRONG EVIDENCE / INFERRED / UNKNOWN labels in this
+document should be changed based on this attempt -- no new protocol evidence was obtained.

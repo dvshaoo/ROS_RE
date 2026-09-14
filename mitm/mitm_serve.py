@@ -94,7 +94,7 @@ PLIST = (
     b'  "min_patch_client_version": 0,\n'
     b'  "min_patch_engine_version": 0,\n'
     b'  "use_dlc_clothes": false,\n'
-    b'  "file_list": [],\n'
+    b'  "file_list": [{"name": "dummy.npk", "size": 1, "md5": "00000000000000000000000000000000", "updated": 0}],\n'
     b'  "patch.1117219.com.netease.chiji.obb_updated": 0,\n'
     b'  "patch.1117219.com.netease.chiji.obb_size": 1,\n'
     b'  "patch.1117219.com.netease.chiji.obb_md5": "00000000000000000000000000000000"\n'
@@ -154,7 +154,7 @@ class H(BaseHTTPRequestHandler):
             except Exception:
                 pass
             return
-        if self.path.startswith('/1117219/total_list'):
+        if '/1117219/total_list' in self.path:
             w('  -> SERVE total_list (%d bytes)' % len(TOTAL_LIST_PAYLOAD))
             self.send_response(200)
             self.send_header('Content-Type', 'application/octet-stream')
