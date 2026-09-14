@@ -59,6 +59,30 @@ opaque token, since types of usage (passed to a socket-connect call vs. passed t
 encryption/HMAC routine) are much easier to distinguish than field names in a stripped
 binary.
 
+## 3a. 2026-09-14 Update — `+0x24`/`+0x34` Resolved, SessionKey Cross-Check
+
+Follow-up work tracing `baseAppLogin` (see `BASEAPP_LOGIN_SERIALIZATION.md`) required
+checking whether any field this function writes into `ServerConnection`/`LoginHandler`
+flows into the subsequent BaseApp login send. Result:
+
+- **`this+0x24`** (written `= 1` at `0x93838c`, immediately after the Address is stored at
+  `+0x50`): CONFIRMED — a simple state/flag byte, unrelated to any credential.
+- **`this+0x34`** (written from `[this+0x50]`, i.e. a copy of the first 4 bytes of the new
+  Address, at `0x938398`): CONFIRMED — given the adjacent log string is
+  `"LoginHandler::onLoginReply: change baseAddr from %s to %s"`, this is almost certainly a
+  **backup of the previous BaseApp address**, kept only to satisfy that log line's "from X
+  to Y" format. **This is not a session key.**
+- **Cross-check against `baseAppLogin`'s 24-byte context block** (`ServerConnection+0x24`
+  through `+0x3B`, consumed by the login-request builder at `0x937188`): this **is** the
+  same offset range as the two fields above, confirming `+0x24`/`+0x34` do get read again
+  during the BaseApp login attempt — but only as part of a bookkeeping/logging structure
+  copied wholesale into a reply-handler object, not obviously as protocol-visible fields
+  (see `BASEAPP_LOGIN_SERIALIZATION.md` §5 for the full trace and its limits).
+- **No evidence found, in either function, of a distinct field the previous report labeled
+  `SessionKey`.** The 4-byte trailing value at `this+0x60` (read in §2 above) remains
+  unaccounted for — it was not observed being read again by the `baseAppLogin` send path in
+  this pass, so whether it is a session key, a port, or something else is still UNKNOWN.
+
 ## 4. Classification Summary
 
 - CONFIRMED: function location, log strings, 20-byte record read+store, fingerprint compare.

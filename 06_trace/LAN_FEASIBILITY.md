@@ -125,3 +125,15 @@ above, confirming §5 point 2 at the byte level and **revising** §5 point 3. Fu
   artifact of the actual RPC surface, rather than names inferred from architecture alone.
 - **New top-priority blocker**: `BaseAppLoginRequest`'s bundle serialization
   (`baseAppLogin`) was not yet traced — see `BASEAPP_LOGIN_SERIALIZATION.md`.
+
+### 2026-09-14 (second pass) — `baseAppLogin` framing confirmed
+
+Full send-chain located (`ServerConnection` orchestrator → `BaseAppLoginRequest` build →
+reply-handler registration → `initNetwork` socket bind). CONFIRMED: `baseAppLogin` is a
+Mercury VARIABLE_LENGTH_MESSAGE with a 2-byte length prefix, sent **exactly once** (no
+client retry) with a 5-second reply timeout. The message body's field content remains
+UNKNOWN — no `BinaryOStream`-style field-write call was located in the traced chain. Traced
+whether a LoginApp-issued session key flows into this message: **no evidence found that it
+does**, which tentatively (not conclusively) lowers the bar for row E in the matrix above —
+see `BASEAPP_LOGIN_SERIALIZATION.md` §5 and `LOCAL_SERVER_MINIMUM.md` for full detail and
+caveats.

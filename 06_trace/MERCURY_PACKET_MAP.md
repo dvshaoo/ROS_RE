@@ -86,6 +86,57 @@ and `spaceData` / `spaceViewportInfo` confirm this client uses BigWorld's standa
 model for the battle-ground/cell layer, matching `BattleGroundSpace.def.xml` in
 `05_entities/out/`.
 
+## 2a. `BaseAppExtInterface` — CONFIRMED Wire Framing Per Method (2026-09-14 update)
+
+The registration code for this table (`0x80c600`–`0x80cb00`, found by disassembling the
+code containing the `baseAppLogin` string xref) calls a uniform registrar function at
+`0x98b30c` once per method:
+
+```
+bl 0x98b30c(interfaceObj=x0, nameStringPtr=x1, lengthStyle=w2, lengthParam=w3, extra=x4)
+```
+
+Reading `w2`/`w3` directly at each call site gives a **CONFIRMED BY BINARY** framing table
+for every method (lengthStyle: `0` = FIXED_LENGTH_MESSAGE, with `lengthParam` = the body
+size in bytes; `1` = VARIABLE_LENGTH_MESSAGE, with `lengthParam` = the byte width of the
+length-prefix field that precedes the variable body):
+
+| Method | lengthStyle | lengthParam | Framing |
+|---|---|---|---|
+| `baseAppLogin` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `authenticate` | 0 (FIXED) | 4 | 4-byte fixed body |
+| `avatarUpdateImplicit` | 0 (FIXED) | 24 (0x18) | 24-byte fixed body |
+| `avatarUpdateExplicit` | 0 (FIXED) | 32 (0x20) | 32-byte fixed body |
+| `avatarUpdateWardImplicit` | 0 (FIXED) | 24 (0x18) | 24-byte fixed body |
+| `avatarUpdateWardExplicit` | 0 (FIXED) | 32 (0x20) | 32-byte fixed body |
+| `switchInterface` | 0 (FIXED) | 0 | no body |
+| `requestEntityUpdate` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `enableEntities` | 0 (FIXED) | 8 | 8-byte fixed body |
+| `setSpaceViewportAck` | 0 (FIXED) | 8 | 8-byte fixed body |
+| `setVehicleAck` | 0 (FIXED) | 8 | 8-byte fixed body |
+| `restoreClientAck` | 0 (FIXED) | 4 | 4-byte fixed body |
+| `identifyVersionPoint` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `summariseVersionPoint` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `commenceResourceDownload` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `disconnectClient` | 0 (FIXED) | 1 | 1-byte fixed body |
+| `resourceVersionTag` | 0 (FIXED) | 1 | 1-byte fixed body |
+| `entityMessage` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+
+`ClientInterface` registration follows immediately with the same mechanism (partial, table
+truncated in the read window):
+
+| Method | lengthStyle | lengthParam | Framing |
+|---|---|---|---|
+| `bandwidthNotification` | 0 (FIXED) | 4 | 4-byte fixed body |
+| `updateFrequencyNotification` | 0 (FIXED) | 1 | 1-byte fixed body |
+| `setGameTime` | 0 (FIXED) | 4 | 4-byte fixed body |
+
+This table is a strict upgrade over §2/§3 above: it confirms not just that these methods
+exist by name, but their exact **on-wire framing** (fixed vs. variable, and either the exact
+byte count or the length-prefix width). Field-level content within each body — beyond
+framing — is documented per-message where available; for `baseAppLogin` specifically, see
+`BASEAPP_LOGIN_SERIALIZATION.md`.
+
 ## 4. Confirmed Function: `LoginHandler::onLoginReply` / `handleMessage`
 
 Located via cross-reference of the evidence string `"sending base app request to %s "`
@@ -119,6 +170,23 @@ Located via cross-reference of the evidence string `"sending base app request to
   `LoginReplyRecord` contains `{Address, SessionKey, AccountID}` is STRONG EVIDENCE (BigWorld
   architecture + partial byte confirmation of the Address field) but **not fully
   CONFIRMED** at the byte level — see `LOGIN_REPLY_RECORD.md` for the honest breakdown.
+
+## 4a. Confirmed Function: `BaseAppLoginRequest` Send Chain (2026-09-14 update)
+
+Full call-chain located and disassembled — see `BASEAPP_LOGIN_SERIALIZATION.md` for detail:
+
+```
+0x93a404  ServerConnection-level orchestrator (single-attempt retry gate, this+0x80 counter)
+    └─ bl 0x9387cc   BaseAppLoginRequest build-and-send
+         ├─ bl 0x937128   registers reply/timeout handler (5.0s timeout, InterfaceElement
+         │                 handle for baseAppLogin loaded from global @ 0x457a210)
+         └─ bl 0x9389dc   BaseAppLoginRequest::initNetwork (opens UDP socket, port range
+                           0x861-0xe321 / 2145-58145, confirms MERCURY_LOGIN_FLOW.md's range)
+```
+
+No `BinaryOStream`-vtable-dispatched field write was located anywhere in this chain — see
+`BASEAPP_LOGIN_SERIALIZATION.md` §4 for the honest UNKNOWN status of the message body
+content.
 
 ## 5. Still Unresolved
 

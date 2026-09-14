@@ -47,15 +47,34 @@ be reproduced exactly. Flagged UNKNOWN — treat as a risk, not a blocker, until
 
 ### Stage 3 — Client → BaseApp (`baseAppLogin`)
 
-**Not byte-level traced** (see `BASEAPP_LOGIN_SERIALIZATION.md`). Confirmed only that the
-Mercury interface method name is `baseAppLogin` (first entry of `BaseAppExtInterface`).
+**Framing CONFIRMED, body UNKNOWN** (see `BASEAPP_LOGIN_SERIALIZATION.md`, 2026-09-14
+update):
 
-**Requirement for a local server**: this is the actual first unresolved blocker for a
-working prototype — a local BaseApp cannot be written with confidence until this bundle's
-fields are known, because if the client re-sends a LoginApp-issued key that BaseApp is
-expected to validate, mismatched local LoginApp/BaseApp implementations will silently
-reject the client with no useful client-side error (per `LoginHandler`'s generic
-"Unspecified error." / "Unelaborated error." strings confirmed in `LOGIN_REPLY_RECORD.md`).
+```
+Mercury message header (baseAppLogin = method #0 of BaseAppExtInterface)
+u16  bodyLength
+u8[bodyLength]  <-- exact field content not recovered
+```
+
+Also confirmed: the client sends this **exactly once** per connection attempt (no
+client-side retry — a second attempt fails locally without transmitting anything), with a
+5-second reply timeout. A local BaseApp prototype therefore has one shot and 5 seconds to
+reply before the client gives up.
+
+**Cross-checked against `LoginReplyRecord`**: no evidence was found that a distinct
+LoginApp-issued session key gets threaded into this message's body — the one candidate
+24-byte context block traced turned out to be logging/bookkeeping data (a backup of the
+previous BaseApp address for a log message), not a credential. This *suggests* — but does
+not prove — that BaseApp may not need to validate a LoginApp-issued secret at all, which
+would substantially simplify a local prototype. See `BASEAPP_LOGIN_SERIALIZATION.md` §5 for
+the full caveat.
+
+**Requirement for a local server**: this remains the top blocker for a working prototype —
+the local BaseApp still cannot be written with confidence until the body content (if any)
+is known. But the risk has narrowed: we now know the framing exactly (so a prototype BaseApp
+at minimum can correctly *parse* the length-prefixed body even without understanding its
+contents), and we have tentative (not proven) reason to believe no session-key validation
+loop needs to be replicated.
 
 ### Stage 4 — BaseApp → Client (entity creation)
 
@@ -75,6 +94,34 @@ serialization order for `createBasePlayer` was not disassembled.
 Not investigated in this pass beyond what the pre-existing `BASEAPP_CELLAPP_FLOW.md`
 already documents (architectural, entity-def-derived — no new native evidence gathered
 here). No change to prior confidence levels for these stages.
+
+## Minimum Information Breakdown: LoginApp → BaseApp → Account/Lobby (2026-09-14)
+
+1. **Required for the client to send `baseAppLogin` at all**: a valid `LoginReplyRecord`
+   from Stage 2 containing a BaseApp address the client accepts (STRONG EVIDENCE: a
+   20-byte address-shaped record, see `LOGIN_REPLY_RECORD.md`) — the client's socket-bind
+   and reply-handler setup (`BASEAPP_LOGIN_SERIALIZATION.md` §3) do not depend on
+   understanding any credential, only on having *an* address to connect to.
+2. **Required for BaseApp to parse the incoming packet**: knowledge of the CONFIRMED framing
+   — Mercury message header identifying method `baseAppLogin` (interface index 0 of
+   `BaseAppExtInterface`), followed by a `u16` body-length field, followed by that many
+   bytes. A minimal BaseApp can read and discard the body without understanding it and
+   still have correctly parsed the packet.
+3. **Required for BaseApp to validate it**: UNKNOWN. No evidence was found that a
+   LoginApp-issued session key is resubmitted in this body (see
+   `BASEAPP_LOGIN_SERIALIZATION.md` §5) — a permissive local BaseApp could plausibly accept
+   any well-formed packet on this port without validating body content, but this is
+   INFERRED from absence of evidence, not a confirmed safe assumption.
+4. **Required for BaseApp to create the `Account` entity**: architectural only (INFERRED
+   FROM ENTITY DEFINITIONS) — `05_entities/out/Account.def.xml`'s property list would need
+   to be populated with *something* for the subsequent `createBasePlayer` push (Stage 4) to
+   be well-formed; whether any of that data must come from the `baseAppLogin` body itself
+   was not determined.
+5. **Required for the client to accept `createBasePlayer`**: not traced in this pass — the
+   Mercury framing for `ClientInterface::createBasePlayer` was not looked up (it appears in
+   the interface string table per `MERCURY_PACKET_MAP.md` §3 but was not part of the
+   `BaseAppExtInterface` w2/w3 table in §2a since it belongs to the separate
+   `ClientInterface`, which was only partially registered within this pass's read window).
 
 ## First Implementable Prototype
 
