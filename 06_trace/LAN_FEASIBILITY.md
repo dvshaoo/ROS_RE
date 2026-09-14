@@ -137,3 +137,14 @@ whether a LoginApp-issued session key flows into this message: **no evidence fou
 does**, which tentatively (not conclusively) lowers the bar for row E in the matrix above —
 see `BASEAPP_LOGIN_SERIALIZATION.md` §5 and `LOCAL_SERVER_MINIMUM.md` for full detail and
 caveats.
+
+### 2026-09-14 (third pass) -- object layout mapped, wire body still unresolved
+
+A further pass fully decoded the client-side BaseAppLoginRequest tracker object
+(120 bytes, every field's source traced) and **ruled out** the previous pass's "184-byte
+object" lead as an unrelated logging function, correcting that speculation rather than
+carrying it forward. The wire-level content of baseAppLogin's variable body remains
+UNKNOWN after three passes of static analysis -- this is reported as a genuine limit of
+symbol-free static analysis on this stripped 72MB binary, not a gap left unexamined. See
+BASEAPP_LOGIN_SERIALIZATION.md section 5a/5b for the full trace and the concrete recommended
+next step (dynamic instrumentation).

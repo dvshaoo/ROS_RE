@@ -76,6 +76,21 @@ at minimum can correctly *parse* the length-prefixed body even without understan
 contents), and we have tentative (not proven) reason to believe no session-key validation
 loop needs to be replicated.
 
+**2026-09-14 (third pass) update**: the client-side `BaseAppLoginRequest` object (the
+in-memory structure built right before sending) has now been fully mapped byte-for-byte
+(`BASEAPP_LOGIN_SERIALIZATION.md` §5a) — but this resolved a *different* question than the
+wire body. It confirms the object is shaped like a reply-timeout/callback tracker (a
+`std::function<void()>` callback, a back-pointer, the interface handle, timeout floats), and
+it remains genuinely unproven whether the one candidate data block inside it
+(`ServerConnection+0x24..0x3B`, copied verbatim into the tracker) is ever written to the
+network at all, versus being pure local callback context. A blind, unscoped search for the
+actual field-by-field wire-write code across the rest of `.text` was attempted and did not
+converge — isolating it now requires either locating the `ServerConnection`/`LoginHandler`
+constructor by a more reliable method than the RTTI-chain reconstruction attempted here (an
+attempt was made and abandoned when it produced an inconsistent, unverifiable result), or
+dynamic instrumentation (Frida hook on the confirmed send chain, logging the constructed
+Mercury bundle bytes at send time). This is the clearest remaining path to closing Stage 3.
+
 ### Stage 4 — BaseApp → Client (entity creation)
 
 **Confirmed** (from `MERCURY_PACKET_MAP.md` §3, direct interface-table extraction):

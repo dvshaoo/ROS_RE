@@ -153,6 +153,83 @@ entirely out-of-band from the message body) — but nothing in the client binary
 paths shows the client re-transmitting a server-issued secret back to BaseApp for
 verification.
 
+## 5a. 2026-09-14 (third pass) — `BaseAppLoginRequest` Object Layout Recovered
+
+Follow-up work fully decoded the constructor at `0x937128` field-by-field (register/data-flow
+tracing of every `str`/`stur` into the newly-allocated object, `x20` inside that function).
+This supersedes the vague "184-byte object, role unknown" note from the previous pass —
+that 184-byte/`0xb8` object was investigated further and **ruled out**: tracing its
+containing function backward (prologue at `0x93bcc8`) showed it takes two string-pointer
+arguments copied into local `std::string` buffers before the 184-byte allocation, which is
+the signature of a **formatted log-message constructor**, not `BaseAppLoginRequest`. That
+object is **not relevant to `baseAppLogin`** and is corrected here rather than left as an
+open lead.
+
+The **actual** `BaseAppLoginRequest`/request object is the one allocated by the orchestrator
+at `0x93a470` (`operator new(0x78)`, 120 bytes) and constructed by `0x937128`. Its layout,
+CONFIRMED BY BINARY from the constructor body:
+
+```
+BaseAppLoginRequest (120 bytes, allocated at 0x93a470, constructed at 0x937128):
++0x00-0x0F  std::function<void()>-shaped pair (manager-fn ptr + invoke-fn ptr) — matches the
+            mangled string "...BaseAppLoginRequest13setNubAndSendE...3$_4...allocator...Fvv..."
+            found at rodata 0x2a4b757, i.e. a lambda-backed void() reply/completion callback
++0x10       u32, initialized to 0                              (state/refcount candidate)
++0x18       ptr, = the ServerConnection* passed as arg1          (back-pointer, CONFIRMED)
++0x20       u64, initialized to 0
++0x28-0x37  16 bytes, VERBATIM COPY of ServerConnection+0x24..+0x33
++0x38-0x3F  8 bytes,  VERBATIM COPY of ServerConnection+0x34..+0x3B
++0x40       ptr, = baseAppLogin InterfaceElement handle (loaded from global @ 0x457a210)
++0x48       u32, initialized to 0
++0x4c       u8,  initialized to 0
++0x50       f32, = a global float constant (purpose not traced)
++0x54       f32, = 5.0 (the reply timeout, CONFIRMED literal)
++0x58       u64, initialized to 0
++0x60       u32, = a global int constant (purpose not traced)
+```
+
+**Epistemically important caveat**: this object's shape (leading callback pair, back-pointer,
+InterfaceElement handle, timeout floats, and it being registered into a linked list keyed by
+timeout — see original `0x937128` disassembly) matches a **Mercury pending-request /
+reply-timeout tracker**, i.e. bookkeeping for "what to do when BaseApp replies or 5s
+elapses" — **not** necessarily a staging buffer for the wire payload. The 24-byte block
+copied from `ServerConnection+0x24..+0x3B` into `+0x28..+0x3F` could be:
+(a) opaque context data returned to the reply callback (never sent over the wire), or
+(b) the actual pre-serialized login payload later copied into the Mercury bundle by code not
+yet located.
+**Both remain possible; neither is confirmed.** Do not read this layout as proof that these
+24 bytes are transmitted to BaseApp.
+
+## 5b. What The 24-Byte Source Region Contains (partial)
+
+Of `ServerConnection+0x24` through `+0x3B` (6 × 4-byte words), only 2 of 6 were
+characterized in prior/this work, both from `LoginHandler::onLoginReply`:
+
+| Offset | Content | Confidence |
+|---|---|---|
+| `+0x24` | `u32`, written `= 1` immediately after the Address is parsed | CONFIRMED BY BINARY (write site); INFERRED meaning (state/flag) |
+| `+0x28` | UNKNOWN | UNKNOWN |
+| `+0x2c` | UNKNOWN | UNKNOWN |
+| `+0x30` | UNKNOWN | UNKNOWN |
+| `+0x34` | `u32`, copy of the first 4 bytes of the new BaseApp Address (`[this+0x50]`) | CONFIRMED BY BINARY (write site); STRONG EVIDENCE it exists only for the "change baseAddr from %s to %s" log line, not for transmission |
+| `+0x38` | UNKNOWN | UNKNOWN |
+
+A broad, unscoped search for writes to these offsets across all of `.text` was attempted and
+**abandoned as unproductive**: this offset range (0x24–0x3c relative to any base register)
+is an extremely common compiler-generated pattern (object zero-initialization,
+exception-handling scaffolding) that recurs thousands of times across unrelated classes in
+this 22MB `.text` section, making a blind scan unable to isolate the correct writes without
+first knowing the exact `ServerConnection`/`LoginHandler` constructor address. An attempt to
+locate that constructor via RTTI typeinfo reconstruction (searching for pointers to the
+`N4neox8bwclient12LoginHandlerE` mangled-name string at rodata `0x2a4b2f0`, then following
+the Itanium typeinfo→vtable chain) did not converge to a verifiable class vtable in the time
+available — the candidate location found had a zero-filled predecessor field, inconsistent
+with a real `__class_type_info` vtable slot, and was discarded rather than reported as fact.
+
+**Honest conclusion**: 4 of the 6 words in this block remain UNKNOWN. This is a genuine
+limit of static-only, symbol-free analysis reached in this pass, not an oversight — the next
+section names the concrete next step.
+
 ## 6. Summary Table
 
 | Item | Confidence |
@@ -162,6 +239,8 @@ verification.
 | Send happens at most once per `ServerConnection` (no client-side retry) | CONFIRMED BY BINARY |
 | 5.0-second reply timeout registered around the send | CONFIRMED BY BINARY |
 | Port-range 0x861–0xe321 socket bind on the client side for this connection | CONFIRMED BY BINARY (matches prior report) |
+| `BaseAppLoginRequest` object full layout (120 bytes, §5a) | CONFIRMED BY BINARY |
+| Whether the 24-byte `ServerConnection+0x24..0x3B` block is the wire payload or just callback context | UNKNOWN — both remain plausible |
 | Exact field layout of the message body | UNKNOWN |
-| Whether a LoginApp session key is re-sent inside the body | UNKNOWN (no evidence found either way; the one 24-byte block traced is provably unrelated to the Address reply) |
-| The 24-byte context block's ultimate content/meaning | UNKNOWN — write site found (§1 last row) but the 184-byte object's type was not identified |
+| Whether a LoginApp session key is re-sent inside the body | UNKNOWN (no evidence found either way; the two characterized sub-fields of the 24-byte block — a state flag and an address-backup-for-logging — are provably unrelated to a session key; the other 4 of 6 sub-fields are UNKNOWN) |
+| The earlier "184-byte object" lead from the previous pass | RULED OUT — identified as an unrelated log-message constructor, not part of the `baseAppLogin` path |
