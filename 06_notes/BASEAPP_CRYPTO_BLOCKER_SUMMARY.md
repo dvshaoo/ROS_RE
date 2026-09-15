@@ -1,4 +1,4 @@
-# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-015)
+# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-016)
 
 This document exists so a future pass (human or agent) does not have to re-read five-plus
 scattered `END_TO_END_TEST_LOG.md` entries to understand the current state of this
@@ -25,15 +25,33 @@ works completely — see `06_notes/PRIVATE_SERVER_REPLACEMENT_STATUS.md`).
    pointer straight out of `ServerConnection+0x148` (the same slot LoginApp uses) and hands
    that SAME pointer (not a copy) into the new BaseApp `Channel` object's own `+0x40` slot,
    with only a refcount increment — no new key material, no new object.
-5. **There is no distinct BaseApp-specific decrypt code path.** Since both channels hold a
-   pointer to the identical object, virtual dispatch means they execute the exact same
-   `decrypt`/`encrypt` machine code (the `0x989600`-region implementation already
-   characterized for LoginApp). (E2E-015.) This directly answers "is there a different
-   chaining mode for BaseApp?" — no, by construction.
+5. **There is no distinct BaseApp-specific decrypt code path — CORRECTED/SHARPENED in E2E-016.**
+   Since both channels hold a pointer to the identical `EncryptionFilter` object, both
+   dispatch through its identical vtable. **`0x989600` (which E2E-007 through E2E-015 treated
+   as "the" decrypt function) turns out to have exactly ONE caller in the entire binary —
+   `LoginHandler::onLoginReply` itself** — meaning it is a private helper hardcoded for the
+   fixed 20-byte LoginReply body, NOT a generic per-channel decrypt entry point. The REAL
+   generic receive-path decrypt is a DIFFERENT function, **`0x98924c`**, reached via the
+   filter's actual vtable (recovered from `.rela.dyn`, since the raw file bytes at the vtable
+   address are relocation targets, not literal pointers). It implements the identical
+   `pc_variant`/IV=0 algorithm, so "is there a different chaining mode for BaseApp?" is still
+   answered **no** — but the two functions differ in how they determine decrypt LENGTH (see
+   next point), which is a materially different, still-open question. (E2E-015, corrected/
+   extended E2E-016.)
 6. **The Blowfish cipher mode itself is `pc_variant`** (XOR each plaintext block against the
    PREVIOUS plaintext block, IV=0 at the start of a decrypt call, then ECB-encrypt/decrypt) —
    confirmed correct for LoginApp via disassembly of the `0x989600` loop and live-verified
-   (correctly decodes `172.16.1.2:25010`). (E2E-007.)
+   (correctly decodes `172.16.1.2:25010`). (E2E-007.) The generic decrypt (`0x98924c`)
+   implements the same algorithm structure. (E2E-016.)
+7. **The generic decrypt (`0x98924c`) starts at the correct wire offset (0, the flags field,
+   at `packet_obj+0x60`) but computes its LENGTH from two 16-bit fields
+   (`packet_obj+0x1a` and `+0x1c`, summed) that the receive path populates BEFORE calling
+   decrypt — NOT simply "the number of bytes received."** These two fields get
+   reclassified relative to each other (sum unchanged) when certain Mercury footer flags are
+   set on the packet. Where the BASE-CASE values of these two fields come from (for a packet
+   with no special footer flags, like this project's own replies) was not fully traced to its
+   origin as of E2E-016 — this is the concrete open question blocking further progress.
+   (E2E-016.)
 
 ## What Has Been TRIED and DISPROVEN (do not re-attempt these exact forms)
 
@@ -46,7 +64,14 @@ works completely — see `06_notes/PRIVATE_SERVER_REPLACEMENT_STATUS.md`).
 | E2E-014 | Same chain-IV, but this time isolated to the FIRST ack of a fresh test (not confounded by a `createBasePlayer`-tail-block bug found and fixed this pass) | **CLEAN NEGATIVE**: still `bad flags 5679`, not decoded correctly. Chain-from-last-plaintext-block is DISPROVEN as the correct IV source. |
 
 **Do not re-try**: IV=0 with the shared key (disproven, E2E-008); IV=chained-from-
-LoginApp's-last-plaintext-block (disproven cleanly, E2E-014).
+LoginApp's-last-plaintext-block (disproven cleanly, E2E-014). **Caveat added in E2E-016**:
+both of these attempts used a packet LENGTH equal to "however many bytes we chose to send"
+— per E2E-016's finding that decrypt length actually comes from packet-object metadata
+fields (`+0x1a`/`+0x1c`), it is not yet confirmed whether these attempts also had the
+correct LENGTH for those fields to resolve to. The IV conclusions above remain valid
+(IV=0 is structurally the only correct starting state, per direct disassembly of the
+decrypt loop — a length mismatch doesn't change that), but a length-corrected retest of
+IV=0 has NOT yet been done and is not the same experiment as E2E-008's original attempt.
 
 ## What Was Investigated and Found NOT To Be The Answer (dead ends, not disproven hypotheses)
 
@@ -60,7 +85,13 @@ LoginApp's-last-plaintext-block (disproven cleanly, E2E-014).
   full-file raw-pointer scan, manual disassembly of `processFilteredPacket`'s known body,
   and exhaustive backward-resolution across all 2019 combined callers of both the WARNING-
   and ERROR-level shared log functions). This is a well-corroborated negative result, not
-  an unexplored gap. (E2E-014.)
+  an unexplored gap. (E2E-014.) **Likely explanation found in E2E-016**: while tracing
+  `processFilteredPacket`'s length-field bookkeeping, found a block of NEON/SIMD
+  instructions (`~0x98fce0`-`0x98fd10`) directly inline in the function body — consistent
+  with an INLINED checksum/hash computation, not a separate callable function at all. If
+  correct, this fully explains why 5 independent function-call-based search methods could
+  never find it: there is no function to find. **Not yet characterized** (algorithm, input
+  byte range) — a concrete next step, not a closed finding.
 
 ## The Core Unresolved Puzzle — REFRAMED this pass (E2E-015 continued)
 
@@ -88,18 +119,27 @@ structurally valid starting state — decryption of the BaseApp message STILL fa
 LoginApp's succeeds, with every crypto-parameter variable now identical between the two.
 
 **The question is therefore NOT "which crypto parameters" (fully closed out) but "which
-exact byte range of the wire packet is the ciphertext"** — a framing/offset question. This
-project's working assumption (established in E2E-008, from a block-size-error observation)
-that the WHOLE packet is the ciphertext may be wrong in some detail for the BaseApp channel
-specifically (e.g. a different start offset, a different length calculation, or an extra
-header/trailer byte range this project hasn't isolated).
+exact byte range of the wire packet is the ciphertext"** — a framing/offset question.
 
-**Recommended next static target**: find the CALLER of `0x989600` specifically on the
-BaseApp/`Nub::processFilteredPacket` receive path (not the already-characterized LoginApp/
-`onLoginReply` path) to read exactly what source pointer, destination pointer, and length
-it passes for an incoming BaseApp-channel packet — this would show empirically where the
-decrypt call believes the ciphertext begins and ends, resolving the framing question
-directly from disassembly instead of further trial-and-error on packet layout.
+**ANSWERED IN PART, E2E-016**: `0x989600` turned out to have exactly ONE caller in the
+entire binary (`onLoginReply` itself) — it is NOT the generic decrypt function this
+question needed. The real generic receive-path decrypt is `0x98924c` (found via the
+filter's TRUE vtable, recovered from `.rela.dyn` since raw file bytes at the vtable address
+are relocation targets, not literal pointers). It **starts at the correct offset**
+(`packet_obj+0x60` == confirmed wire byte 0, the flags field) but its **LENGTH comes from
+two 16-bit fields in the packet object (`+0x1a` and `+0x1c`, summed)** that the receive
+path populates BEFORE calling decrypt — not simply "the number of bytes received." These
+two fields get reclassified relative to each other (sum unchanged) when certain footer
+flags are set. **Where the base-case values of these two fields originate (for a packet
+with no special footer flags) was not fully traced this pass** — this is now the single
+most concrete open question.
+
+**Recommended next static target**: trace `processFilteredPacket`'s EARLIEST write to
+`packet_obj+0x1a` (before any footer-flag reclassification) back to its source — most
+plausibly the raw UDP `recvfrom()` byte count or an explicit wire length field, but not yet
+confirmed which. Separately, characterize the inline SIMD checksum block found this pass
+(see above) to determine if it's the real "failed checksum" mechanism and, if so, its
+input byte range and algorithm.
 
 ## Tooling Constraints (why this hasn't been resolved dynamically)
 

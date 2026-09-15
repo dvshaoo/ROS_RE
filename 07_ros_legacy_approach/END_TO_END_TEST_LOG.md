@@ -1863,5 +1863,118 @@ budget), the clear next step for whoever continues this thread. See
 consolidated version of this reasoning.
 
 ---
+
+## TEST_ID: E2E-016
+- **DATE**: 2026-09-15 (same day, sixteenth pass), per the coordinator's
+  instruction to find the caller of `0x989600` specifically on the
+  BaseApp receive path and read its exact src/dst/length arguments.
+- **GOAL**: resolve the framing/byte-range question E2E-015 reframed the
+  blocker into.
+
+### Correction found first: 0x989600 has exactly ONE caller in the whole binary — and it isn't generic
+Searching for `BL` callers of `0x989600` found **exactly one**:
+`0x938234`, inside `LoginHandler::onLoginReply` itself. This means
+`0x989600` was NEVER a generically-dispatched, per-channel decrypt
+function at all — it's a **private helper hardcoded for the specific,
+fixed 20-byte LoginReply body**, called directly (not virtually) only
+from that one place. This project's working assumption since E2E-007
+(that `0x989600` is "the" EncryptionFilter decrypt used for all
+channels) was **incomplete** — a real, separate generic decrypt function
+exists and had not been distinguished from this one.
+
+### Found the REAL generic decrypt function: `0x98924c`
+First had to fix a mistake made earlier in this same pass: reading
+`EncryptionFilter`'s vtable contents directly from the file's raw bytes
+at `0x37dd3a0` gave nonsense values (e.g. `0x8002`) — because, like the
+`.data.rel.ro` pointers investigated for `createBasePlayer` in E2E-011,
+these are **`R_AARCH64_RELATIVE` relocation targets**, not literal
+pointers in the static file; the TRUE values live in `.rela.dyn`'s
+`r_addend` fields. Parsing `.rela.dyn` for offsets `0x37dd390`-`0x37dd400`
+recovered the real vtable: `[0x988ecc, 0x988f1c, 0x988f68, 0x989444,
+0x989700 (a trivial "return 8" block-size getter — nice sanity check,
+8 = Blowfish's block size), ..., 0x989794, 0x989814, 0x9898fc, 0x989aa4,
+0x989c48]`.
+
+`06_notes/FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md` had already listed
+THREE addresses together as "the encrypt/decrypt call targets"
+(`0x98924c`, `0x989600`, `0x98938c`) without individually characterizing
+each. Disassembling all three this pass:
+- **`0x989444`**: the SEND-side wrapper (checks a condition via
+  `bl 0x98924c`, then either returns early or tail-calls onward to
+  `0x996f2c`) — this is `send()`/encrypt-on-send, not decrypt.
+- **`0x98938c`**: contains the SAME `pc_variant` IV=0 XOR-chain loop
+  structure as `0x989600`, parameterized by an explicit length argument
+  (`w3`) rather than reading it from a packet object — likely a
+  lower-level shared primitive both `0x989600` and `0x98924c` call
+  into, or an alternate direct-length entry point.
+- **`0x98924c`**: **THE REAL GENERIC RECEIVE-PATH DECRYPT FUNCTION.**
+  Checks `filter+0x2c` (the "enabled" bool, same field already
+  documented), then:
+  ```
+  0x989278: ldrh w8, [x19, #0x1a]   ; w8 = packet_obj+0x1a (a length field)
+  0x98927c: ldrh w9, [x19, #0x1c]   ; w9 = packet_obj+0x1c (ANOTHER length field)
+  0x989280: add x22, x9, x8         ; total decrypt length = w8 + w9
+  0x989284: and w10, w22, #7        ; must be a multiple of 8 (the block-size check)
+  ...
+  0x9892d0: add x25, x19, #0x60     ; decrypt SOURCE = packet_obj + 0x60
+  ```
+  **CONFIRMED**: `packet_obj+0x60` is the SAME offset
+  `06_trace/MERCURY_REPLY_DISPATCH_TRACE.md` already proved is wire byte
+  0 (the flags field) — so decryption DOES start at the true beginning
+  of the wire packet, matching this project's working assumption. **But
+  the LENGTH is NOT simply "however many bytes were received"** — it is
+  read back out of two separate 16-bit fields the receive path
+  populates BEFORE this call, and (per a nearby code path at `0x98fc54`-
+  `0x98fc74` inside `processFilteredPacket`) these two fields get
+  **reclassified relative to each other** (4 bytes moved from one to the
+  other, sum unchanged) when certain Mercury footer flags (sequence
+  number, etc.) are detected on the packet.
+
+### Unplanned side discovery: an inline SIMD checksum/hash, not a callable function
+While tracing where `packet_obj+0x1a`/`+0x1c` first get populated,
+found a block of NEON/SIMD instructions (`eor v0.16b,...`, `dup
+v1.4s,...`, around `0x98fce0`-`0x98fd10`) directly inside
+`processFilteredPacket`'s own body — consistent with an **inlined
+checksum or hash computation**, not a separate callable function. This
+plausibly explains E2E-014's exhaustive, 5-method failure to find the
+"failed checksum" error's real call site via any function-call-based
+search: **the checksum logic may not be in a separate function at all**,
+so no amount of caller-enumeration could have found it. Not further
+characterized this pass (time budget) — flagged as a concrete lead for
+whoever continues this thread.
+
+### RESULT
+- **Corrected a standing project assumption**: `0x989600` is NOT a
+  generic per-channel decrypt function; `0x98924c` is. This project's
+  BaseApp testing (E2E-008 through E2E-015) was reasoning about the
+  right ALGORITHM (confirmed still correct — same `pc_variant`, same
+  IV=0, same key, same object) but had not yet examined the ACTUAL
+  receive-path length computation this pass now exposes.
+- **The framing/byte-range question from E2E-015 has a partial answer**:
+  decrypt starts at the right place (wire offset 0) but its LENGTH
+  depends on packet-object metadata fields this project has not fully
+  traced to their origin — genuinely still open, not solved.
+- Found a strong new lead (inline SIMD checksum) explaining a previous
+  dead end, itself not yet resolved.
+- Did not reach a live-testable fix this pass — the exact value/origin
+  of `packet_obj+0x1a`/`+0x1c` for a "normal" (non-footer) packet was not
+  fully traced within this pass's time budget. **No live testing was
+  attempted this pass** (would have been premature without knowing the
+  correct length to send). `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. Trace `processFilteredPacket`'s EARLIEST population of
+   `packet_obj+0x1a` (before any footer-flag reclassification) back to
+   its source — almost certainly derived from the raw UDP `recvfrom()`
+   byte count or an explicit length field read from the wire near the
+   flags field, but not yet confirmed which. This is the single most
+   concrete remaining static target.
+2. Separately, characterize the inline SIMD checksum block
+   (`~0x98fce0`-`0x98fd10`) to determine if it's the actual "failed
+   checksum" mechanism, its exact algorithm, and its input byte range.
+3. Once both are understood, compute the correct BaseApp ack length/
+   content and test live (one paced iteration, CPU-monitored).
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
