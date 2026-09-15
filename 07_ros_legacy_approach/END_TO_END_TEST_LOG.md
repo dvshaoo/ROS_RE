@@ -265,5 +265,187 @@ SUPPORTED / INFERRED / UNKNOWN per this project's convention.
   concrete next task, not yet started this pass.
 
 ---
+
+## TEST_ID: E2E-003
+- **DATE**: 2026-09-15 (same day, third pass — user explicitly authorized
+  "ibypass na natin lahat para makapaglaro na offline" / bypass everything
+  necessary to make it playable offline, formally sanctioning
+  CLIENT_MODIFIED work)
+- **GOAL THIS PASS**: Implement the E2E-002-recommended pivot: patch
+  `ui.UILogin.doLoginGame()` (or the real equivalent) in `script.npk` to
+  short-circuit the native Mercury LoginApp/BaseApp handshake. **Result:
+  this specific plan hit a hard, pre-existing, well-documented blocker
+  before any patch could be written — see below — and the pass pivoted to
+  investigating whether a device/environment reboot could unblock the
+  earlier native memory-introspection path instead. Net result: no
+  client-observable progress past the title screen this pass; several
+  significant environmental findings recorded; one real incident (OBB
+  files deleted by `adb uninstall`) caused and fully recovered from.**
+
+### Sub-test A: script.npk crypto pipeline (static)
+Attempted to decrypt `ui.UILogin`'s `script.npk` entry (hash `0xc6a16d1c`,
+already located and dumped to `scratch/uilogin.raw` in an earlier session)
+using the AES-128-ECB key documented in `MASTER_SPEC.md` (`w5q6^C04SW!@e}ad`
+at `0x02B504E0` in `libclient_arm64.so`). **Result: FAIL.** AES-ECB decrypt
+(whole-buffer and partial-block-plus-plain-tail variants) produced no valid
+zlib stream or recognizable Python marshal header for either `UILogin.py`
+or a second, independently cross-checked module (`patch/patch_mgr.py`,
+whose encrypted/decrypted sizes are both stated in `MASTER_SPEC.md`).
+**Root cause found**: re-reading `bridge/RESULT_T11.md` sec3 (already in
+the repo, not re-derived) shows the AES-128-ECB key is **only** used for a
+tiny 2-entry sub-container (hash `0xFB54F059`, 3,924B each) — it is
+**explicitly NOT** the general-purpose cipher for the other 3,957
+`script.npk` entries (magic `7A 1C`), which use "an additive stream cipher
+... keystream generator... embedded in the proprietary compiled Python
+runtime" and are recorded there as **"BLOCKED for offline standalone
+extraction without Python VM execution... [requires] Dynamic interception
+(via Frida hook on `package.get_file` / `PyMarshal_ReadObjectFromString`)."**
+`MASTER_SPEC.md`'s own "Decrypted Module Hashes" table (listing
+`patch/patch_mgr.py` etc. with plausible decrypted sizes) must therefore
+have been produced by that same dynamic/Frida method in an earlier session,
+not by the static AES path this pass mistakenly tried first. **CONFIRMED**:
+static decryption of the general script.npk entry class is cryptographically
+infeasible without dynamic instrumentation, exactly as already recorded in
+this repo before this pass (this pass just re-discovered/re-confirmed it
+the hard way instead of reading `RESULT_T11.md` first).
+
+### Sub-test B: dynamic script.npk decryption via Frida (attempt)
+Since static decryption is blocked, tried Frida (already present on device:
+`/data/local/tmp/frida-server-16`, `frida-server-x64`) to dynamically hook
+the target process and either dump decrypted bytecode or read the Mercury
+`Nub` hashtable directly (the original E2E-002 blocker). **Result: FAIL**,
+and reproducibly so:
+- `strace -p <chiji-pid>` (real root, `su 0`) **succeeds** and prints live
+  syscalls — ptrace attachment itself works against this exact process.
+- `su 0 dd if=/proc/<pid>/mem ...` at a live, confirmed-mapped address
+  (cross-checked against `/proc/<pid>/maps`, which does show the address
+  inside a large `[anon:libc_malloc]` region) still returns `I/O error`
+  every time. **INFERRED**: this kernel's `/proc/pid/mem` read path
+  requires the READING process itself to hold the active ptrace
+  relationship (not just "any root process"), consistent with
+  `mm_access()`/`ptrace_access_vm()` returning `-EIO` for an unattached
+  reader even when ptrace() itself is permitted for other callers.
+- `frida-server` **crashes** (process disappears, no log output) the
+  moment `device.attach(<chiji-pid>)` is called against this specific
+  process, both via raw `enumerate_processes()` and via a direct
+  `attach(pid)` call. Reproduced twice, both after a full emulator reboot
+  (see Sub-test C) that had otherwise restored ptrace capability for
+  unrelated processes (confirmed: `strace -p <system_server-pid>` worked
+  cleanly). This crash is specific to attaching to the game process, not a
+  general frida-server malfunction.
+- **frida-gadget** (in-process instrumentation, no external ptrace needed)
+  was tried as a workaround by installing the project's existing
+  pre-built `01_apk/base_frida_signed.apk` (gadget already embedded from
+  an earlier session). This DID successfully load (`Frida: Listening on
+  127.0.0.1 TCP port 27042`, confirmed live JS execution via
+  `Process.enumerateModules()` returning real results) — a genuinely new,
+  working capability this pass (external ptrace/frida-server is not
+  needed for basic in-process script execution). **However**: the app
+  never progressed past the earliest native-linker stage (6 native
+  modules loaded — `libc`, `libdl`, `libm`, `liblog`, `libc++`,
+  `ld-android` — for over 90 seconds, `libclient.so` never appeared),
+  because `tools/frida-gadget.config`'s baked-in
+  `"interaction":{"type":"script","location":"http://192.168.100.8:8080/..."}`
+  is a stale/non-standard config left over from an earlier session's
+  different network topology; it appears to block early process
+  init waiting on that fetch (attempts to make the URL reachable via a new
+  iptables OUTPUT DNAT rule to `172.16.1.2:8080` did not help — zero
+  connection attempts observed device-side at all, `netstat`/conntrack
+  showed nothing, so the guest may not even be able to originate a
+  connection to `192.168.100.8` from this specific process/init stage).
+  **UNKNOWN, not resolved this pass**: the exact reason this specific
+  gadget config hangs early process init; not investigated further given
+  time budget — a rebuilt gadget config (`"type":"listen"`, the frida
+  default, no network fetch dependency) is the obvious next fix and was
+  not yet tried.
+
+### Sub-test C: full emulator reboot (recovery attempt for Sub-test B's ptrace blocker)
+Rebooted `emulator-5554` (`adb reboot`) specifically to test whether
+E2E-002's ptrace/`/proc/pid/mem` blocker was a transient LDPlayer/kernel
+state rather than a permanent restriction. **Result: PARTIALLY POSITIVE**
+— `strace -p <pid>` against both `system_server` and the freshly-relaunched
+game process succeeded post-reboot (this had failed pre-reboot in
+E2E-002). However, raw `/proc/pid/mem` reads still failed (EIO, see Sub-test
+B), so the reboot fixed ptrace-attach permission but did **not** fix the
+unattached-reader `/proc/pid/mem` restriction — these are evidently two
+separate gates. iptables OUTPUT DNAT rules were correctly detected as wiped
+post-reboot and were successfully reapplied (`tcp:80/443/8443`,
+`udp:25000/20013` → `172.16.1.2`) per this project's already-documented
+reboot-recovery procedure — no new information there, procedure confirmed
+still accurate.
+
+### Incident: OBB files deleted by `adb uninstall`, fully recovered
+While testing the frida-gadget APK (Sub-test B), `adb uninstall
+com.netease.chiji` followed by reinstalling the project's backed-up
+"currently installed" APK left the app unable to start
+(`FileNotFoundException: /storage/emulated/0/Android/obb/com.netease.chiji/
+main.1117219.com.netease.chiji.obb (No such file or directory)`) — **this
+LDPlayer/Android configuration deletes the app's OBB expansion files on
+`adb uninstall`, not just app data**, which is new, useful operational
+knowledge for future sessions (prior sessions' notes did not record this).
+**Recovery (CONFIRMED, fully successful)**: both OBB files were still
+present in the repo's own `04_obb/` directory (used throughout this project
+for static analysis) and were `adb push`-ed back to
+`/storage/emulated/0/Android/obb/com.netease.chiji/` (main: 1,977,238,353B,
+patch: 1,523,738,987B, ~2.5 min total transfer), permissions fixed
+(`chmod 755`), and the app was confirmed to boot cleanly afterward all the
+way back to the title screen with "Guest" logged in and PLAY available
+(`scratch/title_final2.png`). **No data was permanently lost.** The
+originally-installed working APK (`scratch/currently_installed_backup.apk`,
+pulled before any changes this pass, 95,561,326 bytes, confirmed identical
+in size to `01_apk/base_proxy_v5_signed.apk`) was reinstalled and is the
+currently-running configuration — device is left in the SAME working state
+it was in before this pass started, modulo the OBB round-trip.
+**LESSON FOR FUTURE SESSIONS**: never `adb uninstall` this package without
+first confirming the OBB files are backed up outside the device (they are,
+in this repo's `04_obb/`, so this specific risk is now fully mitigated
+going forward) — prefer `adb install -r` (reinstall, keeps data/obb) over
+uninstall+install when swapping APK builds, unless a clean-slate install is
+specifically required.
+
+### RESULT / NEXT_ACTION
+Both concrete technique paths for the user-authorized client-patch pivot
+(static script.npk crypto, dynamic Frida-assisted script.npk decryption or
+memory read) hit real, reproducible blockers this pass, distinct from
+E2E-002's blocker:
+- Static script.npk decrypt: cryptographically infeasible (confirmed
+  pre-existing project finding, re-confirmed this pass).
+- Dynamic (frida-server, external ptrace): frida-server crashes on attach
+  to this specific process.
+- Dynamic (frida-gadget, in-process): loads and runs, but the specific
+  pre-built config hangs process init before `libclient.so` loads.
+
+**NEXT_ACTION, in priority order**:
+1. **Fix the frida-gadget config** — rebuild/repackage with
+   `{"interaction":{"type":"listen","listen_address":"127.0.0.1:27042"}}`
+   (frida's own default, no network fetch dependency) instead of the stale
+   custom `"location"` HTTP-fetch config. This is a small, self-contained
+   fix (edit one config asset inside the APK, or rebuild the gadget-injected
+   APK fresh from the CURRENTLY working base rather than reusing the
+   Sep-14 `base_frida_signed.apk`) and, if it works, unblocks BOTH the
+   original native reply-ID memory-read investigation (E2E-002) AND
+   dynamic script.npk decryption (Sub-test A here) via the exact
+   `PyMarshal_ReadObjectFromString` hook `RESULT_T11.md` already
+   recommends — potentially resolving the actual root blocker with a
+   single working tool instead of requiring an invasive Python-logic
+   rewrite.
+2. If gadget-based introspection works: use it to (a) dump the real
+   `LoginApp` reply-id key live (finally answering E2E-002's open
+   question with a faithful fix, no client behavior change needed beyond
+   the instrumentation itself), OR (b) dump `ui.UILogin`'s decrypted
+   bytecode for a genuine, informed `doLoginGame()` patch as originally
+   planned.
+3. If gadget-based introspection still does not pan out in a further
+   timeboxed attempt: fall back to the native `.so` patch path explicitly
+   pre-authorized by the user as a last resort — two small, already
+   disassembly-located patch targets (`Mercury::Nub::handleMessage`'s
+   hashtable-match branch at `0x991f24`/`0x991f34`, and/or
+   `EncryptionFilter::decrypt`'s call site at `0x989600`) are far more
+   surgical than reconstructing an entire alternate Python-side
+   Account/Avatar/Lobby flow, and reuse the ALREADY-CONFIRMED-correct
+   BaseApp Mercury framing this project has built (Attempt H) rather than
+   discarding it.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

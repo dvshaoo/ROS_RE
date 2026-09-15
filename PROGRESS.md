@@ -116,6 +116,51 @@ The following gates must pass in order. Don't chase a later gate while an earlie
   `APPROACH_TAKEN: ros-legacy-style-replacement`, never presented as the
   faithful protocol working. Not yet started.
 
+## 2026-09-15 Third Pass — User authorized full client-patch bypass; frida-gadget partially works, script.npk crypto confirmed blocked, OBB incident recovered
+- **User decision (explicit, logged)**: "ibypass na natin lahat para
+  makapaglaro na offline" — bypass everything necessary to make the game
+  playable offline. This formally authorizes `CLIENT_MODIFIED: YES` work
+  (Java/smali/Python/native), per the standing risk-ordered preference
+  (Java/smali/Python before native `.so` patches).
+- **script.npk Python patch plan (the originally recommended next step)
+  is BLOCKED on a crypto/tooling prerequisite**, not abandoned: the general
+  `script.npk` entry cipher (magic `7A 1C`, ~3,957 of 3,959 entries,
+  including `ui/UILogin.py`) is a stream cipher whose keystream generator
+  lives only inside the compiled Python runtime — already recorded as
+  BLOCKED for static extraction in `bridge/RESULT_T11.md` sec3 (pre-existing
+  finding, re-confirmed this pass after an AES-128-ECB attempt failed — that
+  key only covers a small, unrelated 2-entry sub-container, not the general
+  case). Dynamic (Frida) extraction is the documented way around this, but:
+  `frida-server` (external, ptrace-based) crashes on attach to this specific
+  process; `frida-gadget` (in-process) loads and runs but the project's
+  existing pre-built config hangs early process init on a stale HTTP-fetch
+  URL. Full detail: `07_ros_legacy_approach/END_TO_END_TEST_LOG.md` E2E-003.
+- **New environmental finding**: a full `adb reboot` of the emulator
+  restores ptrace-ATTACH capability (confirmed via `strace -p`) that was
+  broken in the prior pass (E2E-002), but does NOT restore unattached
+  `/proc/pid/mem` reads (still EIO) — these are separate kernel gates.
+- **Incident, fully recovered**: `adb uninstall com.netease.chiji` deletes
+  this app's OBB expansion files too (not just app data) on this
+  LDPlayer/Android config — new operational knowledge. Both OBB files were
+  restored from this repo's own `04_obb/` via `adb push` (~3.5GB total,
+  ~2.5 min), and the device was confirmed back to a clean working title
+  screen. No permanent data loss; the pre-pass-working APK
+  (`scratch/currently_installed_backup.apk`) is reinstalled and running.
+- **NEXT_ACTION (highest priority)**: fix `tools/frida-gadget.config` to
+  use the standard `{"type":"listen"}` interaction (no network dependency)
+  instead of the stale custom HTTP-fetch config, rebuild/reinstall the
+  gadget-injected APK from the CURRENT working base (not the stale Sep-14
+  `base_frida_signed.apk`), and use it to either (a) dump the real
+  LoginApp reply-id key live — potentially resolving the ORIGINAL native
+  protocol blocker with no further client patch needed, which would be
+  the smallest, most faithful fix — or (b) dump `ui.UILogin`'s decrypted
+  bytecode for an informed `doLoginGame()` Python patch. Native `.so`
+  patch (two small, already-disassembly-located targets:
+  `Mercury::Nub::handleMessage`'s match branch,
+  `EncryptionFilter::decrypt`'s call site) remains the documented fallback
+  if gadget-based introspection does not pan out in a further timeboxed
+  attempt.
+
 ---
 *Last updated: 2026-09-15*  
 *Project: ROS_RE — reverse-engineering workspace (sariling RE, walang ibang project)*
