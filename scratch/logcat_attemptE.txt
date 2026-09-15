@@ -1,0 +1,232 @@
+--------- beginning of main
+09-15 09:22:59.983 I/chatty  ( 6446): uid=10063(com.netease.chiji) expire 119 lines
+--------- beginning of system
+09-15 09:23:00.013 W/SchedPolicy( 1573): add_tid_to_cgroup failed to write '3658' (No space left on device); fd=24
+09-15 09:23:00.015 E/NeoXCCPlayer( 6446): onRequestUpdateTexture
+09-15 09:23:00.016 W/SchedPolicy( 1573): add_tid_to_cgroup failed to write '3658' (No space left on device); fd=25
+09-15 09:23:00.037 I/Thread-44( 6446): type=1400 audit(0.0:2259): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:23:00.041 I/RenderThread( 1719): type=1400 audit(0.0:2260): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6869 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:23:00.056 E/NeoXCCPlayer( 6446): onRequestUpdateTexture
+09-15 09:23:00.063 I/appproc ( 6813): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:23:00.063 D/AndroidRuntime( 6813): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:23:00.065 E/cutils-trace( 6813): Error opening trace file: No such file or directory (2)
+09-15 09:23:00.075 V/libnb   ( 6813): enter native_bridge2_isCompatibleWith 3
+09-15 09:23:00.081 I/libnb   ( 6813): Found /system/lib64/libhoudini.so version 3
+09-15 09:23:00.081 E/NeoXCCPlayer( 6446): onRequestUpdateTexture
+09-15 09:23:00.101 I/app_process( 6813): The ClassLoaderContext is a special shared library.
+09-15 09:23:00.101 W/app_process( 6813): Could not create mount namespace.
+09-15 09:23:00.101 D/nativebridge( 6813): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:23:00.101 W/nativebridge( 6813): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:23:00.101 W/nativebridge( 6813): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:23:00.101 D/nativebridge( 6813): call UnloadNativeBridge! state=2
+09-15 09:23:00.111 D/AndroidRuntime( 6813): Calling main entry com.android.commands.input.Input
+09-15 09:23:00.113 I/Input   ( 6813): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1102320, downTime=1102320, deviceId=3, source=0x1002 }
+09-15 09:23:00.115 E/NeoXCCPlayer( 6446): onRequestUpdateTexture
+09-15 09:23:00.126 I/Input   ( 6813): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1102320, downTime=1102320, deviceId=3, source=0x1002 }
+09-15 09:23:00.135 D/AndroidRuntime( 6813): Shutting down VM
+09-15 09:23:00.168 E/NeoX    ( 6446): finish get cutOut info
+09-15 09:23:00.182 E/NeoXCCPlayer( 6446): onRequestUpdateTexture
+09-15 09:23:00.582 I/chatty  ( 6446): uid=10063(com.netease.chiji) identical 12 lines
+09-15 09:23:00.614 E/NeoXCCPlayer( 6446): onRequestUpdateTexture
+09-15 09:23:00.637 I/[09:23:00.637] M ( 6446): [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 09:23:00.639 I/[09:23:00.639] M ( 6446): [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 09:23:00.640 I/[09:23:00.640] M ( 6446): [INFO] Nub::recreateListeningSocket 0x76384d98d000 0.0.0.0:57253
+09-15 09:23:00.642 W/IJKMEDIA( 6446): IjkMediaPlayer_stop
+09-15 09:23:00.643 W/IJKMEDIA( 6446): ijkmp_stop()
+09-15 09:23:00.643 W/IJKMEDIA( 6446): ijkmp_stop()=0
+09-15 09:23:00.643 W/IJKMEDIA( 6446): IjkMediaPlayer_release
+09-15 09:23:00.643 W/IJKMEDIA( 6446): ijkmp_set_android_surface(surface=0x0)
+09-15 09:23:00.643 W/IJKMEDIA( 6446): message_loop exit
+09-15 09:23:00.643 D/IJKMEDIA( 6446): ffpipeline_set_surface()
+09-15 09:23:00.643 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6741]
+09-15 09:23:00.643 I/IJKMEDIA( 6446): stream_open--->setsurface time = 32820 ms, video packet count = 11
+09-15 09:23:00.643 W/IJKMEDIA( 6446): ijkmp_set_android_surface(surface=0x0)=void
+09-15 09:23:00.643 E/IJKMEDIA( 6446): create async thread(1115800464)
+09-15 09:23:00.643 I/IJKMEDIA( 6446): SDL_RunThread: [6823] release_tid
+09-15 09:23:00.643 W/IJKMEDIA( 6446): async_release_android
+09-15 09:23:00.643 W/IJKMEDIA( 6446): ijkmp_stop_cc_player_stat
+09-15 09:23:00.643 W/IJKMEDIA( 6446): ijkmp_shutdown_l()
+09-15 09:23:00.644 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6742]
+09-15 09:23:00.667 I/        ( 6446): 
+09-15 09:23:00.667 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:00.667 I/[09:23:00.667] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:00.667 I/        ( 6446): 
+09-15 09:23:00.667 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:00.667 I/[09:23:00.667] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:00.667 I/        ( 6446): 
+09-15 09:23:00.667 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:00.667 I/[09:23:00.667] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:00.670 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:00.670 I/[09:23:00.670] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:00.682 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6743]
+09-15 09:23:00.682 W/IJKMEDIA( 6446): end wait for read_tid
+09-15 09:23:00.682 W/IJKMEDIA( 6446): begin wait for audio_tid
+09-15 09:23:00.682 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6750]
+09-15 09:23:00.683 W/IJKMEDIA( 6446): end wait for audio_tid
+09-15 09:23:00.683 W/IJKMEDIA( 6446): begin wait for ff_aout
+09-15 09:23:00.683 D/AudioTrack( 6446): stop() called with 1570944 frames delivered
+09-15 09:23:00.684 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6749]
+09-15 09:23:00.684 W/IJKMEDIA( 6446): end wait for ff_aout
+09-15 09:23:00.684 W/IJKMEDIA( 6446): begin wait for video_tid
+09-15 09:23:00.685 I/IJKMEDIA( 6446): MediaCodec: func_run_sync: try exit: -1
+09-15 09:23:00.689 I/IJKMEDIA( 6446): MediaCodec: enqueue_thread_func: exit: 0
+09-15 09:23:00.689 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6761]
+09-15 09:23:00.689 W/IJKMEDIA( 6446): SDL_AMediaCodecJava_stop
+09-15 09:23:00.692 D/SurfaceUtils( 6446): disconnecting from surface 0x7638499ec010, reason disconnectFromSurface
+09-15 09:23:00.694 I/IJKMEDIA( 6446): SDL_AMediaCodecJava_delete
+09-15 09:23:00.694 D/LDDec   ( 1494): ~LDDec deinit 0xf56205a0 0
+09-15 09:23:00.699 I/IJKMEDIA( 6446): MediaCodec: func_run_sync: exit: -1
+09-15 09:23:00.699 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6760]
+09-15 09:23:00.701 I/        ( 6446): fastpipe: close connect
+09-15 09:23:00.701 W/IJKMEDIA( 6446): end wait for video_tid
+09-15 09:23:00.702 W/IJKMEDIA( 6446): begin wait for video_refresh_tid
+09-15 09:23:00.703 W/IJKMEDIA( 6446): end wait for video_refresh_tid
+09-15 09:23:00.703 D/IJKMEDIA( 6446): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76388bf7ef20)
+09-15 09:23:00.703 D/IJKMEDIA( 6446): SDL_Overlay(MediaCodec): overlay_free_l(0x76388bf7ef20)
+09-15 09:23:00.703 D/IJKMEDIA( 6446): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76388bf7efc0)
+09-15 09:23:00.703 D/IJKMEDIA( 6446): SDL_Overlay(MediaCodec): overlay_free_l(0x76388bf7efc0)
+09-15 09:23:00.703 D/IJKMEDIA( 6446): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76388bf7f060)
+09-15 09:23:00.703 D/IJKMEDIA( 6446): SDL_Overlay(MediaCodec): overlay_free_l(0x76388bf7f060)
+09-15 09:23:00.703 W/IJKMEDIA( 6446): ijkmp_shutdown_l()=void
+09-15 09:23:00.703 W/IJKMEDIA( 6446): begin wait for ff_aout
+09-15 09:23:00.703 W/IJKMEDIA( 6446): end wait for ff_aout
+09-15 09:23:00.703 I/IJKMEDIA( 6446): SDL_JNI_DetachThreadEnv: [6823]
+09-15 09:23:00.798 I/NeoXDevice( 6446): On App CMD 23
+09-15 09:23:01.094 I/        ( 6446): 
+09-15 09:23:01.094 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.094 I/[09:23:01.094] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:01.094 I/        ( 6446): 
+09-15 09:23:01.094 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.094 I/[09:23:01.094] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:01.094 I/        ( 6446): 
+09-15 09:23:01.094 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.094 I/[09:23:01.094] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:01.095 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:01.095 I/[09:23:01.095] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:01.525 I/        ( 6446): 
+09-15 09:23:01.525 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.525 I/[09:23:01.525] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:01.525 I/        ( 6446): 
+09-15 09:23:01.525 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.525 I/[09:23:01.525] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:01.525 I/        ( 6446): 
+09-15 09:23:01.525 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.525 I/[09:23:01.525] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:01.525 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:01.525 I/[09:23:01.525] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:01.789 I/NeoXDevice( 6446): On App CMD 24
+09-15 09:23:01.953 I/        ( 6446): 
+09-15 09:23:01.953 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.953 I/[09:23:01.953] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:01.953 I/        ( 6446): 
+09-15 09:23:01.953 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.953 I/[09:23:01.953] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:01.953 I/        ( 6446): 
+09-15 09:23:01.953 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:01.953 I/[09:23:01.953] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:01.955 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:01.955 I/[09:23:01.955] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:02.383 I/        ( 6446): 
+09-15 09:23:02.383 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:02.383 I/[09:23:02.383] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:02.383 I/        ( 6446): 
+09-15 09:23:02.383 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:02.383 I/[09:23:02.383] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:02.383 I/        ( 6446): 
+09-15 09:23:02.383 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:02.383 I/[09:23:02.383] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:02.384 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:02.384 I/[09:23:02.384] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:02.780 I/NeoXDevice( 6446): On App CMD 25
+09-15 09:23:02.813 I/        ( 6446): 
+09-15 09:23:02.813 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:02.813 I/[09:23:02.813] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:02.813 I/        ( 6446): 
+09-15 09:23:02.813 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:02.813 I/[09:23:02.813] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:02.813 I/        ( 6446): 
+09-15 09:23:02.813 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:02.813 I/[09:23:02.813] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:02.813 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:02.813 I/[09:23:02.813] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:03.243 I/        ( 6446): 
+09-15 09:23:03.243 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:03.243 I/[09:23:03.243] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:03.243 I/        ( 6446): 
+09-15 09:23:03.243 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:03.243 I/[09:23:03.243] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:03.243 I/        ( 6446): 
+09-15 09:23:03.243 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:03.243 I/[09:23:03.243] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:03.244 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:03.244 I/[09:23:03.244] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:03.673 I/        ( 6446): 
+09-15 09:23:03.673 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:03.673 I/[09:23:03.673] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:03.673 I/        ( 6446): 
+09-15 09:23:03.673 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:03.673 I/[09:23:03.673] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:03.673 I/        ( 6446): 
+09-15 09:23:03.673 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:03.673 I/[09:23:03.673] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:03.673 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:03.673 I/[09:23:03.673] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:03.771 I/NeoXDevice( 6446): On App CMD 26
+09-15 09:23:04.103 I/        ( 6446): 
+09-15 09:23:04.103 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:04.103 I/[09:23:04.103] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:04.103 I/        ( 6446): 
+09-15 09:23:04.103 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:04.103 I/[09:23:04.103] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:04.103 I/        ( 6446): 
+09-15 09:23:04.103 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:04.103 I/[09:23:04.103] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:04.103 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:04.103 I/[09:23:04.103] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:04.534 I/        ( 6446): 
+09-15 09:23:04.534 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:04.534 I/[09:23:04.534] M ( 6446): [ERROR] Bundle::iterator::unpack( Reply ): Not enough data on stream at 2 for payload (2 left, needed 4)
+09-15 09:23:04.534 I/        ( 6446): 
+09-15 09:23:04.534 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:04.534 I/[09:23:04.534] M ( 6446): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:23:04.534 I/        ( 6446): 
+09-15 09:23:04.534 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:04.534 I/[09:23:04.534] M ( 6446): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 255
+09-15 09:23:04.534 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:04.534 I/[09:23:04.534] M ( 6446): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:23:04.534 I/        ( 6446): WARNING ***************************************************************************
+09-15 09:23:04.534 I/[09:23:04.534] M ( 6446): [WARNING] MainApp::poll: disconnected since we have too may corruptted packet
+09-15 09:23:04.634 I/[09:23:04.634] M ( 6446): [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1930322568
+09-15 09:23:04.765 I/NeoXDevice( 6446): On App CMD 27
+09-15 09:23:09.527 I/        ( 6446): 
+09-15 09:23:09.527 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:09.527 I/[09:23:09.527] M ( 6446): [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-15 09:23:09.594 I/        ( 6446): 
+09-15 09:23:09.594 I/        ( 6446): ERROR *****************************************************************************
+09-15 09:23:09.594 I/[09:23:09.594] M ( 6446): [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-15 09:23:09.598 D/DCTOOL  ( 6446): ntStart() queue size (1), current thread=333
+09-15 09:23:09.598 D/DCTOOL  ( 6446): ntStart() after so loaded, current thread=333
+09-15 09:23:09.598 D/DCTOOL  ( 6446): ntStart() with native and reset.
+09-15 09:23:09.598 D/DCTOOL  ( 6446): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 09:23:09.599 D/DCTOOL  ( 6446): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 09:23:09.599 D/DCTOOL  ( 6446): NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 09:23:09.599 D/DCTOOL  ( 6446): NATIVE [ntGetDeviceInfo] callback here.
+09-15 09:23:09.599 D/DCTOOL  ( 6446): In C++, call back Java's ntGetDeviceInfo().
+09-15 09:23:09.604 D/DCTOOL  ( 6446): Getting NETWORK_TYPE in java : wifi
+09-15 09:23:09.604 D/DCTOOL  ( 6446): Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4754.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:23:09.604 D/DCTOOL  ( 6446): In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4754.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:23:09.604 D/DCTOOL  ( 6446): In C++, release the returned string. detach. 
+09-15 09:23:09.605 D/DCTOOL  ( 6446): In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 09:23:09.605 I/DCTOOL  ( 6446): OSVersion: 9
+09-15 09:23:09.605 I/DCTOOL  ( 6446): brand: Redmi -- model: 22081212C
+09-15 09:23:09.605 I/DCTOOL  ( 6446): Serialno: 00c80dd8
+09-15 09:23:09.726 I/NeoXDevice( 6446): On App CMD 28
+09-15 09:23:11.117 D/DCTOOL  ( 6446): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:23:11.117 D/DCTOOL  ( 6446): NATIVE [OnToolCallback] calling here.
+09-15 09:23:11.117 D/DCTOOL  ( 6446):  NOT RUNNING TIME. 
+09-15 09:23:11.117 D/DCTOOL  ( 6446): In C++, call back Java's OnToolCallback(String).
+09-15 09:23:11.117 D/DCTOOL  ( 6446): OnToolCallback : NOT RUNNING TIME.
+09-15 09:23:11.117 D/DCTOOL  ( 6446): OnToolCallback, current thread=374
+09-15 09:23:11.117 D/DCTOOL  ( 6446): onUploadID, current thread=374
+09-15 09:23:11.117 I/DcTool  ( 6446): NOT RUNNING TIME.
+09-15 09:23:11.117 D/DCTOOL  ( 6446): NATIVE [OnToolCallback] DetachCurrentThread() Successed.

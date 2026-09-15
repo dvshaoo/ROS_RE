@@ -1,0 +1,239 @@
+--------- beginning of main
+09-15 09:08:40.459 I/chatty  ( 5135): uid=10063(com.netease.chiji) expire 365 lines
+09-15 09:08:40.493 E/NeoXCCPlayer( 5135): onRequestUpdateTexture
+09-15 09:08:40.497 I/appproc ( 5510): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:08:40.498 D/AndroidRuntime( 5510): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:08:40.499 E/cutils-trace( 5510): Error opening trace file: No such file or directory (2)
+09-15 09:08:40.511 V/libnb   ( 5510): enter native_bridge2_isCompatibleWith 3
+09-15 09:08:40.516 I/libnb   ( 5510): Found /system/lib64/libhoudini.so version 3
+09-15 09:08:40.526 E/NeoXCCPlayer( 5135): onRequestUpdateTexture
+09-15 09:08:40.534 I/main    ( 5510): type=1400 audit(0.0:1611): avc: denied { mounton } for path="/proc/cpuinfo" dev="proc" ino=4026531992 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpuinfo:s0 tclass=file permissive=1
+09-15 09:08:40.535 I/app_process( 5510): The ClassLoaderContext is a special shared library.
+09-15 09:08:40.536 W/app_process( 5510): Could not create mount namespace.
+09-15 09:08:40.536 D/nativebridge( 5510): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:08:40.536 W/nativebridge( 5510): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:08:40.536 W/nativebridge( 5510): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:08:40.536 D/nativebridge( 5510): call UnloadNativeBridge! state=2
+09-15 09:08:40.556 D/AndroidRuntime( 5510): Calling main entry com.android.commands.input.Input
+09-15 09:08:40.559 I/Input   ( 5510): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=242765, downTime=242765, deviceId=3, source=0x1002 }
+09-15 09:08:40.560 E/NeoXCCPlayer( 5135): onRequestUpdateTexture
+09-15 09:08:40.567 I/InputDispatcher( 1573): type=1400 audit(0.0:1612): avc: denied { call } for scontext=u:r:system_server:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
+09-15 09:08:40.579 I/Input   ( 5510): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=242765, downTime=242765, deviceId=3, source=0x1002 }
+09-15 09:08:40.590 D/AndroidRuntime( 5510): Shutting down VM
+09-15 09:08:40.593 E/NeoXCCPlayer( 5135): onRequestUpdateTexture
+09-15 09:08:40.618 E/NeoX    ( 5135): finish get cutOut info
+09-15 09:08:40.626 E/NeoXCCPlayer( 5135): onRequestUpdateTexture
+09-15 09:08:41.059 I/chatty  ( 5135): uid=10063(com.netease.chiji) identical 13 lines
+09-15 09:08:41.093 E/NeoXCCPlayer( 5135): onRequestUpdateTexture
+09-15 09:08:41.102 I/[09:08:41.102] M ( 5135): [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 09:08:41.104 I/[09:08:41.104] M ( 5135): [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 09:08:41.104 I/[09:08:41.104] M ( 5135): [INFO] Nub::recreateListeningSocket 0x76384a6eb000 0.0.0.0:52111
+09-15 09:08:41.106 W/IJKMEDIA( 5135): IjkMediaPlayer_stop
+09-15 09:08:41.106 W/IJKMEDIA( 5135): ijkmp_stop()
+09-15 09:08:41.106 W/IJKMEDIA( 5135): ijkmp_stop()=0
+09-15 09:08:41.106 W/IJKMEDIA( 5135): IjkMediaPlayer_release
+09-15 09:08:41.106 W/IJKMEDIA( 5135): ijkmp_set_android_surface(surface=0x0)
+09-15 09:08:41.106 D/IJKMEDIA( 5135): ffpipeline_set_surface()
+09-15 09:08:41.106 W/IJKMEDIA( 5135): message_loop exit
+09-15 09:08:41.106 I/IJKMEDIA( 5135): stream_open--->setsurface time = 34895 ms, video packet count = 11
+09-15 09:08:41.106 W/IJKMEDIA( 5135): ijkmp_set_android_surface(surface=0x0)=void
+09-15 09:08:41.106 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5437]
+09-15 09:08:41.106 E/IJKMEDIA( 5135): create async thread(1094298768)
+09-15 09:08:41.107 I/IJKMEDIA( 5135): SDL_RunThread: [5520] release_tid
+09-15 09:08:41.107 W/IJKMEDIA( 5135): async_release_android
+09-15 09:08:41.107 W/IJKMEDIA( 5135): ijkmp_stop_cc_player_stat
+09-15 09:08:41.107 W/IJKMEDIA( 5135): ijkmp_shutdown_l()
+09-15 09:08:41.113 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5438]
+09-15 09:08:41.132 I/        ( 5135): 
+09-15 09:08:41.132 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.132 I/[09:08:41.132] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:41.132 I/        ( 5135): 
+09-15 09:08:41.132 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.132 I/[09:08:41.132] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:41.132 I/        ( 5135): 
+09-15 09:08:41.132 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.132 I/[09:08:41.132] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:41.135 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:41.135 I/[09:08:41.135] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:41.197 I/IJKMEDIA( 5135): MediaCodec: enqueue_thread_func: exit: 0
+09-15 09:08:41.197 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5457]
+09-15 09:08:41.211 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5439]
+09-15 09:08:41.211 W/IJKMEDIA( 5135): end wait for read_tid
+09-15 09:08:41.211 W/IJKMEDIA( 5135): begin wait for audio_tid
+09-15 09:08:41.211 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5446]
+09-15 09:08:41.212 W/IJKMEDIA( 5135): end wait for audio_tid
+09-15 09:08:41.212 D/AudioTrack( 5135): stop() called with 1671296 frames delivered
+09-15 09:08:41.212 W/IJKMEDIA( 5135): begin wait for ff_aout
+09-15 09:08:41.212 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5445]
+09-15 09:08:41.213 W/IJKMEDIA( 5135): end wait for ff_aout
+09-15 09:08:41.213 W/IJKMEDIA( 5135): begin wait for video_tid
+09-15 09:08:41.213 I/IJKMEDIA( 5135): MediaCodec: func_run_sync: try exit: -1
+09-15 09:08:41.213 W/IJKMEDIA( 5135): SDL_AMediaCodecJava_stop
+09-15 09:08:41.218 D/SurfaceUtils( 5135): disconnecting from surface 0x763848fea010, reason disconnectFromSurface
+09-15 09:08:41.221 I/IJKMEDIA( 5135): SDL_AMediaCodecJava_delete
+09-15 09:08:41.221 D/LDDec   ( 1494): ~LDDec deinit 0xf56205a0 0
+09-15 09:08:41.226 I/IJKMEDIA( 5135): MediaCodec: func_run_sync: exit: -1
+09-15 09:08:41.226 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5456]
+09-15 09:08:41.226 W/IJKMEDIA( 5135): end wait for video_tid
+09-15 09:08:41.228 I/        ( 5135): fastpipe: close connect
+09-15 09:08:41.229 W/IJKMEDIA( 5135): begin wait for video_refresh_tid
+09-15 09:08:41.229 W/IJKMEDIA( 5135): end wait for video_refresh_tid
+09-15 09:08:41.229 D/IJKMEDIA( 5135): SDL_Overlay(MediaCodec) start: overlay_free_l(0x763848de8e40)
+09-15 09:08:41.229 D/IJKMEDIA( 5135): SDL_Overlay(MediaCodec): overlay_free_l(0x763848de8e40)
+09-15 09:08:41.229 D/IJKMEDIA( 5135): SDL_Overlay(MediaCodec) start: overlay_free_l(0x763848de8ee0)
+09-15 09:08:41.229 D/IJKMEDIA( 5135): SDL_Overlay(MediaCodec): overlay_free_l(0x763848de8ee0)
+09-15 09:08:41.229 D/IJKMEDIA( 5135): SDL_Overlay(MediaCodec) start: overlay_free_l(0x763848de8f80)
+09-15 09:08:41.229 D/IJKMEDIA( 5135): SDL_Overlay(MediaCodec): overlay_free_l(0x763848de8f80)
+09-15 09:08:41.229 W/IJKMEDIA( 5135): ijkmp_shutdown_l()=void
+09-15 09:08:41.229 W/IJKMEDIA( 5135): begin wait for ff_aout
+09-15 09:08:41.230 W/IJKMEDIA( 5135): end wait for ff_aout
+09-15 09:08:41.230 I/IJKMEDIA( 5135): SDL_JNI_DetachThreadEnv: [5520]
+09-15 09:08:41.237 I/writer  ( 1409): type=1400 audit(0.0:1613): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:08:41.562 I/        ( 5135): 
+09-15 09:08:41.562 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.562 I/[09:08:41.562] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:41.562 I/        ( 5135): 
+09-15 09:08:41.562 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.562 I/[09:08:41.562] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:41.562 I/        ( 5135): 
+09-15 09:08:41.562 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.562 I/[09:08:41.562] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:41.562 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:41.562 I/[09:08:41.562] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:41.989 I/        ( 5135): 
+09-15 09:08:41.989 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.989 I/[09:08:41.989] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:41.990 I/        ( 5135): 
+09-15 09:08:41.990 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.990 I/[09:08:41.990] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:41.990 I/        ( 5135): 
+09-15 09:08:41.990 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:41.990 I/[09:08:41.990] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:41.990 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:41.990 I/[09:08:41.990] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:42.055 I/NeoXDevice( 5135): On App CMD 23
+09-15 09:08:42.347 I/storaged( 1492): type=1400 audit(0.0:1614): avc: denied { call } for scontext=u:r:storaged:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
+--------- beginning of system
+09-15 09:08:16.777 W/ContextImpl( 2256): Calling a method in the system process without a qualified user: android.app.ContextImpl.startService:1531 android.content.ContextWrapper.startService:664 android.content.ContextWrapper.startService:664 com.android.coreservice.CoreBroadcastReceiver.onReceive:54 android.app.ActivityThread.handleReceiver:3424 
+09-15 09:08:42.356 E/storaged( 1492): getDiskStats failed with result NOT_SUPPORTED and size 0
+09-15 09:08:42.418 I/        ( 5135): 
+09-15 09:08:42.418 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:42.419 I/[09:08:42.418] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:42.419 I/        ( 5135): 
+09-15 09:08:42.419 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:42.419 I/[09:08:42.419] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:42.419 I/        ( 5135): 
+09-15 09:08:42.419 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:42.419 I/[09:08:42.419] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:42.419 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:42.419 I/[09:08:42.419] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:42.847 I/        ( 5135): 
+09-15 09:08:42.847 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:42.847 I/[09:08:42.847] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:42.847 I/        ( 5135): 
+09-15 09:08:42.847 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:42.847 I/[09:08:42.847] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:42.847 I/        ( 5135): 
+09-15 09:08:42.847 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:42.847 I/[09:08:42.847] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:42.848 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:42.848 I/[09:08:42.848] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:43.046 I/NeoXDevice( 5135): On App CMD 24
+09-15 09:08:43.277 I/        ( 5135): 
+09-15 09:08:43.277 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:43.277 I/[09:08:43.277] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:43.277 I/        ( 5135): 
+09-15 09:08:43.277 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:43.277 I/[09:08:43.277] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:43.277 I/        ( 5135): 
+09-15 09:08:43.277 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:43.277 I/[09:08:43.277] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:43.277 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:43.277 I/[09:08:43.277] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:43.611 I/ldinit  ( 1429): type=1400 audit(0.0:1615): avc: denied { read } for name="partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:08:43.611 I/ldinit  ( 1429): type=1400 audit(0.0:1616): avc: denied { open } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:08:43.611 I/ldinit  ( 1429): type=1400 audit(0.0:1617): avc: denied { getattr } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:08:43.707 I/        ( 5135): 
+09-15 09:08:43.707 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:43.707 I/[09:08:43.707] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:43.707 I/        ( 5135): 
+09-15 09:08:43.707 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:43.707 I/[09:08:43.707] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:43.707 I/        ( 5135): 
+09-15 09:08:43.707 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:43.707 I/[09:08:43.707] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:43.707 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:43.707 I/[09:08:43.707] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:44.038 I/NeoXDevice( 5135): On App CMD 25
+09-15 09:08:44.137 I/        ( 5135): 
+09-15 09:08:44.137 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.137 I/[09:08:44.137] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:44.137 I/        ( 5135): 
+09-15 09:08:44.137 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.137 I/[09:08:44.137] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:44.137 I/        ( 5135): 
+09-15 09:08:44.137 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.137 I/[09:08:44.137] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:44.138 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:44.138 I/[09:08:44.138] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:44.469 I/[09:08:44.469] M ( 5135): [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1926234760
+09-15 09:08:44.567 I/        ( 5135): 
+09-15 09:08:44.567 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.567 I/[09:08:44.567] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:44.567 I/        ( 5135): 
+09-15 09:08:44.567 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.567 I/[09:08:44.567] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:44.567 I/        ( 5135): 
+09-15 09:08:44.567 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.567 I/[09:08:44.567] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:44.567 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:44.567 I/[09:08:44.567] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:44.997 I/        ( 5135): 
+09-15 09:08:44.997 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.997 I/[09:08:44.997] M ( 5135): [ERROR] Bundle::iterator::unpack( longEntityMessage ): Not enough data on stream at 2 for payload (17 left, needed 272)
+09-15 09:08:44.997 I/        ( 5135): 
+09-15 09:08:44.997 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.997 I/[09:08:44.997] M ( 5135): [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-15 09:08:44.997 I/        ( 5135): 
+09-15 09:08:44.997 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:44.997 I/[09:08:44.997] M ( 5135): [ERROR] Nub::processOrderedPacket( 172.16.1.2:25000 ): Discarding bundle due to corrupted header for message id 172
+09-15 09:08:44.997 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:44.997 I/[09:08:44.997] M ( 5135): [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-15 09:08:44.997 I/        ( 5135): WARNING ***************************************************************************
+09-15 09:08:44.997 I/[09:08:44.997] M ( 5135): [WARNING] MainApp::poll: disconnected since we have too may corruptted packet
+09-15 09:08:45.029 I/NeoXDevice( 5135): On App CMD 26
+09-15 09:08:46.227 I/surfaceflinger( 1432): type=1400 audit(0.0:1618): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:08:48.498 E/memtrack( 1573): Couldn't load memtrack module
+09-15 09:08:48.498 W/android.os.Debug( 1573): failed to get memory consumption info: -1
+09-15 09:08:49.995 I/        ( 5135): 
+09-15 09:08:49.995 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:49.995 I/[09:08:49.995] M ( 5135): [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-15 09:08:50.061 I/        ( 5135): 
+09-15 09:08:50.061 I/        ( 5135): ERROR *****************************************************************************
+09-15 09:08:50.061 I/[09:08:50.061] M ( 5135): [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-15 09:08:50.064 D/DCTOOL  ( 5135): ntStart() queue size (1), current thread=327
+09-15 09:08:50.064 D/DCTOOL  ( 5135): ntStart() after so loaded, current thread=327
+09-15 09:08:50.064 D/DCTOOL  ( 5135): ntStart() with native and reset.
+09-15 09:08:50.064 D/DCTOOL  ( 5135): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 09:08:50.065 D/DCTOOL  ( 5135): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 09:08:50.065 D/DCTOOL  ( 5135): NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 09:08:50.065 D/DCTOOL  ( 5135): NATIVE [ntGetDeviceInfo] callback here.
+09-15 09:08:50.065 D/DCTOOL  ( 5135): In C++, call back Java's ntGetDeviceInfo().
+09-15 09:08:50.069 D/DCTOOL  ( 5135): Getting NETWORK_TYPE in java : wifi
+09-15 09:08:50.070 D/DCTOOL  ( 5135): Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4719.2","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:08:50.070 D/DCTOOL  ( 5135): In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4719.2","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:08:50.070 D/DCTOOL  ( 5135): In C++, release the returned string. detach. 
+09-15 09:08:50.070 D/DCTOOL  ( 5135): In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 09:08:50.070 I/DCTOOL  ( 5135): OSVersion: 9
+09-15 09:08:50.070 I/DCTOOL  ( 5135): brand: Redmi -- model: 22081212C
+09-15 09:08:50.070 I/DCTOOL  ( 5135): Serialno: 00c80dd8
+09-15 09:08:50.987 I/NeoXDevice( 5135): On App CMD 27
+09-15 09:08:51.583 D/DCTOOL  ( 5135): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:08:51.583 D/DCTOOL  ( 5135): NATIVE [OnToolCallback] calling here.
+09-15 09:08:51.583 D/DCTOOL  ( 5135):  NOT RUNNING TIME. 
+09-15 09:08:51.583 D/DCTOOL  ( 5135): In C++, call back Java's OnToolCallback(String).
+09-15 09:08:51.583 D/DCTOOL  ( 5135): OnToolCallback : NOT RUNNING TIME.
+09-15 09:08:51.583 D/DCTOOL  ( 5135): OnToolCallback, current thread=369
+09-15 09:08:51.583 D/DCTOOL  ( 5135): onUploadID, current thread=369
+09-15 09:08:51.583 I/DcTool  ( 5135): NOT RUNNING TIME.
+09-15 09:08:51.583 D/DCTOOL  ( 5135): NATIVE [OnToolCallback] DetachCurrentThread() Successed.

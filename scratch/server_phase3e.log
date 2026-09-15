@@ -126,3 +126,141 @@ REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
   -> SERVE pharos_isp.txt
 127.0.0.1 - - [14/Sep/2026 23:24:58] "GET /lighten/pharos_isp.txt HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:05:54] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:05:59] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:06:09] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:06:20] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:06:30] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:06:40] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /v1/?domain=g61.gph.easebar.com host=httpdns.nie.easebar.com len=0
+  -> SERVE HTTPDNS (host=httpdns.nie.easebar.com) domain=g61.gph.easebar.com -> 10.0.2.2
+59.111.137.162 - - [15/Sep/2026 09:06:50] "GET /v1/?domain=g61.gph.easebar.com HTTP/1.1" 200 -
+REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+  -> SERVE h45na_hc (empty hash check -> no patches)
+127.0.0.1 - - [15/Sep/2026 09:07:51] "GET /pl/h45na_hc HTTP/1.1" 200 -
+REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+  -> SERVE T14-fixed plist (560 bytes)
+127.0.0.1 - - [15/Sep/2026 09:07:51] "GET /pl/npk_version_na_android.plist HTTP/1.1" 200 -
+REQ GET /v1 host=whoami.nie.easebar.com len=0
+  -> SERVE whoami /v1
+127.0.0.1 - - [15/Sep/2026 09:07:55] "GET /v1 HTTP/1.1" 200 -
+REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+  -> SERVE pharos_isp.txt
+127.0.0.1 - - [15/Sep/2026 09:07:55] "GET /lighten/pharos_isp.txt HTTP/1.1" 200 -
+REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+  -> SERVE server_list_ad.txt (122 bytes)
+127.0.0.1 - - [15/Sep/2026 09:07:55] "GET /server_list_ad.txt HTTP/1.1" 200 -
+REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+  -> SERVE server_list_ad.txt (122 bytes)
+127.0.0.1 - - [15/Sep/2026 09:07:55] "GET /server_list_ad.txt HTTP/1.1" 200 -
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=328
+  BODY b'{"keypoint": "requestServerList", "extraData": "{\\"success\\": true}", "time": 1789434476.481214, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+  -> SERVE root / (200 OK)
+127.0.0.1 - - [15/Sep/2026 09:07:55] "POST / HTTP/1.1" 200 -
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=287
+  BODY b'{"keypoint": "channelLogin", "time": 1789434476.487133, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+  -> SERVE root / (200 OK)
+09:07:55 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:64835
+127.0.0.1 - - [15/Sep/2026 09:07:55] "POST / HTTP/1.1" 200 -
+09:07:55   HEX: 68656c6c6f20726f73
+09:07:55 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64835: 0100ac10010261b20000ac10010261b20000785634120000
+09:07:55 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:64836
+09:07:55   HEX: 68656c6c6f20726f73
+09:07:55 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64836: 0100ac10010261b20000ac10010261b20000785634120000
+09:07:56 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:64837
+09:07:56   HEX: 68656c6c6f20726f73
+09:07:56 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64837: 0100ac10010261b20000ac10010261b20000785634120000
+09:07:56 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:64838
+09:07:56   HEX: 68656c6c6f20726f73
+09:07:56 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64838: 0100ac10010261b20000ac10010261b20000785634120000
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+127.0.0.1 - - [15/Sep/2026 09:07:59] "GET /internalquery HTTP/1.1" 200 -
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=821
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"32","server_list_host":"g61.update.easebar.com","ip_server_list_host":"2405:3200:500:18f::f4d","channel_name":"netease_global","start_time":"1789434480","finish_time":"1789434480","url":"g61.update.easebar.com/pl/npk_version_na_android.plist","push_time":"1789434480","device_model":"22081212C","download_id":"184efeaaef1f46418d3434d920c6a9c4","projec
+127.0.0.1 - - [15/Sep/2026 09:07:59] "POST /client/mobile_upload/ HTTP/1.1" 200 -
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+127.0.0.1 - - [15/Sep/2026 09:07:59] "GET /internalquery HTTP/1.1" 200 -
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789434480","finish_time":"1789434480","push_time":"1789434480","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"212","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4622.2","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+127.0.0.1 - - [15/Sep/2026 09:07:59] "POST /client/mobile_upload/ HTTP/1.1" 200 -
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+127.0.0.1 - - [15/Sep/2026 09:07:59] "GET /internalquery HTTP/1.1" 200 -
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789434480","finish_time":"1789434480","push_time":"1789434480","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4622.2","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+127.0.0.1 - - [15/Sep/2026 09:07:59] "POST /client/mobile_upload/ HTTP/1.1" 200 -
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+127.0.0.1 - - [15/Sep/2026 09:08:05] "GET /notice_pc_hw.txt HTTP/1.1" 200 -
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+127.0.0.1 - - [15/Sep/2026 09:08:05] "GET /notice_pc_hw.txt HTTP/1.1" 200 -
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=538
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789434486.2966659, "platform": "ad", "device_id": "", "sdk_version": "", "uid": "", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "184efeaaef1f46418d3434d920c6a9c4", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "
+  -> SERVE root / (200 OK)
+127.0.0.1 - - [15/Sep/2026 09:08:05] "POST / HTTP/1.1" 200 -
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+127.0.0.1 - - [15/Sep/2026 09:08:16] "GET /notice_pc_hw.txt HTTP/1.1" 200 -
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+127.0.0.1 - - [15/Sep/2026 09:08:16] "GET /notice_pc_hw.txt HTTP/1.1" 200 -
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=584
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789434496.6072199, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "184efeaaef1f46418d3434d920c6a9c4", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_ver
+  -> SERVE root / (200 OK)
+127.0.0.1 - - [15/Sep/2026 09:08:16] "POST / HTTP/1.1" 200 -
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=571
+  BODY b'{"keypoint": "channelLoginSuc", "extraData": "{\\"code\\": 0}", "time": 1789434496.640254, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "184efeaaef1f46418d3434d920c6a9c4", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0
+  -> SERVE root / (200 OK)
+127.0.0.1 - - [15/Sep/2026 09:08:16] "POST / HTTP/1.1" 200 -
+09:08:40 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:40   HEX: 010000040133a5010000002b0000007c37ec9788149fc9043cb55b4a1a97588f829cfd424ef38dc5dd59280441fb1d5e85e3461b864548c2bb58792c9aca5757701630250d5775b27948407b67fb6fa419ec2ca76b1197308a6face7dfbc233ee76c65cfc12c907ed6d9008b189dd6274a9ab21eb9e5e09a56cde6fb682942ac26e0a8fa01d1e15554a56b19f38f77a6dc0022eb63ed4586d96e70be0e04488b532e31483d3ff0521e30a2b1305d5ac86779747eb657edf51cc3a66f53d1113e5615bcb4fa96181b750b5286bcbac041e25ae44f2be01ad6ed2e0b816754cf960dcac95393b1d2e5eb8edb27a63cda3a90834b4ecf6dac9d2cdf0c001cb219e879bfd9dee75a5864eee47d75b9a7260200
+09:08:40 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:40 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:40   HEX: 010000040134a5010000002b0000004a61700cfb7b4df0a385be0868cfab7a4fe862c73f71abd95a524702a54075c81652c9f4b247ed78f109f0e4b4be627a37360013ca180d99079c89414d363e3e6b056d1179c531e3d14c5b46ea663e86ab49fbc4828aa2ade905bde8c5f0614209faaad44b4dbde6b1a3ff2f7e29d8e19ee3d312880914c3f03fd5083c2fabcd04c476d88057eaceab6f8980ca9b4d267d51f5e285b846b376ba0c7e7ff790f3100e70fdbdb7500c6c873a5a0b34e5973c01299ac13b533a298ae365cf69ad45f41f673a450e0c8fcc8c845ec4c657615df72dc8e5c4bcf13d27dc8085de8d3f248c5092a7ea05da38c8273abb16d9b93e08c6dcb8dfb42da88fb4b879246bb90200
+09:08:40 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:41 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:41   HEX: 010000040135a5010000002b0000007ed783ec1356b35729f5c8e0dc1adfb2f7d488a56f793ad843160df68db1b8a1b8f9de3de18b97d47780112a545cb2749d037de292193a2b343d9823e9675c9bf6f1661c6e204f5c956a2118e0f34334e06cbdbc3f4158ed013c477d6786099a02d04774a8f33ae258f94cb73af47b2fa8df413044ff2960ab05545e213260d379a1957325dc62ddb9ccf3b1be372582b2bd011bde71c370e88041ff996895ee4a0cdaff091732b119e8a540509d92c8b1d75916fdd492486effbcafcf0d5b6d80ebe92ff9b48bc58120d4f85d8f90533530248bd7e6c2ec83929eed1536dafed20c1d46695ea53c89cb668d7a8194162ac1d0f8804a96b66a34146ec2159c8f0200
+09:08:41 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:41 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:41   HEX: 010000040136a5010000002b0000003310e0172d4a35d855b8415c6b96a9989e0ca199d8eac41e2cdd01436924589e9943b44eeebe0e103e68d3588a51eccd4a51f660e3907711175dd2fb20494c524597fdb5281bb6d31a7c2e3c4d42b7c59f546cb29beebe810fd46b5a49529022b24a0d874bcb944cc0fb4e8a13e177b2a1b89d7cc2bbf639d3dbf3fb444725548141a414a7ec55ccfcfe3b6c9d4d640682c513095a4ede1dbe2ab66fabd52698ba513a66fb4dc6d2ec63e1519bacf31a40c97732d1c1db2ce531717fbf2c0408e20820e82a11fc610ff143aa3809caca5b544bca74799fbc8c1d1e6002538cb35d8e0e52b986856f9a39d9af8b728a4db68cd988cacc48aac863061fbbd358cd0200
+09:08:41 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:42 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:42   HEX: 010000040137a5010000002b00000022875fa4e4c1e4d0eb050c8d30b3fd4bc8599f201eb34b0953b89c73c23a15b0ea0e12ea5b6cd9840f6cbc21d75115eec3f4825d458bf36c9ecc24c3a127a88e49acd634f1d49cde4929159c8b5d139b0d8f676229d3a5cf1b8842f5f5155f9df8d3559f4c75dffa8d7b222aa4032a5ad08e3136843356800fd4d2f3623e8d716577a0bcc58ce04532c9d94892e5e980870c1d682df3d352e4edad5e55541b08fe15b2cf7002c6a9e57de1ee41d3fed35687a95470fdd0c8d32e03ddb0198d1d6536195e258c589bae800e141e27ce009e18ee6ba86d1a1926c7dcbb5c44eea32cc4e623687b9ad2c92998c800e95da7e7f9e1506a03ab3ecff707e9da4927080200
+09:08:42 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:42 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:42   HEX: 010000040138a5010000002b0000003ffc7364f835b2c819af46da00211af2d95bf707a653af3e462ff97f2c659a33b274332a81c84fd6352aee2bd4b3821b9f8a760913d82542cfeb3d0888e5263efd72faeda16620d91fa2c5d763cf61267ca5cecf74f9bce8c559923f22cdbad09fef060c65d97e27c379b79fe05832d61370746166d976ca0cf274b68a908a5791ece05f3d58bb6548205599d2bb3db291eaac71f6d2308caa439b49f12158f23878a8eb344b47460461dcba3ab447cee41ef86d4d323ff0dcb45d90e8e90d2bdd049dcd767435ffbe0a6464d2fd60a24ff76c1a4621bc3fc0d1da9d32cf41599890355abea7bb3e22c1af4d1f0fc567000db1f8eb48415afa53f5dae75dbd480200
+09:08:42 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:43 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:43   HEX: 010000040139a5010000002b00000044c19d50f63248f7589898e5634f88f1dd3cb3f61e2a0bc5cf4acb9383265901e79a3a98e27157ba4cbfe56cbe2f4455a7348afe6ce10e2351bc35ad8613e6f4176058dfa141e13971f3d1576381a2e401fc26a5667265fae3923dc84ec8a6fe190cadad5f3bd08081a5e5540590b54d7ce7c8e3c83bdac818cdc7ca0b4866e78444244213142facd206fbe1dc78dd46f4daf8990d017f8e629e50aee1d04f813698f852684408b64c67ea5fd811acf2503bc6260fa691084eb2ef3681f2390220d7594cb63af186c1fd45cd8a6028d92f0bf7975758bb99e9d70d91012e0bf2f79f2ec7469b9e633c7eeba790db6ad035292055666759c1f4b148576ccbc6150200
+09:08:43 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:43 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:43   HEX: 01000004013aa5010000002b000000051a904eec91c7433e2666c628b1c77a900f242565d6c1d606953187d9d0d8f5d8fcc1831b77fe8a72aea4a237dbd1664ba006b10d82b8d32128df2617a4ec483089af2f116f3f313bb5d91f6872b68711cfba6b19cf839facf407f9d88d50f60c7216af526d10d7222c20e6ce17dc706098c5a23d0b5a305fb738f6ffcf41f5925952a8ccca55030c234f75c6a0e00b45f62739b95cb57c4b1f679707dc9b631931a5cf6abdbe68f2e6727e07006ee9ba2152d896376342c736166c8d6333120143e21b7d0b0f3e67f77ebf8a0b86976bb41e09c74ec298de668eb5db32320a791aa460ab0d24c9bb039509ee4a0444aa92929da70605731a4b85777b8f45060200
+09:08:43 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:43 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:43   HEX: 01000004013ba5010000002b0000009768a46c54b2909ec27ef111a5313f923bb8a55c6390e43057a5e4d07da55f3fa7f97fdb975e2b8e0022369a28e96d63470f3b0a73b9df3887a9433135de31556b6d8a64981b85544059e38c5019f27409ef7689cffee71f00a32c8e3c215947dd96931776f7d1f1b81662d76f7eaf83b485178a6fe6a1c8aa731535ec480ba01e85671c8e19e4cf56dec53de3b41028d59ca588240a7ac1c836ce7a6d7214bbb08b253f03d611164b4afcdd692602dcc2d79d497984ee07274a69c2aa64aa052a228710634d17fb53f97c4164ddc641fe623ca16adb695661f73a185fa8318d29f0fa62ad305f840c6d4a5b8219cd0d7f9bd7aa67aafde659ac054421b383740200
+09:08:43 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+09:08:44 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64941
+09:08:44   HEX: 01000004013ca5010000002b000000a283ed7fbab6bf5be3caea3dd79ca6085f39bf892955298a09fc0be94023b0031d26d624f29e6110510336e893a506b1248423c7874c78b42847872d8c8652c441a450252c494ab88babd1a8473989101dc8520993f6f3411d510d419a7ca9f94a651835193486e95566dbdc2daa18c9feaffa6015c9ec9cf7520120f33b76fd89de3074d60e6ea7fd910dfa0ea099744cc49e1bfecaa315d4e86de0b02c9dffad108f9db227a5f5e3690227345e84440c916e9b3710281afe6861ce0951521b50ba33af84f90c4f0b5b221b99b92c27b1925011fdf4e63cffc23c2a1ded0253749d88a38ba5516a1393b892a5c1ae7452f953874ba64642d64f7320658aeae40200
+09:08:44 LOGINAPP UDP SENT framed reply (24 bytes) to 127.0.0.1:64941: 0100ac10010261b20000ac10010261b20000785634120000
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+  BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 2}", "time": 1789434530.0747311, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "184efeaaef1f46418d3434d920c6a9c4", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+  -> SERVE root / (200 OK)
+127.0.0.1 - - [15/Sep/2026 09:08:49] "POST / HTTP/1.1" 200 -
+REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+  -> SERVE pharos_isp.txt
+127.0.0.1 - - [15/Sep/2026 09:08:49] "GET /lighten/pharos_isp.txt HTTP/1.1" 200 -

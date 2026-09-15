@@ -71,17 +71,43 @@ def serve_loginapp_udp_responder():
             data, addr = s.recvfrom(8192)
             log('LOGINAPP UDP RECV %d bytes from %s:%d' % (len(data), addr[0], addr[1]))
             log('  HEX: %s' % data.hex())
-            # Attempt D (2026-09-14, MERCURY_REPLY_DISPATCH_TRACE.md S6f): disassembly of
-            # Nub::processFilteredPacket (0x98fa30) confirms the client reads a 2-byte
-            # little-endian "flags" field at wire offset 0 (packet-object offset +0x60)
-            # and rejects the packet if flags >= 0x400. Attempt C's body began directly
-            # with the BaseApp IP bytes (ac 10 01 02...), which is 0x10ac as LE flags -
-            # exactly the "bad flags 10ac" value logged by the client, byte-for-byte.
-            # This attempt PREPENDS a real, evidence-derived flags value: 0x0001, the
-            # exact flags our own genuine captured client requests use as their first two
-            # wire bytes (see MERCURY_WIRE_CAPTURE.md, "01 00 00 04..."). This is not a
-            # blind guess: it's the single minimal change the disassembly points to.
-            reply = struct.pack('<H', 0x0001) + body + b'\x00\x00'
+            # Attempt D (2026-09-14, MERCURY_REPLY_DISPATCH_TRACE.md S6f) established
+            # flags=0x0001 (a real value from our own captured client traffic) as the
+            # correct first 2 wire bytes, fixing a "bad flags" rejection. Superseded below
+            # by Attempt F, which replaces Attempt D's body/footer entirely once the
+            # message-ID layer (msgID=172 collision) was understood -- see
+            # MERCURY_MESSAGE_ID_TRACE.md for the full history.
+            # Attempt F (2026-09-15, MERCURY_MESSAGE_ID_TRACE.md) -- current default,
+            # supersedes Attempt D. A live /proc/<pid>/mem dump of the Nub's message
+            # dispatch table (heap array at this+0x40, indexed by message ID, 32 bytes/
+            # entry) shows message ID 255 (0xFF) is named "Reply" -- BigWorld's
+            # Mercury::REPLY_MESSAGE_ID -- using a 4-byte variable-length prefix, with its
+            # "handler" field self-referencing the Nub object (unlike every other named
+            # message, which points to a distinct handler). This is the code-confirmed
+            # message ID for ANY Mercury reply, including LoginReply. The trailing 2 zero
+            # bytes are a mandatory footer (confirmed arithmetically: two independent
+            # "not enough data" rejections, for msgid 172 and msgid 255, both showed a
+            # "left" byte count exactly 2 less than the packet's actual remaining bytes).
+            # Structure: [2-byte flags=1][1-byte msgID=0xFF][4-byte length=4]
+            # [4-byte replyID][2-byte footer]. This eliminates EVERY
+            # REASON_CORRUPTED_PACKET/framing rejection seen so far (Attempts A-E) -- the
+            # packet is now fully accepted at the packet AND bundle-parsing level. The
+            # remaining, more specific rejection is
+            # "Mercury::Nub::handleMessage(...): Couldn't find handler for reply id
+            # 0x00000000" -- i.e. the replyID value itself (currently a 0 placeholder,
+            # deliberately NOT guessed further) must match whatever ID the client assigned
+            # its own outgoing LogOnParams request. That correlation value has not yet
+            # been located -- see MERCURY_MESSAGE_ID_TRACE.md's NEXT BLOCKER.
+            reply = (struct.pack('<H', 0x0001) + bytes([0xff])
+                      + struct.pack('<I', 4) + struct.pack('<I', 0)
+                      + b'\x00\x00')
+            if os.environ.get('DEBUG_BADFLAGS') == '1':
+                # Diagnostic-only toggle (MERCURY_MESSAGE_ID_TRACE.md Phase 2): deliberately
+                # resend the OLD invalid flags value to make the client reprint
+                # "Nub(<pointer>)::processFilteredPacket(...)" so we can capture a live
+                # Nub object address for a one-shot /proc/<pid>/mem table dump. Not a new
+                # protocol hypothesis - purely an instrumentation aid.
+                reply = struct.pack('<H', 0x10ac) + body + b'\x00\x00'
             if os.environ.get('NO_REPLY') == '1':
                 log('LOGINAPP UDP: NO_REPLY=1 set, deliberately NOT sending a reply (control experiment)')
             else:

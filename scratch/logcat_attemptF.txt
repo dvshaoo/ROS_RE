@@ -1,0 +1,143 @@
+--------- beginning of main
+09-15 09:25:15.782 I/chatty  ( 6884): uid=10063(com.netease.chiji) expire 63 lines
+09-15 09:25:15.804 I/surfaceflinger( 1432): type=1400 audit(0.0:2441): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:25:15.814 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:15.847 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:15.881 I/chatty  ( 6884): uid=10063(com.netease.chiji) identical 1 line
+09-15 09:25:15.914 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:15.937 I/appproc ( 7244): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:25:15.938 D/AndroidRuntime( 7244): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:25:15.939 E/cutils-trace( 7244): Error opening trace file: No such file or directory (2)
+09-15 09:25:15.948 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:15.954 V/libnb   ( 7244): enter native_bridge2_isCompatibleWith 3
+09-15 09:25:15.959 I/libnb   ( 7244): Found /system/lib64/libhoudini.so version 3
+09-15 09:25:15.979 I/app_process( 7244): The ClassLoaderContext is a special shared library.
+09-15 09:25:15.980 W/app_process( 7244): Could not create mount namespace.
+09-15 09:25:15.980 D/nativebridge( 7244): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:25:15.980 W/nativebridge( 7244): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:25:15.980 W/nativebridge( 7244): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:25:15.980 D/nativebridge( 7244): call UnloadNativeBridge! state=2
+09-15 09:25:15.981 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:15.992 D/AndroidRuntime( 7244): Calling main entry com.android.commands.input.Input
+09-15 09:25:15.993 I/Input   ( 7244): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1238201, downTime=1238201, deviceId=3, source=0x1002 }
+09-15 09:25:16.006 I/Input   ( 7244): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1238201, downTime=1238201, deviceId=3, source=0x1002 }
+09-15 09:25:16.014 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:16.017 D/AndroidRuntime( 7244): Shutting down VM
+09-15 09:25:16.044 E/NeoX    ( 6884): finish get cutOut info
+09-15 09:25:16.047 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:16.480 I/chatty  ( 6884): uid=10063(com.netease.chiji) identical 13 lines
+09-15 09:25:16.513 E/NeoXCCPlayer( 6884): onRequestUpdateTexture
+09-15 09:25:16.526 I/[09:25:16.526] M ( 6884): [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 09:25:16.529 I/[09:25:16.529] M ( 6884): [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 09:25:16.530 I/[09:25:16.530] M ( 6884): [INFO] Nub::recreateListeningSocket 0x76384c74f000 0.0.0.0:11328
+09-15 09:25:16.533 W/IJKMEDIA( 6884): IjkMediaPlayer_stop
+09-15 09:25:16.533 W/IJKMEDIA( 6884): ijkmp_stop()
+09-15 09:25:16.533 W/IJKMEDIA( 6884): ijkmp_stop()=0
+09-15 09:25:16.533 W/IJKMEDIA( 6884): IjkMediaPlayer_release
+09-15 09:25:16.533 W/IJKMEDIA( 6884): message_loop exit
+09-15 09:25:16.533 W/IJKMEDIA( 6884): ijkmp_set_android_surface(surface=0x0)
+09-15 09:25:16.533 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7182]
+09-15 09:25:16.533 D/IJKMEDIA( 6884): ffpipeline_set_surface()
+09-15 09:25:16.533 I/IJKMEDIA( 6884): stream_open--->setsurface time = 18601 ms, video packet count = 11
+09-15 09:25:16.533 W/IJKMEDIA( 6884): ijkmp_set_android_surface(surface=0x0)=void
+09-15 09:25:16.533 E/IJKMEDIA( 6884): create async thread(1102566800)
+09-15 09:25:16.533 I/IJKMEDIA( 6884): SDL_RunThread: [7254] release_tid
+09-15 09:25:16.533 W/IJKMEDIA( 6884): async_release_android
+09-15 09:25:16.533 W/IJKMEDIA( 6884): ijkmp_stop_cc_player_stat
+09-15 09:25:16.533 W/IJKMEDIA( 6884): ijkmp_shutdown_l()
+09-15 09:25:16.534 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7183]
+09-15 09:25:16.558 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:16.558 I/[09:25:16.558] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:16.571 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7184]
+09-15 09:25:16.571 W/IJKMEDIA( 6884): end wait for read_tid
+09-15 09:25:16.571 W/IJKMEDIA( 6884): begin wait for audio_tid
+09-15 09:25:16.571 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7191]
+09-15 09:25:16.572 W/IJKMEDIA( 6884): end wait for audio_tid
+09-15 09:25:16.572 W/IJKMEDIA( 6884): begin wait for ff_aout
+09-15 09:25:16.572 D/AudioTrack( 6884): stop() called with 891008 frames delivered
+09-15 09:25:16.573 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7190]
+09-15 09:25:16.573 W/IJKMEDIA( 6884): end wait for ff_aout
+09-15 09:25:16.574 W/IJKMEDIA( 6884): begin wait for video_tid
+09-15 09:25:16.574 I/IJKMEDIA( 6884): MediaCodec: func_run_sync: try exit: -1
+09-15 09:25:16.581 I/IJKMEDIA( 6884): MediaCodec: enqueue_thread_func: exit: 0
+09-15 09:25:16.581 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7202]
+09-15 09:25:16.582 W/IJKMEDIA( 6884): SDL_AMediaCodecJava_stop
+09-15 09:25:16.585 D/SurfaceUtils( 6884): disconnecting from surface 0x7638510f9010, reason disconnectFromSurface
+09-15 09:25:16.588 I/IJKMEDIA( 6884): SDL_AMediaCodecJava_delete
+09-15 09:25:16.588 D/LDDec   ( 1494): ~LDDec deinit 0xf56205a0 0
+09-15 09:25:16.596 I/IJKMEDIA( 6884): MediaCodec: func_run_sync: exit: -1
+09-15 09:25:16.596 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7201]
+09-15 09:25:16.597 W/IJKMEDIA( 6884): end wait for video_tid
+09-15 09:25:16.598 I/        ( 6884): fastpipe: close connect
+09-15 09:25:16.599 W/IJKMEDIA( 6884): begin wait for video_refresh_tid
+09-15 09:25:16.599 W/IJKMEDIA( 6884): end wait for video_refresh_tid
+09-15 09:25:16.600 D/IJKMEDIA( 6884): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ceb9280)
+09-15 09:25:16.600 D/IJKMEDIA( 6884): SDL_Overlay(MediaCodec): overlay_free_l(0x76384ceb9280)
+09-15 09:25:16.600 D/IJKMEDIA( 6884): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ceb9320)
+09-15 09:25:16.600 D/IJKMEDIA( 6884): SDL_Overlay(MediaCodec): overlay_free_l(0x76384ceb9320)
+09-15 09:25:16.600 D/IJKMEDIA( 6884): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ceb93c0)
+09-15 09:25:16.600 D/IJKMEDIA( 6884): SDL_Overlay(MediaCodec): overlay_free_l(0x76384ceb93c0)
+09-15 09:25:16.600 W/IJKMEDIA( 6884): ijkmp_shutdown_l()=void
+09-15 09:25:16.600 W/IJKMEDIA( 6884): begin wait for ff_aout
+09-15 09:25:16.600 W/IJKMEDIA( 6884): end wait for ff_aout
+09-15 09:25:16.601 I/IJKMEDIA( 6884): SDL_JNI_DetachThreadEnv: [7254]
+09-15 09:25:16.822 I/NeoXDevice( 6884): On App CMD 23
+09-15 09:25:16.988 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:16.988 I/[09:25:16.988] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:17.418 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:17.418 I/[09:25:17.418] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:17.815 I/NeoXDevice( 6884): On App CMD 24
+09-15 09:25:17.848 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:17.848 I/[09:25:17.848] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:18.278 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:18.278 I/[09:25:18.278] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:18.707 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:18.707 I/[09:25:18.707] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:18.803 I/PlayCommon( 3305): [177] Preparing logs for uploading
+09-15 09:25:18.805 W/PlayCommon( 3305): [177] No account for auth token provided
+09-15 09:25:18.806 I/PlayCommon( 3305): [177] Connecting to server: https://play.googleapis.com/play/log?format=raw&proto_v2=true
+09-15 09:25:18.806 I/NeoXDevice( 6884): On App CMD 25
+09-15 09:25:18.817 E/PlayCommon( 3305): [177] Failed to connect to server for log upload.
+09-15 09:25:19.137 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:19.137 I/[09:25:19.137] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:19.567 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:19.567 I/[09:25:19.567] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:19.799 I/NeoXDevice( 6884): On App CMD 26
+09-15 09:25:19.997 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:19.997 I/[09:25:19.997] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:20.427 I/        ( 6884): WARNING ***************************************************************************
+09-15 09:25:20.427 I/[09:25:20.427] M ( 6884): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00000000 (maybe it timed out?)
+09-15 09:25:20.790 I/NeoXDevice( 6884): On App CMD 27
+09-15 09:25:25.390 I/[09:25:25.390] M ( 6884): [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1932468872
+09-15 09:25:25.421 I/        ( 6884): 
+09-15 09:25:25.421 I/        ( 6884): ERROR *****************************************************************************
+09-15 09:25:25.421 I/[09:25:25.421] M ( 6884): [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-15 09:25:25.487 I/        ( 6884): 
+09-15 09:25:25.487 I/        ( 6884): ERROR *****************************************************************************
+09-15 09:25:25.487 I/[09:25:25.487] M ( 6884): [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-15 09:25:25.491 D/DCTOOL  ( 6884): ntStart() queue size (1), current thread=338
+09-15 09:25:25.491 D/DCTOOL  ( 6884): ntStart() after so loaded, current thread=338
+09-15 09:25:25.491 D/DCTOOL  ( 6884): ntStart() with native and reset.
+09-15 09:25:25.491 D/DCTOOL  ( 6884): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 09:25:25.492 D/DCTOOL  ( 6884): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 09:25:25.492 D/DCTOOL  ( 6884): NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 09:25:25.492 D/DCTOOL  ( 6884): NATIVE [ntGetDeviceInfo] callback here.
+09-15 09:25:25.492 D/DCTOOL  ( 6884): In C++, call back Java's ntGetDeviceInfo().
+09-15 09:25:25.497 D/DCTOOL  ( 6884): Getting NETWORK_TYPE in java : wifi
+09-15 09:25:25.498 D/DCTOOL  ( 6884): Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4782.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:25:25.498 D/DCTOOL  ( 6884): In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4782.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:25:25.498 D/DCTOOL  ( 6884): In C++, release the returned string. detach. 
+09-15 09:25:25.498 D/DCTOOL  ( 6884): In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 09:25:25.498 I/DCTOOL  ( 6884): OSVersion: 9
+09-15 09:25:25.498 I/DCTOOL  ( 6884): brand: Redmi -- model: 22081212C
+09-15 09:25:25.498 I/DCTOOL  ( 6884): Serialno: 00c80dd8
+09-15 09:25:25.519 D/DCTOOL  ( 6884): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:25:25.519 D/DCTOOL  ( 6884): NATIVE [OnToolCallback] calling here.
+09-15 09:25:25.519 D/DCTOOL  ( 6884):  NOT RUNNING TIME. 
+09-15 09:25:25.519 D/DCTOOL  ( 6884): In C++, call back Java's OnToolCallback(String).
+09-15 09:25:25.519 D/DCTOOL  ( 6884): OnToolCallback : NOT RUNNING TIME.
+09-15 09:25:25.519 D/DCTOOL  ( 6884): OnToolCallback, current thread=380
+09-15 09:25:25.519 D/DCTOOL  ( 6884): onUploadID, current thread=380
+09-15 09:25:25.519 I/DcTool  ( 6884): NOT RUNNING TIME.
+09-15 09:25:25.519 D/DCTOOL  ( 6884): NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 09:25:25.754 I/NeoXDevice( 6884): On App CMD 28
