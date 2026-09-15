@@ -1,4 +1,20 @@
-# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-016)
+# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-017)
+
+## READ THIS FIRST (E2E-017 update)
+
+A likely full explanation for the entire blocker has been found, **but is NOT YET
+CONFIRMED**: incoming packets on a source address with an already-REGISTERED/"indexed"
+channel are dispatched via that channel's OWN virtual method (`vtable+0x18` on the found
+channel object), completely BYPASSING the generic `processFilteredPacket`/`0x98924c`
+decrypt pair this document's earlier sections analyze in such detail. Since
+`BaseAppLoginRequest::initNetwork` explicitly constructs a Channel object for the new
+BaseApp socket before any packets are exchanged, it is plausible (not yet proven) that this
+channel gets registered into the exact per-address map (`Nub+0x41f0`) that this dispatch
+logic checks — meaning **every one of this project's BaseApp replies may never have reached
+the code path analyzed in E2E-014/E2E-016 at all.** If true, this would mean the framing/
+length analysis in those sections, while internally correct, is answering the wrong
+question. See the new final section below, "The E2E-017 Alternate-Dispatch Hypothesis," for
+what's confirmed vs. still needs checking before acting on this.
 
 This document exists so a future pass (human or agent) does not have to re-read five-plus
 scattered `END_TO_END_TEST_LOG.md` entries to understand the current state of this
@@ -140,6 +156,59 @@ plausibly the raw UDP `recvfrom()` byte count or an explicit wire length field, 
 confirmed which. Separately, characterize the inline SIMD checksum block found this pass
 (see above) to determine if it's the real "failed checksum" mechanism and, if so, its
 input byte range and algorithm.
+
+**SUPERSEDED IN PRIORITY by E2E-017's finding below** — pursue that first, since if
+`processFilteredPacket` is never even reached for BaseApp packets, tracing its internal
+field origins further would be solving the wrong problem.
+
+## The E2E-017 Alternate-Dispatch Hypothesis (found while looking for `processFilteredPacket`'s caller)
+
+While searching for what calls `processFilteredPacket` (it has zero direct `BL` callers;
+only reached via tail-call `B` instructions), found that its ACTUAL caller is a real,
+separate dispatcher function (`0x98d38c`) that does something unexpected:
+
+```
+0x98d38c: this=Nub*, x2=packet_obj
+  x0 = Nub + 0x41f0                    ; a per-source-address CHANNEL MAP
+  bl 0x9950d8                          ; map::find()-shaped lookup, keyed by the
+                                          packet's source address
+  compare result against Nub+0x41f8    ; the map's "end" sentinel
+  IF FOUND (a registered/"indexed" channel exists for this source address)
+     AND channel_obj+0xf8 flag is set:
+    ldr x8, [x22]        ; x22 = found channel object; load ITS OWN vtable ptr
+    ldr x8, [x8, #0x18]  ; vtable slot +0x18
+    blr x8                ; VIRTUAL DISPATCH -- processFilteredPacket is
+                            NEVER CALLED for this packet
+  ELSE:
+    falls through to processFilteredPacket (the generic path analyzed above)
+```
+
+**Why this could explain everything**: `BaseAppLoginRequest::initNetwork` (confirmed,
+E2E-015) explicitly constructs a `Channel`-shaped object for the new BaseApp socket,
+sharing LoginApp's `EncryptionFilter`, BEFORE any packets are exchanged on it. If that
+construction (or code shortly after) also REGISTERS this new channel into the SAME
+`Nub+0x41f0` map — plausible, matching BigWorld's own "indexed channel" terminology already
+seen in this project's earlier vestigial-string survey — then **every packet on the
+BaseApp socket, including every reply this project has sent, would route through this
+channel-specific virtual method instead of the generic decrypt path**. This would mean
+`processFilteredPacket`/`0x98924c` were simply never reached for BaseApp traffic at all,
+making the E2E-014/E2E-016 length/offset analysis correct but irrelevant to this specific
+channel — a structurally different explanation than "wrong parameters on the right path."
+
+**STATUS: NOT YET CONFIRMED — two load-bearing links unverified as of E2E-017**:
+1. Whether `initNetwork` (or a nearby callee) actually inserts into `Nub+0x41f0`'s map —
+   not checked yet.
+2. The channel object's vtable`+0x18` target: partially recovered vtable base (`0x37dd280`
+   via `.rela.dyn`) has entries for `+0x00`/`+0x08`/`+0x10`, but `+0x18` has NO `.rela.dyn`
+   relocation entry — its raw file bytes read as `0xd02fdc` (a well-formed-looking function),
+   but every OTHER slot in this vtable needed relocation to get its true value, so a slot
+   *without* one is suspect until independently cross-checked (could be a non-pointer value
+   from a multiple-inheritance vtable layout that coincidentally looks like valid code).
+
+**Do not treat `0xd02fdc` as confirmed** until cross-checked. This is the single highest-
+priority item for the next pass: confirm or refute both links before any further live
+testing, since testing an unconfirmed fix for an unconfirmed root cause wastes a live-test
+cycle on the shared, ANR-prone emulator.
 
 ## Tooling Constraints (why this hasn't been resolved dynamically)
 

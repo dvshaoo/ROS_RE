@@ -1976,5 +1976,112 @@ whoever continues this thread.
    content and test live (one paced iteration, CPU-monitored).
 
 ---
+
+## TEST_ID: E2E-017
+- **DATE**: 2026-09-15 (same day, seventeenth pass), per the
+  coordinator's instruction to trace `packet_obj+0x1a`/`+0x1c`'s origin
+  back to whatever constructs the packet object from a raw `recvfrom()`
+  result, and in parallel characterize the inline SIMD checksum block.
+- **GOAL**: get a disassembly-derived, concrete BaseApp ack length/
+  content before any further live testing.
+
+### MAJOR FINDING: a whole alternate dispatch path may explain the entire mystery
+Found `processFilteredPacket`'s (`0x98fa30`) actual caller by searching
+for plain `B` (tail-call) instructions rather than `BL` — it has ZERO
+direct `BL` callers (confirmed, again) but IS reached via tail-calls
+from **two** sites, one of which (`0x98d49c`) is the END of a real,
+separate dispatcher function (prologue `0x98d38c`) that does something
+far more significant than expected:
+
+```
+0x98d38c: this=Nub*, x1=arg, x2=packet_obj  (real function, own stack frame)
+  x0 = Nub + 0x41f0                    ; a per-source-address CHANNEL MAP
+  bl 0x9950d8                          ; map::find()-shaped lookup, keyed by
+                                          the packet's source address (x1)
+  compare result against Nub+0x41f8    ; the map's "end" sentinel
+  IF FOUND (an INDEXED/REGISTERED channel exists for this source address):
+    x22 = the found channel object
+    IF channel_obj+0xf8 flag is set:
+      ldr x8, [x22]        ; x22's OWN vtable pointer
+      ldr x8, [x8, #0x18]  ; slot +0x18
+      blr x8               ; VIRTUAL DISPATCH -- args (channel_obj, Nub*, x2, packet_obj)
+      -- processFilteredPacket is NEVER CALLED for this packet --
+  ELSE (no registered channel for this source address):
+    falls through to `b 0x98fa30` (processFilteredPacket, the generic
+    path this project has been analyzing since E2E-014/E2E-016)
+```
+
+**Why this matters enormously**: `BaseAppLoginRequest::initNetwork`
+(E2E-015) explicitly CONSTRUCTS a `Channel`-shaped object for the new
+BaseApp socket, sharing the LoginApp `EncryptionFilter`, BEFORE the
+client even sends its first `baseAppLogin` packet. If that construction
+also REGISTERS the new channel in this SAME per-address map (highly
+plausible — this is exactly what BigWorld's own "indexed channel"
+terminology, already seen in this project's earlier vestigial-string
+survey, describes), then **every subsequent packet on the BaseApp
+socket — including any reply this project sends — would be routed
+through the CHANNEL-SPECIFIC virtual method at `vtable+0x18`, NOT
+through the generic `processFilteredPacket`/`0x98924c` pair.** This
+would mean this project's careful E2E-014/E2E-016 length/offset analysis
+of the generic path, while internally correct, may **simply not apply
+to the BaseApp channel at all** once it becomes "indexed" — a
+structurally different receive path with potentially different framing.
+
+This directly and elegantly explains the entire E2E-008-through-E2E-016
+puzzle: LoginApp's exchange happens on a connection that does NOT yet
+have an indexed channel (hence goes through the generic path this
+project correctly reverse-engineered and which correctly decodes), while
+BaseApp's exchange happens on a connection that **already does** have
+one (constructed explicitly in `initNetwork`), routing through an
+entirely different, not-yet-characterized virtual method instead.
+
+### What was NOT completed this pass (time budget)
+- Whether `BaseAppLoginRequest::initNetwork` actually INSERTS its new
+  Channel into this specific map (`Nub+0x41f0`) was not confirmed —
+  this is the load-bearing link in the hypothesis and the single most
+  important thing to verify next.
+- The channel object's own vtable was partially recovered (base
+  `0x37dd280` via `.rela.dyn`, slots `+0x00`→`0x98530c`, `+0x08`→
+  `0x985b3c`, `+0x10`→`0x9879f0`), but slot `+0x18` (the one actually
+  called) has NO `.rela.dyn` entry — its raw file bytes read as
+  `0xd02fdc`, which DOES disassemble to a plausible, well-formed
+  function, but this reading is **UNVERIFIED**: every OTHER slot in this
+  same vtable needed a relocation to get its true value, so a slot
+  *without* one needs independent confirmation before trusting
+  `0xd02fdc` at face value (it could be a non-pointer value, e.g. a
+  virtual-base offset for multiple inheritance, coincidentally
+  resembling a valid function prologue).
+- The inline SIMD/checksum block (`~0x98fce0`-`0x98fd10`) was NOT
+  characterized this pass — time went to the higher-value dispatch
+  finding above instead, per the coordinator's own "if time allows"
+  framing for that side-thread.
+
+### RESULT
+- **Real, significant architectural finding**: a plausible, well-
+  evidenced explanation for why the generic-path analysis hasn't
+  produced a working BaseApp reply — the packets may not even be using
+  that path once the channel is indexed.
+- **NOT YET CONFIRMED** — the load-bearing link (does `initNetwork`
+  register into this exact map?) and the target function itself (is
+  `0xd02fdc` real?) both need verification before this can be acted on.
+- Per the coordinator's own standing guidance, **no live test was
+  attempted** — testing a still-unconfirmed hypothesis about a fix for
+  a still-unconfirmed root cause would not have been a meaningful
+  experiment. `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. Confirm whether `BaseAppLoginRequest::initNetwork` (or the Channel
+   constructor `0x984a54`, or code shortly after either) writes into the
+   `Nub+0x41f0` map — search for `BL` callers of `0x9950d8` (or its
+   insertion counterpart, likely a sibling `insert`/`operator[]`-shaped
+   function) within `initNetwork`'s own body or its immediate callees.
+2. If confirmed, verify `0xd02fdc` is genuinely the vtable`+0x18` target
+   (cross-check via a second independent method, e.g. confirming its own
+   RTTI/typeinfo backlink, or checking if OTHER known Channel-shaped
+   objects in this binary share this same vtable base) before
+   disassembling it in depth as "the real BaseApp decrypt path."
+3. Only once both are confirmed should a live test be attempted.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
