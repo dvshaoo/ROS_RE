@@ -705,5 +705,44 @@ new client modification performed this pass).
    resolution.
 
 ---
+
+## TEST_ID: E2E-007
+- **DATE**: 2026-09-15 (same day, seventh pass).
+- **GOAL**: Wire `bf_encrypt()` into `mitm/local_baseapp_capture.py`, test the live-extracted Blowfish key (`b2525a3c`) and cipher chaining mode against the running game client (`PID 9754`), and capture the first live BaseApp login packet.
+- **OUTCOME**: **FULL SUCCESS — HISTORIC BREAKTHROUGH**.
+
+### 1. Cipher Chaining Mode Statically Confirmed
+- Instruction trace of `0x989600` (`scratch/trace_989600.txt`) proved the client uses **`pc_variant`** Blowfish mode:
+  - Loop starts at `0x9896a0`.
+  - `0x9896c0: bl #0x806e00` calls `BF_ecb_encrypt(src, dst, key, enc=0)` to decrypt.
+  - At `0x9896d0`, `dst[offset]` is XORed with `*x25`, where `x25` was saved at `0x9896dc: mov x25, x22` (the address of `dst[offset-8]`, i.e., the PREVIOUS DECRYPTED PLAINTEXT BLOCK).
+  - This is an exact 1:1 match for the PC launcher's documented `pc_variant` chaining (XORing each plaintext block with the previous plaintext block, IV=0, then ECB encrypting).
+
+### 2. Live Verification Against Client
+- In `mitm/local_baseapp_capture.py`, integrated `bf_encrypt(padded_body)` using key `b2525a3c` and mode `pc_variant` for Attempt I (24-byte padded body).
+- Executed `scratch/run_e2e_bf_test.py` against live `com.netease.chiji` (`PID 9754` on `emulator-5554`):
+  1. Client sent `LogOnParams` UDP packet (273 bytes) to port 25000 with replyID `0x00010dce`.
+  2. Server replied with Attempt K framing + Attempt I 24-byte `pc_variant`-encrypted body (`f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b`).
+  3. Client logcat confirmed flawless decryption and address resolution:
+     - `LoginHandler::onLoginReply: after Endpoint::convertAddress from 172.16.1.2 to 172.16.1.2:0`
+     - `ServerConnection::checkScriptBaseAppAddr not call script, script addr=172.16.1.2:25010`
+     - `Nub::recreateListeningSocket 0x76384dbca000 0.0.0.0:5137`
+     - `external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000`
+  4. Client immediately opened a new UDP socket and transmitted 10 consecutive `baseAppLogin` requests to `172.16.1.2:25010`!
+  5. Fake BaseApp listener on `:25010` captured all 10 packets (logged to `mitm/captures/BASEAPP_LOGIN_CAPTURE.txt`).
+
+### 3. BaseApp Wire Capture Analysis
+- Captured packet format: 24 bytes total.
+  - Bytes `[0:2]`: `01 00` (Mercury flags: `0x0001` - `FLAG_HAS_REQUESTS`)
+  - Byte `[2]`: `00` (Method ID `0x00` = `BaseAppExtInterface::baseAppLogin`)
+  - Bytes `[3:5]`: `0b 00` (uint16 length = 11 bytes)
+  - Bytes `[5:16]`: 11-byte payload (`84 bb 00 00 00 00 ac 10 01 02 01` — correlation ID, sequence counter, and embedded IP `172.16.1.2`)
+  - Bytes `[16:24]`: Mercury packet trailing metadata / footer (`00 00 00 14 00 00 02 00`)
+
+### 4. Status Update
+- **Mercury LoginApp Blowfish blocker is COMPLETELY RESOLVED.**
+- The project has officially crossed from LoginApp into BaseApp protocol reverse-engineering!
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

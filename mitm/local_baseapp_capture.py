@@ -25,6 +25,51 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mitm_serve as base  # reuse H, generate_whoami_payload, PLIST, etc.
 
+try:
+    from Crypto.Cipher import Blowfish as _Blowfish
+except Exception:
+    _Blowfish = None
+
+# E2E-006 (2026-09-15): ATTEMPT_L -- live Blowfish key test. A live /proc/<pid>/mem
+# read (scratch/scan_heap_for_filter.py, made possible by ptrace/mem-read access
+# being unexpectedly restored this pass -- see MERCURY_REPLY_ID_TRACE.md addendum)
+# located the client's live EncryptionFilter object by scanning heap-tagged memory
+# for its known vtable pointer (0x37dd3a0 + libclient.so's live load base), and
+# read out a 4-byte SSO-encoded std::string key at object+0x11 (length confirmed
+# via the SSO control byte at +0x10 = 0x08 -> length 4, exactly matching the
+# RAND_bytes(4) key documented in FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md). This is
+# a ONE-SHOT manual capture for a specific PID/connection (BFKEY_HEX env var),
+# NOT yet a live per-request re-scan -- see END_TO_END_TEST_LOG.md E2E-006 for the
+# full writeup and next-step plan to make this automatic per-connection.
+_BFKEY_HEX = os.environ.get('BFKEY_HEX', 'b2525a3c')
+_BF_MODE = os.environ.get('BF_MODE', 'pc_variant')
+
+
+def bf_encrypt(body):
+    if not _BFKEY_HEX or _Blowfish is None:
+        return None
+    key = bytes.fromhex(_BFKEY_HEX)
+    if _BF_MODE == 'ecb':
+        c = _Blowfish.new(key, _Blowfish.MODE_ECB)
+        return c.encrypt(body)
+    elif _BF_MODE == 'cbc0':
+        c = _Blowfish.new(key, _Blowfish.MODE_CBC, iv=b'\x00' * 8)
+        return c.encrypt(body)
+    elif _BF_MODE == 'pc_variant':
+        # PC ROS launcher's documented non-standard chaining: XOR each plaintext
+        # block against the PREVIOUS PLAINTEXT block (not ciphertext), IV=0, then
+        # ECB-encrypt -- see PC_LAUNCHER_STUDY.md SS3.
+        c = _Blowfish.new(key, _Blowfish.MODE_ECB)
+        blocks = [body[i:i + 8] for i in range(0, len(body), 8)]
+        prev = b'\x00' * 8
+        out = b''
+        for blk in blocks:
+            xored = bytes(a ^ b for a, b in zip(blk, prev))
+            out += c.encrypt(xored)
+            prev = blk
+        return out
+    return None
+
 CAPTURE_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'captures', 'BASEAPP_LOGIN_CAPTURE.txt')
 
 BASEAPP_HOST = '172.16.1.2'   # address the CLIENT (emulator guest) can reach us at
@@ -131,16 +176,44 @@ def serve_loginapp_udp_responder():
             # matching the existing 20-byte LoginReplyRecord body exactly. This sends
             # [4-byte replyID][1-byte status=1][20-byte body], length=4+1+20=25.
             #
-            # CONFIRMED LIVE, reproduced twice: the client's own log names
-            # "LoginHandler::onLoginReply" executing, followed by
-            # "ServerConnection::checkScriptBaseAppAddr" and a BaseApp connection attempt
-            # -- see MERCURY_REPLY_ID_TRACE.md. The decoded BaseApp address is currently
-            # garbled (a WARNING "EncryptionFilter::decrypt: Input stream size (20) is not
-            # a multiple of the block size (8)" fires), so the client cannot reach our real
-            # local BaseApp listener yet -- that is the new, precise next blocker.
+            # Attempt H's "CONFIRMED LIVE, reproduced twice" claim (2-byte counter at
+            # wire offset [5:7], zero-extended) turned out NOT to be durable -- E2E-001/
+            # E2E-002 (2026-09-15 later same day) found it failed 10/10 on two
+            # independent fresh runs, and a "sticky first counter" variant also failed
+            # 10/10. See PRIVATE_SERVER_REPLACEMENT_STATUS.md / END_TO_END_TEST_LOG.md
+            # E2E-005 for the regression writeup.
+            #
+            # Attempt K (2026-09-15, E2E-006) -- CURRENT DEFAULT, supersedes Attempt H.
+            # Per the PC ROS launcher's own documented fix for the identical bug class
+            # (their correlation ID turned out to be a uint32 at offset 5, not a uint16
+            # at offset 6 as originally assumed -- PC_LAUNCHER_STUDY.md SS2), a live
+            # offset/width/endianness sweep (scratch/reply_id_sweep.sh) against this
+            # exact client found the real field is a **4-byte little-endian value at
+            # wire offset 5** (i.e. widen Attempt H's field by 2 bytes, same start
+            # offset) -- CONFIRMED LIVE, reproduced twice with clean timestamp-isolated
+            # logcat captures (adb logcat -T, since `logcat -c` was found this pass to
+            # NOT actually clear the buffer on this device/build -- a new, reproducible
+            # environmental quirk, not a script bug): both runs reach
+            # "LoginHandler::onLoginReply" and "ServerConnection::checkScriptBaseAppAddr"
+            # on the very FIRST attempt (23-37ms round-trip), zero retries needed --
+            # stronger evidence than Attempt H's original claim, which relied on
+            # retries. See END_TO_END_TEST_LOG.md E2E-006 for the full sweep record.
             if len(data) < 7:
                 continue
-            counter = struct.unpack('<H', data[5:7])[0]
+            # Kept configurable (not hardcoded) so a future regression or a still-
+            # untested candidate can be swept again without editing this file --
+            # see scratch/reply_id_sweep.sh. Defaults now reflect Attempt K.
+            sweep_offset = int(os.environ.get('SWEEP_OFFSET', '5'))
+            sweep_width = int(os.environ.get('SWEEP_WIDTH', '4'))
+            sweep_endian = os.environ.get('SWEEP_ENDIAN', 'little')
+            if len(data) < sweep_offset + sweep_width:
+                log('SWEEP: packet too short for offset=%d width=%d (len=%d), skipping' % (sweep_offset, sweep_width, len(data)))
+                continue
+            raw_field = data[sweep_offset:sweep_offset + sweep_width]
+            counter = int.from_bytes(raw_field, byteorder=sweep_endian, signed=False)
+            if os.environ.get('SWEEP_ACTIVE') == '1':
+                log('SWEEP: offset=%d width=%d endian=%s -> extracted=0x%x (raw=%s)' % (
+                    sweep_offset, sweep_width, sweep_endian, counter, raw_field.hex()))
             if os.environ.get('ATTEMPT_J') == '1':
                 # Sticky first-counter hypothesis -- see comment at top of file.
                 if addr not in _first_counter_seen:
@@ -153,20 +226,39 @@ def serve_loginapp_udp_responder():
             reply = (struct.pack('<H', 0x0001) + bytes([0xff])
                       + struct.pack('<I', len(inner)) + inner
                       + b'\x00\x00')
-            log('ATTEMPT_H (default): replyID=0x%08x status=1 + 20-byte body, length=%d' % (counter, len(inner)))
-            # Attempt I (2026-09-15): pads the 20-byte body to 24 bytes (next multiple of
-            # 8), the single, minimal change the block-size warning names. Live result was
-            # inconsistent/unreproduced -- one run regressed to "Couldn't find handler for
-            # reply id" instead of reaching onLoginReply, for a reason not yet understood.
-            # Flagged UNKNOWN in MERCURY_REPLY_ID_TRACE.md; kept here, opt-in, for further
-            # investigation rather than silently dropped.
-            if os.environ.get('ATTEMPT_I') == '1':
+            log('ATTEMPT_H-shape (20-byte body): replyID=0x%08x status=1 + 20-byte body, length=%d' % (counter, len(inner)))
+            # Attempt I / now CURRENT DEFAULT (2026-09-15, E2E-006): pads the 20-byte
+            # body to 24 bytes (next multiple of 8), the single, minimal change the
+            # "EncryptionFilter::decrypt: Input stream size (20) is not a multiple of
+            # the block size (8)" WARNING names. Originally flagged UNKNOWN
+            # (inconsistent/unreproduced under the OLD, broken Attempt-H reply-ID
+            # extraction) -- re-tested this pass under the now-fixed Attempt K
+            # reply-ID extraction (4-byte LE @ offset 5) and found to work cleanly,
+            # twice: the decrypt WARNING disappears entirely and
+            # `checkScriptBaseAppAddr` logs a non-zero, non-garbled-by-framing address
+            # (still cryptographically WRONG content -- e.g. one run decoded
+            # `217.217.193.87:13706`, not our intended 172.16.1.2:25010 -- because
+            # this reply body is sent PLAINTEXT while the client unconditionally
+            # Blowfish-DECRYPTS it with its own live per-connection key; see
+            # END_TO_END_TEST_LOG.md E2E-006 and FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md
+            # -- but the FRAMING/block-size problem this flag targets is genuinely
+            # fixed). Kept opt-out (ATTEMPT_I=0) rather than removed, in case a future
+            # regression needs the old 20-byte shape for comparison.
+            if os.environ.get('ATTEMPT_I', '1') == '1':
                 padded_body = body + b'\x00\x00\x00\x00'
-                inner = struct.pack('<I', counter) + bytes([1]) + padded_body
+                enc_body = bf_encrypt(padded_body)
+                if enc_body:
+                    log('ATTEMPT_L: encrypted 24-byte body with Blowfish key=%s mode=%s -> %s' % (
+                        _BFKEY_HEX, _BF_MODE, enc_body.hex()))
+                    payload_body = enc_body
+                else:
+                    payload_body = padded_body
+                inner = struct.pack('<I', counter) + bytes([1]) + payload_body
                 reply = (struct.pack('<H', 0x0001) + bytes([0xff])
                           + struct.pack('<I', len(inner)) + inner
                           + b'\x00\x00')
-                log('ATTEMPT_I: replyID=0x%08x status=1 + 24-byte padded body, length=%d' % (counter, len(inner)))
+                log('ATTEMPT_I (default): replyID=0x%08x status=1 + 24-byte %sbody, length=%d' % (
+                    counter, 'ENCRYPTED ' if enc_body else 'padded ', len(inner)))
             if os.environ.get('DEBUG_BADFLAGS') == '1':
                 # Diagnostic-only toggle (MERCURY_MESSAGE_ID_TRACE.md Phase 2): deliberately
                 # resend the OLD invalid flags value to make the client reprint
