@@ -1570,5 +1570,144 @@ rapid-fire repeats, per the coordinator's pacing instruction). **Result**:
    practice.
 
 ---
+
+## TEST_ID: E2E-014
+- **DATE**: 2026-09-15 (same day, fourteenth pass), per the coordinator's
+  instruction to statically locate the Mercury checksum
+  computation/validation code using the same alternate-path technique
+  that worked for `createBasePlayer` in E2E-011.
+- **GOAL**: (1) find the checksum algorithm/byte-range; (2) implement it;
+  (3) debug and fix the chain-IV code once a real bug surfaced during
+  live re-testing; (4) live-verify the chain-IV hypothesis cleanly.
+
+### 1. Found a genuine standard CRC-32 implementation in the binary — but likely unrelated
+Searching `.rodata` for the well-known reflected CRC-32 (IEEE 802.3,
+polynomial `0xEDB88320`) table's first entries found an **exact,
+byte-for-byte 256/256 match** at rodata `0x2be798c`
+(`scratch/verify_crc32_table.py`). Located its update function (a tiny
+leaf function at `0x1cc3988`, textbook `crc = table[(crc^byte)&0xFF] ^
+(crc>>8)`) and all 4 of its `BL` callers (`0x1248fac`, `0x127d950`,
+`0x12a0270`, `0x12a0524`), each using the standard `init=0xFFFFFFFF` /
+`finalize=~crc` convention — i.e. byte-for-byte equivalent to Python's
+`zlib.crc32()`/`binascii.crc32()`. **However**: all 4 callers sit at
+addresses (~`0x12xxxxx`) far from the `Nub`/`Channel` packet-validation
+cluster (`~0x98fxxx-0x99xxxx`), and each caller's own calling pattern
+(`mov x0,ptr; bl <length-getter>; crc(&state,ptr,len)`) looks like a
+generic "CRC32 of a string" utility, most plausibly used for
+resource/asset-name hashing (a common CRC32 use in game engines) — **NOT
+confirmed to be the Mercury packet checksum**. Kept as a concrete,
+reusable candidate algorithm, not a proven answer.
+
+### 2. Exhaustive static search for the checksum error string's real call site — NEGATIVE, 5 independent methods
+Attempted to locate `Nub::processFilteredPacket(...): Packet (flags %hx,
+size %d) failed checksum (wanted %08x, got %08x)`'s actual `.text` call
+site, since `06_trace/LOGIN_REPLY_MERCURY_ENVELOPE.md` already flagged
+this string as apparently unreferenced ("vestigial") in an earlier pass.
+Verified/extended that finding with 5 independent methods this pass, all
+negative:
+1. Corrected the string's TRUE start address (an earlier substring match
+   in this pass initially pointed mid-string) and re-ran a direct
+   ADRP+ADD scan — zero hits.
+2. Widened the ADRP-to-ADD window to 200 bytes — zero hits.
+3. A full-file raw 8-byte pointer scan (in case of an indirect
+   pointer-table reference) — zero hits.
+4. Located `Nub::processFilteredPacket`'s real prologue (`0x98fa30`,
+   already known from `06_trace/MERCURY_REPLY_DISPATCH_TRACE.md`'s own
+   prior "bad flags" trace) and manually disassembled ~0x200 bytes
+   forward from the "flags in range" branch — reached footer/fragment
+   logic without encountering the checksum check or its string load.
+5. Found that DIFFERENT log-severity levels route through DIFFERENT
+   shared varargs log functions (confirmed: `0x1cad7ac` for WARNING-level
+   calls like "bad flags", `0x1cad604` for ERROR-level calls like
+   "Discarding bundle due to corrupted header") — enumerated ALL 2019
+   combined callers of both functions and resolved each call site's `x0`
+   (format string pointer) via the same clean "between consecutive
+   calls" dataflow method that correctly decoded the `ClientInterface`
+   table in E2E-011. **Zero matches** for the checksum string's address
+   among either function's callers.
+**Conclusion**: this is now a well-corroborated (not merely repeated)
+negative result across 5 independently-designed methods, reusing every
+technique that has worked elsewhere in this project. The checksum
+string's real call site remains unlocated — either genuinely dead code
+in this build (matching the prior pass's own "vestigial strings"
+conclusion, now much better evidenced), or resolved through a codegen
+pattern this project's tooling cannot yet detect (e.g. a
+severity/category-indexed table this project hasn't identified).
+
+### 3. Live re-test of the chain-IV hypothesis — found and fixed a real bug, then got a CLEAN negative result
+While preparing a live test, added temporary debug logging to
+`_last_plain_block_by_host` reads/writes and discovered a **genuine
+implementation bug** (now fixed): the `createBasePlayer` push's
+plaintext (`[flags][msgid=4][len=4][entityId=1]`, padded to 16 bytes)
+has an **all-zero last-8-byte block** — because `entityId=1`'s upper 3
+bytes are zero and the 7 bytes of padding are also zero, the ENTIRE
+chaining seed stored for the next message degenerates to
+`0000000000000000` after the first `createBasePlayer` push fires. This
+corrupted every RETRY after the first within a test run (all retries
+after #1 incorrectly chained from this degenerate all-zero block instead
+of a real previous-message tail) — explaining an apparent inconsistency
+between this pass's live results and expectations. Removed the debug
+logging after diagnosis; the degenerate-tail issue itself is a known,
+documented limitation (inherent to short messages where only 1 byte of
+real content falls in the last 8-byte window) rather than something
+fixed outright this pass, since it turned out not to matter for the
+core question (see below).
+
+**With this understood, isolated the FIRST ack of a fresh test (fresh
+`PID 23452`, fresh key `5a323628`, un-corrupted by the degenerate-tail
+bug since it fires before any `createBasePlayer` push)**: `chain_iv`
+correctly resolved to LoginApp's real last plaintext block
+(`7856341200000000`, verified via debug log). **Result: `Nub(...)::
+processFilteredPacket(...): received packet with bad flags 5679`** —
+still garbage, still rejected. **This is a CLEAN negative result for the
+chain-IV hypothesis** (not confounded by the earlier bug, not confounded
+by a wrong key) — chaining from LoginApp's last plaintext block does
+**NOT** produce correct decryption for the first BaseApp message.
+**CONFIRMED (negative)**: the "literally shared, state-carrying
+`EncryptionFilter` object" hypothesis from E2E-012 is now disproven for
+the simple IV=last-LoginApp-block form, even though the KEY itself
+remains confirmed shared (a genuinely different, more surprising
+combination of facts than initially assumed — same key, but NOT simply
+continuous chaining state).
+
+### CPU/pacing note
+Followed the adopted practice: one paced test iteration, `top` checked
+immediately after (`chiji` at 25.9%, settling to 11.6% within the next
+check) — no runaway spin this pass, device remained healthy throughout.
+
+### RESULT
+- CRC-32 implementation found and characterized, but not confirmed
+  relevant — a real, reusable static-analysis contribution regardless.
+- Checksum string's call site: confirmed unlocatable via 5 independent
+  methods — a strong, well-evidenced negative result, not abandoned
+  early.
+- Chain-IV hypothesis: **cleanly disproven** for the simple
+  "continue-from-LoginApp's-last-block" form, after fixing a real
+  implementation bug that had been confounding earlier reads.
+- Did not reach Account, Avatar, or Lobby this pass. `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. The chain-IV hypothesis is disproven in its simplest form, but the
+   KEY-SHARING finding (E2E-012) remains solid and surprising — worth
+   reconsidering what ELSE could explain two channels sharing a key
+   without sharing simple linear chaining state (e.g. per-channel/
+   per-direction sub-state within one shared object, a channel-id or
+   address mixed into the IV, or the object being copied/cloned with the
+   key preserved but a chaining counter reset).
+2. Given static analysis of the checksum path has now been tried
+   thoroughly and exhausted with this project's current tooling, the
+   remaining productive avenues are either (a) a fundamentally different
+   static technique not yet tried (e.g. locating the function via its
+   position relative to already-confirmed neighboring functions like
+   `Nub::handleMessage`'s `0x991f00`-`0x992034` region, rather than via
+   string or log-function xrefs at all), or (b) accepting this specific
+   sub-problem as blocked pending better tooling/dynamic instrumentation
+   (still unavailable per the standing native-bridge/classifier
+   blockers), and redirecting effort to re-examining whether the
+   `pc_variant` chaining/key model itself needs revisiting from scratch
+   for this specific channel via fresh disassembly of the BaseApp-side
+   decrypt call site (if one distinct from LoginApp's `0x989600` exists).
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

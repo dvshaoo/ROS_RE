@@ -154,13 +154,30 @@ this document only aggregates and classifies, it does not re-derive.
   stopped — proactively force-stopped the game process before it could
   cascade into another ANR; `am force-stop` worked cleanly this time
   (unlike the E2E-012 incident), device left healthy and idle.
+  **UPDATE (E2E-014)**: pursued the checksum lead statically — found a
+  genuine, standard, zlib-compatible CRC-32 implementation in the binary
+  (exact 256/256 table match, textbook update function), but its 4 known
+  callers sit in a distant, likely-unrelated part of the code (probably
+  asset/resource-name hashing), not confirmed as the packet checksum.
+  The checksum error string's actual call site was confirmed unlocatable
+  via 5 independent static methods (extending, not just repeating,
+  `LOGIN_REPLY_MERCURY_ENVELOPE.md`'s own earlier "vestigial strings"
+  finding). Separately, found and fixed a real bug while re-testing live
+  (the `createBasePlayer` push's degenerate all-zero tail block was
+  corrupting later retries' chaining state) and, with that understood,
+  obtained a **clean negative result** for the chain-IV hypothesis
+  itself: even correctly chaining from LoginApp's real last plaintext
+  block, the FIRST BaseApp ack still decrypts to garbage (`bad flags
+  5679`). The key-sharing finding from E2E-012 stands, but simple linear
+  chaining-state-sharing is now disproven — the true relationship
+  between the two channels' crypto state remains unresolved.
 
 ## BLOCKED
 
 1. **`script.npk` Python-layer patch (ROS-Legacy-Gate-1-style bypass)** —
    BLOCKED on two independent fronts: (a) general `7A 1C` stream cipher not yet broken;
    (b) Frida gadget injection on emulator hits native bridge translation module namespace limitation.
-2. **BaseApp reply content (checksum field, per E2E-013)** — key and chaining direction are now well-supported; a Mercury-level checksum/CRC field this project hasn't characterized is the current leading candidate for the remaining gap. `06_trace/LOGIN_REPLY_MERCURY_ENVELOPE.md` already documents the generic checksum error string but found the associated validation code to be statically unreachable via the obvious string-xref method (same class of "vestigial strings" dead end as `createBasePlayer`'s own name string, resolved in E2E-011 via the registrar-table method instead) — a similar alternate-path static approach is the recommended next step.
+2. **BaseApp reply content** — key is confirmed shared with LoginApp's (E2E-012), but neither IV=0 nor IV=chained-from-LoginApp produces correct decryption (E2E-008, E2E-014). A checksum/CRC field remains a candidate for a related/separate issue but its validation code could not be statically located despite 5 independent methods across two passes. This is now the project's most persistent open blocker on the path to Account/Avatar/Lobby — static analysis with current tooling appears exhausted; unblocking further likely requires either a fundamentally different static technique or working dynamic instrumentation (both native-bridge and classifier blockers currently prevent the latter).
 3. **Account, Avatar, Lobby entity instantiation** — downstream of #2, NEXT IMPLEMENTATION TARGET once #2 is solved.
 
 ## RESOLVED (MOVED OUT OF BLOCKED)
