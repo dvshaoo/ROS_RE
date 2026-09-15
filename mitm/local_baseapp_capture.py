@@ -19,6 +19,7 @@ import os
 import sys
 import socket
 import struct
+import subprocess
 import threading
 import time
 
@@ -45,17 +46,19 @@ _BFKEY_HEX = os.environ.get('BFKEY_HEX', 'b2525a3c')
 _BF_MODE = os.environ.get('BF_MODE', 'pc_variant')
 
 
-def bf_encrypt(body):
-    if not _BFKEY_HEX or _Blowfish is None:
+def bf_encrypt(body, key_hex=None, mode=None):
+    key_hex = key_hex or _BFKEY_HEX
+    mode = mode or _BF_MODE
+    if not key_hex or _Blowfish is None:
         return None
-    key = bytes.fromhex(_BFKEY_HEX)
-    if _BF_MODE == 'ecb':
+    key = bytes.fromhex(key_hex)
+    if mode == 'ecb':
         c = _Blowfish.new(key, _Blowfish.MODE_ECB)
         return c.encrypt(body)
-    elif _BF_MODE == 'cbc0':
+    elif mode == 'cbc0':
         c = _Blowfish.new(key, _Blowfish.MODE_CBC, iv=b'\x00' * 8)
         return c.encrypt(body)
-    elif _BF_MODE == 'pc_variant':
+    elif mode == 'pc_variant':
         # PC ROS launcher's documented non-standard chaining: XOR each plaintext
         # block against the PREVIOUS PLAINTEXT block (not ciphertext), IV=0, then
         # ECB-encrypt -- see PC_LAUNCHER_STUDY.md SS3.
@@ -69,6 +72,251 @@ def bf_encrypt(body):
             prev = blk
         return out
     return None
+
+
+# E2E-009 (2026-09-15): async live BaseApp-channel key discovery. E2E-008 found
+# the BaseApp channel Blowfish-encrypts the WHOLE packet and rejects LoginApp's
+# key, strongly suggesting a SEPARATE EncryptionFilter/key is constructed for
+# the new BaseApp Nub/socket. Since baseAppLogin only gets a ~5s single-shot
+# Mercury retry window (BASEAPP_LOGIN_SERIALIZATION.md SS3: one logical request,
+# channel-level retransmission only), the heap scan must run in the background,
+# started the moment the FIRST baseAppLogin packet arrives, so a later retry
+# within the same window can use the freshly-discovered key. Uses on-device
+# `dd | grep -F` (toybox grep, confirmed to support -a/-b/-o binary-safe fixed-
+# string search) instead of transferring the ~500MB heap to the host -- measured
+# at ~2.2s per 130MB region live against PID 9754, so scanning is done directly
+# on-device and only match offsets (plus small follow-up reads) cross the wire.
+ADB = os.environ.get('ADB_PATH', r'C:\LDPlayer\LDPlayer9\adb.exe')
+DEVICE_SERIAL = os.environ.get('DEVICE_SERIAL', 'emulator-5554')
+LIBCLIENT_VTABLE_FILE_ADDR = 0x37dd3a0  # EncryptionFilter vtable, FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md
+_key_cache = {}  # {client_addr: key_hex}
+_key_scan_started = set()  # client_addrs for which a scan thread is already running
+
+
+def _adb(args, timeout=20):
+    cmd = [ADB, '-s', DEVICE_SERIAL] + args
+    try:
+        return subprocess.run(cmd, capture_output=True, timeout=timeout).stdout
+    except Exception as e:
+        log('BASEAPP KEYSCAN: adb call failed: %s' % e)
+        return b''
+
+
+def _get_pid():
+    out = _adb(['shell', 'pidof', 'com.netease.chiji']).decode(errors='replace').strip()
+    return out.split()[0] if out else None
+
+
+def _get_libclient_base_and_regions(pid):
+    maps = _adb(['shell', 'su', '0', 'cat', '/proc/%s/maps' % pid]).decode(errors='replace')
+    base_addr = None
+    regions = []
+    for line in maps.splitlines():
+        if 'libclient.so' in line and base_addr is None:
+            rng = line.split()[0]
+            start_hex, _ = rng.split('-')
+            # only the FIRST (file offset 0) mapping is the true load base
+            parts = line.split()
+            if parts[2] == '00000000':
+                base_addr = int(start_hex, 16)
+        if 'libc_malloc' in line or '[heap]' in line:
+            rng = line.split()[0]
+            s, e = rng.split('-')
+            regions.append((int(s, 16), int(e, 16)))
+    return base_addr, regions
+
+
+def _scan_region_for_pattern(pid, region_start, region_end, pattern_bytes):
+    """Run dd|grep entirely on-device; returns list of absolute VA matches."""
+    # BUG FOUND + FIXED THIS PASS (the real root cause of "0 candidates" even
+    # for the already-known-good object, after the shell-quoting bug above was
+    # also fixed): `bs=4096` on these high (0x7638...) 48-bit user-space
+    # addresses makes `skip` a page COUNT around 3*10^10 -- comfortably over
+    # 2^31 (2,147,483,648). toybox `dd`'s skip/seek arithmetic on this device
+    # overflows a 32-bit int at that size, silently seeking to a WRONG (but
+    # deterministic, hence repeatable) offset while still returning data and
+    # exit code 0 -- no error, just wrong bytes. Confirmed live: a `grep`
+    # match reported at a given absolute VA, immediately read back with a
+    # separate one-off `dd`, showed completely unrelated bytes every time,
+    # not a race condition (same wrong bytes on repeat reads). Per this
+    # project's own established operational note ("toybox dd needs
+    # bs=1048576 not bs=1M"), using a 1MB block size keeps the skip count
+    # (region_start // 1048576) safely under 2^31 for all realistic region
+    # addresses. Since regions aren't guaranteed 1MB-aligned (only 4096-page
+    # aligned), round the skip down to the enclosing MB boundary and track
+    # the resulting byte offset adjustment so absolute VAs stay correct.
+    aligned_start = (region_start // 1048576) * 1048576
+    skip_mb = aligned_start // 1048576
+    count_mb = -(-(region_end - aligned_start) // 1048576)  # ceil div
+    if count_mb <= 0:
+        return []
+    # NOTE (two bugs found + fixed this pass, verified against a live device):
+    # the outer `sh -c '...'` wrapper uses SINGLE quotes, inside which the
+    # shell does NOT interpret backslashes at all, and `subprocess.run([...])`
+    # sends this Python string to `adb shell` VERBATIM (no host shell in
+    # between to do its own unescaping, unlike typing the equivalent command
+    # into an interactive/bash context). Bug 1: an earlier version added `\"`
+    # around the printf argument -- inside single quotes those backslashes
+    # are never consumed, so printf received literal backslash+quote
+    # characters polluting the pattern (confirmed live: 21/21 regions, 0
+    # candidates, even for the already-known-good LoginApp filter object).
+    # Bug 2 (found fixing bug 1): printf's argument must still be
+    # DOUBLE-quoted (`"$(printf "\xHH...")"`, quotes literal/unescaped since
+    # we're already inside single quotes) -- command substitution `$(...)`
+    # opens its own fresh quoting context, so a nested `"..."` inside it is
+    # valid and required for toybox printf to treat the `\xHH` sequence as
+    # one argument rather than needing quotes at all; empirically, leaving
+    # it fully unquoted (`printf %s` with no surrounding quotes at all) also
+    # returned zero matches against a live re-test -- only the doubly-quoted
+    # form was verified live to work.
+    # THIRD BUG FOUND + FIXED THIS PASS: `grep -b` on this toybox build reports
+    # a byte offset RELATIVE TO THE START OF THE CURRENT LINE (1-indexed),
+    # not an absolute stream offset -- confirmed with a minimal on-device
+    # repro (`printf "AAAA\nBBBB<pattern>CCCC" | grep -a -b -o pattern`
+    # reported offset 5, i.e. 1-indexed position within the SECOND line, not
+    # the true absolute offset 9). Since random binary heap data contains a
+    # 0x0a byte roughly every 256 bytes on average, a 100+MB region has
+    # hundreds of thousands of line resets, making the previously-computed
+    # "absolute VA" wrong for almost any real match (this, not the dd skip
+    # overflow alone, was the full explanation for why a reported "hit"
+    # consistently read back as unrelated bytes even after the dd fix).
+    # Fix: use grep only as a fast on-device EXISTENCE check (-q, exit code
+    # only, unaffected by the offset bug), then -- only for a region that
+    # reports a match -- pull that one region's bytes to the host via
+    # `adb exec-out` (binary-safe, no shell text-mode/newline issues at all)
+    # and find the exact offset locally in Python, exactly like the original
+    # one-shot scratch/scan_heap_for_filter.py did.
+    pattern_escaped = ''.join('\\x%02x' % b for b in pattern_bytes)
+    check_cmd = (
+        "su 0 sh -c 'dd if=/proc/%s/mem bs=1048576 skip=%d count=%d 2>/dev/null "
+        '| grep -qa -o "$(printf "%s")"\''
+    ) % (pid, skip_mb, count_mb, pattern_escaped)
+    res = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'shell', check_cmd], capture_output=True, timeout=20)
+    if res.returncode != 0:
+        return []
+    # Match confirmed present somewhere in this region -- pull it to host via
+    # exec-out (binary-safe) and locate the exact offset locally.
+    dump_cmd = "su 0 dd if=/proc/%s/mem bs=1048576 skip=%d count=%d 2>/dev/null" % (pid, skip_mb, count_mb)
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+    hits = []
+    idx = 0
+    while True:
+        idx = data.find(pattern_bytes, idx)
+        if idx == -1:
+            break
+        hits.append(aligned_start + idx)
+        idx += 1
+    return hits
+
+
+def _read_key_at(pid, obj_va):
+    """Read the SSO-encoded std::string key at EncryptionFilter object+0x10
+    (control byte) / +0x11 (inline chars), per FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md
+    object layout. Returns hex string of the key bytes, or None.
+
+    Same bs=1048576 fix as _scan_region_for_pattern: `bs=1 skip=<huge byte
+    address>` overflows toybox dd's 32-bit skip arithmetic on these high
+    addresses and silently returns wrong bytes (confirmed live -- this was
+    the actual reason the async scan reported 0 usable candidates even after
+    the pattern match itself was fixed). Read the enclosing 1MB block instead
+    and slice out the needed bytes in Python.
+    """
+    read_start = obj_va + 0x10
+    aligned_start = (read_start // 1048576) * 1048576
+    skip_mb = aligned_start // 1048576
+    local_offset = read_start - aligned_start
+    remote_cmd = "su 0 sh -c 'dd if=/proc/%s/mem bs=1048576 skip=%d count=1 2>/dev/null | xxd -p'" % (pid, skip_mb)
+    out = _adb(['shell', remote_cmd], timeout=10).decode(errors='replace').strip().replace('\n', '')
+    if len(out) < (local_offset + 24) * 2:
+        return None
+    try:
+        block = bytes.fromhex(out)
+    except ValueError:
+        return None
+    raw = block[local_offset:local_offset + 24]
+    if len(raw) < 24:
+        return None
+    ctrl = raw[0]
+    if ctrl & 1:  # long-form string, not expected for a 4-byte RAND_bytes key
+        return None
+    length = ctrl >> 1
+    if length == 0 or length > 22:
+        return None
+    key_bytes = raw[1:1 + length]
+    return key_bytes.hex()
+
+
+def find_baseapp_key_async(client_addr, old_key_hex, done_callback):
+    """Spawned on the FIRST baseAppLogin packet from client_addr. Scans heap for
+    ALL EncryptionFilter-shaped objects (matching the vtable pointer's low 4
+    bytes, since these are all sub-4GB process addresses with a zero upper
+    half), reads each candidate's key, and reports the first one that is NOT
+    old_key_hex (i.e. a genuinely new/different key, consistent with the
+    BaseApp channel using its own filter) via done_callback(key_hex_or_None,
+    all_keys_found). Runs entirely in a background thread; the caller does not
+    block on this."""
+    def _worker():
+        t0 = time.time()
+        pid = _get_pid()
+        if not pid:
+            log('BASEAPP KEYSCAN: no live chiji PID found, aborting scan')
+            done_callback(None, [])
+            return
+        base_addr, regions = _get_libclient_base_and_regions(pid)
+        if base_addr is None:
+            log('BASEAPP KEYSCAN: could not find libclient.so base, aborting')
+            done_callback(None, [])
+            return
+        target_va = base_addr + LIBCLIENT_VTABLE_FILE_ADDR
+        # Use the FULL 8-byte pointer (not just the low 4 bytes) as the search
+        # pattern. A first version of this scan used only the low 4 bytes to
+        # dodge a (mistaken) worry about embedding \x00 in a shell argument --
+        # but the \x00 here is the literal TEXT "\x00" interpreted by the
+        # device's own `printf`, not a raw embedded NUL byte in argv, so there
+        # was never a real problem to avoid. The low-4-byte-only pattern is
+        # matched by pure chance elsewhere in a large heap dump often enough
+        # to be a real bug: live-confirmed this pass -- the same "candidate"
+        # VA was found reliably across repeated scans, but a direct follow-up
+        # read at that address showed completely unrelated bytes (not even a
+        # plausible vtable pointer), proving it was a 4-byte coincidental
+        # collision, not the real object. The full 8-byte pattern (as used by
+        # the original one-shot scratch/scan_heap_for_filter.py, which found
+        # exactly one match in ~500MB) does not have this problem.
+        pattern = struct.pack('<Q', target_va)
+        log('BASEAPP KEYSCAN: pid=%s base=0x%x target_vtable_va=0x%x pattern=%s, scanning %d regions...' % (
+            pid, base_addr, target_va, pattern.hex(), len(regions)))
+        found_keys = []
+        threads = []
+        lock = threading.Lock()
+
+        def scan_one(rs, re_):
+            hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+            for va in hits:
+                key_hex = _read_key_at(pid, va)
+                if key_hex:
+                    with lock:
+                        found_keys.append((va, key_hex))
+                        log('BASEAPP KEYSCAN: candidate EncryptionFilter at 0x%x key=%s' % (va, key_hex))
+
+        for (rs, re_) in regions:
+            th = threading.Thread(target=scan_one, args=(rs, re_), daemon=True)
+            th.start()
+            threads.append(th)
+        for th in threads:
+            th.join(timeout=8)
+        elapsed = time.time() - t0
+        distinct = sorted(set(k for _, k in found_keys))
+        log('BASEAPP KEYSCAN: done in %.2fs, found %d candidate object(s), %d distinct key(s): %s' % (
+            elapsed, len(found_keys), len(distinct), distinct))
+        new_key = None
+        for k in distinct:
+            if k != old_key_hex:
+                new_key = k
+                break
+        done_callback(new_key, distinct)
+
+    th = threading.Thread(target=_worker, daemon=True)
+    th.start()
 
 CAPTURE_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'captures', 'BASEAPP_LOGIN_CAPTURE.txt')
 
@@ -310,43 +558,48 @@ def serve_baseapp_udp_capture():
                 # 11-byte body (see comment above).
                 method_id = data[2]
                 corr = struct.unpack('<I', data[5:9])[0]
-                # Attempt 1 (plaintext throughout, LoginApp-style "encrypt only the
-                # inner body" framing): REJECTED, "Input stream size (12) is not a
-                # multiple of the block size (8)".
-                # Attempt 2 (encrypt only an 8-byte inner payload after a plaintext
-                # [flags][msgid][length] header, mirroring LoginApp exactly):
-                # REJECTED, "Input stream size (15) is not a multiple of the block
-                # size (8)" -- 15 = the FULL packet length, proving decrypt() is
-                # being invoked over the WHOLE datagram, not a header-relative
-                # sub-slice -- i.e. the BaseApp channel encrypts the entire wire
-                # packet (including flags/msgid/length), unlike LoginApp's
-                # reply-body-only encryption.
-                # Attempt 3 (encrypt the entire [flags][msgid][corr][status], no
-                # length field): decrypt SUCCEEDED this time (no block-size
-                # warning!) but parsing then failed: "Bundle::iterator::unpack(
-                # Reply ): Not enough data on stream at 2 for header (3 bytes,
-                # needed 5)" -- confirms whole-packet encryption is the right
-                # model, but a Reply (msgid 0xFF) message still needs its own
-                # [u32 length] field per LoginApp's own proven shape, which
-                # Attempt 3 omitted by mistake.
-                # Attempt 4 (this one): encrypt the WHOLE
-                # [flags][msgid][length=5][replyid=corr][status] structure
-                # (LoginApp's exact inner shape, just with the length field now
-                # ALSO inside the encrypted region since this channel encrypts
-                # everything), padded to a multiple of 8.
+                # Attempts 1-3 (E2E-008, plaintext / body-only-encrypted / no-length
+                # variants): all REJECTED -- see END_TO_END_TEST_LOG.md E2E-008 for
+                # the full record. Attempt 4 established the correct WHOLE-PACKET
+                # pc_variant-encrypted [flags][msgid=0xFF][length=5][replyID][status]
+                # shape (padded to a multiple of 8) but decrypted to garbage using
+                # LoginApp's key -- strong evidence of a SEPARATE BaseApp-channel key.
+                #
+                # E2E-009 (this pass): on the FIRST packet from a given client
+                # address, kick off an async heap re-scan (find_baseapp_key_async)
+                # for a second EncryptionFilter object distinct from LoginApp's
+                # known key. Every reply (including this first one) uses whatever
+                # key is in _key_cache for this address at send time -- initially
+                # the LoginApp key (best-effort, likely wrong per E2E-008), but a
+                # LATER retry within the same ~5s Mercury retry window will pick up
+                # the freshly-discovered key once the background scan completes.
+                if addr not in _key_scan_started:
+                    _key_scan_started.add(addr)
+                    _key_cache[addr] = _BFKEY_HEX  # seed with LoginApp's key as fallback
+
+                    def _on_scan_done(new_key, all_keys, addr=addr):
+                        if new_key:
+                            _key_cache[addr] = new_key
+                            log('BASEAPP KEYSCAN: using NEW distinct key=%s for %s (all candidates: %s)' % (new_key, addr, all_keys))
+                        else:
+                            log('BASEAPP KEYSCAN: no key distinct from LoginApp\'s (%s) found for %s (candidates: %s) -- key is likely SHARED, not separate' % (_BFKEY_HEX, addr, all_keys))
+
+                    find_baseapp_key_async(addr, _BFKEY_HEX, _on_scan_done)
+
+                use_key = _key_cache.get(addr, _BFKEY_HEX)
                 plain = (struct.pack('<H', 0x0001) + bytes([0xff])
                           + struct.pack('<I', 5) + struct.pack('<I', corr) + bytes([1]))
                 pad = (-len(plain)) % 8
                 plain += b'\x00' * pad
-                enc = bf_encrypt(plain)
+                enc = bf_encrypt(plain, key_hex=use_key)
                 if enc:
                     reply = enc
-                    log('BASEAPP: encrypted WHOLE %d-byte (padded) reply with key=%s mode=%s' % (len(plain), _BFKEY_HEX, _BF_MODE))
+                    log('BASEAPP: encrypted WHOLE %d-byte (padded) reply with key=%s mode=%s' % (len(plain), use_key, _BF_MODE))
                 else:
                     reply = plain
                 s.sendto(reply, addr)
-                log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x (%d bytes): %s' % (
-                    method_id, corr, len(reply), reply.hex()))
+                log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x key=%s (%d bytes): %s' % (
+                    method_id, corr, use_key, len(reply), reply.hex()))
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 

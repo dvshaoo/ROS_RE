@@ -851,5 +851,130 @@ tap against the same still-alive `PID 9754`:
    mismatch again.
 
 ---
+
+## TEST_ID: E2E-009
+- **DATE**: 2026-09-15 (same day, ninth pass), per the coordinator's own
+  NEXT_HIGHEST_VALUE_EXPERIMENT from E2E-008: make the heap key-scan
+  asynchronous, triggered on the first `baseAppLogin` packet, so a
+  BaseApp-specific key (if it exists) can be found within the client's
+  ~5s single-shot retry window.
+- **GOAL**: confirm/deny the "BaseApp channel uses a separate
+  `EncryptionFilter`/key from LoginApp" hypothesis with a live re-scan,
+  and use it if found.
+
+### Implementation
+Added `find_baseapp_key_async()` to `mitm/local_baseapp_capture.py`:
+spawned on the first packet from a new client address, it re-derives
+`libclient.so`'s live load base + the current heap-tagged region list from
+`/proc/<pid>/maps`, searches for the `EncryptionFilter` vtable pointer
+(`0x37dd3a0` + load base) across all regions in parallel background
+threads, and reports any key distinct from LoginApp's known
+`b2525a3c` via a callback. Every reply (including the first) uses
+whatever key is cached for that client address at send time, defaulting
+to LoginApp's key until/unless the scan supersedes it — non-blocking by
+design, per the task's own requirement.
+
+### THREE real, independently-confirmed bugs found and fixed in the on-device
+scan pipeline while validating this (all in `mitm/local_baseapp_capture.py`,
+each reproduced and root-caused live, not guessed):
+1. **Shell quoting**: the outer `su 0 sh -c '...'` wrapper uses single
+   quotes, inside which backslashes are never consumed — an earlier `\"`
+   around the `printf` argument therefore reached `printf` as literal
+   backslash+quote characters, corrupting the byte pattern and making
+   every scan report 0 candidates, even for the already-known-good
+   LoginApp filter object. Fixed: no escaping needed inside the
+   single-quoted context; the `printf` argument still needs its own
+   (unescaped, nested) double quotes for the `\xHH` sequence to be taken
+   as one argument.
+2. **`dd` skip overflow**: with `bs=4096`, the resulting page-count `skip`
+   value for these high (`0x7638...`) 48-bit addresses is ~3×10^10 —
+   comfortably over 2^31. This device's toybox `dd` silently overflows its
+   skip arithmetic at that size and seeks to a wrong (but deterministic,
+   hence repeatable) offset, returning data and exit code 0 with no error
+   — confirmed live by reading the same reported "match" address twice
+   with independent `dd` calls and getting the same WRONG, unrelated
+   bytes both times. Fixed per this project's own established note ("
+   toybox dd needs bs=1048576 not bs=1M"): using a 1MB block size keeps
+   `skip` safely under 2^31.
+3. **`grep -b` is line-relative, not stream-absolute**: on this toybox
+   build, `grep -a -b -o` reports each match's byte offset relative to
+   the START OF ITS CURRENT LINE (1-indexed), not the absolute stream
+   position — confirmed with a minimal on-device repro
+   (`printf "AAAA\nBBBB<pattern>CCCC" | grep -a -b -o pattern` reported
+   offset `5`, i.e. the 1-indexed position within the second line, not
+   the true absolute offset `9`). Since random binary heap data contains
+   a `0x0a` byte roughly every 256 bytes, a 100+MB region has hundreds of
+   thousands of line resets, making almost every computed "absolute VA"
+   wrong. This was the actual full explanation for bugs 1+2 appearing to
+   "still fail" even after each was independently fixed and verified in
+   isolation. Fixed by using `grep -qa` as a fast EXISTENCE-only check
+   (exit code, unaffected by the offset bug) per region, then pulling
+   only a CONFIRMED-matching region to the host via `adb exec-out`
+   (binary-safe) for an exact Python-side offset search — the same
+   technique `scratch/scan_heap_for_filter.py` used successfully in
+   E2E-006, now reserved only for the (typically 1) region that needs it.
+
+### Result after all three fixes: INCONCLUSIVE, not a clean confirmation
+With all three bugs fixed, the region-existence check plus host-side
+exact search DOES reliably find an 8-byte exact match for the
+`EncryptionFilter` vtable pointer inside the same large (~161-277MB)
+heap-tagged region every run. However, **a follow-up read at the exact
+reported address, moments later, shows unrelated bytes each time** — and
+this was reproduced with THREE different "found" addresses across
+separate scan runs (`0x76384d0643fa`, `0x76384d080e6f`, and the original
+`0x76384d080e30` from E2E-006/007), each internally consistent within its
+own run but not matching each other or surviving a follow-up read.
+**INFERRED**: this large region is not a stable, long-lived allocation
+holding one persistent `EncryptionFilter` object; it more plausibly
+behaves like an actively-churning allocator arena (a bump/slab pool, ring
+buffer, or similar) where the target 8-byte pattern appears transiently
+and moves/disappears within the few seconds between the on-device
+existence check, the host-side exact search (which itself takes 3-13s to
+transfer 161-277MB over `exec-out`), and any follow-up verification read
+— not a stable object we can locate-then-read as a two-step process at
+this scale. This is a **new, different blocker** from a simple "wrong
+key" — it's a **timing/volatility problem with the two-step
+locate-then-read approach itself**, given the multi-second latency
+`exec-out`'s full-region transfer requires.
+- `CLIENT_MODIFIED: NO`. All changes remain server-side test tooling.
+- The async scan does not (yet) produce a usable second key; BaseApp
+  replies still fall back to LoginApp's key by design (non-blocking,
+  graceful degradation), so this pass causes **no regression** versus
+  E2E-008's state — BaseApp login is still reached and still rejects the
+  reply, exactly as before.
+
+### RESULT
+Per the coordinator's own explicit fallback instruction ("if a second
+`EncryptionFilter` genuinely isn't found... pivot... don't get stuck
+re-testing the same hypothesis indefinitely"): this pass made a real,
+good-faith attempt (found and fixed three genuine, independently-verified
+bugs in the scanning pipeline) but the live-rescan approach remains
+inconclusive at this data scale/latency, not cleanly negative or
+positive. Continuing to iterate on this exact technique (e.g., a fourth
+attempt at even-faster/narrower on-device localization) is not the best
+use of further time per the standing instruction — **pivoting to
+re-examining `BASEAPP_LOGIN_SERIALIZATION.md`'s remaining unknowns**
+(status byte semantics, expected msgid, whether a reply is even the
+right model) is the recommended next avenue, not attempted this pass due
+to time.
+
+### NEXT_ACTION
+1. Re-read `06_trace/BASEAPP_LOGIN_SERIALIZATION.md` §4's own two
+   hypotheses (vtable-dispatched body write not located; body may be
+   very small/empty) with fresh eyes, specifically asking whether a
+   `Reply` (msgid 0xFF) is even the correct response shape for
+   `baseAppLogin`, or whether BaseApp instead expects a *push* message
+   (e.g. `ClientInterface::createBasePlayer`, ID 4 by table-order
+   inference) with no explicit "reply" framing at all.
+2. The `EncryptionFilter` search technique itself remains valid and newly
+   hardened (all 3 bugs fixed are real, reusable fixes for any future
+   live-memory work), but a faster or more targeted localization method
+   is needed before it can usefully corroborate/refute the key-mismatch
+   hypothesis in real time — e.g., narrowing to a much smaller candidate
+   region first (perhaps via allocation-size heuristics, since
+   `EncryptionFilter` objects are only ~0x38 bytes), rather than treating
+   an entire 100+MB arena as one search unit.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

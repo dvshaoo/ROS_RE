@@ -54,6 +54,25 @@ this document only aggregates and classifies, it does not re-derive.
   reusing LoginApp's. See `07_ros_legacy_approach/END_TO_END_TEST_LOG.md`
   E2E-008 for the full 4-attempt record and next-step plan (live re-scan
   for a second key, timed within the ~5s single-shot retry window).
+  **UPDATE (E2E-009)**: built the async live-rescan exactly as planned and
+  found/fixed three real bugs in the on-device scan pipeline (shell
+  quoting, a `dd` skip-arithmetic 32-bit overflow, and a `grep -b`
+  line-relative-not-absolute offset quirk — all documented in E2E-009).
+  Result is INCONCLUSIVE rather than a clean confirm/deny: the fixed
+  pipeline reliably finds an exact 8-byte vtable-pointer match in the same
+  large heap region, but a follow-up read at the reported address shows
+  unrelated bytes each time, and three separate runs found three
+  different addresses — consistent with that region being an
+  actively-churning allocator arena rather than a stable object, making
+  the two-step "locate on-device, then read" approach unreliable at this
+  latency/scale (the host-side exact search step alone takes 3-13s to
+  transfer one matching region). Per the coordinator's own standing
+  instruction not to keep re-testing the same hypothesis indefinitely,
+  this specific technique is parked (not disproven) and the recommended
+  next avenue is re-examining `BASEAPP_LOGIN_SERIALIZATION.md`'s own
+  remaining unknowns (status byte semantics, expected msgid, whether a
+  generic Reply is even the right response shape for `baseAppLogin`)
+  instead.
 
 ## BLOCKED
 
