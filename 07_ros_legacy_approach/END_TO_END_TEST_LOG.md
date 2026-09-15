@@ -2082,6 +2082,22 @@ entirely different, not-yet-characterized virtual method instead.
    disassembling it in depth as "the real BaseApp decrypt path."
 3. Only once both are confirmed should a live test be attempted.
 
+### Follow-up within this same pass: item 1 attempted, inconclusive (not disproven)
+Checked `initNetwork`'s own body directly for a `MOVZ`-encoded `0x41f0`/
+`0x41f8` immediate (the map-offset constants) — none found; the map
+insertion, if it happens, is not inlined directly in `initNetwork`
+itself. Also inspected the function called immediately after the Channel
+constructor (`0x938e04`) — its body looks like Python/script callback
+registration (iterating message IDs ≥0x80, static-init-once guards, a
+repeated `bl 0x98bc74` call per ID), not obviously channel-map insertion.
+**Neither check confirms NOR refutes the hypothesis** — map registration
+could easily happen inside one of the OTHER not-yet-disassembled callees
+in this region (e.g. `0x992764`/`0x992994`, called a few lines later in
+`initNetwork` per the E2E-015 dump, gated on a global enabled-flag) or
+inside the Channel constructor's own tail (only the first ~0x120 bytes of
+`0x984a54` have been read so far). Genuinely still open, not a dead end —
+flagged as the concrete starting point for whoever continues this pass.
+
 ---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
