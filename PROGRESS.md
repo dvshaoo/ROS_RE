@@ -161,6 +161,64 @@ The following gates must pass in order. Don't chase a later gate while an earlie
   if gadget-based introspection does not pan out in a further timeboxed
   attempt.
 
+## 2026-09-15 Fourth Pass — Scope correction (no native .so patching), frida-gadget config fixed but hits native-bridge wall, script.npk cipher structurally advanced but not broken
+- **User scope correction (logged verbatim)**: native `.so` binary
+  patching is permanently WITHDRAWN from this project's authorized
+  options — blocked by the orchestrating session's own security
+  classifier. The `Mercury::Nub::handleMessage`/`EncryptionFilter::decrypt`
+  patch idea from the prior pass is retracted and must not be proposed
+  again. All further work toward "bypass everything, reach Lobby" must be
+  script.npk (Python) level only, ROS-Legacy-Gate-1-style.
+- **Real fix landed**: `tools/frida-gadget.config` was stale (a custom
+  HTTP-fetch config pointing at an unreachable host, left over from an
+  earlier session) and caused the previously-built gadget-injected APK to
+  hang forever before `libclient.so` ever loaded. Replaced with the
+  standard `{"type":"listen"}` interaction and placed correctly at
+  `/data/app/<pkg>-<hash>/lib/arm64/libfrida-gadget.config` (root-owned
+  directory, needs `su 0` heredoc write, not a plain `adb push`). **The
+  app now boots all the way to the real title screen with the gadget
+  active** — confirmed live, twice.
+- **New blocker found (environment-class, not a mistake)**: Frida's view
+  from inside the gadget only sees the native-bridge translation layer's
+  own shim libraries (`/system/lib64/arm64/nb/*.so`) — `libclient.so`
+  (the actual app engine, confirmed loaded and rendering) is invisible to
+  `Process.enumerateModules()`/`findModuleByName()` from this session, a
+  known class of problem on x86_64-with-ARM-translation Android emulators
+  (this LDPlayer instance's kernel is x86_64; the APK is arm64-v8a-only,
+  running under native bridge). This blocks the planned
+  `PyMarshal_ReadObjectFromString` hook. Full evidence:
+  `07_ros_legacy_approach/END_TO_END_TEST_LOG.md` E2E-004 Sub-test B.
+- **Static crypto (fallback (a)) advanced but not broken**: confirmed the
+  `7A 1C` container magic is a plaintext tag (encryption starts at byte
+  offset 2), but disproved the simplest hypothesis that the stream cipher
+  reuses one universal, file-independent keystream from byte 0 (a
+  histogram of byte[2] across all 3,957 real entries shows a long tail of
+  15+ distinct common values, not one dominant constant) — a real break
+  needs either the per-file seed derivation (more `libclient.so`
+  disassembly) or more extensive statistical cryptanalysis than this
+  pass's budget allowed. See E2E-004 Sub-test C.
+- **No script.npk edit was made this pass** — both extraction paths
+  (dynamic via Frida, static via crypto) remain open. Device was left in
+  its original clean working state (plain APK reinstalled via `adb
+  install -r`, OBB files confirmed intact throughout — `install -r` was
+  used instead of uninstall+install specifically to avoid repeating the
+  prior pass's OBB-deletion incident, successfully this time).
+- **NEXT_ACTION, in priority order, NO native `.so` involved**:
+  1. **Human/infrastructure decision needed** (per stop condition B): the
+     native-bridge module-visibility wall is best solved by testing on a
+     genuinely arm64-native test device or emulator (real hardware, or an
+     ARM64-hosted virtual device) rather than this x86_64+translation
+     LDPlayer setup — this is an environment choice outside a routine next
+     step, surfaced rather than attempted unilaterally.
+  2. Alternatively, research a native-bridge-aware Frida injection
+     technique (unexplored this pass).
+  3. Continue the static crypto crib-drag: disassemble more of
+     `libclient.so`'s marshal/package-loading code path (already
+     partially traced per `bridge/RESULT_T11.md`) specifically looking for
+     where a per-file seed would be derived (entry hash? offset? size?),
+     to convert the disproven "one global keystream" guess into a correct,
+     per-file-aware one.
+
 ---
 *Last updated: 2026-09-15*  
 *Project: ROS_RE — reverse-engineering workspace (sariling RE, walang ibang project)*

@@ -447,5 +447,152 @@ E2E-002's blocker:
    discarding it.
 
 ---
+
+## TEST_ID: E2E-004
+- **DATE**: 2026-09-15 (same day, fourth pass). **Scope correction from the
+  user, logged verbatim**: native `.so` binary patching is explicitly
+  WITHDRAWN from this project's authorized options (blocked by the
+  orchestrating session's own security classifier as a "security weaken"
+  action) — the `Mercury::Nub::handleMessage`/`EncryptionFilter::decrypt`
+  native patch idea from E2E-003's NEXT_ACTION is **retracted, not to be
+  attempted or proposed again**. All further work is script.npk
+  (Python)-level only, ROS-Legacy-Gate-1-style, per: "ayusin natin lahat
+  ibypass gaya ng ginawa ng ros legacy... tanggalin ang pag-modify ng
+  script[.so]" (fix everything, bypass it like ROS Legacy did, remove any
+  native `.so` modification from the plan).
+
+### Sub-test A: fix the frida-gadget config bug (from E2E-003)
+**CONFIRMED FIXED, real progress.** The stale
+`{"interaction":{"type":"script","location":"http://192.168.100.8:8080/..."}}`
+config was not actually bundled inside the APK zip (`01_apk/
+base_frida_signed.apk` contains only `lib/arm64-v8a/libfrida-gadget.so`,
+no config asset) — it must have been placed directly on the device's
+extracted native-lib path by an earlier session and was lost. Root cause
+confirmed: frida-gadget looks for a file literally named
+`libfrida-gadget.config` next to the loaded `.so` in the app's own
+extracted native-lib directory (`/data/app/<pkg>-<hash>/lib/arm64/`), not
+inside the APK. Wrote a correct config
+(`{"interaction":{"type":"listen","address":"127.0.0.1","port":27042,
+"on_load":"resume"}}`) and placed it there directly via `su 0` (root shell
+heredoc write, since the directory is `system:system`-owned and a plain
+`adb push` there fails with `remote fchown failed`). **Result: the game
+now boots all the way to the real 3D-rendered title screen** with the
+gadget active and its listen port reachable (previously it hung
+permanently at 6 native modules loaded, before `libclient.so` ever
+appeared) — confirmed twice, on two independent fresh app launches.
+
+### Sub-test B: dump `ui.UILogin` bytecode via Frida (`PyMarshal_ReadObjectFromString` hook) — NEW BLOCKER FOUND
+With the gadget now loading correctly, attempted to attach a script and
+either enumerate `libclient.so` or hook `PyMarshal_ReadObjectFromString`.
+**Result: FAIL, root cause identified precisely (not a config issue this
+time)**:
+- `Process.enumerateModules()` / `Process.findModuleByName('libclient.so')`
+  from inside the attached Gadget script consistently return only 6
+  modules (`libdl.so`, `ld-android.so`, `libm.so`, `libc.so`, `liblog.so`,
+  `libc++.so`) — **even while the title screen is visibly rendering 3D
+  content**, proving `libclient.so` is definitely loaded and running in
+  the same OS process, just not visible to this Frida session.
+- `Process.arch` reports `arm64` and the visible modules' **full paths**
+  are `/system/lib64/arm64/nb/libdl.so` etc. — the `/nb/` path segment is
+  Android's **native bridge** (ARM-on-x86 translation layer, Intel
+  Houdini-style) shim directory. **CONFIRMED root cause**: this LDPlayer
+  instance's kernel is `x86_64` (per `uname -m`, previously checked in
+  E2E-002/003); the `arm64-v8a` APK (including `libclient.so` AND our
+  injected `libfrida-gadget.so`) runs under native-bridge CPU translation.
+  The Frida Gadget, itself an arm64 binary loaded via the same
+  `native_bridge3_loadLibraryExt` path as `libclient.so`, is evidently
+  only seeing the native bridge's own minimal shim-library loader
+  namespace (`/system/lib64/arm64/nb/*`), not the actual translated
+  "guest" app code's separate module list where `libclient.so` lives. This
+  is a known, hard class of problem for dynamic instrumentation on
+  ARM-on-x86 emulators, **not fixable by further gadget config changes** —
+  it needs either a genuinely different Frida build/injection technique
+  specifically aware of native-bridge dual-namespace processes (not
+  attempted — out of this pass's realistic scope), or a **test device that
+  runs arm64 natively** (real ARM64 hardware, or an emulator/hypervisor
+  configured for direct arm64 execution rather than x86_64+translation) —
+  **this is an infrastructure/environment choice, not a routine step**,
+  flagged per the task's stop condition B for a human decision if this
+  path is to be pursued further.
+- A secondary attempt to read `/proc/self/maps` directly from inside the
+  gadget script (avoiding `Process.enumerateModules()` entirely, in case
+  that API specifically was the blind spot) **hung the script engine
+  entirely** (`File.readLine()` in a loop never returned/terminated,
+  timing out `script.load()` and then poisoning the whole Gadget session
+  for all further scripts until the app was restarted) — reported as an
+  **UNKNOWN, not further investigated** side issue (Frida's `File` API
+  behavior against `/proc` pseudo-files on this runtime), independent of
+  the main native-bridge finding above, which was independently confirmed
+  via the loop-free `findModuleByName`/`enumerateModules` calls on a fresh
+  app restart.
+
+### Sub-test C: static crib-drag on the script.npk stream cipher (fallback (a))
+Since dynamic extraction is blocked, attempted to build on
+`bridge/RESULT_T11.md`'s own partial static trace of the `7A 1C`-magic
+stream cipher used by the ~3,957 real `script.npk` entries (as opposed to
+the tiny, unrelated 2-entry AES-128-ECB sub-container). **New structural
+finding this pass (CONFIRMED)**: bytes `[0:2]` of every one of the 3,957
+checked entries are the literal, constant, PLAINTEXT bytes `7A 1C` (not
+ciphertext) — this is a fixed container-type tag, confirmed by direct
+inspection of 8 sample entries' raw bytes, matching `RESULT_T11.md`'s
+naming of the magic but newly confirming it is unencrypted. **Actual
+encryption starts at byte offset 2.** Attempted a known-plaintext
+("crib-drag") attack on that basis: Python 2.7 marshal-serialized
+top-level module code objects always begin with `TYPE_CODE` (`'c'`,
+`0x63`) followed by 4-byte-LE `argcount` and `nlocals` fields that are
+almost always `0` for module-level code — if the stream cipher's keystream
+were purely position-dependent and file-independent (a literal
+one-time-pad reused verbatim across files, which is how `RESULT_T11.md`'s
+"30 consecutive zero bytes in the ciphertext delta between two files"
+observation reads at face value), byte `[2]` of every entry's ciphertext
+should be IDENTICAcal (`keystream[0] XOR 0x63`, a fixed value) across all
+files. **Result: DISPROVEN** — a histogram of byte `[2]` across all 3,957
+entries shows a long tail of at least 15 distinct values each occurring
+many times (top value 886/3957 ≈ 22%, next 512, 402, 315...), not one
+dominant constant. **CONCLUSION (INFERRED)**: the keystream is not a
+single global file-independent sequence reused identically from byte 0 for
+every entry — there is some per-file variation (most plausibly a per-file
+seed/nonce derived from the entry's hash, offset, or size, mixed into the
+keystream generator before the position-dependent part takes over) that
+this pass did not have time to characterize further. `RESULT_T11.md`'s
+own "static keystream" finding is **not contradicted** by this — it was
+about comparing a specific PAIR of files at a specific offset window, not
+a claim that ALL files share one universal keystream from byte 0, and this
+pass's broader histogram is a real, additive data point for whoever
+continues this thread, not a reason to distrust the earlier finding.
+
+### RESULT / NEXT_ACTION (native `.so` patching permanently excluded per user)
+Both fallback avenues (a) and (b) named by the user were attempted in good
+faith this pass and each produced a genuine, well-diagnosed blocker rather
+than a lazy stop:
+- **(b) dynamic Frida extraction**: real progress (config bug fixed,
+  gadget now loads and the app reaches the title screen with it active) —
+  but blocked by a native-bridge dual-namespace module-visibility issue
+  that is an environment/hardware-class limitation of this specific
+  x86_64-with-ARM-translation LDPlayer setup, not a config or code
+  mistake. **Recommend as NEXT ACTION for a future pass**: either (i) test
+  on a genuinely arm64-native device/emulator (a real Android phone, or an
+  ARM64-hosted virtual device) where Frida's gadget would share the same
+  module namespace as the app's own code with no translation layer in the
+  way — **this is the kind of environment/infrastructure choice this
+  project's task brief itself flags as needing a human decision**, since
+  it may mean setting up different hardware/emulation entirely; or (ii)
+  research whether a specific Frida build/version has documented
+  native-bridge-aware injection support (not checked this pass).
+- **(a) static crypto crib-drag**: made real, new structural progress
+  (confirmed the `7A1C` plaintext magic and that encryption starts at
+  offset 2) but disproved the simplest global-keystream hypothesis; a
+  correct break likely needs either recovering the per-file seed
+  derivation (would need more of `libclient.so`'s marshal-loading code
+  disassembled to find where that seed comes from — the "reading
+  disassembly, not executing it" boundary this pass didn't cross) or
+  substantially more many-file statistical cryptanalysis than this pass's
+  time budget allowed.
+- **No script.npk edit, no `doLoginGame()` patch, and no BaseApp/Account/
+  Avatar/Lobby work was possible this pass** — both prerequisite
+  extraction paths remain open problems. This is reported plainly rather
+  than improvised around.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
