@@ -73,6 +73,25 @@ this document only aggregates and classifies, it does not re-derive.
   remaining unknowns (status byte semantics, expected msgid, whether a
   generic Reply is even the right response shape for `baseAppLogin`)
   instead.
+  **UPDATE (E2E-010)**: did exactly that. A live no-reply test
+  (`ATTEMPT_BASEAPP_REPLY=0`) falsifies "BaseApp expects no reply at
+  all" — the client hits the identical 5.0s timeout/error whether we
+  reply wrongly or not at all, confirming a correctly-parsed reply is
+  still needed to cancel Mercury's pending-request timer. Separately,
+  re-reading `06_trace/BASEAPP_CELLAPP_FLOW.md` (pre-existing, high
+  confidence) surfaced a previously under-weighted architectural point:
+  the actual "login accepted" signal the client's game logic acts on is
+  a **separate PUSH-style `createBasePlayer` `ClientInterface` message**
+  (entity ID + `Account` property stream), not the generic Reply itself.
+  **Revised model**: BOTH a working reply/ack (cancels the timeout) AND
+  a `createBasePlayer` push (drives actual Account/Lobby progress) are
+  needed — fixing the reply alone would only silence the error, not
+  reach Account/Avatar/Lobby. A static attempt to locate
+  `ServerConnection::createBasePlayer`'s exact wire-format handler via
+  `scratch/xref_lib.py` did not converge within this pass's time budget
+  (tooling limitation, not a negative finding about the function's
+  existence — `BASEAPP_CELLAPP_FLOW.md` already cites its rodata
+  strings from an earlier, undocumented-method pass).
 
 ## BLOCKED
 

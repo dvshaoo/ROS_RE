@@ -976,5 +976,110 @@ to time.
    an entire 100+MB arena as one search unit.
 
 ---
+
+## TEST_ID: E2E-010
+- **DATE**: 2026-09-15 (same day, tenth pass), per the coordinator's
+  instruction to park the BaseApp key-mismatch/memory-scan avenue and
+  re-examine whether a generic Mercury Reply (msgid 0xFF) is even the
+  correct response shape for `baseAppLogin` at all.
+- **GOAL**: (1) cheap live falsification test — does the client behave
+  differently with NO reply at all vs. a wrong reply? (2) re-read/re-derive
+  the BaseApp acceptance model via existing docs and fresh disassembly.
+
+### 1. Live test: `ATTEMPT_BASEAPP_REPLY=0` (no reply sent at all)
+Same live process (`PID 9754`, `emulator-5554`, clean title screen,
+fresh PLAY tap). **Result**: client behavior is **IDENTICAL** to every
+prior wrong-reply attempt at the macro level — `checkScriptBaseAppAddr`
+still logs the correct `172.16.1.2:25010`, the client waits, and at
+**~4.15s** (22.355→26.510) fires the exact same
+`ServerConnection::logOnComplete: Logon failed (Unable to connect to
+BaseApp: A NAT or firwall error may have occured?)` error as every reply
+attempt in E2E-008/E2E-009. No "waiting indefinitely", no different
+error text, no sign of proceeding as if an unprompted push message were
+acceptable instead. **CONFIRMED (negative result)**: this falsifies
+"BaseApp expects no reply at all" as cleanly as a single test can — the
+timeout fires identically whether we reply (wrongly) or don't reply at
+all, meaning our various wrong replies were never actually being
+"noticed" as wrong by the specific mechanism that fires this timeout (it's
+a fixed 5.0s dead-man's timer per `BASEAPP_LOGIN_SERIALIZATION.md` §3,
+armed at send time, cancelled only by a *correctly parsed and correlated*
+reply — a malformed reply that gets rejected earlier in decrypt/parsing
+never reaches the code that would cancel it, so "wrong reply" and "no
+reply" are indistinguishable from this timer's point of view). This is
+consistent with, not contradictory to, the standing "a correct reply is
+still needed" hypothesis.
+
+### 2. Architectural re-read: is a Reply even the right model?
+Re-read `06_trace/BASEAPP_CELLAPP_FLOW.md` (already in this repo, high
+existing confidence, not re-derived) with the coordinator's specific
+question in mind. **Key finding, previously under-weighted**: §2.1
+states plainly — "**Trigger**: BaseApp accepts `BaseAppLoginRequest`" →
+"**Native Call**: `ServerConnection::createBasePlayer(entityId, stream)`".
+`createBasePlayer` is listed in `06_trace/MERCURY_PACKET_MAP.md`'s
+`ClientInterface` table (BaseApp/CellApp → client pushes), **not**
+`BaseAppExtInterface` (client → BaseApp). This means the real
+"BaseApp accepted my login" signal the client's game-logic layer acts on
+is most plausibly a **separate PUSH-style `createBasePlayer` message**
+carrying an entity ID and an `Account`-shaped property stream — **not**
+merely a generic Mercury `Reply` (msgid 0xFF) to the `baseAppLogin`
+request. **REVISED MODEL (INFERRED, architecturally well-supported by
+pre-existing docs, not yet independently confirmed via fresh wire
+capture)**: BOTH are likely needed — (a) *some* reply/ack that
+satisfies Mercury's own pending-request timeout machinery (the thing
+Sub-test 1 shows still matters), separately from (b) the actual
+`createBasePlayer` push that drives client-side Account entity creation
+and the Lobby transition. Getting (a) right (still unsolved — the
+BaseApp channel's correct key/format) would only silence the timeout
+error; it would NOT by itself produce an Account/Avatar/Lobby transition
+without also implementing (b).
+
+### 3. Static attempt to locate `createBasePlayer`'s wire-format handler — INCONCLUSIVE, time-boxed
+Attempted to xref the `"ServerConnection::createBasePlayer: id %d\n"`
+log string (found at rodata `0x2a49d97` via literal byte search) using
+`scratch/xref_lib.py`'s ADRP+ADD scanner, both at its documented
+window and a widened one (up to +100 bytes between ADRP and ADD, and an
+ADRP-only page-level scan surfacing 79 candidate sites on the same
+4KB rodata page). **No exact ADRP+ADD pair resolving to this specific
+string's offset was found** within this pass's time budget — the
+reference is likely encoded differently (e.g. a centralized log-format
+table indexed by ID, or an ADRP+ADD pair whose immediate is split/computed
+differently than the simple pattern this scanner looks for). This is a
+tooling-limitation NEGATIVE result, not evidence the function doesn't
+exist — `06_trace/BASEAPP_CELLAPP_FLOW.md` already cites this exact
+function's presence with specific nearby rodata addresses
+(`0x2a49db0`, `0x2a49e63`, `0x2a49e8e`, `0x2a49f28`) from an earlier
+pass's own (undocumented-method) findings, which this pass did not have
+time to independently re-derive or extend into a full wire-format table.
+
+### RESULT
+- Falsified "no reply needed" cleanly (Sub-test 1).
+- Re-confirmed (via existing docs, newly emphasized) that `baseAppLogin`
+  acceptance is architecturally signaled via a separate `createBasePlayer`
+  PUSH message, not a plain Reply — this reframes the remaining work as
+  needing BOTH a working reply/ack AND a `createBasePlayer` push
+  implementation, not just fixing the reply's key/content.
+- Did not reach Account, Avatar, or Lobby this pass. `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. Locate `ServerConnection::createBasePlayer`'s actual native body (the
+   function CONTAINING the `id %d` log call, not just the string xref) —
+   try scanning for `BL` callers of known neighboring functions
+   (`checkScriptBaseAppAddr` at `0x93a134`, or the `LoginHandler`/
+   `ServerConnection` cluster in the `0x938000-0x93b000` range) as an
+   alternate path to the same function, since the direct string-xref
+   method didn't converge this pass.
+2. Once found, determine the minimum wire format: message ID (per
+   `ClientInterface` table-order inference, `createBasePlayer` is
+   candidate ID 4), entity ID encoding, and whether the `Account` property
+   stream can legitimately be empty/minimal for CLIENT-flagged properties
+   (per `05_entities/out/Account.def.xml`, only `isMobileAccount` is
+   `BASE_AND_CLIENT` — every other property is `BASE`-only, i.e. NOT sent
+   to the client — suggesting the stream may be very small).
+3. Only after both the reply/ack AND the createBasePlayer push are
+   implemented should another live BaseApp attempt be made — sending
+   `createBasePlayer` alone without resolving the reply/ack first will
+   still likely hit the 5s timeout per Sub-test 1's finding.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
