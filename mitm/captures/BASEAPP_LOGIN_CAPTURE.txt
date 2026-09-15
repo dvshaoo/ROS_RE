@@ -8135,3 +8135,1102 @@
 20:34:46 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
 20:34:46 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
 20:34:46 All listeners started. Waiting...
+20:48:54 === local_baseapp_capture START ===
+20:48:54 === HTTP plain :80 ===
+20:48:54 === HTTP TLS :443 ===
+20:48:54 === HTTP TLS :8443 ===
+20:48:54 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+20:48:54 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+20:48:54 All listeners started. Waiting...
+20:49:17 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:52418
+20:49:17   HEX: 68656c6c6f20726f73
+20:49:17 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+20:49:17 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:49:17 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29
+20:49:17 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:52418: 0100ff1d00000020726f7301f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:49:17 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:52419
+20:49:17   HEX: 68656c6c6f20726f73
+20:49:17 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+20:49:17 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:49:17 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29
+20:49:17 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:52419: 0100ff1d00000020726f7301f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:49:17 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:52420
+20:49:17   HEX: 68656c6c6f20726f73
+20:49:17 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+20:49:17 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:49:17 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29
+20:49:17 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:52420: 0100ff1d00000020726f7301f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:49:17 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:52421
+20:49:17   HEX: 68656c6c6f20726f73
+20:49:17 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+20:49:17 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:49:17 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29
+20:49:17 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:52421: 0100ff1d00000020726f7301f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:49:18 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:49:18 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:49:20 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb8c8 key=b76ae6ae
+20:49:20 BASEAPP KEYSCAN: done in 2.42s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:49:20 BASEAPP KEYSCAN (early, from LoginApp reply): NEW key=b76ae6ae for host=127.0.0.1 (candidates: ['b76ae6ae'])
+20:51:05 === local_baseapp_capture START ===
+20:51:05 === HTTP plain :80 ===
+20:51:05 === HTTP TLS :443 ===
+20:51:05 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+20:51:05 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+20:51:05 === HTTP TLS :8443 ===
+20:51:05 All listeners started. Waiting...
+20:51:21 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:60074
+20:51:21   HEX: 0100000401198b010000002b0000006dc6798c549fdf19a14403b3d886ec66eb42e53b0300d2a3ff7d34535b6493a943ee4d1e3c3495f987101811210913ad6ac581a2bd0a53177fae905f1a3a7c43c5c78228a02dd463bcc687c9c715559d8e85e84f82cdd9bd03f5af1ab96a81b19cfe965f462b42f6ee1731f8e63877ea790e6396a2ba2f0aefce03498d007d4d56ca4558065356d3dfdd8e4efb26a716eb16e7f44a8d9b8a47d4987e72675e1947730808e8ad730a1346029bc52b9cce908568e53a19ce9f8453cb113abb8297e6a28c4e09761a187a7069692d1e639652de4413e8ae05354a9b0d02eea1a404f2731487171d3bc65290171aad428a1e94f98f6d42d35de8210086db677ac2b70200
+20:51:21 ATTEMPT_H-shape (20-byte body): replyID=0x00018b19 status=1 + 20-byte body, length=25
+20:51:21 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:21 ATTEMPT_I (default): replyID=0x00018b19 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:21 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:60074: 0100ff1d000000198b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:60075 ***
+20:51:21   HEX: 0100000b008fcd00000000ac100102010000001400000200
+20:51:21   ASCII: b'\x01\x00\x00\x0b\x00\x8f\xcd\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:21 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:21 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000cd8f key=b76ae6ae (16 bytes): 8d8a180ded90c2946a58fe058c629e50
+20:51:21 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=cd00000100000000 (16 bytes): 181e28479ba5af01d1c2635214f03cd6
+20:51:21 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:21 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:60075 ***
+20:51:21   HEX: 0100000b0090cd00000000ac100102020000001400000200
+20:51:21   ASCII: b'\x01\x00\x00\x0b\x00\x90\xcd\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:21 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:21 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000cd90 key=b76ae6ae (16 bytes): 6aba51aab420d77e8175b7ee509a6879
+20:51:21 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=cd00000100000000 (16 bytes): 181e28479ba5af01d1c2635214f03cd6
+20:51:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:60075 ***
+20:51:21   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:21   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:21 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:21 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:21 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:21 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:60075 ***
+20:51:21   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7b31a8f2fc3d00672
+20:51:21   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xb3\x1a\x8f/\xc3\xd0\x06r'
+20:51:21 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:21 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:21 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:22 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:60075 ***
+20:51:22   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7b31a8f2fc3d00672
+20:51:22   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xb3\x1a\x8f/\xc3\xd0\x06r'
+20:51:22 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:22 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:22 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:22 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:22 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:23 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb94a key=b76ae6ae
+20:51:23 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:24 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49894
+20:51:24   HEX: 01000004011a8b010000002b0000000283713de5272c58ad80d8b915d201655f932e9412fac03376d1413be4f8b4ad210c3c4015281e596b921fb815b1d3bd22f46947a613f1a050ce24d9845d8c5436229d245c8ae96e7ede29bd1a3dfa120b5f0fa8fe029e6d69512dab126015af3aafb58a0e101e9b17bcce17976de1fe11ea20dfc312c35066592231d096ec5f10437983306c96a0432be125c46b36ec2134b95e768e879fffe95f6d77bdcfaa3ca38756976a8c8204aa8e82162a80f6712bdf93bb31aa386ae07f9a52bbe9652dcc1795adc309c43307cdc84c969462501157eec031eb51983bac65575ca43951c70adeca93e45fe42a8397f8c033ef3e5f23df2126293c20253c822ac8cb710200
+20:51:24 ATTEMPT_H-shape (20-byte body): replyID=0x00018b1a status=1 + 20-byte body, length=25
+20:51:24 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:24 ATTEMPT_I (default): replyID=0x00018b1a status=1 + 24-byte ENCRYPTED body, length=29
+20:51:24 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49894: 0100ff1d0000001a8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:24 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49895 ***
+20:51:24   HEX: 0100000b00a2bd00000000ac100102010000001400000200
+20:51:24   ASCII: b'\x01\x00\x00\x0b\x00\xa2\xbd\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:24 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:24 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb943 key=b76ae6ae
+20:51:24 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000bda2 key=b76ae6ae (16 bytes): 39ba3a3b584f445bb37473aa21b8f08b
+20:51:24 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:24 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=bd00000100000000 (16 bytes): 510a03957be353d1d1c2635214f03cd6
+20:51:24 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:24 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:24 BASEAPP KEYSCAN: done in 3.19s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:24 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 60075) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:24 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49895 ***
+20:51:24   HEX: 0100000b00a3bd00000000ac100102020000001400000200
+20:51:24   ASCII: b'\x01\x00\x00\x0b\x00\xa3\xbd\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:24 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:24 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000bda3 key=b76ae6ae (16 bytes): f06ef1b670a280f1588a2a48a21a04a1
+20:51:24 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=bd00000100000000 (16 bytes): 510a03957be353d1d1c2635214f03cd6
+20:51:24 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49895 ***
+20:51:24   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:24   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:24 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:24 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:24 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:24 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49895 ***
+20:51:24   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f73f13541553981aa1
+20:51:24   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7?\x13T\x15S\x98\x1a\xa1'
+20:51:24 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:24 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:24 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:24 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49895 ***
+20:51:24   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f73f13541553981aa1
+20:51:24   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7?\x13T\x15S\x98\x1a\xa1'
+20:51:24 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:24 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:24 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:25 BASEAPP KEYSCAN: done in 3.57s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:25 BASEAPP KEYSCAN (early): no distinct key found yet for host=127.0.0.1 (candidates: ['b76ae6ae'])
+20:51:25 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb93b key=b76ae6ae
+20:51:25 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:26 BASEAPP KEYSCAN: done in 2.20s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:26 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49895) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:27 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49896
+20:51:27   HEX: 01000004011b8b010000002b00000084e3eb61dec794f654ab74e733b2fb408d6bdb9309278e020ff8d9265b5f388236e99ebba6051e49745b81926cfaed9a2bd6a6369602f5d638b1f7c4e56931ec59a61d1408cfde55a8a4239f551fddcf1ac040645cc309675dfe4fb06f7a3d344ef5b1162b32490e46a92fbb7498a5092c19d3e698d3407cbcc57996ce16908b88d4c02979db34b22d3756ba10c8c11811dce62db5a80958e0d265514989b38b56b953dd6cda0d44794b5e06eec6ba68d0861e9d5ac76a8abddf3241b013a3195aff70dbf58bf5b83f5d6fda5a44826a2832f6e7d4e707f83b3f010567c6630829307b775c84a5ff59f3eefe0dd62a5602d1b9fadf69d33ee4831be2fef3fef50200
+20:51:27 ATTEMPT_H-shape (20-byte body): replyID=0x00018b1b status=1 + 20-byte body, length=25
+20:51:27 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:27 ATTEMPT_I (default): replyID=0x00018b1b status=1 + 24-byte ENCRYPTED body, length=29
+20:51:27 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49896: 0100ff1d0000001b8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49897 ***
+20:51:27   HEX: 0100000b005ddd00000000ac100102010000001400000200
+20:51:27   ASCII: b'\x01\x00\x00\x0b\x00]\xdd\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:27 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:27 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000dd5d key=b76ae6ae (16 bytes): 00ac7ca8a98e2eb020ba796abdeb7bc0
+20:51:27 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=dd00000100000000 (16 bytes): 18a28f71c7ebb14bd1c2635214f03cd6
+20:51:27 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:27 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49897 ***
+20:51:27   HEX: 0100000b005edd00000000ac100102020000001400000200
+20:51:27   ASCII: b'\x01\x00\x00\x0b\x00^\xdd\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:27 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:27 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000dd5e key=b76ae6ae (16 bytes): 5451e6f103aa0c1ff931f9cf7dd71e90
+20:51:27 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=dd00000100000000 (16 bytes): 18a28f71c7ebb14bd1c2635214f03cd6
+20:51:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49897 ***
+20:51:27   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:27   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:27 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:27 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:27 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:27 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49897 ***
+20:51:27   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7177cc21f5e0119a6
+20:51:27   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x17|\xc2\x1f^\x01\x19\xa6'
+20:51:27 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:27 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:27 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:27 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49897 ***
+20:51:27   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7177cc21f5e0119a6
+20:51:27   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x17|\xc2\x1f^\x01\x19\xa6'
+20:51:27 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:27 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:27 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:28 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb948 key=b76ae6ae
+20:51:28 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:29 BASEAPP KEYSCAN: done in 1.98s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:29 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49897) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:29 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49898
+20:51:29   HEX: 01000004011c8b010000002b000000231cc2b54225f0eab60fbb0eda0020fca22e560783deca0ff9445f5655370ebe3b0de3d34b706ab93b44910e79fbf104f267a67ee059e288be08fee2eadb2b694700fdff001ad2971899aeec3c8a14b0ebc8876f6ab59a364eaaaf0a99be3698143c9dcb1c647b2e99e70b49b1c3886426dcf22cec7a1936d53c70e3a0c0f0d87f0fb9bfcdad85a4404d8d792a4016bf8c7b50201e3544f7a38a17567c192c655509cb38649eaeed00c425ee481a7787ca9a9c6babf564e03e4c7e02485a5710c1750662d256ad161a96e905f3097bd053fdc4819b54a5b5299e901bb8d2ef46aa3431775091a90196a8fa072808ab771991beaf4e7cd7f04ac2c11de62b7ce90200
+20:51:29 ATTEMPT_H-shape (20-byte body): replyID=0x00018b1c status=1 + 20-byte body, length=25
+20:51:29 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:29 ATTEMPT_I (default): replyID=0x00018b1c status=1 + 24-byte ENCRYPTED body, length=29
+20:51:29 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49898: 0100ff1d0000001c8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:29 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49899 ***
+20:51:29   HEX: 0100000b00b89100000000ac100102010000001400000200
+20:51:29   ASCII: b'\x01\x00\x00\x0b\x00\xb8\x91\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:29 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:29 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000091b8 key=b76ae6ae (16 bytes): 8a715aa20354004e050792dd715c5524
+20:51:29 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=9100000100000000 (16 bytes): 9b99cf8d0b63cf85d1c2635214f03cd6
+20:51:30 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:30 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49899 ***
+20:51:30   HEX: 0100000b00b99100000000ac100102020000001400000200
+20:51:30   ASCII: b'\x01\x00\x00\x0b\x00\xb9\x91\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:30 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:30 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000091b9 key=b76ae6ae (16 bytes): dfa3dcd0f23d085754003576d5d92c75
+20:51:30 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=9100000100000000 (16 bytes): 9b99cf8d0b63cf85d1c2635214f03cd6
+20:51:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49899 ***
+20:51:30   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:30   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:30 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:30 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:30 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:30 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49899 ***
+20:51:30   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f77e038c364e306de6
+20:51:30   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7~\x03\x8c6N0m\xe6'
+20:51:30 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:30 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:30 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:30 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49899 ***
+20:51:30   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f77e038c364e306de6
+20:51:30   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7~\x03\x8c6N0m\xe6'
+20:51:30 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:30 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:30 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:31 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb95d key=b76ae6ae
+20:51:31 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:31 BASEAPP KEYSCAN: done in 1.86s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:31 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49899) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:32 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49900
+20:51:32   HEX: 01000004011d8b010000002b000000aa8051c563341a83e505efa1a335a7f9a4a6ef838130956cf3ba722debaa1eff37884f22e083b76cdd01b60329781bd0e941945446a7b083a02bd5066983402a768cf8dd1394ce42cc7bfcb2a54187846ec50b4c9236d2b13541fcd2553ca0e8aafab02991cf138f5b46447d853cbcc5d796244e33fe66c84dc762ae45cc4bd7244e61dc563a6ae5647e6d75b9d1f4251ccd6c8e2ed0374e2fe8efd59c0ae29083fceb2de60cb811e3fc3abceacc825d6a86177f493c30547a62b7bd0ec0923c06444f985fd9fec4b43804d98013cd0f452c46b90901c7b6ec727f746c8204612f9382ae64dc838c247b397eb7ab750b8fe12f6fa1a9ec40a328f97f22e1d5dc0200
+20:51:32 ATTEMPT_H-shape (20-byte body): replyID=0x00018b1d status=1 + 20-byte body, length=25
+20:51:32 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:32 ATTEMPT_I (default): replyID=0x00018b1d status=1 + 24-byte ENCRYPTED body, length=29
+20:51:32 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49900: 0100ff1d0000001d8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:32 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49901 ***
+20:51:32   HEX: 0100000b001e8201000000ac100102010000001400000200
+20:51:32   ASCII: b'\x01\x00\x00\x0b\x00\x1e\x82\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:32 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:32 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0001821e key=b76ae6ae (16 bytes): af9e7d2da5cce50135f7cd28d6a5814e
+20:51:32 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=8201000100000000 (16 bytes): 9df0c823de9e4b04d1c2635214f03cd6
+20:51:32 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:32 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:33 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49901 ***
+20:51:33   HEX: 0100000b001f8201000000ac100102020000001400000200
+20:51:33   ASCII: b'\x01\x00\x00\x0b\x00\x1f\x82\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:33 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:33 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0001821f key=b76ae6ae (16 bytes): e4e2c2808dcb225bd9652b601119da2f
+20:51:33 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=8201000100000000 (16 bytes): 9df0c823de9e4b04d1c2635214f03cd6
+20:51:33 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49901 ***
+20:51:33   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:33   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:33 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:33 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:33 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:33 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49901 ***
+20:51:33   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f72f1676883801cb46
+20:51:33   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7/\x16v\x888\x01\xcbF'
+20:51:33 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:33 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:33 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:33 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49901 ***
+20:51:33   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f72f1676883801cb46
+20:51:33   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7/\x16v\x888\x01\xcbF'
+20:51:33 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:33 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:33 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:33 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb96b key=b76ae6ae
+20:51:33 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:34 BASEAPP KEYSCAN: done in 1.79s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:34 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49901) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:35 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49902
+20:51:35   HEX: 01000004011e8b010000002b0000005e00d2ea416848c320816e45e9e3c80e81b312f98e49705386b9d1dc3ac767101d8843bfdabd9134b40a3d173534c4675a559f396e27e0c4a6b05368438a0955bb8de8035231235417915741ac2ff096ef8271a6dac3a56cd2fba17290930f7e6386a6ad47ab33b783367ba9f6d9ea1d3da5f3f678a0b47867b904305ca8c7108819d82bbff94248a469e6450b2da576c478c6333c7f7a8f29191d00226fdb9c9b0c15302ce1e248d71d7dcdf3968cd36c97a0e7becaa07d111519b1a71245680093e9f443b2a46b5aad70d3572f0ed8b873fac12812668848a82f1ac3e25a5b1764263631ad85c93cc1e8e90e1378ff9f03b17d03d1e39f21784c3a96c24af40200
+20:51:35 ATTEMPT_H-shape (20-byte body): replyID=0x00018b1e status=1 + 20-byte body, length=25
+20:51:35 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:35 ATTEMPT_I (default): replyID=0x00018b1e status=1 + 24-byte ENCRYPTED body, length=29
+20:51:35 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49902: 0100ff1d0000001e8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:35 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49903 ***
+20:51:35   HEX: 0100000b00da4700000000ac100102010000001400000200
+20:51:35   ASCII: b'\x01\x00\x00\x0b\x00\xdaG\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:35 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:35 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000047da key=b76ae6ae (16 bytes): 8b0aab4bec04c4541fd1f78afd4e0423
+20:51:35 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=4700000100000000 (16 bytes): b348a545fb826268d1c2635214f03cd6
+20:51:35 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:35 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:35 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49903 ***
+20:51:35   HEX: 0100000b00db4700000000ac100102020000001400000200
+20:51:35   ASCII: b'\x01\x00\x00\x0b\x00\xdbG\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:35 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:35 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000047db key=b76ae6ae (16 bytes): 34e7344c1c77a29493b721f945a49b3c
+20:51:35 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=4700000100000000 (16 bytes): b348a545fb826268d1c2635214f03cd6
+20:51:35 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49903 ***
+20:51:35   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:35   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:35 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:35 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:35 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:35 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49903 ***
+20:51:35   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7ad105d3999439e99
+20:51:35   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xad\x10]9\x99C\x9e\x99'
+20:51:35 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:35 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:35 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:36 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49903 ***
+20:51:36   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7ad105d3999439e99
+20:51:36   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xad\x10]9\x99C\x9e\x99'
+20:51:36 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:36 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:36 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:36 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49903 ***
+20:51:36   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7ad105d3999439e99
+20:51:36   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xad\x10]9\x99C\x9e\x99'
+20:51:36 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:36 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:36 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:37 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb997 key=b76ae6ae
+20:51:37 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:37 BASEAPP KEYSCAN: done in 2.15s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:37 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49903) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:38 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49904
+20:51:38   HEX: 01000004011f8b010000002b00000017a4926c8e234400f26bdd22bc2415bddd7a924d367d0df5675341394f51944c086ba714bc95067ac7a84521d0f5508416f7ab7c515b247958b78076b62d156d782a25fead1d70543a6ec5e581e0947e9295df91db7b2a6e39d1b4ed26877233ac28a580e8ffe4dba623713754ff2799ec49d7ea847d2d12639c26f1b1ad70ba3cacc163a761d3cd4c77de6e8cbb827994493dce46659e1e2bb0129bc027c2c3d5f706e28336fa3a8b16212819d380f96b997e47bd861d3d7b0dcd32e6568c8babb004dd183303447178d3b7860879420f5734bf1b5641ac549ee9123f7cb34e27e1a0247b7a8fc0088dceae948fe88e1c181bfc23a2faaad9a57e3d9bab2d3f0200
+20:51:38 ATTEMPT_H-shape (20-byte body): replyID=0x00018b1f status=1 + 20-byte body, length=25
+20:51:38 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:38 ATTEMPT_I (default): replyID=0x00018b1f status=1 + 24-byte ENCRYPTED body, length=29
+20:51:38 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49904: 0100ff1d0000001f8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:38 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49905 ***
+20:51:38   HEX: 0100000b00c38c01000000ac100102010000001400000200
+20:51:38   ASCII: b'\x01\x00\x00\x0b\x00\xc3\x8c\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:38 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:38 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00018cc3 key=b76ae6ae (16 bytes): f8c71266f93e67434bdbcc40c9eb826b
+20:51:38 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=8c01000100000000 (16 bytes): 097479cb8badc276d1c2635214f03cd6
+20:51:38 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:38 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:38 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49905 ***
+20:51:38   HEX: 0100000b00c48c01000000ac100102020000001400000200
+20:51:38   ASCII: b'\x01\x00\x00\x0b\x00\xc4\x8c\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:38 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:38 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00018cc4 key=b76ae6ae (16 bytes): 46a7350c643c9ed5a86924958c944803
+20:51:38 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=8c01000100000000 (16 bytes): 097479cb8badc276d1c2635214f03cd6
+20:51:38 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49905 ***
+20:51:38   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:38   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:38 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:38 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:38 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:38 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49905 ***
+20:51:38   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:38   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:38 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:38 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:38 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:39 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb970 key=b76ae6ae
+20:51:39 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:40 BASEAPP KEYSCAN: done in 1.85s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:40 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49905) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:41 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49906
+20:51:41   HEX: 0100000401208b010000002b0000001d11dd71c51dd5299bfd1416ba1e1aa4a7af4704cb7112c101c3aea421f95d174bba98dfdf427ea21bf75940cd112f8360f0e5989d08f1a4fc01b5a083dea39476593a65e13fc65e1a8e32ca5e6ec028b60d23ca8965f30d0f385454f4b33b0eae86f2ee30b7a7d70f17b42cc9990d592c0d3d9444f08f1e2b62847d6374afaf1f213aa67cfd3f678420601f7e8337f904847fb750e73bbad8dd780080e7fb2825464fd379792cb23e236ff7ff77039e3907f5c8e785d32963ae3e4cf334ceb64da2c4846e9bd48b8eeff1cd824b8315ce6c1745a892c94d601e7a9a96c465f41cdf1b3194eba7cfd9ac598cc47a13ba2defdaa8657cd794eae6fcc5ffd0b9930200
+20:51:41 ATTEMPT_H-shape (20-byte body): replyID=0x00018b20 status=1 + 20-byte body, length=25
+20:51:41 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:41 ATTEMPT_I (default): replyID=0x00018b20 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:41 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49906: 0100ff1d000000208b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:41 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49907 ***
+20:51:41   HEX: 0100000b009f2901000000ac100102010000001400000200
+20:51:41   ASCII: b'\x01\x00\x00\x0b\x00\x9f)\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:41 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:41 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0001299f key=b76ae6ae (16 bytes): 426f8411f87b128a9f3ac6bddf764c39
+20:51:41 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2901000100000000 (16 bytes): afec71b77cb6bfbad1c2635214f03cd6
+20:51:41 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:41 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:41 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49907 ***
+20:51:41   HEX: 0100000b00a02901000000ac100102020000001400000200
+20:51:41   ASCII: b'\x01\x00\x00\x0b\x00\xa0)\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:41 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:41 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000129a0 key=b76ae6ae (16 bytes): 9bbe0d3aa83c4680d7df7a653d4a3fac
+20:51:41 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2901000100000000 (16 bytes): afec71b77cb6bfbad1c2635214f03cd6
+20:51:41 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49907 ***
+20:51:41   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:41   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:41 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:41 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:41 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:41 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49907 ***
+20:51:41   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f73f378012a68486a1
+20:51:41   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7?7\x80\x12\xa6\x84\x86\xa1'
+20:51:41 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:41 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:41 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:41 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49907 ***
+20:51:41   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f73f378012a68486a1
+20:51:41   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7?7\x80\x12\xa6\x84\x86\xa1'
+20:51:41 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:41 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:41 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:42 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb97e key=b76ae6ae
+20:51:42 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:42 BASEAPP KEYSCAN: done in 1.90s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:42 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49907) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:43 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:49477
+20:51:43   HEX: 0100000401218b010000002b00000028caf69b4c44dc7a16f5bd54a5e43ab2b93380a9a18d1ac8b4ee6ae2a8a5f8fd9928c6501d54213208885159fbdcca83f4be55be0c3c5477b979e3e18420cd2714586d22685af0c4c076960cb18b5e665def5b372c424bc645e59539f4178f4e4192bb50c901b69dc18e2e99c7c1cd276609c361fe2a1445b9c02508106909d603a821b16d221769e613c9e08dd4894526b7ef322f0de73cbe6631ffe50e3b9493c01a48a303a3bb6c3144c45747c673fc74995fe4939c07d1932e9a261e94f9f0fa03bc2d61cace6d3974165ef85e8a7149e3314491a61d9ae42580b6cfad9de4453c611bc8ea84a831445a39a3e3da28c7acc5f62317c54adac64148d6f3ed0200
+20:51:43 ATTEMPT_H-shape (20-byte body): replyID=0x00018b21 status=1 + 20-byte body, length=25
+20:51:43 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:43 ATTEMPT_I (default): replyID=0x00018b21 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:43 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49477: 0100ff1d000000218b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:43 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49478 ***
+20:51:43   HEX: 0100000b00c1e300000000ac100102010000001400000200
+20:51:43   ASCII: b'\x01\x00\x00\x0b\x00\xc1\xe3\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:43 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:43 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000e3c1 key=b76ae6ae (16 bytes): 1b94c291b1d39be279f535324c0834ff
+20:51:43 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e300000100000000 (16 bytes): 659be2c282cb1d9bd1c2635214f03cd6
+20:51:44 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:44 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:44 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49478 ***
+20:51:44   HEX: 0100000b00c2e300000000ac100102020000001400000200
+20:51:44   ASCII: b'\x01\x00\x00\x0b\x00\xc2\xe3\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:44 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:44 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000e3c2 key=b76ae6ae (16 bytes): fff35cb49656ccca2550ab5608c4c758
+20:51:44 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e300000100000000 (16 bytes): 659be2c282cb1d9bd1c2635214f03cd6
+20:51:44 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49478 ***
+20:51:44   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:44   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:44 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:44 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:44 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:44 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49478 ***
+20:51:44   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7e7f0c4428f20efa5
+20:51:44   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xe7\xf0\xc4B\x8f \xef\xa5'
+20:51:44 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:44 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:44 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:44 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:49478 ***
+20:51:44   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7e7f0c4428f20efa5
+20:51:44   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xe7\xf0\xc4B\x8f \xef\xa5'
+20:51:44 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:44 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:44 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:45 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb991 key=b76ae6ae
+20:51:45 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:45 BASEAPP KEYSCAN: done in 2.00s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:45 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 49478) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:46 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:62454
+20:51:46   HEX: 0100000401228b010000002b00000031084c5179d6b6e507654604d18376c13ca5f28fc3f288234b40d8d1794c9448b681468226058118ecd7a5539aab0962b4647f4ec48fd5ed959f119d33c80e233ae386c66a8b54c87899ed79fc2e9e6d6c80e172a6cb2c774fa2098da1d3c73ccc3b1283e0795e2c784893efa1bf592d0e92feb462c3c0f397f773f47601194d940a24207c173e90070d637c75ace60239053874dcd05daaa05ddfcef2e2fa2efa5d7b030a5da02f80ab3a349f103249e1d24fce301e6d9af3b3cc2fd225b9e5890b5c3254af0c13f2bbe66c7fb3dcdfb396250354469968c8ae34cae1d316815cc0084eeaadd1f15d6c744802478c6213850d2582bd4a3d38d842ab0d813d810200
+20:51:46 ATTEMPT_H-shape (20-byte body): replyID=0x00018b22 status=1 + 20-byte body, length=25
+20:51:46 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:46 ATTEMPT_I (default): replyID=0x00018b22 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:46 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:62454: 0100ff1d000000228b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:46 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:62455 ***
+20:51:46   HEX: 0100000b00e51f01000000ac100102010000001400000200
+20:51:46   ASCII: b'\x01\x00\x00\x0b\x00\xe5\x1f\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:46 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:46 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00011fe5 key=b76ae6ae (16 bytes): b83f85fd88d3653dc5844bf377cb8e79
+20:51:46 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=1f01000100000000 (16 bytes): 3d40bb2cf9e5fb2bd1c2635214f03cd6
+20:51:46 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:46 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:47 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:62455 ***
+20:51:47   HEX: 0100000b00e61f01000000ac100102020000001400000200
+20:51:47   ASCII: b'\x01\x00\x00\x0b\x00\xe6\x1f\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:47 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:47 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00011fe6 key=b76ae6ae (16 bytes): 7e93c6053897cfb79cb68aa4f7257fbd
+20:51:47 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=1f01000100000000 (16 bytes): 3d40bb2cf9e5fb2bd1c2635214f03cd6
+20:51:47 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:62455 ***
+20:51:47   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:47   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:47 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:47 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:47 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:47 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:62455 ***
+20:51:47   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:47   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:47 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:47 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:47 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:47 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:62455 ***
+20:51:47   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:47   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:47 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:47 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:47 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:47 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb931 key=b76ae6ae
+20:51:47 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:48 BASEAPP KEYSCAN: done in 1.97s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:48 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 62455) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:49 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:62456
+20:51:49   HEX: 0100000401238b010000002b0000000c9733c821ce0d01845033b5a0bd638948885904394fde33b44a7c048dd7797c9fb097f01cece78e47aee8be54eb90cdb446d29f08dc83351c5a0846f3a28d7856e2ce129dcf42cfd5b5e28757b68dc9f5e6ac21fabcee92a33100e4d96e95be1346c4268818a3861cdc5ec473993ddb626fb4ac1ff8bd240d9d45d0e60ba52f4dfe567b6241c7521f8976c73c72638d63dd04c6ef36db87b8d58828f8e6041e01599f5ab5bf7278e8e4d5a01fbb7ebbef03997514ce5a990a0cb4e88a4c28e2d20447c3db51347a2e643e94351e55e29a602341c91d3574fb241ff7a191715acbeb9629b947c825b24c6873f9cda393bd9fa93617e66bac4dfd5972a9c1323a0200
+20:51:49 ATTEMPT_H-shape (20-byte body): replyID=0x00018b23 status=1 + 20-byte body, length=25
+20:51:49 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:49 ATTEMPT_I (default): replyID=0x00018b23 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:49 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:62456: 0100ff1d000000238b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:62457 ***
+20:51:49   HEX: 0100000b00d42700000000ac100102010000001400000200
+20:51:49   ASCII: b"\x01\x00\x00\x0b\x00\xd4'\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00"
+20:51:49 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:49 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000027d4 key=b76ae6ae (16 bytes): 695d9d69a1fb0c24f7ed9032c0dfee91
+20:51:49 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2700000100000000 (16 bytes): 380cd4c084783167d1c2635214f03cd6
+20:51:49 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:49 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:62457 ***
+20:51:49   HEX: 0100000b00d52700000000ac100102020000001400000200
+20:51:49   ASCII: b"\x01\x00\x00\x0b\x00\xd5'\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00"
+20:51:49 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:49 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000027d5 key=b76ae6ae (16 bytes): bf581b345c4e8b0ff3a1c9cbee4c1b61
+20:51:49 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2700000100000000 (16 bytes): 380cd4c084783167d1c2635214f03cd6
+20:51:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:62457 ***
+20:51:49   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:49   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:49 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:49 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:49 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:49 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:62457 ***
+20:51:49   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7b582af3f01598769
+20:51:49   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xb5\x82\xaf?\x01Y\x87i'
+20:51:49 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:49 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:49 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:50 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:62457 ***
+20:51:50   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7b582af3f01598769
+20:51:50   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xb5\x82\xaf?\x01Y\x87i'
+20:51:50 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:50 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:50 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:50 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:62457 ***
+20:51:50   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7b582af3f01598769
+20:51:50   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xb5\x82\xaf?\x01Y\x87i'
+20:51:50 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:50 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:50 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:50 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb949 key=b76ae6ae
+20:51:50 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:51 BASEAPP KEYSCAN: done in 1.90s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:51 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 62457) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:52 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:53848
+20:51:52   HEX: 0100000401248b010000002b000000a36aff8fb017536be4e7d4224a7a5c45889d2e8c822e87277df3d48c219de34ce883aff60600f80c97875b4eb161525dfb61abe35dc74d00c28ab5907cee55c4a1e9dd51bbca424ae063b72766fd91a8b9558f2b86768f2cac9c30e3fa708ab9f0d4cd6f0c4074706a70acfb930389011fd5794a9246c992e6587f8a76507c2e0cc2b71362a9aca551e459e30d5a006c4b26cb376c1faa893aa401c99ee5aba437273e77d83afd0acd9f019b598efc4a993bbfecd4ed7273a2284db61e86faf85e013b12fc121c5a865cae9436f7dc035dddc4f792f8e10b0b0e471e0f49a2ba2dd693e9a1c982de4d05c052225dbd41d54e214bc49afd2501f4b2e10243a4b20200
+20:51:52 ATTEMPT_H-shape (20-byte body): replyID=0x00018b24 status=1 + 20-byte body, length=25
+20:51:52 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:52 ATTEMPT_I (default): replyID=0x00018b24 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:52 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:53848: 0100ff1d000000248b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:53849 ***
+20:51:52   HEX: 0100000b00527101000000ac100102010000001400000200
+20:51:52   ASCII: b'\x01\x00\x00\x0b\x00Rq\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:52 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:52 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00017152 key=b76ae6ae (16 bytes): 1ecb867ce38a994d658a16cd13a1a6c1
+20:51:52 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=7101000100000000 (16 bytes): 4fc73eb79c0acae2d1c2635214f03cd6
+20:51:52 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:52 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:53849 ***
+20:51:52   HEX: 0100000b00537101000000ac100102020000001400000200
+20:51:52   ASCII: b'\x01\x00\x00\x0b\x00Sq\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:52 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:52 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00017153 key=b76ae6ae (16 bytes): 2ce633e1777f07e200299cee2172b54d
+20:51:52 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=7101000100000000 (16 bytes): 4fc73eb79c0acae2d1c2635214f03cd6
+20:51:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:53849 ***
+20:51:52   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:52   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:52 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:52 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:52 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:52 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:53849 ***
+20:51:52   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:52   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:52 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:52 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:52 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:53 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb92e key=b76ae6ae
+20:51:53 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:54 BASEAPP KEYSCAN: done in 2.19s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:54 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 53849) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:54 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:57367
+20:51:54   HEX: 0100000401258b010000002b000000460ed87aaad5b28d39a185c71e1ced6ed324868da7c5b28c6d6180806ed902973942cd45a16c21bbf41b602c54fa4c6bdc0e5f1918f52bfdf4318ac6a9c78d803d196208c28f3f4bcc87b9f75517d51c2d62955a15f89056d3eb81d6ab8caf68cc3b8a90c251c06f5b6c4863dd114a900084f5400d79c8a6674d09670b80db2f690e759c00b3ac1ac56ea8978ac5be2f1ff3055123e9341cd22367b8d02ed2f39c141783110d76b29efcacaf4ce3e28d5e846e1c5d2fd6d9cf76eb1d6c219cc093854607497661c53c7a654cfaa0a1b0c0fd43b408701b92cc124dbbd93a626fb1e0188be204f16d9aac0b74c9592d62742d4e6f7dfd1282596ef7a11a3991df0200
+20:51:54 ATTEMPT_H-shape (20-byte body): replyID=0x00018b25 status=1 + 20-byte body, length=25
+20:51:54 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:54 ATTEMPT_I (default): replyID=0x00018b25 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:54 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:57367: 0100ff1d000000258b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:54 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:63938 ***
+20:51:54   HEX: 0100000b0003db00000000ac100102010000001400000200
+20:51:54   ASCII: b'\x01\x00\x00\x0b\x00\x03\xdb\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:54 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:54 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000db03 key=b76ae6ae (16 bytes): f617ca18fd5334837126774d83020ca1
+20:51:54 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=db00000100000000 (16 bytes): dfc5326042e50b4cd1c2635214f03cd6
+20:51:55 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:55 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:55 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:63938 ***
+20:51:55   HEX: 0100000b0004db00000000ac100102020000001400000200
+20:51:55   ASCII: b'\x01\x00\x00\x0b\x00\x04\xdb\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:55 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:55 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000db04 key=b76ae6ae (16 bytes): a7c350e5d3f07277bd3ab11b15ade78d
+20:51:55 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=db00000100000000 (16 bytes): dfc5326042e50b4cd1c2635214f03cd6
+20:51:55 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:63938 ***
+20:51:55   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:55   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:55 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:55 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:55 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:55 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:63938 ***
+20:51:55   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:55   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:55 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:55 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:55 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:55 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:63938 ***
+20:51:55   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:55   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:55 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:55 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:55 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:56 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb922 key=b76ae6ae
+20:51:56 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:56 BASEAPP KEYSCAN: done in 1.78s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:56 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 63938) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:51:57 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:64923
+20:51:57   HEX: 0100000401268b010000002b00000070697b0998e06a6a2feeb137cd748b060fb2324df022e5146cd63f664985f806eb2f35041be5d7606ebdb294fec7fc639e332b5ce2f6519c93e11f28aa80d221121841d7d8f0e6234c589b5a7f861fba743651820eac286e01484fdb82618ecf50cbf0843952190c713fdce19fba8ebe6d4a049adc0a8509ec33b340adf9683a7cbcd5702d619c1a70108eaf33a1744c16a4165d0716033c49f51c84cb761aac6b7770e79dad3266f02bb03c3a574d204b435925a2c872e61ab7798c9b4a96200bee391e156a9b9c25798ff7d4ac620656e0f39b91bcfc79a405ff75081c7a895a990be7dabe3714f8489c36c911c964e5094683a7c0dd7cbcd8f097126924e70200
+20:51:57 ATTEMPT_H-shape (20-byte body): replyID=0x00018b26 status=1 + 20-byte body, length=25
+20:51:57 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:51:57 ATTEMPT_I (default): replyID=0x00018b26 status=1 + 24-byte ENCRYPTED body, length=29
+20:51:57 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:64923: 0100ff1d000000268b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:51:57 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:64924 ***
+20:51:57   HEX: 0100000b00e73c00000000ac100102010000001400000200
+20:51:57   ASCII: b'\x01\x00\x00\x0b\x00\xe7<\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:57 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:51:57 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00003ce7 key=b76ae6ae (16 bytes): 5f577d0f6c63da79a1378306385c3c27
+20:51:57 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=3c00000100000000 (16 bytes): 34c03af68aa88feed1c2635214f03cd6
+20:51:57 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:51:57 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:51:58 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:64924 ***
+20:51:58   HEX: 0100000b00e83c00000000ac100102020000001400000200
+20:51:58   ASCII: b'\x01\x00\x00\x0b\x00\xe8<\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:51:58 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:58 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00003ce8 key=b76ae6ae (16 bytes): 99fbace43742bb96f4958684e3868d8c
+20:51:58 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=3c00000100000000 (16 bytes): 34c03af68aa88feed1c2635214f03cd6
+20:51:58 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:64924 ***
+20:51:58   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:51:58   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:51:58 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:58 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:51:58 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:51:58 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:64924 ***
+20:51:58   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:58   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:58 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:58 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:58 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:58 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:64924 ***
+20:51:58   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:51:58   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:51:58 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:51:58 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:51:58 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:51:59 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb928 key=b76ae6ae
+20:51:59 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:51:59 BASEAPP KEYSCAN: done in 1.85s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:51:59 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 64924) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:00 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51394
+20:52:00   HEX: 0100000401278b010000002b00000077cd8f6244a306278e6179460e0c303f31f933d9f97ff115555e6de29876a5f5a62017dc0b2130cbb3ab270a4b7177a97830b0b80da141be11b54194f3852fb888007f96a6737f1739bdc8df2fc518ee2ce08c3b1d391f0a069bec725f0a77b375aaef4686b668e2f9dd3441c64c1ab8efc73a06dbc2f4b614a1b1cddd180830889f5f5c83427811f9f4d2faa9bb9b6f03010737b75da10b42cd5e2c3216d89a7315d6542cef40658cb9731d0a334e0d407feae474964cec214e675143ee7f8bab39cb9e4093df03e418ad36973a0219695e85ee77f77a50c065bb03c2196685aa27952e73fd75bf76eeff4e802b4e9d6fb9a84ab2db55440fb1c589521a081f0200
+20:52:00 ATTEMPT_H-shape (20-byte body): replyID=0x00018b27 status=1 + 20-byte body, length=25
+20:52:00 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:00 ATTEMPT_I (default): replyID=0x00018b27 status=1 + 24-byte ENCRYPTED body, length=29
+20:52:00 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51394: 0100ff1d000000278b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:00 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51395 ***
+20:52:00   HEX: 0100000b0040fc00000000ac100102010000001400000200
+20:52:00   ASCII: b'\x01\x00\x00\x0b\x00@\xfc\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:00 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:00 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000fc40 key=b76ae6ae (16 bytes): 14c8a8bcc6845c13bc2fb00e9c75bb35
+20:52:00 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=fc00000100000000 (16 bytes): 351fae4fe3687cded1c2635214f03cd6
+20:52:00 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:00 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:00 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51395 ***
+20:52:00   HEX: 0100000b0041fc00000000ac100102020000001400000200
+20:52:00   ASCII: b'\x01\x00\x00\x0b\x00A\xfc\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:00 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:00 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000fc41 key=b76ae6ae (16 bytes): ff7d4bb1cec20a8900947af8f6d0b6ea
+20:52:00 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=fc00000100000000 (16 bytes): 351fae4fe3687cded1c2635214f03cd6
+20:52:01 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51395 ***
+20:52:01   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:01   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:01 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:01 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:01 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:01 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51395 ***
+20:52:01   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7f94a57823cbaabcb
+20:52:01   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xf9JW\x82<\xba\xab\xcb'
+20:52:01 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:01 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:01 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:01 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51395 ***
+20:52:01   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f7f94a57823cbaabcb
+20:52:01   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\xf9JW\x82<\xba\xab\xcb'
+20:52:01 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:01 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:01 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:01 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb8f9 key=b76ae6ae
+20:52:01 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:02 BASEAPP KEYSCAN: done in 1.89s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:02 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 51395) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:03 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51396
+20:52:03   HEX: 0100000401288b010000002b0000000cf4de2bdb2f280b74aa3a82d3f94449caa9cefd4f757db98ae7bae79c44b1cba38cb0a84d893dd6ffa6586351fb12da82cc95ce875abd624ec16b42b13720497ad6477879ac6462c6bf311e930088853e9e97266af41553724ef3cffba66bf57d3558f15e52dafd30f0a038c109fbd6a263ca194111e46196af39b77846792d1c25cba9505755c94e75e59537d33d5373e9cd3470e923974c42f67198c93891a81f9d6e771d33be3cecb469bbf676f6c1acae9bf11dcfdeb7d88db467b9a0cd77b27ff303ca963e921be4af6eaa5a9000f6dab87f4c644b291a1b68c6de849b4c28fefb8201da77a5c300af22698985ad00a57e638604a49b5fb02226b5ea580200
+20:52:03 ATTEMPT_H-shape (20-byte body): replyID=0x00018b28 status=1 + 20-byte body, length=25
+20:52:03 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:03 ATTEMPT_I (default): replyID=0x00018b28 status=1 + 24-byte ENCRYPTED body, length=29
+20:52:03 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51396: 0100ff1d000000288b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51397 ***
+20:52:03   HEX: 0100000b005c8901000000ac100102010000001400000200
+20:52:03   ASCII: b'\x01\x00\x00\x0b\x00\\\x89\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:03 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:03 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0001895c key=b76ae6ae (16 bytes): c6a90a3eefda69a5527bd224d64289d0
+20:52:03 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=8901000100000000 (16 bytes): 67586562f1d746bad1c2635214f03cd6
+20:52:03 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:03 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51397 ***
+20:52:03   HEX: 0100000b005d8901000000ac100102020000001400000200
+20:52:03   ASCII: b'\x01\x00\x00\x0b\x00]\x89\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:03 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:03 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0001895d key=b76ae6ae (16 bytes): b57fbcc8b1b8290826791c4e900f7f84
+20:52:03 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=8901000100000000 (16 bytes): 67586562f1d746bad1c2635214f03cd6
+20:52:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51397 ***
+20:52:03   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:03   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:03 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:03 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:03 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:03 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51397 ***
+20:52:03   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:52:03   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:52:03 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:03 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:03 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:03 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51397 ***
+20:52:03   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:52:03   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:52:03 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:03 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:03 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:04 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb90e key=b76ae6ae
+20:52:04 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:05 BASEAPP KEYSCAN: done in 1.72s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:05 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 51397) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:05 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51398
+20:52:05   HEX: 0100000401298b010000002b0000006c3ebca6e5c604909ddf6c30ec2359ab6dfa064322f3e858a0b09f0927cf61150546edddc1078518e86d66bb5ae176c46515b71e1f56a385212b27bf5f86832cfc755564b11bc79fcf8f1a5aff1a42e36dfcda9ab9b71cdf46ae20602f79ac05e8ea9faa205ea6dcf87a260f238ea713b2cc7d0d36c4f96bac2667a10ef5b2918e0e137ef632605318e587cd782f0d5aae56a4e5c500291f5db154d23439b684eb787e706a34dd87dcb2a4ffd8703cb1ccf67ff28448787a360031f2a20e7f1b84c3844fa1ef26426f4da00bd9d22dccc76349ba95b20e5b438fd91c61a886b5e7626dee2d894785c10b62600b451499084960a86085b222b8b28bf5510c92d40200
+20:52:05 ATTEMPT_H-shape (20-byte body): replyID=0x00018b29 status=1 + 20-byte body, length=25
+20:52:05 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:05 ATTEMPT_I (default): replyID=0x00018b29 status=1 + 24-byte ENCRYPTED body, length=29
+20:52:05 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51398: 0100ff1d000000298b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51399 ***
+20:52:06   HEX: 0100000b00962e00000000ac100102010000001400000200
+20:52:06   ASCII: b'\x01\x00\x00\x0b\x00\x96.\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00002e96 key=b76ae6ae (16 bytes): 43436f276227b425f832d8add19e865e
+20:52:06 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2e00000100000000 (16 bytes): e8005d4773fddbffd1c2635214f03cd6
+20:52:06 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:06 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51399 ***
+20:52:06   HEX: 0100000b00972e00000000ac100102020000001400000200
+20:52:06   ASCII: b'\x01\x00\x00\x0b\x00\x97.\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00002e97 key=b76ae6ae (16 bytes): a314cb25bbcd787e722729947585781f
+20:52:06 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2e00000100000000 (16 bytes): e8005d4773fddbffd1c2635214f03cd6
+20:52:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51399 ***
+20:52:06   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:06   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:06 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:06 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51399 ***
+20:52:06   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f746dbd0d019b94950
+20:52:06   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7F\xdb\xd0\xd0\x19\xb9IP'
+20:52:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:06 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:06 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51399 ***
+20:52:06   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f746dbd0d019b94950
+20:52:06   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7F\xdb\xd0\xd0\x19\xb9IP'
+20:52:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:06 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:06 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51399 ***
+20:52:06   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f746dbd0d019b94950
+20:52:06   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7F\xdb\xd0\xd0\x19\xb9IP'
+20:52:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:06 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:07 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb90a key=b76ae6ae
+20:52:07 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:08 BASEAPP KEYSCAN: done in 2.20s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:08 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 51399) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:08 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51400
+20:52:08   HEX: 01000004012a8b010000002b0000004fde906f0233830d74fb959250f2c5357e53b8fc9460f7ffb9ea1b2fdb59cd59b943c1313dfa920bc135a5c3b731e8d3638297a478f8f23605c95ceb2e418dd1a64e8a17360c64a7d63cc4d534a3013a3548e0740545ff08c02b9b4b1db4409f923e7bf429ddd9bfb7f455b9a1b5e88c2f4c721a562e72f434d1cb26d1e853b23d6c6a7e9f8b24e5c146cce04a87053b8ad965445e7dc4853cd0c9743c85eee14b2baf78f4b00069a6e0ed777331a963208cae1d61de66d4b48c18647a059ba991101e4b6df359993e7492fc2641384d1ac35c4248fd0a3659b8f0442613fb7fb2976e6f077e951ec7504ecd433f6d41d652b010424676d34ae05975f82049fb0200
+20:52:08 ATTEMPT_H-shape (20-byte body): replyID=0x00018b2a status=1 + 20-byte body, length=25
+20:52:08 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:08 ATTEMPT_I (default): replyID=0x00018b2a status=1 + 24-byte ENCRYPTED body, length=29
+20:52:08 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51400: 0100ff1d0000002a8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:08 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51401 ***
+20:52:08   HEX: 0100000b0017f300000000ac100102010000001400000200
+20:52:08   ASCII: b'\x01\x00\x00\x0b\x00\x17\xf3\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:08 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:08 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000f317 key=b76ae6ae (16 bytes): 23ee6d77040c5d26b9b072b3c737f89d
+20:52:08 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=f300000100000000 (16 bytes): 0055883de78773a5d1c2635214f03cd6
+20:52:09 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:09 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51401 ***
+20:52:09   HEX: 0100000b0018f300000000ac100102020000001400000200
+20:52:09   ASCII: b'\x01\x00\x00\x0b\x00\x18\xf3\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000f318 key=b76ae6ae (16 bytes): 4d3f8d393d2bc13cd10051225e1facf8
+20:52:09 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=f300000100000000 (16 bytes): 0055883de78773a5d1c2635214f03cd6
+20:52:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51401 ***
+20:52:09   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:09   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:09 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:09 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51401 ***
+20:52:09   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:52:09   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:52:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:09 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:10 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb920 key=b76ae6ae
+20:52:10 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:10 BASEAPP KEYSCAN: done in 1.98s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:10 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 51401) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:11 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51402
+20:52:11   HEX: 01000004012b8b010000002b00000083d909725a6c1e2a2f544ae979a8bb79b79e820741cbb91129023a4c7e34a221431e0c35555d17adc410f358bc31738d3c427af9350952856df7a146c486745f95f11bf4e3a188b5f0413de570a92933aee3dedf26955ce53f5b6c1b7f7e27d9a841229a5b0b2136172c80b312f0247ba741ca45caa9744fc552022745386aa64afa4b9ae41d60da74cc91401683fc63740453d9cbb649689d469ccce0c4c4c6633309e9c3850a17090c82568a8b31aa2d6a08ef6903862a128c5a489b302359172479af2dd4e57b2259a2c580d402c5710f7dce4616f41306d2b04e8eaf85f18f9502de45a40306c255eb38d59455555a1374283e4cc2e6ecddbbdfb70460e10200
+20:52:11 ATTEMPT_H-shape (20-byte body): replyID=0x00018b2b status=1 + 20-byte body, length=25
+20:52:11 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:11 ATTEMPT_I (default): replyID=0x00018b2b status=1 + 24-byte ENCRYPTED body, length=29
+20:52:11 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51402: 0100ff1d0000002b8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:11 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51403 ***
+20:52:11   HEX: 0100000b006e4100000000ac100102010000001400000200
+20:52:11   ASCII: b'\x01\x00\x00\x0b\x00nA\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:11 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:11 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000416e key=b76ae6ae (16 bytes): 9e8ca91396c294cc859ca35987aa579e
+20:52:11 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=4100000100000000 (16 bytes): ac039310f430856ed1c2635214f03cd6
+20:52:11 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:11 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51403 ***
+20:52:12   HEX: 0100000b006f4100000000ac100102020000001400000200
+20:52:12   ASCII: b'\x01\x00\x00\x0b\x00oA\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000416f key=b76ae6ae (16 bytes): 4d0519271c8a7296b0e49dedb665de87
+20:52:12 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=4100000100000000 (16 bytes): ac039310f430856ed1c2635214f03cd6
+20:52:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51403 ***
+20:52:12   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:12   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:12 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51403 ***
+20:52:12   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f74c31533ca2c2ab30
+20:52:12   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7L1S<\xa2\xc2\xab0'
+20:52:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:12 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51403 ***
+20:52:12   HEX: 20c52355f0886692165edfe97d0f792cbc1123e45a224de41b4d9cd0a4343d27
+20:52:12   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xbc\x11#\xe4Z"M\xe4\x1bM\x9c\xd0\xa44=\''
+20:52:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:12 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51403 ***
+20:52:12   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f74c31533ca2c2ab30
+20:52:12   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7L1S<\xa2\xc2\xab0'
+20:52:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:12 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51403 ***
+20:52:12   HEX: 20c52355f0886692165edfe97d0f792cbc1123e45a224de41b4d9cd0a4343d27
+20:52:12   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xbc\x11#\xe4Z"M\xe4\x1bM\x9c\xd0\xa44=\''
+20:52:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:12 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:13 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb925 key=b76ae6ae
+20:52:13 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:13 BASEAPP KEYSCAN: done in 1.99s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:13 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 51403) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:14 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:59965
+20:52:14   HEX: 01000004012c8b010000002b0000007d2abebc087f881b0bf13396583f9868b553bae44b491a97ad7c2ad757c1f5867b44a20bf11bbc875102eb362111c68448ac475fe30aef0b301c370f0e4b72bac335f0db772de124b2cfacc4e05b904f97623f94006fc680cd41afb9f531cb4814a981a6dfdcc29dfa1eb07b185505f63312e8df8150bf3f9867ab8f3177655c4f740322306528576164bbdd32ffa5c28d8f117a9b21f7ad154d1a606009a9ce36470b3a7de0183d7305bc4d56bdbeeeafa6735bde33998ed8dc59e03e92d942f37313013911331b16be4c9d6e185abe514100938730295e463017885034b433aed79604c16d70377a383ba24fb9374e8ccb278d023440721f591ec81a29b0970200
+20:52:14 ATTEMPT_H-shape (20-byte body): replyID=0x00018b2c status=1 + 20-byte body, length=25
+20:52:14 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:14 ATTEMPT_I (default): replyID=0x00018b2c status=1 + 24-byte ENCRYPTED body, length=29
+20:52:14 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:59965: 0100ff1d0000002c8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:14 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59966 ***
+20:52:14   HEX: 0100000b0067b100000000ac100102010000001400000200
+20:52:14   ASCII: b'\x01\x00\x00\x0b\x00g\xb1\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:14 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:14 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000b167 key=b76ae6ae (16 bytes): bde0e579a8c23aec25b05c6825be14c7
+20:52:14 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=b100000100000000 (16 bytes): 0594bf9cb0f2db79d1c2635214f03cd6
+20:52:14 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:14 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:14 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59966 ***
+20:52:14   HEX: 0100000b0068b100000000ac100102020000001400000200
+20:52:14   ASCII: b'\x01\x00\x00\x0b\x00h\xb1\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:14 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:14 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000b168 key=b76ae6ae (16 bytes): f7735a56d429bbbd10a91cd3ffbf0f3f
+20:52:14 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=b100000100000000 (16 bytes): 0594bf9cb0f2db79d1c2635214f03cd6
+20:52:14 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59966 ***
+20:52:14   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:14   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:14 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:14 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:14 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:14 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59966 ***
+20:52:14   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f73bbfd1c0004c8951
+20:52:14   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7;\xbf\xd1\xc0\x00L\x89Q'
+20:52:14 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:14 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:14 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:15 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59966 ***
+20:52:15   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f73bbfd1c0004c8951
+20:52:15   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7;\xbf\xd1\xc0\x00L\x89Q'
+20:52:15 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:15 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:15 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:15 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb925 key=b76ae6ae
+20:52:15 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:16 BASEAPP KEYSCAN: done in 1.82s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:16 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 59966) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:17 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:59967
+20:52:17   HEX: 01000004012d8b010000002b000000458cc09765048414b868a3e3a01f3c6a0094beb60076e33689232a1c96fa7109ae3eef3880c610db8d6bfbc0419ca89c08ba6ac90ccad9517caea69731c66a58c1da84639c4896a5ac0271ab12700112e47054072ed53471371fa51c447c84904625dab5c0281efc98653a81a72144c70d796499e418c5e8f330be2a810d15dc07fd7da9d9a28a23dad0d4611a3e8ce6c9d7eb0aa8ab6307ba58a6a50c2915532a0eab33b695de4487fc9e3db7b643eaf6544ff80af1a6d0f60b13a3d649539dbb64be9412516ac8360383becf37363f25817d197ca765a5ae6540699f2d7294f8e3ed3a65358309474eabe4ac6b9a3fd8599a5e9ea0152e0d91773c0a2b99430200
+20:52:17 ATTEMPT_H-shape (20-byte body): replyID=0x00018b2d status=1 + 20-byte body, length=25
+20:52:17 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:17 ATTEMPT_I (default): replyID=0x00018b2d status=1 + 24-byte ENCRYPTED body, length=29
+20:52:17 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:59967: 0100ff1d0000002d8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59968 ***
+20:52:17   HEX: 0100000b004dd000000000ac100102010000001400000200
+20:52:17   ASCII: b'\x01\x00\x00\x0b\x00M\xd0\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:17 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:17 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000d04d key=b76ae6ae (16 bytes): a96b254c2e82af541dbf1fdfccfed6dc
+20:52:17 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=d000000100000000 (16 bytes): a82126b5f69e794cd1c2635214f03cd6
+20:52:17 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:17 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59968 ***
+20:52:17   HEX: 0100000b004ed000000000ac100102020000001400000200
+20:52:17   ASCII: b'\x01\x00\x00\x0b\x00N\xd0\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:17 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:17 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000d04e key=b76ae6ae (16 bytes): 46025a05fc3e93ccff06a1f8b27b969d
+20:52:17 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=d000000100000000 (16 bytes): a82126b5f69e794cd1c2635214f03cd6
+20:52:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59968 ***
+20:52:17   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:17   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:17 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:17 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:17 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:17 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59968 ***
+20:52:17   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f78ba65bf2abd970fe
+20:52:17   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x8b\xa6[\xf2\xab\xd9p\xfe'
+20:52:17 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:17 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:17 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:18 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb900 key=b76ae6ae
+20:52:18 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:19 BASEAPP KEYSCAN: done in 2.21s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:19 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 59968) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:19 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:59969
+20:52:19   HEX: 01000004012e8b010000002b00000093d77842d149315fa7307f4989cd005c1221af2d6f524216d2851975392530d1367dabc5a1d7ec76c62b0c561dc873638029cb18f1cb036b75ba30b8957b08a1761d2893b01e3fc54905acfd5ecfebf4ae510177b4f668acc42e698df96db43391cd2eac353e391d25e2703cfff62177d39c95e97214401ba2497d37b3dcf84488d1779c832292d906ba965747b0e21257d6f6a6e0b151f5ae064f1fb0ba0dbcb89d13a158a92ed3b224ac300ac98ff281fd1ed4283bfff8c380a3bf3334efcdb363c0556bde615b82dfbda2052b5e73f848a2cdcd8d6a72ad08e17758cd8dc2702cb8c7ff39670da0da1d04d344c82e19ff9beea2593235b1f0a12f5890b1bd0200
+20:52:19 ATTEMPT_H-shape (20-byte body): replyID=0x00018b2e status=1 + 20-byte body, length=25
+20:52:19 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:19 ATTEMPT_I (default): replyID=0x00018b2e status=1 + 24-byte ENCRYPTED body, length=29
+20:52:19 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:59969: 0100ff1d0000002e8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:19 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59970 ***
+20:52:19   HEX: 0100000b00dd2e00000000ac100102010000001400000200
+20:52:19   ASCII: b'\x01\x00\x00\x0b\x00\xdd.\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00002edd key=b76ae6ae (16 bytes): 02b33163afde0ba8158d06221583c905
+20:52:19 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2e00000100000000 (16 bytes): e8005d4773fddbffd1c2635214f03cd6
+20:52:19 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:19 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:20 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59970 ***
+20:52:20   HEX: 0100000b00de2e00000000ac100102020000001400000200
+20:52:20   ASCII: b'\x01\x00\x00\x0b\x00\xde.\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:20 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:20 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00002ede key=b76ae6ae (16 bytes): 4a617433dc887abc24ea40e562a60d79
+20:52:20 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=2e00000100000000 (16 bytes): e8005d4773fddbffd1c2635214f03cd6
+20:52:20 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59970 ***
+20:52:20   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:20   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:20 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:20 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:20 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:20 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59970 ***
+20:52:20   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f721b3a6afa0774cba
+20:52:20   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7!\xb3\xa6\xaf\xa0wL\xba'
+20:52:20 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:20 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:20 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:20 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb913 key=b76ae6ae
+20:52:20 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:21 BASEAPP KEYSCAN: done in 1.83s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:21 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 59970) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:22 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:59971
+20:52:22   HEX: 01000004012f8b010000002b0000002559e06100893103cc6885295b3d2758092cbada8b21bd34528cfdc924a88cf4446073ff59c2b269f6b99906fd53eb8888764b51c72934312118eb67845aae1a7c406933cadb64f73a82ca45878f70b936c010a9039e87562926e0a717ddf0058cb2a871b9c4b8110f31606ea715575f9358fee86f27af7ecdd0a4ea0b3550b44b288b27f37a191c2ecbfaab2326b554ce31c958874a052155b88ce07b39b168614d1a307e0e1f7312dcb4f940a3f761a692483d609c28f5ee9b21e9c1d24c8b555580b69cb23533d4ba280dced02f5aee0ca6f7a0d7be63ce2ea28e831eaa78cb018ccdcf0a47f9982fe6ab225e43280bfe0fc72e8ff5c7a3932813b248fa0c0200
+20:52:22 ATTEMPT_H-shape (20-byte body): replyID=0x00018b2f status=1 + 20-byte body, length=25
+20:52:22 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:22 ATTEMPT_I (default): replyID=0x00018b2f status=1 + 24-byte ENCRYPTED body, length=29
+20:52:22 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:59971: 0100ff1d0000002f8b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59972 ***
+20:52:22   HEX: 0100000b0071c900000000ac100102010000001400000200
+20:52:22   ASCII: b'\x01\x00\x00\x0b\x00q\xc9\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:22 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:22 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000c971 key=b76ae6ae (16 bytes): a0945e95482d58f5de3dacbdb3457393
+20:52:22 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=c900000100000000 (16 bytes): ca2c0b354f60cae7d1c2635214f03cd6
+20:52:22 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:22 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59972 ***
+20:52:22   HEX: 0100000b0072c900000000ac100102020000001400000200
+20:52:22   ASCII: b'\x01\x00\x00\x0b\x00r\xc9\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:22 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:22 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000c972 key=b76ae6ae (16 bytes): 6a94034004971d6a18cc604ddce8b24f
+20:52:22 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=c900000100000000 (16 bytes): ca2c0b354f60cae7d1c2635214f03cd6
+20:52:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59972 ***
+20:52:22   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:22   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:22 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:22 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:22 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:22 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59972 ***
+20:52:22   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f78ba65bf2abd970fe
+20:52:22   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x8b\xa6[\xf2\xab\xd9p\xfe'
+20:52:22 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:22 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:22 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:23 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59972 ***
+20:52:23   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f78ba65bf2abd970fe
+20:52:23   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x8b\xa6[\xf2\xab\xd9p\xfe'
+20:52:23 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:23 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:23 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:23 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb8fe key=b76ae6ae
+20:52:23 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:24 BASEAPP KEYSCAN: done in 2.10s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:24 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 59972) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:25 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:59973
+20:52:25   HEX: 0100000401308b010000002b0000007e18a0285fab49d0efcd2531b86165c8df4ae328196fbeaf4cf2db669e589c5df3b7af72949d99c18eb257e3b48a8df978cc4cb4d8446edbf2fb3e0297785b0c2a6da2fae61900ed667df43a7409afda1d49f20de886e19b928356b68d7e1cd6d3d1a50dc9646b6721df35031042cdc9939cbbcbbe7bb8955463a8df39df45f248ac89c3d933b4289766b07005bce4f2869959d5f6751bbb4b314d843ceb7ba47153c0899fe1c5bd16b08249f96ed7ed0558a9abb43877efd2cd8694c63c31fdd7102efbf18eaedfad99ba15eeaf01b8841e32e1a8f960e0a0824a73166bd59f4a6ccd600137ecc5d52f2d5909829bd1d7fd50106f86f48b9328a0cc25afe8850200
+20:52:25 ATTEMPT_H-shape (20-byte body): replyID=0x00018b30 status=1 + 20-byte body, length=25
+20:52:25 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:25 ATTEMPT_I (default): replyID=0x00018b30 status=1 + 24-byte ENCRYPTED body, length=29
+20:52:25 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:59973: 0100ff1d000000308b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59974 ***
+20:52:25   HEX: 0100000b00b31901000000ac100102010000001400000200
+20:52:25   ASCII: b'\x01\x00\x00\x0b\x00\xb3\x19\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:25 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:25 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000119b3 key=b76ae6ae (16 bytes): fb6da0588f86d57efb76414bf7fbc6d5
+20:52:25 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=1901000100000000 (16 bytes): eb1b1fdd3f03d199d1c2635214f03cd6
+20:52:25 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:25 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59974 ***
+20:52:25   HEX: 0100000b00b41901000000ac100102020000001400000200
+20:52:25   ASCII: b'\x01\x00\x00\x0b\x00\xb4\x19\x01\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:25 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:25 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000119b4 key=b76ae6ae (16 bytes): ee9a2f71dbc4a9cd3260cf37d5a7a96b
+20:52:25 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=1901000100000000 (16 bytes): eb1b1fdd3f03d199d1c2635214f03cd6
+20:52:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59974 ***
+20:52:25   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:25   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:25 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:25 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:25 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:25 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59974 ***
+20:52:25   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f74a97ade0a1afc275
+20:52:25   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7J\x97\xad\xe0\xa1\xaf\xc2u'
+20:52:25 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:25 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:25 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:25 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59974 ***
+20:52:25   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f74a97ade0a1afc275
+20:52:25   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7J\x97\xad\xe0\xa1\xaf\xc2u'
+20:52:25 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:25 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:25 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:26 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb910 key=b76ae6ae
+20:52:26 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:27 BASEAPP KEYSCAN: done in 1.82s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:27 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 59974) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate
+20:52:27 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:59975
+20:52:27   HEX: 0100000401318b010000002b0000001c230f3f406ba069a3642b3a69b23735e169a3bc1a2f57bf0841cf3bff024d12035d7b4e12445ad446026dce8b360af0a63b4465a44263ed333eba179a77f89d57f20f09f240114281b0a927285b5f271c968f7600e464f70030fbf05f28d1756e3de0529c515ff147b1311a5bf4c4157c9ceb310ded9819a5311b0e982ef2e1a3e2a2843963fd431458340cd20ddd769f57201e2bbf4c49c15349d3b3bb3d4e26b8baa852d77fb575701621d2be6ad2a69c9481c29b8119b294c2a9a0c8352bfd9c944916354090cebac17e77abdfd9c228b854d48ffd814015cf14b08f4ce6fd9c59fe39f0a8c90fad0fb057ae4602a10493466ffeb3cec21ce431f5233adc0200
+20:52:27 ATTEMPT_H-shape (20-byte body): replyID=0x00018b31 status=1 + 20-byte body, length=25
+20:52:27 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b76ae6ae mode=pc_variant -> 793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c7880
+20:52:27 ATTEMPT_I (default): replyID=0x00018b31 status=1 + 24-byte ENCRYPTED body, length=29
+20:52:27 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:59975: 0100ff1d000000318b010001793c2765e6b621df0ab1af6c74c4ce66c0659ce1fc9c78800000
+20:52:28 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59976 ***
+20:52:28   HEX: 0100000b00fe5d00000000ac100102010000001400000200
+20:52:28   ASCII: b'\x01\x00\x00\x0b\x00\xfe]\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:28 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=7856341200000000
+20:52:28 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00005dfe key=b76ae6ae (16 bytes): 9c9b12974e5fcd466cc6320bd3f511f4
+20:52:28 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=5d00000100000000 (16 bytes): 799c3f062f6d199dd1c2635214f03cd6
+20:52:28 BASEAPP KEYSCAN: pid=4048 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+20:52:28 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 2 large regions
+20:52:28 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59976 ***
+20:52:28   HEX: 0100000b00ff5d00000000ac100102020000001400000200
+20:52:28   ASCII: b'\x01\x00\x00\x0b\x00\xff]\x00\x00\x00\x00\xac\x10\x01\x02\x02\x00\x00\x00\x14\x00\x00\x02\x00'
+20:52:28 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:28 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00005dff key=b76ae6ae (16 bytes): dc7a1fcf6767d673ff63e65f4812716e
+20:52:28 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=5d00000100000000 (16 bytes): 799c3f062f6d199dd1c2635214f03cd6
+20:52:28 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:59976 ***
+20:52:28   HEX: 2f22e0551d11e78a37759aae8d3a29dd1121c1ee86a469ae
+20:52:28   ASCII: b'/"\xe0U\x1d\x11\xe7\x8a7u\x9a\xae\x8d:)\xdd\x11!\xc1\xee\x86\xa4i\xae'
+20:52:28 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:28 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xe0 corr=0x378ae711 key=b76ae6ae (16 bytes): 136feadb4cd1633d68ccaded9019b522
+20:52:28 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=e78a370100000000 (16 bytes): c967636e19ea4333d1c2635214f03cd6
+20:52:28 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59976 ***
+20:52:28   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f78ba65bf2abd970fe
+20:52:28   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x8b\xa6[\xf2\xab\xd9p\xfe'
+20:52:28 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:28 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:28 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:28 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:59976 ***
+20:52:28   HEX: 20c52355f0886692165edfe97d0f792cf86ad4aa4d7315f78ba65bf2abd970fe
+20:52:28   ASCII: b' \xc5#U\xf0\x88f\x92\x16^\xdf\xe9}\x0fy,\xf8j\xd4\xaaMs\x15\xf7\x8b\xa6[\xf2\xab\xd9p\xfe'
+20:52:28 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b76ae6ae mode=pc_variant chain_iv=0000000000000000
+20:52:28 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x23 corr=0x16926688 key=b76ae6ae (16 bytes): dd9b189c6de949de4e3b611743467d05
+20:52:28 BASEAPP UDP SENT createBasePlayer push id=4 entityId=1 key=b76ae6ae chain_iv=6692160100000000 (16 bytes): f92caf10595a17d3d1c2635214f03cd6
+20:52:29 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x7638889bb91e key=b76ae6ae
+20:52:29 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+20:52:30 BASEAPP KEYSCAN: done in 2.02s, found 1 candidate object(s), 1 distinct key(s): ['b76ae6ae']
+20:52:30 BASEAPP KEYSCAN: no key distinct from LoginApp's (b76ae6ae) found for ('127.0.0.1', 59976) (candidates: ['b76ae6ae']) -- key is likely SHARED, not separate

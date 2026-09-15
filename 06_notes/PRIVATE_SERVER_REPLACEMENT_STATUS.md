@@ -136,14 +136,31 @@ this document only aggregates and classifies, it does not re-derive.
   time or an emulator-level fix to recover; a full reboot was
   deliberately NOT attempted unilaterally given shared usage. Testing
   was paused before the chain-IV fix could be verified live.
+  **UPDATE (E2E-013)**: user/coordinator rebooted the shared emulator
+  (`ldconsole.exe reboot --index 0`) and reapplied iptables DNAT rules;
+  device confirmed healthy (`screencap` exit 0) at both start and end of
+  this pass. Fresh key extraction re-validated on a THIRD independent
+  process (`PID 4048`, key `b76ae6ae`, found in 3.9s). Live-tested the
+  chain-IV fix with ONE paced iteration (not a rapid-fire loop, per new
+  standing practice): still rejected, but with a **new, more specific
+  error** — `Nub::processFilteredPacket(...): Packet (flags 183, size
+  16) failed checksum (wanted 04040101, got 00000000)` — a genuinely
+  different failure mode (checksum validation, not header/parse
+  corruption) than every prior attempt, suggesting the chain-IV fix
+  changed the decrypted content as expected but a checksum/CRC field
+  this project has not yet accounted for may be the remaining gap.
+  **Inconclusive, not confirmed.** Client CPU rose to 92-104% and stayed
+  elevated for 13+ seconds even after this project's server was
+  stopped — proactively force-stopped the game process before it could
+  cascade into another ANR; `am force-stop` worked cleanly this time
+  (unlike the E2E-012 incident), device left healthy and idle.
 
 ## BLOCKED
 
 1. **`script.npk` Python-layer patch (ROS-Legacy-Gate-1-style bypass)** —
    BLOCKED on two independent fronts: (a) general `7A 1C` stream cipher not yet broken;
    (b) Frida gadget injection on emulator hits native bridge translation module namespace limitation.
-2. **BaseApp reply content (correct Blowfish chaining, key now confirmed shared)** — see PARTIALLY WORKING above; narrowed from "which key" to "which chaining IV", with a concrete untested fix ready to verify once the device is healthy again.
-3. **Emulator graphics-subsystem hang** — `screencap`/`dumpsys window` unresponsive as of end of this pass; `adb shell`/`logcat`/`pidof` remain functional. Requires a health check before any further live testing.
+2. **BaseApp reply content (checksum field, per E2E-013)** — key and chaining direction are now well-supported; a Mercury-level checksum/CRC field this project hasn't characterized is the current leading candidate for the remaining gap. `06_trace/LOGIN_REPLY_MERCURY_ENVELOPE.md` already documents the generic checksum error string but found the associated validation code to be statically unreachable via the obvious string-xref method (same class of "vestigial strings" dead end as `createBasePlayer`'s own name string, resolved in E2E-011 via the registrar-table method instead) — a similar alternate-path static approach is the recommended next step.
 3. **Account, Avatar, Lobby entity instantiation** — downstream of #2, NEXT IMPLEMENTATION TARGET once #2 is solved.
 
 ## RESOLVED (MOVED OUT OF BLOCKED)

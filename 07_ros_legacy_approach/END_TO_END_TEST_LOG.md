@@ -1451,5 +1451,124 @@ Investigation (CONFIRMED, not guessed):
    site (distinct from LoginApp's `0x989600`, if one exists) is needed.
 
 ---
+
+## TEST_ID: E2E-013
+- **DATE**: 2026-09-15 (same day, thirteenth pass). Resumed after the
+  coordinator/user rebooted the shared `emulator-5554` (`ldconsole.exe
+  reboot --index 0`) to recover from the E2E-012 graphics-subsystem
+  hang, and reapplied the iptables DNAT rules (verified present: tcp
+  80/443/8443, udp 25000/20013 → 172.16.1.2).
+- **GOAL**: (1) confirm device health post-reboot; (2) fresh key
+  extraction on the new post-reboot process; (3) live-test the E2E-012
+  chain-IV fix (Blowfish `pc_variant` chaining from LoginApp's last
+  plaintext block instead of resetting to IV=0 for BaseApp); (4) pace
+  testing conservatively per the coordinator's explicit caution after
+  the prior pass's CPU-spin/ANR incident.
+
+### 1. Device health confirmed, app relaunched
+`adb shell screencap` returned cleanly (`exit 0`) immediately on resume.
+Game was not auto-running after the reboot (`pidof` empty) — relaunched
+via `monkey -p com.netease.chiji -c android.intent.category.LAUNCHER 1`
+(new `PID 4048`), confirmed reaching the title screen with PLAY
+available after one "slow connection" retry (server was started ~1s
+late relative to the app's own boot-time HTTP check — same benign,
+already-documented race from earlier fresh-boot attempts this session,
+resolved by tapping Confirm and letting the app retry).
+
+### 2. Fresh key extraction — CONFIRMED working reliably on the new process
+Ran the (now-fixed, single-atomic-read) scan manually against `PID 4048`
+BEFORE tapping PLAY (`libclient.so` base unchanged: `0x3310000`).
+**Result: exactly one candidate found, key `b76ae6ae`**, in 3.9 seconds,
+17 heap-tagged regions. Confirmed correct by using it as `BFKEY_HEX` for
+a live login attempt: `checkScriptBaseAppAddr` decoded the correct
+`172.16.1.2:25010` address. This is now the THIRD independent process
+(after `PID 9754` and `PID 17255`) on which this scan technique has
+reliably found the correct live key on the first or near-first attempt
+since the single-atomic-read fix — the technique itself is now
+well-validated, not a fluke.
+
+### 3. Chain-IV fix live test — INCONCLUSIVE, new error signature, hypothesis not confirmed
+With `BFKEY_HEX=b76ae6ae` and the E2E-012 chain-IV code active by
+default (no extra flags needed), ran ONE clean test (single PLAY tap, no
+rapid-fire repeats, per the coordinator's pacing instruction). **Result**:
+- LoginApp reply: correct, as always with the right key.
+- BaseApp ack/push: **still rejected**, but with a **new error signature
+  not seen in any prior attempt**: `Nub::processFilteredPacket(
+  172.16.1.2:25010 ): Packet (flags 183, size 16) failed checksum
+  (wanted 04040101, got 00000000)` — this is a DIFFERENT failure mode
+  than the previous "corrupted message header"/"Unexpected key!"
+  garbage-parse errors, and specifically names a **checksum field**
+  (`04040101` expected) that Mercury validates and that our packet does
+  not supply correctly. Also still saw the familiar `bad flags` and
+  `Bundle::iterator::unpack( authenticate )` errors on other retries
+  (retry-to-retry variation, as before, since each retry's ciphertext
+  leading bytes differ).
+- **INFERRED**: the chain-IV fix changed the decrypted output (as
+  expected, since a different IV produces different plaintext bytes
+  throughout the whole message under `pc_variant`'s CBC-like chaining),
+  landing in a different validation branch (checksum check) than before
+  — but the output is still not CORRECT, since a checksum mismatch is
+  reported. **This does not confirm the chain-IV hypothesis** (the
+  decrypted content is still wrong), but it is NOT a clean disproof
+  either — it's possible the chaining fix is right and a checksum/CRC
+  trailer this project hasn't accounted for is the remaining gap
+  (interesting new lead: Mercury may append/expect a checksum field for
+  this channel that LoginApp's framing did not require, or did require
+  but this project's Attempt K/L framing happened to already satisfy by
+  coincidence).
+
+### Environment/pacing note (per the coordinator's explicit instruction this pass)
+- Ran only ONE live test iteration this pass, not a rapid-fire loop.
+- **CPU was monitored explicitly this time** (a new practice, adopted
+  directly from the E2E-012 incident): `top -n 1 -b` immediately after
+  the test showed `com.netease.chiji` at 85-96% CPU, and it **remained
+  elevated (92-104%) for at least 13 seconds after this project's own
+  server was stopped** — the client appears to enter a self-sustaining
+  retry/backoff spin once triggered by repeated corrupted-packet
+  disconnects, independent of whether this project keeps sending
+  anything. **Proactively force-stopped the game process** once this
+  pattern was observed, rather than waiting to see if it would cascade
+  into another ANR. `am force-stop` **worked cleanly this time**
+  (`exit 0`, unlike the E2E-012 incident where it hung) — CPU returned
+  to ~0%/396% idle within 3 seconds, and `screencap` confirmed working
+  immediately after. **Device left healthy and idle at the end of this
+  pass.**
+- **New operational lesson for future passes**: even a SINGLE clean live
+  attempt against this client can trigger a lasting client-side CPU spin
+  once the connection disconnects on repeated corrupted packets — this
+  is a property of the CLIENT's own reconnect/backoff behavior when
+  fed corrupted BaseApp packets, not something proportional to how many
+  test iterations this project runs. Monitoring CPU via `top` and being
+  ready to force-stop promptly after each live BaseApp-channel test
+  (not just after a long session) is now recommended practice, not just
+  a fix for repeated-abuse cases.
+
+### RESULT
+- Device health: fully recovered post-reboot, confirmed at both start
+  and end of this pass.
+- Key-extraction technique: further validated (3rd independent process).
+- Chain-IV hypothesis: **inconclusive** — genuinely new evidence (a
+  distinct checksum-failure error) but not a confirmation; still blocked
+  from reaching Account/Avatar/Lobby.
+- `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. Investigate the new checksum error specifically: find where Mercury
+   computes/validates this "wanted 04040101" checksum in disassembly
+   (likely near `Nub::processFilteredPacket`, a function this project
+   has referenced by name in logs but not yet disassembled) — this is a
+   concrete, well-evidenced new static-analysis target, more promising
+   than continuing to guess at chaining variants blindly.
+2. If a checksum/CRC field is confirmed required, determine its
+   algorithm and where in the packet it goes (likely the LoginApp
+   channel's own 2-byte "footer" — previously treated as a fixed
+   constant `00 00` — may actually BE a checksum that happens to
+   validate correctly by construction for LoginApp's specific content,
+   worth re ‑examining rather than assuming it's inert padding).
+3. Continue pacing live tests conservatively (one clean iteration at a
+   time, CPU-checked, promptly force-stopped) per this pass's adopted
+   practice.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
