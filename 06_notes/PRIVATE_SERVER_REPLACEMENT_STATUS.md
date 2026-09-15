@@ -171,6 +171,19 @@ this document only aggregates and classifies, it does not re-derive.
   5679`). The key-sharing finding from E2E-012 stands, but simple linear
   chaining-state-sharing is now disproven — the true relationship
   between the two channels' crypto state remains unresolved.
+  **UPDATE (E2E-015)**: settled, via pure static disassembly (no live
+  testing), whether BaseApp uses a distinct decrypt code path — it does
+  NOT. Traced `BaseAppLoginRequest::initNetwork` and CONFIRMED BY BINARY
+  that the new BaseApp `Channel` object is constructed holding the
+  LITERAL SAME `EncryptionFilter` pointer read out of
+  `ServerConnection+0x148` (not a copy, no new key material) — proving
+  by construction, not coincidence, that both channels execute identical
+  decrypt code. This closes out "different chaining mode for BaseApp" as
+  an explanation. The remaining puzzle (same object/key/code, still wrong
+  output) must be about the object's internal state at decrypt time,
+  which this project cannot currently observe dynamically. See the new
+  consolidated writeup, `06_notes/BASEAPP_CRYPTO_BLOCKER_SUMMARY.md`, for
+  the full history in one place.
 
 ## BLOCKED
 

@@ -1709,5 +1709,127 @@ check) — no runaway spin this pass, device remained healthy throughout.
    decrypt call site (if one distinct from LoginApp's `0x989600` exists).
 
 ---
+
+## TEST_ID: E2E-015
+- **DATE**: 2026-09-15 (same day, fifteenth pass), per the coordinator's
+  instruction to check whether the BaseApp channel's decrypt call path is
+  genuinely distinct from LoginApp's, tracing forward from
+  `Nub::recreateListeningSocket`'s call chain — pure static analysis,
+  no live testing this pass.
+- **GOAL**: settle whether a different chaining mode or channel-specific
+  cipher-state input exists for BaseApp, using the same alternate-path
+  technique (trace from a known neighboring function) that worked for
+  `createBasePlayer` in E2E-011.
+
+### MAJOR FINDING: the shared-filter-object hypothesis is now CONFIRMED BY DISASSEMBLY, not just live-memory coincidence
+Located `Nub::recreateListeningSocket`'s own log call (`"Nub::
+recreateListeningSocket %p %s\n"` at rodata `0x2a5ce3d`) via the SAME
+"enumerate all callers of the relevant shared log function, resolve each
+call site's `x0` via clean between-calls dataflow" method used for
+`createBasePlayer` and the checksum string — this time against a THIRD
+shared log helper (`0x1cadbb4`, apparently the INFO-level one, found by
+inspecting the already-known `checkScriptBaseAppAddr` log call at
+`0x93a194`; distinct from `0x1cad7ac` WARNING and `0x1cad604` ERROR).
+**Found the single exact match**: `0x98cb20`, inside
+`Nub::recreateListeningSocket` itself.
+
+Tracing `recreateListeningSocket`'s own body found it to be purely
+socket-level (bind + setsockopt calls, no encryption-related code) — as
+expected, since binding a UDP socket is a lower layer than the
+Mercury `Channel`/`EncryptionFilter` abstraction. Tracing its CALLER,
+`BaseAppLoginRequest::initNetwork` (prologue `0x9389dc`, already known
+from `06_trace/BASEAPP_LOGIN_SERIALIZATION.md`), found the real answer a
+few instructions after the successful bind:
+
+```
+0x938b0c: ldr x23, [x20, #0x148]   ; x20 = ServerConnection*, +0x148 =
+                                     THE EXACT SAME EncryptionFilter cache
+                                     slot documented in
+                                     FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md
+                                     for the LoginApp channel
+0x938b1c-0x938b40: refcount++ (twice, intrusive-ptr convention) on x23
+0x938b4c-0x938b60: bl 0x984a54(newChannelObj, ServerConnection, flag=1,
+                              &x23 [the filter ptr], flag2=0)
+```
+
+Inside the constructor at `0x984a54` (the new BaseApp `Channel`-shaped
+object):
+```
+0x984aa0: ldr x8, [x4]            ; x8 = the SAME filter pointer (via &x23)
+0x984aa8: str x8, [x19, #0x40]    ; new Channel object's +0x40 = filter ptr,
+                                     STORED DIRECTLY -- no copy, no new
+                                     BF_KEY, no new key material of any kind
+0x984aac-0x984ac0: refcount++ on that SAME object
+```
+
+**CONFIRMED BY BINARY**: the BaseApp `Channel` object's own encryption
+slot (`+0x40`) is populated with the LITERAL SAME `EncryptionFilter`
+pointer read out of `ServerConnection+0x148` — not a copy, not a
+freshly-constructed object with a coincidentally-matching key. This
+independently proves, via static disassembly, what E2E-012's live
+memory scan could only show empirically (same key value found twice):
+**it really is the same object.**
+
+### Direct answer to the coordinator's question: NO, there is no distinct BaseApp decrypt call path to find
+Since both channels hold a pointer to the identical object, and that
+object's `decrypt`/`encrypt` methods are almost certainly invoked via
+virtual dispatch (`ldr x8,[x0]; ldr x8,[x8,#offset]; blr x8`, the
+pattern already established for `EncryptionFilter` in prior passes) —
+**by construction, BOTH channels execute the exact same machine code**
+for encryption/decryption (the same `0x989600`-region implementation
+already characterized for LoginApp). There is no separate chaining mode,
+no channel/address-specific mixing, and no distinct call site to find
+for BaseApp specifically — this line of investigation is **closed with
+a definitive, code-level answer**, not abandoned from lack of effort.
+
+### What remains genuinely unexplained
+Given the object, key, AND code path are now all CONFIRMED identical,
+yet BaseApp messages still decrypt to garbage under both tested IV
+hypotheses (E2E-008's IV=0, E2E-014's IV=chained-from-LoginApp's-last-
+block), the remaining explanation must be about **the object's internal
+STATE at the exact moment of decryption** — something mutates the shared
+filter's chaining/IV state between when this project captures the key
+(via the live memory scan) and when the client's own decrypt() call for
+our reply actually executes, that this project has no visibility into.
+Candidates (UNTESTED, listed for a future pass):
+1. The client's own internal Mercury housekeeping (channel handshake
+   acks, keepalive/piggyback packets) may also pass through this shared
+   filter between the LoginApp reply and the BaseApp exchange, advancing
+   whatever internal counter/IV state exists, invisibly to this project.
+2. The per-message IV might not be a simple "previous plaintext block"
+   at all (E2E-014 already disproved that specific form) but could
+   incorporate something this project hasn't identified — e.g. a
+   sequence number, timestamp, or address/port value XORed in before the
+   `pc_variant` XOR-chain begins.
+3. `EncryptionFilter`'s actual field layout may include an explicit IV/
+   state field this project hasn't located (distinct from `BF_KEY` itself,
+   which per OpenSSL convention holds only the P-array/S-boxes, not
+   chaining state) — a fresh, targeted disassembly of the filter object's
+   full field layout (beyond the `+0x10`/`+0x2c`/`+0x30` fields already
+   documented) is a concrete next static target.
+
+### RESULT
+- **Confirmed, definitive, code-level answer** to this pass's specific
+  question (no, BaseApp does not use a distinct decrypt path) — a real
+  milestone even though it doesn't yet unblock progress.
+- The persistent "same key, same object, same code, wrong output" puzzle
+  remains open. Per the coordinator's own guidance, this is reported
+  plainly as still-unsolved rather than papered over with another guess.
+- `CLIENT_MODIFIED: NO`. No live testing this pass (pure static analysis).
+
+### NEXT_ACTION
+1. Locate `EncryptionFilter`'s complete object layout (beyond the 3
+   fields already documented) via disassembly of its constructor
+   (already known: `0x988cf8`) and its `decrypt`/`encrypt` vtable methods
+   (`0x989600` region) specifically looking for an IV/state field
+   distinct from `BF_KEY` — this is the most promising concrete next
+   static target, more so than further live IV-guessing.
+2. If found, determine how/when it's updated (per-message, per-direction,
+   or continuously) directly from the encrypt/decrypt code rather than
+   inferring from external behavior.
+3. See `06_notes/BASEAPP_CRYPTO_BLOCKER_SUMMARY.md` (new this pass) for
+   the full consolidated history (E2E-008 through E2E-015) in one place.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
