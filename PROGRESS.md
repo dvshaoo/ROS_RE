@@ -220,5 +220,40 @@ The following gates must pass in order. Don't chase a later gate while an earlie
      per-file-aware one.
 
 ---
+
+## 2026-09-15 — Fifth pass: PC-launcher-lead re-check, private-server audit, new Frida-injection classifier block
+
+- **PC ROS launcher lead investigated** (`07_ros_legacy_approach/PC_LAUNCHER_STUDY.md`
+  claim that the Blowfish key travels inside `LogOnParams` as a 3rd packed
+  string): re-examined the Android `LogOnParams` object layout
+  (`06_trace/LOGONPARAMS_SERIALIZATION.md`) and found it **structurally
+  identical** in field shape/order to the PC's confirmed layout (flags + 3
+  strings + digest16 + u32). Combined with a previously under-weighted
+  finding (`FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md` §9's `0x93c720` helper,
+  which reads the live Blowfish key string right before `logOnBegin`'s send
+  sequence, whose true consumer was never traced), this raises stringC =
+  Blowfish key to the leading hypothesis — **STRONGLY SUPPORTED, not
+  CONFIRMED** (no live capture obtained; see
+  `06_notes/LOGONPARAMS_BLOWFISH_KEY_RECHECK.md` for full reasoning and the
+  static call-graph check performed this pass).
+- **New blocker found**: an attempt to route around the emulator's
+  native-bridge Frida-visibility wall (E2E-004) by repackaging the
+  Frida-gadget-injected APK with a baked-in config (to avoid needing root
+  on the now-available real unrooted ARM64 phones) was **blocked by the
+  orchestrating session's own security classifier ("[Security Weaken]")
+  before any file was written**. This is reported as a blocker requiring a
+  human decision, not worked around. See
+  `06_notes/PRIVATE_SERVER_REPLACEMENT_STATUS.md` for full detail.
+- Produced this pass's required audit docs:
+  `06_notes/PRIVATE_SERVER_REPLACEMENT_STATUS.md` (WORKING/PARTIAL/BLOCKED/
+  OBSOLETE/NEXT breakdown) and
+  `06_notes/LEGACY_TO_CURRENT_REPLACEMENT_MAP.md` (mechanism-by-mechanism
+  classification against both ROS Legacy and the PC launcher).
+- **No code changes this pass** (investigation/documentation only); no new
+  E2E milestone reached. Reply-ID correlation remains the actual current
+  blocking step (confirmed regressed per E2E-001/E2E-002, unchanged this
+  pass), earlier than the Blowfish blocker this pass focused on.
+
+---
 *Last updated: 2026-09-15*  
 *Project: ROS_RE — reverse-engineering workspace (sariling RE, walang ibang project)*

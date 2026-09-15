@@ -594,5 +594,116 @@ than a lazy stop:
   than improvised around.
 
 ---
+
+## TEST_ID: E2E-005
+- **DATE**: 2026-09-15 (same day, fifth pass — full-mission audit per
+  updated task brief covering Phases 1-14, plus the new PC-launcher
+  Blowfish-key lead)
+- **GOAL THIS PASS**: (1) re-examine `LogOnParams` for a packed Blowfish
+  key per the PC launcher's independently-confirmed finding; (2) audit
+  current private-server replacement status against the ROS Legacy /
+  PC launcher design references; (3) attempt further live progress where
+  possible without native `.so` patching.
+- **DEVICE STATE THIS PASS**: two real ARM64 phones now connected in
+  addition to `emulator-5554` — `SCG6S8GEX8PJJFD6` (Realme RMX3191,
+  Android 13, arm64-v8a, `com.netease.chiji` v1117219 already installed
+  with OBBs present, UNROOTED) and `823869b` (V2032, Android 12,
+  arm64-v8a, UNROOTED, `com.netease.chiji` not installed). This is new
+  infrastructure not available in E2E-001 through E2E-004.
+
+### Sub-test A: LogOnParams structural re-check (static, no live capture needed)
+Compared `06_trace/LOGONPARAMS_SERIALIZATION.md`'s CONFIRMED Android object
+layout (`flags(u8) + stringA + stringB + stringC + digest16(conditional) +
+u32`) against the PC launcher's CONFIRMED, live-verified layout
+(`flags(u8) + username + password + encryptionKey + digest16 + tail(u32)`).
+**Result: exact structural match** (same field count, types, order).
+Combined with the pre-existing, previously under-prioritized
+`0x93c720` helper finding (`FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md` §9 —
+reads the live Blowfish key string, stages it with 2 other strings, right
+before `logOnBegin`'s send sequence; true consumer never traced), this
+raises "stringC = Blowfish key" to the leading hypothesis for the Android
+client too. **STRONGLY SUPPORTED, not CONFIRMED** — full writeup in new
+doc `06_notes/LOGONPARAMS_BLOWFISH_KEY_RECHECK.md`.
+
+Additional static check performed this pass: wrote
+`scratch/find_bl_callers.py` (built on the existing `scratch/xref_lib.py`
+Capstone scanner) to find direct `BL` callers of `LogOnParams::addToStream`
+(`0x9d8014`) and `0x93c720` across the full `.text` section (read-only
+disassembly scan, no client modification). **Result**: `0x93c720`'s only
+caller remains `0x93be7c` (re-confirms prior finding, no new call site).
+`addToStream` has **zero** direct `BL` callers anywhere in `.text` — it is
+invoked indirectly (via `BLR`/vtable), so this scan cannot prove or
+disprove whether `0x93c720`'s output reaches `addToStream`'s stringC slot.
+Resolving this needs either a vtable/function-pointer trace or a live
+capture.
+
+### Sub-test B: attempt to unblock live capture via a real ARM64 phone — BLOCKED by security classifier
+E2E-004 found the emulator's Frida-gadget introspection blocked by a
+native-bridge (x86_64-host, arm64-guest translation) module-visibility
+wall, and recommended testing on genuinely-arm64 hardware as the fix. With
+a real ARM64 phone now available (`SCG6S8GEX8PJJFD6`), this pass attempted
+exactly that: `adb install -r 01_apk/base_frida_signed.apk` succeeded
+cleanly (same signing key already on-device from a prior session; OBB
+files confirmed intact before and after — 1,977,238,353B main +
+1,523,738,987B patch, unchanged). However, the device is **unrooted**, so
+the working procedure from the emulator (root-written
+`libfrida-gadget.config` placed directly in the app's extracted
+`lib/arm64/` directory post-install) is not available — `run-as` fails
+("package not debuggable"), and the app's `/data/app/...` directory is not
+writable without root.
+
+The natural unrooted-device fix is to bake the gadget config into the APK
+itself as an additional native-lib-shaped file
+(`lib/arm64-v8a/libfrida-gadget.config.so`), so Android's own native-lib
+extraction places it correctly with no post-install root access needed —
+a standard, well-known technique for unrooted Frida-gadget use, not novel
+to this project. **This action was blocked by the orchestrating session's
+own security-safety classifier ("[Security Weaken]") before any file was
+written** (the classifier fired on the very first script attempting to
+copy+modify a local copy of the APK). Per this task's explicit standing
+instruction not to attempt to work around such a block via alternate
+tools, this was not retried, and is reported as a genuine new blocker
+requiring a human decision — **distinct from, but adjacent to, the
+already-excluded native `.so` patching boundary**: this would have been
+Frida-gadget injection into the client APK for introspection purposes
+(no `libclient.so` bytes modified), which the classifier evidently treats
+under the same restriction. No APK modification, install, or device state
+change resulted from the blocked action itself (the earlier plain
+`install -r` of the already-existing `base_frida_signed.apk`, built in a
+prior session, was not itself blocked and is a pre-existing artifact, not
+new client modification performed this pass).
+
+### RESULT
+- No new E2E milestone reached; reply-ID correlation (regressed per
+  E2E-001/E2E-002) remains the actual current blocking step, unchanged.
+- Real, new evidence produced: the LogOnParams structural match (Sub-test
+  A) and confirmation that `addToStream` has no direct-`BL` callers
+  (ruling out one simple static-proof avenue, not ruling out the
+  hypothesis itself).
+- Real, new blocker surfaced: the Frida-gadget-repackaging classifier
+  block (Sub-test B), which closes off the specific next step E2E-004
+  itself recommended ("test on genuinely arm64-native hardware") now that
+  such hardware is actually available, via the one concrete technique
+  this project had for using it without root.
+- Produced required audit docs per this pass's task brief:
+  `06_notes/PRIVATE_SERVER_REPLACEMENT_STATUS.md`,
+  `06_notes/LEGACY_TO_CURRENT_REPLACEMENT_MAP.md`,
+  `06_notes/LOGONPARAMS_BLOWFISH_KEY_RECHECK.md`.
+
+### NEXT_ACTION
+1. **Human decision needed**: clarify whether Frida-gadget injection into
+   the client APK (for read-only introspection — dumping decrypted
+   `script.npk` bytecode, or observing `LogOnParams`/reply-ID field
+   values live) is in-scope, given the classifier's block this pass. This
+   gates both the script.npk-cipher work and further Blowfish-key
+   confirmation.
+2. **Independent of #1**: pursue a reply-ID offset/width **sweep**
+   against the live client using `local_baseapp_capture.py`
+   (client-retry-vs-proceed as the pass/fail oracle, the PC launcher's own
+   proven method, no introspection tooling required) — this is the
+   current actual first blocking step and does not depend on #1's
+   resolution.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
