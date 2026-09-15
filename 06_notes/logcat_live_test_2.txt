@@ -1,0 +1,101 @@
+--------- beginning of main
+09-15 14:54:45.869 23586 23586 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 955 795 
+09-15 14:54:45.870 23586 23586 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 14:54:45.878 23586 23586 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-15 14:54:46.006 23586 23586 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-15 14:54:46.022 23586 23586 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-15 14:54:46.137 23586 23586 I main    : type=1400 audit(0.0:8311): avc: denied { open } for path="/data/local/cfg-ynhne/app_xpt" dev="sdb2" ino=393580 scontext=u:r:shell:s0 tcontext=u:object_r:system_data_file:s0 tclass=file permissive=1
+09-15 14:54:46.137 23586 23586 I main    : type=1400 audit(0.0:8312): avc: denied { mounton } for path="/proc/cpuinfo" dev="proc" ino=4026531992 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpuinfo:s0 tclass=file permissive=1
+09-15 14:54:46.141 22345 22345 I Thread-45: type=1400 audit(0.0:8313): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=686c scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 14:54:46.141 23586 23586 I app_process: The ClassLoaderContext is a special shared library.
+09-15 14:54:46.142 23586 23586 W app_process: Could not create mount namespace.
+09-15 14:54:46.142 23586 23586 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 14:54:46.142 23586 23586 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 14:54:46.142 23586 23586 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 14:54:46.142 23586 23586 D nativebridge: call UnloadNativeBridge! state=2
+09-15 14:54:46.247 23586 23586 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-15 14:54:46.258 23586 23586 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=955.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=21008456, downTime=21008456, deviceId=3, source=0x1002 }
+09-15 14:54:46.335 23586 23586 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=955.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=21008456, downTime=21008456, deviceId=3, source=0x1002 }
+09-15 14:54:46.359 23586 23586 D AndroidRuntime: Shutting down VM
+09-15 14:54:46.384  1573  1581 W System  : A resource failed to call close. 
+09-15 14:54:46.384  1573  1581 I chatty  : uid=1000(system) FinalizerDaemon identical 23 lines
+09-15 14:54:46.384  1573  1581 W System  : A resource failed to call close. 
+09-15 14:54:46.425 22345 22425 E NeoX    : finish get cutOut info
+09-15 14:54:46.874 22345 22425 I [14:54:46.874] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 14:54:46.881 22345 22425 I [14:54:46.881] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 14:54:46.881 22345 22425 I [14:54:46.881] M : [INFO] Nub::recreateListeningSocket 0x76384b971000 0.0.0.0:17778
+09-15 14:54:46.895 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:46.895 22345 22425 I [14:54:46.895] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000299d (maybe it timed out?)
+09-15 14:54:47.325 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:47.325 22345 22425 I [14:54:47.325] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000299e (maybe it timed out?)
+09-15 14:54:47.723 22345 22425 I NeoXDevice: On App CMD 30
+09-15 14:54:47.755 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:47.755 22345 22425 I [14:54:47.755] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000299f (maybe it timed out?)
+09-15 14:54:48.184 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:48.184 22345 22425 I [14:54:48.184] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a0 (maybe it timed out?)
+09-15 14:54:48.612 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:48.612 22345 22425 I [14:54:48.612] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a1 (maybe it timed out?)
+09-15 14:54:48.711 22345 22425 I NeoXDevice: On App CMD 31
+--------- beginning of system
+09-15 14:54:48.865  1493  1493 W wificond: Scan already started
+09-15 14:54:48.968  1425  1425 D sensor_hal: sensor_device_default_flush handle=0
+09-15 14:54:49.041 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:49.041 22345 22425 I [14:54:49.041] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a2 (maybe it timed out?)
+09-15 14:54:49.471 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:49.471 22345 22425 I [14:54:49.471] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a3 (maybe it timed out?)
+09-15 14:54:49.703 22345 22425 I NeoXDevice: On App CMD 32
+09-15 14:54:49.865  1573  3582 D WificondControl: Scan result ready event
+09-15 14:54:49.902 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:49.902 22345 22425 I [14:54:49.902] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a4 (maybe it timed out?)
+09-15 14:54:50.331 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:50.331 22345 22425 I [14:54:50.331] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a5 (maybe it timed out?)
+09-15 14:54:50.500  1425  1425 D sensor_hal: cb_setDelay handle=0 delay-ns=200000000
+09-15 14:54:50.546  2049  3209 I ActivityScheduler: nextTriggerTime: 21248052, in 235297ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 30000
+09-15 14:54:50.558  2049  2049 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.common.telemetry.service.START dat=chimera-action: cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-15 14:54:50.701 22345 22425 I NeoXDevice: On App CMD 33
+09-15 14:54:50.733 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:54:50.733 22345 22425 I [14:54:50.733] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x000029a6 (maybe it timed out?)
+09-15 14:54:50.739  1573  1581 W System  : A resource failed to call close. 
+09-15 14:54:50.739  1573  1581 I chatty  : uid=1000(system) FinalizerDaemon identical 24 lines
+09-15 14:54:50.739  1573  1581 W System  : A resource failed to call close. 
+09-15 14:54:51.694 22345 22425 I NeoXDevice: On App CMD 34
+09-15 14:54:52.231 20424 20563 I PlayCommon: [367] Preparing logs for uploading
+09-15 14:54:52.237 20424 20563 I PlayCommon: [367] Connecting to server for timestamp: https://play.googleapis.com/play/log/timestamp
+09-15 14:54:52.245 20424 20563 E PlayCommon: [367] Failed to connect to server for server timestamp: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 14:54:52.245 20424 20563 W PlayCommon: [367] No account for auth token provided
+09-15 14:54:52.246 20424 20563 I PlayCommon: [367] Connecting to server: https://play.googleapis.com/play/log?format=raw&proto_v2=true
+09-15 14:54:52.253 20424 20563 E PlayCommon: [367] Failed to connect to server for log upload.
+09-15 14:54:55.001  1409  1409 I writer  : type=1400 audit(0.0:8314): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 14:54:55.618  2049  2049 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.telemetry.service.START dat=chimera-action: cmp=com.google.android.gms/.chimera.PersistentApiService }
+09-15 14:54:55.733 22345 22425 I         : 
+09-15 14:54:55.733 22345 22425 I         : ERROR *****************************************************************************
+09-15 14:54:55.733 22345 22425 I [14:54:55.733] M : [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-15 14:54:55.799 22345 22425 I         : 
+09-15 14:54:55.799 22345 22425 I         : ERROR *****************************************************************************
+09-15 14:54:55.799 22345 22425 I [14:54:55.799] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-15 14:54:55.806 22345 22425 D DCTOOL  : ntStart() queue size (1), current thread=457
+09-15 14:54:55.806 22345 22425 D DCTOOL  : ntStart() after so loaded, current thread=457
+09-15 14:54:55.806 22345 22425 D DCTOOL  : ntStart() with native and reset.
+09-15 14:54:55.808 22345 22425 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 14:54:55.812 22345 22425 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 14:54:55.812 22345 23599 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 14:54:55.812 22345 23599 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-15 14:54:55.812 22345 23599 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-15 14:54:55.830 22345 23599 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-15 14:54:55.833 22345 23599 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4948.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 14:54:55.833 22345 23599 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4948.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 14:54:55.833 22345 23599 D DCTOOL  : In C++, release the returned string. detach. 
+09-15 14:54:55.833 22345 23599 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 14:54:55.833 22345 23599 I DCTOOL  : OSVersion: 9
+09-15 14:54:55.833 22345 23599 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-15 14:54:55.833 22345 23599 I DCTOOL  : Serialno: 00c80dd8
+09-15 14:54:55.877 22345 23599 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 14:54:55.877 22345 23599 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-15 14:54:55.877 22345 23599 D DCTOOL  :  NOT RUNNING TIME. 
+09-15 14:54:55.877 22345 23599 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-15 14:54:55.877 22345 23599 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-15 14:54:55.877 22345 23599 D DCTOOL  : OnToolCallback, current thread=732
+09-15 14:54:55.877 22345 23599 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 14:54:56.684 22345 22425 I NeoXDevice: On App CMD 35
+09-15 14:54:56.785 22345 22425 I [14:54:56.785] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1866457736
+09-15 14:54:57.177  1430  1558 D AudioFlinger: mixer(0xf3483640) throttle end: throttle time(9)

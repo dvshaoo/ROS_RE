@@ -1,0 +1,332 @@
+--------- beginning of main
+09-15 14:08:08.734  1573  1573 I Binder:1573_F: type=1400 audit(0.0:7088): avc: denied { read } for name="Applications" dev="sdcardfs" ino=1310722 scontext=u:r:system_server:s0 tcontext=u:object_r:sdcardfs:s0 tclass=lnk_file permissive=1
+09-15 14:52:36.939 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:36.961 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:36.961 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:36.972 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.007 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.012 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.012 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.039 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.062 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.062 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.067 23493 23493 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 955 795 
+09-15 14:52:37.067 23493 23493 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 14:52:37.070 23493 23493 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-15 14:52:37.072 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.091 23493 23493 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-15 14:52:37.097 23493 23493 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-15 14:52:37.105 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.113 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.113 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.114 23493 23493 I main    : type=1400 audit(0.0:8230): avc: denied { mounton } for path="/proc/cpuinfo" dev="proc" ino=4026531992 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpuinfo:s0 tclass=file permissive=1
+09-15 14:52:37.115 23493 23493 I app_process: The ClassLoaderContext is a special shared library.
+09-15 14:52:37.115 23493 23493 W app_process: Could not create mount namespace.
+09-15 14:52:37.115 23493 23493 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 14:52:37.116 23493 23493 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 14:52:37.116 23493 23493 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 14:52:37.116 23493 23493 D nativebridge: call UnloadNativeBridge! state=2
+09-15 14:52:37.128 23493 23493 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-15 14:52:37.135 23493 23493 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=955.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=20879338, downTime=20879338, deviceId=3, source=0x1002 }
+09-15 14:52:37.139 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.154 23493 23493 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=955.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=20879338, downTime=20879338, deviceId=3, source=0x1002 }
+09-15 14:52:37.167 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.167 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.168 23493 23493 D AndroidRuntime: Shutting down VM
+09-15 14:52:37.172 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.204  1573  1581 W System  : A resource failed to call close. 
+09-15 14:52:37.204  1573  1581 I chatty  : uid=1000(system) FinalizerDaemon identical 24 lines
+09-15 14:52:37.204  1573  1581 W System  : A resource failed to call close. 
+09-15 14:52:37.216 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.216 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.266 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.266 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.317 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.317 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.367 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.367 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.418 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.418 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.460 22345 22425 E NeoX    : finish get cutOut info
+09-15 14:52:37.469 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.469 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.505 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.520 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.520 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.539 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.571 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.571 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.572 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.605 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.621 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.621 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.638 22345 22345 E NeoXCCPlayer: onRequestUpdateTexture
+09-15 14:52:37.672 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.672 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.704 22345 22425 I [14:52:37.704] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 14:52:37.722 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.722 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.736 22345 22425 I [14:52:37.736] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 14:52:37.736 22345 22425 I [14:52:37.736] M : [INFO] Nub::recreateListeningSocket 0x76384b971000 0.0.0.0:36785
+09-15 14:52:37.774 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.774 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.779 22345 22425 W IJKMEDIA: IjkMediaPlayer_stop
+09-15 14:52:37.779 22345 22425 W IJKMEDIA: ijkmp_stop()
+09-15 14:52:37.780 22345 23471 W IJKMEDIA: message_loop exit
+09-15 14:52:37.780 22345 23471 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23471]
+09-15 14:52:37.780 22345 22425 W IJKMEDIA: ijkmp_stop()=0
+09-15 14:52:37.780 22345 22425 W IJKMEDIA: IjkMediaPlayer_release
+09-15 14:52:37.780 22345 22425 W IJKMEDIA: ijkmp_set_android_surface(surface=0x0)
+09-15 14:52:37.780 22345 22425 D IJKMEDIA: ffpipeline_set_surface()
+09-15 14:52:37.780 22345 22425 I IJKMEDIA: stream_open--->setsurface time = 42023 ms, video packet count = 11
+09-15 14:52:37.780 22345 22425 W IJKMEDIA: ijkmp_set_android_surface(surface=0x0)=void
+09-15 14:52:37.780 22345 22425 E IJKMEDIA: create async thread(1214513296)
+09-15 14:52:37.780 22345 23503 I IJKMEDIA: SDL_RunThread: [23503] release_tid
+09-15 14:52:37.780 22345 23503 W IJKMEDIA: async_release_android
+09-15 14:52:37.780 22345 23503 W IJKMEDIA: ijkmp_stop_cc_player_stat
+09-15 14:52:37.780 22345 23503 W IJKMEDIA: ijkmp_shutdown_l()
+09-15 14:52:37.783 22345 23472 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23472]
+09-15 14:52:37.791 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:37.792 22345 22425 I [14:52:37.792] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002993 (maybe it timed out?)
+09-15 14:52:37.825 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.825 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.827 22345 23473 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23473]
+09-15 14:52:37.828 22345 23503 W IJKMEDIA: end wait for read_tid
+09-15 14:52:37.828 22345 23503 W IJKMEDIA: begin wait for audio_tid
+09-15 14:52:37.828 22345 23476 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23476]
+09-15 14:52:37.828 22345 23503 W IJKMEDIA: end wait for audio_tid
+09-15 14:52:37.828 22345 23503 W IJKMEDIA: begin wait for ff_aout
+09-15 14:52:37.828 22345 23475 D AudioTrack: stop() called with 2017408 frames delivered
+09-15 14:52:37.829 22345 23475 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23475]
+09-15 14:52:37.830 22345 23503 W IJKMEDIA: end wait for ff_aout
+09-15 14:52:37.830 22345 23503 W IJKMEDIA: begin wait for video_tid
+09-15 14:52:37.830 22345 23486 I IJKMEDIA: MediaCodec: func_run_sync: try exit: -1
+09-15 14:52:37.837 22345 23487 I IJKMEDIA: MediaCodec: enqueue_thread_func: exit: 0
+09-15 14:52:37.837 22345 23487 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23487]
+09-15 14:52:37.837 22345 23486 W IJKMEDIA: SDL_AMediaCodecJava_stop
+09-15 14:52:37.840 22345 23482 D SurfaceUtils: disconnecting from surface 0x7638405d2010, reason disconnectFromSurface
+09-15 14:52:37.843 22345 23486 I IJKMEDIA: SDL_AMediaCodecJava_delete
+09-15 14:52:37.844  1494  1539 D LDDec   : ~LDDec deinit 0xf5620780 0
+09-15 14:52:37.844  1494  1539 D         : freeChannelId holdpipe: 1
+09-15 14:52:37.845  1494  1539 I         : fastpipe: close connect
+09-15 14:52:37.852 22345 23486 I IJKMEDIA: MediaCodec: func_run_sync: exit: -1
+09-15 14:52:37.852 22345 23486 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23486]
+09-15 14:52:37.854 22345 23482 I         : fastpipe: close connect
+09-15 14:52:37.855 22345 23503 W IJKMEDIA: end wait for video_tid
+09-15 14:52:37.856 22345 23503 W IJKMEDIA: begin wait for video_refresh_tid
+09-15 14:52:37.856 22345 23503 W IJKMEDIA: end wait for video_refresh_tid
+09-15 14:52:37.856 22345 23503 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76388a362d00)
+09-15 14:52:37.856 22345 23503 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76388a362d00)
+09-15 14:52:37.856 22345 23503 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76387553d980)
+09-15 14:52:37.856 22345 23503 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76387553d980)
+09-15 14:52:37.856 22345 23503 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76387553db60)
+09-15 14:52:37.856 22345 23503 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76387553db60)
+09-15 14:52:37.856 22345 23503 W IJKMEDIA: ijkmp_shutdown_l()=void
+09-15 14:52:37.856 22345 23503 W IJKMEDIA: begin wait for ff_aout
+09-15 14:52:37.856 22345 23503 W IJKMEDIA: end wait for ff_aout
+09-15 14:52:37.856 22345 23503 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [23503]
+09-15 14:52:37.875 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.875 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.926 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.926 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:37.956 22345 22425 I NeoXDevice: On App CMD 22
+09-15 14:52:37.976 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:37.976 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.027 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.027 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.078 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.078 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.121 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:38.121 22345 22425 I [14:52:38.121] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002994 (maybe it timed out?)
+09-15 14:52:38.128 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.128 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.170 20424 20446 I Finsky:background: [329] Stats for Executor: bgExecutor ybv@e252710[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 28]
+09-15 14:52:38.171 20424 20446 I Finsky:background: [329] Stats for Executor: LightweightExecutor ybv@e18b209[Running, pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 20]
+09-15 14:52:38.179 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.179 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.230 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.230 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.280 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.280 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.331 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.331 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.381 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.381 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.393 20424 20446 I Finsky:background: [329] Stats for Executor: BlockingExecutor ybv@2b8bc0e[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 10]
+09-15 14:52:38.432 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.432 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.483 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.483 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.533 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.533 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.549 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:38.549 22345 22425 I [14:52:38.549] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002995 (maybe it timed out?)
+09-15 14:52:38.584 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.584 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.635 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.635 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.685 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.685 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.736 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.736 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.787 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.787 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.837 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.837 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.888 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.888 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.938 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.938 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:38.946 22345 22425 I NeoXDevice: On App CMD 23
+09-15 14:52:38.979 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:38.979 22345 22425 I [14:52:38.979] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002996 (maybe it timed out?)
+09-15 14:52:38.989 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:38.989 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.039 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.039 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.090 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.090 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.141 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.141 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.191 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.191 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.242 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.242 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.293 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.293 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.343 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.343 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.394 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.394 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.409 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:39.409 22345 22425 I [14:52:39.409] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002997 (maybe it timed out?)
+09-15 14:52:39.445 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.445 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.495 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.495 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.546 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.546 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.596 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.596 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.647 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.647 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.698 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.698 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.748 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.748 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.799 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.799 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.839 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:39.839 22345 22425 I [14:52:39.839] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002998 (maybe it timed out?)
+09-15 14:52:39.849 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.850 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.900 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.900 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:39.938 22345 22425 I NeoXDevice: On App CMD 24
+09-15 14:52:39.951 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:39.951 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.001 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.001 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.052 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.052 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.103 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.103 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.153 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.153 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.204 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.204 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.255 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.255 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.269 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:40.269 22345 22425 I [14:52:40.269] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00002999 (maybe it timed out?)
+09-15 14:52:40.294  1432  1432 I Binder:1432_2: type=1400 audit(0.0:8231): avc: denied { read write } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:shell:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 14:52:40.297 23506 23506 I screencap: type=1400 audit(0.0:8232): avc: denied { open } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:shell:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 14:52:40.297 23506 23506 I screencap: type=1400 audit(0.0:8233): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6864 scontext=u:r:shell:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 14:52:40.298 23506 23506 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-15 14:52:40.298 23506 23506 D vndksupport: Loading /vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so from current namespace instead of sphal namespace.
+09-15 14:52:40.299 23506 23506 D vndksupport: Loading /vendor/lib64/hw/gralloc.default.so from current namespace instead of sphal namespace.
+09-15 14:52:40.301 23506 23506 I         : fastpipe: Connect success
+09-15 14:52:40.302 23506 23506 I         : fastpipe: Connect success
+09-15 14:52:40.302 23506 23506 D HostConnection: HostRPC::connect sucess: app=screencap, pid=23506, tid=23506, this=0x763893ee4540
+09-15 14:52:40.303 23506 23506 D HostConnection: queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:screencap
+09-15 14:52:40.308 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.308 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.356 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.356 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.407 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.407 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.457 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.457 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.508 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.508 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.558 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.558 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.609 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.609 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.659 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.659 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.674  1573  1573 I system_server: type=1400 audit(0.0:8234): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6865 scontext=u:r:system_server:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 14:52:40.678 22345 22426 E threaded_app: event preDispatched
+09-15 14:52:40.678 22345 22426 E threaded_app: Failure reading next input event: Try again
+09-15 14:52:40.699 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:40.699 22345 22425 I [14:52:40.699] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000299a (maybe it timed out?)
+09-15 14:52:40.930 22345 22425 I NeoXDevice: On App CMD 25
+09-15 14:52:41.127 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:41.127 22345 22425 I [14:52:41.127] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000299b (maybe it timed out?)
+09-15 14:52:41.556 22345 22425 I         : WARNING ***************************************************************************
+09-15 14:52:41.556 22345 22425 I [14:52:41.556] M : [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000299c (maybe it timed out?)
+09-15 14:52:41.919 22345 22425 I NeoXDevice: On App CMD 26
+--------- beginning of system
+09-15 14:52:44.724  1492  1508 E storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+09-15 14:52:46.553 22345 22425 I         : 
+09-15 14:52:46.553 22345 22425 I         : ERROR *****************************************************************************
+09-15 14:52:46.553 22345 22425 I [14:52:46.553] M : [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-15 14:52:46.652 22345 22425 I         : 
+09-15 14:52:46.652 22345 22425 I         : ERROR *****************************************************************************
+09-15 14:52:46.652 22345 22425 I [14:52:46.652] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-15 14:52:46.677 22345 22425 D DCTOOL  : ntStart() queue size (1), current thread=457
+09-15 14:52:46.677 22345 22425 D DCTOOL  : ntStart() after so loaded, current thread=457
+09-15 14:52:46.677 22345 22425 D DCTOOL  : ntStart() with native and reset.
+09-15 14:52:46.678 22345 22425 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 14:52:46.686 22345 22425 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 14:52:46.686 22345 23508 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 14:52:46.686 22345 23508 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-15 14:52:46.686 22345 23508 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-15 14:52:46.711 22345 22345 I Thread-222: type=1400 audit(0.0:8235): avc: denied { open } for path="/proc/cpuinfo" dev="sdb2" ino=393324 scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:system_data_file:s0 tclass=file permissive=1
+09-15 14:52:46.711 22345 23508 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-15 14:52:46.717 22345 23508 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4822.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 14:52:46.717 22345 23508 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4822.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 14:52:46.717 22345 23508 D DCTOOL  : In C++, release the returned string. detach. 
+09-15 14:52:46.717 22345 23508 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 14:52:46.719 22345 23508 I DCTOOL  : OSVersion: 9
+09-15 14:52:46.719 22345 23508 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-15 14:52:46.719 22345 23508 I DCTOOL  : Serialno: 00c80dd8
+09-15 14:52:46.798 22345 22425 I [14:52:46.798] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1866457736
+09-15 14:52:46.996 22345 22425 I NeoXDevice: On App CMD 27
+09-15 14:52:48.247 22345 23508 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 14:52:48.247 22345 23508 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-15 14:52:48.247 22345 23508 D DCTOOL  :  NOT RUNNING TIME. 
+09-15 14:52:48.247 22345 23508 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-15 14:52:48.247 22345 23508 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-15 14:52:48.247 22345 23508 D DCTOOL  : OnToolCallback, current thread=724
+09-15 14:52:48.247 22345 23508 D DCTOOL  : onUploadID, current thread=724
+09-15 14:52:48.247 22345 23508 I DcTool  : NOT RUNNING TIME.
+09-15 14:52:48.247 22345 23508 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 14:52:52.069 20424 20563 I PlayCommon: [367] Preparing logs for uploading
+09-15 14:52:52.072 20424 20563 I PlayCommon: [367] Connecting to server for timestamp: https://play.googleapis.com/play/log/timestamp
+09-15 14:52:52.076 20424 20563 E PlayCommon: [367] Failed to connect to server for server timestamp: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 14:52:52.076 20424 20563 W PlayCommon: [367] No account for auth token provided
+09-15 14:52:52.078 20424 20563 I PlayCommon: [367] Connecting to server: https://play.googleapis.com/play/log?format=raw&proto_v2=true
+09-15 14:52:52.081 20424 20563 E PlayCommon: [367] Failed to connect to server for log upload.
+09-15 14:52:58.998 23517 23517 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-15 14:52:58.999 23517 23517 D vndksupport: Loading /vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so from current namespace instead of sphal namespace.
+09-15 14:52:58.999 23517 23517 D vndksupport: Loading /vendor/lib64/hw/gralloc.default.so from current namespace instead of sphal namespace.
+09-15 14:52:59.007 23517 23517 I         : fastpipe: Connect success
+09-15 14:52:59.012 23517 23517 I         : fastpipe: Connect success
+09-15 14:52:59.013 23517 23517 D HostConnection: HostRPC::connect sucess: app=screencap, pid=23517, tid=23517, this=0x763893ee4540
+09-15 14:52:59.014 23517 23517 D HostConnection: queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:screencap
+09-15 14:53:00.001  1573  1587 E memtrack: Couldn't load memtrack module
+09-15 14:53:00.001  1573  1587 W android.os.Debug: failed to get memory consumption info: -1
+09-15 14:53:00.001  1573  2569 W SchedPolicy: add_tid_to_cgroup failed to write '3658' (No space left on device); fd=24
+09-15 14:53:00.003  1573  3574 W SchedPolicy: add_tid_to_cgroup failed to write '3658' (No space left on device); fd=25
+09-15 14:53:00.004  1719  1719 I RenderThread: type=1400 audit(0.0:8236): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6869 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1

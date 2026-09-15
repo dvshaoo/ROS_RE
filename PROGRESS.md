@@ -44,7 +44,40 @@ The following gates must pass in order. Don't chase a later gate while an earlie
 1. Extract `entities/loginapp.pubkey` or RSA keys from assets / `libclient.so`.
 2. Construct minimal BigWorld Mercury handshake receiver on port 25000 (`loginapp`).
 3. Handle `ServerConnection::logOnBegin` Mercury bundle and reply with `LoginReplyRecord`.
+4. **[NEW 2026-09-15]** Live `/proc/<pid>/mem` read of the Mercury `Nub`'s
+   reply-tracking hashtable (`Nub+0x88` bucket array / `Nub+0x90` count) at
+   the moment `logOnBegin` sends each request, to find the client's REAL
+   reply-ID correlation key — two fresh live runs this pass (first time a
+   device was reachable for regression testing) both showed the existing
+   Attempt H responder (`mitm/local_baseapp_capture.py`, echoing request
+   wire offset `[5:7]`) failing 10/10 retries with `"Couldn't find handler
+   for reply id"`, contradicting the previously-recorded "CONFIRMED LIVE,
+   reproduced twice" status. See `07_ros_legacy_approach/END_TO_END_TEST_LOG.md`
+   TEST_ID E2E-001 for full evidence. This is now a MORE PRECISE blocker
+   than the already-known Blowfish-key issue, since the client no longer
+   reaches `onLoginReply` at all on a clean run.
+
+## 2026-09-15 Live Regression Pass (device reachable for the first time)
+- **Phase 1 (session/auth) — RECONFIRMED PASS, live, for the first time**:
+  `emulator-5554` reachable, existing iptables OUTPUT DNAT rules intact,
+  `mitm_serve.py`/`session_store.py` (commit `bbccdd3`) minted 3 distinct
+  `sess_<uuid4hex>` sessions during a real client PLAY-button tap; client
+  screenshot confirms Guest-logged-in title screen. Closes the
+  `PRIVATE_SERVER_ADAPTATION_PLAN.md` Phase-1 scorecard rows previously
+  marked "NOT VERIFIED THIS PASS — no device available".
+- **Phases 2-3 (server list -> LoginApp reachability) — RECONFIRMED PASS,
+  live**: client's 273-byte RSA-OAEP `LogOnParams` bundles do arrive at
+  `local_baseapp_capture.py`'s UDP :25000 responder, matching
+  `LOGONPARAMS_SERIALIZATION.md`'s established wire layout exactly.
+- **Phase 4/5 boundary (reply-ID correlation) — REGRESSION found, see
+  Next Steps item 4 above and `END_TO_END_TEST_LOG.md` E2E-001.**
+- **Phase 5 (Blowfish key) — NOT reached this pass**: the client did not
+  get past reply-ID correlation in either fresh run, so the already-known
+  Blowfish blocker (`06_notes/FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md`) could
+  not be re-examined live this pass; it remains exactly as previously
+  documented (CONFIRMED UNRESOLVED), just temporarily unreachable behind
+  the new, more precise reply-ID blocker.
 
 ---
-*Last updated: 2026-09-13*  
+*Last updated: 2026-09-15*  
 *Project: ROS_RE — reverse-engineering workspace (sariling RE, walang ibang project)*
