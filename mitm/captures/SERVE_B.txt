@@ -4816,3 +4816,62 @@
 10:38:42   -> SERVE root / (200 OK)
 10:38:42 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
 10:38:42   -> SERVE pharos_isp.txt
+11:17:29 REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+11:17:29   -> SERVE h45na_hc (empty hash check -> no patches)
+11:17:29 REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+11:17:29   -> SERVE T14-fixed plist (560 bytes)
+11:17:33 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+11:17:33   -> SERVE pharos_isp.txt
+11:17:33 REQ GET /v1 host=whoami.nie.easebar.com len=0
+11:17:33   -> SERVE whoami /v1
+11:17:34 REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+11:17:34   -> SERVE server_list_ad.txt (122 bytes)
+11:17:34 REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+11:17:34   -> SERVE server_list_ad.txt (122 bytes)
+11:17:34 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=329
+11:17:34   BODY b'{"keypoint": "requestServerList", "extraData": "{\\"success\\": true}", "time": 1789442254.7882929, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+11:17:34   -> SERVE root / (200 OK)
+11:17:34 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=288
+11:17:34   BODY b'{"keypoint": "channelLogin", "time": 1789442254.7934861, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+11:17:34   -> SERVE root / (200 OK)
+11:17:37 REQ GET /internalquery host=nstool.netease.com len=0
+11:17:37   -> SERVE internalquery
+11:17:38 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=821
+11:17:38   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"32","server_list_host":"g61.update.easebar.com","ip_server_list_host":"2405:3200:500:18f::f4d","channel_name":"netease_global","start_time":"1789442258","finish_time":"1789442258","url":"g61.update.easebar.com/pl/npk_version_na_android.plist","push_time":"1789442258","device_model":"22081212C","download_id":"2fef612359b34273b5e356a6a35eaa0f","projec
+11:17:38 REQ GET /internalquery host=nstool.netease.com len=0
+11:17:38   -> SERVE internalquery
+11:17:38 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=620
+11:17:38   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789442258","finish_time":"1789442258","push_time":"1789442258","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"54","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4812.6","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed"
+11:17:38 REQ GET /internalquery host=nstool.netease.com len=0
+11:17:38   -> SERVE internalquery
+11:17:38 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+11:17:38   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789442258","finish_time":"1789442258","push_time":"1789442258","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4812.6","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+11:17:43 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+11:17:43   -> SERVE notice (30 bytes)
+11:17:43 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+11:17:43   -> SERVE notice (30 bytes)
+11:17:43 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=538
+11:17:43   BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789442264.4754729, "platform": "ad", "device_id": "", "sdk_version": "", "uid": "", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "
+11:17:43   -> SERVE root / (200 OK)
+11:18:06 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+11:18:06   -> SERVE notice (30 bytes)
+11:18:06 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+11:18:06   -> SERVE notice (30 bytes)
+11:18:06 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+11:18:06   BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789442287.315763, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+11:18:06   -> SERVE root / (200 OK)
+11:18:06 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=572
+11:18:06   BODY b'{"keypoint": "channelLoginSuc", "extraData": "{\\"code\\": 0}", "time": 1789442287.3238261, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.
+11:18:06   -> SERVE root / (200 OK)
+11:18:14 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+11:18:14   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 2}", "time": 1789442295.3141079, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+11:18:14   -> SERVE root / (200 OK)
+11:18:14 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+11:18:14   -> SERVE pharos_isp.txt
+11:18:15 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+11:18:52 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+11:18:52 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+11:18:52   -> SERVE pharos_isp.txt
+11:18:52 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+11:18:52   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 2}", "time": 1789442332.5447559, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+11:18:52   -> SERVE root / (200 OK)
