@@ -6268,3 +6268,55 @@
 20:08:33   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789474113","finish_time":"1789474113","push_time":"1789474113","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.120481967926",
 20:08:34 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
 20:08:34 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+20:12:55 T14-complete plist: 560 bytes
+20:12:55 T18 server_list_ad.txt: 122 bytes
+20:13:06 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+20:13:06   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789474386.6715021, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "20122eb359784a89bb67405d8b705e07", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+20:13:06   -> SERVE root / (200 OK)
+20:13:06 REQ GET /internalquery host=nstool.netease.com len=0
+20:13:06   -> SERVE internalquery
+20:13:06 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+20:13:06   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789474386","finish_time":"1789474386","push_time":"1789474386","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.125701189041",
+20:13:06 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=702
+20:13:06   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789474131","finish_time":"1789474132","push_time":"1789474131","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a41
+20:13:08 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:09 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=582
+20:13:09   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789474389.419111, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "20122eb359784a89bb67405d8b705e07", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_versi
+20:13:09   -> SERVE root / (200 OK)
+20:13:09 REQ GET /internalquery host=nstool.netease.com len=0
+20:13:09   -> SERVE internalquery
+20:13:09 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+20:13:09   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789474389","finish_time":"1789474389","push_time":"1789474389","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.131943941116",
+20:13:10 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:10 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:12 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=582
+20:13:12   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789474392.567153, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "20122eb359784a89bb67405d8b705e07", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_versi
+20:13:12   -> SERVE root / (200 OK)
+20:13:12 REQ GET /internalquery host=nstool.netease.com len=0
+20:13:12   -> SERVE internalquery
+20:13:12 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+20:13:12   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789474392","finish_time":"1789474392","push_time":"1789474392","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.102648019791",
+20:13:13 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:13 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:14 REQ GET /internalquery host=nstool.netease.com len=0
+20:13:14   -> SERVE internalquery
+20:13:15 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=752
+20:13:15   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789474393","finish_time":"1789474394","push_time":"1789474393","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a41
+20:13:15 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+20:13:15   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789474395.7550311, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "20122eb359784a89bb67405d8b705e07", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+20:13:15   -> SERVE root / (200 OK)
+20:13:15 REQ GET /internalquery host=nstool.netease.com len=0
+20:13:15   -> SERVE internalquery
+20:13:15 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+20:13:15   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789474395","finish_time":"1789474395","push_time":"1789474395","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.133039951324",
+20:13:16 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:16 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:19 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=582
+20:13:19   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789474399.167881, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "20122eb359784a89bb67405d8b705e07", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_versi
+20:13:19   -> SERVE root / (200 OK)
+20:13:19 REQ GET /internalquery host=nstool.netease.com len=0
+20:13:19   -> SERVE internalquery
+20:13:19 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+20:13:19   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789474399","finish_time":"1789474399","push_time":"1789474399","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.132607936859",
+20:13:20 REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+20:13:20 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0

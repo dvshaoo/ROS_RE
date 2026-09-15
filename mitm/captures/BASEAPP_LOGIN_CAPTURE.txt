@@ -1758,3 +1758,294 @@
 20:08:36 BASEAPP KEYSCAN: no key distinct from LoginApp's (b2525a3c) found for ('127.0.0.1', 63076) (candidates: []) -- key is likely SHARED, not separate
 20:08:36 BASEAPP KEYSCAN: done in 11.55s, found 0 candidate object(s), 0 distinct key(s): []
 20:08:36 BASEAPP KEYSCAN: no key distinct from LoginApp's (b2525a3c) found for ('127.0.0.1', 60699) (candidates: []) -- key is likely SHARED, not separate
+20:12:55 === local_baseapp_capture START ===
+20:12:55 === HTTP plain :80 ===
+20:12:55 === HTTP TLS :443 ===
+20:12:55 === HTTP TLS :8443 ===
+20:12:55 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+20:12:55 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+20:12:55 All listeners started. Waiting...
+20:13:06 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51803
+20:13:06   HEX: 0100000401b30e010000002b00000063ee5ab9189a997b5bb906ae88759a386ac822e1df1a7702c479f2f115065e8a302ba0969f2c0187e3f33174bc13f37761d850f49184118d39146f5ff7f1f64b09f87bccd10bd33d118c78e53488e7721f63d9b0f558aef85bbc675f4ec191267c9a8e524b298ecec51b31f05af0fc22105da11959165557e445fc5ecf65e5e91a6f7472d44a481400e11372fc4dd4d0aefc251304ec67b6cc1bd90a13ffa78eba9aa088289f03a680455d41d1649f0579f8d578e5462a6e0ac54d0f3ed307b9b748350e944b9b435fcf75bc30e75135dc42d989bc95900cb2049299ffd36a47dae8bbeecec1bdccb8715745f9492c46fa9c699b404fce7f8b52c56d12cb842b0200
+20:13:06 ATTEMPT_H-shape (20-byte body): replyID=0x00010eb3 status=1 + 20-byte body, length=25
+20:13:06 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:13:06 ATTEMPT_I (default): replyID=0x00010eb3 status=1 + 24-byte ENCRYPTED body, length=29
+20:13:06 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51803: 0100ff1d000000b30e010001f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:13:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51804 ***
+20:13:06   HEX: 0100000b00848b00000000ac100102010000001400000200
+20:13:06   ASCII: b'\x01\x00\x00\x0b\x00\x84\x8b\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:13:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00008b84 key=b2525a3c (16 bytes): 2bf8c0881193cfda91ba8364a26d6097
+20:13:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51804 ***
+20:13:06   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:06   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:06 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51804 ***
+20:13:06   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e681d4fcb785ac873a
+20:13:06   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x81\xd4\xfc\xb7\x85\xac\x87:'
+20:13:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:06 BASEAPP KEYSCAN: pid=9754 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 21 regions...
+20:13:06 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51804 ***
+20:13:06   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e681d4fcb785ac873a
+20:13:06   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x81\xd4\xfc\xb7\x85\xac\x87:'
+20:13:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:06 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51804 ***
+20:13:06   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e681d4fcb785ac873a
+20:13:06   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x81\xd4\xfc\xb7\x85\xac\x87:'
+20:13:06 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:06 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:07 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51804 ***
+20:13:07   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e681d4fcb785ac873a
+20:13:07   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x81\xd4\xfc\xb7\x85\xac\x87:'
+20:13:07 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:07 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51804 ***
+20:13:07   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:07   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:07 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:07 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:09 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51805
+20:13:09   HEX: 0100000401b40e010000002b0000005706202ec2e045cfea594a463814902198f1fa41f0ba8c101e1d6f0f11d05ec21b4b91e557b620456f7a38dbfe3da4bf6345413fc62325f3fbc952410ae0b211ff451adb84f127fa4f47cca01a01b8c66929b31eb6ec154dfbd960859f6679a59e53f541db5fd9bdc2807effd7d12c43af26ddfcabcefcdd9e88273e0c43b57928d46b2b5c604a3fce10aaad999b954846088a4cc199c0ae8f00eaf595ec79d5dbdba0e13f28743213fe1dd25e25e1254536fd2103f3a88e10927db8178dae0c48387d7b3f940e264eacd347b55d388c9ce7f73a0af8ef517bc439f05f3cd1578ac54ada7db7810c448529f9b339f56307415422d05d37ab9934ed9564859cd90200
+20:13:09 ATTEMPT_H-shape (20-byte body): replyID=0x00010eb4 status=1 + 20-byte body, length=25
+20:13:09 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:13:09 ATTEMPT_I (default): replyID=0x00010eb4 status=1 + 24-byte ENCRYPTED body, length=29
+20:13:09 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51805: 0100ff1d000000b40e010001f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:13:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: 0100000b00609401000000ac100102010000001400000200
+20:13:09   ASCII: b'\x01\x00\x00\x0b\x00`\x94\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00019460 key=b2525a3c (16 bytes): 00fbfe9cfbe6b0344d15d6c741d609c8
+20:13:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:09   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:09 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:09   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:09 BASEAPP KEYSCAN: pid=9754 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 21 regions...
+20:13:09 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:09   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:09 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:09   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:09 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:09   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:09   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:09 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:09   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:09   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:09 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:09 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:10 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:10   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:10   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:10 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:10 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:10 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51806 ***
+20:13:10   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e67359d642c15d063d
+20:13:10   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6sY\xd6B\xc1]\x06='
+20:13:10 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:10 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:12 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51807
+20:13:12   HEX: 0100000401b50e010000002b00000024c2072af1f8f52cab631c7225ab640174925e52e1cfcbe6fd697230cf034bb2965b678ae31002e087398226d5ba6138065e83738aaeb98e58dd73575e248bef0864af2b9af3d53897d31ed65a57c9e3684f6d053b186eaa036915ceb35d18c537dd4afe0d3c8ae6c1df8f2da427e3d8617648a195c86bb47b8b591ef0b0326278221116defaabafd981f6fb7ee39040f903ef8f09a2ac8c794ce7f1ea397a66dfe08de8d8c841233a0c42dde355666c2feafb3fc23d9269f7b9131610d9206cf1dd0d673a3df1a91e61ab9abce5417198b53edb848e163b754c41d151b0b3bb74d892ed445776e960aa435c909afb6bc8dc379d33a06a6813c9585cc38c13810200
+20:13:12 ATTEMPT_H-shape (20-byte body): replyID=0x00010eb5 status=1 + 20-byte body, length=25
+20:13:12 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:13:12 ATTEMPT_I (default): replyID=0x00010eb5 status=1 + 24-byte ENCRYPTED body, length=29
+20:13:12 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51807: 0100ff1d000000b50e010001f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:13:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51808 ***
+20:13:12   HEX: 0100000b00b3f900000000ac100102010000001400000200
+20:13:12   ASCII: b'\x01\x00\x00\x0b\x00\xb3\xf9\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:13:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000f9b3 key=b2525a3c (16 bytes): 57a729381f44eaf90a771e8f8ad38a19
+20:13:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51808 ***
+20:13:12   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:12   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51808 ***
+20:13:12   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e6bb1a046f38fd25f6
+20:13:12   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\xbb\x1a\x04o8\xfd%\xf6'
+20:13:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:12 BASEAPP KEYSCAN: pid=9754 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 21 regions...
+20:13:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51808 ***
+20:13:12   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e6bb1a046f38fd25f6
+20:13:12   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\xbb\x1a\x04o8\xfd%\xf6'
+20:13:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:12 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51808 ***
+20:13:12   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e6bb1a046f38fd25f6
+20:13:12   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\xbb\x1a\x04o8\xfd%\xf6'
+20:13:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51808 ***
+20:13:12   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:12   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:12 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:12 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:13 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51808 ***
+20:13:13   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e6bb1a046f38fd25f6
+20:13:13   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\xbb\x1a\x04o8\xfd%\xf6'
+20:13:13 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:13 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:13 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51808 ***
+20:13:13   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e6bb1a046f38fd25f6
+20:13:13   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\xbb\x1a\x04o8\xfd%\xf6'
+20:13:13 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:13 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:13 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51808 ***
+20:13:13   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e6bb1a046f38fd25f6
+20:13:13   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\xbb\x1a\x04o8\xfd%\xf6'
+20:13:13 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:13 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:13 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51808 ***
+20:13:13   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:13   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:13 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:13 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:15 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51809
+20:13:15   HEX: 0100000401b60e010000002b000000534cc4db81f4453ea5d22f908c105f11bb32a7e70714efbccd0795b99788adcbe67e0b862f3f8b85838d8f0452c3dcda9e90bca6cfebe2223a7d569a63c1f93c2a338392b7fb700d2bdd66fa0998c22f201865c8463b536e9be8793f1899aae712bc4041230f016481b0affc75115df10916b96473005904e67bfaeb83951da36b4258fe2239797835ec0185e895c82ac8d13645c470c1f553acd81bdbf964ed7d52c09060a23561ea907662f16d7e60d2a63e7c0309c71d5742e039a5cf816d72e9769e323646ff86affb9c1c19f01ede4519d62094137211733ba77c9c4ba55a09c2ef72bc0b505897878a22c6922f246d2fc641a1b3207b7cce8ec04c82b40200
+20:13:15 ATTEMPT_H-shape (20-byte body): replyID=0x00010eb6 status=1 + 20-byte body, length=25
+20:13:15 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:13:15 ATTEMPT_I (default): replyID=0x00010eb6 status=1 + 24-byte ENCRYPTED body, length=29
+20:13:15 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51809: 0100ff1d000000b60e010001f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:13:15 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51810 ***
+20:13:15   HEX: 0100000b00c19801000000ac100102010000001400000200
+20:13:15   ASCII: b'\x01\x00\x00\x0b\x00\xc1\x98\x01\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:13:15 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:15 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000198c1 key=b2525a3c (16 bytes): 1299698d47321cde4d917cce46af727b
+20:13:15 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51810 ***
+20:13:15   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:15   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:15 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:15 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:15 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51810 ***
+20:13:15   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e69339f402e736d8b0
+20:13:15   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x939\xf4\x02\xe76\xd8\xb0'
+20:13:15 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:15 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:15 BASEAPP KEYSCAN: pid=9754 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 21 regions...
+20:13:15 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51810 ***
+20:13:15   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e69339f402e736d8b0
+20:13:15   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x939\xf4\x02\xe76\xd8\xb0'
+20:13:15 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:15 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:15 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51810 ***
+20:13:15   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e69339f402e736d8b0
+20:13:15   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x939\xf4\x02\xe76\xd8\xb0'
+20:13:15 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:15 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:16 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51810 ***
+20:13:16   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e69339f402e736d8b0
+20:13:16   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x939\xf4\x02\xe76\xd8\xb0'
+20:13:16 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:16 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:16 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51810 ***
+20:13:16   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:16   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:16 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:16 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:16 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51810 ***
+20:13:16   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e69339f402e736d8b0
+20:13:16   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x939\xf4\x02\xe76\xd8\xb0'
+20:13:16 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:16 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:16 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51810 ***
+20:13:16   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e69339f402e736d8b0
+20:13:16   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe6\x939\xf4\x02\xe76\xd8\xb0'
+20:13:16 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:16 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:16 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51810 ***
+20:13:16   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:16   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:16 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:16 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:18 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:50833
+20:13:18   HEX: 0100000401b70e010000002b0000007487b91f9d48968d410d3acf6f5b819ecaeb9618d9f92e0b6a7761c6ea738c5daf28ec164e284567684ade215eb11d82c0d1f4ffc85834e522693003c7dbca14f771b83de3de0faa78aa9227f6457aa519a0998c0db6234faf5621733e9bba4f56c4a003fc0f19d78c03f29af038ecbb9637f6bd0052550cd25766db25a7622081c6f182feb4a10870ca1eb8726a203ae7f8f35de4885accadcf2840656ab87c4dd2db22b8068005eaee6a03dd5facc1d024e8656349a8f8a0f9e85daefc345900a5c406e1b3a7a4a0e38fbf30e52a0d5ea325e0db9e4e0ef952b3497680756ffe77d929d6a478ffaac875b596c451947f7ff05930ec97069e66c88c907ba89e0200
+20:13:18 ATTEMPT_H-shape (20-byte body): replyID=0x00010eb7 status=1 + 20-byte body, length=25
+20:13:18 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:13:18 ATTEMPT_I (default): replyID=0x00010eb7 status=1 + 24-byte ENCRYPTED body, length=29
+20:13:18 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:50833: 0100ff1d000000b70e010001f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:13:18 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:50834 ***
+20:13:18   HEX: 0100000b00bc7900000000ac100102010000001400000200
+20:13:18   ASCII: b'\x01\x00\x00\x0b\x00\xbcy\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+20:13:18 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:18 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x000079bc key=b2525a3c (16 bytes): 61a01bfca2e53cde17d680d26acbc380
+20:13:18 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:50834 ***
+20:13:18   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:18   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:18 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:18 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:19 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:19   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:19 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:19   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:19 BASEAPP KEYSCAN: pid=9754 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 21 regions...
+20:13:19 BASEAPP KEYSCAN: done in 12.89s, found 0 candidate object(s), 0 distinct key(s): []
+20:13:19 BASEAPP KEYSCAN: no key distinct from LoginApp's (b2525a3c) found for ('127.0.0.1', 51804) (candidates: []) -- key is likely SHARED, not separate
+20:13:19 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:19   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:19 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:19   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:19 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: ca921cf33d229aa7812865a4fccf6f51176e4b2581576818
+20:13:19   ASCII: b'\xca\x92\x1c\xf3="\x9a\xa7\x81(e\xa4\xfc\xcfoQ\x17nK%\x81Wh\x18'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x1c corr=0x81a79a22 key=b2525a3c (16 bytes): 26d301623a231726c1eae08ee35aaa33
+20:13:19 BASEAPP KEYSCAN: done in 10.45s, found 0 candidate object(s), 0 distinct key(s): []
+20:13:19 BASEAPP KEYSCAN: no key distinct from LoginApp's (b2525a3c) found for ('127.0.0.1', 51806) (candidates: []) -- key is likely SHARED, not separate
+20:13:19 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:19   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:19 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:19   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:19   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:19 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:19 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:20 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:50834 ***
+20:13:20   HEX: b193f3668d8010938b13e1c3d2920abb4c2e14acb41598e630af10b941a95c29
+20:13:20   ASCII: b'\xb1\x93\xf3f\x8d\x80\x10\x93\x8b\x13\xe1\xc3\xd2\x92\n\xbbL.\x14\xac\xb4\x15\x98\xe60\xaf\x10\xb9A\xa9\\)'
+20:13:20 BASEAPP: encrypted WHOLE 16-byte (padded) reply with key=b2525a3c mode=pc_variant
+20:13:20 BASEAPP UDP SENT whole-packet-encrypted ack for method=0xf3 corr=0x8b931080 key=b2525a3c (16 bytes): 016a3e41bf98d36d6386bd0f2ab10516
+20:13:22 BASEAPP KEYSCAN: done in 3.15s, found 0 candidate object(s), 0 distinct key(s): []
+20:13:22 BASEAPP KEYSCAN: no key distinct from LoginApp's (b2525a3c) found for ('127.0.0.1', 50834) (candidates: []) -- key is likely SHARED, not separate
+20:13:22 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:60110
+20:13:22   HEX: 0100000401b80e010000002b000000a5e9d3b4535571c51516a326dd67cf7ceed1cd351c2a7a5fe42c244fb9a8c30fbeee3d0868b2e8b5faf84939eac237f05e89fc4d09acf355e50656c95630f77b8b9561553815a1682124954275c2a2f3303261b024f8bedf644426d8cdfbe49a87303bcd0641a26d144bf0f3a3df885136e85f2cc5a06773ba79daf76469c781a93e98b4c0bdb359b240dff26f43d2217352d68148511e29783dc48ff23888997323e55a577ca30a392f16cf0a500d9669662fea2db730487b2891eeb0ea8e5c30ca73f9690da5c3d5d714bee3dca5a6b8ce1328b107073c1ef7e97e20e3ce53cf01373e7b2b58cbf506eb9bc0cb026ad0c7f66ebf65de3ad2a5932ff2c75b100200
+20:13:22 ATTEMPT_H-shape (20-byte body): replyID=0x00010eb8 status=1 + 20-byte body, length=25
+20:13:22 ATTEMPT_L: encrypted 24-byte body with Blowfish key=b2525a3c mode=pc_variant -> f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b
+20:13:22 ATTEMPT_I (default): replyID=0x00010eb8 status=1 + 24-byte ENCRYPTED body, length=29
+20:13:22 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:60110: 0100ff1d000000b80e010001f76b95f357e02344ce55c31183644aaf96d2b4e754430f6b0000
+20:13:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:60111 ***
+20:13:22   HEX: 0100000b00bc1601000000ac100102010000001400000200
