@@ -4875,3 +4875,15 @@
 11:18:52 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
 11:18:52   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 2}", "time": 1789442332.5447559, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
 11:18:52   -> SERVE root / (200 OK)
+11:48:24 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+11:48:24   -> SERVE pharos_isp.txt
+11:48:24 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+11:48:24   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 2}", "time": 1789444104.4963291, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+11:48:24   -> SERVE root / (200 OK)
+11:48:32 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+11:48:32   -> SERVE notice (30 bytes)
+11:48:32 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+11:48:32   -> SERVE notice (30 bytes)
+11:48:32 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=578
+11:48:32   BODY b'{"keypoint": "requestSysNotice", "extraData": "{\\"success\\": true}", "time": 1789444113.365062, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2fef612359b34273b5e356a6a35eaa0f", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version":
+11:48:32   -> SERVE root / (200 OK)
