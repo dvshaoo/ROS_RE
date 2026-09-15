@@ -1207,5 +1207,249 @@ Client process (`PID 9754`) remained healthy throughout, confirmed via
    interpretation of results).
 
 ---
+
+## TEST_ID: E2E-012
+- **DATE**: 2026-09-15 (same day, twelfth pass), per the coordinator's
+  two-part instruction: (1) investigate the E2E-011 "20+ second retry"
+  secondary observation before continuing multi-packet tests; (2) retry
+  the BaseApp-key search with a narrower scope (small regions first) and
+  an earlier trigger point.
+
+### 1. "20+ second retry" investigation — RESOLVED, not caused by two packets
+Re-ran E2E-011's exact scenario with `ATTEMPT_CREATEBASEPLAYER=0` (ack
+only, single packet, otherwise identical). **Result: the SAME extended
+retry behavior occurs with only ONE packet** — 46 repeats of
+`Bundle::iterator::unpack( authenticate ): Not enough data...` spanning
+20:13:06 to past 20:13:20 (13.6+ seconds), no `logOnComplete` reached
+within the 15s observation window. This **cleanly refutes** the
+hypothesis that sending two packets (ack + createBasePlayer) caused or
+contributed to the longer retry window — it happens identically with a
+single packet. **Revised understanding**: this long-lived test process
+(`PID 9754`, alive continuously across this entire multi-hour session
+and dozens of prior connection attempts) most likely has accumulated
+some internal state (e.g. a growing retry/backoff counter, or altered
+GC/heap timing) that changes the client's own retry cadence over the
+session's lifetime, independent of anything this project's server sends.
+Not investigated further (out of scope of the two-packet question asked)
+— flagged as a possible confound for future timing-sensitive tests on
+this same long-lived process, with a suggested mitigation (fresh app
+restart) noted in NEXT_ACTION.
+
+### 2. Narrower + earlier BaseApp-key scan — three live attempts, consistent negative result
+Implemented two improvements to `find_baseapp_key_async` in
+`mitm/local_baseapp_capture.py`:
+- **Small-regions-first**: split heap-tagged regions at a 16MB cutoff,
+  scan the 19 small (2-10MB) regions first (fast, ~2s total, matching
+  `EncryptionFilter`'s tiny ~0x38-byte actual size and allocator
+  size-class segregation), only falling back to the 2 huge (161-277MB)
+  regions if nothing turns up small.
+- **Earlier trigger**: start a scan as soon as the LoginApp reply is
+  sent (not waiting for the first `baseAppLogin` packet), on the theory
+  that this shrinks the window before the target object could be
+  constructed. **First live attempt with this alone: 0 candidates found
+  anywhere** — root cause understood immediately: the scan fired and
+  completed BEFORE the client had even received/decrypted the reply,
+  let alone reached `Nub::recreateListeningSocket` for the new BaseApp
+  socket, so the object being searched for did not exist yet at scan
+  time. **Fixed**: added a 0.25s delay before the early scan starts, and
+  kept the early and per-connection triggers as two INDEPENDENT dedup
+  sets (`_early_scan_hosts` vs `_key_scan_started`) rather than one
+  blocking the other, so both differently-timed attempts get a chance.
+
+**Result after both fixes, three consecutive live test runs**:
+**consistently 0 candidates found, across every scan (roughly 10
+independent scan invocations total this pass, both early and
+per-connection, both small-region and large-region phases)** — not just
+failing to find a SECOND (BaseApp-specific) key, but failing to find
+even the ORIGINAL LoginApp `EncryptionFilter` object that earlier
+passes (E2E-006/007) found reliably via this exact same vtable-pointer
+pattern and `libclient.so` base address (unchanged: `base=0x3310000`
+every run). **INFERRED**: this is most plausibly explained by the test
+process's now very long uptime (`PID 9754`, continuously alive across
+this entire multi-hour session and dozens of connection attempts) having
+degraded the scan's reliability in some way not fully understood — e.g.
+heap fragmentation/compaction moving the object out of the regions this
+project's `/proc/pid/maps` snapshot captures, or the object's lifetime
+having genuinely ended (LoginApp's connection object graph being torn
+down once BaseApp takes over) — rather than proof that no such object
+(of either kind) exists at all. This is a **genuinely different,
+weaker-evidence result than E2E-009** (which at least found candidate
+matches, just couldn't verify them reliably) — a regression in the
+technique's applicability to this specific aged process, not a
+strengthened negative finding about the key-mismatch hypothesis itself.
+
+### RESULT
+- Two-packet timing confound: **ruled out** (same behavior with one
+  packet).
+- Narrower/earlier scan: implemented correctly (fast small-region check
+  confirmed working, ~2s), but the underlying technique itself is no
+  longer finding ANY `EncryptionFilter` object on this long-lived test
+  process — a process-age/heap-state confound now confirmed to affect
+  even the previously-reliable LoginApp-side lookup, not just the
+  BaseApp-side search this pass targeted.
+- Did not reach Account, Avatar, or Lobby this pass. `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. **Fresh app restart recommended before the next live attempt at this
+   technique.** `PID 9754` has now been continuously alive and exercised
+   through dozens of connection attempts across this entire session;
+   restarting the app (fresh process, fresh heap, fresh ASLR-irrelevant-
+   but-otherwise-clean state) would give the memory-scan approach a fair
+   retest without the accumulated-state confound this pass surfaced. Use
+   `adb install -r`-safe practices / do not uninstall (OBB-deletion risk,
+   per this project's own established lesson) — a plain app restart
+   (force-stop + relaunch) is sufficient and does not touch the APK/OBBs.
+2. If a fresh process ALSO shows 0 candidates for even the LoginApp-side
+   object, that would be a much stronger signal the technique itself
+   needs re-validation (e.g. re-confirming the vtable constant
+   `0x37dd3a0` is still correct for this exact `libclient_arm64.so`
+   build) rather than continuing to treat it as environmental.
+3. Both scan-pipeline improvements from this pass (small-region-first,
+   early+per-connection dual trigger) are kept as genuine, reusable
+   improvements regardless of this pass's inconclusive result — they
+   measurably reduced scan latency (small-region phase: ~2s vs. the
+   3-13s+ per large region from E2E-009) and should carry forward to the
+   next attempt.
+
+### 3. MAJOR BREAKTHROUGH: BaseApp channel key CONFIRMED SHARED with LoginApp — via a fourth scan-pipeline bug fix
+While investigating why NEITHER key (LoginApp's nor a hypothetical BaseApp
+one) could be found on the fresh process, did a fresh app restart (`am
+force-stop` + `monkey` relaunch, new `PID 17255`, no uninstall — OBB-safe
+per this project's established practice) to rule out the long-lived-
+process confound flagged in NEXT_ACTION above. On the fresh process, a
+manual re-run of the (still small-region/large-region-split) scan found
+**one exact 8-byte vtable match**, but `_read_key_at`'s SEPARATE follow-up
+`dd` read at that address showed unrelated bytes yet again — the SAME
+"found then vanishes" symptom as every prior attempt.
+
+**Fourth bug found and fixed**: the two-step "grep confirms existence,
+then transfer+search, THEN issue a SEPARATE dd read for just the key
+bytes" design has an inherent race — even though the exact-match VA came
+from a real download, a subsequent independent `dd` call moments later
+can observe genuinely different memory content (real churn, not a
+location bug, confirmed by the earlier E2E-009/E2E-012 attempts always
+finding *some* plausible-looking-but-wrong object at the reported
+address rather than garbage-looking bytes). **Fix**: extract the key
+bytes directly from the SAME already-downloaded region snapshot the
+match was found in (`data[idx+0x10 : idx+0x10+24]`), eliminating the
+second round-trip entirely. Refactored the SSO-string-parsing logic into
+a shared `_parse_sso_key()` used by both the new single-read path and
+the old `_read_key_at()` (kept for any other future one-off use).
+
+**Result, immediately verified live and reproduced repeatedly (10+
+independent scans across multiple test runs)**: the scan now reliably
+extracts a **valid, consistent 4-byte key** (`614742b4` for `PID 17255`)
+— live-verified correct by using it as `BFKEY_HEX` for a fresh LoginApp
+attempt: `checkScriptBaseAppAddr` decoded the CORRECT
+`172.16.1.2:25010` address again. Re-running the async BaseApp-channel
+scan against the SAME live connection found **the identical key,
+`614742b4`, repeatedly** (7+ separate scan invocations, sometimes
+finding multiple candidate object addresses clustered together, ALL
+reporting the same key value) — **CONFIRMED, not merely
+STRONGLY-SUPPORTED**: the BaseApp channel's `EncryptionFilter` uses the
+**SAME key as LoginApp's**, directly overturning the E2E-008 "separate
+key" hypothesis, which was based on data from the since-fixed buggy
+two-step read path.
+
+### 4. New hypothesis: shared chaining STATE, not just shared key value
+Since the key is confirmed shared, decrypt still failing for BaseApp
+messages with the correct key suggests the two channels may share the
+literal SAME `EncryptionFilter` OBJECT (not just a coincidentally equal
+key), meaning `pc_variant`'s "previous plaintext block" chaining state
+would carry over from the last LoginApp message's last block rather than
+resetting to IV=0 for the "new" BaseApp channel. Implemented: `bf_encrypt()`
+now accepts an `iv` override; `mitm/local_baseapp_capture.py` tracks each
+host's last-sent LoginApp-reply plaintext block
+(`_last_plain_block_by_host`) and chains the BaseApp ack and
+`createBasePlayer` push from it instead of assuming IV=0.
+
+**NOT YET LIVE-TESTED** — see Environment Incident below, which
+interrupted testing before this specific fix could be verified against
+the live client.
+
+### Environment Incident: emulator ANR / graphics-subsystem hang, likely caused by this project's own repeated malformed-packet test traffic
+Immediately after implementing the chain-IV fix, the coordinator flagged
+(via the user, using a different concurrent tool -- Antigravity IDE --
+also actively testing against this same shared `emulator-5554`) a
+"System UI isn't responding" ANR dialog observed via screenshot.
+Investigation (CONFIRMED, not guessed):
+- `top -n 1 -b` showed `com.netease.chiji` (`PID 17255`) pegged at
+  **96-100% CPU sustained** while sitting idle at the title screen —
+  abnormal. **INFERRED, well-supported**: this project's own repeated
+  live tests this pass (many rapid connection attempts, each producing
+  extensive `Bundle::iterator::unpack`/`bad flags` error-log spam, per
+  the still-not-fully-explained E2E-011/E2E-012 extended-retry
+  behavior) most plausibly drove the client into a sustained
+  error-logging/retry spin on its main thread, starving the rest of the
+  system (SurfaceFlinger, WindowManager) of CPU and causing the observed
+  ANR. Not proven to be the sole or first cause (another concurrent
+  tool's own testing on the same shared device is a real, acknowledged
+  alternative/contributing factor per the coordinator's own note), but
+  directly supported by the CPU measurement.
+- `adb shell screencap` and `dumpsys window` both hung/timed out
+  (`exit 124`) repeatedly, even minutes apart. `adb shell` itself,
+  `getprop`, `pidof`, and `logcat` all remained fully responsive
+  throughout — the hang is specific to the graphics/`SurfaceFlinger`/
+  GPU-passthrough path (LDPlayer's host-rendered GLES pipeline via
+  `HostConnection`), not a total device freeze.
+- **Remediation taken**: stopped this project's own test server
+  immediately (no further packets sent). `am force-stop` on the game
+  itself also hung (`exit 124`) — likely ActivityManager contending on
+  the same resource — so used `su 0 kill -9 17255` directly, which
+  succeeded. CPU immediately returned to ~0% (397/400% idle). **However,
+  `screencap` continued to hang even several seconds after CPU returned
+  to idle** — the graphics subsystem did not self-recover just from the
+  CPU pressure being relieved, suggesting a genuinely stuck/wedged state
+  in the (likely host-side, LDPlayer-virtualized) GPU passthrough layer,
+  not merely a starved-but-healthy process.
+- **`iptables` DNAT rules confirmed intact and unmodified** (re-checked
+  after the incident) — no evidence the other concurrent tool altered
+  this project's own network setup; the two tools' activity does not
+  appear to have directly conflicted at the network-config level, only
+  (possibly) at the shared-CPU-resource level.
+- **Not attempted**: a full emulator reboot/restart. Per the task's own
+  standing instruction and the coordinator's specific caution this pass,
+  unilaterally restarting shared infrastructure that another concurrent
+  tool is actively using is a decision this pass deliberately did NOT
+  make unilaterally — flagged here as requiring human awareness/decision
+  instead.
+
+### RESULT
+- **Two-packet timing confound**: ruled out (§1, same behavior with one
+  packet).
+- **Narrower/earlier scan infrastructure**: implemented correctly (§2).
+- **BaseApp-channel key**: **CONFIRMED SHARED with LoginApp's** — a
+  genuine, well-evidenced, MAJOR update to this project's understanding,
+  reached only after finding and fixing a fourth scan-pipeline bug
+  (single-atomic-read vs. racy two-step read).
+- **Chain-IV hypothesis**: implemented, NOT yet live-verified due to the
+  environment incident cutting testing short.
+- Did not reach Account, Avatar, or Lobby this pass. `CLIENT_MODIFIED: NO`.
+- **New standing risk noted**: this project's own live-test traffic can
+  apparently drive the client into a CPU-pegging spin state under
+  repeated malformed-packet conditions, which can cascade into
+  device-wide graphics-subsystem ANRs on this shared emulator. Future
+  passes should watch for this (e.g. checking `top` CPU% for the game
+  process between test iterations) and avoid tight retry loops of
+  live tests without pauses, especially given another tool may be
+  sharing the same device.
+
+### NEXT_ACTION
+1. **Immediate**: confirm the emulator's graphics subsystem has
+   recovered (a `screencap` call that completes normally) before
+   resuming ANY further live testing — do not send more test traffic
+   into a device that cannot be visually/logically verified.
+2. Once healthy: relaunch `com.netease.chiji` fresh, re-run the (now
+   confirmed-working) key-scan to get a fresh key for the new PID, and
+   specifically test the chain-IV fix from §4 — this is the most
+   promising untested lead for finally getting a correct BaseApp
+   ack/`createBasePlayer` exchange.
+3. If the chain-IV hypothesis also fails, reconsider whether
+   `pc_variant`'s chaining assumption itself (verified correct for
+   LoginApp) generalizes to BaseApp's specific message types, or whether
+   a completely fresh disassembly read of the BaseApp-side decrypt call
+   site (distinct from LoginApp's `0x989600`, if one exists) is needed.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

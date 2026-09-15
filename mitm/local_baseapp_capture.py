@@ -46,7 +46,7 @@ _BFKEY_HEX = os.environ.get('BFKEY_HEX', 'b2525a3c')
 _BF_MODE = os.environ.get('BF_MODE', 'pc_variant')
 
 
-def bf_encrypt(body, key_hex=None, mode=None):
+def bf_encrypt(body, key_hex=None, mode=None, iv=None):
     key_hex = key_hex or _BFKEY_HEX
     mode = mode or _BF_MODE
     if not key_hex or _Blowfish is None:
@@ -61,10 +61,19 @@ def bf_encrypt(body, key_hex=None, mode=None):
     elif mode == 'pc_variant':
         # PC ROS launcher's documented non-standard chaining: XOR each plaintext
         # block against the PREVIOUS PLAINTEXT block (not ciphertext), IV=0, then
-        # ECB-encrypt -- see PC_LAUNCHER_STUDY.md SS3.
+        # ECB-encrypt -- see PC_LAUNCHER_STUDY.md SS3. `iv` (E2E-012 addition):
+        # override the "previous block" seed for the FIRST block, default zero.
+        # Motivated by the E2E-012 discovery that the BaseApp channel's
+        # EncryptionFilter shares the EXACT SAME key as LoginApp's (confirmed
+        # live, single-atomic-read scan, repeatable) -- if it is literally the
+        # SAME filter OBJECT (not just coincidentally the same key value),
+        # its chaining state would carry over from the last block of the
+        # previous (LoginApp) message rather than resetting to zero for a
+        # "new" channel, since nothing in the object's own state was ever
+        # actually reset -- only the destination socket changed.
         c = _Blowfish.new(key, _Blowfish.MODE_ECB)
         blocks = [body[i:i + 8] for i in range(0, len(body), 8)]
-        prev = b'\x00' * 8
+        prev = iv if iv is not None else b'\x00' * 8
         out = b''
         for blk in blocks:
             xored = bytes(a ^ b for a, b in zip(blk, prev))
@@ -90,7 +99,10 @@ ADB = os.environ.get('ADB_PATH', r'C:\LDPlayer\LDPlayer9\adb.exe')
 DEVICE_SERIAL = os.environ.get('DEVICE_SERIAL', 'emulator-5554')
 LIBCLIENT_VTABLE_FILE_ADDR = 0x37dd3a0  # EncryptionFilter vtable, FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md
 _key_cache = {}  # {client_addr: key_hex}
-_key_scan_started = set()  # client_addrs for which a scan thread is already running
+_key_scan_started = set()  # client (ip,port) addrs for which a per-connection scan already ran
+_early_scan_hosts = set()  # host IPs for which the early (LoginApp-triggered) scan already ran
+_early_key_by_host = {}  # {host_ip: key_hex} -- populated by the early (LoginApp-triggered) scan, E2E-012
+_last_plain_block_by_host = {}  # {host_ip: last 8-byte plaintext block of our last LoginApp reply}, E2E-012
 
 
 def _adb(args, timeout=20):
@@ -204,7 +216,22 @@ def _scan_region_for_pattern(pid, region_start, region_end, pattern_bytes):
         idx = data.find(pattern_bytes, idx)
         if idx == -1:
             break
-        hits.append(aligned_start + idx)
+        # FOURTH BUG FOUND + FIXED THIS PASS: a SEPARATE follow-up `dd` read
+        # at the reported VA -- done in an earlier version of this function,
+        # and by the caller (`_read_key_at`) -- races against real memory
+        # churn: live-confirmed multiple times (E2E-012) that a genuine,
+        # unambiguous 8-byte exact match found in THIS download shows
+        # completely different, unrelated bytes (once even a different
+        # object entirely, string "onSpaceHeartbeat" visible nearby) when
+        # re-read moments later via a fresh `dd` call. An 8-byte coincidental
+        # match is statistically negligible (~3x10^6 positions in a 24MB
+        # region vs 2^64 possible values), so the match itself is real at
+        # scan time -- the memory simply changes between two separate reads.
+        # Fix: slice the key bytes directly out of THIS already-downloaded
+        # snapshot (single atomic read, no second round-trip, no window for
+        # the object to change) instead of issuing a follow-up `dd`.
+        key_bytes_raw = data[idx + 0x10:idx + 0x10 + 24]
+        hits.append((aligned_start + idx, key_bytes_raw))
         idx += 1
     return hits
 
@@ -236,11 +263,21 @@ def _read_key_at(pid, obj_va):
     raw = block[local_offset:local_offset + 24]
     if len(raw) < 24:
         return None
+    return _parse_sso_key(raw)
+
+
+def _parse_sso_key(raw):
+    """Parse a libc++ SSO-encoded std::string's raw bytes (control byte at
+    +0, inline chars from +1) into a hex key string, or None if it doesn't
+    look like a short (<=22 byte) inline string. Shared by _read_key_at and
+    the single-atomic-read path in find_baseapp_key_async's scan_one."""
+    if len(raw) < 1:
+        return None
     ctrl = raw[0]
     if ctrl & 1:  # long-form string, not expected for a 4-byte RAND_bytes key
         return None
     length = ctrl >> 1
-    if length == 0 or length > 22:
+    if length == 0 or length > 22 or len(raw) < 1 + length:
         return None
     key_bytes = raw[1:1 + length]
     return key_bytes.hex()
@@ -286,24 +323,51 @@ def find_baseapp_key_async(client_addr, old_key_hex, done_callback):
         log('BASEAPP KEYSCAN: pid=%s base=0x%x target_vtable_va=0x%x pattern=%s, scanning %d regions...' % (
             pid, base_addr, target_va, pattern.hex(), len(regions)))
         found_keys = []
-        threads = []
         lock = threading.Lock()
 
         def scan_one(rs, re_):
+            # E2E-012: _scan_region_for_pattern now returns (va, raw_bytes)
+            # pairs, with raw_bytes sliced from the SAME already-downloaded
+            # snapshot the match was found in (no separate follow-up read,
+            # avoiding the memory-churn race documented there).
             hits = _scan_region_for_pattern(pid, rs, re_, pattern)
-            for va in hits:
-                key_hex = _read_key_at(pid, va)
+            for va, raw_bytes in hits:
+                key_hex = _parse_sso_key(raw_bytes)
                 if key_hex:
                     with lock:
                         found_keys.append((va, key_hex))
                         log('BASEAPP KEYSCAN: candidate EncryptionFilter at 0x%x key=%s' % (va, key_hex))
 
-        for (rs, re_) in regions:
-            th = threading.Thread(target=scan_one, args=(rs, re_), daemon=True)
-            th.start()
-            threads.append(th)
-        for th in threads:
-            th.join(timeout=8)
+        # E2E-012 (2026-09-15): narrower-scope search, per the coordinator's own
+        # NEXT_HIGHEST_VALUE_EXPERIMENT. E2E-009's scan treated every heap-tagged
+        # region as one search unit, including two enormous (161-277MB) arenas
+        # -- the exact-match host-side verification step for those alone took
+        # 3-13s, most of the ~5s retry window. `EncryptionFilter` is only
+        # ~0x38 bytes, so it far more plausibly lives in one of the SMALL
+        # (2-10MB) heap regions (allocator size-class segregation puts small,
+        # frequently-allocated objects in dedicated small arenas, not the
+        # giant catch-all ones) -- scan those FIRST and only fall back to the
+        # huge regions if nothing turns up small, so a real hit in a small
+        # region resolves in a fraction of a second instead of waiting on (or
+        # racing against) the slow huge-region transfers.
+        SMALL_REGION_CUTOFF = 16 * 1024 * 1024  # 16MB
+        small_regions = [(rs, re_) for (rs, re_) in regions if (re_ - rs) <= SMALL_REGION_CUTOFF]
+        large_regions = [(rs, re_) for (rs, re_) in regions if (re_ - rs) > SMALL_REGION_CUTOFF]
+        log('BASEAPP KEYSCAN: %d small (<=16MB) regions, %d large regions' % (len(small_regions), len(large_regions)))
+
+        def run_batch(batch, join_timeout):
+            threads = []
+            for (rs, re_) in batch:
+                th = threading.Thread(target=scan_one, args=(rs, re_), daemon=True)
+                th.start()
+                threads.append(th)
+            for th in threads:
+                th.join(timeout=join_timeout)
+
+        run_batch(small_regions, join_timeout=6)
+        if not any(k != old_key_hex for _, k in found_keys):
+            log('BASEAPP KEYSCAN: no distinct key in small regions, falling back to %d large region(s)' % len(large_regions))
+            run_batch(large_regions, join_timeout=15)
         elapsed = time.time() - t0
         distinct = sorted(set(k for _, k in found_keys))
         log('BASEAPP KEYSCAN: done in %.2fs, found %d candidate object(s), %d distinct key(s): %s' % (
@@ -495,6 +559,12 @@ def serve_loginapp_udp_responder():
             if os.environ.get('ATTEMPT_I', '1') == '1':
                 padded_body = body + b'\x00\x00\x00\x00'
                 enc_body = bf_encrypt(padded_body)
+                # E2E-012: remember this message's LAST plaintext block, keyed
+                # by client host -- if the BaseApp channel really does share
+                # the SAME EncryptionFilter object (confirmed same key this
+                # pass), its pc_variant chaining state would carry over from
+                # here rather than resetting to zero for the "new" channel.
+                _last_plain_block_by_host[addr[0]] = padded_body[-8:]
                 if enc_body:
                     log('ATTEMPT_L: encrypted 24-byte body with Blowfish key=%s mode=%s -> %s' % (
                         _BFKEY_HEX, _BF_MODE, enc_body.hex()))
@@ -519,6 +589,52 @@ def serve_loginapp_udp_responder():
             else:
                 s.sendto(reply, addr)
                 log('LOGINAPP UDP SENT framed reply (%d bytes) to %s:%d: %s' % (len(reply), addr[0], addr[1], reply.hex()))
+                # E2E-012 (2026-09-15): start the BaseApp-channel key scan as soon
+                # as possible after a LoginApp reply that could plausibly succeed,
+                # rather than waiting for the first baseAppLogin packet. FIRST
+                # ATTEMPT this pass fired the scan IMMEDIATELY on send -- live
+                # result: 0 candidates found anywhere (even after the small-region
+                # optimization below correctly ran fast), because the scan ran
+                # and finished BEFORE the client had even received/decrypted this
+                # reply, let alone reached `Nub::recreateListeningSocket` for the
+                # new BaseApp socket -- i.e. the object being searched for did not
+                # exist yet. Fixed by deferring the scan start with a short delay
+                # (empirically, `checkScriptBaseAppAddr`/`recreateListeningSocket`
+                # fire within ~20-40ms of the reply being processed per every
+                # prior live logcat capture this project has recorded) so the
+                # object has time to be constructed first, while still starting
+                # well before the first baseAppLogin packet would otherwise
+                # trigger it (typically 1-3s later, since the client does its own
+                # internal setup/socket-bind work first). Keyed by the LOGINAPP
+                # host (not yet known which port the BaseApp socket will use).
+                # Uses its OWN dedup set (_early_scan_hosts), separate from
+                # serve_baseapp_udp_capture's per-connection one
+                # (_key_scan_started) -- both are allowed to run independently
+                # (different timing, different odds), rather than one blocking
+                # the other, since a first live test of this early trigger alone
+                # found 0 candidates (see E2E-012) and losing the later,
+                # differently-timed per-connection attempt as a fallback would
+                # have been a regression.
+                if os.environ.get('ATTEMPT_I', '1') == '1' and addr[0] not in _early_scan_hosts:
+                    _early_scan_hosts.add(addr[0])
+
+                    def _on_early_scan_done(new_key, all_keys, host=addr[0]):
+                        if new_key:
+                            log('BASEAPP KEYSCAN (early, from LoginApp reply): NEW key=%s for host=%s (candidates: %s)' % (new_key, host, all_keys))
+                            # Seed the cache for ANY future baseapp client addr from
+                            # this host -- serve_baseapp_udp_capture's own dedup
+                            # keys by the BaseApp (ip,port) pair, which differs from
+                            # this LoginApp (ip,port) pair, so store by host only
+                            # and let the per-connection lookup fall back to it.
+                            _early_key_by_host[host] = new_key
+                        else:
+                            log('BASEAPP KEYSCAN (early): no distinct key found yet for host=%s (candidates: %s)' % (host, all_keys))
+
+                    def _delayed_start(host=addr[0]):
+                        time.sleep(0.25)
+                        find_baseapp_key_async(host, _BFKEY_HEX, _on_early_scan_done)
+
+                    threading.Thread(target=_delayed_start, daemon=True).start()
         except Exception as e:
             log('LOGINAPP UDP error: %s' % e)
 
@@ -573,9 +689,16 @@ def serve_baseapp_udp_capture():
                 # the LoginApp key (best-effort, likely wrong per E2E-008), but a
                 # LATER retry within the same ~5s Mercury retry window will pick up
                 # the freshly-discovered key once the background scan completes.
+                # E2E-012: if the early (LoginApp-reply-triggered) scan for this
+                # client's host already found a distinct key, use it immediately
+                # -- no need to wait for or duplicate a per-connection scan.
+                if addr not in _key_cache and addr[0] in _early_key_by_host:
+                    _key_cache[addr] = _early_key_by_host[addr[0]]
+                    log('BASEAPP: using key=%s from EARLY scan (triggered at LoginApp reply time) for %s' % (
+                        _early_key_by_host[addr[0]], addr))
                 if addr not in _key_scan_started:
                     _key_scan_started.add(addr)
-                    _key_cache[addr] = _BFKEY_HEX  # seed with LoginApp's key as fallback
+                    _key_cache.setdefault(addr, _BFKEY_HEX)  # seed with LoginApp's key as fallback
 
                     def _on_scan_done(new_key, all_keys, addr=addr):
                         if new_key:
@@ -587,19 +710,30 @@ def serve_baseapp_udp_capture():
                     find_baseapp_key_async(addr, _BFKEY_HEX, _on_scan_done)
 
                 use_key = _key_cache.get(addr, _BFKEY_HEX)
+                # E2E-012: use the last plaintext block from our own LoginApp
+                # reply to this host as the pc_variant chaining seed, instead
+                # of assuming a fresh IV=0 -- see the bf_encrypt docstring
+                # addition above for the rationale (same key now CONFIRMED
+                # shared between LoginApp and BaseApp channels, suggesting a
+                # literally-shared, state-carrying filter object).
+                chain_iv = _last_plain_block_by_host.get(addr[0])
                 plain = (struct.pack('<H', 0x0001) + bytes([0xff])
                           + struct.pack('<I', 5) + struct.pack('<I', corr) + bytes([1]))
                 pad = (-len(plain)) % 8
                 plain += b'\x00' * pad
-                enc = bf_encrypt(plain, key_hex=use_key)
+                enc = bf_encrypt(plain, key_hex=use_key, iv=chain_iv)
                 if enc:
                     reply = enc
-                    log('BASEAPP: encrypted WHOLE %d-byte (padded) reply with key=%s mode=%s' % (len(plain), use_key, _BF_MODE))
+                    log('BASEAPP: encrypted WHOLE %d-byte (padded) reply with key=%s mode=%s chain_iv=%s' % (
+                        len(plain), use_key, _BF_MODE, chain_iv.hex() if chain_iv else 'zero'))
                 else:
                     reply = plain
                 s.sendto(reply, addr)
                 log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x key=%s (%d bytes): %s' % (
                     method_id, corr, use_key, len(reply), reply.hex()))
+                # This reply's own last plaintext block becomes the chaining
+                # seed for the NEXT message (the createBasePlayer push below).
+                _last_plain_block_by_host[addr[0]] = plain[-8:]
 
                 # E2E-011 (2026-09-15): createBasePlayer push attempt. Per
                 # 06_trace/BASEAPP_CELLAPP_FLOW.md SS2.1 ("Trigger: BaseApp accepts
@@ -633,11 +767,15 @@ def serve_baseapp_udp_capture():
                                   + struct.pack('<H', len(cbp_body)) + cbp_body)
                     cbp_pad = (-len(cbp_plain)) % 8
                     cbp_plain += b'\x00' * cbp_pad
-                    cbp_enc = bf_encrypt(cbp_plain, key_hex=use_key)
+                    # E2E-012: chain from the ack's own last plaintext block
+                    # (updated just above), same rationale as the ack itself.
+                    cbp_chain_iv = _last_plain_block_by_host.get(addr[0])
+                    cbp_enc = bf_encrypt(cbp_plain, key_hex=use_key, iv=cbp_chain_iv)
                     cbp_reply = cbp_enc if cbp_enc else cbp_plain
                     s.sendto(cbp_reply, addr)
-                    log('BASEAPP UDP SENT createBasePlayer push id=4 entityId=%d key=%s (%d bytes): %s' % (
-                        entity_id, use_key, len(cbp_reply), cbp_reply.hex()))
+                    log('BASEAPP UDP SENT createBasePlayer push id=4 entityId=%d key=%s chain_iv=%s (%d bytes): %s' % (
+                        entity_id, use_key, cbp_chain_iv.hex() if cbp_chain_iv else 'zero', len(cbp_reply), cbp_reply.hex()))
+                    _last_plain_block_by_host[addr[0]] = cbp_plain[-8:]
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 

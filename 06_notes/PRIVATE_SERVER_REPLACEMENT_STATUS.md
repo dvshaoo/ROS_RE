@@ -112,13 +112,38 @@ this document only aggregates and classifies, it does not re-derive.
   correctly with the same key), confirming the two blockers are
   sequential: the key issue must be solved before `createBasePlayer`'s
   content can be meaningfully tested at all.
+  **UPDATE (E2E-012 — MAJOR)**: the "separate BaseApp key" hypothesis is
+  now **OVERTURNED**. Found and fixed a fourth scan-pipeline bug (a
+  racy two-step "find via download, then re-read key via a SEPARATE dd
+  call" design — real memory churn between the two reads was returning
+  wrong bytes even for a genuinely-confirmed match; fixed by extracting
+  the key directly from the same already-downloaded snapshot). With this
+  fix, the BaseApp channel's key was found **CONFIRMED identical** to
+  LoginApp's, reproduced 10+ times across multiple scans on a fresh
+  process. New hypothesis (implemented, not yet live-verified — see
+  Environment Incident below): the two channels may share the literal
+  same `EncryptionFilter` object, meaning `pc_variant` chaining state
+  carries over from LoginApp's last message rather than resetting to
+  IV=0 for BaseApp — `bf_encrypt()` now supports an `iv` override and
+  the server chains from each host's last-sent plaintext block.
+  **Environment incident**: this pass's own repeated malformed-packet
+  test traffic most plausibly drove the client into a CPU-pegging
+  (96-100% sustained) spin, cascading into a device-wide graphics-
+  subsystem ANR on the shared emulator (also in use by another
+  concurrent tool). Remediated by force-killing the game process
+  (`su 0 kill -9`, CPU returned to idle) but `screencap`/`dumpsys window`
+  remained hung afterward — the graphics subsystem itself may need more
+  time or an emulator-level fix to recover; a full reboot was
+  deliberately NOT attempted unilaterally given shared usage. Testing
+  was paused before the chain-IV fix could be verified live.
 
 ## BLOCKED
 
 1. **`script.npk` Python-layer patch (ROS-Legacy-Gate-1-style bypass)** —
    BLOCKED on two independent fronts: (a) general `7A 1C` stream cipher not yet broken;
    (b) Frida gadget injection on emulator hits native bridge translation module namespace limitation.
-2. **BaseApp reply content (correct Blowfish key for the BaseApp channel)** — see PARTIALLY WORKING above; this is now the precise, narrow blocker, not the whole BaseApp reply concept.
+2. **BaseApp reply content (correct Blowfish chaining, key now confirmed shared)** — see PARTIALLY WORKING above; narrowed from "which key" to "which chaining IV", with a concrete untested fix ready to verify once the device is healthy again.
+3. **Emulator graphics-subsystem hang** — `screencap`/`dumpsys window` unresponsive as of end of this pass; `adb shell`/`logcat`/`pidof` remain functional. Requires a health check before any further live testing.
 3. **Account, Avatar, Lobby entity instantiation** — downstream of #2, NEXT IMPLEMENTATION TARGET once #2 is solved.
 
 ## RESOLVED (MOVED OUT OF BLOCKED)
