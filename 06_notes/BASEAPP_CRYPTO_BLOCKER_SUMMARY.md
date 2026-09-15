@@ -1,20 +1,35 @@
-# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-017)
+# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-018)
 
-## READ THIS FIRST (E2E-017 update)
+## READ THIS FIRST (E2E-018 update)
 
-A likely full explanation for the entire blocker has been found, **but is NOT YET
-CONFIRMED**: incoming packets on a source address with an already-REGISTERED/"indexed"
-channel are dispatched via that channel's OWN virtual method (`vtable+0x18` on the found
-channel object), completely BYPASSING the generic `processFilteredPacket`/`0x98924c`
-decrypt pair this document's earlier sections analyze in such detail. Since
-`BaseAppLoginRequest::initNetwork` explicitly constructs a Channel object for the new
-BaseApp socket before any packets are exchanged, it is plausible (not yet proven) that this
-channel gets registered into the exact per-address map (`Nub+0x41f0`) that this dispatch
-logic checks — meaning **every one of this project's BaseApp replies may never have reached
-the code path analyzed in E2E-014/E2E-016 at all.** If true, this would mean the framing/
-length analysis in those sections, while internally correct, is answering the wrong
-question. See the new final section below, "The E2E-017 Alternate-Dispatch Hypothesis," for
-what's confirmed vs. still needs checking before acting on this.
+The E2E-017 "indexed-channel dispatch" hypothesis has now been **fully resolved — mixed
+result, and it does NOT explain or fix the blocker.** Both load-bearing links were checked:
+
+1. **CONFIRMED**: `BaseAppLoginRequest::initNetwork` genuinely DOES register the new BaseApp
+   Channel object into the Nub's indexed-channel map (`Nub+0x41f0`/`+0x40e0`/`+0xe0`), via an
+   unconditional call to `0x992764` (the map's insert function, fully disassembled and
+   confirmed this pass). So the E2E-017 dispatcher (`0x98d38c`, routes packets from a
+   registered source address through `channel_obj->vtable[0x18]` instead of the generic
+   `processFilteredPacket`) is a real mechanism that genuinely applies to this channel.
+2. **REFUTED**: the specific vtable slot (`+0x18`, raw bytes `0xd02fdc`) guessed as the
+   decrypt-dispatch target is NOT decrypt code — it disassembles to a red-black-tree
+   find/erase routine, and (separately) has no `.rela.dyn`/`.rela.plt` relocation entry at
+   all, because it isn't a function pointer in the first place: it's the plain-integer
+   "offset-to-top" field of a standard Itanium-ABI multi-base vtable layout. Disassembling
+   ALL the real function slots on this vtable blob (`0x98530c`, `0x985b3c`, `0x9879f0`,
+   `0x985b34`, `0x985b60`) shows they are plain reference-counted-object plumbing
+   (destructor + a stack-overflow-guard check) — **there is no decrypt-shaped function
+   anywhere on this Channel's own vtable.**
+
+**Conclusion**: the indexed-channel-dispatch idea, while real as a general mechanism, does
+NOT provide an alternate decrypt path to switch to for this blocker — this Channel object's
+vtable has no encryption-related method at all. This thread is now closed with an honest
+negative result (E2E-018). Per standing instruction, the investigation has fallen back to
+the PREVIOUS lead: tracing `packet_obj+0x1a`/`+0x1c`'s origin in the generic
+`processFilteredPacket`/`0x98924c` path, and/or characterizing the inline SIMD/NEON checksum
+block (`~0x98fce0`-`0x98fd10`) — not yet started as of E2E-018. See the "E2E-017
+Alternate-Dispatch Hypothesis" section below, now marked RESOLVED/NEGATIVE, for the full
+disassembly evidence.
 
 This document exists so a future pass (human or agent) does not have to re-read five-plus
 scattered `END_TO_END_TEST_LOG.md` entries to understand the current state of this
@@ -161,7 +176,7 @@ input byte range and algorithm.
 `processFilteredPacket` is never even reached for BaseApp packets, tracing its internal
 field origins further would be solving the wrong problem.
 
-## The E2E-017 Alternate-Dispatch Hypothesis (found while looking for `processFilteredPacket`'s caller)
+## The E2E-017 Alternate-Dispatch Hypothesis — RESOLVED/NEGATIVE in E2E-018 (found while looking for `processFilteredPacket`'s caller)
 
 While searching for what calls `processFilteredPacket` (it has zero direct `BL` callers;
 only reached via tail-call `B` instructions), found that its ACTUAL caller is a real,
@@ -195,20 +210,33 @@ channel-specific virtual method instead of the generic decrypt path**. This woul
 making the E2E-014/E2E-016 length/offset analysis correct but irrelevant to this specific
 channel — a structurally different explanation than "wrong parameters on the right path."
 
-**STATUS: NOT YET CONFIRMED — two load-bearing links unverified as of E2E-017**:
-1. Whether `initNetwork` (or a nearby callee) actually inserts into `Nub+0x41f0`'s map —
-   not checked yet.
-2. The channel object's vtable`+0x18` target: partially recovered vtable base (`0x37dd280`
-   via `.rela.dyn`) has entries for `+0x00`/`+0x08`/`+0x10`, but `+0x18` has NO `.rela.dyn`
-   relocation entry — its raw file bytes read as `0xd02fdc` (a well-formed-looking function),
-   but every OTHER slot in this vtable needed relocation to get its true value, so a slot
-   *without* one is suspect until independently cross-checked (could be a non-pointer value
-   from a multiple-inheritance vtable layout that coincidentally looks like valid code).
+**STATUS (E2E-018): BOTH links now checked — mixed, and net RESULT is negative for this
+hypothesis as a fix**:
+1. **CONFIRMED**: `initNetwork` calls `0x992764` (map insert, fully disassembled: validates
+   `index<0x400`, sets a bitmap bit at `Nub+0x40e0`, stores the value at
+   `Nub+index*8+0xe0`) unconditionally with `x1` = the new BaseApp Channel object. It also
+   conditionally calls the mirror-image remove function `0x992994` first (stale-slot
+   cleanup). Registration is real.
+2. **REFUTED**: `0xd02fdc` is a red-black-tree find/erase routine, not decrypt code. A full
+   `.rela.dyn`/`.rela.plt` scan of the vtable-blob range `[0x37dd280, 0x37dd2e0)` shows
+   `+0x18` has no relocation because it isn't a pointer at all — it's the plain-integer
+   "offset-to-top" field of a two-virtual-base Itanium vtable layout (the object's second
+   stored pointer, `object+0x08 = 0x37dd2a8`, is the secondary base's own vtable, whose two
+   real slots — `0x985b34`, `0x985b60` — are also just destructor thunks). Every one of the
+   5 real function slots on this combined vtable blob (`0x98530c`, `0x985b3c`, `0x9879f0`,
+   `0x985b34`, `0x985b60`) was disassembled: all are reference-counted-object plumbing
+   (destructor worker, two deleting-destructor thunks, a stack-guard check). **No
+   decrypt-shaped function exists anywhere on this vtable.**
 
-**Do not treat `0xd02fdc` as confirmed** until cross-checked. This is the single highest-
-priority item for the next pass: confirm or refute both links before any further live
-testing, since testing an unconfirmed fix for an unconfirmed root cause wastes a live-test
-cycle on the shared, ANR-prone emulator.
+**Net conclusion**: registration into the indexed-channel map is real, but this specific
+Channel object's own vtable has no alternate decrypt method to dispatch to — so the
+hypothesis does not explain the blocker after all (either this isn't actually the object
+`0x98d38c`'s map lookup finds for BaseApp login traffic, or the dispatch is real but simply
+uninteresting for decrypt purposes on this object). Do not pursue this thread further
+without new evidence (e.g. a live trace showing `0x98d38c`'s map lookup actually firing and
+which object it finds). Falling back per standing instruction to tracing
+`packet_obj+0x1a`/`+0x1c`'s origin in the generic path and/or the inline SIMD checksum block
+— see `07_ros_legacy_approach/END_TO_END_TEST_LOG.md` E2E-018 for the full writeup.
 
 ## Tooling Constraints (why this hasn't been resolved dynamically)
 

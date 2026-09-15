@@ -2099,5 +2099,148 @@ inside the Channel constructor's own tail (only the first ~0x120 bytes of
 flagged as the concrete starting point for whoever continues this pass.
 
 ---
+
+## TEST_ID: E2E-018
+- **DATE**: 2026-09-15 (same day, continuation pass), per the coordinator's
+  explicit instruction to resolve E2E-017's two open items: (1) does
+  `initNetwork` actually register the new BaseApp Channel into the
+  `Nub+0x41f0` indexed-channel map, and (2) is `0xd02fdc` (the raw bytes
+  read at vtable slot `+0x18`) genuinely the channel-specific decrypt
+  dispatch target. Pure static disassembly, read-only, no live test (none
+  was justified yet going in, and none is justified now — see RESULT).
+
+### Item 1 — CONFIRMED: registration into the indexed-channel map is real
+Disassembled `0x992764` and `0x992994` in full:
+- `0x992764(this=Nub*, x1=value, x2=key)`: computes an index via
+  `bl 0x989cdc(x19+0x18)`, validates `index<0x400` (else logs an error via
+  `0x1cad604`), sets a bitmap bit at `Nub+0x40e0`, and stores `value` at
+  `Nub + index*8 + 0xe0`. This is the map's **insert** function.
+- `0x992994` is its mirror-image **remove**: clears the same bitmap bit
+  (`bic`) and stores `xzr` at the same slot.
+
+Cross-referencing back to the already-captured E2E-015 disassembly dump of
+`BaseAppLoginRequest::initNetwork` (`0x938bd0`-`0x938bfc`): the function
+calls `0x992994` conditionally (gated on a global static flag AND `w21`
+bit 0 — almost certainly "if a stale channel was previously registered for
+this slot, remove it first"), immediately followed by an
+**unconditional** call to `0x992764` with `x0=[x20+0x138]` (the Nub*),
+`x1=x19` (the freshly-constructed BaseApp Channel object), `x2=xzr`.
+
+**This confirms Link #1: the BaseApp Channel object genuinely IS inserted
+into the Nub's indexed-channel map (`Nub+0x41f0`/`+0x40e0`/`+0xe0`).** The
+E2E-017 dispatcher finding (`0x98d38c`: packets from a registered source
+address are looked up in this map and, if found, dispatched via
+`channel_obj->vtable[0x18]` instead of the generic
+`processFilteredPacket`) genuinely applies to BaseApp traffic. This part
+of the hypothesis is not speculative anymore.
+
+### Item 2 — REFUTED: `0xd02fdc` is not decrypt code, and the whole "vtable+0x18 decrypt method" idea is now dead
+Two independent checks, both negative for the specific hypothesis:
+
+1. **Disassembled `0xd02fdc` in full (~0x300 bytes).** It is a classic
+   red-black-tree/`std::map` find-or-erase routine (tree descent via
+   `ldr w11,[x10,#0x20]; cmp w22,w11`, rotate/fixup patterns on parent
+   pointers). No call to `0x806e00` (`BF_ecb_encrypt`), no access to a
+   `+0x30`-shaped `BF_KEY*` field, no XOR-chain loop. **Not decrypt code.**
+2. **Exhaustively re-scanned BOTH `.rela.dyn` and `.rela.plt`** for any
+   `R_AARCH64_RELATIVE` entry whose `r_offset` falls in
+   `[0x37dd280, 0x37dd2e0)` (the vtable-blob range spanning both stored
+   pointers found in the Channel constructor, `0x37dd280` and `0x37dd2a8`).
+   Full result:
+   ```
+   0x37dd280 (+0x00) -> 0x98530c
+   0x37dd288 (+0x08) -> 0x985b3c
+   0x37dd290 (+0x10) -> 0x9879f0
+   0x37dd298 (+0x18) -> NO RELOCATION ENTRY (confirms E2E-017's flag)
+   0x37dd2a0 (+0x20) -> 0x37dd2c0   (points back inside this same blob)
+   0x37dd2a8 (+0x28) -> 0x985b34   (== object+0x08's own "+0x00" slot)
+   0x37dd2b0 (+0x30) -> 0x985b60   (== object+0x08's own "+0x08" slot)
+   0x37dd2c8 (+0x48) -> 0x2a5c200
+   0x37dd2d8 (+0x58) -> 0x37dd378
+   ```
+   This is the textbook Itanium C++ ABI layout for a class with **two**
+   virtual bases sharing one combined vtable-group blob: three real
+   function slots (`+0x00/+0x08/+0x10`), then an **offset-to-top field for
+   the secondary base at `+0x18`** (a plain constant integer, NOT a
+   pointer — which is exactly why it has no relocation entry) and a
+   typeinfo pointer at `+0x20`, then the secondary sub-vtable's own two
+   function slots at `+0x28/+0x30` (which are the SAME two functions
+   `object+0x08`'s vtable pointer, `0x37dd2a8`, resolves at its own
+   `+0x00/+0x08`). Disassembling all 5 real function slots
+   (`0x98530c`, `0x985b3c`, `0x9879f0`, `0x985b34`, `0x985b60`) confirms
+   they are boilerplate reference-counted-object plumbing, not
+   encryption:
+   - `0x98530c`: destructor worker (deregisters from something via
+     `bl 0x99267c`, decrements/releases a couple of member handles).
+   - `0x985b3c` / `0x985b60`: deleting-destructor thunks (`sub x19,x0,#8`
+     adjusts `this` for the secondary base, calls `0x98530c`, then
+     `operator delete` at `0x7e1c90`) — classic virtual-destructor-pair
+     shape, not decrypt.
+   - `0x9879f0`: a stack-guard/overflow check (compares `tpidr_el0`-based
+     thread-local watermark values) — unrelated to encryption.
+   - `0x985b34`: a one-line `this`-adjusting thunk to `0x98530c`.
+
+   **There is no decrypt-shaped function anywhere in this vtable blob.**
+   The raw bytes previously read at `+0x18` (`0xd02fdc`) are simply
+   reading into the middle of a small integer constant (the offset-to-top
+   field) as if it were code — coincidentally well-formed-looking bytes,
+   exactly the risk E2E-017 flagged before trusting it.
+
+### RESULT — mixed, reported plainly per the coordinator's own instruction
+- **Link #1 (registration) is CONFIRMED real.** The BaseApp Channel does
+  get inserted into the Nub's indexed-channel map, and the E2E-017
+  dispatcher (`0x98d38c`) does route registered-source-address packets
+  through `channel_obj->vtable[0x18]` instead of
+  `processFilteredPacket` — for SOME channel type. This mechanism is
+  real and is not a false lead in general.
+- **Link #2 (this specific vtable/slot being the decrypt path) is
+  REFUTED.** The BaseApp Channel's own vtable (`0x37dd280`, confirmed via
+  its constructor `0x984a54`) has no decrypt-shaped function at all — it
+  is a plain reference-counted-object interface (destructor + stack-guard
+  check), nothing else. Either (a) this Channel object is never actually
+  the one looked up by `0x98d38c` for BaseApp login packets (the map
+  might be keyed by a DIFFERENT registered object for a different purpose
+  entirely — e.g. this vtable shape looks more like it could belong to a
+  Timer or generic Mercury `Channel` base with no BaseApp-specific
+  behavior), or (b) the indexed-dispatch mechanism, while real, is not
+  actually reached for this specific traffic (e.g. the map lookup keyed
+  on source address may simply miss/fail for a freshly-connected UDP
+  peer that hasn't sent anything yet, falling through to the generic
+  path after all). Either way, **the "indexed-channel dispatch explains
+  the BaseApp framing blocker" hypothesis, AS A FIX FOR THE CURRENT
+  BLOCKER, DOES NOT PAN OUT** — there is no alternate decrypt routine to
+  switch to. This closes out the E2E-017 thread with an honest negative.
+- Per the coordinator's own explicit fallback instruction: **falling back
+  now** to the previous lead — tracing `packet_obj+0x1a`/`+0x1c`'s origin
+  in the generic `processFilteredPacket`/`0x98924c` path, and/or
+  characterizing the inline SIMD/NEON checksum block
+  (`~0x98fce0`-`0x98fd10`) — as the next concrete avenue. Not started this
+  pass (time went to fully closing out E2E-017's two open items, which
+  was the coordinator's explicit priority this turn).
+- No live test was attempted this pass (correctly withheld — no new,
+  confirmed-correct decrypt path or framing was found to test).
+  `CLIENT_MODIFIED: NO`. All work this pass was read-only static
+  disassembly against the existing `.so`/relocation tables; no files
+  in `mitm/` were touched.
+
+### NEXT_ACTION
+1. Fall back per standing instruction: trace the origin of
+   `packet_obj+0x1a`/`packet_obj+0x1c` (fields read by the generic
+   `processFilteredPacket` path per the E2E-014/E2E-016 analysis) back to
+   where they are first populated — likely in the UDP-recv/packet-alloc
+   code upstream of `processFilteredPacket` — to determine whether the
+   BaseApp reply's correct length/offset framing differs from what's been
+   tried so far for a reason unrelated to indexed-channel dispatch.
+2. In parallel/alternatively, characterize the inline SIMD checksum block
+   (`~0x98fce0`-`0x98fd10`) to confirm/refute whether a wrong checksum
+   (rather than wrong decrypt framing) is the actual rejection cause for
+   prior BaseApp reply attempts.
+3. Do not revisit the indexed-channel-dispatch idea further unless new
+   evidence specifically shows the map lookup in `0x98d38c` actually
+   finds and uses THIS Channel object for real BaseApp traffic (e.g. via
+   a live trace) — the static evidence this pass gathered points away
+   from it as the explanation for the current blocker.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
