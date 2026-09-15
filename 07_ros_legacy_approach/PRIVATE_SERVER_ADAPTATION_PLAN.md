@@ -736,3 +736,217 @@ PHASE 7: Only after Lobby works, investigate Avatar/match flow.
 - Not attempting Phase 7 (Battle/CellApp) in this plan.
 - Not distributing or referencing `ROS_RE_LEGACY/ros_auth.txt`'s value in
   any form (consistent with the prior Study's own handling of that file).
+
+---
+
+## Phase 1 Implementation
+
+Implements §14 PHASE 1 only. Labels: CONFIRMED / STRONGLY SUPPORTED /
+INFERRED / UNKNOWN, per this project's convention.
+
+### Code changes (CONFIRMED — directly made and compiled/run this pass)
+
+- **New file `mitm/session_store.py`**: a minimal, dependency-free,
+  JSON-file-backed session store (`mitm/session_store.json`, written
+  atomically via a `.tmp` + `os.replace` swap). No sqlite dependency exists
+  anywhere else in this repo (checked: zero `import sqlite3` hits under
+  `mitm/` or elsewhere), so per the task's own instruction this uses a flat
+  JSON file rather than adding a new dependency.
+  - `create_session(player_id, source='guest_login', ttl_seconds=6h)` —
+    mints `session_id = 'sess_' + uuid.uuid4().hex` (CSPRNG via
+    `os.urandom`, **not** derived from any password/credential) and
+    persists `{session_id, player_id, created_at, expires_at, source}`.
+  - `get_session(session_id)`, `validate_session(session_id)` (checks
+    existence + not-expired), `expire_session(session_id)` (idempotent,
+    zeroes `expires_at`), `all_sessions()` (debug/test helper only).
+  - `_short(session_id)` returns an 8-char prefix for safe logging — used
+    everywhere the server logs a session id, so the full value never lands
+    in `captures/SERVE_B.txt` (a git-tracked file — confirmed via
+    `git ls-files`/`git check-ignore`, both `mitm/captures/*.txt` and
+    `scratch/*.log` are tracked, so this matters).
+- **Modified `mitm/mitm_serve.py`**:
+  - Added `import session_store`.
+  - `/api/users/login/guest` handler: now calls
+    `session_store.create_session(player_id, source='guest_login')` per
+    request and returns that session's id as `login_token`/`token` inside
+    the `user` object, replacing the previous hardcoded
+    `"guest_token_fake_ros_2026"`. JSON field set/types are otherwise
+    byte-for-byte identical to the prior response (same keys, same
+    `minor_status=102`/`age_status=1` adult-verified values).
+  - `/api/users/login/v2/sdk_token` handler: same change, additionally
+    setting the top-level `sdk_token` field (the field
+    `06_notes/LOCAL_SESSION_CONTRACT.md` confirms is parsed by
+    `com.netease.mpay.oversea.h.a.a` via `optString("sdk_token")` at Dalvik
+    `0x3d34d8`) to the new session id instead of the old static string.
+    `user_id` is left as the existing fixed guest player id
+    (`guest_11178811c6a412d9`) — only the token value is now per-session,
+    per the task's Step 1 instruction ("never derive the session id from a
+    password"; the player identity and the session identity are
+    deliberately kept as separate concepts here).
+  - No other handler, port, or response shape was touched.
+
+### Session generation method (CONFIRMED)
+
+`uuid.uuid4()` (Python stdlib, CSPRNG-backed), hex-encoded, prefixed
+`sess_` — chosen over `secrets.token_hex`/`token_urlsafe` because the field
+it rides in (`sdk_token`/`login_token`/`token`) is already confirmed
+(`LOCAL_SESSION_CONTRACT.md`) to be parsed as an **opaque string**, not a
+canonical-form UUID or a byte array with a fixed expected length — any
+sufficiently-random printable string satisfies the client's `optString()`
+parse. A new value is minted on every successful login request; nothing is
+cached or reused across requests.
+
+### Session storage design (CONFIRMED)
+
+Flat JSON file (`mitm/session_store.json`), one object keyed by
+`session_id`, each value `{session_id, player_id, created_at, expires_at,
+source}`. `threading.RLock`-guarded read-modify-write (load whole file,
+mutate, atomic replace) — adequate for this single-process, low-concurrency
+local test server; **not** designed for concurrent-writer safety beyond
+that, which is acceptable per the task's own "throwaway/test infra, not
+production-grade" framing. The file itself is **not** committed to git
+(it is runtime-generated local state, analogous to `mitm/mitm_stdout*.txt`
+already present but untouched by this task).
+
+### JSON response field changes (CONFIRMED)
+
+Only value changes, zero schema/field changes, in both
+`/api/users/login/guest` and `/api/users/login/v2/sdk_token`:
+`login_token`, `token` (both handlers) and `sdk_token` (sdk_token handler
+only) now carry a fresh `sess_<uuid4hex>` string per request instead of the
+static `"guest_token_fake_ros_2026"`. Verified via direct HTTP round-trip
+against the running server this pass (see
+`mitm/captures/PHASE1_SESSION_TEST.txt`, tokens redacted to 8-char
+prefixes) — Run A and Run B against `/api/users/login/v2/sdk_token`
+produced distinct `sdk_token` values while every other field matched byte
+-for-byte, and the corresponding `session_store.json` held two (later
+three, including the guest-login run) distinct records with distinct
+`session_id`/`created_at`/`expires_at`.
+
+### Client storage path (INFERRED, not independently re-traced this pass)
+
+Cited, not re-derived: `06_notes/LOGIN_FLOW_TRACE.md` "has_minor Source"
+finding that the NetEase MPay SDK persists `user_id`/`token` into its own
+SharedPreferences file
+(`com.netease.mpay.202cb962ac59075b964b07152d234b70.xml`). This pass did
+not re-verify that finding against the new per-session values (no
+emulator/device was reachable this session — see below), so it remains at
+its prior INFERRED confidence, not upgraded to CONFIRMED.
+
+### Whether sdk_token reaches LogOnParams (honest negative/unresolved result)
+
+**UNRESOLVED this pass — could not be tested, static or dynamic, beyond
+what was already known before this task.** Specifically:
+
+- **Dynamic/runtime verification (Step 2's primary method) could not be
+  performed**: this session has no reachable Android device or emulator.
+  `adb` is not installed/on `PATH` in this execution environment and
+  `adb devices` fails outright (`adb: command not found`). The task's Step
+  0–3 runtime plan (start server, confirm iptables DNAT, launch the app,
+  capture UDP `LogOnParams` traffic, correlate against the minted session,
+  optionally `/proc/<pid>/mem` read of the pre-RSA plaintext buffer) is
+  **entirely** contingent on that device and was not attempted with a
+  fabricated result. This is reported honestly per the task's own
+  instruction rather than inventing a pass.
+- **Static analysis this pass did not find a new answer either.** The
+  existing, already-thorough disassembly in
+  `06_trace/LOGONPARAMS_SERIALIZATION.md` §3/§7 point 1 explicitly leaves
+  the semantic identity of `LogOnParams`'s three string fields (`stringA`
+  at `+0x10`, `stringB` at `+0x28`, `stringC` at `+0x40`) as **UNKNOWN,
+  needs dynamic instrumentation** — candidates only by plausibility
+  (username / password / third credential), not by any traced data-flow
+  edge from the Python/HTTP layer into `addToStream`'s three string
+  arguments. `06_trace/ROS_LOGIN_PLAY_TRACE.md` §8.1 independently confirms
+  the call shape `ServerConnection.logOnBegin(host, port, username,
+  password)` from `ui.UILogin.doLoginGame()` in `res/script.npk`, but does
+  **not** show what values `doLoginGame()` passes for `username`/`password`
+  — i.e., whether the MPay-retained `sdk_token` (now our session id) is one
+  of them is exactly the open question in
+  `06_trace/LOGONPARAMS_SERIALIZATION.md` §7 point 3 ("callers of
+  `addToStream` ... not traced yet"), and this pass did not close it (would
+  require either decompiling `script.npk`'s Python bytecode for
+  `doLoginGame()`'s body, or the live memory-read method — both out of this
+  pass's reach: the former was not attempted as it falls outside this
+  task's Step 2 static-trace instruction to reuse prior docs rather than
+  re-derive; the latter requires the unavailable device).
+- **Server-side differential test performed instead (does not answer the
+  client-forwarding question, but satisfies the task's fallback
+  instruction to still report a useful result)**: two full HTTP round trips
+  against the live `mitm_serve.py` process, `session_store.create_session`
+  called for each, confirmed `session_id_A != session_id_B` at the server
+  boundary (see `mitm/captures/PHASE1_SESSION_TEST.txt`). This proves the
+  **server half** of Phase 1 works — unique session per login, correctly
+  persisted, correctly returned in the schema-unchanged HTTP response — but
+  says nothing about whether the client subsequently carries that value
+  into `LogOnParams`.
+
+**LOGONPARAMS_FIELD: UNKNOWN** — unchanged from before this task; not
+newly determined.
+
+### LoginApp preparation (Step 4, documentation only)
+
+Because whether/where the session token reaches `LogOnParams` is
+UNRESOLVED (not merely "reaches an unusable field" — genuinely untested),
+this section documents both branches rather than picking one:
+
+- **If a future dynamic-instrumentation pass (with a reachable emulator)
+  confirms the session token lands in `stringA`/`B`/`C`**: our own LoginApp
+  would need to (1) receive the 273-byte Mercury bundle on `:25000`
+  (framing already CONFIRMED live per `mitm/local_baseapp_capture.py`
+  Attempt H), (2) RSA-OAEP-2048-decrypt the 256-byte ciphertext block
+  covering `{flags, stringA, stringB, stringC}` using the private half of
+  whatever key corresponds to `entities/loginapp.pubkey`, (3) extract the
+  session-id string from whichever field is confirmed to carry it, (4)
+  call `session_store.get_session(...)`/`validate_session(...)` (both
+  already implemented this pass and directly reusable by a LoginApp
+  module) to resolve a `player_id`. **`entities/loginapp.pubkey` was
+  searched for this pass** (`Glob **/loginapp.pubkey` across the whole
+  repo) **and was not found** — zero matches. This upgrades
+  `06_trace/LAN_FEASIBILITY.md` §4.2's prior "UNKNOWN pending a concrete
+  file-level confirmation" to a **confirmed-negative search result on this
+  repo's current extracted contents**: the asset is not present at that
+  path in whatever was extracted so far (it may still exist unextracted
+  inside `01_apk/`/`04_obb/`, which `.gitignore` excludes from the repo and
+  which this pass did not re-extract). Locating it (or confirming it is
+  genuinely absent from the OBB/APK) remains a concrete Phase 3
+  prerequisite, not newly resolved here.
+- **If the session token does NOT reach `LogOnParams` at all** (a real
+  possibility per the honest UNRESOLVED status above — `doLoginGame()`
+  could pass fixed/empty `username`/`password` values unrelated to the
+  MPay `sdk_token`): stated plainly, not softened — in that case Option B
+  from §7 above would require the fallback in §9 point 4, a `script.npk`
+  (Python) edit to `ui.UILogin.doLoginGame()` to explicitly forward the
+  retained session token as one of the three `LogOnParams` strings. This
+  is a Python source change, not `.smali`/`.dex`/`.so`, consistent with
+  §9's ranking, and remains exactly the fallback §7/§9 already
+  anticipated — this pass did not newly discover a need for it, but also
+  did not rule it out.
+
+### Unresolved fields / honest gaps from this pass
+
+- `SESSION_REACHES_LOGONPARAMS`: **UNKNOWN** (untested this pass; device
+  unavailable).
+- `entities/loginapp.pubkey` existence: **UNKNOWN → confirmed absent at
+  that literal path in the currently-extracted, git-tracked repo
+  contents**; still UNKNOWN whether it exists unextracted inside
+  `01_apk/`/`04_obb/`.
+- Client-side SharedPreferences retention of the new per-session token:
+  **INFERRED only**, not re-verified live this pass.
+- `doLoginGame()`'s exact `username`/`password` argument values: **UNKNOWN**,
+  same as before this task; would need `script.npk` decompilation or a live
+  Frida hook, neither performed this pass.
+- The first-LoginReply Blowfish key (§13): **untouched, out of scope for
+  this task, unchanged CONFIRMED-UNRESOLVED status.**
+
+### Success criteria scorecard (§ task Step 6, reported honestly)
+
+| Criterion | Result |
+|---|---|
+| Every login creates a unique local session | **PASS** — CONFIRMED via direct HTTP test, `session_id_A != session_id_B` |
+| Session stored server-side | **PASS** — CONFIRMED, `mitm/session_store.json` persists all three test-run records |
+| Client accepts the HTTP response | **NOT INDEPENDENTLY VERIFIED THIS PASS** — no device available; INFERRED likely from unchanged JSON schema (same keys/types as the already-PASS-tested `LOCAL_SESSION_CONTRACT.md` contract, only values changed) |
+| Client continues through the existing login flow | **NOT VERIFIED THIS PASS** — no device available |
+| Session/token propagation traced | **PARTIAL** — server-side propagation (HTTP response -> session store) CONFIRMED; client-side propagation (response -> `LogOnParams`) UNKNOWN, untested |
+| Two independent runs produce distinct session identities | **PASS** — CONFIRMED |
+| No original ROS server contacted | **PASS** — only localhost `mitm_serve.py` was contacted this pass |
+| No Blowfish workaround introduced | **PASS** — `mitm/local_baseapp_capture.py` and the Blowfish-key problem were not touched |

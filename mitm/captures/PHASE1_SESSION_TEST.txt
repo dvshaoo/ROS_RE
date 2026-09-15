@@ -1,0 +1,41 @@
+Phase 1 per-session auth test (2026-09-15)
+Server: mitm/mitm_serve.py (serve_plain, :8080), after adding mitm/session_store.py.
+Environment note: no adb/emulator device was reachable in this session
+(`adb` binary not found, `adb devices` unavailable) -- this is a server-side
+only test, NOT a live client capture. See PRIVATE_SERVER_ADAPTATION_PLAN.md
+"Phase 1 Implementation" for what this does and does not establish.
+
+Full session tokens are redacted to an 8-char prefix per this project's
+no-full-token-in-committed-files rule.
+
+--- RUN A: POST /api/users/login/v2/sdk_token ---
+user_id:   guest_11178811c6a412d9
+sdk_token: sess_8bd... (redacted; full value confirmed distinct from Run B)
+HTTP status: 200
+JSON schema: identical field set/types to the already-verified-PASS schema
+in 06_notes/LOCAL_SESSION_CONTRACT.md (code, msg, user_id, sdk_token,
+alert_type, minor_status, age_status, security_email, user{id,account,
+login_token,token,quick_login_enable}) -- only sdk_token/login_token/token
+values changed from the prior static "guest_token_fake_ros_2026" to a fresh
+per-request session id.
+
+--- RUN B: POST /api/users/login/v2/sdk_token ---
+user_id:   guest_11178811c6a412d9
+sdk_token: sess_d07... (redacted; full value confirmed distinct from Run A)
+HTTP status: 200
+JSON schema: identical to Run A's.
+
+--- RUN C: POST /api/users/login/guest ---
+login_token/token: sess_684... (redacted)
+HTTP status: 200
+JSON schema: identical field set to prior static response
+(06_trace/ROS_LOGIN_PLAY_TRACE.md / mitm_serve.py's pre-existing guest
+handler), only login_token/token values changed.
+
+--- Result ---
+RUN_A != RUN_B: CONFIRMED (full values compared programmatically before
+redaction; distinct uuid4-derived session ids, session_store.json held 3
+distinct records with distinct session_id/created_at/expires_at after this
+run).
+Both handlers now call session_store.create_session() per request; no
+hardcoded token value remains in either handler.
