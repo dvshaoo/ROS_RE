@@ -600,6 +600,44 @@ def serve_baseapp_udp_capture():
                 s.sendto(reply, addr)
                 log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x key=%s (%d bytes): %s' % (
                     method_id, corr, use_key, len(reply), reply.hex()))
+
+                # E2E-011 (2026-09-15): createBasePlayer push attempt. Per
+                # 06_trace/BASEAPP_CELLAPP_FLOW.md SS2.1 ("Trigger: BaseApp accepts
+                # BaseAppLoginRequest" -> "Native Call:
+                # ServerConnection::createBasePlayer(entityId, stream)"),
+                # createBasePlayer is a PUSH-style ClientInterface message (BaseApp
+                # -> client), NOT the reply to baseAppLogin itself -- confirmed
+                # architecturally by E2E-010's re-read, and now given a concrete wire
+                # shape this pass by decoding the client's own interface-registration
+                # table (scratch/decode_clientinterface_table.py, walks every BL
+                # caller of the shared registrar function 0x98b30c): createBasePlayer
+                # is VARIABLE_LENGTH_MESSAGE with a u16 length prefix (CONFIRMED BY
+                # BINARY, same framing as baseAppLogin), and by registration order is
+                # ClientInterface method index 4 (bandwidthNotification=0,
+                # updateFrequencyNotification=1, setGameTime=2, resetEntities=3,
+                # createBasePlayer=4) -- STRONGLY SUPPORTED (registration-order
+                # evidence, same method already independently confirmed correct for
+                # baseAppLogin=0 via live wire capture), not yet independently
+                # wire-confirmed for this specific ID. Body content (entityId +
+                # Account property stream) is UNKNOWN/best-effort: Account.def.xml
+                # has only one BASE_AND_CLIENT property (isMobileAccount, BOOL), so a
+                # near-empty stream is plausible -- this sends just a 4-byte LE
+                # entityId (arbitrary placeholder 1) with no property data, the
+                # smallest plausible experiment, same whole-packet pc_variant
+                # encryption as the ack above (same unresolved key-mismatch caveat
+                # from E2E-008/E2E-009 applies equally here).
+                if os.environ.get('ATTEMPT_CREATEBASEPLAYER', '1') == '1':
+                    entity_id = 1
+                    cbp_body = struct.pack('<I', entity_id)
+                    cbp_plain = (struct.pack('<H', 0x0001) + bytes([0x04])
+                                  + struct.pack('<H', len(cbp_body)) + cbp_body)
+                    cbp_pad = (-len(cbp_plain)) % 8
+                    cbp_plain += b'\x00' * cbp_pad
+                    cbp_enc = bf_encrypt(cbp_plain, key_hex=use_key)
+                    cbp_reply = cbp_enc if cbp_enc else cbp_plain
+                    s.sendto(cbp_reply, addr)
+                    log('BASEAPP UDP SENT createBasePlayer push id=4 entityId=%d key=%s (%d bytes): %s' % (
+                        entity_id, use_key, len(cbp_reply), cbp_reply.hex()))
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 

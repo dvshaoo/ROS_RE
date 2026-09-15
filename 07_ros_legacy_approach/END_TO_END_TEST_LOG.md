@@ -1081,5 +1081,131 @@ time to independently re-derive or extend into a full wire-format table.
    still likely hit the 5s timeout per Sub-test 1's finding.
 
 ---
+
+## TEST_ID: E2E-011
+- **DATE**: 2026-09-15 (same day, eleventh pass), per the coordinator's
+  instruction to locate `ServerConnection::createBasePlayer`'s wire
+  format via an alternate static path since the string-xref scan (E2E-010)
+  didn't converge.
+- **GOAL**: find the message ID / framing for `createBasePlayer` and
+  implement both a BaseApp reply/ack AND a `createBasePlayer` push.
+
+### 1. Static: decoded the FULL BaseAppExtInterface + ClientInterface registration table — CONFIRMED BY BINARY
+The earlier string-xref approach failed because `createBasePlayer`'s
+name string (and every other interface-method name) has **zero** direct
+code or data cross-references anywhere in the binary (re-confirmed this
+pass via a `.rela.dyn`/`.rela.plt` relocation-table scan in addition to
+the ADRP+ADD and raw-pointer scans already tried in E2E-010 — all three
+independent methods found nothing, meaning these name strings are
+genuinely dead debug/reflection data with no code path reading them
+directly).
+
+The alternate path worked: found all 122 `BL` callers of the shared
+interface-registrar function `0x98b30c` (previously known to build the
+`BaseAppExtInterface` table per `MERCURY_PACKET_MAP.md` §2a) across the
+whole `.text` section, then resolved each call site's own `x1` (name
+string pointer), `w2` (lengthStyle), `w3` (lengthParam) arguments from
+the actual register-writes between it and the *previous* registrar call
+(a naive fixed-size lookback window produced stale-value artifacts,
+e.g. misattributing "disconnectClient" to two different calls — fixed by
+scoping the scan strictly between consecutive registrar calls). Script:
+`scratch/decode_clientinterface_table.py`.
+
+**Result: a complete, clean, self-consistent 122-entry table** spanning
+`LoginInterface` (`login`, `probe`), `BaseAppExtInterface` (18 methods
+starting with `baseAppLogin`), and `ClientInterface` (bandwidthNotification
+through `longEntityMessage`) — this independently reproduces every name
+`MERCURY_PACKET_MAP.md` already listed (cross-check passed) and extends
+it with lengthStyle/lengthParam for every entry, not just the previously
+partial table.
+
+**`createBasePlayer` specifically** (call site `0x80cb90`):
+```
+x1 = createBasePlayer string (CONFIRMED)
+w2 = 1   -> lengthStyle = VARIABLE_LENGTH_MESSAGE
+w3 = 2   -> lengthParam = 2-byte (u16) length prefix
+```
+**CONFIRMED BY BINARY**: `createBasePlayer` = `[u16 bodyLength][body]`,
+the exact same framing shape as `baseAppLogin` itself.
+
+**Message ID**: a bare `ClientInterface` registration call (index 20,
+`0x80ca14`, resolving to the literal string `"ClientInterface"`, not a
+method name) immediately precedes `bandwidthNotification` (index 21) —
+consistent with `BaseAppExtInterface`'s own methods starting immediately
+with `baseAppLogin` (already CONFIRMED as method ID 0 via live wire
+capture in earlier passes) with no equivalent bare-name slot consuming
+an ID on that side. Counting ClientInterface's own methods from this
+anchor: `bandwidthNotification=0, updateFrequencyNotification=1,
+setGameTime=2, resetEntities=3, createBasePlayer=4`. **STRONGLY
+SUPPORTED** (registration-order evidence, using the exact same inference
+method already independently validated for `baseAppLogin=0`), not yet
+independently wire-confirmed for `createBasePlayer` specifically (no
+live packet from a real BaseApp server was ever captured to cross-check
+against).
+
+### 2. Implementation
+Added an `ATTEMPT_CREATEBASEPLAYER` push (default on) to
+`mitm/local_baseapp_capture.py`'s `serve_baseapp_udp_capture()`, sent
+immediately after the existing reply/ack: `[flags=1][msgid=4][u16
+length=4][entityId=1 as u32]`, whole-packet `pc_variant`-encrypted with
+whatever key is currently cached for that client (same key-selection
+logic as the ack, same unresolved-key caveat applies equally).
+
+### 3. Live test result: blocked by the SAME upstream key issue, plus a new secondary observation
+Live run against `PID 9754` (still the same long-lived process/session):
+the reply/ack and the new `createBasePlayer` push both still fail to
+decrypt correctly (`Bundle::iterator::unpack( authenticate ): Not enough
+data on stream at 12 for payload...`, `ServerConnection::authenticate:
+Unexpected key! (1, wanted 0)` — a new, more specific error text not
+seen before, but still a downstream symptom of the same garbled
+decryption, not new information about `createBasePlayer` itself, since
+both packets fail at the SAME decrypt/parse layer before message-ID-
+specific handling would ever run). **Confirms the NEXT_ACTION
+prediction from E2E-010**: testing `createBasePlayer`'s content is
+premature until the BaseApp channel's reply/ack decrypts correctly —
+the two blockers are sequential, not independent.
+
+**New secondary observation (UNKNOWN significance, noted not chased)**:
+with two packets now sent per exchange (ack + push), the client's BaseApp
+`Nub` kept logging `processFilteredPacket(...): received packet with bad
+flags` warnings for **20+ seconds** (previously the channel gave up with
+`Unable to connect to BaseApp` at ~4-5s consistently). Possibly the extra
+packet perturbs Mercury's retry/timeout bookkeeping in some way, or this
+is incidental. Not investigated further this pass — flagged for whoever
+next touches this code, since it changes the live testing rhythm (can no
+longer assume a clean ~5s attempt window with two packets in flight).
+Client process (`PID 9754`) remained healthy throughout, confirmed via
+`pidof` immediately after the test — no crash, no hang.
+
+### RESULT
+- **Wire format for `createBasePlayer` is now CONFIRMED BY BINARY**
+  (framing) and **STRONGLY SUPPORTED** (message ID 4) — a genuine,
+  reusable, well-evidenced static-analysis result, independent of the
+  still-unresolved key blocker.
+- Live confirmation of the message ID and body content remains BLOCKED
+  by the same BaseApp-channel-key issue parked in E2E-009 — solving that
+  is now clearly the single gating blocker for ALL further BaseApp/
+  Account/Avatar/Lobby progress, both for the reply/ack AND for
+  `createBasePlayer`.
+- Did not reach Account, Avatar, or Lobby this pass. `CLIENT_MODIFIED: NO`.
+
+### NEXT_ACTION
+1. The BaseApp-channel key remains the single blocking unknown. Given
+   E2E-009's memory-scan approach was parked as inconclusive (not
+   disproven) due to latency/volatility at the ~100+MB region scale, a
+   narrower search — e.g. restricting the scan to freshly-allocated small
+   (~0x38-byte) regions only, or triggering the scan from a different
+   moment in the connection lifecycle (immediately after
+   `Nub::recreateListeningSocket` fires for the BaseApp socket, before
+   any reply attempt, rather than on first packet receipt) — is the most
+   promising remaining lead, now that there is a confirmed, concrete
+   payload (`createBasePlayer`) worth unlocking.
+2. Once a working key is found (or confirmed shared after all), send the
+   ack first, confirm `checkScriptBaseAppAddr`/timeout resolution via
+   logcat, THEN test the `createBasePlayer` push in isolation (not both
+   at once, to avoid the new "20+ second retry" side effect complicating
+   interpretation of results).
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

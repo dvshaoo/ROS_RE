@@ -92,6 +92,26 @@ this document only aggregates and classifies, it does not re-derive.
   (tooling limitation, not a negative finding about the function's
   existence — `BASEAPP_CELLAPP_FLOW.md` already cites its rodata
   strings from an earlier, undocumented-method pass).
+  **UPDATE (E2E-011)**: found it via an alternate path — decoded the
+  FULL 122-entry `BaseAppExtInterface`+`ClientInterface` method
+  registration table by walking every `BL` caller of the shared
+  registrar function `0x98b30c` (`scratch/decode_clientinterface_table.py`),
+  after confirming (via three independent methods: ADRP+ADD scan,
+  raw-pointer scan, `.rela.dyn`/`.rela.plt` relocation scan) that
+  `createBasePlayer`'s name string genuinely has zero direct code/data
+  references — the string-xref method was a dead end, not a tooling gap.
+  **CONFIRMED BY BINARY**: `createBasePlayer` = `[u16 bodyLength][body]`
+  (VARIABLE_LENGTH_MESSAGE, same framing as `baseAppLogin`).
+  **STRONGLY SUPPORTED**: message ID 4 within `ClientInterface`
+  (bandwidthNotification=0, updateFrequencyNotification=1,
+  setGameTime=2, resetEntities=3, createBasePlayer=4), by the same
+  registration-order inference already validated for `baseAppLogin=0`.
+  Implemented and live-tested a `createBasePlayer` push
+  (`ATTEMPT_CREATEBASEPLAYER`) — still blocked by the same BaseApp-
+  channel-key issue (both the reply/ack and the push fail to decrypt
+  correctly with the same key), confirming the two blockers are
+  sequential: the key issue must be solved before `createBasePlayer`'s
+  content can be meaningfully tested at all.
 
 ## BLOCKED
 

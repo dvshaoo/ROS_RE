@@ -137,6 +137,42 @@ byte count or the length-prefix width). Field-level content within each body —
 framing — is documented per-message where available; for `baseAppLogin` specifically, see
 `BASEAPP_LOGIN_SERIALIZATION.md`.
 
+## 2b. 2026-09-15 — `createBasePlayer` Framing + Message-ID CONFIRMED (E2E-011)
+
+Extends §2a's truncated `ClientInterface` table. All 122 `BL` callers of the shared
+registrar function `0x98b30c` (used identically for `LoginInterface`, `BaseAppExtInterface`,
+and `ClientInterface`) were enumerated and each call site's `x1`/`w2`/`w3` arguments decoded
+(`scratch/decode_clientinterface_table.py`) — full method, `pass`/fail method name previously
+in this repo's own note "(partial, table truncated in the read window)" is now resolved.
+
+| Method | lengthStyle | lengthParam | Framing |
+|---|---|---|---|
+| `resetEntities` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `createBasePlayer` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body — **CONFIRMED BY BINARY** |
+| `createCellPlayer` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+| `spaceData` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
+
+**Message-ID-by-registration-order, STRONGLY SUPPORTED**: a bare `ClientInterface`
+registration call (resolving to the literal string `"ClientInterface"`, not a method name)
+immediately precedes `bandwidthNotification` — the same shape as `BaseAppExtInterface`'s own
+methods starting immediately with `baseAppLogin` (independently CONFIRMED as method ID 0 via
+live wire capture, see `BASEAPP_LOGIN_SERIALIZATION.md`). Counting from this anchor:
+`bandwidthNotification=0, updateFrequencyNotification=1, setGameTime=2, resetEntities=3,
+createBasePlayer=4`. Not yet independently wire-confirmed for `createBasePlayer` specifically
+(no live packet from a real BaseApp server exists to cross-check against) — flagged
+STRONGLY SUPPORTED rather than CONFIRMED for the numeric ID alone; the framing shape is
+CONFIRMED BY BINARY regardless of the exact ID.
+
+Also confirmed this pass, negatively: `createBasePlayer`'s (and every other interface
+method's) bare name string has **zero** direct references anywhere in the binary — checked
+three independent ways (ADRP+ADD instruction scan across all of `.text`, a raw 8-byte
+little-endian pointer scan across the WHOLE file, and a `.rela.dyn`/`.rela.plt` relocation
+addend scan). This whole string table is genuinely dead debug/reflection data with no code
+path reading it directly; the registrar-call-argument method (this section) is the correct
+way to recover per-method framing/order, not string xrefs. See
+`07_ros_legacy_approach/END_TO_END_TEST_LOG.md` E2E-010/E2E-011 for the full investigation
+history.
+
 ## 4. Confirmed Function: `LoginHandler::onLoginReply` / `handleMessage`
 
 Located via cross-reference of the evidence string `"sending base app request to %s "`
