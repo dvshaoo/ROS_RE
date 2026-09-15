@@ -44,14 +44,24 @@ this document only aggregates and classifies, it does not re-derive.
 
 - **BaseApp UDP handshake capture** (`mitm/local_baseapp_capture.py` on :25010):
   Captured 10 consecutive live `baseAppLogin` requests (24 bytes each, MsgID 0x00, bodyLength 11 bytes).
-  Server is currently capture-only; needs reply packet formulation to advance to entity instantiation / Lobby.
+  **UPDATE (E2E-008)**: server now attempts a real reply (`ATTEMPT_BASEAPP_REPLY`),
+  not capture-only. Four live iterations narrowed the wire model (BaseApp
+  channel Blowfish-encrypts the WHOLE packet, unlike LoginApp's body-only
+  encryption; the same `[flags][msgid][length][replyID][status]` inner
+  shape is still expected, just inside the encrypted region) but the reply
+  is still rejected — decrypts to wrong/garbage content, suggesting the
+  BaseApp channel uses its OWN separate `EncryptionFilter`/key rather than
+  reusing LoginApp's. See `07_ros_legacy_approach/END_TO_END_TEST_LOG.md`
+  E2E-008 for the full 4-attempt record and next-step plan (live re-scan
+  for a second key, timed within the ~5s single-shot retry window).
 
 ## BLOCKED
 
 1. **`script.npk` Python-layer patch (ROS-Legacy-Gate-1-style bypass)** —
    BLOCKED on two independent fronts: (a) general `7A 1C` stream cipher not yet broken;
    (b) Frida gadget injection on emulator hits native bridge translation module namespace limitation.
-2. **Account, Avatar, Lobby entity instantiation** — NEXT IMPLEMENTATION TARGET.
+2. **BaseApp reply content (correct Blowfish key for the BaseApp channel)** — see PARTIALLY WORKING above; this is now the precise, narrow blocker, not the whole BaseApp reply concept.
+3. **Account, Avatar, Lobby entity instantiation** — downstream of #2, NEXT IMPLEMENTATION TARGET once #2 is solved.
 
 ## RESOLVED (MOVED OUT OF BLOCKED)
 
