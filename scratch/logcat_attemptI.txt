@@ -1,0 +1,140 @@
+--------- beginning of main
+09-15 09:52:47.243 I/chatty  ( 9582): uid=10063(com.netease.chiji) expire 129 lines
+09-15 09:52:47.278 E/NeoXCCPlayer( 9582): onRequestUpdateTexture
+09-15 09:52:47.310 I/appproc ( 9939): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:52:47.311 D/AndroidRuntime( 9939): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:52:47.311 E/NeoXCCPlayer( 9582): onRequestUpdateTexture
+09-15 09:52:47.312 E/cutils-trace( 9939): Error opening trace file: No such file or directory (2)
+09-15 09:52:47.323 V/libnb   ( 9939): enter native_bridge2_isCompatibleWith 3
+09-15 09:52:47.330 I/libnb   ( 9939): Found /system/lib64/libhoudini.so version 3
+09-15 09:52:47.344 E/NeoXCCPlayer( 9582): onRequestUpdateTexture
+09-15 09:52:47.350 I/app_process( 9939): The ClassLoaderContext is a special shared library.
+09-15 09:52:47.350 W/app_process( 9939): Could not create mount namespace.
+09-15 09:52:47.350 D/nativebridge( 9939): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:52:47.350 W/nativebridge( 9939): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:52:47.350 W/nativebridge( 9939): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:52:47.350 D/nativebridge( 9939): call UnloadNativeBridge! state=2
+09-15 09:52:47.365 D/AndroidRuntime( 9939): Calling main entry com.android.commands.input.Input
+09-15 09:52:47.368 I/Input   ( 9939): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=2889574, downTime=2889574, deviceId=3, source=0x1002 }
+09-15 09:52:47.378 E/NeoXCCPlayer( 9582): onRequestUpdateTexture
+09-15 09:52:47.384 I/Input   ( 9939): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=2889574, downTime=2889574, deviceId=3, source=0x1002 }
+09-15 09:52:47.394 D/AndroidRuntime( 9939): Shutting down VM
+09-15 09:52:47.419 E/NeoX    ( 9582): finish get cutOut info
+09-15 09:52:47.444 E/NeoXCCPlayer( 9582): onRequestUpdateTexture
+09-15 09:52:47.844 I/chatty  ( 9582): uid=10063(com.netease.chiji) identical 12 lines
+09-15 09:52:47.877 E/NeoXCCPlayer( 9582): onRequestUpdateTexture
+09-15 09:52:47.893 I/[09:52:47.893] M ( 9582): [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 09:52:47.894 I/[09:52:47.894] M ( 9582): [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 09:52:47.895 I/[09:52:47.895] M ( 9582): [INFO] Nub::recreateListeningSocket 0x76384ac56000 0.0.0.0:24199
+09-15 09:52:47.898 W/IJKMEDIA( 9582): IjkMediaPlayer_stop
+09-15 09:52:47.898 W/IJKMEDIA( 9582): ijkmp_stop()
+09-15 09:52:47.898 W/IJKMEDIA( 9582): message_loop exit
+09-15 09:52:47.898 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9879]
+09-15 09:52:47.898 W/IJKMEDIA( 9582): ijkmp_stop()=0
+09-15 09:52:47.898 W/IJKMEDIA( 9582): IjkMediaPlayer_release
+09-15 09:52:47.898 W/IJKMEDIA( 9582): ijkmp_set_android_surface(surface=0x0)
+09-15 09:52:47.898 D/IJKMEDIA( 9582): ffpipeline_set_surface()
+09-15 09:52:47.898 I/IJKMEDIA( 9582): stream_open--->setsurface time = 22711 ms, video packet count = 11
+09-15 09:52:47.898 W/IJKMEDIA( 9582): ijkmp_set_android_surface(surface=0x0)=void
+09-15 09:52:47.899 E/IJKMEDIA( 9582): create async thread(1234683280)
+09-15 09:52:47.899 I/IJKMEDIA( 9582): SDL_RunThread: [9949] release_tid
+09-15 09:52:47.899 W/IJKMEDIA( 9582): async_release_android
+09-15 09:52:47.899 W/IJKMEDIA( 9582): ijkmp_stop_cc_player_stat
+09-15 09:52:47.899 W/IJKMEDIA( 9582): ijkmp_shutdown_l()
+09-15 09:52:47.907 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9880]
+09-15 09:52:47.923 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:47.923 I/[09:52:47.923] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00008669 (maybe it timed out?)
+09-15 09:52:47.949 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9881]
+09-15 09:52:47.949 W/IJKMEDIA( 9582): end wait for read_tid
+09-15 09:52:47.949 W/IJKMEDIA( 9582): begin wait for audio_tid
+09-15 09:52:47.949 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9888]
+09-15 09:52:47.950 W/IJKMEDIA( 9582): end wait for audio_tid
+09-15 09:52:47.950 W/IJKMEDIA( 9582): begin wait for ff_aout
+09-15 09:52:47.950 D/AudioTrack( 9582): stop() called with 1085568 frames delivered
+09-15 09:52:47.951 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9887]
+09-15 09:52:47.951 W/IJKMEDIA( 9582): end wait for ff_aout
+09-15 09:52:47.951 W/IJKMEDIA( 9582): begin wait for video_tid
+09-15 09:52:47.951 I/IJKMEDIA( 9582): MediaCodec: func_run_sync: try exit: -1
+09-15 09:52:47.957 I/IJKMEDIA( 9582): MediaCodec: enqueue_thread_func: exit: 0
+09-15 09:52:47.958 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9899]
+09-15 09:52:47.958 W/IJKMEDIA( 9582): SDL_AMediaCodecJava_stop
+09-15 09:52:47.963 D/SurfaceUtils( 9582): disconnecting from surface 0x76383e139010, reason disconnectFromSurface
+09-15 09:52:47.966 I/IJKMEDIA( 9582): SDL_AMediaCodecJava_delete
+09-15 09:52:47.967 D/LDDec   ( 1494): ~LDDec deinit 0xf56205a0 0
+09-15 09:52:47.974 I/IJKMEDIA( 9582): MediaCodec: func_run_sync: exit: -1
+09-15 09:52:47.974 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9898]
+09-15 09:52:47.976 I/        ( 9582): fastpipe: close connect
+09-15 09:52:47.977 W/IJKMEDIA( 9582): end wait for video_tid
+09-15 09:52:47.978 W/IJKMEDIA( 9582): begin wait for video_refresh_tid
+09-15 09:52:47.978 W/IJKMEDIA( 9582): end wait for video_refresh_tid
+09-15 09:52:47.979 D/IJKMEDIA( 9582): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384e9df4a0)
+09-15 09:52:47.979 D/IJKMEDIA( 9582): SDL_Overlay(MediaCodec): overlay_free_l(0x76384e9df4a0)
+09-15 09:52:47.979 D/IJKMEDIA( 9582): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384e9df540)
+09-15 09:52:47.979 D/IJKMEDIA( 9582): SDL_Overlay(MediaCodec): overlay_free_l(0x76384e9df540)
+09-15 09:52:47.979 D/IJKMEDIA( 9582): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384e9df5e0)
+09-15 09:52:47.979 D/IJKMEDIA( 9582): SDL_Overlay(MediaCodec): overlay_free_l(0x76384e9df5e0)
+09-15 09:52:47.979 W/IJKMEDIA( 9582): ijkmp_shutdown_l()=void
+09-15 09:52:47.979 W/IJKMEDIA( 9582): begin wait for ff_aout
+09-15 09:52:47.979 W/IJKMEDIA( 9582): end wait for ff_aout
+09-15 09:52:47.979 I/IJKMEDIA( 9582): SDL_JNI_DetachThreadEnv: [9949]
+09-15 09:52:48.353 I/NeoXDevice( 9582): On App CMD 23
+09-15 09:52:48.353 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:48.353 I/[09:52:48.353] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000866a (maybe it timed out?)
+09-15 09:52:48.783 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:48.783 I/[09:52:48.783] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000866b (maybe it timed out?)
+09-15 09:52:49.211 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:49.211 I/[09:52:49.211] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000866c (maybe it timed out?)
+09-15 09:52:49.343 I/NeoXDevice( 9582): On App CMD 24
+09-15 09:52:49.641 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:49.641 I/[09:52:49.641] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000866d (maybe it timed out?)
+09-15 09:52:50.071 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:50.071 I/[09:52:50.071] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000866e (maybe it timed out?)
+09-15 09:52:50.335 I/NeoXDevice( 9582): On App CMD 25
+09-15 09:52:50.501 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:50.501 I/[09:52:50.501] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x0000866f (maybe it timed out?)
+09-15 09:52:50.932 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:50.932 I/[09:52:50.932] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00008670 (maybe it timed out?)
+09-15 09:52:51.330 I/NeoXDevice( 9582): On App CMD 26
+09-15 09:52:51.363 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:51.363 I/[09:52:51.363] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00008671 (maybe it timed out?)
+09-15 09:52:51.793 I/        ( 9582): WARNING ***************************************************************************
+09-15 09:52:51.793 I/[09:52:51.793] M ( 9582): [WARNING] Mercury::Nub::handleMessage( 172.16.1.2:25000 ): Couldn't find handler for reply id 0x00008672 (maybe it timed out?)
+09-15 09:52:52.069 E/memtrack( 1573): Couldn't load memtrack module
+09-15 09:52:52.069 W/android.os.Debug( 1573): failed to get memory consumption info: -1
+09-15 09:52:52.321 I/NeoXDevice( 9582): On App CMD 27
+09-15 09:52:52.551 I/[09:52:52.550] M ( 9582): [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1919754888
+09-15 09:52:53.644 W/System  ( 1573): A resource failed to call close. 
+09-15 09:52:53.644 I/chatty  ( 1573): uid=1000(system) FinalizerDaemon identical 33 lines
+09-15 09:52:53.644 W/System  ( 1573): A resource failed to call close. 
+09-15 09:52:56.785 I/        ( 9582): 
+09-15 09:52:56.785 I/        ( 9582): ERROR *****************************************************************************
+09-15 09:52:56.785 I/[09:52:56.785] M ( 9582): [ERROR] RetryingRequest::handleException( login ): Final attempt of 10 has failed (REASON_TIMER_EXPIRED), aborting
+09-15 09:52:56.884 I/        ( 9582): 
+09-15 09:52:56.884 I/        ( 9582): ERROR *****************************************************************************
+09-15 09:52:56.884 I/[09:52:56.884] M ( 9582): [ERROR] ServerConnection::logOnComplete: Logon failed (Mercury::REASON_TIMER_EXPIRED)
+09-15 09:52:56.887 D/DCTOOL  ( 9582): ntStart() queue size (1), current thread=357
+09-15 09:52:56.887 D/DCTOOL  ( 9582): ntStart() after so loaded, current thread=357
+09-15 09:52:56.887 D/DCTOOL  ( 9582): ntStart() with native and reset.
+09-15 09:52:56.887 D/DCTOOL  ( 9582): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 09:52:56.888 D/DCTOOL  ( 9582): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 09:52:56.888 D/DCTOOL  ( 9582): NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 09:52:56.888 D/DCTOOL  ( 9582): NATIVE [ntGetDeviceInfo] callback here.
+09-15 09:52:56.888 D/DCTOOL  ( 9582): In C++, call back Java's ntGetDeviceInfo().
+09-15 09:52:56.894 D/DCTOOL  ( 9582): Getting NETWORK_TYPE in java : wifi
+09-15 09:52:56.895 D/DCTOOL  ( 9582): Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4890.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:52:56.895 D/DCTOOL  ( 9582): In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4890.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:52:56.895 D/DCTOOL  ( 9582): In C++, release the returned string. detach. 
+09-15 09:52:56.895 D/DCTOOL  ( 9582): In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 09:52:56.895 I/DCTOOL  ( 9582): OSVersion: 9
+09-15 09:52:56.895 I/DCTOOL  ( 9582): brand: Redmi -- model: 22081212C
+09-15 09:52:56.895 I/DCTOOL  ( 9582): Serialno: 00c80dd8
+09-15 09:52:56.922 D/DCTOOL  ( 9582): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:52:56.922 D/DCTOOL  ( 9582): NATIVE [OnToolCallback] calling here.
+09-15 09:52:56.922 D/DCTOOL  ( 9582):  NOT RUNNING TIME. 
+09-15 09:52:56.922 D/DCTOOL  ( 9582): In C++, call back Java's OnToolCallback(String).
+09-15 09:52:56.923 D/DCTOOL  ( 9582): OnToolCallback : NOT RUNNING TIME.
+09-15 09:52:56.923 D/DCTOOL  ( 9582): OnToolCallback, current thread=398
+09-15 09:52:56.923 D/DCTOOL  ( 9582): onUploadID, current thread=398
+09-15 09:52:56.923 I/DcTool  ( 9582): NOT RUNNING TIME.
+09-15 09:52:56.923 D/DCTOOL  ( 9582): NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 09:52:57.281 I/NeoXDevice( 9582): On App CMD 28

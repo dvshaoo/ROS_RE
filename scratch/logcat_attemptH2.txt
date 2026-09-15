@@ -1,0 +1,277 @@
+--------- beginning of main
+09-15 09:54:11.945 I/appproc (10305): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:54:11.945 D/AndroidRuntime(10305): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:54:11.950 E/cutils-trace(10305): Error opening trace file: No such file or directory (2)
+09-15 09:54:11.986 V/libnb   (10305): enter native_bridge2_isCompatibleWith 3
+09-15 09:54:11.996 I/libnb   (10305): Found /system/lib64/libhoudini.so version 3
+09-15 09:54:12.047 I/app_process(10305): The ClassLoaderContext is a special shared library.
+09-15 09:54:12.048 W/app_process(10305): Could not create mount namespace.
+09-15 09:54:12.048 D/nativebridge(10305): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:54:12.048 W/nativebridge(10305): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:54:12.048 W/nativebridge(10305): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:54:12.048 D/nativebridge(10305): call UnloadNativeBridge! state=2
+09-15 09:54:12.084 D/AndroidRuntime(10305): Calling main entry com.android.commands.input.Input
+09-15 09:54:12.087 I/Input   (10305): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=2974294, downTime=2974294, deviceId=3, source=0x1002 }
+09-15 09:54:12.103 I/Input   (10305): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=2974294, downTime=2974294, deviceId=3, source=0x1002 }
+09-15 09:54:12.111 D/AndroidRuntime(10305): Shutting down VM
+09-15 09:54:13.814 I/ldinit  ( 1429): type=1400 audit(0.0:3625): avc: denied { read } for name="partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:54:13.814 I/ldinit  ( 1429): type=1400 audit(0.0:3626): avc: denied { open } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:54:13.814 I/ldinit  ( 1429): type=1400 audit(0.0:3627): avc: denied { getattr } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:54:14.505 D/BoundBrokerSvc( 2049): onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+09-15 09:54:14.617 I/NeoXDevice(10007): On App CMD 21
+09-15 09:54:17.475 E/NeoX    (10007): finish get cutOut info
+09-15 09:54:17.491 E/NeoX    (10007): finish get cutOut info
+09-15 09:54:17.505 V/libnb   (10007): enter native_bridge2_isCompatibleWith 3
+09-15 09:54:17.505 V/libnb   (10007): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijkffmpeg.so, 2, 0x3
+09-15 09:54:17.520 V/libnb   (10007): native_bridge3_loadLibraryExt: 0x76387561b200
+09-15 09:54:17.520 V/libnb   (10007): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x0
+09-15 09:54:17.521 V/libnb   (10007): enter native_bridge2_isCompatibleWith 3
+09-15 09:54:17.521 V/libnb   (10007): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijkutil.so, 2, 0x3
+09-15 09:54:17.525 V/libnb   (10007): native_bridge3_loadLibraryExt: 0x76387561b760
+09-15 09:54:17.525 V/libnb   (10007): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x0
+09-15 09:54:17.525 V/libnb   (10007): enter native_bridge2_isCompatibleWith 3
+09-15 09:54:17.525 V/libnb   (10007): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijksdl.so, 2, 0x3
+09-15 09:54:17.529 V/libnb   (10007): native_bridge3_loadLibraryExt: 0x76387561bcc0
+09-15 09:54:17.529 V/libnb   (10007): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x76391357d760
+09-15 09:54:17.530 W/IJKMEDIA(10007): java.nio.ByteBuffer class loaded
+09-15 09:54:17.530 I/IJKMEDIA(10007): MediaCodec: API-28
+09-15 09:54:17.530 W/IJKMEDIA(10007): android.media.MediaCodec$BufferInfo class loaded
+09-15 09:54:17.530 W/IJKMEDIA(10007): android.media.MediaCodec class loaded
+09-15 09:54:17.530 V/libnb   (10007): enter native_bridge2_isCompatibleWith 3
+09-15 09:54:17.530 V/libnb   (10007): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijkplayer.so, 2, 0x3
+09-15 09:54:17.532 V/libnb   (10007): native_bridge3_loadLibraryExt: 0x76387561c220
+09-15 09:54:17.532 V/libnb   (10007): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x76391357d780
+09-15 09:54:17.538 W/IJKMEDIA(10007): IjkMediaPlayer_native_init, LOG ENABLE=1
+09-15 09:54:17.538 W/IJKMEDIA(10007): IjkMediaPlayer_native_setup
+09-15 09:54:17.538 I/IJKMEDIA(10007): ===================player texture is=============30264
+09-15 09:54:17.538 D/IJKMEDIA(10007): ffpipeline_create_from_android()
+09-15 09:54:17.538 W/IJKMEDIA(10007): ijkmp_set_format_callback(0x338a)
+09-15 09:54:17.538 W/IJKMEDIA(10007): ijkmp_set_format_callback()=void
+09-15 09:54:17.538 W/IJKMEDIA(10007): ijkmp_android_set_mediacodec_select_callback()
+09-15 09:54:17.538 D/IJKMEDIA(10007): ffpipeline_set_mediacodec_select_callback
+09-15 09:54:17.538 W/IJKMEDIA(10007): ijkmp_android_set_mediacodec_select_callback()=void
+09-15 09:54:17.538 W/IJKMEDIA(10007): ijkmp_android_set_video_select_callback()
+09-15 09:54:17.538 D/IJKMEDIA(10007): ffpipeline_set_video_select_callback
+09-15 09:54:17.538 W/IJKMEDIA(10007): ijkmp_android_set_video_select_callback()=void
+09-15 09:54:17.538 I/IJKMEDIA(10007): init surface
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setVideoSurface
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_android_surface(surface=0x7638727fa118)
+09-15 09:54:17.540 D/IJKMEDIA(10007): ffpipeline_set_surface()
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_android_surface(surface=0x7638727fa118)=void
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setMediaCodecEnabled
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_android_set_mediacodec_enabled(1)
+09-15 09:54:17.540 D/IJKMEDIA(10007): ffpipeline_set_mediacodec_enabled
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_android_set_mediacodec_enabled()=void
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setDataSourceAndHeaders
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_data_source(url="Documents/res/video/3rd_login.mp4") 
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setAvFormatOption
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option(reconnect, 1)
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option()=void
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setAvFormatOption
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option(timeout, 20*1000*1000)
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option()=void
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setAvFormatOption
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option(probesize, 200000)
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option()=void
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_setAvFormatOption
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option(analyzeduration, 12000000)
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_set_format_option()=void
+09-15 09:54:17.540 W/IJKMEDIA(10007): IjkMediaPlayer_prepareAsync
+09-15 09:54:17.540 W/IJKMEDIA(10007): ijkmp_prepare_async()
+09-15 09:54:17.541 I/IJKMEDIA(10007): ===== versions =====
+09-15 09:54:17.541 I/IJKMEDIA(10007): libavutil    : 55.27.100
+09-15 09:54:17.541 I/IJKMEDIA(10007): libavcodec   : 57.48.101
+09-15 09:54:17.541 I/IJKMEDIA(10007): SDL_RunThread: [10318] ff_msg_loop
+09-15 09:54:17.541 I/IJKMEDIA(10007): libavformat  : 57.40.101
+09-15 09:54:17.541 W/IJKMEDIA(10007): message_loop
+09-15 09:54:17.541 I/IJKMEDIA(10007): libswscale   : 4.1.100
+09-15 09:54:17.541 I/IJKMEDIA(10007): libswresample: 2.1.100
+09-15 09:54:17.541 I/IJKMEDIA(10007): ===== options =====
+09-15 09:54:17.541 I/IJKMEDIA(10007): format-opts : reconnect                    = 1
+09-15 09:54:17.541 I/IJKMEDIA(10007): format-opts : timeout                      = 20*1000*1000
+09-15 09:54:17.541 I/IJKMEDIA(10007): format-opts : probesize                    = 200000
+09-15 09:54:17.541 I/IJKMEDIA(10007): format-opts : analyzeduration              = 12000000
+09-15 09:54:17.541 I/IJKMEDIA(10007): ===================
+09-15 09:54:17.541 W/IJKMEDIA(10007): FFP_MSG_FLUSH:
+09-15 09:54:17.541 I/IJKMEDIA(10007): SDL_RunThread: [10319] ff_vout
+09-15 09:54:17.542 I/IJKMEDIA(10007): SDL_RunThread: [10320] ff_read
+09-15 09:54:17.542 I/IJKMEDIA(10007): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:54:17.542 I/IJKMEDIA(10007): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:54:17.542 D/IJKMEDIA(10007): player buffering start, target(100), current:audio(0) sample(0) video(0) picture(0)
+09-15 09:54:17.558 E/IJKMEDIA(10007): Option reconnect not found.
+09-15 09:54:17.605 I/[09:54:17.605]     <SCRIPT> (10007): fetch_by_domain
+09-15 09:54:17.605 I/[09:54:17.605]     <SCRIPT> (10007): http_get url=https://h45na.update.easebar.com/notice_pc_hw.txt,host=h45na.update.easebar.com
+09-15 09:54:17.619 I/IJKMEDIA(10007): max_frame_duration: 5.000
+09-15 09:54:17.619 I/IJKMEDIA(10007): Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'Documents/res/video/3rd_login.mp4':
+09-15 09:54:17.619 I/IJKMEDIA(10007):   Metadata:
+09-15 09:54:17.619 I/IJKMEDIA(10007):     major_brand     : 
+09-15 09:54:17.619 I/IJKMEDIA(10007): isom
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     minor_version   : 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 1
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     compatible_brands: 
+09-15 09:54:17.619 I/IJKMEDIA(10007): isom
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     creation_time   : 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 2020-11-13 09:25:43
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):   Duration: 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 00:00:45.08
+09-15 09:54:17.619 I/IJKMEDIA(10007): , start: 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 0.000000
+09-15 09:54:17.619 I/IJKMEDIA(10007): , bitrate: 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 2638 kb/s
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     Stream #0:0
+09-15 09:54:17.619 I/IJKMEDIA(10007): (und)
+09-15 09:54:17.619 I/IJKMEDIA(10007): : Video: h264 (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown), 1920x1080, 2511 kb/s
+09-15 09:54:17.619 I/IJKMEDIA(10007): , 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 30 fps, 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 30 tbr, 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 30k tbn, 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 60k tbc
+09-15 09:54:17.619 I/IJKMEDIA(10007):  (default)
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     Metadata:
+09-15 09:54:17.619 I/IJKMEDIA(10007):       creation_time   : 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 2020-11-13 09:24:50
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     Stream #0:1
+09-15 09:54:17.619 I/IJKMEDIA(10007): (und)
+09-15 09:54:17.619 I/IJKMEDIA(10007): : Audio: aac (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 126 kb/s
+09-15 09:54:17.619 I/IJKMEDIA(10007):  (default)
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.619 I/IJKMEDIA(10007):     Metadata:
+09-15 09:54:17.619 I/IJKMEDIA(10007):       creation_time   : 
+09-15 09:54:17.619 I/IJKMEDIA(10007): 2020-11-13 09:24:49
+09-15 09:54:17.619 I/IJKMEDIA(10007): 
+09-15 09:54:17.620 I/IJKMEDIA(10007): SDL_Android_AudioTrack: CHANNEL_OUT_STEREO
+09-15 09:54:17.620 I/IJKMEDIA(10007): SDL_Android_AudioTrack: ENCODING_PCM_16BIT
+09-15 09:54:17.621 D/AudioFlinger( 1430): Client defaulted notificationFrames to 1026 for frameCount 2052
+09-15 09:54:17.623 W/AudioTrack(10007): Use of stream types is deprecated for operations other than volume control
+09-15 09:54:17.623 W/AudioTrack(10007): See the documentation of AudioTrack() for what to use instead with android.media.AudioAttributes to qualify your playback use case
+09-15 09:54:17.624 I/IJKMEDIA(10007): SDL_Android_AudioTrack_new: init volume as 1.000000/(0.000000,1.000000)
+09-15 09:54:17.624 I/IJKMEDIA(10007): AudioCodec: avcodec, aac
+09-15 09:54:17.625 I/IJKMEDIA(10007): SDL_RunThread: [10324] ff_aout_android
+09-15 09:54:17.626 I/[09:54:17.626]     <SCRIPT> (10007): verify_result
+09-15 09:54:17.626 I/[09:54:17.626]     <SCRIPT> (10007): fetch_by_domain
+09-15 09:54:17.626 I/[09:54:17.626]     <SCRIPT> (10007): http_get url=https://h45na.update.easebar.com/notice_pc_hw.txt,host=h45na.update.easebar.com
+09-15 09:54:17.627 D/IJKMEDIA(10007): ffpipenode_create_video_decoder_from_android_mediacodec()
+09-15 09:54:17.627 I/IJKMEDIA(10007): ffpipenode_create_video_decoder_from_android_mediacodec: MediaCodec: H264_HIGH: enabled
+09-15 09:54:17.627 W/IJKMEDIA(10007): SDL_AMediaFormatJava_createVideoFormat
+09-15 09:54:17.627 I/IJKMEDIA(10007): SDL_RunThread: [10325] ff_audio_dec
+09-15 09:54:17.628 W/IJKMEDIA(10007): ASDK_ByteBuffer_allocateDirect
+09-15 09:54:17.628 W/IJKMEDIA(10007): ASDK_ByteBuffer_limit
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 00000001
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 67640028
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: acd94078
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 0227e59a
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 810100a0
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 00000300
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 20001d4c
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 01e30632
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: c0000000
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 0168e938
+09-15 09:54:17.628 D/IJKMEDIA(10007): csd-0[43]: 44b22c00
+09-15 09:54:17.628 D/IJKMEDIA(10007): ffpipeline_select_mediacodec
+09-15 09:54:17.629 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10007): onSelectCodec: mime=video/avc, profile=100, level=40
+09-15 09:54:17.629 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10007): selected codec: OMX.qcom.video.decoder.avc rank=800
+09-15 09:54:17.629 W/IJKMEDIA(10007): SDL_AMediaCodecJava_createByCodecName
+09-15 09:54:17.639 I/OMXClient(10007): IOmx service obtained
+09-15 09:54:17.641 I/[09:54:17.641]     <SCRIPT> (10007): verify_result
+09-15 09:54:17.643 I/OMXMaster( 1494): makeComponentInstance(OMX.qcom.video.decoder.avc) in omx@1.0-service process
+09-15 09:54:17.653 D/LDDec   ( 1494): createSoftOMXComponent OMX.qcom.video.decoder.avc
+09-15 09:54:17.653 D/LDDec   ( 1494): LDDec init 0x0 1, 320
+09-15 09:54:17.660 W/IJKMEDIA(10007): SDL_AMediaCodecJava_init
+09-15 09:54:17.660 D/IJKMEDIA(10007): we get a mediacodec 
+09-15 09:54:17.660 W/IJKMEDIA(10007): SDL_AMediaCodecJava_configure_surface
+09-15 09:54:17.660 E/IJKMEDIA(10007): configure 0x34b6 0x3446
+09-15 09:54:17.661 D/SurfaceUtils(10007): connecting to surface 0x76384a49e010, reason connectToSurface
+09-15 09:54:17.661 I/MediaCodec(10007): [OMX.qcom.video.decoder.avc] setting surface generation to 10247169
+09-15 09:54:17.661 D/SurfaceUtils(10007): disconnecting from surface 0x76384a49e010, reason connectToSurface(reconnect)
+09-15 09:54:17.661 D/SurfaceUtils(10007): connecting to surface 0x76384a49e010, reason connectToSurface(reconnect)
+09-15 09:54:17.661 W/OMXNodeInstance( 1494): [0xf5222240:qcom.decoder.avc] component does not support metadata mode; using fallback
+09-15 09:54:17.661 E/ACodec  (10007): [OMX.qcom.video.decoder.avc] setPortMode on output to DynamicANWBuffer failed w/ err -1010
+09-15 09:54:17.661 W/OMXNodeInstance( 1494): [0xf5222240:qcom.decoder.avc] component does not support metadata mode; using fallback
+09-15 09:54:17.661 D/SoftVideoDecoderOMXComponent( 1494): Color Aspects preference: 1 
+09-15 09:54:17.661 E/OMXNodeInstance( 1494): getConfig(0xf5222240:qcom.decoder.avc, ConfigAndroidVendorExtension(0x6f100004)) ERROR: UnsupportedIndex(0x8000101a)
+09-15 09:54:17.661 E/OMXNodeInstance( 1494): getConfig(0xf5222240:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:54:17.671 W/IJKMEDIA(10007): SDL_AMediaCodecJava_start
+09-15 09:54:17.673 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:54:17.674 I/deo.decoder.avc( 1494): type=1400 audit(0.0:3628): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6869 scontext=u:r:mediacodec:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:54:17.678 I/chatty  ( 1406): uid=1000(system) allocator@1.0-s expire 30 lines
+09-15 09:54:17.678 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:54:17.679 D/LDDec   ( 1494): initDecoder OMX.qcom.video.decoder.avc init
+09-15 09:54:17.679 I/IJKMEDIA(10007): configure_codec_l:new acodec: 0x3476
+09-15 09:54:17.679 I/IJKMEDIA(10007): stream_open--->setmediacodec time = 49 ms
+09-15 09:54:17.679 I/IJKMEDIA(10007): VideoCodec: MediaCodec, OMX.qcom.video.decoder.avc
+09-15 09:54:17.679 D/IJKMEDIA(10007): ffpipenode_create_video_decoder_from_android_mediacodec() success 
+09-15 09:54:17.679 D/IJKMEDIA(10007): ffpipeline_onselect_videodecoder
+09-15 09:54:17.681 D/SoftVideoDecoderOMXComponent( 1494): Color Aspects preference: 1 
+09-15 09:54:17.687 I/IJKMEDIA(10007): SDL_RunThread: [10337] ff_video_dec
+09-15 09:54:17.687 I/IJKMEDIA(10007): fps: 30.000000 (normal)
+09-15 09:54:17.687 I/IJKMEDIA(10007): fps: 30.000000 (normal)
+09-15 09:54:17.687 I/IJKMEDIA(10007): stream_open--->FFP_MSG_PREPARED time = 146 ms
+09-15 09:54:17.687 W/IJKMEDIA(10007): ijkmp_get_msg: FFP_MSG_PREPARED
+09-15 09:54:17.687 W/IJKMEDIA(10007): FFP_MSG_PREPARED:
+09-15 09:54:17.687 W/IJKMEDIA(10007): FFP_MSG_VIDEO_SIZE_CHANGED: 1920, 1080
+09-15 09:54:17.688 W/IJKMEDIA(10007): FFP_MSG_SAR_CHANGED: 0, 1
+09-15 09:54:17.688 D/IJKMEDIA(10007): init_jitter_calculator period=5000
+09-15 09:54:17.688 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(404)
+09-15 09:54:17.688 E/OMXNodeInstance( 1494): getConfig(0xf5222240:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:54:17.688 W/IJKMEDIA(10007): target_buffer=100, audio buffer=0, video buffer=11000
+09-15 09:54:17.688 W/IJKMEDIA(10007): stream_open--->first buffering time 0.147 s
+09-15 09:54:17.688 D/IJKMEDIA(10007): player buffering end, current:audio(0) video(11000)
+09-15 09:54:17.688 I/IJKMEDIA(10007): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:54:17.688 I/IJKMEDIA(10007): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:54:17.688 D/IJKMEDIA(10007): player buffering start, target(100), current:audio(0) sample(16000) video(0) picture(0)
+09-15 09:54:17.688 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(405)
+09-15 09:54:17.688 E/OMXNodeInstance( 1494): getConfig(0xf5222240:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:54:17.690 I/IJKMEDIA(10007): SDL_RunThread: [10338] amediacodec_input_thread
+09-15 09:54:17.694 W/IJKMEDIA(10007): target_buffer=100, audio buffer=1024, video buffer=16000
+09-15 09:54:17.694 D/IJKMEDIA(10007): player buffering end, current:audio(1024) video(16000)
+09-15 09:54:17.694 W/IJKMEDIA(10007): stuck statistics: buffer_pre = 0.005602, buffer_sum = 0.005602
+09-15 09:54:17.694 W/IJKMEDIA(10007): s
+09-15 09:54:17.704 D/IJKMEDIA(10007): ffpipeline_set_surface_need_reconfigure(0)
+09-15 09:54:17.704 I/IJKMEDIA(10007): feed_input_buffer: same surface, reuse previous surface
+09-15 09:54:17.723 D/MediaCodec(10007): [OMX.qcom.video.decoder.avc] setting dataspace on output surface to #104
+09-15 09:54:17.723 I/IJKMEDIA(10007): SDL_AMediaCodecJava_dequeueOutputBuffer: INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:54:17.724 E/IJKMEDIA(10007): AMEDIACODEC__INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:54:17.724 W/IJKMEDIA(10007): SDL_AMediaFormatJava_init
+09-15 09:54:17.724 I/IJKMEDIA(10007): AMEDIACODEC__INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:54:17.724 I/IJKMEDIA(10007):     width-height: (1920 x 1080)
+09-15 09:54:17.724 I/IJKMEDIA(10007):     color-format: (FormatYUV420Planar: 0x13)
+09-15 09:54:17.724 I/IJKMEDIA(10007):     stride:       (1920)
+09-15 09:54:17.724 I/IJKMEDIA(10007):     slice-height: (1080)
+09-15 09:54:17.724 I/IJKMEDIA(10007):     crop:         (0, 0, 1919, 1079)
+09-15 09:54:17.724 I/IJKMEDIA(10007): overlayer format is 10001
+09-15 09:54:17.724 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:54:17.724 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:54:17.724 D/IJKMEDIA(10007): Video: first frame decoded
+09-15 09:54:17.724 I/IJKMEDIA(10007): stream_open--->decode first frame time = 183 ms, video packet count = 293
+09-15 09:54:17.728 I/IJKMEDIA(10007): overlayer format is 10001
+09-15 09:54:17.728 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:54:17.728 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:54:17.734 I/IJKMEDIA(10007): overlayer format is 10001
+09-15 09:54:17.734 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:54:17.734 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:54:17.753 D/IJKMEDIA(10007): avcodec/Audio: first frame decoded
+09-15 09:54:17.753 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(403)
+09-15 09:54:17.757 I/MediaCodec_loop(10007): type=1400 audit(0.0:3629): avc: denied { open } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:54:17.758 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(402)
+09-15 09:54:17.758 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10007): Info (2000,0)
+09-15 09:54:17.758 W/MapperHal(10007): buffer descriptor with invalid usage bits 0x2000
+09-15 09:54:17.775 I/        (10007): fastpipe: Connect success
+09-15 09:54:17.776 D/HostConnection(10007): HostRPC::connect sucess: app=com.netease.chiji, pid=10007, tid=10332, this=0x7638484c9d80
+09-15 09:54:17.777 D/HostConnection(10007): queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:com.netease.chiji
+09-15 09:54:17.795 D/SoftwareRenderer(10007): setting dataspace on output surface to #104
+09-15 09:54:17.795 E/NeoXCCPlayer(10007): onRequestUpdateTexture
+09-15 09:54:17.795 E/NeoXCCPlayer(10007): nativeOnVideoReady
+09-15 09:54:17.795 V/libnb   (10007): enter native_bridge2_getTrampoline Java_com_netease_neox_CCPlayer_nativeOnVideoReady, trampoline_addr 0x0
+09-15 09:54:17.795 V/libnb   (10007): enter native_bridge2_getTrampoline Java_com_netease_neox_CCPlayer_nativeOnVideoReady__J, trampoline_addr 0x0
+09-15 09:54:17.795 V/libnb   (10007): enter native_bridge2_getTrampoline Java_com_netease_neox_CCPlayer_nativeOnVideoReady, trampoline_addr 0x76391357de00
+09-15 09:54:17.825 W/MapperHal(10007): buffer descriptor with invalid usage bits 0x2000
+09-15 09:54:17.836 E/NeoXCCPlayer(10007): onRequestUpdateTexture
+09-15 09:54:17.858 W/MapperHal(10007): buffer descriptor with invalid usage bits 0x2000
+09-15 09:54:17.874 E/NeoXCCPlayer(10007): onRequestUpdateTexture

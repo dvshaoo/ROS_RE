@@ -1,0 +1,954 @@
+--------- beginning of main
+09-15 09:57:12.069 D/DCTOOL  (10486): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:57:12.069 D/DCTOOL  (10486): NATIVE [OnToolCallback] calling here.
+09-15 09:57:12.069 D/DCTOOL  (10486):  {"code":0,"msg":"ok"} 
+09-15 09:57:12.069 D/DCTOOL  (10486): In C++, call back Java's OnToolCallback(String).
+09-15 09:57:12.069 D/DCTOOL  (10486): OnToolCallback : {"code":0,"msg":"ok"}
+09-15 09:57:12.069 D/DCTOOL  (10486): OnToolCallback, current thread=390
+09-15 09:57:12.069 D/DCTOOL  (10486): NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 09:57:12.069 I/DCTOOL  (10486): OSVersion: 9
+09-15 09:57:12.069 I/DCTOOL  (10486): brand: Redmi -- model: 22081212C
+09-15 09:57:12.069 I/DCTOOL  (10486): Serialno: 00c80dd8
+09-15 09:57:12.125 D/DCTOOL  (10486): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:57:12.125 D/DCTOOL  (10486): NATIVE [OnToolCallback] calling here.
+09-15 09:57:12.125 D/DCTOOL  (10486):  {"code":0,"msg":"ok"} 
+09-15 09:57:12.125 D/DCTOOL  (10486): In C++, call back Java's OnToolCallback(String).
+09-15 09:57:12.125 D/DCTOOL  (10486): OnToolCallback : {"code":0,"msg":"ok"}
+09-15 09:57:12.125 D/DCTOOL  (10486): OnToolCallback, current thread=391
+09-15 09:57:12.125 D/DCTOOL  (10486): NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 09:57:12.245 I/appproc (10799): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:57:12.245 D/AndroidRuntime(10799): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:57:12.247 E/cutils-trace(10799): Error opening trace file: No such file or directory (2)
+09-15 09:57:12.258 V/libnb   (10799): enter native_bridge2_isCompatibleWith 3
+09-15 09:57:12.264 I/libnb   (10799): Found /system/lib64/libhoudini.so version 3
+09-15 09:57:12.284 I/app_process(10799): The ClassLoaderContext is a special shared library.
+09-15 09:57:12.284 W/app_process(10799): Could not create mount namespace.
+09-15 09:57:12.284 D/nativebridge(10799): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:57:12.284 W/nativebridge(10799): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:57:12.284 W/nativebridge(10799): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:57:12.284 D/nativebridge(10799): call UnloadNativeBridge! state=2
+09-15 09:57:12.302 D/AndroidRuntime(10799): Calling main entry com.android.commands.input.Input
+09-15 09:57:12.303 I/Input   (10799): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=3154511, downTime=3154511, deviceId=3, source=0x1002 }
+09-15 09:57:12.322 I/Input   (10799): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=3154511, downTime=3154511, deviceId=3, source=0x1002 }
+09-15 09:57:12.332 D/AndroidRuntime(10799): Shutting down VM
+09-15 09:57:14.495 D/BoundBrokerSvc( 2049): onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+09-15 09:57:14.613 I/NeoXDevice(10486): On App CMD 21
+09-15 09:57:14.629 I/[09:57:14.629] M   <SCRIPT> (10486): fetch_by_domain
+09-15 09:57:14.629 I/[09:57:14.629] M   <SCRIPT> (10486): http_get url=https://h45na.update.easebar.com/notice_pc_hw.txt,host=h45na.update.easebar.com
+09-15 09:57:14.661 I/[09:57:14.661] M   <SCRIPT> (10486): verify_result
+09-15 09:57:14.663 I/[09:57:14.663] M   <SCRIPT> (10486): fetch_by_domain
+09-15 09:57:14.663 I/[09:57:14.663] M   <SCRIPT> (10486): http_get url=https://h45na.update.easebar.com/notice_pc_hw.txt,host=h45na.update.easebar.com
+09-15 09:57:14.679 I/[09:57:14.679] M   <SCRIPT> (10486): verify_result
+09-15 09:57:14.683 D/NeoX    (10486): [huawei] registerGame getPackageName=com.netease.chiji
+09-15 09:57:14.683 I/IAwareGameSdk(10486): registerGame, packageName:com.netease.chiji
+09-15 09:57:14.684 I/IAwareGameSdkAdapter(10486): registerGameCallback
+09-15 09:57:14.685 I/IAwareGameSdkAdapter(10486): new SDKCallback
+09-15 09:57:14.685 D/NeoX    (10486): [huawei] registerGame suc false
+09-15 09:57:14.686 I/AdvertMgr(10486): AdvertMgr [invokeEvent]  event=af_login, chnl=appsflyer, param={}
+09-15 09:57:14.686 I/AdvertMgr(10486): AdvertMgr [invokeEvent] calling method=public void com.netease.advertSdk.base.AdvertMgr.appsflyer(java.lang.String,java.lang.String,java.lang.String,android.os.Bundle)
+09-15 09:57:14.686 D/AdvertMgr(10486): appsflyer
+09-15 09:57:14.686 D/AdvertMgr(10486): className=com.netease.advertSdk.SdkAppsflyer
+09-15 09:57:14.686 D/AdvertMgr(10486): event=af_login
+09-15 09:57:14.686 D/AdvertMgr(10486): param={}
+09-15 09:57:14.686 I/SdkAppsflyer(10486): SdkAppsflyer [handleCustomEvent]
+09-15 09:57:14.687 D/AdvertUtils(10486): context instanceof Activity
+09-15 09:57:14.687 D/sensor_hal( 1425): sensor_device_default_flush handle=0
+09-15 09:57:14.688 I/AdvertMgr(10486): AdvertMgr [invokeEvent] post2SDC json={"type":"af_login","project":"unisdk","source":"appsflyerlog","eventName":"af_login","game_project":"h45naxx1gb","udid":"11178811c6a412d9","param":"{}"}
+09-15 09:57:14.688 D/AdvertMgr(10486): jsonStr={"type":"af_login","project":"unisdk","source":"appsflyerlog","eventName":"af_login","game_project":"h45naxx1gb","udid":"11178811c6a412d9","param":"{}"}
+09-15 09:57:14.688 D/sensor_hal( 1425): cb_setDelay handle=2 delay-ns=200000000
+09-15 09:57:14.688 D/sensor_hal( 1425): cb_activate handle=2 enabled=1
+09-15 09:57:14.688 D/sensor_hal( 1425): cb_setDelay handle=5 delay-ns=200000000
+09-15 09:57:14.688 D/sensor_hal( 1425): cb_activate handle=5 enabled=1
+09-15 09:57:14.689 I/NeoXDevice(10486): On App CMD 11
+09-15 09:57:14.689 I/NeoXDevice(10486): On App CMD 6
+09-15 09:57:14.696 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.696 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.696 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.696 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.696 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.696 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.696 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.696 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.696 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.697 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.697 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.697 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.697 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.697 W/System.err(10486): 	... 20 more
+09-15 09:57:14.697 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.697 W/System.err(10486): 	... 31 more
+09-15 09:57:14.721 W/System.err(10486): java.lang.SecurityException: getSubscriberId
+09-15 09:57:14.722 W/System.err(10486): 	at android.os.Parcel.createException(Parcel.java:1967)
+09-15 09:57:14.722 W/System.err(10486): 	at android.os.Parcel.readException(Parcel.java:1935)
+09-15 09:57:14.723 W/System.err(10486): 	at android.os.Parcel.readException(Parcel.java:1885)
+09-15 09:57:14.723 W/System.err(10486): 	at com.android.internal.telephony.IPhoneSubInfo$Stub$Proxy.getSubscriberIdForSubscriber(IPhoneSubInfo.java:578)
+09-15 09:57:14.723 W/System.err(10486): 	at android.telephony.TelephonyManager.getSubscriberId(TelephonyManager.java:3097)
+09-15 09:57:14.723 W/System.err(10486): 	at android.telephony.TelephonyManager.getSubscriberId(TelephonyManager.java:3080)
+09-15 09:57:14.723 W/System.err(10486): 	at com.netease.ntunisdk.base.UniSdkUtils.getMobileIMSI(UniSdkUtils.java:532)
+09-15 09:57:14.723 W/System.err(10486): 	at com.netease.ntunisdk.base.ad.run(SdkBase.java:6119)
+09-15 09:57:14.723 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.728 E/UniSDK NetUtil(10486): doget >> java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.729 E/UniSDK Base(10486): OnProtocolFinishListener not set
+09-15 09:57:14.743 W/System.err(10486): java.lang.SecurityException: getDeviceId
+09-15 09:57:14.744 W/System.err(10486): 	at android.os.Parcel.createException(Parcel.java:1967)
+09-15 09:57:14.744 W/System.err(10486): 	at android.os.Parcel.readException(Parcel.java:1935)
+09-15 09:57:14.744 W/System.err(10486): 	at android.os.Parcel.readException(Parcel.java:1885)
+09-15 09:57:14.744 W/System.err(10486): 	at com.android.internal.telephony.ITelephony$Stub$Proxy.getDeviceId(ITelephony.java:5407)
+09-15 09:57:14.744 W/System.err(10486): 	at android.telephony.TelephonyManager.getDeviceId(TelephonyManager.java:1244)
+09-15 09:57:14.744 W/System.err(10486): 	at com.netease.ntunisdk.base.UniSdkUtils.getMobileIMEI(UniSdkUtils.java:566)
+09-15 09:57:14.744 W/System.err(10486): 	at com.netease.ntunisdk.base.ad.run(SdkBase.java:6120)
+09-15 09:57:14.744 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.761 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.761 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.761 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.761 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.761 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.761 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.761 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.761 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.761 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.761 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.761 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.761 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.761 W/System.err(10486): 	... 20 more
+09-15 09:57:14.761 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.761 W/System.err(10486): 	... 31 more
+09-15 09:57:14.769 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.769 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.769 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.769 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.769 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.769 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.769 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.769 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.769 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.769 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.769 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.769 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.769 W/System.err(10486): 	... 20 more
+09-15 09:57:14.769 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.769 W/System.err(10486): 	... 31 more
+09-15 09:57:14.776 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.777 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.777 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.777 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.777 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.777 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.777 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.777 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.777 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.777 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.777 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.777 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.777 W/System.err(10486): 	... 20 more
+09-15 09:57:14.777 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.777 W/System.err(10486): 	... 31 more
+09-15 09:57:14.784 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.784 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.784 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.784 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.784 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.784 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.784 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.784 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.784 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.784 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.784 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.784 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.784 W/System.err(10486): 	... 20 more
+09-15 09:57:14.784 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.784 W/System.err(10486): 	... 31 more
+09-15 09:57:14.792 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.792 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.792 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.792 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.792 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.792 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.792 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.792 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.792 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.792 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.792 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.792 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.792 W/System.err(10486): 	... 20 more
+09-15 09:57:14.792 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.792 W/System.err(10486): 	... 31 more
+09-15 09:57:14.795 W/System  ( 1573): A resource failed to call close. 
+09-15 09:57:14.795 I/chatty  ( 1573): uid=1000(system) FinalizerDaemon identical 25 lines
+09-15 09:57:14.795 W/System  ( 1573): A resource failed to call close. 
+09-15 09:57:14.798 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.798 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.798 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.799 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.799 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.799 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.799 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.799 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.799 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.799 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.799 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.799 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.799 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.799 W/System.err(10486): 	... 20 more
+09-15 09:57:14.799 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.799 W/System.err(10486): 	... 31 more
+09-15 09:57:14.804 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.804 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.804 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.804 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.805 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.805 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.805 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.805 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.805 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.805 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.805 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.805 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.805 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.805 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.805 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.805 W/System.err(10486): 	... 20 more
+09-15 09:57:14.805 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.805 W/System.err(10486): 	... 31 more
+09-15 09:57:14.813 W/System.err(10486): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:57:14.813 W/System.err(10486): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:57:14.813 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-15 09:57:14.813 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-15 09:57:14.813 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-15 09:57:14.813 W/System.err(10486): 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-15 09:57:14.813 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-15 09:57:14.813 W/System.err(10486): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-15 09:57:14.813 W/System.err(10486): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:57:14.818 W/System.err(10486): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:57:14.818 W/System.err(10486): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:57:14.818 W/System.err(10486): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:57:14.818 W/System.err(10486): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:57:14.818 W/System.err(10486): 	... 20 more
+09-15 09:57:14.818 W/System.err(10486): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:57:14.818 W/System.err(10486): 	... 31 more
+09-15 09:57:14.889 I/AppsFlyer_5.2.0(10486): reached cache limit, not caching request
+09-15 09:57:15.262 I/NeoXDevice(10486): On App CMD 22
+09-15 09:57:15.289 D/sensor_hal( 1425): cb_activate handle=5 enabled=0
+09-15 09:57:15.289 D/sensor_hal( 1425): cb_setDelay handle=0 delay-ns=200000000
+09-15 09:57:15.289 D/sensor_hal( 1425): cb_activate handle=2 enabled=0
+09-15 09:57:18.356 E/NeoX    (10486): finish get cutOut info
+09-15 09:57:18.367 I/chatty  (10486): uid=10063(com.netease.chiji) NeoXMain identical 1 line
+09-15 09:57:18.468 E/NeoX    (10486): finish get cutOut info
+09-15 09:57:18.477 V/libnb   (10486): enter native_bridge2_isCompatibleWith 3
+09-15 09:57:18.477 V/libnb   (10486): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijkffmpeg.so, 2, 0x3
+09-15 09:57:18.499 V/libnb   (10486): native_bridge3_loadLibraryExt: 0x7638733e9200
+09-15 09:57:18.499 V/libnb   (10486): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x0
+09-15 09:57:18.499 V/libnb   (10486): enter native_bridge2_isCompatibleWith 3
+09-15 09:57:18.499 V/libnb   (10486): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijkutil.so, 2, 0x3
+09-15 09:57:18.500 V/libnb   (10486): native_bridge3_loadLibraryExt: 0x7638733e9760
+09-15 09:57:18.500 V/libnb   (10486): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x0
+09-15 09:57:18.500 V/libnb   (10486): enter native_bridge2_isCompatibleWith 3
+09-15 09:57:18.500 V/libnb   (10486): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijksdl.so, 2, 0x3
+09-15 09:57:18.505 V/libnb   (10486): native_bridge3_loadLibraryExt: 0x7638733e9cc0
+09-15 09:57:18.505 V/libnb   (10486): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x76391323a780
+09-15 09:57:18.505 W/IJKMEDIA(10486): java.nio.ByteBuffer class loaded
+09-15 09:57:18.505 I/IJKMEDIA(10486): MediaCodec: API-28
+09-15 09:57:18.505 W/IJKMEDIA(10486): android.media.MediaCodec$BufferInfo class loaded
+09-15 09:57:18.505 W/IJKMEDIA(10486): android.media.MediaCodec class loaded
+09-15 09:57:18.505 V/libnb   (10486): enter native_bridge2_isCompatibleWith 3
+09-15 09:57:18.505 V/libnb   (10486): enter native_bridge3_loadLibraryExt /data/app/com.netease.chiji-WhnH3nL34-zhuR7bdfqnKQ==/lib/arm64/libijkplayer.so, 2, 0x3
+09-15 09:57:18.507 V/libnb   (10486): native_bridge3_loadLibraryExt: 0x7638733ea220
+09-15 09:57:18.507 V/libnb   (10486): enter native_bridge2_getTrampoline JNI_OnLoad, trampoline_addr 0x76391323a7a0
+09-15 09:57:18.511 W/IJKMEDIA(10486): IjkMediaPlayer_native_init, LOG ENABLE=1
+09-15 09:57:18.511 W/IJKMEDIA(10486): IjkMediaPlayer_native_setup
+09-15 09:57:18.511 I/IJKMEDIA(10486): ===================player texture is=============30264
+09-15 09:57:18.511 D/IJKMEDIA(10486): ffpipeline_create_from_android()
+09-15 09:57:18.511 W/IJKMEDIA(10486): ijkmp_set_format_callback(0x334a)
+09-15 09:57:18.511 W/IJKMEDIA(10486): ijkmp_set_format_callback()=void
+09-15 09:57:18.511 W/IJKMEDIA(10486): ijkmp_android_set_mediacodec_select_callback()
+09-15 09:57:18.511 D/IJKMEDIA(10486): ffpipeline_set_mediacodec_select_callback
+09-15 09:57:18.511 W/IJKMEDIA(10486): ijkmp_android_set_mediacodec_select_callback()=void
+09-15 09:57:18.511 W/IJKMEDIA(10486): ijkmp_android_set_video_select_callback()
+09-15 09:57:18.512 D/IJKMEDIA(10486): ffpipeline_set_video_select_callback
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_android_set_video_select_callback()=void
+09-15 09:57:18.512 I/IJKMEDIA(10486): init surface
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setVideoSurface
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_android_surface(surface=0x76387297b118)
+09-15 09:57:18.512 D/IJKMEDIA(10486): ffpipeline_set_surface()
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_android_surface(surface=0x76387297b118)=void
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setMediaCodecEnabled
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_android_set_mediacodec_enabled(1)
+09-15 09:57:18.512 D/IJKMEDIA(10486): ffpipeline_set_mediacodec_enabled
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_android_set_mediacodec_enabled()=void
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setDataSourceAndHeaders
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_data_source(url="Documents/res/video/3rd_login.mp4") 
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setAvFormatOption
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option(reconnect, 1)
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option()=void
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setAvFormatOption
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option(timeout, 20*1000*1000)
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option()=void
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setAvFormatOption
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option(probesize, 200000)
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option()=void
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_setAvFormatOption
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option(analyzeduration, 12000000)
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_set_format_option()=void
+09-15 09:57:18.512 W/IJKMEDIA(10486): IjkMediaPlayer_prepareAsync
+09-15 09:57:18.512 W/IJKMEDIA(10486): ijkmp_prepare_async()
+09-15 09:57:18.512 I/IJKMEDIA(10486): ===== versions =====
+09-15 09:57:18.512 I/IJKMEDIA(10486): libavutil    : 55.27.100
+09-15 09:57:18.512 I/IJKMEDIA(10486): libavcodec   : 57.48.101
+09-15 09:57:18.512 I/IJKMEDIA(10486): SDL_RunThread: [10823] ff_msg_loop
+09-15 09:57:18.512 I/IJKMEDIA(10486): libavformat  : 57.40.101
+09-15 09:57:18.512 W/IJKMEDIA(10486): message_loop
+09-15 09:57:18.512 I/IJKMEDIA(10486): libswscale   : 4.1.100
+09-15 09:57:18.512 I/IJKMEDIA(10486): libswresample: 2.1.100
+09-15 09:57:18.512 I/IJKMEDIA(10486): ===== options =====
+09-15 09:57:18.512 I/IJKMEDIA(10486): format-opts : reconnect                    = 1
+09-15 09:57:18.512 I/IJKMEDIA(10486): format-opts : timeout                      = 20*1000*1000
+09-15 09:57:18.512 I/IJKMEDIA(10486): format-opts : probesize                    = 200000
+09-15 09:57:18.512 I/IJKMEDIA(10486): format-opts : analyzeduration              = 12000000
+09-15 09:57:18.512 I/IJKMEDIA(10486): ===================
+09-15 09:57:18.513 W/IJKMEDIA(10486): FFP_MSG_FLUSH:
+09-15 09:57:18.513 I/IJKMEDIA(10486): SDL_RunThread: [10824] ff_vout
+09-15 09:57:18.513 I/IJKMEDIA(10486): SDL_RunThread: [10825] ff_read
+09-15 09:57:18.513 I/IJKMEDIA(10486): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:57:18.513 I/IJKMEDIA(10486): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:57:18.513 D/IJKMEDIA(10486): player buffering start, target(100), current:audio(0) sample(0) video(0) picture(0)
+09-15 09:57:18.529 E/IJKMEDIA(10486): Option reconnect not found.
+09-15 09:57:18.529 I/[09:57:18.529]     <SCRIPT> (10486): fetch_by_domain
+09-15 09:57:18.529 I/[09:57:18.529]     <SCRIPT> (10486): http_get url=https://h45na.update.easebar.com/notice_pc_hw.txt,host=h45na.update.easebar.com
+09-15 09:57:18.565 I/[09:57:18.565]     <SCRIPT> (10486): verify_result
+09-15 09:57:18.566 I/[09:57:18.566]     <SCRIPT> (10486): fetch_by_domain
+09-15 09:57:18.566 I/[09:57:18.566]     <SCRIPT> (10486): http_get url=https://h45na.update.easebar.com/notice_pc_hw.txt,host=h45na.update.easebar.com
+09-15 09:57:18.585 I/[09:57:18.585]     <SCRIPT> (10486): verify_result
+09-15 09:57:18.601 I/IJKMEDIA(10486): max_frame_duration: 5.000
+09-15 09:57:18.601 I/IJKMEDIA(10486): Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'Documents/res/video/3rd_login.mp4':
+09-15 09:57:18.601 I/IJKMEDIA(10486):   Metadata:
+09-15 09:57:18.601 I/IJKMEDIA(10486):     major_brand     : 
+09-15 09:57:18.601 I/IJKMEDIA(10486): isom
+09-15 09:57:18.601 I/IJKMEDIA(10486): 
+09-15 09:57:18.601 I/IJKMEDIA(10486):     minor_version   : 
+09-15 09:57:18.601 I/IJKMEDIA(10486): 1
+09-15 09:57:18.601 I/IJKMEDIA(10486): 
+09-15 09:57:18.601 I/IJKMEDIA(10486):     compatible_brands: 
+09-15 09:57:18.601 I/IJKMEDIA(10486): isom
+09-15 09:57:18.601 I/IJKMEDIA(10486): 
+09-15 09:57:18.601 I/IJKMEDIA(10486):     creation_time   : 
+09-15 09:57:18.601 I/IJKMEDIA(10486): 2020-11-13 09:25:43
+09-15 09:57:18.602 I/IJKMEDIA(10486): 
+09-15 09:57:18.602 I/IJKMEDIA(10486):   Duration: 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 00:00:45.08
+09-15 09:57:18.602 I/IJKMEDIA(10486): , start: 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 0.000000
+09-15 09:57:18.602 I/IJKMEDIA(10486): , bitrate: 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 2638 kb/s
+09-15 09:57:18.602 I/IJKMEDIA(10486): 
+09-15 09:57:18.602 I/IJKMEDIA(10486):     Stream #0:0
+09-15 09:57:18.602 I/IJKMEDIA(10486): (und)
+09-15 09:57:18.602 I/IJKMEDIA(10486): : Video: h264 (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown), 1920x1080, 2511 kb/s
+09-15 09:57:18.602 I/IJKMEDIA(10486): , 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 30 fps, 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 30 tbr, 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 30k tbn, 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 60k tbc
+09-15 09:57:18.602 I/IJKMEDIA(10486):  (default)
+09-15 09:57:18.602 I/IJKMEDIA(10486): 
+09-15 09:57:18.602 I/IJKMEDIA(10486):     Metadata:
+09-15 09:57:18.602 I/IJKMEDIA(10486):       creation_time   : 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 2020-11-13 09:24:50
+09-15 09:57:18.602 I/IJKMEDIA(10486): 
+09-15 09:57:18.602 I/IJKMEDIA(10486):     Stream #0:1
+09-15 09:57:18.602 I/IJKMEDIA(10486): (und)
+09-15 09:57:18.602 I/IJKMEDIA(10486): : Audio: aac (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 126 kb/s
+09-15 09:57:18.602 I/IJKMEDIA(10486):  (default)
+09-15 09:57:18.602 I/IJKMEDIA(10486): 
+09-15 09:57:18.602 I/IJKMEDIA(10486):     Metadata:
+09-15 09:57:18.602 I/IJKMEDIA(10486):       creation_time   : 
+09-15 09:57:18.602 I/IJKMEDIA(10486): 2020-11-13 09:24:49
+09-15 09:57:18.602 I/IJKMEDIA(10486): 
+09-15 09:57:18.605 I/IJKMEDIA(10486): SDL_Android_AudioTrack: CHANNEL_OUT_STEREO
+09-15 09:57:18.605 I/IJKMEDIA(10486): SDL_Android_AudioTrack: ENCODING_PCM_16BIT
+09-15 09:57:18.606 D/AudioFlinger( 1430): Client defaulted notificationFrames to 1026 for frameCount 2052
+09-15 09:57:18.607 W/AudioTrack(10486): Use of stream types is deprecated for operations other than volume control
+09-15 09:57:18.607 W/AudioTrack(10486): See the documentation of AudioTrack() for what to use instead with android.media.AudioAttributes to qualify your playback use case
+09-15 09:57:18.608 I/IJKMEDIA(10486): SDL_Android_AudioTrack_new: init volume as 1.000000/(0.000000,1.000000)
+09-15 09:57:18.608 I/IJKMEDIA(10486): AudioCodec: avcodec, aac
+09-15 09:57:18.608 I/IJKMEDIA(10486): SDL_RunThread: [10831] ff_aout_android
+09-15 09:57:18.608 I/IJKMEDIA(10486): SDL_RunThread: [10832] ff_audio_dec
+09-15 09:57:18.609 D/IJKMEDIA(10486): ffpipenode_create_video_decoder_from_android_mediacodec()
+09-15 09:57:18.609 I/IJKMEDIA(10486): ffpipenode_create_video_decoder_from_android_mediacodec: MediaCodec: H264_HIGH: enabled
+09-15 09:57:18.610 W/IJKMEDIA(10486): SDL_AMediaFormatJava_createVideoFormat
+09-15 09:57:18.610 W/IJKMEDIA(10486): ASDK_ByteBuffer_allocateDirect
+09-15 09:57:18.610 W/IJKMEDIA(10486): ASDK_ByteBuffer_limit
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 00000001
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 67640028
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: acd94078
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 0227e59a
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 810100a0
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 00000300
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 20001d4c
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 01e30632
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: c0000000
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 0168e938
+09-15 09:57:18.610 D/IJKMEDIA(10486): csd-0[43]: 44b22c00
+09-15 09:57:18.610 D/IJKMEDIA(10486): ffpipeline_select_mediacodec
+09-15 09:57:18.610 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): onSelectCodec: mime=video/avc, profile=100, level=40
+09-15 09:57:18.611 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): selected codec: OMX.qcom.video.decoder.avc rank=800
+09-15 09:57:18.611 W/IJKMEDIA(10486): SDL_AMediaCodecJava_createByCodecName
+09-15 09:57:18.617 W/IJKMEDIA(10486): AudioTrack: not all data copied 16/256
+09-15 09:57:18.617 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.618 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 31 lines
+09-15 09:57:18.618 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.618 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.618 I/OMXClient(10486): IOmx service obtained
+09-15 09:57:18.620 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 106 lines
+09-15 09:57:18.620 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.620 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.620 I/OMXMaster( 1494): makeComponentInstance(OMX.qcom.video.decoder.avc) in omx@1.0-service process
+09-15 09:57:18.631 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 1553 lines
+09-15 09:57:18.631 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.631 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.631 D/LDDec   ( 1494): createSoftOMXComponent OMX.qcom.video.decoder.avc
+09-15 09:57:18.632 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 206 lines
+09-15 09:57:18.632 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.632 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.632 D/LDDec   ( 1494): LDDec init 0x0 1, 320
+09-15 09:57:18.635 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 397 lines
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): SDL_AMediaCodecJava_init
+09-15 09:57:18.635 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 10 lines
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 3 lines
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 D/IJKMEDIA(10486): we get a mediacodec 
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): SDL_AMediaCodecJava_configure_surface
+09-15 09:57:18.635 E/IJKMEDIA(10486): configure 0x3476 0x3406
+09-15 09:57:18.635 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 104 lines
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 D/SurfaceUtils(10486): connecting to surface 0x76383fcf8010, reason connectToSurface
+09-15 09:57:18.635 I/MediaCodec(10486): [OMX.qcom.video.decoder.avc] setting surface generation to 10737665
+09-15 09:57:18.635 D/SurfaceUtils(10486): disconnecting from surface 0x76383fcf8010, reason connectToSurface(reconnect)
+09-15 09:57:18.635 D/SurfaceUtils(10486): connecting to surface 0x76383fcf8010, reason connectToSurface(reconnect)
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 25 lines
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 E/ACodec  (10486): [OMX.qcom.video.decoder.avc] setPortMode on output to DynamicANWBuffer failed w/ err -1010
+09-15 09:57:18.635 W/OMXNodeInstance( 1494): [0xf5222180:qcom.decoder.avc] component does not support metadata mode; using fallback
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.635 W/OMXNodeInstance( 1494): [0xf5222180:qcom.decoder.avc] component does not support metadata mode; using fallback
+09-15 09:57:18.635 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 10 lines
+09-15 09:57:18.635 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.636 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.636 D/SoftVideoDecoderOMXComponent( 1494): Color Aspects preference: 1 
+09-15 09:57:18.636 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 3 lines
+09-15 09:57:18.636 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.636 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.636 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ConfigAndroidVendorExtension(0x6f100004)) ERROR: UnsupportedIndex(0x8000101a)
+09-15 09:57:18.636 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 4 lines
+09-15 09:57:18.636 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.636 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:57:18.636 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.648 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.648 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 1804 lines
+09-15 09:57:18.648 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.648 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.649 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 270 lines
+09-15 09:57:18.649 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.649 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.649 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.649 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 34 lines
+09-15 09:57:18.649 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.649 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.649 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 31 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 33 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 31 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 27 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 25 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 36 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 15 lines
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.650 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.650 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 8 lines
+09-15 09:57:18.651 I/deo.decoder.avc( 1494): type=1400 audit(0.0:3795): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6869 scontext=u:r:mediacodec:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.651 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 13 lines
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.651 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 7 lines
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.651 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 14 lines
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.651 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 10 lines
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.651 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 8 lines
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.651 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 85 lines
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.651 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 15 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 11 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 12 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 5 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 5 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 5 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 8 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 6 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 8 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.652 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 11 lines
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.652 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.653 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 13 lines
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.653 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 11 lines
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.653 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 39 lines
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.653 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 34 lines
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.653 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 27 lines
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.653 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:57:18.654 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 51 lines
+09-15 09:57:18.654 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.654 D/LDDec   ( 1494): initDecoder OMX.qcom.video.decoder.avc init
+09-15 09:57:18.654 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.654 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 8 lines
+09-15 09:57:18.654 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.654 I/IJKMEDIA(10486): configure_codec_l:new acodec: 0x3436
+09-15 09:57:18.654 I/IJKMEDIA(10486): stream_open--->setmediacodec time = 43 ms
+09-15 09:57:18.654 I/IJKMEDIA(10486): VideoCodec: MediaCodec, OMX.qcom.video.decoder.avc
+09-15 09:57:18.654 D/IJKMEDIA(10486): ffpipenode_create_video_decoder_from_android_mediacodec() success 
+09-15 09:57:18.654 D/IJKMEDIA(10486): ffpipeline_onselect_videodecoder
+09-15 09:57:18.654 I/IJKMEDIA(10486): fps: 30.000000 (normal)
+09-15 09:57:18.654 I/IJKMEDIA(10486): fps: 30.000000 (normal)
+09-15 09:57:18.654 I/IJKMEDIA(10486): stream_open--->FFP_MSG_PREPARED time = 141 ms
+09-15 09:57:18.654 D/IJKMEDIA(10486): init_jitter_calculator period=5000
+09-15 09:57:18.654 W/IJKMEDIA(10486): target_buffer=100, audio buffer=0, video buffer=11000
+09-15 09:57:18.654 W/IJKMEDIA(10486): stream_open--->first buffering time 0.142 s
+09-15 09:57:18.654 D/IJKMEDIA(10486): player buffering end, current:audio(0) video(11000)
+09-15 09:57:18.655 I/IJKMEDIA(10486): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:57:18.655 I/IJKMEDIA(10486): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:57:18.655 D/IJKMEDIA(10486): player buffering start, target(100), current:audio(1024) sample(16000) video(0) picture(0)
+09-15 09:57:18.655 W/IJKMEDIA(10486): ijkmp_get_msg: FFP_MSG_PREPARED
+09-15 09:57:18.655 W/IJKMEDIA(10486): FFP_MSG_PREPARED:
+09-15 09:57:18.655 W/IJKMEDIA(10486): FFP_MSG_VIDEO_SIZE_CHANGED: 1920, 1080
+09-15 09:57:18.655 W/IJKMEDIA(10486): FFP_MSG_SAR_CHANGED: 0, 1
+09-15 09:57:18.655 E/IJKMEDIA(10486): unknown FFP_MSG_xxx(404)
+09-15 09:57:18.655 E/IJKMEDIA(10486): unknown FFP_MSG_xxx(405)
+09-15 09:57:18.655 W/IJKMEDIA(10486): target_buffer=100, audio buffer=1024, video buffer=16000
+09-15 09:57:18.655 D/IJKMEDIA(10486): player buffering end, current:audio(1024) video(16000)
+09-15 09:57:18.655 W/IJKMEDIA(10486): stuck statistics: buffer_pre = 0.000507, buffer_sum = 0.000507
+09-15 09:57:18.655 W/IJKMEDIA(10486): s
+09-15 09:57:18.660 D/SoftVideoDecoderOMXComponent( 1494): Color Aspects preference: 1 
+09-15 09:57:18.672 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:57:18.672 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:57:18.673 I/IJKMEDIA(10486): SDL_RunThread: [10842] ff_video_dec
+09-15 09:57:18.681 I/IJKMEDIA(10486): SDL_RunThread: [10843] amediacodec_input_thread
+09-15 09:57:18.681 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.695 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 356 lines
+09-15 09:57:18.695 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.696 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.696 D/IJKMEDIA(10486): ffpipeline_set_surface_need_reconfigure(0)
+09-15 09:57:18.696 I/IJKMEDIA(10486): feed_input_buffer: same surface, reuse previous surface
+09-15 09:57:18.707 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 650 lines
+09-15 09:57:18.707 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.708 D/MediaCodec(10486): [OMX.qcom.video.decoder.avc] setting dataspace on output surface to #104
+09-15 09:57:18.708 I/IJKMEDIA(10486): SDL_AMediaCodecJava_dequeueOutputBuffer: INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:57:18.708 E/IJKMEDIA(10486): AMEDIACODEC__INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:57:18.708 W/IJKMEDIA(10486): SDL_AMediaFormatJava_init
+09-15 09:57:18.709 I/IJKMEDIA(10486): AMEDIACODEC__INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:57:18.709 I/IJKMEDIA(10486):     width-height: (1920 x 1080)
+09-15 09:57:18.709 I/IJKMEDIA(10486):     color-format: (FormatYUV420Planar: 0x13)
+09-15 09:57:18.709 I/IJKMEDIA(10486):     stride:       (1920)
+09-15 09:57:18.709 I/IJKMEDIA(10486):     slice-height: (1080)
+09-15 09:57:18.709 I/IJKMEDIA(10486):     crop:         (0, 0, 1919, 1079)
+09-15 09:57:18.709 I/IJKMEDIA(10486): overlayer format is 10001
+09-15 09:57:18.709 W/IJKMEDIA(10486): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:57:18.709 W/IJKMEDIA(10486): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:57:18.709 D/IJKMEDIA(10486): Video: first frame decoded
+09-15 09:57:18.709 I/IJKMEDIA(10486): stream_open--->decode first frame time = 196 ms, video packet count = 373
+09-15 09:57:18.709 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.709 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.709 D/IJKMEDIA(10486): avcodec/Audio: first frame decoded
+09-15 09:57:18.709 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.709 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.709 E/IJKMEDIA(10486): unknown FFP_MSG_xxx(403)
+09-15 09:57:18.713 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 61 lines
+09-15 09:57:18.713 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.713 I/IJKMEDIA(10486): overlayer format is 10001
+09-15 09:57:18.713 W/IJKMEDIA(10486): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:57:18.713 W/IJKMEDIA(10486): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:57:18.714 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.717 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 78 lines
+09-15 09:57:18.717 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.718 I/IJKMEDIA(10486): overlayer format is 10001
+09-15 09:57:18.718 W/IJKMEDIA(10486): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:57:18.718 W/IJKMEDIA(10486): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:57:18.720 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.750 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 478 lines
+09-15 09:57:18.750 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.750 E/IJKMEDIA(10486): unknown FFP_MSG_xxx(402)
+09-15 09:57:18.750 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): Info (2000,0)
+09-15 09:57:18.751 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.751 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.751 W/MapperHal(10486): buffer descriptor with invalid usage bits 0x2000
+09-15 09:57:18.751 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.770 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 643 lines
+09-15 09:57:18.770 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.770 I/        (10486): fastpipe: Connect success
+09-15 09:57:18.770 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.771 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 5 lines
+09-15 09:57:18.771 D/HostConnection(10486): HostRPC::connect sucess: app=com.netease.chiji, pid=10486, tid=10838, this=0x76384613d140
+09-15 09:57:18.771 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.771 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.772 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 76 lines
+09-15 09:57:18.772 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.772 D/HostConnection(10486): queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:com.netease.chiji
+09-15 09:57:18.776 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.806 D/SoftwareRenderer(10486): setting dataspace on output surface to #104
+09-15 09:57:18.806 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 1854 lines
+09-15 09:57:18.806 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.806 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.807 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 70 lines
+09-15 09:57:18.807 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.807 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:18.807 E/NeoXCCPlayer(10486): nativeOnVideoReady
+09-15 09:57:18.807 V/libnb   (10486): enter native_bridge2_getTrampoline Java_com_netease_neox_CCPlayer_nativeOnVideoReady, trampoline_addr 0x0
+09-15 09:57:18.807 V/libnb   (10486): enter native_bridge2_getTrampoline Java_com_netease_neox_CCPlayer_nativeOnVideoReady__J, trampoline_addr 0x0
+09-15 09:57:18.807 V/libnb   (10486): enter native_bridge2_getTrampoline Java_com_netease_neox_CCPlayer_nativeOnVideoReady, trampoline_addr 0x76391323ae20
+09-15 09:57:18.809 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.816 W/MapperHal(10486): buffer descriptor with invalid usage bits 0x2000
+09-15 09:57:18.817 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 897 lines
+09-15 09:57:18.817 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.817 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.854 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 2024 lines
+09-15 09:57:18.854 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.854 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:18.854 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.865 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 1387 lines
+09-15 09:57:18.865 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.865 W/MapperHal(10486): buffer descriptor with invalid usage bits 0x2000
+09-15 09:57:18.865 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.878 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:18.878 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 1462 lines
+09-15 09:57:18.878 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.878 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.899 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 3560 lines
+09-15 09:57:18.899 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:18.899 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.899 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.928 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 5364 lines
+09-15 09:57:18.928 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.928 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:18.928 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.954 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 4463 lines
+09-15 09:57:18.954 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.956 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:18.956 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 I/IJKMEDIA(10486): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:57:18.997 I/IJKMEDIA(10486): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:57:18.997 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 8502 lines
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 D/IJKMEDIA(10486): player buffering start, target(100), current:audio(0) sample(1055000) video(1) picture(3)
+09-15 09:57:18.997 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 expire 5 lines
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 2 lines
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 I/chatty  (10486): uid=10063(com.netease.chiji) Thread-44 identical 1 line
+09-15 09:57:18.997 W/IJKMEDIA(10486): AudioTrack: not all data copied 0/256
+09-15 09:57:18.997 W/IJKMEDIA(10486): FFP_MSG_BUFFERING_START:
+09-15 09:57:18.997 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): Info (701,0)
+09-15 09:57:18.997 W/IJKMEDIA(10486): too much data: audio packet count=0 size=0, video packet count=1055 size=10487274 
+09-15 09:57:18.997 W/IJKMEDIA(10486): video cleanup. nb_packets:1055, last_key:1025, remain:30, buffer_packet_count:1, buffer_ts:100
+09-15 09:57:18.998 W/IJKMEDIA(10486): clean down data: audio packet count=0 size=0, video packet count=30 size=360794 
+09-15 09:57:18.998 W/IJKMEDIA(10486): target_buffer=100, audio buffer=1024, video buffer=35000
+09-15 09:57:18.998 D/IJKMEDIA(10486): player buffering end, current:audio(1024) video(35000)
+09-15 09:57:18.998 W/IJKMEDIA(10486): FFP_MSG_BUFFERING_END:
+09-15 09:57:18.998 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): Info (702,0)
+09-15 09:57:18.998 W/IJKMEDIA(10486): stuck statistics: buffer_pre = 0.001581, buffer_sum = 0.002088
+09-15 09:57:18.998 W/IJKMEDIA(10486): s
+09-15 09:57:18.999 I/IJKMEDIA(10486): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:57:18.999 I/IJKMEDIA(10486): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:57:18.999 D/IJKMEDIA(10486): player buffering start, target(100), current:audio(7168) sample(35000) video(1) picture(3)
+09-15 09:57:18.999 W/IJKMEDIA(10486): FFP_MSG_BUFFERING_START:
+09-15 09:57:18.999 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): Info (701,0)
+09-15 09:57:18.999 W/IJKMEDIA(10486): target_buffer=100, audio buffer=5120, video buffer=35000
+09-15 09:57:18.999 D/IJKMEDIA(10486): player buffering end, current:audio(5120) video(35000)
+09-15 09:57:18.999 W/IJKMEDIA(10486): FFP_MSG_BUFFERING_END:
+09-15 09:57:18.999 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10486): Info (702,0)
+09-15 09:57:18.999 W/IJKMEDIA(10486): stuck statistics: buffer_pre = 0.000188, buffer_sum = 0.002276
+09-15 09:57:18.999 W/IJKMEDIA(10486): s
+09-15 09:57:18.999 E/NeoXCCPlayer(10486): onRequestUpdateTexture
+09-15 09:57:19.008 E/IJKMEDIA(10486): av_read_frame error = End of file 
+09-15 09:57:19.008 E/IJKMEDIA(10486): !!!EOF!!! 
+09-15 09:57:19.027 E/NeoXCCPlayer(10486): onRequestUpdateTexture

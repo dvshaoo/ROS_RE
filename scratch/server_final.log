@@ -49,3 +49,10 @@ REQ GET /internalquery host=nstool.netease.com len=0
   -> SERVE internalquery
 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789435850","finish_time":"1789435850","push_time":"1789435849","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4728.4","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=538
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789435859.5558441, "platform": "ad", "device_id": "", "sdk_version": "", "uid": "", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "87ad15a4dd2f421fbfb0586b82fa9f70", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "
+  -> SERVE root / (200 OK)

@@ -1,5 +1,16 @@
 # ROS v1117219 — Mercury Message ID & Dispatch Table Trace
 
+> **SUPERSEDED (2026-09-15, see `MERCURY_REPLY_ID_TRACE.md`)**: this document's "Next
+> Blocker" and every `replyID = UNKNOWN` / "correct 4-byte reply ID value ... UNKNOWN"
+> statement below is now resolved, not silently removed. The reply ID is the same 2-byte
+> plaintext sequence counter already documented at outgoing request wire offset `[5:7]`
+> (see `MERCURY_WIRE_CAPTURE.md`), zero-extended to 4 bytes — no separate generation or
+> lookup mechanism was needed. Echoing it back, followed by a 1-byte status code (`=1`)
+> and the existing 20-byte body, gets the client all the way to directly-confirmed
+> execution of `LoginHandler::onLoginReply`. All CONFIRMED findings below about the
+> message-ID/dispatch-table layer remain correct and unaffected; only the "what replyID
+> value is needed" question is updated.
+
 **Result up front**: Using a live `/proc/<pid>/mem` dump of the client's own in-memory
 message dispatch table (not guesswork), this pass identifies the exact wire structure of
 a Mercury packet after the 2-byte flags field, confirms message ID **255 (0xFF)** is the

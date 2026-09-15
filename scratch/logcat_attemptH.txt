@@ -1,0 +1,117 @@
+--------- beginning of main
+09-15 09:50:21.107 I/chatty  ( 9152): uid=10063(com.netease.chiji) expire 55 lines
+09-15 09:50:21.140 E/NeoXCCPlayer( 9152): onRequestUpdateTexture
+09-15 09:50:21.147 I/appproc ( 9512): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:50:21.147 D/AndroidRuntime( 9512): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:50:21.149 E/cutils-trace( 9512): Error opening trace file: No such file or directory (2)
+09-15 09:50:21.159 V/libnb   ( 9512): enter native_bridge2_isCompatibleWith 3
+09-15 09:50:21.165 I/libnb   ( 9512): Found /system/lib64/libhoudini.so version 3
+09-15 09:50:21.175 E/NeoXCCPlayer( 9152): onRequestUpdateTexture
+09-15 09:50:21.186 I/app_process( 9512): The ClassLoaderContext is a special shared library.
+09-15 09:50:21.186 W/app_process( 9512): Could not create mount namespace.
+09-15 09:50:21.186 D/nativebridge( 9512): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:50:21.187 W/nativebridge( 9512): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:50:21.187 W/nativebridge( 9512): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:50:21.187 D/nativebridge( 9512): call UnloadNativeBridge! state=2
+09-15 09:50:21.198 D/AndroidRuntime( 9512): Calling main entry com.android.commands.input.Input
+09-15 09:50:21.200 I/Input   ( 9512): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=2743407, downTime=2743407, deviceId=3, source=0x1002 }
+09-15 09:50:21.207 E/NeoXCCPlayer( 9152): onRequestUpdateTexture
+09-15 09:50:21.213 I/Input   ( 9512): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=2743407, downTime=2743407, deviceId=3, source=0x1002 }
+09-15 09:50:21.222 D/AndroidRuntime( 9512): Shutting down VM
+09-15 09:50:21.241 E/NeoX    ( 9152): finish get cutOut info
+09-15 09:50:21.274 E/NeoXCCPlayer( 9152): onRequestUpdateTexture
+09-15 09:50:21.673 I/chatty  ( 9152): uid=10063(com.netease.chiji) identical 12 lines
+09-15 09:50:21.706 E/NeoXCCPlayer( 9152): onRequestUpdateTexture
+09-15 09:50:21.720 I/[09:50:21.720] M ( 9152): [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 09:50:21.723 I/[09:50:21.723] M ( 9152): [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 09:50:21.723 I/[09:50:21.723] M ( 9152): [INFO] Nub::recreateListeningSocket 0x76384ad7b000 0.0.0.0:53510
+09-15 09:50:21.726 W/IJKMEDIA( 9152): IjkMediaPlayer_stop
+09-15 09:50:21.726 W/IJKMEDIA( 9152): ijkmp_stop()
+09-15 09:50:21.726 W/IJKMEDIA( 9152): ijkmp_stop()=0
+09-15 09:50:21.726 W/IJKMEDIA( 9152): IjkMediaPlayer_release
+09-15 09:50:21.726 W/IJKMEDIA( 9152): ijkmp_set_android_surface(surface=0x0)
+09-15 09:50:21.726 D/IJKMEDIA( 9152): ffpipeline_set_surface()
+09-15 09:50:21.726 I/IJKMEDIA( 9152): stream_open--->setsurface time = 19492 ms, video packet count = 11
+09-15 09:50:21.726 W/IJKMEDIA( 9152): ijkmp_set_android_surface(surface=0x0)=void
+09-15 09:50:21.726 W/IJKMEDIA( 9152): message_loop exit
+09-15 09:50:21.726 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9451]
+09-15 09:50:21.726 E/IJKMEDIA( 9152): create async thread(1045750416)
+09-15 09:50:21.726 I/IJKMEDIA( 9152): SDL_RunThread: [9522] release_tid
+09-15 09:50:21.726 W/IJKMEDIA( 9152): async_release_android
+09-15 09:50:21.726 W/IJKMEDIA( 9152): ijkmp_stop_cc_player_stat
+09-15 09:50:21.726 W/IJKMEDIA( 9152): ijkmp_shutdown_l()
+09-15 09:50:21.727 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9452]
+09-15 09:50:21.750 I/        ( 9152): WARNING ***************************************************************************
+09-15 09:50:21.750 I/[09:50:21.750] M ( 9152): [WARNING] EncryptionFilter::decrypt: Input stream size (20) is not a multiple of the block size (8)
+09-15 09:50:21.750 I/[09:50:21.750] M ( 9152): [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 118.101.104.105 to 118.101.104.105:0
+09-15 09:50:21.750 I/[09:50:21.750] M ( 9152): [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=118.101.104.105:25452
+09-15 09:50:21.750 I/[09:50:21.750] M ( 9152): [INFO] Nub::recreateListeningSocket 0x763838066000 0.0.0.0:34549
+09-15 09:50:21.751 I/[09:50:21.751] M ( 9152): [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
+09-15 09:50:21.763 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9453]
+09-15 09:50:21.763 W/IJKMEDIA( 9152): end wait for read_tid
+09-15 09:50:21.763 W/IJKMEDIA( 9152): begin wait for audio_tid
+09-15 09:50:21.763 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9460]
+09-15 09:50:21.764 W/IJKMEDIA( 9152): end wait for audio_tid
+09-15 09:50:21.764 W/IJKMEDIA( 9152): begin wait for ff_aout
+09-15 09:50:21.764 D/AudioTrack( 9152): stop() called with 931968 frames delivered
+09-15 09:50:21.767 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9459]
+09-15 09:50:21.767 W/IJKMEDIA( 9152): end wait for ff_aout
+09-15 09:50:21.768 W/IJKMEDIA( 9152): begin wait for video_tid
+09-15 09:50:21.768 I/IJKMEDIA( 9152): MediaCodec: func_run_sync: try exit: -1
+09-15 09:50:21.773 I/IJKMEDIA( 9152): MediaCodec: enqueue_thread_func: exit: 0
+09-15 09:50:21.773 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9471]
+09-15 09:50:21.773 W/IJKMEDIA( 9152): SDL_AMediaCodecJava_stop
+09-15 09:50:21.775 D/SurfaceUtils( 9152): disconnecting from surface 0x76384ed26010, reason disconnectFromSurface
+09-15 09:50:21.778 I/IJKMEDIA( 9152): SDL_AMediaCodecJava_delete
+09-15 09:50:21.778 D/LDDec   ( 1494): ~LDDec deinit 0xf56205a0 0
+09-15 09:50:21.785 I/IJKMEDIA( 9152): MediaCodec: func_run_sync: exit: -1
+09-15 09:50:21.786 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9470]
+09-15 09:50:21.789 W/IJKMEDIA( 9152): end wait for video_tid
+09-15 09:50:21.790 I/        ( 9152): fastpipe: close connect
+09-15 09:50:21.791 W/IJKMEDIA( 9152): begin wait for video_refresh_tid
+09-15 09:50:21.791 W/IJKMEDIA( 9152): end wait for video_refresh_tid
+09-15 09:50:21.792 D/IJKMEDIA( 9152): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ccbd2c0)
+09-15 09:50:21.792 D/IJKMEDIA( 9152): SDL_Overlay(MediaCodec): overlay_free_l(0x76384ccbd2c0)
+09-15 09:50:21.792 D/IJKMEDIA( 9152): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ccbd360)
+09-15 09:50:21.792 D/IJKMEDIA( 9152): SDL_Overlay(MediaCodec): overlay_free_l(0x76384ccbd360)
+09-15 09:50:21.792 D/IJKMEDIA( 9152): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ccbd400)
+09-15 09:50:21.792 D/IJKMEDIA( 9152): SDL_Overlay(MediaCodec): overlay_free_l(0x76384ccbd400)
+09-15 09:50:21.792 W/IJKMEDIA( 9152): ijkmp_shutdown_l()=void
+09-15 09:50:21.792 W/IJKMEDIA( 9152): begin wait for ff_aout
+09-15 09:50:21.792 W/IJKMEDIA( 9152): end wait for ff_aout
+09-15 09:50:21.793 I/IJKMEDIA( 9152): SDL_JNI_DetachThreadEnv: [9522]
+09-15 09:50:22.081 I/NeoXDevice( 9152): On App CMD 23
+09-15 09:50:23.694 I/ldinit  ( 1429): type=1400 audit(0.0:3348): avc: denied { read } for name="partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:50:23.694 I/ldinit  ( 1429): type=1400 audit(0.0:3349): avc: denied { open } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:50:23.694 I/ldinit  ( 1429): type=1400 audit(0.0:3350): avc: denied { getattr } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-15 09:50:26.053 I/[09:50:26.053] M ( 9152): [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=118.101.104.105:25452
+09-15 09:50:26.185 I/        ( 9152): 
+09-15 09:50:26.185 I/        ( 9152): ERROR *****************************************************************************
+09-15 09:50:26.185 I/[09:50:26.185] M ( 9152): [ERROR] ServerConnection::logOnComplete: Logon failed (Unable to connect to BaseApp: A NAT or firwall error may have occured?)
+09-15 09:50:26.187 D/DCTOOL  ( 9152): ntStart() queue size (1), current thread=354
+09-15 09:50:26.187 D/DCTOOL  ( 9152): ntStart() after so loaded, current thread=354
+09-15 09:50:26.187 D/DCTOOL  ( 9152): ntStart() with native and reset.
+09-15 09:50:26.188 D/DCTOOL  ( 9152): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 09:50:26.188 D/DCTOOL  ( 9152): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 09:50:26.188 D/DCTOOL  ( 9152): NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 09:50:26.188 D/DCTOOL  ( 9152): NATIVE [ntGetDeviceInfo] callback here.
+09-15 09:50:26.188 D/DCTOOL  ( 9152): In C++, call back Java's ntGetDeviceInfo().
+09-15 09:50:26.193 D/DCTOOL  ( 9152): Getting NETWORK_TYPE in java : wifi
+09-15 09:50:26.193 D/DCTOOL  ( 9152): Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4840.5","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:50:26.193 D/DCTOOL  ( 9152): In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4840.5","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:50:26.193 D/DCTOOL  ( 9152): In C++, release the returned string. detach. 
+09-15 09:50:26.193 D/DCTOOL  ( 9152): In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 09:50:26.194 I/DCTOOL  ( 9152): OSVersion: 9
+09-15 09:50:26.194 I/DCTOOL  ( 9152): brand: Redmi -- model: 22081212C
+09-15 09:50:26.194 I/DCTOOL  ( 9152): Serialno: 00c80dd8
+09-15 09:50:26.719 D/DCTOOL  ( 9152): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:50:26.719 D/DCTOOL  ( 9152): NATIVE [OnToolCallback] calling here.
+09-15 09:50:26.719 D/DCTOOL  ( 9152):  NOT RUNNING TIME. 
+09-15 09:50:26.719 D/DCTOOL  ( 9152): In C++, call back Java's OnToolCallback(String).
+09-15 09:50:26.719 D/DCTOOL  ( 9152): OnToolCallback : NOT RUNNING TIME.
+09-15 09:50:26.719 D/DCTOOL  ( 9152): OnToolCallback, current thread=398
+09-15 09:50:26.719 D/DCTOOL  ( 9152): onUploadID, current thread=398
+09-15 09:50:26.719 I/DcTool  ( 9152): NOT RUNNING TIME.
+09-15 09:50:26.719 D/DCTOOL  ( 9152): NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 09:50:27.048 I/NeoXDevice( 9152): On App CMD 24
+09-15 09:50:28.968 I/[09:50:28.968] M ( 9152): [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1920828040

@@ -98,9 +98,55 @@ def serve_loginapp_udp_responder():
             # deliberately NOT guessed further) must match whatever ID the client assigned
             # its own outgoing LogOnParams request. That correlation value has not yet
             # been located -- see MERCURY_MESSAGE_ID_TRACE.md's NEXT BLOCKER.
+            # Attempt G (2026-09-15, MERCURY_REPLY_ID_TRACE.md): a live /proc/<pid>/mem
+            # inspection of the Nub's reply-id hashtable (this+0x88 bucket array,
+            # this+0x90 count) gave an ambiguous result. Rather than guess blindly, this
+            # step instead echoes back the ONE per-request, client-generated,
+            # plaintext-visible numeric value observable directly: the 2-byte
+            # little-endian counter at request wire offset [5:7] (confirmed incrementing
+            # by 1 on every retry, e.g. 0x4837, 0x4838, 0x4839...), zero-extended to the
+            # confirmed 4-byte replyID width. This immediately eliminated
+            # "Couldn't find handler for reply id" entirely.
+            #
+            # Attempt H (2026-09-15, MERCURY_REPLY_ID_TRACE.md) -- current default,
+            # supersedes Attempt F. With only the replyID (Attempt G), the client moved to
+            # a new, single-shot outcome: "logOnComplete: Logon failed / Unelaborated
+            # error." Disassembly of LoginHandler::handleMessage (0x938070) shows it reads
+            # a 1-byte status code first via a vtable read(1) call (0x9380a4: ldrb
+            # w8,[x0]; cmp w8,#1) -- Attempt G's payload had zero bytes after the replyID,
+            # so this read hit an exhausted stream. If status==1, the code proceeds
+            # (confirmed at 0x938248: "mov w1,#0x14"/blr) to read exactly 20 more bytes,
+            # matching the existing 20-byte LoginReplyRecord body exactly. This sends
+            # [4-byte replyID][1-byte status=1][20-byte body], length=4+1+20=25.
+            #
+            # CONFIRMED LIVE, reproduced twice: the client's own log names
+            # "LoginHandler::onLoginReply" executing, followed by
+            # "ServerConnection::checkScriptBaseAppAddr" and a BaseApp connection attempt
+            # -- see MERCURY_REPLY_ID_TRACE.md. The decoded BaseApp address is currently
+            # garbled (a WARNING "EncryptionFilter::decrypt: Input stream size (20) is not
+            # a multiple of the block size (8)" fires), so the client cannot reach our real
+            # local BaseApp listener yet -- that is the new, precise next blocker.
+            if len(data) < 7:
+                continue
+            counter = struct.unpack('<H', data[5:7])[0]
+            inner = struct.pack('<I', counter) + bytes([1]) + body
             reply = (struct.pack('<H', 0x0001) + bytes([0xff])
-                      + struct.pack('<I', 4) + struct.pack('<I', 0)
+                      + struct.pack('<I', len(inner)) + inner
                       + b'\x00\x00')
+            log('ATTEMPT_H (default): replyID=0x%08x status=1 + 20-byte body, length=%d' % (counter, len(inner)))
+            # Attempt I (2026-09-15): pads the 20-byte body to 24 bytes (next multiple of
+            # 8), the single, minimal change the block-size warning names. Live result was
+            # inconsistent/unreproduced -- one run regressed to "Couldn't find handler for
+            # reply id" instead of reaching onLoginReply, for a reason not yet understood.
+            # Flagged UNKNOWN in MERCURY_REPLY_ID_TRACE.md; kept here, opt-in, for further
+            # investigation rather than silently dropped.
+            if os.environ.get('ATTEMPT_I') == '1':
+                padded_body = body + b'\x00\x00\x00\x00'
+                inner = struct.pack('<I', counter) + bytes([1]) + padded_body
+                reply = (struct.pack('<H', 0x0001) + bytes([0xff])
+                          + struct.pack('<I', len(inner)) + inner
+                          + b'\x00\x00')
+                log('ATTEMPT_I: replyID=0x%08x status=1 + 24-byte padded body, length=%d' % (counter, len(inner)))
             if os.environ.get('DEBUG_BADFLAGS') == '1':
                 # Diagnostic-only toggle (MERCURY_MESSAGE_ID_TRACE.md Phase 2): deliberately
                 # resend the OLD invalid flags value to make the client reprint

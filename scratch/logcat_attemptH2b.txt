@@ -1,0 +1,360 @@
+--------- beginning of main
+09-15 09:55:02.865 I/IJKMEDIA(10007): SDL_RunThread: [10400] ff_read
+09-15 09:55:02.865 I/IJKMEDIA(10007): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:55:02.865 I/IJKMEDIA(10007): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:55:02.865 D/IJKMEDIA(10007): player buffering start, target(100), current:audio(0) sample(0) video(0) picture(0)
+09-15 09:55:02.868 I/IJKMEDIA(10007): SDL_RunThread: [10399] ff_vout
+09-15 09:55:02.868 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10319]
+09-15 09:55:02.870 E/IJKMEDIA(10007): Option reconnect not found.
+09-15 09:55:02.888 I/IJKMEDIA(10007): max_frame_duration: 5.000
+09-15 09:55:02.888 I/IJKMEDIA(10007): Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'Documents/res/video/3rd_login.mp4':
+09-15 09:55:02.888 I/IJKMEDIA(10007):   Metadata:
+09-15 09:55:02.888 I/IJKMEDIA(10007):     major_brand     : 
+09-15 09:55:02.888 I/IJKMEDIA(10007): isom
+09-15 09:55:02.888 I/IJKMEDIA(10007): 
+09-15 09:55:02.888 I/IJKMEDIA(10007):     minor_version   : 
+09-15 09:55:02.888 I/IJKMEDIA(10007): 1
+09-15 09:55:02.888 I/IJKMEDIA(10007): 
+09-15 09:55:02.888 I/IJKMEDIA(10007):     compatible_brands: 
+09-15 09:55:02.888 I/IJKMEDIA(10007): isom
+09-15 09:55:02.888 I/IJKMEDIA(10007): 
+09-15 09:55:02.888 I/IJKMEDIA(10007):     creation_time   : 
+09-15 09:55:02.888 I/IJKMEDIA(10007): 2020-11-13 09:25:43
+09-15 09:55:02.888 I/IJKMEDIA(10007): 
+09-15 09:55:02.888 I/IJKMEDIA(10007):   Duration: 
+09-15 09:55:02.888 I/IJKMEDIA(10007): 00:00:45.08
+09-15 09:55:02.888 I/IJKMEDIA(10007): , start: 
+09-15 09:55:02.888 I/IJKMEDIA(10007): 0.000000
+09-15 09:55:02.888 I/IJKMEDIA(10007): , bitrate: 
+09-15 09:55:02.888 I/IJKMEDIA(10007): 2638 kb/s
+09-15 09:55:02.888 I/IJKMEDIA(10007): 
+09-15 09:55:02.889 I/IJKMEDIA(10007):     Stream #0:0
+09-15 09:55:02.889 I/IJKMEDIA(10007): (und)
+09-15 09:55:02.889 I/IJKMEDIA(10007): : Video: h264 (avc1 / 0x31637661), yuv420p(tv, bt709/unknown/unknown), 1920x1080, 2511 kb/s
+09-15 09:55:02.889 I/IJKMEDIA(10007): , 
+09-15 09:55:02.889 I/IJKMEDIA(10007): 30 fps, 
+09-15 09:55:02.889 I/IJKMEDIA(10007): 30 tbr, 
+09-15 09:55:02.889 I/IJKMEDIA(10007): 30k tbn, 
+09-15 09:55:02.889 I/IJKMEDIA(10007): 60k tbc
+09-15 09:55:02.889 I/IJKMEDIA(10007):  (default)
+09-15 09:55:02.889 I/IJKMEDIA(10007): 
+09-15 09:55:02.889 I/IJKMEDIA(10007):     Metadata:
+09-15 09:55:02.889 I/IJKMEDIA(10007):       creation_time   : 
+09-15 09:55:02.889 I/IJKMEDIA(10007): 2020-11-13 09:24:50
+09-15 09:55:02.889 I/IJKMEDIA(10007): 
+09-15 09:55:02.889 I/IJKMEDIA(10007):     Stream #0:1
+09-15 09:55:02.889 I/IJKMEDIA(10007): (und)
+09-15 09:55:02.889 I/IJKMEDIA(10007): : Audio: aac (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 126 kb/s
+09-15 09:55:02.889 I/IJKMEDIA(10007):  (default)
+09-15 09:55:02.889 I/IJKMEDIA(10007): 
+09-15 09:55:02.889 I/IJKMEDIA(10007):     Metadata:
+09-15 09:55:02.889 I/IJKMEDIA(10007):       creation_time   : 
+09-15 09:55:02.889 I/IJKMEDIA(10007): 2020-11-13 09:24:49
+09-15 09:55:02.889 I/IJKMEDIA(10007): 
+09-15 09:55:02.890 I/IJKMEDIA(10007): SDL_Android_AudioTrack: CHANNEL_OUT_STEREO
+09-15 09:55:02.890 I/IJKMEDIA(10007): SDL_Android_AudioTrack: ENCODING_PCM_16BIT
+09-15 09:55:02.890 D/AudioFlinger( 1430): Client defaulted notificationFrames to 1026 for frameCount 2052
+09-15 09:55:02.891 W/AudioTrack(10007): Use of stream types is deprecated for operations other than volume control
+09-15 09:55:02.891 W/AudioTrack(10007): See the documentation of AudioTrack() for what to use instead with android.media.AudioAttributes to qualify your playback use case
+09-15 09:55:02.891 I/IJKMEDIA(10007): SDL_Android_AudioTrack_new: init volume as 1.000000/(0.000000,1.000000)
+09-15 09:55:02.892 I/IJKMEDIA(10007): AudioCodec: avcodec, aac
+09-15 09:55:02.892 I/IJKMEDIA(10007): SDL_RunThread: [10402] ff_aout_android
+09-15 09:55:02.894 I/IJKMEDIA(10007): SDL_RunThread: [10403] ff_audio_dec
+09-15 09:55:02.895 D/IJKMEDIA(10007): ffpipenode_create_video_decoder_from_android_mediacodec()
+09-15 09:55:02.895 I/IJKMEDIA(10007): ffpipenode_create_video_decoder_from_android_mediacodec: MediaCodec: H264_HIGH: enabled
+09-15 09:55:02.895 W/IJKMEDIA(10007): SDL_AMediaFormatJava_createVideoFormat
+09-15 09:55:02.895 W/IJKMEDIA(10007): ASDK_ByteBuffer_allocateDirect
+09-15 09:55:02.895 W/IJKMEDIA(10007): ASDK_ByteBuffer_limit
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 00000001
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 67640028
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: acd94078
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 0227e59a
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 810100a0
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 00000300
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 20001d4c
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 01e30632
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: c0000000
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 0168e938
+09-15 09:55:02.895 D/IJKMEDIA(10007): csd-0[43]: 44b22c00
+09-15 09:55:02.895 D/IJKMEDIA(10007): ffpipeline_select_mediacodec
+09-15 09:55:02.895 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10007): onSelectCodec: mime=video/avc, profile=100, level=40
+09-15 09:55:02.895 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10007): selected codec: OMX.qcom.video.decoder.avc rank=800
+09-15 09:55:02.895 W/IJKMEDIA(10007): SDL_AMediaCodecJava_createByCodecName
+09-15 09:55:02.897 I/OMXClient(10007): IOmx service obtained
+09-15 09:55:02.897 I/OMXMaster( 1494): makeComponentInstance(OMX.qcom.video.decoder.avc) in omx@1.0-service process
+09-15 09:55:02.898 D/LDDec   ( 1494): createSoftOMXComponent OMX.qcom.video.decoder.avc
+09-15 09:55:02.898 D/LDDec   ( 1494): LDDec init 0x0 2, 320
+09-15 09:55:02.903 W/IJKMEDIA(10007): SDL_AMediaCodecJava_init
+09-15 09:55:02.903 D/IJKMEDIA(10007): we get a mediacodec 
+09-15 09:55:02.903 W/IJKMEDIA(10007): SDL_AMediaCodecJava_configure_surface
+09-15 09:55:02.903 E/IJKMEDIA(10007): configure 0x34da 0x2a16
+09-15 09:55:02.903 D/SurfaceUtils(10007): connecting to surface 0x76384d016010, reason connectToSurface
+09-15 09:55:02.903 I/MediaCodec(10007): [OMX.qcom.video.decoder.avc] setting surface generation to 10247170
+09-15 09:55:02.903 D/SurfaceUtils(10007): disconnecting from surface 0x76384d016010, reason connectToSurface(reconnect)
+09-15 09:55:02.903 D/SurfaceUtils(10007): connecting to surface 0x76384d016010, reason connectToSurface(reconnect)
+09-15 09:55:02.904 W/OMXNodeInstance( 1494): [0xf5222180:qcom.decoder.avc] component does not support metadata mode; using fallback
+09-15 09:55:02.904 E/ACodec  (10007): [OMX.qcom.video.decoder.avc] setPortMode on output to DynamicANWBuffer failed w/ err -1010
+09-15 09:55:02.904 W/OMXNodeInstance( 1494): [0xf5222180:qcom.decoder.avc] component does not support metadata mode; using fallback
+09-15 09:55:02.905 D/SoftVideoDecoderOMXComponent( 1494): Color Aspects preference: 1 
+09-15 09:55:02.905 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ConfigAndroidVendorExtension(0x6f100004)) ERROR: UnsupportedIndex(0x8000101a)
+09-15 09:55:02.906 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:55:02.906 W/IJKMEDIA(10007): SDL_AMediaCodecJava_start
+09-15 09:55:02.906 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:55:02.907 I/writer  ( 1409): type=1400 audit(0.0:3658): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:55:02.913 I/chatty  ( 1406): uid=1000(system) allocator@1.0-s expire 30 lines
+09-15 09:55:02.913 W/AshmemAllocator( 1406): ashmem_create_region(3110400) returning hidl_memory(0x76391702c100, 3110400)
+09-15 09:55:02.917 I/deo.decoder.avc( 1494): type=1400 audit(0.0:3659): avc: denied { read write } for name="fastpipe" dev="tmpfs" ino=3140 scontext=u:r:mediacodec:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:55:02.917 I/deo.decoder.avc( 1494): type=1400 audit(0.0:3660): avc: denied { open } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:mediacodec:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:55:02.917 D/LDDec   ( 1494): initDecoder OMX.qcom.video.decoder.avc init
+09-15 09:55:02.918 I/IJKMEDIA(10007): configure_codec_l:new acodec: 0x2796
+09-15 09:55:02.918 I/IJKMEDIA(10007): stream_open--->setmediacodec time = 22 ms
+09-15 09:55:02.918 I/IJKMEDIA(10007): VideoCodec: MediaCodec, OMX.qcom.video.decoder.avc
+09-15 09:55:02.918 D/IJKMEDIA(10007): ffpipenode_create_video_decoder_from_android_mediacodec() success 
+09-15 09:55:02.918 D/IJKMEDIA(10007): ffpipeline_onselect_videodecoder
+09-15 09:55:02.918 I/IJKMEDIA(10007): fps: 30.000000 (normal)
+09-15 09:55:02.918 I/IJKMEDIA(10007): SDL_RunThread: [10413] ff_video_dec
+09-15 09:55:02.918 I/IJKMEDIA(10007): fps: 30.000000 (normal)
+09-15 09:55:02.918 I/IJKMEDIA(10007): stream_open--->FFP_MSG_PREPARED time = 53 ms
+09-15 09:55:02.918 W/IJKMEDIA(10007): ijkmp_get_msg: FFP_MSG_PREPARED
+09-15 09:55:02.918 W/IJKMEDIA(10007): FFP_MSG_PREPARED:
+09-15 09:55:02.918 D/IJKMEDIA(10007): init_jitter_calculator period=5000
+09-15 09:55:02.918 W/IJKMEDIA(10007): FFP_MSG_VIDEO_SIZE_CHANGED: 1920, 1080
+09-15 09:55:02.918 W/IJKMEDIA(10007): FFP_MSG_SAR_CHANGED: 0, 1
+09-15 09:55:02.918 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(404)
+09-15 09:55:02.918 W/IJKMEDIA(10007): target_buffer=100, audio buffer=0, video buffer=11000
+09-15 09:55:02.918 W/IJKMEDIA(10007): stream_open--->first buffering time 0.053 s
+09-15 09:55:02.918 D/IJKMEDIA(10007): player buffering end, current:audio(0) video(11000)
+09-15 09:55:02.918 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(405)
+09-15 09:55:02.919 I/IJKMEDIA(10007): [buffer] -- adjust_buffering_target_duration -- turnIp(1) force(0)
+09-15 09:55:02.919 I/IJKMEDIA(10007): [buffer] change buffer old(100) new(100) turnUp(1) force(0)
+09-15 09:55:02.919 D/IJKMEDIA(10007): player buffering start, target(100), current:audio(24576) sample(18000) video(0) picture(0)
+09-15 09:55:02.921 W/IJKMEDIA(10007): target_buffer=100, audio buffer=22528, video buffer=18000
+09-15 09:55:02.921 D/IJKMEDIA(10007): player buffering end, current:audio(22528) video(18000)
+09-15 09:55:02.921 W/IJKMEDIA(10007): stuck statistics: buffer_pre = 0.001909, buffer_sum = 0.001909
+09-15 09:55:02.921 W/IJKMEDIA(10007): s
+09-15 09:55:02.937 I/IJKMEDIA(10007): SDL_RunThread: [10416] amediacodec_input_thread
+09-15 09:55:02.939 I/        ( 1494): fastpipe: Connect success
+09-15 09:55:02.941 D/        ( 1494): HostRPC::connect sucess: app=media.codec, pid=1494, tid=10411, puid=19, this=0xf5620640
+09-15 09:55:02.942 D/SoftVideoDecoderOMXComponent( 1494): Color Aspects preference: 1 
+09-15 09:55:02.943 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:55:02.944 E/OMXNodeInstance( 1494): getConfig(0xf5222180:qcom.decoder.avc, ??(0x7f000003)) ERROR: UnsupportedSetting(0x80001019)
+09-15 09:55:02.948 D/IJKMEDIA(10007): ffpipeline_set_surface_need_reconfigure(0)
+09-15 09:55:02.948 I/IJKMEDIA(10007): feed_input_buffer: same surface, reuse previous surface
+09-15 09:55:02.959 D/MediaCodec(10007): [OMX.qcom.video.decoder.avc] setting dataspace on output surface to #104
+09-15 09:55:02.959 I/IJKMEDIA(10007): SDL_AMediaCodecJava_dequeueOutputBuffer: INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:55:02.960 E/IJKMEDIA(10007): AMEDIACODEC__INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:55:02.960 W/IJKMEDIA(10007): SDL_AMediaFormatJava_init
+09-15 09:55:02.960 I/IJKMEDIA(10007): AMEDIACODEC__INFO_OUTPUT_FORMAT_CHANGED
+09-15 09:55:02.960 I/IJKMEDIA(10007):     width-height: (1920 x 1080)
+09-15 09:55:02.960 I/IJKMEDIA(10007):     color-format: (FormatYUV420Planar: 0x13)
+09-15 09:55:02.960 I/IJKMEDIA(10007):     stride:       (1920)
+09-15 09:55:02.960 I/IJKMEDIA(10007):     slice-height: (1080)
+09-15 09:55:02.960 I/IJKMEDIA(10007):     crop:         (0, 0, 1919, 1079)
+09-15 09:55:02.960 I/IJKMEDIA(10007): overlayer format is 10001
+09-15 09:55:02.960 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:55:02.960 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:55:02.960 D/IJKMEDIA(10007): Video: first frame decoded
+09-15 09:55:02.960 I/IJKMEDIA(10007): stream_open--->decode first frame time = 95 ms, video packet count = 983
+09-15 09:55:02.961 I/IJKMEDIA(10007): MediaCodec: func_run_sync: try exit: -1
+09-15 09:55:02.961 W/IJKMEDIA(10007): SDL_AMediaCodecJava_stop
+09-15 09:55:02.964 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10320]
+09-15 09:55:02.964 I/IJKMEDIA(10007): overlayer format is 10001
+09-15 09:55:02.964 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:55:02.964 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:55:02.964 W/IJKMEDIA(10007): end wait for read_tid
+09-15 09:55:02.964 W/IJKMEDIA(10007): begin wait for audio_tid
+09-15 09:55:02.964 W/IJKMEDIA(10007): end wait for audio_tid
+09-15 09:55:02.964 W/IJKMEDIA(10007): begin wait for ff_aout
+09-15 09:55:02.964 D/AudioTrack(10007): stop() called with 2173056 frames delivered
+09-15 09:55:02.966 D/SurfaceUtils(10007): disconnecting from surface 0x76384a49e010, reason disconnectFromSurface
+09-15 09:55:02.970 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10324]
+09-15 09:55:02.970 I/IJKMEDIA(10007): SDL_AMediaCodecJava_delete
+09-15 09:55:02.971 W/IJKMEDIA(10007): end wait for ff_aout
+09-15 09:55:02.971 W/IJKMEDIA(10007): begin wait for video_tid
+09-15 09:55:02.975 I/IJKMEDIA(10007): overlayer format is 10001
+09-15 09:55:02.975 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay
+09-15 09:55:02.975 W/IJKMEDIA(10007): SDL_VoutAMediaCode_CreateOverlay Success
+09-15 09:55:02.975 D/LDDec   ( 1494): ~LDDec deinit 0xf56205a0 1
+09-15 09:55:02.976 I/IJKMEDIA(10007): MediaCodec: func_run_sync: exit: -1
+09-15 09:55:02.976 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10337]
+09-15 09:55:02.976 W/IJKMEDIA(10007): end wait for video_tid
+09-15 09:55:02.978 I/        (10007): fastpipe: close connect
+09-15 09:55:02.981 D/IJKMEDIA(10007): avcodec/Audio: first frame decoded
+09-15 09:55:02.981 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(403)
+09-15 09:55:02.982 W/IJKMEDIA(10007): begin wait for video_refresh_tid
+09-15 09:55:02.982 W/IJKMEDIA(10007): end wait for video_refresh_tid
+09-15 09:55:02.982 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec) start: overlay_free_l(0x7638544f48a0)
+09-15 09:55:02.982 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec): overlay_free_l(0x7638544f48a0)
+09-15 09:55:02.982 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec) start: overlay_free_l(0x7638544f4940)
+09-15 09:55:02.982 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec): overlay_free_l(0x7638544f4940)
+09-15 09:55:02.982 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec) start: overlay_free_l(0x7638544f49e0)
+09-15 09:55:02.982 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec): overlay_free_l(0x7638544f49e0)
+09-15 09:55:02.983 W/IJKMEDIA(10007): ijkmp_shutdown_l()=void
+09-15 09:55:02.983 W/IJKMEDIA(10007): begin wait for ff_aout
+09-15 09:55:02.983 W/IJKMEDIA(10007): end wait for ff_aout
+09-15 09:55:02.983 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10397]
+09-15 09:55:03.008 E/IJKMEDIA(10007): unknown FFP_MSG_xxx(402)
+09-15 09:55:03.008 I/tv.danmaku.ijk.media.player.IjkMediaPlayer(10007): Info (2000,0)
+09-15 09:55:03.008 W/MapperHal(10007): buffer descriptor with invalid usage bits 0x2000
+09-15 09:55:03.011 I/HwBinder:1419_2( 1419): type=1400 audit(0.0:3661): avc: denied { read write } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:55:03.011 I/MediaCodec_loop(10007): type=1400 audit(0.0:3662): avc: denied { open } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:untrusted_app:s0:c63,c256,c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:55:03.015 I/appproc (10414): app_process main with argv: /system/bin com.android.commands.input.Input tap 951 806 
+09-15 09:55:03.016 D/AndroidRuntime(10414): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-15 09:55:03.017 E/cutils-trace(10414): Error opening trace file: No such file or directory (2)
+09-15 09:55:03.041 I/        (10007): fastpipe: Connect success
+09-15 09:55:03.041 D/HostConnection(10007): HostRPC::connect sucess: app=com.netease.chiji, pid=10007, tid=10409, this=0x76388bf75e00
+09-15 09:55:03.043 D/HostConnection(10007): queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:com.netease.chiji
+09-15 09:55:03.051 V/libnb   (10414): enter native_bridge2_isCompatibleWith 3
+09-15 09:55:03.057 I/libnb   (10414): Found /system/lib64/libhoudini.so version 3
+09-15 09:55:03.062 D/SoftwareRenderer(10007): setting dataspace on output surface to #104
+09-15 09:55:03.062 E/NeoXCCPlayer(10007): onRequestUpdateTexture
+09-15 09:55:03.062 E/NeoXCCPlayer(10007): nativeOnVideoReady
+09-15 09:55:03.074 I/app_process(10414): The ClassLoaderContext is a special shared library.
+09-15 09:55:03.074 W/MapperHal(10007): buffer descriptor with invalid usage bits 0x2000
+09-15 09:55:03.074 W/app_process(10414): Could not create mount namespace.
+09-15 09:55:03.075 D/nativebridge(10414): PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-15 09:55:03.075 W/nativebridge(10414): Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-15 09:55:03.075 W/nativebridge(10414): Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-15 09:55:03.075 D/nativebridge(10414): call UnloadNativeBridge! state=2
+09-15 09:55:03.085 D/AndroidRuntime(10414): Calling main entry com.android.commands.input.Input
+09-15 09:55:03.087 I/Input   (10414): injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=3025294, downTime=3025294, deviceId=3, source=0x1002 }
+09-15 09:55:03.109 I/Input   (10414): injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=951.0, y[0]=806.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=3025294, downTime=3025294, deviceId=3, source=0x1002 }
+09-15 09:55:03.112 E/NeoXCCPlayer(10007): onRequestUpdateTexture
+09-15 09:55:03.120 D/AndroidRuntime(10414): Shutting down VM
+09-15 09:55:03.141 W/MapperHal(10007): buffer descriptor with invalid usage bits 0x2000
+09-15 09:55:03.144 E/NeoX    (10007): finish get cutOut info
+09-15 09:55:03.154 E/NeoXCCPlayer(10007): onRequestUpdateTexture
+09-15 09:55:03.577 I/chatty  (10007): uid=10063(com.netease.chiji) identical 13 lines
+09-15 09:55:03.610 E/NeoXCCPlayer(10007): onRequestUpdateTexture
+09-15 09:55:03.620 I/[09:55:03.620] M (10007): [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-15 09:55:03.622 I/[09:55:03.622] M (10007): [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-15 09:55:03.622 I/[09:55:03.622] M (10007): [INFO] Nub::recreateListeningSocket 0x76384c6e0000 0.0.0.0:11958
+09-15 09:55:03.624 W/IJKMEDIA(10007): IjkMediaPlayer_stop
+09-15 09:55:03.624 W/IJKMEDIA(10007): ijkmp_stop()
+09-15 09:55:03.624 W/IJKMEDIA(10007): ijkmp_stop()=0
+09-15 09:55:03.624 W/IJKMEDIA(10007): IjkMediaPlayer_release
+09-15 09:55:03.624 W/IJKMEDIA(10007): ijkmp_set_android_surface(surface=0x0)
+09-15 09:55:03.624 W/IJKMEDIA(10007): message_loop exit
+09-15 09:55:03.624 D/IJKMEDIA(10007): ffpipeline_set_surface()
+09-15 09:55:03.624 I/IJKMEDIA(10007): stream_open--->setsurface time = 759 ms, video packet count = 11
+09-15 09:55:03.624 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10398]
+09-15 09:55:03.624 W/IJKMEDIA(10007): ijkmp_set_android_surface(surface=0x0)=void
+09-15 09:55:03.625 E/IJKMEDIA(10007): create async thread(1239344784)
+09-15 09:55:03.625 I/IJKMEDIA(10007): SDL_RunThread: [10425] release_tid
+09-15 09:55:03.625 W/IJKMEDIA(10007): async_release_android
+09-15 09:55:03.626 W/IJKMEDIA(10007): ijkmp_stop_cc_player_stat
+09-15 09:55:03.626 W/IJKMEDIA(10007): ijkmp_shutdown_l()
+09-15 09:55:03.630 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10399]
+09-15 09:55:03.633 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10400]
+09-15 09:55:03.634 W/IJKMEDIA(10007): end wait for read_tid
+09-15 09:55:03.634 W/IJKMEDIA(10007): begin wait for audio_tid
+09-15 09:55:03.634 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10403]
+09-15 09:55:03.634 W/IJKMEDIA(10007): end wait for audio_tid
+09-15 09:55:03.634 W/IJKMEDIA(10007): begin wait for ff_aout
+09-15 09:55:03.652 I/        (10007): WARNING ***************************************************************************
+09-15 09:55:03.652 I/[09:55:03.652] M (10007): [WARNING] EncryptionFilter::decrypt: Input stream size (20) is not a multiple of the block size (8)
+09-15 09:55:03.652 I/[09:55:03.652] M (10007): [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 160.179.161.91 to 160.179.161.91:0
+09-15 09:55:03.652 I/[09:55:03.652] M (10007): [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=160.179.161.91:14454
+09-15 09:55:03.652 I/[09:55:03.652] M (10007): [INFO] Nub::recreateListeningSocket 0x76385bb9d000 0.0.0.0:32974
+09-15 09:55:03.653 I/[09:55:03.653] M (10007): [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
+09-15 09:55:03.661 D/AudioTrack(10007): stop() called with 36928 frames delivered
+09-15 09:55:03.662 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10402]
+09-15 09:55:03.662 W/IJKMEDIA(10007): end wait for ff_aout
+09-15 09:55:03.662 W/IJKMEDIA(10007): begin wait for video_tid
+09-15 09:55:03.663 I/IJKMEDIA(10007): MediaCodec: func_run_sync: try exit: -1
+09-15 09:55:03.667 I/IJKMEDIA(10007): MediaCodec: enqueue_thread_func: exit: 0
+09-15 09:55:03.667 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10416]
+09-15 09:55:03.667 W/IJKMEDIA(10007): SDL_AMediaCodecJava_stop
+09-15 09:55:03.670 D/SurfaceUtils(10007): disconnecting from surface 0x76384d016010, reason disconnectFromSurface
+09-15 09:55:03.672 I/IJKMEDIA(10007): SDL_AMediaCodecJava_delete
+09-15 09:55:03.673 D/LDDec   ( 1494): ~LDDec deinit 0xf5620640 0
+09-15 09:55:03.673 D/        ( 1494): freeChannelId holdpipe: 1
+09-15 09:55:03.675 I/        ( 1494): fastpipe: close connect
+09-15 09:55:03.683 I/IJKMEDIA(10007): MediaCodec: func_run_sync: exit: -1
+09-15 09:55:03.683 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10413]
+09-15 09:55:03.684 W/IJKMEDIA(10007): end wait for video_tid
+09-15 09:55:03.685 I/        (10007): fastpipe: close connect
+09-15 09:55:03.686 W/IJKMEDIA(10007): begin wait for video_refresh_tid
+09-15 09:55:03.686 W/IJKMEDIA(10007): end wait for video_refresh_tid
+09-15 09:55:03.687 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec) start: overlay_free_l(0x76388be43c40)
+09-15 09:55:03.687 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec): overlay_free_l(0x76388be43c40)
+09-15 09:55:03.687 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec) start: overlay_free_l(0x7638544f4620)
+09-15 09:55:03.687 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec): overlay_free_l(0x7638544f4620)
+09-15 09:55:03.687 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec) start: overlay_free_l(0x7638544f46c0)
+09-15 09:55:03.687 D/IJKMEDIA(10007): SDL_Overlay(MediaCodec): overlay_free_l(0x7638544f46c0)
+09-15 09:55:03.687 W/IJKMEDIA(10007): ijkmp_shutdown_l()=void
+09-15 09:55:03.687 W/IJKMEDIA(10007): begin wait for ff_aout
+09-15 09:55:03.687 W/IJKMEDIA(10007): end wait for ff_aout
+09-15 09:55:03.687 I/IJKMEDIA(10007): SDL_JNI_DetachThreadEnv: [10425]
+09-15 09:55:04.547 I/NeoXDevice(10007): On App CMD 23
+09-15 09:55:05.376 I/[09:55:05.376] M (10007): [AUIDO]freeEventData: ui/ui_enter_game_new, times: 1928921736
+09-15 09:55:07.958 I/[09:55:07.958] M (10007): [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=160.179.161.91:14454
+09-15 09:55:07.991 I/        (10007): 
+09-15 09:55:07.991 I/        (10007): ERROR *****************************************************************************
+09-15 09:55:07.991 I/[09:55:07.991] M (10007): [ERROR] ServerConnection::logOnComplete: Logon failed (Unable to connect to BaseApp: A NAT or firwall error may have occured?)
+09-15 09:55:07.993 D/DCTOOL  (10007): ntStart() queue size (1), current thread=361
+09-15 09:55:07.993 D/DCTOOL  (10007): ntStart() after so loaded, current thread=361
+09-15 09:55:07.993 D/DCTOOL  (10007): ntStart() with native and reset.
+09-15 09:55:07.993 D/DCTOOL  (10007): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-15 09:55:07.994 D/DCTOOL  (10007): In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-15 09:55:07.994 D/DCTOOL  (10007): NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-15 09:55:07.994 D/DCTOOL  (10007): NATIVE [ntGetDeviceInfo] callback here.
+09-15 09:55:07.994 D/DCTOOL  (10007): In C++, call back Java's ntGetDeviceInfo().
+09-15 09:55:07.999 D/DCTOOL  (10007): Getting NETWORK_TYPE in java : wifi
+09-15 09:55:07.999 D/DCTOOL  (10007): Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4893.6","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:55:07.999 D/DCTOOL  (10007): In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4893.6","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-15 09:55:07.999 D/DCTOOL  (10007): In C++, release the returned string. detach. 
+09-15 09:55:07.999 D/DCTOOL  (10007): In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-15 09:55:08.000 I/DCTOOL  (10007): OSVersion: 9
+09-15 09:55:08.000 I/DCTOOL  (10007): brand: Redmi -- model: 22081212C
+09-15 09:55:08.000 I/DCTOOL  (10007): Serialno: 00c80dd8
+09-15 09:55:08.004 I/surfaceflinger( 1432): type=1400 audit(0.0:3672): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-15 09:55:08.335 W/System.err( 3658): javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-15 09:55:08.335 W/System.err( 3658): 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.tencent.bugly.proguard.af.a(BUGLY:272)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.tencent.bugly.proguard.af.a(BUGLY:122)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.tencent.bugly.proguard.aj.run(BUGLY:277)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.tencent.bugly.proguard.ai$1.run(BUGLY:499)
+09-15 09:55:08.336 W/System.err( 3658): 	at java.lang.Thread.run(Thread.java:764)
+09-15 09:55:08.336 W/System.err( 3658): Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-15 09:55:08.336 W/System.err( 3658): 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-15 09:55:08.336 W/System.err( 3658): 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-15 09:55:08.336 W/System.err( 3658): 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-15 09:55:08.336 W/System.err( 3658): 	... 18 more
+09-15 09:55:08.336 W/System.err( 3658): Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-15 09:55:08.336 W/System.err( 3658): 	... 29 more
+09-15 09:55:08.521 I/NeoXDevice(10007): On App CMD 24
+09-15 09:55:08.526 D/DCTOOL  (10007): NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-15 09:55:08.526 D/DCTOOL  (10007): NATIVE [OnToolCallback] calling here.
+09-15 09:55:08.526 D/DCTOOL  (10007):  NOT RUNNING TIME. 
+09-15 09:55:08.526 D/DCTOOL  (10007): In C++, call back Java's OnToolCallback(String).
+09-15 09:55:08.526 D/DCTOOL  (10007): OnToolCallback : NOT RUNNING TIME.
+09-15 09:55:08.526 D/DCTOOL  (10007): OnToolCallback, current thread=413
+09-15 09:55:08.526 D/DCTOOL  (10007): onUploadID, current thread=413
+09-15 09:55:08.526 I/DcTool  (10007): NOT RUNNING TIME.
+09-15 09:55:08.526 D/DCTOOL  (10007): NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-15 09:55:13.644 I/PlayCommon( 2912): [145] Preparing logs for uploading
+09-15 09:55:13.647 W/PlayCommon( 2912): [145] No account for auth token provided
+09-15 09:55:13.648 I/PlayCommon( 2912): [145] Connecting to server: https://play.googleapis.com/play/log?format=raw&proto_v2=true
+09-15 09:55:13.692 E/PlayCommon( 2912): [145] Failed to connect to server for log upload.
