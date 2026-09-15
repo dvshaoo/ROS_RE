@@ -15,6 +15,13 @@ mitm/frida-server
 mitm/frida-server.xz
 scratch/frida-server-*
 
+# Ignore transient live-capture scratch data (heap dumps, per-run logs/screens)
+# -- these are regenerable via scratch/dump_regions.sh / reply_id_sweep.sh, not
+# source, and heap_dump/ alone can be 500MB+ per capture.
+scratch/heap_dump/
+scratch/sweep_results/
+scratch/*.png
+
 # Ignore Python caches
 __pycache__/
 *.pyc

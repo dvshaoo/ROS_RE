@@ -744,5 +744,112 @@ new client modification performed this pass).
 - The project has officially crossed from LoginApp into BaseApp protocol reverse-engineering!
 
 ---
+
+## TEST_ID: E2E-008
+- **DATE**: 2026-09-15 (same day, eighth pass). Follows E2E-007 (`a4e93e4`,
+  committed by a concurrently-running session on this same repo/checkout —
+  independently verified below rather than assumed).
+- **GOAL**: (1) verify E2E-007's Blowfish/reply-ID fix is genuinely
+  reproducible, not a one-off; (2) build the first real BaseApp reply
+  (Phase 7) to the captured `baseAppLogin` packets and observe whether the
+  client progresses past "Unable to connect to BaseApp".
+
+### 1. Independent re-verification of E2E-007 (CONFIRMED reproducible)
+Re-ran the exact scenario with zero env-var overrides (pure code defaults:
+`SWEEP_OFFSET=5/WIDTH=4/little`, `ATTEMPT_I` default-on, `BFKEY_HEX=b2525a3c`,
+`BF_MODE=pc_variant`) against the same live process (`PID 9754`,
+`emulator-5554`, unchanged since E2E-006/007 — same `ServerConnection`
+instance, so the same live-extracted key is still valid). **Result: PASS,
+reproduced independently.** `checkScriptBaseAppAddr` decoded the exact
+intended address `172.16.1.2:25010` (previously `217.217.193.87:13706`
+garbage under the old plaintext-body test); client opened a new UDP socket
+(`Nub::recreateListeningSocket 0x76384dbca000`) and sent `baseAppLogin`
+packets to it, captured cleanly. This independently corroborates E2E-007's
+claim using a separate test run, separate logcat capture, and manual
+verification of the raw bytes — not just re-reading their log.
+
+### 2. BaseApp reply experiments (Phase 7, NEW work this pass)
+Added `ATTEMPT_BASEAPP_REPLY` to `serve_baseapp_udp_capture()` in
+`mitm/local_baseapp_capture.py`. Four live attempts, each on a fresh PLAY
+tap against the same still-alive `PID 9754`:
+
+1. **Plaintext generic-reply-shape ack** (`[flags=1][msgid=0xFF][len=5][replyID=corr][status=1]`,
+   12 bytes total, un-encrypted, mirroring LoginApp's outer framing):
+   **REJECTED** — `EncryptionFilter::decrypt: Input stream size (12) is not
+   a multiple of the block size (8)`. Proves the BaseApp channel, like
+   LoginApp, expects its incoming replies Blowfish-encrypted.
+2. **Encrypt only an 8-byte inner payload** (mirroring LoginApp's exact
+   "encrypt body only, header stays plaintext" shape, using the SAME
+   `bf_encrypt()`/key/mode as LoginApp): **REJECTED** —
+   `EncryptionFilter::decrypt: Input stream size (15) is not a multiple of
+   the block size (8)`. 15 = the packet's FULL length, not the 8-byte inner
+   — **CONFIRMED (by this exact error text): decrypt() is invoked over the
+   WHOLE datagram for the BaseApp channel**, unlike LoginApp's
+   body-only-encrypted framing. This is a genuine, newly-discovered
+   difference between the two channels' wire formats.
+3. **Encrypt the whole `[flags][msgid][corr][status]` (8 bytes, no length
+   field)**: decrypt SUCCEEDED (no block-size warning at all — first time
+   this pass) but parsing failed: `Bundle::iterator::unpack( Reply ): Not
+   enough data on stream at 2 for header (3 bytes, needed 5)`. Confirms the
+   whole-packet-encryption model is right in shape, but a Reply message
+   still needs its own internal `u32` length field (as LoginApp's own
+   working shape has), which this attempt omitted.
+4. **Encrypt the whole `[flags][msgid=0xFF][length=5][replyID=corr][status]`,
+   padded 12→16 bytes** (LoginApp's exact inner shape, now entirely inside
+   the encrypted region): decrypt again succeeded with no block-size
+   warning, but the **decrypted content itself was wrong** —
+   `Bundle::iterator::unpack( authenticate ): Not enough data on stream at
+   12 for payload (1 left, needed 4)`, `... for message id 0` — i.e. the
+   client parsed my intended `msgid=0xFF` byte as `0` after decrypting,
+   meaning the decrypted plaintext did **not** match what was encrypted.
+   **INFERRED (not yet confirmed by a live memory re-read)**: the BaseApp
+   channel most likely uses **its own, separate `EncryptionFilter`/key**
+   (constructed when `Nub::recreateListeningSocket` set up the new BaseApp
+   socket, per the two known `BF_set_key` call sites in
+   `FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md` §4 — the default-construction
+   path `0x988cf8` plausibly fires again for this second `Nub`/channel) —
+   not the same `b2525a3c` key reused from the LoginApp channel. Decrypting
+   ciphertext with the wrong key produces exactly this kind of
+   plausible-looking-but-wrong garbage, consistent with what was observed.
+   This was **not verified this pass** by a fresh heap re-scan (the
+   ~5-second single-shot retry window per attempt, per
+   `BASEAPP_LOGIN_SERIALIZATION.md` §3's "client only tries once, Mercury
+   channel-level retransmission only" finding, is too tight to run the
+   ~500MB heap dump+scan live within one attempt without further
+   engineering, e.g. triggering the scan asynchronously the moment the
+   first `baseAppLogin` packet arrives rather than after game-over).
+
+### RESULT
+- **Phase 7 (BaseApp) is NOT yet solved.** Real, incremental, honestly-negative
+  progress: the BaseApp channel's wire-level encryption MODEL is now
+  understood (whole-packet Blowfish, not body-only like LoginApp; Reply
+  messages still need the same `[flags][msgid][length][replyID][status]`
+  inner shape as LoginApp, just relocated inside the encrypted region) even
+  though the correct KEY for this channel is not yet known.
+- `CLIENT_MODIFIED: NO` — all changes are server-side
+  (`mitm/local_baseapp_capture.py`) and local test tooling. No native
+  patching, no APK modification, no Frida.
+
+### NEXT_ACTION
+1. Confirm the "separate BaseApp channel key" hypothesis with a live
+   memory re-scan (`scratch/scan_heap_for_filter.py`'s technique) timed to
+   run **during** a live `baseAppLogin` retry window — e.g. have the
+   BaseApp UDP handler kick off the heap scan asynchronously on the FIRST
+   received packet (in a background thread) so the key is ready by the
+   time a reply is needed for a later retry within the same ~5s window,
+   rather than requiring the whole scan to finish before any reply can be
+   sent at all.
+2. If a second, distinct `EncryptionFilter` object is found (different
+   vtable-adjacent heap region, different key bytes than `b2525a3c`), retry
+   Attempt 4's exact framing with that key.
+3. If only ONE `EncryptionFilter` object still exists (i.e. the key really
+   is shared/reused), the bug is elsewhere in the framing (e.g. wrong
+   status byte semantics for BaseApp specifically, or a different expected
+   msgid than `0xFF` for this channel) — re-examine
+   `06_trace/BASEAPP_LOGIN_SERIALIZATION.md` and the `ClientInterface`
+   dispatch code for BaseApp-specific Reply handling before assuming a key
+   mismatch again.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

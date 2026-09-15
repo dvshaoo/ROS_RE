@@ -305,3 +305,49 @@ portion of the original `LogOnParams` request (a session key established during 
 exchange) — so that a real, correctly-encrypted BaseApp address can be sent and actually
 reach `172.16.1.2:25010`, our local capture listener, for the first time in this
 investigation.
+
+---
+
+## ADDENDUM (2026-09-15, later pass) — Regression, then a FIX (E2E-005/E2E-006)
+
+This document's §1 "CONFIRMED, reproduced three times" claim about wire offset `[5:7]`
+(2-byte LE, zero-extended) being sufficient for the reply-id hashtable lookup **did NOT
+hold up** on two independent fresh runs in a later pass the same day (E2E-001, E2E-002 —
+see `07_ros_legacy_approach/END_TO_END_TEST_LOG.md`): 10/10 failures each run, and a
+follow-up "sticky first counter" variant also failed 10/10. The likely explanation
+(INFERRED, not proven): the original "confirmed three times" result depended on
+incidental state (e.g. a stale registered handler bucket left over from an immediately
+prior exchange) rather than the field itself being correct.
+
+**Root cause found and FIXED (E2E-006, same day, still later pass)**: a live
+offset/width/endianness sweep (`scratch/reply_id_sweep.sh`, methodology borrowed from
+the PC ROS launcher's own documented fix for the identical bug class — their correlation
+ID was a uint32 at offset 5, not a uint16 at offset 6 as first assumed — see
+`07_ros_legacy_approach/PC_LAUNCHER_STUDY.md` §2) found the real field is a **4-byte
+little-endian value at wire offset 5** — i.e. the same start offset as before, just 2
+bytes wider. **CONFIRMED LIVE, reproduced 3 times with clean timestamp-isolated logcat
+captures** (`adb logcat -T`, needed because `adb logcat -c` was found this pass to NOT
+actually clear the buffer on this device/build — a new, reproducible environmental
+quirk): every run reaches `LoginHandler::onLoginReply` and
+`ServerConnection::checkScriptBaseAppAddr` on the very FIRST attempt (23-37ms
+round-trip), zero retries needed. This is now the default in
+`mitm/local_baseapp_capture.py` ("Attempt K"). Full sweep record and raw logcat:
+`07_ros_legacy_approach/END_TO_END_TEST_LOG.md` E2E-006.
+
+**The "Next Blocker" section above is also now further advanced**: padding the 20-byte
+LoginReplyRecord body to 24 bytes (the next multiple of 8 — previously flagged "Attempt
+I", inconsistent under the OLD broken reply-id extraction) was re-tested under the fixed
+Attempt K extraction and works cleanly, twice — the block-size WARNING disappears
+entirely and `checkScriptBaseAppAddr` decodes a **non-zero** address
+(`217.217.193.87:13706` in the observed runs) instead of `0.0.0.0:0`. The address is
+still wrong content-wise (not our intended `172.16.1.2:25010`), because the 24-byte body
+is sent **plaintext** while the client unconditionally Blowfish-**decrypts** it with its
+own live per-connection key — confirming both that decryption genuinely executes now
+(framing is correct) and that the actual per-connection Blowfish key is still the one
+missing piece, exactly as this document's original "Next Blocker" predicted. See
+`06_notes/FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md` and
+`06_notes/LOGONPARAMS_BLOWFISH_KEY_RECHECK.md` for the key-acquisition investigation,
+and E2E-006 for a live memory-read attempt at the key made possible by a newly-observed
+change: `/proc/<pid>/mem` reads and `ptrace` attach, both environmentally BLOCKED with
+`EIO`/`EPERM` in E2E-002/E2E-004, now **work** on a fresh process/session (root cause of
+the earlier block still unknown, but the capability is back — CONFIRMED live, this pass).

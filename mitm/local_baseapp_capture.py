@@ -276,7 +276,25 @@ def serve_loginapp_udp_responder():
 
 
 def serve_baseapp_udp_capture():
-    log('=== FAKE BASEAPP UDP :%d LISTENING (capture-only, no reply) ===' % BASEAPP_PORT)
+    # E2E-008 (2026-09-15): first BaseApp reply attempt. Per
+    # 06_trace/BASEAPP_LOGIN_SERIALIZATION.md SS2, `baseAppLogin` (method ID 0 in
+    # BaseAppExtInterface, confirmed by the captured wire byte [2]=0x00) is a
+    # VARIABLE_LENGTH_MESSAGE with a u16 length prefix; the request's 11-byte body
+    # starts with what looks like a 4-byte LE correlation value (e5 32 00 00, ...,
+    # incrementing by 1 across Mercury's own reliable-channel retransmissions of the
+    # SAME logical request -- BASEAPP_LOGIN_SERIALIZATION.md SS3 confirms the client
+    # only builds ONE BaseAppLoginRequest per ServerConnection, so these repeats are
+    # Mercury channel-level retransmission, not new logical attempts).
+    #
+    # ATTEMPT_BASEAPP_REPLY (default ON): echoes back a Mercury reply using the SAME
+    # generic [flags=1][msgID=0xFF][u32 length][u32 replyID][statusByte] shape that
+    # unblocked LoginApp (Attempt H/K), on the theory that Mercury's generic
+    # request/reply correlation mechanism is shared infrastructure across interfaces,
+    # not specific to LoginApp. This is a HYPOTHESIS, not yet confirmed correct for
+    # BaseApp -- the exact `baseAppLogin` reply body fields are UNKNOWN
+    # (BASEAPP_LOGIN_SERIALIZATION.md SS4). No entity/DEF-encoded payload is attempted
+    # here; this is deliberately the smallest possible experiment first.
+    log('=== FAKE BASEAPP UDP :%d LISTENING (Attempt-BaseApp-Reply active) ===' % BASEAPP_PORT)
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind(('0.0.0.0', BASEAPP_PORT))
@@ -286,6 +304,49 @@ def serve_baseapp_udp_capture():
             log('*** BASEAPP UDP RECV %d bytes from %s:%d ***' % (len(data), addr[0], addr[1]))
             log('  HEX: %s' % data.hex())
             log('  ASCII: %r' % data)
+            if os.environ.get('ATTEMPT_BASEAPP_REPLY', '1') == '1' and len(data) >= 9:
+                # data[2] = method id, data[3:5] = u16 body length, data[5:9] = the
+                # candidate 4-byte LE correlation field observed at the start of the
+                # 11-byte body (see comment above).
+                method_id = data[2]
+                corr = struct.unpack('<I', data[5:9])[0]
+                # Attempt 1 (plaintext throughout, LoginApp-style "encrypt only the
+                # inner body" framing): REJECTED, "Input stream size (12) is not a
+                # multiple of the block size (8)".
+                # Attempt 2 (encrypt only an 8-byte inner payload after a plaintext
+                # [flags][msgid][length] header, mirroring LoginApp exactly):
+                # REJECTED, "Input stream size (15) is not a multiple of the block
+                # size (8)" -- 15 = the FULL packet length, proving decrypt() is
+                # being invoked over the WHOLE datagram, not a header-relative
+                # sub-slice -- i.e. the BaseApp channel encrypts the entire wire
+                # packet (including flags/msgid/length), unlike LoginApp's
+                # reply-body-only encryption.
+                # Attempt 3 (encrypt the entire [flags][msgid][corr][status], no
+                # length field): decrypt SUCCEEDED this time (no block-size
+                # warning!) but parsing then failed: "Bundle::iterator::unpack(
+                # Reply ): Not enough data on stream at 2 for header (3 bytes,
+                # needed 5)" -- confirms whole-packet encryption is the right
+                # model, but a Reply (msgid 0xFF) message still needs its own
+                # [u32 length] field per LoginApp's own proven shape, which
+                # Attempt 3 omitted by mistake.
+                # Attempt 4 (this one): encrypt the WHOLE
+                # [flags][msgid][length=5][replyid=corr][status] structure
+                # (LoginApp's exact inner shape, just with the length field now
+                # ALSO inside the encrypted region since this channel encrypts
+                # everything), padded to a multiple of 8.
+                plain = (struct.pack('<H', 0x0001) + bytes([0xff])
+                          + struct.pack('<I', 5) + struct.pack('<I', corr) + bytes([1]))
+                pad = (-len(plain)) % 8
+                plain += b'\x00' * pad
+                enc = bf_encrypt(plain)
+                if enc:
+                    reply = enc
+                    log('BASEAPP: encrypted WHOLE %d-byte (padded) reply with key=%s mode=%s' % (len(plain), _BFKEY_HEX, _BF_MODE))
+                else:
+                    reply = plain
+                s.sendto(reply, addr)
+                log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x (%d bytes): %s' % (
+                    method_id, corr, len(reply), reply.hex()))
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 
