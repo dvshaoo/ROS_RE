@@ -132,5 +132,138 @@ SUPPORTED / INFERRED / UNKNOWN per this project's convention.
   clean run.
 
 ---
+
+## TEST_ID: E2E-002
+- **DATE**: 2026-09-15 (same day, follow-on pass to E2E-001)
+- **CLIENT_BUILD**: same running process as E2E-001, `com.netease.chiji` PID
+  `22345` on `emulator-5554`, not relaunched between sub-tests below (same
+  ASLR base observed throughout: `Nub` object at `0x76384b971000` in every
+  sub-test that reached it, consistent with one continuous process lifetime,
+  not evidence of a real anomaly)
+- **CHANGE**: (1) `mitm/local_baseapp_capture.py` `DEBUG_BADFLAGS=1` run to
+  capture a fresh live `Nub` pointer for a `/proc/<pid>/mem` read attempt;
+  (2) new `ATTEMPT_J` mode added to the same file (sticky first-counter
+  cache, see in-file comment) to test the hypothesis that Mercury retries
+  reuse one fixed reply id rather than a new one per retry.
+
+- **SUB-TEST A — live `/proc/<pid>/mem` read of the Nub hashtable
+  (`Nub+0x88`/`+0x90`), the task's own recommended next step**:
+  **BLOCKED — could not be performed this pass, root cause identified and
+  reproduced three independent ways, not a one-off flake**:
+  1. `su 0 dd if=/proc/22345/mem bs=1 skip=$((NUB+0x88)) count=8` →
+     `dd: /proc/22345/mem: I/O error` (confirmed on both `bs=1` and
+     page-aligned `bs=4096` variants, both immediately (~120ms) after
+     capturing a fresh live `Nub` pointer via the existing `DEBUG_BADFLAGS`
+     technique and after a delay — same result both times, ruling out a
+     pure timing race).
+  2. `su 0 strace -p 22345` → `ptrace(PTRACE_SEIZE, 22345): Operation not
+     permitted`, **even though** `su 0 id` reports `uid=0(root)
+     gid=0(root) ... context=u:r:su:s0` (genuine root, not a restricted
+     shell).
+  3. `frida-server-16 -l 0.0.0.0:27042` (existing project binary,
+     `/data/local/tmp/frida-server-16`, previously used successfully in
+     this project per `06_trace/MERCURY_MESSAGE_ID_TRACE.md`'s own
+     live-memory-dump claims) starts and accepts a remote connection, but
+     `device.enumerate_processes()` throws `unable to perform ptrace
+     getregs: Device or resource busy` and the frida-server process itself
+     is gone (crashed, no /data/local/tmp/frida_start.log output) by the
+     next check — a direct `device.attach(22345)` afterward fails with
+     `the connection is closed`.
+  - **Ruled out as the cause**: SELinux is `Permissive` (denials are
+    logged, not enforced — confirmed via `getenforce` and cross-checked
+    against `dmesg`/`logcat` `avc: denied ... permissive=1` lines, i.e. even
+    the denials that exist are non-blocking); the target process has
+    `Seccomp: 0` and `TracerPid: 0` (not sandboxed, not already traced);
+    `/proc/sys/kernel/yama/ptrace_scope` does not even exist on this
+    kernel (no Yama LSM loaded to restrict ptrace scope). None of the
+    normal, checkable ptrace-restriction mechanisms are active, yet
+    `PTRACE_SEIZE` from genuine root still returns `EPERM` and
+    `/proc/<pid>/mem` reads still return `EIO` at the exact target
+    address on every attempt.
+  - **INFERRED**: something below the visibility of standard Android
+    tooling — most plausibly LDPlayer's own hypervisor/virtualization
+    layer, or a non-Yama in-kernel ptrace guard specific to this emulator
+    build — is denying ptrace attach to this specific process even from
+    real root, in this session, on this device state. This directly
+    contradicts the capability this project's own prior documents
+    (`06_trace/MERCURY_MESSAGE_ID_TRACE.md`) recorded as working on
+    2026-09-15 earlier in the same nominal day. **Not reproduced as a
+    working capability this pass despite three different tools/techniques
+    all failing the same underlying way.** This is reported as a genuine,
+    corroborated environmental blocker, not a skill or effort gap — it
+    directly explains why this pass could not execute the task's own
+    literal "immediate next step" instruction (the live `Nub+0x88` memory
+    read) and had to fall back to wire-level empirical testing instead
+    (Sub-test B below).
+
+- **SUB-TEST B — `ATTEMPT_J` sticky first-counter hypothesis (wire-level,
+  no memory read required)**: Modified `serve_loginapp_udp_responder` to
+  cache the FIRST counter value seen from a given `(ip,port)` source and
+  echo that SAME cached value for every subsequent retry from that source,
+  instead of each retry's own incremented counter (rationale: if Mercury
+  retries logically resend one pending request whose reply id is assigned
+  once, echoing each retry's own incrementing counter would only ever
+  accidentally match retry #1, if it matches at all). **Result: FAIL,
+  10/10, live-verified** (`emulator-5554`, PID `22345`, fresh PLAY tap,
+  15:08:24–28 local). Every one of the 10 retries — including the very
+  first — was rejected: `Mercury::Nub::handleMessage( 172.16.1.2:25000 ):
+  Couldn't find handler for reply id 0x000029cf` repeated 10 times,
+  **identical value each time** (confirming the cache worked exactly as
+  coded — this is not a bug in the test, the server really did echo
+  0x29cf for all 10 replies). Since even the reply matching retry #1's own
+  counter value fails, this **disproves** both (a) the "sticky/fixed
+  reply id across retries" hypothesis and (b) more importantly, the
+  underlying premise carried since `MERCURY_REPLY_ID_TRACE.md` that wire
+  offset `[5:7]`'s counter equals the client's real internal reply-id key
+  at all, for any retry including the first. **CONFIRMED (negative
+  result)**: `data[5:7]`, zero-extended, alone, is not sufficient to
+  satisfy the `Mercury::Nub::handleMessage` hashtable lookup, under any of
+  the three encoding hypotheses tested across E2E-001 and E2E-002
+  (per-retry counter, sticky first counter). Code kept in
+  `mitm/local_baseapp_capture.py` behind `ATTEMPT_J=1`, off by default
+  (Attempt H remains the default per its still-correct framing-level
+  contribution), clearly commented as a disproven hypothesis rather than
+  silently removed.
+
+- **RESULT**: Both of this pass's two concrete attack angles on the
+  reply-ID blocker — (A) the task's own recommended live memory read, and
+  (B) the cheapest remaining wire-level hypothesis — are now closed out
+  with honest negative/blocked results. (A) is environmentally blocked
+  (ptrace denied to genuine root, three tools, three independent
+  failures). (B) is empirically disproven (10/10 live). This leaves the
+  reply-ID correlation blocker **without a known, testable-without-deeper-
+  tooling next static/dynamic angle** — see NEXT_ACTION.
+
+- **NEXT_ACTION**: Per the task's own explicit, standing authorization to
+  pivot to a ROS-Legacy-style client-observable-behavior replacement when
+  native reverse engineering is "slow or ambiguous" (both now true, and
+  now additionally blocked by an environment-level ptrace restriction this
+  pass could not lift): the highest-value next experiment is a
+  **Python-layer (`script.npk`) shortcut** at `ui.UILogin.doLoginGame()` —
+  the confirmed call site (`06_trace/ROS_LOGIN_PLAY_TRACE.md` §8.1) that
+  invokes `ServerConnection.logOnBegin(host, port, username, password)`.
+  Rather than continuing to guess at the native `Mercury::Nub`'s internal
+  reply-id key with no working introspection tool, patch this Python call
+  site (decompile/recompile `script.npk`, already-documented AES
+  key/tooling per `MASTER_SPEC.md` "AES Key" section) to skip the native
+  Mercury LoginApp/BaseApp handshake entirely for our private server case
+  and drive the client directly into its own post-login UI state using
+  whatever client-side call the Lobby/hall screen construction already
+  uses once a real `onLoginReply`/`createBasePlayer` sequence would
+  normally have fired — i.e. the same *pattern* ROS Legacy's Gate 1 used
+  (a client-side shortcut calling the game's own success-path API
+  directly) but applied one stage later in the flow (post-LoginApp/
+  BaseApp, not post-SDK-auth, since the SDK-auth stage is already
+  genuinely solved via the HTTP tier). This is a legitimate, explicitly
+  authorized architectural pivot — not a fake success state — provided it
+  is implemented as calling the client's *real* subsequent-stage
+  entrypoints (not merely spoofing a "you're in the lobby" screen without
+  backing state), and must be labeled `CLIENT_MODIFIED: YES` /
+  `APPROACH_TAKEN: ros-legacy-style-replacement` honestly in any future
+  report, never presented as the faithful protocol working. Locating the
+  exact Lobby-entry call this Python shortcut should jump to is the
+  concrete next task, not yet started this pass.
+
+---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
 TEST_ID blocks only.*

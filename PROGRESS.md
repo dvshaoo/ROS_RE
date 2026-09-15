@@ -78,6 +78,44 @@ The following gates must pass in order. Don't chase a later gate while an earlie
   documented (CONFIRMED UNRESOLVED), just temporarily unreachable behind
   the new, more precise reply-ID blocker.
 
+## 2026-09-15 Follow-on Pass — Reply-ID Blocker: Memory Read BLOCKED, Sticky-Counter Hypothesis DISPROVEN
+- **Live `/proc/<pid>/mem` read attempt (the task's own recommended
+  immediate next step) is environmentally BLOCKED this pass**, reproduced
+  three independent ways against the live client (PID 22345,
+  `emulator-5554`): (1) `su 0 dd if=/proc/<pid>/mem ...` at the live `Nub`
+  address returns `I/O error` even ~120ms after capture; (2) `su 0 strace
+  -p <pid>` → `ptrace(PTRACE_SEIZE,...): Operation not permitted` despite
+  genuine `uid=0` root; (3) `frida-server-16` (the project's own,
+  previously-working binary) crashes on `enumerate_processes()`/`attach()`
+  with a ptrace error. SELinux is Permissive, no Yama LSM is loaded, target
+  has `Seccomp: 0`/`TracerPid: 0` — none of the normal, checkable
+  ptrace-restriction mechanisms explain this. Full detail:
+  `07_ros_legacy_approach/END_TO_END_TEST_LOG.md` TEST_ID E2E-002 Sub-test A.
+  This contradicts this project's own prior claimed live-memory-read
+  successes (`06_trace/MERCURY_MESSAGE_ID_TRACE.md`) from earlier the same
+  nominal day — treated as a genuine, reported environmental regression,
+  not silently worked around.
+- **`ATTEMPT_J` sticky-first-counter hypothesis DISPROVEN, live, 10/10**:
+  echoing retry #1's counter value for all 10 retries (rather than each
+  retry's own incrementing counter) still fails every single time,
+  including for the reply matching retry #1 itself. This closes out the
+  cheapest remaining wire-level guess and further undermines the standing
+  belief (since `MERCURY_REPLY_ID_TRACE.md`) that request wire offset
+  `[5:7]` is the client's real internal reply-id key at all. See E2E-002
+  Sub-test B.
+- **NEXT_ACTION (updated, supersedes the "live /proc/pid/mem read" item
+  above since it is now blocked, not merely pending)**: per the task's own
+  standing authorization to pivot to a ROS-Legacy-style client-observable
+  replacement when native RE is slow/ambiguous/blocked, the recommended
+  next experiment is a `script.npk` (Python) shortcut at
+  `ui.UILogin.doLoginGame()` to drive the client directly into its
+  post-login UI state via the client's own real subsequent-stage
+  entrypoints, bypassing the now-twice-blocked native Mercury reply-id
+  problem rather than continuing to guess at it with no working
+  introspection tool. This must be labeled `CLIENT_MODIFIED: YES` /
+  `APPROACH_TAKEN: ros-legacy-style-replacement`, never presented as the
+  faithful protocol working. Not yet started.
+
 ---
 *Last updated: 2026-09-15*  
 *Project: ROS_RE — reverse-engineering workspace (sariling RE, walang ibang project)*

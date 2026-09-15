@@ -33,6 +33,18 @@ LOGINAPP_PORT = 25000
 
 _lock = threading.Lock()
 
+# Attempt J (2026-09-15, post-E2E-001 regression): per source-address "sticky"
+# first-seen counter cache. E2E-001 found Attempt H's per-retry echoed counter
+# fails 10/10 on a clean run, contradicting the earlier "confirmed 3 times"
+# result. One untested hypothesis: Mercury retries resend the SAME logical
+# pending request (same internally-tracked reply id, assigned once at first
+# send), not a new id per retry -- so echoing whatever counter value arrives
+# on retry N may be *wrong* once N>1, if the client's internal id stays fixed
+# at retry 1's value. This cache lets ATTEMPT_J=1 always reply with the FIRST
+# counter value seen from a given (ip,port), for every subsequent packet from
+# that same source, instead of echoing each retry's own incremented counter.
+_first_counter_seen = {}
+
 
 def log(msg):
     with _lock:
@@ -129,6 +141,14 @@ def serve_loginapp_udp_responder():
             if len(data) < 7:
                 continue
             counter = struct.unpack('<H', data[5:7])[0]
+            if os.environ.get('ATTEMPT_J') == '1':
+                # Sticky first-counter hypothesis -- see comment at top of file.
+                if addr not in _first_counter_seen:
+                    _first_counter_seen[addr] = counter
+                    log('ATTEMPT_J: first packet from %s, caching counter=0x%04x' % (addr, counter))
+                else:
+                    log('ATTEMPT_J: retry from %s, wire counter=0x%04x but echoing CACHED first counter=0x%04x' % (addr, counter, _first_counter_seen[addr]))
+                counter = _first_counter_seen[addr]
             inner = struct.pack('<I', counter) + bytes([1]) + body
             reply = (struct.pack('<H', 0x0001) + bytes([0xff])
                       + struct.pack('<I', len(inner)) + inner
