@@ -62,27 +62,44 @@ LoginApp's-last-plaintext-block (disproven cleanly, E2E-014).
   and ERROR-level shared log functions). This is a well-corroborated negative result, not
   an unexplored gap. (E2E-014.)
 
-## The Core Unresolved Puzzle
+## The Core Unresolved Puzzle — REFRAMED this pass (E2E-015 continued)
 
-Object, key, and code path are ALL confirmed identical between the two channels — yet
-decryption still fails under every IV hypothesis tested. This means the answer must lie in
-the object's **internal state at the moment of decryption**, which this project cannot
-directly observe (no working dynamic instrumentation — see Tooling Constraints below).
-Untested candidate explanations (E2E-015):
+Object, key, and code path are ALL confirmed identical between the two channels. This pass
+went further and **ruled out hidden chaining state entirely**:
 
-1. Other Mercury traffic (keepalives, channel handshake acks) may pass through the same
-   shared filter between the LoginApp reply and the BaseApp exchange, silently advancing
-   whatever state exists.
-2. The per-message IV may incorporate something not yet identified (sequence number,
-   address/port, timestamp) mixed in before the `pc_variant` XOR-chain begins.
-3. `EncryptionFilter` may have an explicit IV/state field distinct from `BF_KEY` (which per
-   OpenSSL convention holds only P-array/S-boxes, not chaining state) that this project has
-   not yet located in its object layout.
+- `EncryptionFilter`'s `operator new` call site (`0x93a8f0: mov w0, #0x38`) confirms the
+  WHOLE object is exactly 56 (`0x38`) bytes — vtable(8) + refcount(8) + key-string(0x18) +
+  length(4, padded) + enabled-bool(1, padded) + `BF_KEY*`(8) = 56 bytes exactly. **Zero
+  bytes left over for a hidden IV/state field.**
+- Directly disassembled the decrypt function itself (`0x989600`, full dump in
+  `scratch/trace_989600.txt`): the "previous plaintext block" pointer (`x25`) is a **local
+  register, explicitly reset to `xzr` (NULL) at the top of EVERY call**
+  (`0x9896a4: mov x25, xzr`) — there is categorically NO persistent chaining state carried
+  between separate `decrypt()` invocations. IV=0 (functionally: skip the XOR for the first
+  block) is the ONLY structurally correct starting state, for every call, always. This also
+  re-confirmed the sibling encrypt function (`0x989590`-`0x9895fc`) matches this project's
+  `bf_encrypt()` `pc_variant` implementation exactly, block-for-block.
 
-**Recommended next static target**: fully map `EncryptionFilter`'s object layout via its
-constructor (`0x988cf8`) and `decrypt`/`encrypt` vtable methods, specifically looking for a
-state/IV field beyond the three already documented (`+0x10` key string, `+0x2c` enabled
-bool, `+0x30` `BF_KEY*`).
+**This closes out hypotheses 1-3 from the original framing** (no hidden state exists to
+advance, mutate, or incorporate anything). Given (a) the key is CONFIRMED correct (same
+object as LoginApp, which decrypts correctly with it), (b) the algorithm is CONFIRMED
+correctly implemented (matches disassembly exactly), and (c) IV=0 is CONFIRMED the only
+structurally valid starting state — decryption of the BaseApp message STILL fails while
+LoginApp's succeeds, with every crypto-parameter variable now identical between the two.
+
+**The question is therefore NOT "which crypto parameters" (fully closed out) but "which
+exact byte range of the wire packet is the ciphertext"** — a framing/offset question. This
+project's working assumption (established in E2E-008, from a block-size-error observation)
+that the WHOLE packet is the ciphertext may be wrong in some detail for the BaseApp channel
+specifically (e.g. a different start offset, a different length calculation, or an extra
+header/trailer byte range this project hasn't isolated).
+
+**Recommended next static target**: find the CALLER of `0x989600` specifically on the
+BaseApp/`Nub::processFilteredPacket` receive path (not the already-characterized LoginApp/
+`onLoginReply` path) to read exactly what source pointer, destination pointer, and length
+it passes for an incoming BaseApp-channel packet — this would show empirically where the
+decrypt call believes the ciphertext begins and ends, resolving the framing question
+directly from disassembly instead of further trial-and-error on packet layout.
 
 ## Tooling Constraints (why this hasn't been resolved dynamically)
 

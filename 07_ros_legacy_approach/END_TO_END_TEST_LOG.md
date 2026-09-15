@@ -1817,18 +1817,50 @@ Candidates (UNTESTED, listed for a future pass):
   plainly as still-unsolved rather than papered over with another guess.
 - `CLIENT_MODIFIED: NO`. No live testing this pass (pure static analysis).
 
-### NEXT_ACTION
-1. Locate `EncryptionFilter`'s complete object layout (beyond the 3
-   fields already documented) via disassembly of its constructor
-   (already known: `0x988cf8`) and its `decrypt`/`encrypt` vtable methods
-   (`0x989600` region) specifically looking for an IV/state field
-   distinct from `BF_KEY` — this is the most promising concrete next
-   static target, more so than further live IV-guessing.
-2. If found, determine how/when it's updated (per-message, per-direction,
-   or continuously) directly from the encrypt/decrypt code rather than
-   inferring from external behavior.
+### NEXT_ACTION (superseded within this same pass — see addendum below)
+1. ~~Locate `EncryptionFilter`'s complete object layout... looking for an
+   IV/state field~~ — **DONE, this same pass, see addendum below.**
 3. See `06_notes/BASEAPP_CRYPTO_BLOCKER_SUMMARY.md` (new this pass) for
    the full consolidated history (E2E-008 through E2E-015) in one place.
+
+### ADDENDUM (same pass, continued): hidden IV/state hypothesis RULED OUT — the puzzle is deeper than framed above
+Immediately pursued this section's own NEXT_ACTION #1 with the remaining
+time budget (still pure static analysis). Two direct disassembly checks,
+both negative for "hidden state":
+
+1. **Object size**: `EncryptionFilter`'s `operator new` call site
+   (`0x93a8f0: mov w0, #0x38`) confirms the object is exactly 56 bytes —
+   vtable+refcount+key-string+length+bool+`BF_KEY*` accounts for all 56
+   bytes with nothing left over for a hidden field.
+2. **Decrypt function itself** (`0x989600`, full dump saved to
+   `scratch/trace_989600.txt`): the "previous plaintext block" pointer is
+   a **local register (`x25`), explicitly reset to NULL at the top of
+   EVERY call** (`0x9896a4: mov x25, xzr`) — categorically no state
+   persists between separate `decrypt()` invocations. IV=0 is the ONLY
+   structurally correct starting point, always. This dump also
+   re-confirmed the sibling encrypt function matches this project's
+   `bf_encrypt()` implementation exactly, block-for-block.
+
+**This rules out ALL THREE candidate explanations** listed earlier in
+this same entry (no state to advance via other traffic; no hidden field
+to incorporate anything into; nothing to look for beyond the 3 already-
+documented fields). Given key, object, code path, AND algorithm/IV are
+now ALL confirmed identical and correct — yet BaseApp still fails where
+LoginApp succeeds — **the real open question is reframed**: not "which
+crypto parameters" (fully closed out) but **"which exact byte range of
+the wire packet does the BaseApp receive path actually feed into this
+decrypt function"** — i.e. a framing/offset question, not a crypto
+question. This project's "whole packet is ciphertext" assumption
+(established in E2E-008 from a block-size-error observation) may not
+be quite right in some detail specific to the BaseApp channel.
+
+**Next concrete static target**: find the CALLER of `0x989600` on the
+BaseApp/`processFilteredPacket` receive path specifically (distinct from
+the already-characterized LoginApp/`onLoginReply` caller) to read its
+exact src/dst/length arguments — not yet attempted this pass (time
+budget), the clear next step for whoever continues this thread. See
+`06_notes/BASEAPP_CRYPTO_BLOCKER_SUMMARY.md` for the fully updated,
+consolidated version of this reasoning.
 
 ---
 *Last updated: 2026-09-15. Do not overwrite prior entries — append new
