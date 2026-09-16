@@ -3459,6 +3459,145 @@ mechanism, only this specific guessed byte layout.
    considered.
 
 ---
+
+## TEST_ID: E2E-029
+- **DATE**: 2026-09-16, continuation pass, responding to the coordinator's
+  E2E-028 live-test null result (all 3 `onChannelLogin` wire-format
+  guesses produced zero observable effect) and their request for a
+  prioritized next direction between (a) a cheaper success/failure
+  oracle, (b) revisiting `handshake`'s numeric ID via a registration-order
+  walk, or (c) something else. Pure disassembly; no server/device
+  touched.
+
+### Environmental note (carried forward, not re-derived): recurring ANR hazard
+Per the coordinator's own report this pass: two more emulator
+graphics-subsystem ANR hangs (screencap/input hang while `adb shell`
+stays responsive) occurred during live testing, both recovered via
+`ldconsole reboot` + iptables reapply. This matches the SAME failure
+class already noted in earlier passes of this project. Recording this
+here per the coordinator's own suggestion, so a future pass doesn't
+have to rediscover that this is a known, recurring, recoverable
+environmental hazard (not a new bug introduced by any recent change).
+
+### Assessment of the coordinator's 3 options
+**(b) is a dead end, already effectively shown, not newly re-litigated**:
+the `ClientInterface`/`BaseAppExtInterface` registration-order-walk
+technique (E2E-022) worked ONLY because `0x98b30c`'s call sites carry a
+readable name-string argument (`x1`) that can be resolved back to a
+literal string in rodata. E2E-025 already confirmed **zero** entity
+method names (`Account`, `handshake`, `onChannelLogin`, etc.) exist
+anywhere in the binary as strings — and E2E-026 additionally confirmed
+the ~180 fixed-arg entity-method dispatch stubs are NOT reached via
+`0x98b30c`-style registration calls with a resolvable name argument at
+all (no matching call-site pattern was found for any of them, unlike
+every core interface method). There is no equivalent "walk all
+registration calls in order" technique available for entity methods,
+because the registration itself (if it is even done via discrete native
+call sites rather than a loaded data table) does not carry a name string
+to resolve — the walk technique's entire value came from that name
+string existing. **Recommend NOT spending further time on (b)** — it
+would be repeating a technique on a data source that has already been
+shown not to have the required starting material.
+
+**(a), reframed with a concrete finding — CONFIRMED, this is the priority**:
+There is no "any successful entity-method dispatch" log line — this
+project has now examined `0x94c540` (the `ClientVarLenMessageHandler`-
+shaped generic dispatcher, E2E-025) and the ~180-stub
+`ClientMessageHandler` family (E2E-026) in enough depth to know **both
+only log on a MISMATCH** (`"...did not consume all data, remain %d
+bytes"`) — there is no corresponding success-path log anywhere in either
+family. So a log-line oracle for "dispatch happened" does not exist as
+such. **However**, re-examining `0x94c540`'s own prologue (already
+disassembled in E2E-025, re-read carefully this pass) surfaces a
+**more fundamental, actionable finding**:
+```
+0x94fcac: ldr x8, [x2, #0x10]      ; x2 = per-message context (3rd func arg)
+0x94fcb0: ldr x22, [x8, #0x4458]   ; x22 = the CURRENTLY-BOUND client entity
+                                      (Nub-level field, same "large offset"
+                                      family as processFilteredPacket's own
+                                      per-type stat counters, e.g. 0x4238/
+                                      0x425c/0x4428/0x4430/0x4438)
+0x94fcb4: ldr x8, [x22, #0x140]    ; a flag/pointer field ON THE ENTITY
+0x94fcb8: cbz x8, #0x94fd90        ; if NULL -> skip straight to cleanup,
+                                      the bound method is NEVER CALLED,
+                                      NO warning is logged either way
+```
+**This EXACT check (`entity+0x140`, null-skip-with-no-log) appears in
+multiple, otherwise-unrelated places already disassembled in this
+project**: identically in the generic `0x94c540` family (this pass), in
+the fixed-arg `0x94fc80`-style stub template (E2E-026, same offset, same
+shape), and — under the SAME `+0x140` numeric offset — as a **send-side**
+gate in `restoreClient`'s own handler (`0x949614`, E2E-021: `ldr x0,
+[x19, #0x140]; cbz x0, #0x949758`) and in two of the three
+`enableEntities`-sending call sites (E2E-024: `0x93d534`/`0x947d64`/
+`0x94df74` all reference the neighboring `+0x150` field as "the
+bundle/channel to send through"). The consistent pattern across every
+site examined: **`+0x140` gates whether ANY message (incoming OR
+outgoing) gets processed/sent for this entity at all, silently, with no
+log line in either direction.**
+
+**Practical implication (the actual answer to the coordinator's
+question)**: this is BOTH the honest answer to "why is there no cheaper
+oracle" (there genuinely isn't a log-based one — dispatch is silent on
+success, and even ATTEMPTING dispatch is silently skipped if this one
+field is unset) AND a **concrete, well-evidenced alternate explanation
+for E2E-028's null result** that has nothing to do with getting the wire
+byte layout right: **if `entity+0x140` is unset/null on the client's
+`Account` entity at the time our `onChannelLogin` push arrives, NONE of
+the 3 guessed variants (or any other byte layout) could ever have worked
+— the message would be silently dropped before the argument-parsing or
+bound-method-call logic is ever reached, with zero observable side
+effect**, exactly matching what was actually seen (dead silence, no
+error, no reaction, across all 3 variants).
+
+### What was NOT completed this pass (time budget)
+Did not locate the exact setter for `entity+0x140` (a targeted `str
+..., [reg, #0x140]` scan across the whole `.text` section returned 658
+hits, overwhelmingly stack-frame stores at `[sp, #0x140]` unrelated to
+this specific entity-object field — narrowing to heap-object writes at
+this exact offset, and confirming which ONE sets THIS entity's field
+specifically, was not completed in the time available this pass). This
+is the concrete next step, not a closed question.
+
+### RESULT
+- **(b) is a confirmed dead end** — not re-attempted, reasoning given
+  above rather than re-running an already-shown-inapplicable technique.
+- **(a) reframed and answered honestly**: no log-based success oracle
+  exists in either dispatch family examined so far. But a genuinely new,
+  concrete, evidence-backed alternate hypothesis was found:
+  `entity+0x140` gates ALL entity-message processing (both directions)
+  silently, and is a strong candidate for why E2E-028's live test was
+  silent regardless of wire-format correctness.
+- **New priority recommendation for the next pass**: find what sets
+  `entity+0x140` and whether the current server-side flow (which never
+  explicitly does anything resembling "mark this entity ready/active")
+  gives the client any reason to set it after `createBasePlayer`. If
+  it turns out to require an explicit signal we're not sending, THAT
+  would be the real, more fundamental blocker upstream of `onChannelLogin`'s
+  wire format entirely — worth confirming before investing further in
+  wire-format guessing.
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+
+### NEXT_ACTION
+1. Search specifically for heap-object (non-`sp`) writes to offset
+   `0x140` near entity-construction/`createBasePlayer`-adjacent code
+   (narrow the 658-hit `str ...,[reg,#0x140]` list by register and
+   surrounding context, rather than the broad unfiltered scan done this
+   pass) to find what sets this field and under what condition.
+2. If a clear setter is found and it's NOT already satisfied by this
+   project's current `createBasePlayer` implementation, that is the new
+   concrete, actionable next fix — likely higher-value than continuing
+   to guess `onChannelLogin`'s exact byte layout, since a wire-format fix
+   would still produce nothing observable if this gate is closed.
+3. If no clear native setter is found either (a plausible outcome, given
+   how much of this investigation keeps running into
+   script.npk-adjacent/data-driven walls), that itself would be a
+   meaningful, honestly-reported escalation of this project's standing
+   script.npk blocker's practical impact — worth surfacing to the
+   coordinator/user as a human-decision point rather than continuing to
+   chase native-only leads indefinitely.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
