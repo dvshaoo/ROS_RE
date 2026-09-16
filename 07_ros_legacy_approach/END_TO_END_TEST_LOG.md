@@ -3125,6 +3125,56 @@ was not located in the time available this pass.
    information than has been available so far and should be pursued
    immediately over further guessing.
 
+
+### Addendum (same pass): partial trace of the generic entity-message dispatcher itself
+Followed Finding 4 one level further: found the `ClientVarLenMessageHandler`-
+style dispatcher (xrefs to the `0x2a4b0e9` "did not consume all data"
+string land at `0x94c630`/`0x94c788`; real function entry `0x94c540`,
+confirmed via frame-setup `sub sp,sp,#0x80` immediately preceding). Its
+core dispatch sequence (`0x94c56c`-`0x94c604`):
+```
+x8  = [x2, #0x10]         ; some Nub/Channel-adjacent object
+x24 = [x8, #0x4458]       ; -> the CURRENTLY-BOUND client-side Entity object
+x8  = [x24, #0x140]; if 0, abort (entity not ready/valid)
+w20 = [x2, #8]             ; body length from the stream object
+...
+ldp x8, x9, [x21, #8]      ; x21 = a MethodDescription-shaped object holding
+                             a C++ bound-member-function pointer {ptr=x8,adj=x9}
+x0  = x24 + (x9 >> 1)       ; adjust "this" (x24, the Entity) per the ptr-to-
+                             member-function ABI
+if x9 bit0 set: x9=[x0]; x8=*(x9+x8)   ; virtual-call vtable resolution
+x1 = x19 (the raw arg-stream data pointer); w2 = w20 (length)
+blr x8                       ; invoke resolved_method(entity, dataPtr, length)
+```
+**CONFIRMED structurally**: `shortEntityMessage`/`longEntityMessage`
+ultimately invoke a bound C++ method directly on the client's current
+Entity object (`Account`, in our case) with `(rawArgBytes, length)` — this
+is the real generic entity-RPC dispatch mechanism, exactly as Finding 4
+predicted. **NOT resolved this pass**: exactly how `x21` (which specific
+`MethodDescription`/bound-method to invoke) gets selected from the
+incoming wire bytes — that resolution happens ONE LEVEL UP, in whatever
+caller passes `x21` into this function, which was not traced this pass
+(time budget). This is the concrete missing piece: once found, it will
+show exactly which bytes of the wire body encode the local method index
+(and in which numeric base — `0`-relative among the entity type's
+`ClientMethods`, matching `Account.def.xml`'s declared order, or some
+other scheme) versus which bytes are the real argument payload passed
+through unchanged as `(x19, w20)`.
+
+### NEXT_ACTION (updated)
+1. Find the caller of `0x94c540` (the function just traced) to see how it
+   selects `x21` (the specific bound `MethodDescription`) from the
+   incoming `shortEntityMessage`/`longEntityMessage` body — this is the
+   exact byte offset/width of the "method index" field this project still
+   needs.
+2. Once known, construct and push `Account.onChannelLogin` (local
+   `ClientMethods` index 2) via this generic mechanism as the concrete
+   live-test candidate — independent of ever resolving `handshake`'s own
+   ID (Finding 3's blocker), since this is a one-way server→client push.
+3. If that produces any observable client reaction, pursue immediately;
+   if not, this generic-dispatch understanding is still valuable
+   groundwork for whatever the actual next experiment turns out to be.
+
 ---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
