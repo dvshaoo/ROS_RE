@@ -130,6 +130,53 @@ _key_scan_started = set()  # client (ip,port) addrs for which a per-connection s
 _early_scan_hosts = set()  # host IPs for which the early (LoginApp-triggered) scan already ran
 _early_key_by_host = {}  # {host_ip: key_hex} -- populated by the early (LoginApp-triggered) scan, E2E-012
 _last_plain_block_by_host = {}  # {host_ip: last 8-byte plaintext block of our last LoginApp reply}, E2E-012
+_keepalive_started = set()  # client_addr set for which a keep-alive thread is already running, E2E-022
+
+
+def _start_keepalive(sock, addr, key_hex, interval=5.0):
+    """E2E-022 (per a parallel static-analysis session's finding,
+    06_notes/LOBBY_ENTRY_TRACE.md Task A): the ~10s reconnect loop is very
+    likely BigWorld's generic, stock ServerConnection `InactivityTimeout`
+    (live-logged as "InactivityTimeout 10.000000", disassembled at
+    0x93888c/0x9849c8 -- a process-wide "no packet received in N seconds"
+    watchdog on the Channel, NOT specific to identifyVersionPoint or any
+    other single RPC). Answering identifyVersionPoint alone would silence
+    the reconnect only ONCE; the same 10s timeout would refire later
+    unless something keeps resetting it. This starts a background thread,
+    one per client address (idempotent -- safe to call from multiple call
+    sites), that sends a trivial ClientInterface `setGameTime` push
+    (msgID 3, FIXED 4-byte body per 06_trace/MERCURY_PACKET_MAP.md SS2a,
+    confirmed-by-binary registration order per SS2b/E2E-022) every
+    `interval` seconds (well under the 10s ceiling) for as long as this
+    server process runs, to keep the Channel's inactivity clock reset.
+    """
+    if addr in _keepalive_started:
+        return
+    _keepalive_started.add(addr)
+
+    SETGAMETIME_MSGID = 3
+
+    def _loop():
+        log('BASEAPP KEEPALIVE: started for %s (setGameTime msgID=%d every %.1fs)' % (
+            addr, SETGAMETIME_MSGID, interval))
+        while True:
+            time.sleep(interval)
+            try:
+                game_time = int(time.time()) & 0xffffffff
+                sgt_body = struct.pack('<I', game_time)  # 4-byte fixed body
+                sgt_plain = (struct.pack('<H', 0x0001) + bytes([SETGAMETIME_MSGID])
+                             + sgt_body + b'\x00\x00')
+                sgt_pad_len = 8 - (len(sgt_plain) % 8)
+                sgt_padded = sgt_plain + b'\x00' * (sgt_pad_len - 1) + bytes([sgt_pad_len])
+                sgt_enc = bf_encrypt(sgt_padded, key_hex=key_hex, iv=b'\x00' * 8)
+                sgt_reply = sgt_enc if sgt_enc else sgt_padded
+                sock.sendto(sgt_reply, addr)
+                log('BASEAPP KEEPALIVE: sent setGameTime t=%d to %s (%d bytes)' % (
+                    game_time, addr, len(sgt_reply)))
+            except Exception as e:
+                log('BASEAPP KEEPALIVE error for %s: %s' % (addr, e))
+
+    threading.Thread(target=_loop, daemon=True).start()
 
 
 def _adb(args, timeout=20):
@@ -740,6 +787,62 @@ def serve_baseapp_udp_capture():
                         pkt_flags, seq, use_key, len(ack_reply), ack_reply.hex()))
                     continue
 
+            # E2E-021/E2E-022: identifyVersionPoint reply attempt.
+            # After the channel ACK above, the client calls BaseAppExtInterface
+            # method 12 (identifyVersionPoint, CONFIRMED against
+            # 06_trace/MERCURY_PACKET_MAP.md's binary-extracted registration-order
+            # walk -- scratch/dump_clientinterface_registration_order.py) with a
+            # VARIABLE_LENGTH body [u16 checkpoint_id][u8 strlen][strlen bytes],
+            # sent with flags=0x0008 (FLAG_ON_CHANNEL only, NOT
+            # FLAG_HAS_SEQUENCE_NUMBER) -- i.e. NOT part of the reliable/acked
+            # stream at all (E2E-021 finding 1). It resends ~10x over ~10s then
+            # abandons the whole BaseApp session and restarts LoginApp.
+            #
+            # E2E-021 finding 2 (disassembly of ClientInterface's own
+            # "versionPointIdentity" handler, 0x94bf48): that push message is a
+            # FIXED_LENGTH_MESSAGE with an 8-byte body, and its handler simply
+            # echoes the 8 bytes it receives back out via the same descriptor --
+            # a plausible (not fully proven) reply mechanism paired 1:1 by name
+            # with identifyVersionPoint.
+            #
+            # E2E-022: versionPointIdentity's exact ClientInterface msgID was
+            # resolved with certainty (not hand-counted) by programmatically
+            # walking all 122 interface-method registration call sites in
+            # program order (scratch/dump_clientinterface_registration_order.py):
+            # msgID = 94. Cross-validated against the independently-confirmed
+            # createBasePlayer=5 (both derived from the SAME walk, matching the
+            # value already in production use below from a totally different
+            # disassembly method) -- this is CONFIRMED BY BINARY, not a guess.
+            #
+            # First-guess 8-byte payload (per the coordinator's own suggested
+            # starting point): echo the client's own checkpoint_id (first 2
+            # bytes of the identifyVersionPoint body) back as the first 2 bytes
+            # of the reply, zero-pad the remaining 6 bytes. This is a hypothesis
+            # about content, NOT yet confirmed -- if the resend loop continues
+            # unchanged after this, the content (or the whole echo-reply
+            # mechanism) is wrong and the fallback is the generic-watchdog
+            # explanation below.
+            VERSIONPOINT_IDENTITY_MSGID = 94
+            BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID = 12
+            if (os.environ.get('ATTEMPT_VERSIONPOINT_REPLY', '1') == '1'
+                    and unpadded is not None and len(unpadded) >= 8
+                    and unpadded[2] == BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID):
+                checkpoint_id = struct.unpack('<H', unpadded[5:7])[0] if len(unpadded) >= 7 else 0
+                use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
+                vpi_body = struct.pack('<H', checkpoint_id) + b'\x00' * 6  # 8 bytes total
+                vpi_plain = (struct.pack('<H', 0x0001) + bytes([VERSIONPOINT_IDENTITY_MSGID])
+                             + vpi_body + b'\x00\x00')
+                vpi_pad_len = 8 - (len(vpi_plain) % 8)
+                vpi_padded = vpi_plain + b'\x00' * (vpi_pad_len - 1) + bytes([vpi_pad_len])
+                vpi_enc = bf_encrypt(vpi_padded, key_hex=use_key, iv=b'\x00' * 8)
+                vpi_reply = vpi_enc if vpi_enc else vpi_padded
+                s.sendto(vpi_reply, addr)
+                log('BASEAPP UDP SENT versionPointIdentity push id=94 checkpoint_id=%d key=%s IV=0 (%d bytes): %s' % (
+                    checkpoint_id, use_key, len(vpi_reply), vpi_reply.hex()))
+                if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
+                    _start_keepalive(s, addr, use_key)
+                continue
+
             if os.environ.get('ATTEMPT_BASEAPP_REPLY', '1') == '1' and len(data) >= 9 and data[2] == 0:
                 # data[2] = method id 0 (baseAppLogin), data[3:5] = u16 body length, data[5:9] = the
                 # candidate 4-byte LE correlation field observed at the start of the
@@ -828,6 +931,14 @@ def serve_baseapp_udp_capture():
                     s.sendto(cbp_reply, addr)
                     log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d key=%s IV=0 (%d bytes): %s' % (
                         entity_id, entity_type, use_key, len(cbp_reply), cbp_reply.hex()))
+                    # E2E-022: start the periodic keep-alive as soon as the
+                    # channel is known to exist (createBasePlayer accepted),
+                    # not only once identifyVersionPoint happens to arrive --
+                    # belt-and-suspenders per 06_notes/LOBBY_ENTRY_TRACE.md
+                    # Task A, since the generic InactivityTimeout watchdog is
+                    # independent of any specific RPC.
+                    if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
+                        _start_keepalive(s, addr, use_key)
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 
