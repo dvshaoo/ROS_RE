@@ -3598,6 +3598,148 @@ is the concrete next step, not a closed question.
    chase native-only leads indefinitely.
 
 ---
+
+## TEST_ID: E2E-030
+- **DATE**: 2026-09-16, continuation pass, per the coordinator's
+  instruction to find `entity+0x140`'s real setter, starting from
+  `createBasePlayer`'s handler and tracing forward. Pure disassembly; no
+  server/device touched.
+
+### Step 1: `createBasePlayer`'s handler does NOT set `+0x140` (negative result, real evidence)
+Disassembled `createBasePlayer`'s client-side handler (`0x947dc4`,
+confirmed address per `GEMINI.md`) and its immediately-called helper
+(`0x947e8c`, a "replay buffered entity messages" routine — walks a
+tree/linked-list at `+0xe38` comparing sequence numbers, consistent with
+BigWorld's standard "messages that arrived before the entity existed get
+queued and replayed once it's created" pattern) across a ~6,000-byte
+contiguous window (`0x947dc4`-`0x949620`). **Zero references to offset
+`0x140` anywhere in this whole region.** `createBasePlayer` itself does
+not set this field, directly or via its own message-replay helper.
+
+### Step 2: narrowed search finds the real entity CONSTRUCTOR zero-initializing `+0x140`, and TWO real setter functions
+A targeted scan (heap-register `str ...,[reg,#0x140]`, restricted to the
+`0x900000`-`0x970000` range where all of this project's entity/channel
+code has clustered so far, instead of the whole binary) returned only
+**10** hits, ten times more tractable than the earlier unrestricted
+658-hit scan. Key findings:
+- **`0x93a6c4`**: `str q0, [x19, #0x140]` — a 16-byte (`q0` = zero
+  register pair) store that zero-initializes BOTH `+0x140` AND `+0x150`
+  together, inside a much larger run of field-zeroing stores
+  (`+0x100` through `+0x1d8`, plus tree/list sentinel setup at
+  `+0xe18`-`+0xe70`) starting at function entry `0x93a620`. **This is the
+  object's own CONSTRUCTOR** — confirms `+0x140` is an ordinary member
+  field, zero/null at construction, not a special "readiness flag" that
+  starts in some other default state.
+- **`0x93a5f8`** (function `0x93a5e4`-`0x93a61c`): a simple, direct
+  2-argument setter — `setField140(this=x0, newValue=x1)`: stores `x1`
+  into `this+0x140`, and if the OLD value at `this+0x150` was non-null,
+  releases it via a virtual call (`ldr x8,[x0]; ldr x8,[x8+8]; blr x8`)
+  and clears it. Classic "replace and release the old handle" setter
+  shape. **Zero direct `BL` callers found** — only reachable via tail-call
+  (`b`, not `bl`), consistent with being a small shared helper inlined at
+  the end of several other functions (not traced further this pass, time
+  budget).
+- **`0x93a53c`** (function `0x93a4ac`-`0x93a5a4`): a similar but
+  higher-level setter — `x22 = [x20+0x48]` (a SUB-OBJECT of the function's
+  own first argument), then sets `x22->field(+0x140) = x21` (the
+  function's 2nd argument), same "release old value first" shape,
+  followed by additional field writes (`x8->+0x30`, `this+0x58`,
+  `this+0x64=1`). **Exactly ONE direct `BL` caller found: `0x939790`.**
+
+### Step 3: the ONE caller of the higher-level setter is inside the ALREADY-CONFIRMED BaseApp channel-setup sequence from E2E-017/E2E-018
+Disassembled the caller context (`0x939700`-`0x939794`):
+```
+0x939764: ldr x8, [x19, #0x48]
+0x939768: mov x0, x22
+0x93976c: ldr x23, [x8, #0x138]     ; x23 = Nub* (SAME "+0x138 = Nub*"
+                                       pattern already confirmed in
+                                       E2E-015/017/018's initNetwork trace)
+0x939770: mov x1, x23
+0x939774: bl #0x992994               ; the ALREADY-CONFIRMED indexed-
+                                       channel-map REMOVE function
+                                       (E2E-017/018)
+0x939778: mov x0, x21
+0x93977c: mov x1, x23
+0x939780: bl #0x987ad0               ; (not previously identified;
+                                       plausibly channel setup/bind)
+0x939784: mov x0, x19
+0x939788: mov x1, x21                ; x21 = the new Channel-shaped object
+0x93978c: mov w2, w20
+0x939790: bl #0x93a4ac               ; -> sets [x20+0x48]->+0x140 = x21
+```
+**This is unmistakably part of the same BaseApp Channel (re)creation
+sequence this project already fully confirmed in E2E-017/018** — it
+literally calls `0x992994`, the exact indexed-channel-table remove
+function whose disassembly and role were established two passes ago.
+This means: **`+0x140` (on whatever object `[x19+0x48]` resolves to) is
+set to the new BaseApp Channel object as part of the SAME code path that
+already runs successfully every time our BaseApp login/channel setup
+succeeds** — i.e. the SAME code that this project has confirmed executes
+correctly in every live test so far (channel ACK works, `createBasePlayer`
+succeeds).
+
+### Honest, unresolved ambiguity (not papered over)
+This evidence **complicates rather than confirms** E2E-029's hypothesis.
+Two readings remain open, and this pass could not fully distinguish them
+in the time available:
+1. **If the object holding this `+0x140` (reached via `[x19+0x48]` here)
+   is the SAME object `0x94c540`'s dispatch chain reaches via
+   `[[x2+0x10]+0x4458]`** (i.e. if "the ServerConnection's own channel
+   pointer" and "the currently-bound entity's `+0x140` field" are
+   actually the same underlying object/offset — plausible in BigWorld's
+   architecture, where a `Proxy`-flagged entity like `Account` can be
+   very tightly coupled to the `ServerConnection`/`Channel` machinery),
+   then **this gate is very likely ALREADY satisfied** in the current
+   live flow, since this exact setter code is confirmed to run whenever
+   BaseApp login succeeds — meaning E2E-029's hypothesis would be
+   **weakened, not confirmed**, and the real explanation for E2E-028's
+   null result would have to be something else (wire format, or the
+   Python-layer/`handshake` gate the coordinator raised as an
+   alternative).
+2. **If they are two DIFFERENT objects that merely share the same
+   numeric offset by coincidence** (common in large C++ binaries with
+   many unrelated classes), this finding says nothing about the actual
+   gate `0x94c540` checks, and the real setter for THAT specific object's
+   `+0x140` remains unfound.
+This pass could not conclusively distinguish (1) from (2) — doing so
+would require tracing what `[x19+0x48]` resolves to in THIS function's
+context (`0x939700`'s enclosing function, entry `0x9396c4`, whose own
+callers were not traced this pass) and comparing it against what
+`[x2+0x10]` resolves to in `0x94c540`'s context, to check if they're
+provably the same class/object identity.
+
+### RESULT
+- **Real, concrete progress**: found the entity/connection object's
+  constructor (zero-initializes `+0x140`) and two real setter functions,
+  one of which has exactly one caller, sitting inside the
+  already-confirmed BaseApp-channel-setup code path from E2E-017/018.
+- **Not a confirmed fix or a confirmed dead end** — this evidence is
+  reported honestly as AMBIGUOUS regarding E2E-029's specific hypothesis,
+  not spun to be more conclusive than it is. It shifts weight slightly
+  toward "the gate is probably already satisfied by existing code,"
+  which would mean E2E-028's null result is more likely explained by
+  wire-format guesswork being wrong, or by the Python-layer gate the
+  coordinator raised as an alternate hypothesis, rather than this
+  specific native-side field being unset.
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+
+### NEXT_ACTION
+1. Resolve the object-identity ambiguity: trace `0x9396c4`'s own callers
+   (the enclosing function of the confirmed setter call site) and compare
+   against `0x94c540`'s `[x2+0x10]`/`+0x4458` chain, to determine
+   conclusively whether they reach the same object.
+2. If genuinely resolvable only by a live check: a live `/proc/pid/mem`
+   read of the relevant field at the moment `onChannelLogin` would be
+   sent (this project's ptrace/mem-read capability has been historically
+   spotty across sessions per much earlier E2E entries — re-verify
+   current availability before relying on it).
+3. Given the honest ambiguity here, treat the coordinator's
+   Python-layer/`handshake`-gate alternate hypothesis as at least
+   equally likely as the native `+0x140` gate right now, not
+   subordinate to it — this pass did not produce evidence favoring one
+   over the other conclusively.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
