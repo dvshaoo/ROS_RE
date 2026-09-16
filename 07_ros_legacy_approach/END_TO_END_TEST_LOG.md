@@ -3176,6 +3176,136 @@ through unchanged as `(x19, w20)`.
    groundwork for whatever the actual next experiment turns out to be.
 
 ---
+
+## TEST_ID: E2E-026
+- **DATE**: 2026-09-16, continuation pass, per the coordinator's
+  instruction to find `0x94c540`'s caller and pin down the
+  `[methodIndex][args]` wire encoding for pushing `Account.onChannelLogin`
+  via `shortEntityMessage`/`longEntityMessage`. Pure disassembly; no
+  server/device touched.
+
+### Finding 1: `0x94c540` has no direct `BL`/`B` callers and no `adrp+add` references anywhere in `.text` — it is reached ONLY via virtual dispatch
+Confirmed exhaustively (full `.text` scan for direct branches, and the
+existing `xrefs()` ADRP+ADD scanner) — zero hits either way. Found it
+instead via `.rela.dyn`: `0x94c540` is the `r_addend` of an
+`R_AARCH64_RELATIVE` relocation at `0x37d7cb8`, part of a larger
+vtable-shaped blob (RTTI-adjacent typeinfo-name pointers at `0x37d7c88`/
+`0x37d7cc8` land near the already-known `"InputMessageHandler"` string,
+`0x2a4cc59`, from E2E-021). **No object anywhere in `.text` constructs a
+pointer to this vtable via the usual `adrp+add`-then-`str` placement
+pattern**, and no OTHER relocation entry anywhere in `.rela.dyn` stores
+this vtable's address into a static object's own vtable-pointer field
+either. **Conclusion**: this is very likely a function-local (C++11
+"magic statics") singleton, constructed lazily via a guard-variable
+pattern that doesn't match the simple placement-construction shapes this
+project's tooling has been searching for so far — its exact construction
+site was NOT located this pass (a real, disassembly-tooling limitation,
+not something ruled impossible).
+
+### Finding 2 (a genuine, useful correction to last pass's optimism): the ~180 "ClientMessageHandler::handleMessage" stub family is a SEPARATE mechanism from `shortEntityMessage`/`longEntityMessage`, and it is NOT how `onChannelLogin` gets dispatched
+While searching for `0x94c540`'s caller, found a much larger, DIFFERENT
+family of near-identical dispatch stubs, all referencing a similarly-named
+but DISTINCT error string: `"ClientMessageHandler::handleMessage Handler
+for ClientMessage (ARG size %d) did not consume all data, remain %d
+bytes"` (`0x2a4b1f3` — note: NOT the `"ClientVarLenMessageHandler..."`
+string `0x94c540` uses, `0x2a4b0e9`, a different class name entirely).
+Found **180 distinct xref sites** to this string, spanning a huge,
+regularly-spaced contiguous code region `0x94fc80`-`0x960070`.
+
+Wrote `scratch/scan_entity_method_stubs.py` to systematically disassemble
+each of the 180 stub functions and extract their argument-read shape (the
+`mov w1, #N` immediate feeding each stream-read `blr`, representing how
+many raw bytes get read from the incoming wire body before the bound
+method is invoked). **Result: ALL 180 stubs have the IDENTICAL shape** —
+exactly ONE fixed-size read (sizes observed: 1, 2, 3, 4, 5, 6, 7, 8, 9,
+10, 11, 12, 13, 14, 15, 34, 36 bytes — i.e. one per distinct
+total-fixed-argument-size across all entity methods that share this
+mechanism), followed by the same 3-instruction boilerplate tail
+(bound-method call + 2 "check remaining bytes" calls already seen in
+E2E-025's `0x94c540` trace). **There is no stub among these 180 with a
+variable-length/PYTHON-blob-shaped read.** Full results:
+`scratch/entity_method_stubs_scan.txt`.
+
+**This means the 180-stub "ClientMessageHandler" family handles ONLY
+entity methods whose combined arguments are entirely fixed-size** —
+almost certainly dispatched via DIRECT numeric `ClientInterface`/
+`BaseAppExtInterface` msgIDs continuing past the core 0-101 range (an
+"extended ID" scheme, matching standard BigWorld practice), NOT via
+`shortEntityMessage`/`longEntityMessage` at all. **`Account.onChannelLogin`
+(args: `UINT8 status`, `PYTHON accountData`) has a variable-length `PYTHON`
+argument, so it CANNOT be one of these 180 fixed-shape stubs** — this
+rules out an entire investigative avenue with hard evidence, rather than
+leaving it an open guess.
+
+### Finding 3 (net effect): the original `shortEntityMessage`/`longEntityMessage` (`ClientVarLenMessageHandler`, `0x94c540`) hypothesis from E2E-025 stands as the correct path for `onChannelLogin` specifically — but the exact method-selection encoding remains unresolved
+Since `onChannelLogin` has a variable-length argument, and the ONLY other
+generic-dispatch mechanism found in this and the prior pass is the small
+`ClientVarLenMessageHandler` family (`0x94c540`, reached via
+`shortEntityMessage`/`longEntityMessage`'s `x4=xzr` null-handler
+registration, per E2E-025 Finding 4), **this remains the correct
+mechanism to pursue** — Finding 2 above narrows the search space rather
+than invalidating the plan. However, Finding 1 means the actual
+dispatch-time code that resolves `x21` (which specific bound
+`MethodDescription`/method to invoke) from the incoming wire bytes was
+**NOT located this pass** — it must live in whatever code path
+specifically branches on `msgID==100` (`shortEntityMessage`) or `101`
+(`longEntityMessage`) inside the broader message-dispatch continuation
+this project has only partially disassembled (the tail of
+`processFilteredPacket`'s callees, `~0x990100`-`0x990700`, per earlier
+passes' partial notes) — not yet traced to completion.
+
+### Side question answered (per the coordinator's ask): does `onChannelLogin` need pre-established data, or can a minimal payload be tried first?
+No NEW disassembly-derived constraint was found this pass narrowing this.
+`accountData`'s `PYTHON` argument is deserialized by the Python
+interpreter itself (pickle/marshal), not native code — meaning even if
+the WIRE FRAMING is solved, what the Python-side handler actually
+REQUIRES inside that dict is governed by `script.npk` (the same
+undecryptable blocker as `handshake`'s numeric ID, E2E-025 Finding 3).
+**Cannot be resolved by native disassembly alone.** Per
+`06_notes/LOBBY_ENTRY_TRACE.md`'s own existing recommendation (not
+re-derived, cited): the cheapest first live guess remains a
+minimal/empty-but-well-formed dict (e.g. `{'characters': []}` or similar)
+to try to force the character-creation path rather than guessing a fully
+populated character record — this is unchanged from before this pass,
+flagged as a separate open item exactly as the coordinator suggested,
+not blocking the wire-mechanism work.
+
+### RESULT
+- **Real progress**: ruled out the 180-stub fixed-arg family as
+  `onChannelLogin`'s path (Finding 2) with concrete evidence, narrowing
+  the search rather than leaving it ambiguous. Confirmed the
+  `shortEntityMessage`/`longEntityMessage`/`ClientVarLenMessageHandler`
+  path (E2E-025) is still the right one to pursue.
+- **Not yet resolved**: the exact `[methodIndex][args]` byte layout for
+  `shortEntityMessage`/`longEntityMessage` — `0x94c540`'s own caller/
+  construction site could not be located this pass (Finding 1), which is
+  what would have revealed the selection logic. This is reported as a
+  genuine, partially-tooling-limited blocker, not abandoned effort.
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+
+### NEXT_ACTION
+1. Fully disassemble the message-dispatch continuation this project has
+   only partially covered (`~0x990100`-`0x990700`, referenced in earlier
+   passes' `processFilteredPacket`-adjacent notes) specifically looking
+   for a branch/comparison against msgID `100`/`101` — this is the
+   remaining concrete lead for finding where `x21` gets resolved from
+   wire bytes for `shortEntityMessage`/`longEntityMessage`.
+2. Alternatively (if #1 proves as hard to pin down as `0x94c540`'s own
+   construction site was this pass): consider whether a live,
+   best-effort WIRE FORMAT GUESS is worth trying anyway, given the
+   generic pattern already established for `entityMessage`-family
+   messages elsewhere in BigWorld (`[entityID varint or fixed][u8 or u16
+   local method index][remaining bytes = args]`) — this would be an
+   **explicitly-labeled guess**, not a confirmed format, and should only
+   be tried live if the coordinator judges the cost of a wrong guess
+   (one wasted live-test cycle) acceptable given how little else is
+   currently known to try.
+3. Continue treating `handshake`'s own numeric ID (E2E-025 Finding 3) and
+   `accountData`'s exact dict schema (this entry's side question) as
+   separately-tracked, still-open, still script.npk-blocked items —
+   neither blocks pursuing #1/#2 above.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
