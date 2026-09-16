@@ -3740,6 +3740,122 @@ provably the same class/object identity.
    over the other conclusively.
 
 ---
+
+## TEST_ID: E2E-031
+- **DATE**: 2026-09-16, continuation pass. The coordinator opted for one
+  bounded live memory-read experiment to resolve E2E-030's object-identity
+  ambiguity directly, rather than further open-ended static tracing.
+  **This entry is the READ PLAN only** (pure disassembly-derived
+  addressing, handed to the coordinator to execute with their live
+  access) — no live memory was read by this session.
+
+### Key realization while preparing the plan: the identity question doesn't need to be resolved first
+The MOST DIRECT test of E2E-029's actual hypothesis (does `0x94c540`
+silently skip dispatch because `entity+0x140` is null?) does not require
+first resolving WHICH object it is — reading the VALUE at that exact
+live address, whatever object it belongs to, directly answers "is the
+gate open or closed" on its own. Object identity (E2E-030's ambiguity)
+is a secondary, nice-to-have confirmation, not a prerequisite. The plan
+below is ordered accordingly: **Read 1 is the one that matters most.**
+
+### Read 1 (PRIMARY — directly answers the open question)
+Chain, derived entirely from `0x94c540`'s own already-disassembled
+prologue (E2E-025/E2E-030):
+```
+entity_ptr = *(Nub_addr + 0x4458)      ; 8-byte pointer read
+gate_value = *(entity_ptr + 0x140)      ; 8-byte pointer read -- THE field
+                                           0x94c540 checks with `cbz`
+```
+- **If `gate_value != 0`**: the gate is OPEN. E2E-029's "silent drop"
+  hypothesis is REFUTED for this specific check — the null result from
+  E2E-028's 3 wire-format variants must be explained some other way
+  (wrong byte layout, or the Python-layer/`handshake` gate).
+- **If `gate_value == 0`**: the gate is CLOSED. E2E-029's hypothesis is
+  SUPPORTED — worth then finding what's supposed to set it (E2E-030's
+  setter chain) and why that code path isn't running in our flow.
+
+### Read 2 (SECONDARY — resolves E2E-030's object-identity ambiguity, self-consistent, no extra anchor needed)
+```
+check_val = *(entity_ptr + 0x138)       ; 8-byte pointer read (SAME
+                                           entity_ptr from Read 1)
+```
+- **If `check_val == Nub_addr`** (the exact same live address used as the
+  anchor for Read 1): this CONFIRMS `entity_ptr` IS the `ServerConnection`
+  object itself (self-consistent with this project's already-established
+  fact that `ServerConnection+0x138 == Nub*`, from
+  `BaseAppLoginRequest::initNetwork`'s own disassembly, E2E-015/017/018)
+  — meaning Read 1's `entity_ptr+0x140` and E2E-030's setter-targeted
+  `+0x140` are **the SAME field on the SAME object**, definitively
+  resolving E2E-030's ambiguity as reading "case 1" (same object).
+- **If `check_val` is anything else** (zero, garbage, or a different
+  valid-looking pointer): `entity_ptr` is a genuinely distinct object
+  from `ServerConnection` — E2E-030's "case 2" (different objects), and
+  the setter chain traced in E2E-030 is NOT what sets Read 1's field;
+  its real setter remains unfound.
+No extra live anchor is needed for this comparison beyond the single
+`Nub_addr` already used for Read 1 — this is a genuinely free,
+self-contained confirmation once Read 1 is done.
+
+### How to obtain `Nub_addr` live (reusing this project's own established, already-working technique — not a new method)
+Per `mitm/local_baseapp_capture.py`'s existing `DEBUG_BADFLAGS=1` toggle
+(comment cites `06_trace/MERCURY_MESSAGE_ID_TRACE.md` Phase 2): setting
+that env var on the LoginApp UDP responder deliberately resends an
+invalid flags value, making the client print
+`Nub(<pointer>)::processFilteredPacket(...)` in logcat — a live Nub
+object address for the CURRENT process, obtainable via `grep`, with
+**zero ptrace/mem-read needed for the address itself**. Only the two
+8-byte reads above (Read 1 and Read 2) need the `su 0 dd`-based
+`/proc/<pid>/mem` technique already used successfully for the Blowfish
+key scan (E2E-006/009/012's `bs=1048576`-safe, single-atomic-read
+pattern — read a small aligned chunk covering each target address once,
+slice both the pointer-sized field and any follow-up field out of the
+SAME downloaded snapshot rather than issuing separate reads, per
+E2E-012's already-documented race-condition fix).
+
+### Practical sequence for the coordinator to execute
+1. Fresh login attempt with `DEBUG_BADFLAGS=1` briefly enabled → capture
+   `Nub_addr` from logcat.
+2. `su 0 dd` a small chunk (e.g. 16 bytes, safely covering `+0x4458` to
+   `+0x4460`) from `/proc/<pid>/mem` at `Nub_addr + 0x4450` (round down to
+   a convenient aligned start, verify the exact byte offset within the
+   downloaded chunk) → extract `entity_ptr` (8 bytes at the correct
+   sub-offset).
+3. `su 0 dd` a small chunk (16-24 bytes, covering both `+0x138` and
+   `+0x140`) from `/proc/<pid>/mem` at `entity_ptr + 0x130`-ish (again,
+   round to a convenient aligned start covering both target fields in
+   ONE read, per the established single-atomic-read discipline) →
+   extract BOTH `check_val` (`+0x138`) and `gate_value` (`+0x140`) from
+   the SAME downloaded snapshot.
+4. Compare `gate_value` against zero (Read 1's verdict) and `check_val`
+   against `Nub_addr` (Read 2's verdict) as described above.
+5. Ideally, capture this snapshot at the SAME moment (or as close as
+   feasible) to when the server would send its `onChannelLogin` push
+   attempt, so the read reflects the actual live state relevant to that
+   specific attempt, not an arbitrary later/earlier moment.
+
+### RESULT
+- **No live memory was read this session** — this entry is the addressing
+  plan only, handed off per the coordinator's request. Static-analysis
+  provenance for every offset used (`+0x4458`, `+0x140`, `+0x138`) is
+  fully cited above to already-existing, previously-confirmed disassembly
+  (E2E-025/E2E-030 for `+0x4458`/`+0x140`; E2E-015/017/018 for
+  `ServerConnection+0x138==Nub*`) — nothing in this plan is a new,
+  unverified guess about offsets, only about what the LIVE VALUES turn
+  out to be.
+- `CLIENT_MODIFIED: NO`. No server/device touched by this session this
+  pass.
+
+### NEXT_ACTION
+Coordinator executes the read plan above. Report the two raw values
+(`gate_value`, `check_val`) plus `Nub_addr`/`entity_ptr` back, and this
+project can immediately update E2E-029/E2E-030's status from "ambiguous"
+to a definitive CONFIRMED/REFUTED based on real data, then decide the
+next direction (continue wire-format work if the gate is open, or find
+the real setter if it's closed, or pivot to the Python-layer angle if the
+memory read itself turns out to be infeasible per this project's
+historically inconsistent ptrace/mem-read access across sessions).
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
