@@ -2714,6 +2714,142 @@ off-by-one version.
    semantics.
 
 ---
+
+## TEST_ID: E2E-023
+- **DATE**: 2026-09-16, continuation pass. **Live test executed by the
+  coordinator** (this session was blocked from restarting the local
+  server process itself by Claude Code's own auto-mode safety classifier,
+  `[Interfere With Workloads]` — a genuine tooling permission block, not a
+  technical one; the coordinator restarted PID 2004 -> PID 1420 with
+  commits `44b9099`/`9132c23` live and ran the test for 90+ seconds).
+
+### Result 1 (CONFIRMED LIVE): the keep-alive fix WORKS
+Zero new LoginApp reconnect cycles and zero `INACTIVITY`-related logcat
+lines over a full 90+ second window — well past the previously-fatal
+~10s mark. This **confirms** the parallel session's
+`06_notes/LOBBY_ENTRY_TRACE.md` Task A hypothesis (generic
+`ServerConnection`/`Channel` `InactivityTimeout` watchdog, independent of
+any specific RPC) as the real, now-fixed cause of the reconnect loop.
+The `setGameTime` periodic push (ClientInterface msgID 3, every 5s) is
+the durable fix for BaseApp session longevity going forward.
+
+### Result 2 (the echo-content hypothesis is DISPROVEN): `identifyVersionPoint` keeps resending regardless of our reply
+With the reconnect no longer masking it, the client is now visibly
+resending `identifyVersionPoint` (identical bytes, `checkpoint_id=20`,
+`"This document s..."`) every ~1s continuously, even though our
+`versionPointIdentity` (msgID 94) reply is sent back immediately every
+single time. No new client-side logcat line names this specifically
+(checked `version|resource|checkpoint|inactivity|reconnect|logon`);
+title-screen UI shows no visible transition either way.
+
+Per the coordinator's specific question, re-disassembled `0x94bf48`
+(the `versionPointIdentity` handler) in FULL — all 19 instructions,
+function entry to `ret`:
+```
+0x94bf48: stp x20, x19, [sp, #-0x20]!
+0x94bf4c: stp x29, x30, [sp, #0x10]
+0x94bf50: add x29, sp, #0x10
+0x94bf54: adrp x8, #0x457b000
+0x94bf58: mov x19, x1          ; x19 = incoming 8-byte body pointer
+0x94bf5c: ldr x1, [x8, #0xb50] ; x1 = versionPointIdentity's own descriptor
+0x94bf60: mov w2, #1
+0x94bf64: mov x20, x0          ; x20 = outgoing-bundle context
+0x94bf68: bl #0x981f7c         ; start a new outgoing message
+0x94bf6c: ldr x8, [x20]
+0x94bf70: mov w1, #8
+0x94bf74: mov x0, x20
+0x94bf78: ldr x8, [x8, #0x10]
+0x94bf7c: blr x8               ; reserve 8 bytes in the stream
+0x94bf80: ldr x8, [x19]        ; read incoming 8 bytes
+0x94bf84: str x8, [x0]         ; copy verbatim, unconditionally
+0x94bf88: ldp x29, x30, [sp, #0x10]
+0x94bf8c: mov x0, x20
+0x94bf90: ldp x20, x19, [sp], #0x20
+0x94bf94: ret
+```
+**There is not a single comparison, branch, or conditional instruction
+anywhere in this function.** It unconditionally builds a new outgoing
+message and copies the 8 bytes verbatim, with zero validation against
+anything — no comparison to a stored value, no hash check, no
+status/version gate. **This definitively answers the coordinator's
+question: the handler does NOT validate/compare the returned bytes.**
+
+**Consequence**: the "wrong content in our reply" theory is now
+disproven by exhaustive disassembly — there is nothing in this handler
+for content to be "right" or "wrong" about; any 8 bytes would be treated
+identically. This means either (a) `identifyVersionPoint`'s resend is
+NOT gated on receiving this specific reply at all (it could be a
+periodic/independent call, or gated on something else entirely — e.g.
+`enableEntities` or a different trigger, as the coordinator suggested),
+or (b) our reply is not actually reaching `0x94bf48` at all — accepted at
+the decrypt/socket layer (no error logged) but mis-dispatched or dropped
+somewhere between decrypt and the ClientInterface handler table.
+
+### New hypothesis (untested as of this entry): wrong wire FLAGS, not wrong content
+Re-examined the flags used: our `versionPointIdentity` reply (like the
+earlier, pre-channel `createBasePlayer` push) used flags `0x0001` — the
+same generic flag used before the reliable channel existed. But
+`identifyVersionPoint` ITSELF, sent by the client on the NOW-established
+reliable channel, uses flags `0x0008` (`FLAG_ON_CHANNEL`, no sequence
+number, no requests flag) — this appears to be the client's own
+convention for "on this established channel, but not part of the
+strictly ordered/acked stream" traffic at this stage. Our already-working
+channel ACK reply also sets `FLAG_ON_CHANNEL` (as part of `0x000c`).
+**Hypothesis, not yet tested**: post-channel-establishment application
+pushes (this reply, and the `setGameTime` keep-alive) may need
+`FLAG_ON_CHANNEL` (`0x0008`) rather than the pre-channel generic `0x0001`
+to be correctly attributed/routed by the client's own receiving Nub —
+possible root cause of (b) above (silent mis-dispatch, not silent
+content-rejection). Note the keep-alive itself is confirmed WORKING with
+flags `0x0001` (Result 1 above), so this is specifically a question about
+the `versionPointIdentity` reply's flags, not a blanket claim that
+`0x0001` is always wrong.
+
+### Implementation this pass
+Changed `mitm/local_baseapp_capture.py`'s `versionPointIdentity` reply to
+use flags `0x0008` by default (overridable via a new `BASEAPP_REPLY_FLAGS`
+env var for fast A/B testing without a code change), leaving the
+already-confirmed-working `setGameTime` keep-alive's flags (`0x0001`)
+untouched. Compiles clean. **Not yet live-tested** — this session remains
+blocked from restarting the server process itself (same classifier
+block as before); the coordinator or user needs to restart the process
+to pick up this change.
+
+### RESULT
+- **CONFIRMED**: keep-alive (generic watchdog) fix works, live-verified
+  90+ seconds.
+- **DISPROVEN**: `versionPointIdentity`'s 8-byte content is validated by
+  the client in any way — `0x94bf48` has no validation logic at all.
+- **NEW, untested hypothesis**: wire flags (`0x0008` vs `0x0001`) may be
+  the actual issue, not content. Code change ready, gated behind
+  `BASEAPP_REPLY_FLAGS` for instant rollback/comparison.
+- `CLIENT_MODIFIED: NO`. Server-side only.
+
+### NEXT_ACTION
+1. Restart the server process (blocked for this session; needs the
+   coordinator/user) and re-test with the new `flags=0x0008` default.
+   Watch specifically for whether `identifyVersionPoint`'s resend
+   frequency/pattern changes at all (even a change in TIMING, not just a
+   full stop, would be informative — e.g. if flags matter for routing,
+   a wrong-flags reply might currently be silently dropped with zero
+   effect, while a correctly-routed one might still not stop the resend
+   for a different reason, but should at least be visibly received/counted
+   somewhere if any per-message stats exist).
+2. If flags `0x0008` also makes no observable difference, escalate to
+   testing whether `identifyVersionPoint` is answered/gated by something
+   else entirely (per the coordinator's own suggested pivot): check
+   `enableEntities` (BaseAppExtInterface msgID 8) or other pending
+   application-level triggers independent of the version-check RPC pair.
+3. Consider instrumenting the reply differently to positively detect
+   whether it's being received at all: e.g., temporarily send a
+   deliberately-wrong-msgID or deliberately-malformed variant and compare
+   client behavior/logcat against the "correct" variant, to distinguish
+   "silently dropped for a reason we understand" from "reaches the
+   handler but has no observable effect" (the latter being exactly what
+   `0x94bf48`'s pure echo-with-no-validation behavior would produce even
+   when everything is "correct").
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 

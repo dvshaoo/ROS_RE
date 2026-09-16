@@ -822,23 +822,55 @@ def serve_baseapp_udp_capture():
             # unchanged after this, the content (or the whole echo-reply
             # mechanism) is wrong and the fallback is the generic-watchdog
             # explanation below.
+            #
+            # E2E-023 UPDATE: live-tested with flags=0x0001 -- keep-alive fix
+            # CONFIRMED WORKING (no more INACTIVITY reconnects), but the
+            # client keeps resending identifyVersionPoint unchanged every ~1s
+            # even though our msgID-94 reply is sent back immediately every
+            # time. Re-disassembled 0x94bf48 in FULL (all 19 instructions,
+            # entry to `ret`): it contains ZERO comparison/branch instructions
+            # of any kind -- it unconditionally builds a new outgoing message
+            # and copies the 8 bytes verbatim, no validation whatsoever. This
+            # DISPROVES the "wrong content" theory (there's nothing to get
+            # right -- any 8 bytes would pass through this handler
+            # identically) and raises real doubt about whether our reply is
+            # even being ROUTED to this handler at all, vs. being accepted at
+            # the socket/decrypt layer but mis-dispatched or silently dropped
+            # before reaching any ClientInterface handler.
+            #
+            # New hypothesis (untested as of this comment): our reply's FLAGS
+            # (0x0001, the same generic flag used for the pre-channel
+            # createBasePlayer push) may be wrong now that the reliable
+            # channel is established. `identifyVersionPoint` ITSELF is sent by
+            # the client with flags=0x0008 (FLAG_ON_CHANNEL, no sequence
+            # number, no requests flag) -- i.e. the client's own convention
+            # for "on this established channel, but not part of the strictly
+            # ordered/acked stream" traffic at this stage. Our channel ACK
+            # reply (already confirmed working) also sets FLAG_ON_CHANNEL
+            # (0x0008, as part of 0x000c). Switching our post-channel-
+            # established application pushes (this one and the setGameTime
+            # keep-alive) to flags=0x0008 to match the client's own observed
+            # convention is a concrete, evidence-grounded next experiment --
+            # overridable via BASEAPP_REPLY_FLAGS for quick A/B without a
+            # code change.
             VERSIONPOINT_IDENTITY_MSGID = 94
             BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID = 12
+            _REPLY_FLAGS = int(os.environ.get('BASEAPP_REPLY_FLAGS', '0x0008'), 16)
             if (os.environ.get('ATTEMPT_VERSIONPOINT_REPLY', '1') == '1'
                     and unpadded is not None and len(unpadded) >= 8
                     and unpadded[2] == BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID):
                 checkpoint_id = struct.unpack('<H', unpadded[5:7])[0] if len(unpadded) >= 7 else 0
                 use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
                 vpi_body = struct.pack('<H', checkpoint_id) + b'\x00' * 6  # 8 bytes total
-                vpi_plain = (struct.pack('<H', 0x0001) + bytes([VERSIONPOINT_IDENTITY_MSGID])
+                vpi_plain = (struct.pack('<H', _REPLY_FLAGS) + bytes([VERSIONPOINT_IDENTITY_MSGID])
                              + vpi_body + b'\x00\x00')
                 vpi_pad_len = 8 - (len(vpi_plain) % 8)
                 vpi_padded = vpi_plain + b'\x00' * (vpi_pad_len - 1) + bytes([vpi_pad_len])
                 vpi_enc = bf_encrypt(vpi_padded, key_hex=use_key, iv=b'\x00' * 8)
                 vpi_reply = vpi_enc if vpi_enc else vpi_padded
                 s.sendto(vpi_reply, addr)
-                log('BASEAPP UDP SENT versionPointIdentity push id=94 checkpoint_id=%d key=%s IV=0 (%d bytes): %s' % (
-                    checkpoint_id, use_key, len(vpi_reply), vpi_reply.hex()))
+                log('BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x%04x checkpoint_id=%d key=%s IV=0 (%d bytes): %s' % (
+                    _REPLY_FLAGS, checkpoint_id, use_key, len(vpi_reply), vpi_reply.hex()))
                 if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
                     _start_keepalive(s, addr, use_key)
                 continue
