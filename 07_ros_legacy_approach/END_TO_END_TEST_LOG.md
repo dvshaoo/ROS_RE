@@ -2616,6 +2616,104 @@ pass went to Findings 1-3 instead. Genuinely open.
    RPC's completion at all.
 
 ---
+
+## TEST_ID: E2E-022
+- **DATE**: 2026-09-16, continuation pass, per the coordinator's explicit
+  instruction to resolve `versionPointIdentity`'s numeric msgID
+  programmatically (walking every `bl 0x98b30c` registration call site in
+  order, resolving each string argument via ADRP+ADD, the same technique
+  already used elsewhere in this project) rather than hand-counting ~90
+  `avatarUpdate*` strings.
+
+### Method
+Wrote `scratch/dump_clientinterface_registration_order.py`: a symbolic
+single-pass walker over the whole interface-registration block
+(`0x80c600`-`0x80e800`) that tracks every X-register's most-recently-known
+ADRP+ADD-resolved string address (with MOV-copy propagation, invalidating
+on any other write to a register — needed because a naive "track only x1"
+first attempt produced stale/duplicate entries, e.g. `baseAppLogin`
+appearing twice, from the compiler's loop-interleaved pre-computation of
+later iterations' string pointers into callee-saved registers ahead of
+time). It also tracks `bl 0x98b294` calls (found to be a separate,
+3-times-called `Interface::Interface(this, name)` placement-constructor —
+`LoginInterface`/`BaseAppExtInterface`/`ClientInterface`) as per-interface
+epoch boundaries, since `0x98b30c` (confirmed by its own disassembly to be
+a `std::vector<MethodDescription>::push_back`) assigns each entry's
+numeric ID as ITS OWN interface object's vector size at push time — IDs
+reset to 0 per interface, not globally.
+
+All 122 `bl 0x98b30c` call sites resolved with **zero unresolved
+entries** — full output in `scratch/clientinterface_registration_order.txt`.
+
+### Result: CONFIRMED BY BINARY, and it explains the E2E-021 off-by-one
+- `BaseAppExtInterface`: `baseAppLogin=0` through `entityMessage=17`
+  (18 methods) — matches the already-published `MERCURY_PACKET_MAP.md`
+  §2a table exactly, including **`identifyVersionPoint=12`**, matching
+  the coordinator's own cited value.
+- `ClientInterface`: **102 methods (0-101)**. The bare `"ClientInterface"`
+  string is NOT itself registered via `0x98b30c` — it's the `Interface`
+  constructor's own name argument (a different function, `0x98b294`).
+  Immediately after construction, `ClientInterface`'s own msgID 0 is
+  **`authenticate`** (a second, independent registration of the same
+  interned rodata string `BaseAppExtInterface` also uses at its own
+  msgID 1) — **not** `bandwidthNotification` as this project's own prior
+  `MERCURY_PACKET_MAP.md` §2b had it (that section's `createBasePlayer=4`
+  was off by exactly one because of this missed `authenticate` entry).
+  Corrected order: `authenticate=0, bandwidthNotification=1,
+  updateFrequencyNotification=2, setGameTime=3, resetEntities=4,
+  createBasePlayer=5, createCellPlayer=6, spaceData=7, spaceViewportInfo=8,
+  createEntity=9 (not previously listed), updateEntity=10, enterAoI=11,
+  ...`. **`createBasePlayer=5` exactly matches the value already
+  live-verified and in production use in `mitm/local_baseapp_capture.py`
+  via a completely independent method** (direct disassembly of
+  `0x947dc4`/`0x918504`, per `GEMINI.md`) — two independent techniques
+  landing on the same number is strong cross-validation that this
+  registration-order walk is trustworthy, not just self-consistent.
+- Continuing the count through all ~90 intervening `avatarUpdate*`/
+  positional-compression variants (dominant bulk of the interface):
+  `controlEntity=90, voiceData=91, restoreClient=92, restoreBaseApp=93`,
+  and — the actual target of this pass — **`versionPointIdentity=94`**,
+  `versionPointSummary=95`, `resourceFragment=96`, `resourceVersionStatus=97`,
+  then `resourceVersionTag=98` (a second registration of
+  `BaseAppExtInterface`'s own interned string, same pattern as
+  `authenticate`), `loggedOff=99`, `shortEntityMessage=100`,
+  `longEntityMessage=101`.
+
+Updated `06_trace/MERCURY_PACKET_MAP.md` §2b with the corrected,
+CONFIRMED BY BINARY table (both the `createBasePlayer` fix and the new
+`versionPointIdentity=94` entry), replacing the old STRONGLY-SUPPORTED/
+off-by-one version.
+
+### RESULT
+- **`versionPointIdentity`'s numeric ClientInterface msgID is CONFIRMED:
+  94.** Combined with E2E-021's disassembly of its handler (`0x94bf48`,
+  FIXED_LENGTH 8-byte body, echoes the incoming 8 bytes back out via the
+  same descriptor), this is now a fully wire-specifiable candidate reply:
+  `[flags][msgID=94][8-byte body]` (framing per the standard
+  FIXED_LENGTH_MESSAGE shape already confirmed for `createBasePlayer` and
+  other ClientInterface pushes), whole-packet Blowfish `pc_variant`
+  encrypted with IV=0 and wastage-byte padding (per E2E-020's confirmed
+  BaseApp channel crypto model).
+- `CLIENT_MODIFIED: NO`. No server files changed yet this pass — the
+  live test itself (per the coordinator's own instruction) is the next
+  step, gated on checking current emulator/process activity first since a
+  concurrent session may still be using it.
+
+### NEXT_ACTION
+1. Check current device/process state (per standing caution about the
+   concurrent session) before touching the emulator.
+2. If idle/safe: implement and live-test a `versionPointIdentity` push
+   (msgID 94, FIXED 8-byte body, first-guess payload = the client's own
+   `checkpoint_id` `0x0014` echoed in the first 2 bytes, remaining 6 bytes
+   zero) in `mitm/local_baseapp_capture.py`'s BaseApp UDP responder, sent
+   immediately upon receiving `identifyVersionPoint`. Observe whether the
+   resend loop stops.
+3. If the resend continues despite a msgID-correct, framing-correct reply,
+   this cleanly falls back to the generic-watchdog hypothesis (E2E-021
+   item 4) rather than further guessing at this RPC's exact reply
+   semantics.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 

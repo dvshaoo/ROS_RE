@@ -152,16 +152,70 @@ in this repo's own note "(partial, table truncated in the read window)" is now r
 | `createCellPlayer` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
 | `spaceData` | 1 (VARIABLE) | 2 | `u16` length prefix + variable body |
 
-**Message-ID-by-registration-order, STRONGLY SUPPORTED**: a bare `ClientInterface`
-registration call (resolving to the literal string `"ClientInterface"`, not a method name)
-immediately precedes `bandwidthNotification` — the same shape as `BaseAppExtInterface`'s own
-methods starting immediately with `baseAppLogin` (independently CONFIRMED as method ID 0 via
-live wire capture, see `BASEAPP_LOGIN_SERIALIZATION.md`). Counting from this anchor:
-`bandwidthNotification=0, updateFrequencyNotification=1, setGameTime=2, resetEntities=3,
-createBasePlayer=4`. Not yet independently wire-confirmed for `createBasePlayer` specifically
-(no live packet from a real BaseApp server exists to cross-check against) — flagged
-STRONGLY SUPPORTED rather than CONFIRMED for the numeric ID alone; the framing shape is
-CONFIRMED BY BINARY regardless of the exact ID.
+**Message-ID-by-registration-order — CORRECTED and CONFIRMED BY BINARY (2026-09-16, E2E-022)**:
+the `bandwidthNotification=0, ... createBasePlayer=4` counting above was **WRONG by one** —
+found and fixed this pass. The bare `"ClientInterface"` string is NOT registered via the
+method registrar (`0x98b30c`) at all; it's the argument to a *different*, separately-confirmed
+function, `0x98b294` (`Interface::Interface(this, name)`, an interface-object
+placement-constructor — called exactly 3 times in this binary's whole `.text`, once each for
+`LoginInterface`, `BaseAppExtInterface`, `ClientInterface`, at `0x80c688`/`0x80c708`/`0x80c9c0`
+respectively). **Immediately after `ClientInterface` is constructed, its FIRST registered
+method is `authenticate` (msgID 0) — a second, independent registration of the same
+already-interned `"authenticate"` rodata string `BaseAppExtInterface` also uses — not
+`bandwidthNotification`.** This shifts every subsequent `ClientInterface` method's ID up by
+one from the earlier count: `authenticate=0, bandwidthNotification=1,
+updateFrequencyNotification=2, setGameTime=3, resetEntities=4, createBasePlayer=5,
+createCellPlayer=6, spaceData=7, ...` — **`createBasePlayer=5` matches the independently
+disassembly-confirmed value already used in `mitm/local_baseapp_capture.py` and documented in
+`GEMINI.md`/`07_ros_legacy_approach/END_TO_END_TEST_LOG.md` (a live-verified value obtained by
+a completely different method, `0x947dc4`/`0x918504`)** — this cross-check from two
+independent techniques landing on the same number is what makes this table CONFIRMED BY
+BINARY rather than merely STRONGLY SUPPORTED.
+
+**Method (not hand-counted): all 122 `bl 0x98b30c` call sites across the whole registration
+block (`0x80c600`-`0x80e800`) were walked in strict program order, symbolically tracking every
+X-register's most-recent ADRP+ADD-resolved string address (with MOV-copy propagation and
+invalidation on any other write, to avoid stale-register bugs from the compiler's loop
+interleaving/pre-computation) — script: `scratch/dump_clientinterface_registration_order.py`,
+full output: `scratch/clientinterface_registration_order.txt`.** Each of the 3
+`bl 0x98b294` interface-constructor calls resets the per-interface index to 0 (since
+`0x98b30c` is confirmed, by its own disassembly, to be a `std::vector<MethodDescription>`
+`push_back` that assigns each entry's ID as the target vector's size at push time — each
+interface object owns its own separate vector). All 122 calls resolved cleanly with **zero
+unresolved entries** — a fully deterministic, non-hand-counted result.
+
+**Full CONFIRMED `ClientInterface` message-ID table (102 methods, 0-101)** — abbreviated to
+the methods named elsewhere in this project's docs; see the full dump file for all 102
+(dominated by ~90 `avatarUpdate*` movement-compression variants between `historyEventEnd` and
+`detailedPosition`):
+
+| msgID | Method |
+|---|---|
+| 0 | `authenticate` |
+| 1 | `bandwidthNotification` |
+| 2 | `updateFrequencyNotification` |
+| 3 | `setGameTime` |
+| 4 | `resetEntities` |
+| **5** | **`createBasePlayer`** — CONFIRMED BY BINARY, cross-checked against independent method |
+| 6 | `createCellPlayer` |
+| 7 | `spaceData` |
+| 8 | `spaceViewportInfo` |
+| 9 | `createEntity` (not previously listed — inserted between `spaceViewportInfo` and `updateEntity`) |
+| 10 | `updateEntity` |
+| 11 | `enterAoI` |
+| ... | (avatarUpdate/positional variants, msgID 12-89 — see full dump) |
+| 90 | `controlEntity` |
+| 91 | `voiceData` |
+| 92 | `restoreClient` |
+| 93 | `restoreBaseApp` |
+| **94** | **`versionPointIdentity`** — the reply-message pair for `BaseAppExtInterface::identifyVersionPoint` (see E2E-021/E2E-022) |
+| 95 | `versionPointSummary` |
+| 96 | `resourceFragment` |
+| 97 | `resourceVersionStatus` |
+| 98 | `resourceVersionTag` (a SECOND, separate registration reusing the `BaseAppExtInterface`-interned string, analogous to `authenticate` at msgID 0) |
+| 99 | `loggedOff` |
+| 100 | `shortEntityMessage` |
+| 101 | `longEntityMessage` |
 
 Also confirmed this pass, negatively: `createBasePlayer`'s (and every other interface
 method's) bare name string has **zero** direct references anywhere in the binary — checked
