@@ -933,9 +933,14 @@ def serve_baseapp_udp_capture():
                     and unpadded[2] == BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID):
                 checkpoint_id = struct.unpack('<H', unpadded[5:7])[0] if len(unpadded) >= 7 else 0
                 use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
+                # E2E-039 (2026-09-17): trailing b'\x00\x00' footer removed -- same
+                # phantom-trailing-message bug as createBasePlayer (see comment
+                # there); this packet's footer would have started at offset 11
+                # (flags[2]+msgid[1]+body[8]) too, the exact offset the client's
+                # corrupted-bundle error reported.
                 vpi_body = struct.pack('<H', checkpoint_id) + b'\x00' * 6  # 8 bytes total
                 vpi_plain = (struct.pack('<H', _REPLY_FLAGS) + bytes([VERSIONPOINT_IDENTITY_MSGID])
-                             + vpi_body + b'\x00\x00')
+                             + vpi_body)
                 vpi_pad_len = 8 - (len(vpi_plain) % 8)
                 vpi_padded = vpi_plain + b'\x00' * (vpi_pad_len - 1) + bytes([vpi_pad_len])
                 vpi_enc = bf_encrypt(vpi_padded, key_hex=use_key, iv=b'\x00' * 8)
@@ -1019,6 +1024,13 @@ def serve_baseapp_udp_capture():
                 # Body: [entityID: uint32 (4)][entityType: uint16 (2)] = 6 bytes.
                 # Entity type 127 corresponds to <Account> from entities.xml.
                 # Followed by 2-byte Mercury bundle zero footer b'\x00\x00' and BigWorld wastage padding.
+                # E2E-039 (2026-09-17): tried removing this footer (theorized as the
+                # source of a later "authenticate" phantom-message corruption) --
+                # live-tested and DISPROVEN: without it, the client fails to parse
+                # createBasePlayer ITSELF ("Not enough data on stream at 2 for
+                # payload (4 left, needed 6)" -- the exact 2-byte shortfall). This
+                # footer IS required here; the "authenticate" corruption comes from
+                # a different packet (see versionPointIdentity / keepalive).
                 if os.environ.get('ATTEMPT_CREATEBASEPLAYER', '1') == '1':
                     import time
                     time.sleep(0.05)

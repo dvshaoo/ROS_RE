@@ -1,0 +1,73 @@
+T14-complete plist: 560 bytes
+T18 server_list_ad.txt: 122 bytes
+00:12:38 === local_baseapp_capture START ===
+00:12:38 === HTTP plain :80 ===
+00:12:38 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+00:12:38 === HTTP TLS :8443 ===
+00:12:38 === HTTP TLS :443 ===
+00:12:38 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+00:12:38 All listeners started. Waiting...
+00:12:38 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:38   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:38   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:38   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:38 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:38   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:38   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:38   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:38 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:38   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:38   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:38   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:38 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:52575 ***
+00:12:38   HEX: 04479827d98db618b6703e2b7a1aee65553b72d77a85c4c1
+00:12:38   ASCII: b"\x04G\x98'\xd9\x8d\xb6\x18\xb6p>+z\x1a\xeeeU;r\xd7z\x85\xc4\xc1"
+00:12:38   DECRYPTED (24 bytes): 406047c8b47bebef8d04f40dbd527c69562e7866fb6370b5
+00:12:38 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:38   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:38   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:38   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:38 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:38   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:38   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:38   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:39 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:39   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:39   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:39 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 04479827d98db618b6703e2b7a1aee65553b72d77a85c4c1
+00:12:39   ASCII: b"\x04G\x98'\xd9\x8d\xb6\x18\xb6p>+z\x1a\xeeeU;r\xd7z\x85\xc4\xc1"
+00:12:39   DECRYPTED (24 bytes): 406047c8b47bebef8d04f40dbd527c69562e7866fb6370b5
+00:12:39 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:39   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:39   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:39 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:39   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:39   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:39 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:39   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:39   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+00:12:39 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 04479827d98db618b6703e2b7a1aee65553b72d77a85c4c1
+00:12:39   ASCII: b"\x04G\x98'\xd9\x8d\xb6\x18\xb6p>+z\x1a\xeeeU;r\xd7z\x85\xc4\xc1"
+00:12:39   DECRYPTED (24 bytes): 406047c8b47bebef8d04f40dbd527c69562e7866fb6370b5
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=752
+  BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789575160","finish_time":"1789575160","push_time":"1789575160","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a41
+00:12:39 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:39   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:39   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:39   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:40 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:40   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:40   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:40   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
+00:12:40 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:52575 ***
+00:12:40   HEX: 96d6ac5ae89c908b6fc683d611b57d3d232f659ec6a574ee5c0eeee27f3c8051
+00:12:40   ASCII: b'\x96\xd6\xacZ\xe8\x9c\x90\x8bo\xc6\x83\xd6\x11\xb5}=#/e\x9e\xc6\xa5t\xee\\\x0e\xee\xe2\x7f<\x80Q'
+00:12:40   DECRYPTED (32 bytes): 9dcd51a28237641ffeccf2d5349ec84c18c2f8d81b26f6abb72384b147cbaed2
