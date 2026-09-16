@@ -3978,6 +3978,145 @@ the field:
   it flips and correlating against what packet/event preceded it.
 
 ---
+
+## TEST_ID: E2E-033
+- **DATE**: 2026-09-16, continuation pass. Per the user's suggested pivot
+  (relayed by the coordinator): investigate whether ROS Legacy's NeoX VFS
+  script-override mechanism (`RosAuth.restorePatch`, documented in
+  `C:\Users\Raysoo\Downloads\ROS_RE_LEGACY\ANALYSIS_REPORT.md`) uses
+  PLAINTEXT `.nxs` files, which would sidestep this project's standing
+  `script.npk` stream-cipher blocker (E2E-003/E2E-004) entirely. Read-only
+  investigation of `ROS_RE_LEGACY` (not modified); no server/device
+  touched.
+
+### VERDICT UP FRONT: the plaintext-override theory is REFUTED, CONFIRMED BY DIRECT BYTE INSPECTION
+The `.nxs` override files use the **exact same encrypted container format**
+as the packed `script.npk`'s own entries — there is no plaintext bypass
+here. Full evidence below.
+
+### Step 1-2 (CONFIRMED BY BINARY): extracted and inspected the actual `.nxs` bytes
+Extracted `UILogin.nxs`, `config.nxs`, `Headcode.nxs`,
+`ResourcePatcher.nxs` directly from `assets/rospatch/script/.../` inside
+`roslegacy_signed.apk` (read-only `unzip -j`, copies placed in this
+project's own `scratch/roslegacy_nxs/`; `ROS_RE_LEGACY` itself untouched).
+Raw hex dump of the first 16 bytes of **every single one**:
+```
+config.nxs:            7a 1c 97 6c cd 1c 8e 22 27 28 18 5f ae 5d ff 15
+Headcode.nxs:           7a 1c 50 c5 fb fd 87 e3 91 2a 8f e9 d5 1d 5c ad
+UILogin.nxs:            7a 1c 23 3c f1 fd 29 0e 50 a4 bb 3a c7 09 41 06
+ResourcePatcher.nxs:    7a 1c c0 3c fb f4 87 e7 71 16 e6 ba ca e9 a1 25
+```
+**Every file starts with the literal `7A 1C` magic** — the EXACT SAME
+magic tag this project already established (E2E-004,
+`07_ros_legacy_approach/END_TO_END_TEST_LOG.md` Sub-test C, and
+`bridge/RESULT_T11.md`) as the container-type tag for `script.npk`'s
+own ~3,957 real, undecryptable-by-static-means entries (as opposed to
+the unrelated tiny 2-entry AES-128-ECB sub-container). The remaining
+bytes after the magic differ per file (as expected — different content),
+consistent with genuinely being that SAME additive stream cipher's
+ciphertext, not a different/simpler format. **This is a direct,
+unambiguous byte-level observation — not an inference.**
+
+### Step 3 (CONFIRMED BY SMALI): `RosAuth.restorePatch`/`copyPatchTree`/`copyAssetDir`/`copyAssetFile` perform a byte-for-byte copy, ZERO decryption or transformation
+Read the full call chain in
+`ROS_RE_LEGACY/decompiled_smali/smali/com/netease/neox/RosAuth.smali`:
+`restorePatch` → `copyPatchTree` → `copyAssetDir` (recursive directory
+walk: `AssetManager.list()`, `mkdirs()`, recurse) → `copyAssetFile` (leaf
+files: `AssetManager.open()` → read into a 64KB buffer in a loop →
+`FileOutputStream.write()` → `close()`). **There is no decryption,
+decompression, or any other transformation call anywhere in this entire
+call graph** — it is a plain, generic "copy this asset tree to a real
+filesystem directory" utility, the kind found in countless unrelated
+Android apps for unpacking bundled assets. This conclusively answers the
+question asked: **the bytes written to the override directory are
+BYTE-IDENTICAL to the bytes stored in the APK** (which Step 1-2 already
+showed are `7A1C`-magic encrypted).
+
+### Step 4 (CONFIRMED, cross-referencing this project's OWN prior docs): our client uses the identical VFS/directory mechanism
+`06_trace/CALL_FLOW.md` (already existing in this project, not
+re-derived) already documents, for **our own** `com.netease.chiji`
+client: `"Mounts persistent user storage at
+/sdcard/Android/data/com.netease.chiji/files/netease/h45na/"` — the
+identical `h45na` engine-build name (`android.app.lib_name` meta-data)
+ROS Legacy's own analysis also cites, confirming **both clients are
+built from the same underlying NeoX engine** and very likely honor the
+identical VFS-override directory convention under their own respective
+package names. `h45na` itself does not appear as a literal string in
+`libclient_arm64.so` (checked this pass — the constant lives in the
+Android manifest/Java layer, not baked into the native library), which
+does not contradict the mechanism existing, just means it isn't
+independently re-confirmable from the native binary alone.
+
+### Step 5: minimum viable patch — NOT ACTIONABLE, given Steps 1-3's result
+Since the override files must be validly encrypted with the SAME
+stream cipher already established as undecryptable via purely static
+means (E2E-003/E2E-004's own conclusion, re-confirmed not overturned by
+anything found this pass), **we cannot currently produce a working
+custom `.nxs` file, whether authored as plaintext or otherwise**,
+regardless of the VFS override mechanism's existence in our own client.
+Writing our own plaintext script and dropping it in the override
+directory would almost certainly either be rejected outright (magic
+mismatch) or, if the loader doesn't even check the magic and blindly
+feeds any bytes through the SAME decrypt-then-exec pipeline, produce
+garbage bytecode that fails to load/crashes rather than running as
+intended Python source.
+
+### A genuinely useful, non-obvious silver lining (worth recording plainly)
+ROS Legacy's own modders **evidently DID solve** the `script.npk`
+stream-cipher problem well enough to produce validly-encrypted
+replacement `.nxs` files (otherwise their whole VFS-override approach,
+which their own `ANALYSIS_REPORT.md` describes as working, could not
+function at all). This is genuine, if indirect, evidence that:
+1. The cipher, while unbroken by THIS project's purely-static approach so
+   far, is **not fundamentally unbreakable** — someone else has clearly
+   produced valid encrypted output for it.
+2. The most likely method (consistent with this project's own earlier
+   E2E-003/E2E-004 conclusion, not a new guess) is **dynamic
+   instrumentation** — hooking the live NeoX Python runtime's own
+   encrypt/decrypt or `PyMarshal_ReadObjectFromString`-adjacent functions
+   to observe or reuse its real keystream generator, exactly the
+   technique this project's own prior passes already identified as
+   correct-but-blocked (specifically by the native-bridge x86-host/
+   ARM64-guest translation-layer module-visibility wall on THIS
+   project's LDPlayer/emulator setup, and separately by a security-
+   classifier block on repackaging the APK for gadget injection on real
+   ARM64 hardware — both already-documented, standing environmental
+   blockers, not something this pass newly discovered).
+3. **This does not unblock anything for THIS project's current
+   environment** — it confirms the theoretical path exists and has been
+   proven viable by a third party, but this project's own dynamic-
+   instrumentation environment is still blocked exactly as before.
+
+### RESULT
+- **Definitively answered, with direct evidence, not spun optimistically
+  despite the coordinator's own framing this as a potential "biggest
+  unlock"**: the plaintext-override theory is REFUTED. `.nxs` VFS-override
+  files are bytewise identical in format/encryption to `script.npk`'s own
+  packed entries; the Java-side copy mechanism performs zero
+  transformation. This closes out the pivot cleanly rather than leaving
+  it as an open possibility to revisit.
+- **No wasted implementation effort**: per the task's own explicit
+  instruction to verify before implementing, no server code was written
+  and no attempt was made to author or deploy a custom `.nxs` file, since
+  Steps 1-3 disprove the premise before reaching that stage.
+- `CLIENT_MODIFIED: NO`. `ROS_RE_LEGACY` was read-only accessed, not
+  modified. No server/device touched.
+
+### NEXT_ACTION
+1. This specific pivot is closed — do not revisit the "plaintext `.nxs`
+   override" idea without new evidence contradicting the byte-level
+   finding above.
+2. The underlying dynamic-instrumentation blocker (native-bridge
+   module-visibility wall / APK-repackaging classifier block) remains
+   this project's standing, already-documented human-decision point
+   (E2E-004) if unblocking the Python layer is ever to be pursued
+   directly — unchanged by this pass.
+3. Return to the native-side investigation threads already in progress
+   (E2E-029 through E2E-032's `entity+0x140` gate question) or the
+   coordinator's own suggested differently-timed live snapshot, as the
+   more immediately actionable paths forward.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
