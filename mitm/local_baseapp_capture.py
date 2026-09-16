@@ -127,6 +127,7 @@ DEVICE_SERIAL = os.environ.get('DEVICE_SERIAL', 'emulator-5554')
 LIBCLIENT_VTABLE_FILE_ADDR = 0x37dd3a0  # EncryptionFilter vtable, FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md
 _key_cache = {}  # {client_addr: key_hex}
 _key_scan_started = set()  # client (ip,port) addrs for which a per-connection scan already ran
+_onchannellogin_retry_started = set()  # (ip,port) addrs for which the onChannelLogin retry loop already started, E2E-037
 _early_scan_hosts = set()  # host IPs for which the early (LoginApp-triggered) scan already ran
 _early_key_by_host = {}  # {host_ip: key_hex} -- populated by the early (LoginApp-triggered) scan, E2E-012
 _last_plain_block_by_host = {}  # {host_ip: last 8-byte plaintext block of our last LoginApp reply}, E2E-012
@@ -979,40 +980,76 @@ def serve_baseapp_udp_capture():
                     # dispatch was traced to pull the target entity from internal
                     # connection state, not the wire body).
                     ONCHANNELLOGIN_VARIANT = os.environ.get('ONCHANNELLOGIN_VARIANT', '0')
-                    if ONCHANNELLOGIN_VARIANT in ('1', '2', '3'):
+
+                    def _build_onchannellogin(variant):
                         import pickle
                         import marshal
-                        time.sleep(0.05)
                         method_index = 2  # Account.onChannelLogin, Account.def.xml ClientMethods order
                         account_data = {'characters': []}
-                        if ONCHANNELLOGIN_VARIANT == '1':
-                            # Variant 1: shortEntityMessage (msgID 100), u8 methodIndex, pickle.
+                        if variant == '1':
                             ocl_msgid = 100
                             ocl_body = bytes([method_index]) + bytes([0]) + pickle.dumps(account_data, protocol=2)
                             ocl_length_bytes = bytes([len(ocl_body)]) if len(ocl_body) < 256 else None
-                        elif ONCHANNELLOGIN_VARIANT == '2':
-                            # Variant 2: longEntityMessage (msgID 101), u16 LE methodIndex, pickle.
+                        elif variant == '2':
                             ocl_msgid = 101
                             ocl_body = struct.pack('<H', method_index) + bytes([0]) + pickle.dumps(account_data, protocol=2)
                             ocl_length_bytes = struct.pack('<H', len(ocl_body))
                         else:  # '3'
-                            # Variant 3: shortEntityMessage (msgID 100), u8 methodIndex, marshal.
                             ocl_msgid = 100
                             ocl_body = bytes([method_index]) + bytes([0]) + marshal.dumps(account_data)
                             ocl_length_bytes = bytes([len(ocl_body)]) if len(ocl_body) < 256 else None
-                        if ocl_length_bytes is not None:
-                            ocl_plain = (struct.pack('<H', 0x0001) + bytes([ocl_msgid])
-                                          + ocl_length_bytes + ocl_body + b'\x00\x00')
-                            ocl_pad_len = 8 - (len(ocl_plain) % 8)
-                            ocl_padded = ocl_plain + b'\x00' * (ocl_pad_len - 1) + bytes([ocl_pad_len])
+                        if ocl_length_bytes is None:
+                            return None, ocl_msgid
+                        ocl_plain = (struct.pack('<H', 0x0001) + bytes([ocl_msgid])
+                                      + ocl_length_bytes + ocl_body + b'\x00\x00')
+                        ocl_pad_len = 8 - (len(ocl_plain) % 8)
+                        ocl_padded = ocl_plain + b'\x00' * (ocl_pad_len - 1) + bytes([ocl_pad_len])
+                        return ocl_padded, ocl_msgid
+
+                    if ONCHANNELLOGIN_VARIANT in ('1', '2', '3'):
+                        time.sleep(0.05)
+                        ocl_padded, ocl_msgid = _build_onchannellogin(ONCHANNELLOGIN_VARIANT)
+                        if ocl_padded is not None:
                             ocl_enc = bf_encrypt(ocl_padded, key_hex=use_key, iv=b'\x00' * 8)
                             ocl_reply = ocl_enc if ocl_enc else ocl_padded
                             s.sendto(ocl_reply, addr)
-                            log('BASEAPP UDP SENT onChannelLogin GUESS variant=%s msgid=%d methodIndex=%d key=%s IV=0 (%d bytes): %s' % (
-                                ONCHANNELLOGIN_VARIANT, ocl_msgid, method_index, use_key, len(ocl_reply), ocl_reply.hex()))
+                            log('BASEAPP UDP SENT onChannelLogin GUESS variant=%s msgid=%d key=%s IV=0 (%d bytes): %s' % (
+                                ONCHANNELLOGIN_VARIANT, ocl_msgid, use_key, len(ocl_reply), ocl_reply.hex()))
                         else:
-                            log('BASEAPP: onChannelLogin GUESS variant=%s body too long for u8 length prefix (%d bytes), skipped' % (
-                                ONCHANNELLOGIN_VARIANT, len(ocl_body)))
+                            log('BASEAPP: onChannelLogin GUESS variant=%s body too long for u8 length prefix, skipped' % ONCHANNELLOGIN_VARIANT)
+
+                    # E2E-035: gate-toggle discovery -- entity+0x140 (the field
+                    # 0x94c540's dispatch checks before invoking a bound entity
+                    # method) is NOT a one-time init flag; live snapshots show it
+                    # OSCILLATING between 0x0 and a stable non-zero pointer every
+                    # ~2-3s. A single one-shot onChannelLogin send (E2E-028) may
+                    # simply have landed in a zero window every time. Retry the
+                    # SAME push repeatedly for a while to raise the odds of
+                    # landing inside a non-zero window.
+                    if os.environ.get('ONCHANNELLOGIN_RETRY', '0') == '1' and addr not in _onchannellogin_retry_started:
+                        _onchannellogin_retry_started.add(addr)
+                        retry_variant = os.environ.get('ONCHANNELLOGIN_RETRY_VARIANT', '1')
+                        retry_interval = float(os.environ.get('ONCHANNELLOGIN_RETRY_INTERVAL', '0.5'))
+                        retry_duration = float(os.environ.get('ONCHANNELLOGIN_RETRY_DURATION', '15'))
+
+                        def _retry_onchannellogin(dest=addr, key=use_key, sock=s):
+                            padded, msgid = _build_onchannellogin(retry_variant)
+                            if padded is None:
+                                return
+                            n = int(retry_duration / retry_interval)
+                            for i in range(n):
+                                time.sleep(retry_interval)
+                                enc = bf_encrypt(padded, key_hex=key, iv=b'\x00' * 8)
+                                pkt = enc if enc else padded
+                                try:
+                                    sock.sendto(pkt, dest)
+                                    log('BASEAPP UDP SENT onChannelLogin RETRY #%d variant=%s msgid=%d key=%s (%d bytes)' % (
+                                        i + 1, retry_variant, msgid, key, len(pkt)))
+                                except Exception as e:
+                                    log('BASEAPP onChannelLogin retry error: %s' % e)
+                                    return
+
+                        threading.Thread(target=_retry_onchannellogin, daemon=True).start()
 
                     # E2E-022: start the periodic keep-alive as soon as the
                     # channel is known to exist (createBasePlayer accepted),
