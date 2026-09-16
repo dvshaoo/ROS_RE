@@ -80,45 +80,81 @@ output.
 
 **Confidence:** CONFIRMED (decompilation + 4-anchor address cross-validation).
 
-## Finding 2 (NEW, high-value): method-index is libc++ SSO-encoded, not raw
+## Finding 2 (RETRACTED): "method-index SSO encoding" was a misread — this is the standard Itanium PMF representation, not wire-controlled
 
-**Finding:** The "method index" argument (`param_1+0x10`) is not a plain
-integer. It is encoded exactly like a libc++ `std::string` short-string-
-optimization discriminator:
+**Original claim (WRONG, retracted):** An earlier pass of this
+investigation characterized the `param_1+0x10` field in `FUN_00a4c540` as a
+libc++ `std::string`-style SSO discriminator, and proposed that live
+`onChannelLogin` tests had been sending the wrong wire byte (`2` instead of
+`4`) as a result.
 
-- bit 0 = 0 → short/inline form → real index = `value >> 1`
-- bit 0 = 1 → long form → one more indirection (`pcVar7 = *(pcVar7 + *plVar1)`)
-  before use.
+**Correction:** On closer reading, this bit pattern —
+`plVar1 = lVar8 + (value >> 1)`, gated by `(value & 1) != 0` triggering one
+more indirection through a vtable-like lookup — is the textbook **Itanium
+C++ ABI pointer-to-member-function representation**: bit 0 distinguishes a
+direct function pointer (bit0=0) from a virtual-dispatch byte-offset
+(bit0=1, real offset derived from the remaining bits). This value is a
+**field of the per-message handler struct (`param_1`), which is a static
+data structure compiled into the binary** (built at compile time from the
+`.def`-derived method table), **not something populated from wire data at
+all**. There is no live wire byte that "should have been" `4` instead of
+`2` — that theory does not apply to this field.
 
-**Ghidra evidence:** Literal decompiled expression
-`plVar1 = lVar8 + ((long)*(ulong*)(param_1+0x10) >> 1)`, gated by
-`(*(ulong*)(param_1+0x10) & 1) != 0` for the alternate path — this is the
-textbook libc++ `__is_long()`/`__get_short_size()` bit-layout pattern, not
-something the original hand-disassembly had flagged.
+**Impact:** This retracts the "next actionable experiment" from the
+original version of this finding. **No live test was run against the wrong
+theory** — caught before spending an E2E pass on it. The real blocker
+remains what Finding 4 already identified: `FUN_00a4c540` no-ops entirely
+whenever `entity+0x140 == 0`, regardless of what wire bytes are sent for
+the method body, because the whole per-message dispatch block is gated
+behind that single pointer check before the PMF-style method invocation
+is ever reached.
 
-**Live E2E evidence:** E2E-028 and E2E-037 sent a **literal byte `2`** as
-the assumed method index for `Account.onChannelLogin`, on the theory that
-method index 2 in the `.def`-derived method table corresponds to
-`onChannelLogin`. Both experiments produced **zero observable effect**
-across 3 wire-format variants and a 407-packet retry flood.
+**Confidence:** CONFIRMED (Itanium ABI PMF calling-convention pattern is
+unambiguous once correctly identified).
 
-**Relationship:** Under this newly-discovered encoding, a raw byte `2`
-(binary `10`, bit0=0) decodes to real index `2 >> 1 = 1` — **method index 1,
-not 2**. This is a direct, concrete, previously-unknown explanation for why
-every prior `onChannelLogin` wire-format experiment silently dispatched to
-the wrong method (or no bound method at all) instead of failing loudly or
-succeeding. The correctly-encoded short-form byte for real index 2 would be
-`(2 << 1) | 0 = 4`.
+## Finding 2b: chasing the +0x140 SETTER's real trigger — dead end via direct-callee tracing
 
-**Confidence:** STRONGLY SUPPORTED (mechanism is confirmed via
-decompilation; the causal link to why past live tests silently failed is
-INFERRED, not yet re-tested live).
+**Finding:** The setter `FUN_00a3a5e4` (`*(param_1+0x140) = param_2`, then
+conditionally invokes a pending callback via `*(param_1+0x150)`, then calls
+`FUN_00a473d0(param_1)`) has, like the dispatcher itself, **zero direct
+call-type callers** (`INDIRECTION`/`DATA`-only refs to a vtable slot at
+`0x33f4a80`, no preceding RTTI label, nothing takes that slot's address
+directly — the same virtual-dispatch-with-unfindable-constructor pattern as
+`FUN_00a4c540`'s own vtable slot).
 
-**Next actionable experiment:** Re-run the `ONCHANNELLOGIN_VARIANT` live
-test in `mitm/local_baseapp_capture.py` using method-index byte `4` instead
-of `2` (and, generally, `(realIndex << 1)` for any short-form index up to
-127). This has NOT yet been tested live — requires user approval to resume
-emulator testing.
+Its callee `FUN_00a473d0` (touches `param_1[0x27]+0x4210`, `param_1[0x29]`,
+`param_1[0x2a]`, `param_1[0x28]` — a mutex-guarded pooled-buffer allocate/
+reuse pattern) **does** have real, direct, non-virtual callers findable via
+Ghidra (`UNCONDITIONAL_CALL` type at static offsets `0x93d110`, `0x93a558`,
+`0x94d4a0`, plus the setter's own tail-call at `0x93a61c`).
+
+**Ghidra evidence:** `scratch/ghidra_setter_callers.txt`,
+`scratch/ghidra_deep140.txt`, `scratch/ghidra_callsites_473d0.txt`,
+`scratch/ghidra_caller_strings.txt`. String-literal extraction from the 3
+non-setter callers' containing functions shows they are unrelated generic
+NeoX engine startup/config code (`"Initializing client...."`,
+`neox.xml`/filesystem/shader-cache config parsing) — **not**
+BigWorld/entity/networking code.
+
+**Relationship:** `FUN_00a473d0` is a **shared, generic pooled-buffer
+allocator** reused throughout the binary for unrelated purposes (engine
+init, and separately, by the +0x140 setter with a different-typed
+`param_1`). Chasing its callers does not reveal what triggers the +0x140
+setter — this is a dead end.
+
+**Confidence:** CONFIRMED dead end (the 3 callers' purpose is unambiguous
+from their string literals).
+
+**Next actionable step:** Static analysis (both the original Capstone
+toolkit and this Ghidra hybrid session) has now independently hit the same
+wall twice — the setter's real caller is virtual-dispatch-only with no
+resolvable construction site. The next step that could plausibly break this
+open is **dynamic instrumentation**: hook `FUN_00a3a5e4` (static
+`0x93a5e4`) at runtime on the local test client and log its call stack the
+moment it fires (if it ever does) during a real login attempt. This is
+local, non-destructive, read-only observation of our own test client
+talking to our own local server — not a bypass of any production security
+control. Not yet attempted this session.
 
 ## Finding 3: symbol-table keyword search is a dead end for game classes
 
@@ -180,6 +216,75 @@ passes never found a caller via any disassembly-based method.
 **Confidence:** STRONGLY SUPPORTED (the vtable slot itself is CONFIRMED via
 2 independent methods — reference scan and raw byte scan agreeing — but the
 object/constructor that uses this vtable remains UNKNOWN).
+
+## Finding 5: fresh live E2E pass reproduces the exact same blocker, plus a new unifying hypothesis
+
+**Finding:** After the Ghidra-phase corrections above, a fresh live E2E pass
+was run against a freshly-restarted server (root DNAT rules and server key
+cache reset after an LDPlayer reboot). Result: **identical to every prior
+pass** — `ServerConnection::logOnBegin` → `LoginHandler::onLoginReply`
+reached, `Nub::recreateListeningSocket` fires for a new "external channel,"
+and then **nothing**. No packet ever arrives at the fake BaseApp UDP
+listener (`:25010`). This is not a regression and not an improvement —
+today's Ghidra findings did not change this outcome, as expected (Finding 2
+retraction explains why the "corrected encoding" theory was never actually
+applicable here).
+
+**New data point:** attempting to Frida-attach to the live client process
+(`com.netease.chiji`, SELinux permissive, frida-server running as root)
+during this session **crashed the frida-server connection outright**
+(`unable to connect to remote frida-server: closed`) — despite frida-server
+successfully enumerating 97 *other* system processes normally, and despite
+adb confirming the target process was alive throughout. This is consistent
+with the client having some form of runtime anti-instrumentation/anti-
+tamper check specific to itself (not a generic Android/frida-server
+compatibility problem, since every other process was attachable-in-
+principle).
+
+**Hypothesis (INFERRED, not yet tested):** The BaseApp-channel blocker that
+has resisted 38+ E2E passes across every wire-format/timing/encoding theory
+tried so far may not be a protocol bug at all. A client-side anti-tamper
+check (root detection, iptables OUTPUT-redirect detection, or detection of
+the modified/instrumented LDPlayer environment itself) could be silently
+causing the client to abandon BaseApp channel setup after accepting the
+LoginApp reply, regardless of whether the wire format is byte-perfect. This
+would explain: (a) why no combination of tried packet formats has ever
+produced observable movement past this exact point, (b) why the
+`entity+0x140` gate is never set despite the dispatcher and its setter
+being otherwise unremarkable in Ghidra, and (c) the frida-attach crash
+above.
+
+**Confidence:** INFERRED / UNCONFIRMED — this is a hypothesis raised by
+today's evidence, not a proven root cause. It has NOT been tested (e.g. by
+comparing behavior against a non-rooted, non-redirected, non-instrumented
+reference environment, which is the natural next diagnostic).
+
+**Next actionable experiment (highest priority, supersedes the retracted
+Finding 2 experiment):** Determine whether the block is environment-
+dependent rather than protocol-dependent. Options, roughly in order of
+effort: (1) search the binary (Ghidra string/xref search for
+"frida"/"xposed"/"su"/"magisk"/root-marker file paths, or for `ptrace`
+self-attach calls, a common anti-frida trick) for anti-tamper logic near
+the BaseApp channel setup path; (2) if found, characterize what it does on
+detection (silent no-op vs. explicit disconnect) to confirm/refute this
+hypothesis without needing a clean reference device.
+
+**Follow-up performed this session (partial, inconclusive):** A binary-wide
+string search did find genuine root-detection code: a JNI bridge function
+`FUN_01cfaa90` that calls into the Java layer's `isDeviceRooted()` method
+and returns its boolean result. Its only found direct (non-virtual) caller,
+`FUN_01ceef8c`, is a tiny `void`-returning wrapper that calls it back-to-
+back with an unrelated init function (`FUN_01cf95d4()`) and **discards the
+returned boolean** — it does not visibly branch on the result itself. This
+is consistent with a **telemetry-only** root check (reported to analytics,
+not used to gate behavior at this call site) rather than an active
+connection-blocking anti-tamper gate, though the boolean could still be
+consumed as a side effect inside `FUN_01cfaa90` itself (not yet checked) or
+forwarded to a live NetEase backend service this local test setup doesn't
+reach. **This does not confirm or refute the Finding 5 hypothesis** — it
+only shows that *a* root-detection mechanism exists in the binary; whether
+*that specific one* (or a different one) gates the BaseApp channel remains
+unknown. Not pursued further this session given time already invested.
 
 ## Dead ends
 

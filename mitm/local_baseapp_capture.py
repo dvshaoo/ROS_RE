@@ -648,6 +648,29 @@ def serve_loginapp_udp_responder():
                 else:
                     payload_body = padded_body
                 inner = struct.pack('<I', counter) + bytes([1]) + payload_body
+
+                # E2E-038: optional trailing key-update block (0x32ef9816 magic +
+                # length-prefixed blob), per re-disassembly of the marker this
+                # project already fully mapped (see FIRST_LOGINREPLY_BLOWFISH_KEY_TRACE.md).
+                # Re-characterized this pass: NOT a version guard -- an entirely
+                # unused (by us) optional mechanism that, when present, has the
+                # client construct a SECOND keyed EncryptionFilter context from
+                # ServerConnection+0x148. Content unknown; this is a placeholder
+                # experiment (reusing the known Blowfish key bytes as filler) to
+                # see if presence ALONE produces any observable client-side
+                # effect, before worrying about correct content.
+                if os.environ.get('ATTEMPT_KEYBLOCK', '0') == '1':
+                    key_bytes = bytes.fromhex(use_login_key)
+                    blob = key_bytes  # placeholder content -- see comment above
+                    if len(blob) < 255:
+                        len_prefix = bytes([len(blob)])
+                    else:
+                        len_prefix = bytes([0xFF]) + struct.pack('<I', len(blob))[:3]
+                    keyblock = struct.pack('<I', 0x32ef9816) + len_prefix + blob
+                    inner = inner + keyblock
+                    log('ATTEMPT_KEYBLOCK: appended magic=0x32ef9816 + %d-byte blob (placeholder=key bytes %s)' % (
+                        len(blob), use_login_key))
+
                 reply = (struct.pack('<H', 0x0001) + bytes([0xff])
                           + struct.pack('<I', len(inner)) + inner
                           + b'\x00\x00')
@@ -713,6 +736,54 @@ def serve_loginapp_udp_responder():
                     threading.Thread(target=_delayed_start, daemon=True).start()
         except Exception as e:
             log('LOGINAPP UDP error: %s' % e)
+
+
+def _packed_int(n):
+    if n < 0xff:
+        return bytes([n])
+    return b'\xff' + struct.pack('<I', n)[:3]
+
+
+def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags=0x0008):
+    msgid = 128 + method_index
+    width = 2 if msgid <= 190 else 1
+    payload = struct.pack('<I', entity_id) + args
+    lenfield = struct.pack('<H', len(payload)) if width == 2 else bytes([len(payload)])
+    plain = struct.pack('<H', flags) + bytes([msgid]) + lenfield + payload + b'\x00\x00'
+    pad_len = 8 - (len(plain) % 8)
+    plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
+    enc = bf_encrypt(plain_padded, key_hex=key, iv=b'\x00' * 8)
+    sock.sendto(enc if enc else plain_padded, dest)
+
+
+_login_completion_pushed = set()
+
+
+def push_login_completion(sock, dest, key, entity_id=1):
+    if dest in _login_completion_pushed:
+        return
+    _login_completion_pushed.add(dest)
+
+    import pickle
+    sauth = {'uid': '1', 'aid': '1', 'username': 'player', 'server_name': 'YumaLocal'}
+    p = pickle.dumps(sauth, protocol=2)
+    ocl_args = struct.pack('<B', 0) + _packed_int(len(p)) + p
+    ol_args = struct.pack('<i', 0) + _packed_int(0)
+
+    log('BASEAPP: Starting login-completion push sequence for %s (entity=%d)' % (dest, entity_id))
+    for attempt in range(5):
+        time.sleep(0.1 if attempt == 0 else 0.5)
+        # Primary 64-bit indices (Account.onChannelLogin=16, Account.onLogin=15):
+        send_entity_method(sock, dest, key, entity_id, 16, ocl_args, flags=0x0008)
+        time.sleep(0.04)
+        send_entity_method(sock, dest, key, entity_id, 15, ol_args, flags=0x0008)
+
+        # Legacy 32-bit fallback indices (Account.onChannelLogin=12, Account.onLogin=11):
+        time.sleep(0.04)
+        send_entity_method(sock, dest, key, entity_id, 12, ocl_args, flags=0x0008)
+        time.sleep(0.04)
+        send_entity_method(sock, dest, key, entity_id, 11, ol_args, flags=0x0008)
+        log('BASEAPP: Pushed login-completion burst #%d (16/15 and 12/11) to %s' % (attempt + 1, dest))
 
 
 def serve_baseapp_udp_capture():

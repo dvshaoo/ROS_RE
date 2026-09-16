@@ -1,0 +1,58 @@
+=== Context around setter's vtable slot 0x33f4a80 ===
+  -8: 033f4a78 fde_033f4a78 [Label]
+  -56: 033f4a48 fde_033f4a48 [Label]
+  --- references TO the slot address itself ---
+    [none]
+
+=== Decompile 0x9473d0 -> 00a473d0 (FUN_00a473d0) ===
+
+void FUN_00a473d0(long *param_1)
+
+{
+  undefined2 uVar1;
+  undefined *puVar2;
+  undefined4 uVar3;
+  undefined8 *puVar4;
+  
+  puVar2 = PTR_DAT_03a161d8;
+  if (param_1[0x2a] == 0) {
+    std::__ndk1::mutex::lock();
+    puVar4 = *(undefined8 **)puVar2;
+    if (puVar4 == (undefined8 *)0x0) {
+      puVar4 = operator_new__(0xb8);
+      *(int *)(puVar2 + 8) = *(int *)(puVar2 + 8) + 1;
+    }
+    else {
+      *(undefined8 *)puVar2 = *puVar4;
+    }
+    std::__ndk1::mutex::unlock();
+    uVar1 = *(undefined2 *)(param_1[0x27] + 0x4210);
+    if ((long *)param_1[0x29] == (long *)0x0) {
+      uVar3 = 0;
+    }
+    else {
+      uVar3 = (**(code **)(*(long *)param_1[0x29] + 0x20))();
+    }
+    FUN_00a824d8(puVar4,uVar1,uVar3,param_1[0x28]);
+    param_1[0x2a] = (long)puVar4;
+  }
+  else {
+    *(undefined2 *)(param_1[0x2a] + 0x1a) = *(undefined2 *)(param_1[0x27] + 0x4210);
+    FUN_00a825f0(param_1[0x2a],0);
+    puVar4 = (undefined8 *)param_1[0x2a];
+  }
+                    /* WARNING: Could not recover jumptable at 0x00a474b8. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+  (**(code **)(*param_1 + 0x10))(param_1,puVar4);
+  return;
+}
+
+
+  --- callers ---
+    from 033170a8 type=INDIRECTION
+    from 033f5eb8 type=DATA
+    from 00a3d110 type=UNCONDITIONAL_CALL
+    from 00a3a558 type=UNCONDITIONAL_CALL
+    from 00a4d4a0 type=UNCONDITIONAL_CALL
+    from 00a3a61c type=UNCONDITIONAL_CALL
+

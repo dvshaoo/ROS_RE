@@ -1,0 +1,23 @@
+Attached to device: Android Emulator 5554
+App not running, spawning...
+Traceback (most recent call last):
+  File "C:\Users\Raysoo\Downloads\ROS_RE\scratch\frida_hook_0x140.py", line 87, in main
+    pid = device.get_process(PACKAGE).pid
+          ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Raysoo\AppData\Roaming\Python\Python314\site-packages\frida\__init__.py", line 720, in get_process
+    raise _frida.ProcessNotFoundError(f"unable to find process with name '{process_name}'")
+frida.ProcessNotFoundError: unable to find process with name 'com.netease.chiji'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Raysoo\Downloads\ROS_RE\scratch\frida_hook_0x140.py", line 106, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\scratch\frida_hook_0x140.py", line 92, in main
+    pid = device.spawn([PACKAGE])
+  File "C:\Users\Raysoo\AppData\Roaming\Python\Python314\site-packages\frida\__init__.py", line 646, in spawn
+    return _invoke(self._impl.spawn, (program, options, ))
+  File "C:\Users\Raysoo\AppData\Roaming\Python\Python314\site-packages\frida\__init__.py", line 240, in _invoke
+    raise error
+frida.NotSupportedError: need Gadget to attach on jailed Android; its default location is: C:\Users\Raysoo\AppData\Local\Microsoft\Windows\INetCache\frida\gadget-android-arm64.so

@@ -1,0 +1,21 @@
+=== References to string "isDeviceRooted" @ 02cd51e0 ===
+  from 01cfaab0 in function FUN_01cfaa90 @ 01cfaa90
+
+bool FUN_01cfaa90(long param_1)
+
+{
+  char cVar1;
+  undefined8 uVar2;
+  
+  uVar2 = FUN_01d0a968();
+  cVar1 = FUN_01d0c8c4(uVar2,*(undefined8 *)(param_1 + 0x78),"isDeviceRooted",&DAT_02b3bae0);
+  return cVar1 == '\x01';
+}
+
+
+  --- callers of FUN_01cfaa90 ---
+    from 03385e18 type=INDIRECTION
+    from 035d06b8 type=DATA
+    from 01ceef9c type=UNCONDITIONAL_CALL
+
+Total refs: 1
