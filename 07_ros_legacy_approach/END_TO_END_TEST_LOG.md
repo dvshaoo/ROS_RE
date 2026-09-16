@@ -2850,6 +2850,135 @@ to pick up this change.
    when everything is "correct").
 
 ---
+
+## TEST_ID: E2E-024
+- **DATE**: 2026-09-16, parallel pass (run alongside the coordinator's own
+  live flags=0x0008 test) per the coordinator's explicit instruction:
+  investigate `enableEntities` (BaseAppExtInterface msgID 8) via pure
+  disassembly + existing capture-log reading only — no server code/process
+  touched, since the coordinator was using the live server concurrently.
+
+### Finding 1 (CONFIRMED from the existing capture log): `enableEntities` was already called, bundled with `identifyVersionPoint`, as the client's reliable-channel packet #0 — and it STOPPED resending once our existing channel-ACK fix took effect
+Grepped `mitm/captures/BASEAPP_LOGIN_CAPTURE.txt` (8,136 `DECRYPTED` lines)
+for decrypted packets whose byte `[2]` (the first message's `msgID`) is
+`0x08`. Found exactly **one** distinct byte pattern, repeated 698 times
+across many reconnect cycles:
+```
+58 00 08 61 b2 00 00 61 b2 00 00 0c 09 00 14 00 06 54 68 69 73 20 64 00 00 00 00
+```
+Decoded: outer flags `0x0058` (`FLAG_ON_CHANNEL|FLAG_IS_RELIABLE|
+FLAG_HAS_SEQUENCE_NUMBER` — this IS reliable-channel packet #0, the same
+one this project's existing `ATTEMPT_CHANNEL_ACK` responder already acks).
+It's a **Mercury bundle containing TWO messages back to back**:
+- msg1: `msgID=0x08` (`enableEntities`), FIXED 8-byte body = two `u32`
+  fields, both `0x0000b261`.
+- msg2: `msgID=0x0c` (`identifyVersionPoint`), VARIABLE body, length=9
+  (`checkpoint_id=20, strlen=6, "This d"` — a SHORTER placeholder string
+  than the later standalone resends' full `"This document s"`, confirming
+  this is a distinct, earlier, one-time occurrence, not the same object as
+  the later repeats).
+
+**The last occurrence of this exact packet in the whole capture log is
+timestamped 12:20:02** — it never appears again in the rest of the file
+(which continues for many more reconnect cycles afterward, including
+fresh LoginApp activity as recently as 12:28:41, i.e. during/around the
+coordinator's live testing). This strongly indicates: **`enableEntities`
+was successfully delivered and acknowledged by this project's EXISTING
+reliable-channel ACK responder (`ATTEMPT_CHANNEL_ACK`, live-confirmed
+working per the coordinator's own E2E-023 test) — it required no
+separate, `enableEntities`-specific application-level reply. The generic
+transport-level channel ACK for packet #0 was sufficient to satisfy it.**
+This is genuinely good news: `enableEntities` does not appear to be an
+open blocker at all.
+
+By contrast, `identifyVersionPoint`'s STANDALONE resends (`msgID=0x0c`
+alone, unbundled, flags `0x0008` only — NOT part of the reliable/acked
+stream) continue indefinitely at ~1s intervals throughout the whole
+capture, with byte-identical content every time. This is a real,
+structural difference from `enableEntities`'s behavior and supports
+E2E-023's hypothesis (a): these standalone resends are very plausibly a
+periodic, application-level re-announcement that is **not gated on
+receiving any reply at all** — i.e. possibly not a "blocker" needing a
+fix in the traditional sense, but simply how this RPC behaves
+indefinitely by design (a lightweight version-check heartbeat), in which
+case the real remaining gate to Account/Avatar/Lobby lies elsewhere.
+
+### Finding 2 (CONFIRMED by disassembly): what triggers the client to call `enableEntities`
+Found `enableEntities`'s outgoing-call descriptor storage offset
+(`0x457a000+0x260`, from its `0x98b30c` registration at `0x80c858`) and
+located all 4 `adrp+ldr` cross-references to that offset:
+- **`0x93d534`**: reads a field at `object+0xe88` (and conditionally
+  `object+0xe8c` if a flag bit is set), builds `enableEntities`'s 8-byte
+  body from those one or two `u32` values, sends it via the channel object
+  at `object+0x150`, then sets a flag byte at `object+0x15a`. This looks
+  like the initial, one-time "entities are ready to be enabled" call —
+  its context (a short, self-contained function, no cleanup loop) is
+  consistent with being the FIRST send, matching the packet-#0 bundle
+  observed in Finding 1.
+- **`0x947d64`**: after a loop that iterates and `operator delete`s
+  entries from a vector at `object+0xea8`/`object+0xeb0` (looks like
+  clearing a pending-entity or pending-message list), unconditionally
+  re-sends `enableEntities` with body `[w21,w21]` (both fields = the SAME
+  `object+0xe88` counter). Looks like a "re-announce after a reset/clear"
+  path.
+- **`0x94df74`**: after a refcount-release check (`ldaxr`/`stlxr` atomic
+  decrement — thread-safe refcounting), conditionally (`w21==1`) re-sends
+  `enableEntities`, again using `object+0xe88` for both body fields.
+- **`0x94a17c`**: a DIFFERENT shape entirely — no `object+0xe88` field
+  read, instead it's a receive-handler-shaped function (`bl 0x981f7c`
+  start-message, reserve 8 bytes, copy verbatim from an incoming 8-byte
+  body) — the SAME boilerplate echo-relay pattern already found for
+  `versionPointIdentity`'s handler (`0x94bf48`). This is very likely
+  `ClientInterface`'s own separately-registered `enableEntities` entry
+  (the same dual-registration pattern already confirmed for
+  `authenticate`/`resourceVersionTag` in E2E-022) — i.e. a server-to-client
+  push variant that, if the server ever sends `enableEntities` back to the
+  client, gets echoed the same inert way. Not exercised in this project's
+  own traffic (we've never sent an `enableEntities` push), so not further
+  investigated.
+
+**Conclusion**: `enableEntities` is called automatically by internal
+client-side state transitions (channel setup completing; a pending list
+being cleared; a refcount reaching a threshold) — **not gated on any
+server response**, and its body content is drawn from the client's own
+internal entity/counter bookkeeping (`object+0xe88`), not something the
+server needs to supply or negotiate. Combined with Finding 1's empirical
+evidence that it stopped resending once transport-acked, this is
+consistent with `enableEntities` being a simple "I'm ready, here's my
+current count" fire-and-forget notification requiring only reliable
+delivery (already solved), not a distinct request/reply RPC.
+
+### RESULT
+- **`enableEntities` is very likely NOT an open blocker** — it was
+  delivered exactly once (bundled with the client's first
+  `identifyVersionPoint`) and successfully acked by the already-existing,
+  already-confirmed-working channel-ACK responder; no distinct
+  application-level reply appears to be needed.
+- **The standalone `identifyVersionPoint` resends remain the only
+  concretely-observed open item**, and new evidence in this pass further
+  supports (without proving) that they may not be reply-gated at all —
+  possibly normal, harmless periodic client behavior rather than a
+  blocker, meaning the true remaining gate to Account/Avatar/Lobby may
+  lie elsewhere (e.g. `Account::handshake`, per
+  `06_notes/LOBBY_ENTRY_TRACE.md`'s own next-blocker prediction).
+- `CLIENT_MODIFIED: NO`. No server files or live process touched this
+  pass — pure static disassembly and existing-log analysis, per the
+  coordinator's explicit scope for this parallel investigation.
+
+### NEXT_ACTION
+1. Once the coordinator's flags=0x0008 live test result is in, re-check
+   the capture log the same way (grep for msgID patterns) to see whether
+   `enableEntities` reappears (it shouldn't, if a fresh reconnect cycle
+   re-sends packet #0 and gets acked again the same way) and whether
+   `identifyVersionPoint`'s standalone resends changed behavior at all.
+2. If `identifyVersionPoint`'s resends turn out to be harmless/expected
+   background behavior (not a blocker), pivot investigation to
+   `Account::handshake` (the next predicted real blocker per
+   `06_notes/LOBBY_ENTRY_TRACE.md` Task B) — check whether the client
+   ever attempts to call it, and if not, what server-side push (e.g.
+   `onChannelLogin`) might need to happen first to prompt it.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
