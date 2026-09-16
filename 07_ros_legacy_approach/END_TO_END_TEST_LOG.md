@@ -4300,6 +4300,138 @@ repeatedly and could not resolve for the earlier candidates either.
    use of the next round regardless of this static thread's outcome.
 
 ---
+
+## TEST_ID: E2E-038
+- **DATE**: 2026-09-16, continuation pass. Per the user's decision
+  (relayed by the coordinator) to pursue the 3 cheap angles from
+  `06_notes/ACCOUNT_HANDSHAKE_SYNTHESIS.md` before considering real-
+  hardware dynamic instrumentation. This entry covers Task 1 (debug-flag
+  control) and Task 2 (entity-defs fingerprint re-check); Task 3 (passive
+  long-duration run) needs the coordinator's live device time — see
+  recommendation at the end. Pure disassembly; no server/device touched.
+
+### Task 1: what controls the debug-flag-gated verbose logging — CONFIRMED DEAD END, no external trigger exists
+Traced the flag's full chain precisely: `adrp+ldr` at page `0x3915000`
+offset `0x320` loads a GLOBAL POINTER (not the flag itself); that pointer
+slot is a `.rela.dyn` `R_AARCH64_RELATIVE` relocation resolving to a
+fixed address, `0x457d128` — the actual flag byte. Searched, exhaustively:
+- **118 read sites** (`ldrb [ptr]`) confirmed across `.text` — this flag
+  is genuinely checked pervasively, matching the "6+ distinct sites"
+  already noted.
+- **Zero write sites anywhere in `.text`** — no `strb`/`str` to this
+  exact resolved address, checked via direct-reference scanning across
+  the WHOLE binary (not a narrow range this time).
+- Checked the two OTHER debug-flag-style globals encountered earlier in
+  this investigation (`0x3925000+0x9b4`, `0x3924000+0x1b4`): **also zero
+  write sites each.**
+- Checked whether Android system properties (`__system_property_get`,
+  confirmed imported) feed any of these: found exactly **2** callers in
+  the whole binary, querying `"ro.build.version.sdk"` and
+  `"ro.build.fingerprint"` — standard device-info reads for the
+  `DEVICE_INFO`/`handshake`-adjacent client fingerprinting, **not**
+  related to these debug flags at all.
+
+**Conclusion (CONFIRMED, not merely inferred)**: these debug-flag bytes
+live in zero-initialized writable memory (`.bss`-shaped) and are **never
+set to non-zero anywhere in this release build's native code** — there
+is no system property, config file read, or command-line/intent
+mechanism that could enable this logging from outside the binary. This
+is a genuine, confirmable dead end for Task 1, not an effort gap:
+whatever build-time mechanism NetEase uses to enable this logging in
+their own debug builds has been fully stripped from this release
+`.so`, and no externally-reachable trigger survives.
+
+### Task 2: the `0x32ef9816` entity-defs "fingerprint" check — RE-CHARACTERIZED, genuinely new and actionable finding
+Re-disassembled the comparison in full context (`0x938220`-`0x93833c`,
+inside `LoginHandler::onLoginReply`'s continuation, immediately after
+the already-known 20-byte Address-record read). **This is NOT a
+version-mismatch abort gate as previously inferred** — re-reading the
+control flow precisely:
+```
+[read 0x14-byte Address record, already known]
+if (bytes_remaining_in_reply - already_consumed >= 5):    ; only attempted
+                                                             if the LoginReply
+                                                             carries >=5 EXTRA
+                                                             bytes beyond the
+                                                             base 20-byte record
+    magic = read_u32()
+    if (magic == 0x32ef9816):        ; <-- OUR OWN SERVER controls this value
+        len_byte = read_u8()
+        if (len_byte == 0xFF):        ; variable-length-int escape, matching
+            len = read_u24_LE()       ; this project's already-established
+                                        SSO-string-style blob convention
+        else:
+            len = len_byte
+        blob_ptr = read_bytes(len)
+        if (blob_ptr):
+            build_std_string(local_buf, blob_ptr, len)
+            CALL 0x939f94(this = ServerConnection+0x48-ish, &local_buf)
+    ; if magic didn't match, or reply was too short: SILENTLY SKIP,
+    ; falls through to 0x938338, NO error/rejection of any kind
+```
+**Disassembled `0x939f94`, the function this magic+blob unlocks**: it
+reads `ServerConnection+0x148` (**the SAME offset this project already
+established, in E2E-015/017, holds the connection's `EncryptionFilter*`**),
+and if non-null, allocates a NEW 0x38-byte object, passes the parsed
+blob into `0x9889e8` (an address in the SAME `0x988xxx`-`0x989xxx`
+`EncryptionFilter`/decrypt-cluster this project has extensively mapped
+since E2E-015/016/018), then calls `0x989894` on the result. **This
+strongly suggests the optional magic+blob unlocks constructing a SECOND,
+KEYED `EncryptionFilter`-like context, tied to the connection, using
+data WE would supply in the LoginReply** — not a version check at all.
+
+**Practical implication**: our server currently does NOT send this
+magic or any trailing blob (`LOGIN_REPLY_RECORD.md`'s established
+20-byte format has no such field) — so this optional block is simply,
+harmlessly skipped every time, which is consistent with login/
+`createBasePlayer` continuing to work regardless. **This does NOT mean
+the check is "failing silently and degrading something downstream" as
+originally worried** — skipping it is a clean, intentional no-op path,
+not a failure state. However, it IS a genuinely new, previously-
+uninvestigated mechanism: **if this optional secondary keyed context is
+what some later gate (plausibly related to the `entity+0x140`
+toggling field, or to unlocking `handshake`) actually depends on, then
+proactively SENDING it — with the correct magic and a plausible key
+blob — is a concrete, disassembly-grounded next live experiment**,
+distinct from anything tried in E2E-023 through E2E-037 (none of which
+ever touched the LoginApp reply's own optional trailing fields — all
+prior BaseApp-side experiments assumed the LoginReply itself was
+already maximally correct).
+
+**What is NOT yet known (honest gap)**: the exact semantic CONTENT
+expected in the blob (a Blowfish key? a session/auth token? something
+else?) was not determined this pass — `0x9889e8`/`0x989894` were not
+fully disassembled down to the byte level. This is a concrete, bounded
+next static task if this lead is pursued further.
+
+### RESULT
+- **Task 1: CONFIRMED CLOSED** — no externally-controllable trigger for
+  the engine's debug logging exists in this build. Do not pursue this
+  angle further without new evidence (e.g. a rooted-device `LD_PRELOAD`/
+  `gdb`-style memory patch would technically work but is a different,
+  more invasive category of action, not a "flip a flag" experiment).
+- **Task 2: genuinely re-characterized, new actionable lead found** —
+  not a silent-failure risk as originally worried, but a real, unused
+  OPTIONAL mechanism (secondary keyed `EncryptionFilter` context) that
+  this project has never attempted to exercise. Recommend as a concrete
+  next live experiment, clearly labeled speculative on the blob content.
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+
+### NEXT_ACTION / recommendation on Task 3 timing
+Given Task 2 turned up a genuinely new, concrete thing worth trying
+(not just passive waiting), suggest the coordinator consider running
+**both**, since they don't conflict: (1) start the Task 3 passive
+long-duration control run now if device time allows, as a clean
+baseline with zero new server-side changes; SEPARATELY, (2) in a later/
+different session, try extending the LoginReply with the
+`0x32ef9816` magic + a placeholder key blob (even an intentionally
+wrong one, e.g. re-using the already-known Blowfish key bytes) to see
+if ANY observable change results (new logcat lines from the
+`EncryptionFilter`-adjacent construction path would be a strong signal
+even before getting the exact content right). These are independent
+experiments and don't need to be sequenced relative to each other.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
