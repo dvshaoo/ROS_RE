@@ -2979,6 +2979,153 @@ delivery (already solved), not a distinct request/reply RPC.
    `onChannelLogin`) might need to happen first to prompt it.
 
 ---
+
+## TEST_ID: E2E-025
+- **DATE**: 2026-09-16, continuation pass, per the coordinator's
+  instruction (identifyVersionPoint's standalone resend confirmed
+  harmless/non-blocking after the flags=0x0008 test also showed no
+  change): investigate `Account.handshake` — does the client call it
+  automatically, what's its wire format, and what's the exact trigger.
+  Pure disassembly + existing capture-log reading; no server code/process
+  touched (coordinator retained live access for their own testing).
+
+### Finding 1 (CONFIRMED from capture log): the client has NEVER sent a `handshake`/entity-method call in any capture so far
+Full msgID histogram of all 8,136+ `DECRYPTED` lines in
+`mitm/captures/BASEAPP_LOGIN_CAPTURE.txt` shows only two message types
+with any sustained frequency: `0x0c` (`identifyVersionPoint`, ~5100
+occurrences) and `0x08` (`enableEntities`, ~3000 occurrences, all one
+single repeated packet per E2E-024). Every other byte value appears only
+1-22 times — consistent with garbled/wrong-key decrypts from many
+different reconnect cycles, not a real sustained distinct message type.
+**There is no evidence anywhere in this project's live captures that the
+client has ever attempted to call `Account.handshake`** (or any other
+entity-exposed BaseMethod), despite `createBasePlayer`/`Account`
+creation having succeeded live multiple times.
+
+### Finding 2 (IMPORTANT, re-confirms and sharpens E2E-023/E2E-024): `identifyVersionPoint`'s reply handler never touches script/Python logic at all
+Re-examined `0x94bf48` (`versionPointIdentity`'s handler, already fully
+disassembled in E2E-023) side-by-side with `0x949614` (`restoreClient`'s
+handler, from E2E-021): `restoreClient`'s handler DOES call into a script
+callback (`blr [vtable+0x88]`) with the parsed fields before doing
+anything else; `versionPointIdentity`'s handler does NOT call into script
+logic at all — it purely builds and forwards another native-level message.
+**This means even a "perfect" reply to `identifyVersionPoint` could never
+inform any Python-level state, because the native handler that would
+process our reply never tells script code anything.** This further
+supports (does not merely repeat) E2E-023/E2E-024's conclusion:
+`identifyVersionPoint`/`versionPointIdentity` are very likely a
+pure engine-internal round-trip/keepalive-shaped pair with **zero
+application significance** — completely disconnected from whatever gates
+`handshake`. Confirmed independently by both empirical live-testing
+(coordinator's flags/content A-B tests, both null-result) and this
+structural disassembly comparison.
+
+### Finding 3 (a genuine blocker, not a gap in effort): `handshake`'s numeric wire method ID is very likely NOT recoverable from native disassembly at all
+Searched for any of `"handshake"`, `"Account"`, `"onChannelLogin"`,
+`"uploadABSwitchesConfig"` as literal strings anywhere in
+`libclient_arm64.so` — only `"handshake"` exists, and it is NOT ours (it
+sits in what is almost certainly OpenSSL/TLS code, an unrelated "SSL
+handshake" string, not this entity method). **None of the entity-method
+names appear anywhere in the binary as strings**, unlike the "core"
+Mercury interfaces (`BaseAppExtInterface`/`ClientInterface`), which had a
+full, readable name table for debug/reflection purposes (E2E-022's whole
+registration-order walk depended on that table existing). This is a
+structural, not incidental, difference: BigWorld's core interfaces are
+natively compiled/registered (hence named in the binary); **per-entity
+RPC method IDs (for all ~100+ entity types' Base/Cell/Client methods,
+including `Account.handshake`) are a DATA-DRIVEN numbering scheme,
+resolved from the compiled entity-defs data and/or the Python script
+layer that calls `self.base.handshake(...)`** — matching
+`06_trace/BASEAPP_CELLAPP_FLOW.md`'s own citation that dispatch goes
+through `MethodDescription::addToStream`/`ServerConnection::
+startProxyMessage`, generic plumbing that takes its target method
+identity as a runtime value, not a compile-time constant we can read out
+of `.text`. **The exact numeric wire ID for `handshake` (and any other
+entity-exposed method) cannot be derived from the native `.so` alone** —
+it is very likely fixed by whatever order the Python-side entity-defs
+loader assigns method indices, in the exact same
+cryptographically-blocked `script.npk` this project already documented
+as undecryptable (E2E-003/E2E-004, `RESULT_T11.md`). **This is a new,
+concrete instance of that pre-existing, still-standing blocker directly
+affecting Account/Lobby progress, not a new independent problem.**
+
+### Finding 4 (a real, tractable lead despite Finding 3): `shortEntityMessage`/`longEntityMessage` (ClientInterface msgID 100/101) are structurally distinct from every other named ClientInterface method checked so far
+Re-examined their registration call sites (`0x80e714`/`0x80e738`,
+already captured in the E2E-022 registration-order walk):
+```
+shortEntityMessage (msgID 100): w2=1 (VARIABLE), w3=1 (u8 length prefix), x4=xzr (NO HANDLER)
+longEntityMessage  (msgID 101): w2=1 (VARIABLE), w3=2 (u16 length prefix), x4=xzr (NO HANDLER)
+```
+**Every other named `ClientInterface` method this project has disassembled
+a registration call site for (`versionPointIdentity`, `versionPointSummary`,
+`restoreClient`, `restoreBaseApp`, `loggedOff`, etc.) has a real, non-null
+`x4` handler-struct pointer.** These two are the ONLY ones found so far
+with `x4=xzr` — meaning no message-specific native handler is registered
+for them at all. Combined with their names ("short"/"long" entity
+message) and the already-known rodata string
+`"ClientVarLenMessageHandler::handleMessage Handler for ClientMessage
+(header.length%d) did not consume all data, remain %d bytes"`
+(`0x2a4b0e9`, found in E2E-021), this is **strong, evidence-based support**
+for the standard BigWorld architecture: these two messages are the
+**generic wrapper mechanism for ANY entity-exposed `ClientMethod` call
+that doesn't have a dedicated fixed `ClientInterface` msgID of its own** —
+i.e. exactly the mechanism that would carry `Account.onChannelLogin`/
+`onLogin` pushes FROM us TO the client, encoding
+`[entityID][local method index within that entity type][packed args]`
+internally, dispatched by a shared/default `ClientVarLenMessageHandler`-
+style handler rather than a per-message native function. **Not yet
+confirmed** — the exact internal byte layout (entityID width, method-index
+width/encoding, arg-packing format) was not decoded this pass; that
+requires finding wherever `0x98b30c`'s registration (or the dispatch code
+downstream of it) substitutes a DEFAULT handler when `x4` is null, which
+was not located in the time available this pass.
+
+### RESULT
+- **Not yet solved**: `Account.handshake`'s trigger condition and exact
+  wire format remain open. Finding 1 rules out "the client already tried
+  and we missed it." Finding 2 rules out `identifyVersionPoint` as a
+  plausible gating mechanism for it (independent confirmation from a
+  different angle than the coordinator's own live A/B tests). Finding 3
+  is an honest, disassembly-grounded explanation for WHY handshake's exact
+  numeric ID can't simply be looked up the way this project resolved every
+  other message ID so far (E2E-022's method worked precisely because core
+  interfaces are natively name-tabled; entity methods are not).
+- **A genuinely new, tractable lead** (Finding 4): `shortEntityMessage`/
+  `longEntityMessage` are very likely the generic entity-RPC wrapper the
+  server needs to use to push `onChannelLogin`/`onLogin` to the client —
+  a native-code question (decoding one shared handler's byte format), not
+  a script.npk-blocked one. This is the concrete next disassembly target.
+- `CLIENT_MODIFIED: NO`. No server files or live process touched.
+
+### NEXT_ACTION
+1. Find the generic default handler substituted for `MethodDescription`
+   entries with a null handler pointer (search for where `0x98b30c`'s
+   pushed struct's handler field is read back and checked for
+   null/zero elsewhere in the dispatch chain, or search for direct
+   callers/uses of the `ClientVarLenMessageHandler::handleMessage` string
+   at `0x2a4b0e9`) to decode `shortEntityMessage`/`longEntityMessage`'s
+   exact `[entityID][methodIndex][args]` byte layout.
+2. Once decoded, the practical path forward does NOT require ever solving
+   Finding 3's data-driven-ID problem for `handshake` at all: PUSH
+   `Account.onChannelLogin` (local `ClientMethods` index 2 per
+   `05_entities/out/Account.def.xml`'s declaration order: `0=
+   loadSceneAfterReconnect, 1=onLogin, 2=onChannelLogin, 3=
+   refreshSwitches, 4=refreshForbiddenID, 5=syncServerTime, 6=
+   syncServerTimeZone, 7=onLoginPCServer`) proactively via
+   `shortEntityMessage`/`longEntityMessage`, WITHOUT waiting for or
+   needing to correctly answer `handshake` first — since these are
+   independent one-way pushes, not request/reply-correlated, there is no
+   protocol reason the server must wait for the client's `handshake` call
+   before sending them. This sidesteps Finding 3's blocker entirely for
+   forward progress, even though it leaves the exact meaning of
+   `handshake` itself still unconfirmed.
+3. If `onChannelLogin`'s local-index-2 dispatch via the decoded generic
+   wrapper produces ANY client reaction (UI change, new logcat line, or
+   even a rejection error naming something new), that is strictly more
+   information than has been available so far and should be pursued
+   immediately over further guessing.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
