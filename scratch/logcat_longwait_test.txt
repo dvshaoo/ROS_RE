@@ -1,0 +1,154 @@
+--------- beginning of main
+09-16 23:55:57.716  7099  7099 I chatty  : uid=10065(com.netease.chiji) expire 54 lines
+09-16 23:55:57.746  1490  1490 I deo.decoder.avc: type=1400 audit(0.0:2778): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6867 scontext=u:r:mediacodec:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:55:57.750  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:57.784  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:57.817  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:57.845  8001  8001 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 952 795 
+09-16 23:55:57.845  8001  8001 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-16 23:55:57.847  8001  8001 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:55:57.859  8001  8001 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:55:57.865  8001  8001 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:55:57.883  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:57.889  8001  8001 I app_process: The ClassLoaderContext is a special shared library.
+09-16 23:55:57.889  8001  8001 W app_process: Could not create mount namespace.
+09-16 23:55:57.889  8001  8001 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:55:57.889  8001  8001 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:55:57.889  8001  8001 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-16 23:55:57.889  8001  8001 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:55:57.899  8001  8001 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-16 23:55:57.900  8001  8001 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=692386, downTime=692386, deviceId=3, source=0x1002 }
+09-16 23:55:57.911  8001  8001 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=692386, downTime=692386, deviceId=3, source=0x1002 }
+09-16 23:55:57.924  8001  8001 D AndroidRuntime: Shutting down VM
+09-16 23:55:57.950  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:57.960  7099  7184 E NeoX    : finish get cutOut info
+09-16 23:55:57.983  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:58.383  7099  7099 I chatty  : uid=10065(com.netease.chiji) identical 12 lines
+09-16 23:55:58.416  7099  7099 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:55:58.445  7099  7184 I [23:55:58.445] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-16 23:55:58.448  7099  7184 I [23:55:58.448] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-16 23:55:58.448  7099  7184 I [23:55:58.448] M : [INFO] Nub::recreateListeningSocket 0x76384cd3f000 0.0.0.0:45955
+09-16 23:55:58.452  7099  7184 W IJKMEDIA: IjkMediaPlayer_stop
+09-16 23:55:58.452  7099  7184 W IJKMEDIA: ijkmp_stop()
+09-16 23:55:58.452  7099  7978 W IJKMEDIA: message_loop exit
+09-16 23:55:58.452  7099  7978 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7978]
+09-16 23:55:58.452  7099  7184 W IJKMEDIA: ijkmp_stop()=0
+09-16 23:55:58.452  7099  7184 W IJKMEDIA: IjkMediaPlayer_release
+09-16 23:55:58.452  7099  7184 W IJKMEDIA: ijkmp_set_android_surface(surface=0x0)
+09-16 23:55:58.452  7099  7184 D IJKMEDIA: ffpipeline_set_surface()
+09-16 23:55:58.452  7099  7184 I IJKMEDIA: stream_open--->setsurface time = 11728 ms, video packet count = 11
+09-16 23:55:58.452  7099  7184 W IJKMEDIA: ijkmp_set_android_surface(surface=0x0)=void
+09-16 23:55:58.453  7099  7184 E IJKMEDIA: create async thread(1066206864)
+09-16 23:55:58.453  7099  8011 I IJKMEDIA: SDL_RunThread: [8011] release_tid
+09-16 23:55:58.453  7099  8011 W IJKMEDIA: async_release_android
+09-16 23:55:58.453  7099  8011 W IJKMEDIA: ijkmp_stop_cc_player_stat
+09-16 23:55:58.453  7099  8011 W IJKMEDIA: ijkmp_shutdown_l()
+09-16 23:55:58.455  7099  7994 I IJKMEDIA: MediaCodec: enqueue_thread_func: exit: 0
+09-16 23:55:58.455  7099  7994 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7994]
+09-16 23:55:58.459  7099  7979 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7979]
+09-16 23:55:58.460  7099  7980 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7980]
+09-16 23:55:58.460  7099  8011 W IJKMEDIA: end wait for read_tid
+09-16 23:55:58.460  7099  8011 W IJKMEDIA: begin wait for audio_tid
+09-16 23:55:58.460  7099  7983 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7983]
+09-16 23:55:58.461  7099  8011 W IJKMEDIA: end wait for audio_tid
+09-16 23:55:58.461  7099  8011 W IJKMEDIA: begin wait for ff_aout
+09-16 23:55:58.466  7099  7982 D AudioTrack: stop() called with 563264 frames delivered
+09-16 23:55:58.467  7099  7982 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7982]
+09-16 23:55:58.467  7099  8011 W IJKMEDIA: end wait for ff_aout
+09-16 23:55:58.468  7099  8011 W IJKMEDIA: begin wait for video_tid
+09-16 23:55:58.468  7099  7993 I IJKMEDIA: MediaCodec: func_run_sync: try exit: -1
+09-16 23:55:58.468  7099  7993 W IJKMEDIA: SDL_AMediaCodecJava_stop
+09-16 23:55:58.476  7099  7184 I [23:55:58.476] M : [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 112.22.1.60 to 112.22.1.60:0
+09-16 23:55:58.477  7099  7184 I [23:55:58.477] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=112.22.1.60:23706
+09-16 23:55:58.478  7099  7184 I [23:55:58.478] M : [INFO] Nub::recreateListeningSocket 0x763841b57000 0.0.0.0:36818
+09-16 23:55:58.479  7099  7184 I [23:55:58.479] M : [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
+09-16 23:55:58.479  7099  7989 D SurfaceUtils: disconnecting from surface 0x76383f906010, reason disconnectFromSurface
+09-16 23:55:58.482  7099  7993 I IJKMEDIA: SDL_AMediaCodecJava_delete
+09-16 23:55:58.483  1490  7995 D LDDec   : ~LDDec deinit 0xf5222cd0 0
+09-16 23:55:58.483  1490  7995 D         : freeChannelId holdpipe: 1
+09-16 23:55:58.486  1490  7995 I         : fastpipe: close connect
+09-16 23:55:58.495  7099  7993 I IJKMEDIA: MediaCodec: func_run_sync: exit: -1
+09-16 23:55:58.495  7099  7993 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [7993]
+09-16 23:55:58.496  7099  8011 W IJKMEDIA: end wait for video_tid
+09-16 23:55:58.497  7099  7989 I         : fastpipe: close connect
+09-16 23:55:58.498  7099  8011 W IJKMEDIA: begin wait for video_refresh_tid
+09-16 23:55:58.499  7099  8011 W IJKMEDIA: end wait for video_refresh_tid
+09-16 23:55:58.499  7099  8011 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ca7a1c0)
+09-16 23:55:58.499  7099  8011 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76384ca7a1c0)
+09-16 23:55:58.499  7099  8011 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ca7a260)
+09-16 23:55:58.499  7099  8011 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76384ca7a260)
+09-16 23:55:58.499  7099  8011 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384ca7a3a0)
+09-16 23:55:58.499  7099  8011 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76384ca7a3a0)
+09-16 23:55:58.499  7099  8011 W IJKMEDIA: ijkmp_shutdown_l()=void
+09-16 23:55:58.499  7099  8011 W IJKMEDIA: begin wait for ff_aout
+09-16 23:55:58.499  7099  8011 W IJKMEDIA: end wait for ff_aout
+09-16 23:55:58.500  7099  8011 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [8011]
+09-16 23:55:59.999  1714  1714 I RenderThread: type=1400 audit(0.0:2779): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6869 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:56:00.001  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.001  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+--------- beginning of system
+09-16 23:56:00.002  1564  2382 W SchedPolicy: add_tid_to_cgroup failed to write '2332' (No space left on device); fd=24
+09-16 23:56:00.002  1564  2382 W SchedPolicy: add_tid_to_cgroup failed to write '2332' (No space left on device); fd=25
+09-16 23:56:00.018  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.018  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.032  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.032  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.040  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.040  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.046  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.046  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.054  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.054  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.062  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.062  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.070  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.070  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.077  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.077  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.088  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.088  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:00.101  1564  1578 E memtrack: Couldn't load memtrack module
+09-16 23:56:00.101  1564  1578 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:02.769  7099  7184 I [23:56:02.769] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=112.22.1.60:23706
+09-16 23:56:02.901  7099  7184 I         : 
+09-16 23:56:02.901  7099  7184 I         : ERROR *****************************************************************************
+09-16 23:56:02.901  7099  7184 I [23:56:02.901] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Unable to connect to BaseApp: A NAT or firwall error may have occured?)
+09-16 23:56:02.904  7099  7184 D DCTOOL  : ntStart() queue size (1), current thread=289
+09-16 23:56:02.904  7099  7184 D DCTOOL  : ntStart() after so loaded, current thread=289
+09-16 23:56:02.904  7099  7184 D DCTOOL  : ntStart() with native and reset.
+09-16 23:56:02.904  7099  7184 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-16 23:56:02.905  7099  7184 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-16 23:56:02.905  7099  8012 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-16 23:56:02.905  7099  8012 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-16 23:56:02.905  7099  8012 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-16 23:56:02.906  7099  7099 I Thread-57: type=1400 audit(0.0:2780): avc: denied { open } for path="/proc/cpuinfo" dev="sdb2" ino=393324 scontext=u:r:untrusted_app:s0:c65,c256,c512,c768 tcontext=u:object_r:system_data_file:s0 tclass=file permissive=1
+09-16 23:56:02.909  7099  8012 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-16 23:56:02.910  7099  8012 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4881.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-16 23:56:02.910  7099  8012 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4881.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-16 23:56:02.910  7099  8012 D DCTOOL  : In C++, release the returned string. detach. 
+09-16 23:56:02.910  7099  8012 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-16 23:56:02.910  7099  8012 I DCTOOL  : OSVersion: 9
+09-16 23:56:02.910  7099  8012 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-16 23:56:02.910  7099  8012 I DCTOOL  : Serialno: 00c80dd8
+09-16 23:56:02.948  7099  8012 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-16 23:56:02.948  7099  8012 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-16 23:56:02.948  7099  8012 D DCTOOL  :  NOT RUNNING TIME. 
+09-16 23:56:02.948  7099  8012 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-16 23:56:02.949  7099  8012 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-16 23:56:02.949  7099  8012 D DCTOOL  : OnToolCallback, current thread=339
+09-16 23:56:02.949  7099  8012 D DCTOOL  : onUploadID, current thread=339
+09-16 23:56:02.949  7099  8012 I DcTool  : NOT RUNNING TIME.
+09-16 23:56:02.949  7099  8012 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-16 23:56:02.967  7099  7184 I [23:56:02.967] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: -1948261752
+09-16 23:56:03.788  7099  7184 I NeoXDevice: On App CMD 22
+09-16 23:56:15.576  7099  7184 I [23:56:15.576] M : [AUIDO]freeEventData: ui/ui_close, times: 1
+09-16 23:56:24.819  1564  1572 W System  : A resource failed to call close. 
+09-16 23:56:30.650  1488  1514 E storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+09-16 23:56:24.819  1564  1572 I chatty  : uid=1000(system) FinalizerDaemon identical 23 lines
+09-16 23:56:24.819  1564  1572 W System  : A resource failed to call close. 
+09-16 23:56:37.513  1564  2382 E memtrack: Couldn't load memtrack module
+09-16 23:56:37.513  1564  2382 W android.os.Debug: failed to get memory consumption info: -1
+09-16 23:56:37.560  2029  4170 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 1212048]
+09-16 23:56:37.566  2029  4170 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 1212053]
+09-16 23:56:45.593  7099  7184 I [23:56:45.593] M : [AUIDO]freeEventData: ui/ui_button_play, times: 1
+09-16 23:56:55.993  1564  1572 W System  : A resource failed to call close. 

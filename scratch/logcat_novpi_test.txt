@@ -1,0 +1,1373 @@
+--------- beginning of main
+09-16 23:50:49.600  4123  4123 I chatty  : uid=10065(com.netease.chiji) expire 82 lines
+09-16 23:50:49.657  4123  4123 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:50:49.659  5164  5164 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 952 795 
+09-16 23:50:49.659  5164  5164 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-16 23:50:49.661  5164  5164 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:49.673  5164  5164 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:49.679  5164  5164 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:49.690  4123  4123 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:50:49.700  5164  5164 I app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:49.700  5164  5164 W app_process: Could not create mount namespace.
+09-16 23:50:49.700  5164  5164 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:49.700  5164  5164 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:49.700  5164  5164 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-16 23:50:49.700  5164  5164 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:49.715  5164  5164 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-16 23:50:49.719  5164  5164 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=384202, downTime=384202, deviceId=3, source=0x1002 }
+09-16 23:50:49.724  4123  4123 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:50:49.734  5164  5164 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=384202, downTime=384202, deviceId=3, source=0x1002 }
+09-16 23:50:49.746  5164  5164 D AndroidRuntime: Shutting down VM
+09-16 23:50:49.757  4123  4123 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:50:49.780  4123  4222 E NeoX    : finish get cutOut info
+09-16 23:50:49.790  4123  4123 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:50:50.196  4123  4123 I chatty  : uid=10065(com.netease.chiji) identical 12 lines
+09-16 23:50:50.225  4123  4123 E NeoXCCPlayer: onRequestUpdateTexture
+09-16 23:50:50.256  4123  4222 I [23:50:50.256] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-16 23:50:50.259  4123  4222 I [23:50:50.259] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-16 23:50:50.259  4123  4222 I [23:50:50.259] M : [INFO] Nub::recreateListeningSocket 0x76384d082000 0.0.0.0:46813
+09-16 23:50:50.263  4123  4222 W IJKMEDIA: IjkMediaPlayer_stop
+09-16 23:50:50.263  4123  4222 W IJKMEDIA: ijkmp_stop()
+09-16 23:50:50.263  4123  4222 W IJKMEDIA: ijkmp_stop()=0
+09-16 23:50:50.263  4123  5092 W IJKMEDIA: message_loop exit
+09-16 23:50:50.263  4123  5092 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5092]
+09-16 23:50:50.263  4123  4222 W IJKMEDIA: IjkMediaPlayer_release
+09-16 23:50:50.263  4123  4222 W IJKMEDIA: ijkmp_set_android_surface(surface=0x0)
+09-16 23:50:50.263  4123  4222 D IJKMEDIA: ffpipeline_set_surface()
+09-16 23:50:50.263  4123  4222 I IJKMEDIA: stream_open--->setsurface time = 35316 ms, video packet count = 11
+09-16 23:50:50.263  4123  4222 W IJKMEDIA: ijkmp_set_android_surface(surface=0x0)=void
+09-16 23:50:50.264  4123  4222 E IJKMEDIA: create async thread(1081197968)
+09-16 23:50:50.264  4123  5174 I IJKMEDIA: SDL_RunThread: [5174] release_tid
+09-16 23:50:50.264  4123  5174 W IJKMEDIA: async_release_android
+09-16 23:50:50.264  4123  5174 W IJKMEDIA: ijkmp_stop_cc_player_stat
+09-16 23:50:50.264  4123  5174 W IJKMEDIA: ijkmp_shutdown_l()
+09-16 23:50:50.268  4123  5093 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5093]
+09-16 23:50:50.272  4123  5094 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5094]
+09-16 23:50:50.273  4123  5174 W IJKMEDIA: end wait for read_tid
+09-16 23:50:50.273  4123  5174 W IJKMEDIA: begin wait for audio_tid
+09-16 23:50:50.273  4123  5101 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5101]
+09-16 23:50:50.273  4123  5174 W IJKMEDIA: end wait for audio_tid
+09-16 23:50:50.273  4123  5174 W IJKMEDIA: begin wait for ff_aout
+09-16 23:50:50.273  4123  5100 D AudioTrack: stop() called with 1687680 frames delivered
+09-16 23:50:50.276  4123  5100 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5100]
+09-16 23:50:50.276  4123  5174 W IJKMEDIA: end wait for ff_aout
+09-16 23:50:50.277  4123  5174 W IJKMEDIA: begin wait for video_tid
+09-16 23:50:50.277  4123  5111 I IJKMEDIA: MediaCodec: func_run_sync: try exit: -1
+09-16 23:50:50.282  4123  5112 I IJKMEDIA: MediaCodec: enqueue_thread_func: exit: 0
+09-16 23:50:50.282  4123  5112 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5112]
+09-16 23:50:50.283  4123  5111 W IJKMEDIA: SDL_AMediaCodecJava_stop
+09-16 23:50:50.286  4123  4222 I [23:50:50.286] M : [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 172.16.1.2 to 172.16.1.2:0
+09-16 23:50:50.286  4123  4222 I [23:50:50.286] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=172.16.1.2:25010
+09-16 23:50:50.286  4123  4222 I [23:50:50.286] M : [INFO] Nub::recreateListeningSocket 0x763874f84000 0.0.0.0:17503
+09-16 23:50:50.286  4123  4222 I [23:50:50.286] M : [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
+09-16 23:50:50.287  4123  5107 D SurfaceUtils: disconnecting from surface 0x763840753010, reason disconnectFromSurface
+09-16 23:50:50.289  4123  5111 I IJKMEDIA: SDL_AMediaCodecJava_delete
+09-16 23:50:50.290  1490  1490 D LDDec   : ~LDDec deinit 0xf5222a00 0
+09-16 23:50:50.303  4123  5107 I         : fastpipe: close connect
+09-16 23:50:50.303  4123  5111 I IJKMEDIA: MediaCodec: func_run_sync: exit: -1
+09-16 23:50:50.303  4123  5111 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5111]
+09-16 23:50:50.304  4123  5174 W IJKMEDIA: end wait for video_tid
+09-16 23:50:50.306  4123  5174 W IJKMEDIA: begin wait for video_refresh_tid
+09-16 23:50:50.306  4123  5174 W IJKMEDIA: end wait for video_refresh_tid
+09-16 23:50:50.307  4123  5174 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384fbcf520)
+09-16 23:50:50.307  4123  5174 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76384fbcf520)
+09-16 23:50:50.307  4123  5174 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384fbcf5c0)
+09-16 23:50:50.307  4123  5174 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76384fbcf5c0)
+09-16 23:50:50.307  4123  5174 D IJKMEDIA: SDL_Overlay(MediaCodec) start: overlay_free_l(0x76384fbcf660)
+09-16 23:50:50.307  4123  5174 D IJKMEDIA: SDL_Overlay(MediaCodec): overlay_free_l(0x76384fbcf660)
+09-16 23:50:50.307  4123  5174 W IJKMEDIA: ijkmp_shutdown_l()=void
+09-16 23:50:50.307  4123  5174 W IJKMEDIA: begin wait for ff_aout
+09-16 23:50:50.307  4123  5174 W IJKMEDIA: end wait for ff_aout
+09-16 23:50:50.307  4123  5174 I IJKMEDIA: SDL_JNI_DetachThreadEnv: [5174]
+09-16 23:50:50.351  4123  4222 I [23:50:50.351] M : [INFO] ServerConnection::createBasePlayer: id 1
+09-16 23:50:50.366  5177  5177 I sh      : type=1400 audit(0.0:1613): avc: denied { getattr } for path="/system/xbin/su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 23:50:50.366  5177  5177 I sh      : type=1400 audit(0.0:1614): avc: denied { execute } for name="su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 23:50:50.366  5177  5177 I sh      : type=1400 audit(0.0:1615): avc: denied { read open } for path="/system/xbin/su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 23:50:50.369  1409  1409 I bluetooth@1.0-s: type=1400 audit(0.0:1616): avc: denied { call } for scontext=u:r:init:s0 tcontext=u:r:bluetooth:s0 tclass=binder permissive=1
+09-16 23:50:50.372  5177  5177 I sh      : type=1400 audit(0.0:1617): avc: denied { execute_no_trans } for path="/system/xbin/su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 23:50:50.380  5180  5180 D su      : su invoked.
+09-16 23:50:50.385  4123  4222 I [23:50:50.385] M : [INFO] ServerConnection::logOn: status==LOGGED_ON
+09-16 23:50:50.385  4123  4222 I [23:50:50.385] M : [INFO] ServerConnection::logOn: to:   172.16.1.2:25010
+09-16 23:50:50.386  5181  5181 D su      : starting daemon client 2000 0
+09-16 23:50:50.392  5182  5182 D su      : connecting client 5179
+09-16 23:50:50.395  4123  4222 D DCTOOL  : ntStart() queue size (1), current thread=282
+09-16 23:50:50.395  4123  4222 D DCTOOL  : ntStart() after so loaded, current thread=282
+09-16 23:50:50.395  4123  4222 D DCTOOL  : ntStart() with native and reset.
+09-16 23:50:50.396  4123  4222 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-16 23:50:50.396  4123  4222 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-16 23:50:50.398  5185  5185 D su      : remote pid: 5179
+09-16 23:50:50.399  4123  5186 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-16 23:50:50.399  4123  5186 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-16 23:50:50.399  4123  5186 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-16 23:50:50.410  5187  5187 D su      : remote pts_slave: 
+09-16 23:50:50.415  4123  5186 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-16 23:50:50.416  5190  5190 D su      : remote uid: 2000
+09-16 23:50:50.418  4123  4222 I         : 
+09-16 23:50:50.418  4123  4222 I         : ERROR *****************************************************************************
+09-16 23:50:50.418  4123  4222 I [23:50:50.418] M : [ERROR] Bundle::iterator::unpack( authenticate ): Not enough data on stream at 2 for payload (1 left, needed 4)
+09-16 23:50:50.418  4123  4222 I         : 
+09-16 23:50:50.418  4123  4222 I         : ERROR *****************************************************************************
+09-16 23:50:50.418  4123  4222 I [23:50:50.418] M : [ERROR] Bundle::iterator::unpack: Got corrupted message header
+09-16 23:50:50.418  4123  4222 I         : 
+09-16 23:50:50.418  4123  4222 I         : ERROR *****************************************************************************
+09-16 23:50:50.418  4123  4222 I [23:50:50.418] M : [ERROR] Nub::processOrderedPacket( 172.16.1.2:25010 ): Discarding bundle due to corrupted header for message id 0
+09-16 23:50:50.420  5191  5191 D su      : remote req pid: 2197
+09-16 23:50:50.422  5192  5192 D su      : remote args: 4
+09-16 23:50:50.425  5194  5194 D su      : waiting for child exit
+09-16 23:50:50.426  5196  5196 D su      : su invoked.
+09-16 23:50:50.426  4123  5186 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4828.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-16 23:50:50.426  4123  5186 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4828.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-16 23:50:50.426  4123  5186 D DCTOOL  : In C++, release the returned string. detach. 
+09-16 23:50:50.426  4123  5186 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-16 23:50:50.427  4123  5186 I DCTOOL  : OSVersion: 9
+09-16 23:50:50.427  4123  5186 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-16 23:50:50.427  4123  5186 I DCTOOL  : Serialno: 00c80dd8
+09-16 23:50:50.435  4123  4222 I         : WARNING ***************************************************************************
+09-16 23:50:50.435  4123  4222 I [23:50:50.435] M : [WARNING] MainApp::poll: poll returned unexpectedly (REASON_CORRUPTED_PACKET).
+09-16 23:50:50.442  5197  5197 D su      : Allowing shell.
+09-16 23:50:50.446  5201  5201 D su      : 2000 /system/bin/adbd executing 0 cat using binary cat : cat /proc/4123/maps
+09-16 23:50:50.462  5202  5202 D su      : sending code
+09-16 23:50:50.477  5204  5204 D su      : child exited
+09-16 23:50:50.479  5203  5203 D su      : client exited 0
+09-16 23:50:50.524  1564  1572 W System  : A resource failed to call close. 
+09-16 23:50:50.524  1564  1572 I chatty  : uid=1000(system) FinalizerDaemon identical 24 lines
+09-16 23:50:50.524  1564  1572 W System  : A resource failed to call close. 
+09-16 23:50:50.553  4123  5188 W System.err: java.lang.SecurityException: getSubscriberId
+09-16 23:50:50.553  4123  5188 W System.err: 	at android.os.Parcel.createException(Parcel.java:1967)
+09-16 23:50:50.553  4123  5188 W System.err: 	at android.os.Parcel.readException(Parcel.java:1935)
+09-16 23:50:50.553  4123  5188 W System.err: 	at android.os.Parcel.readException(Parcel.java:1885)
+09-16 23:50:50.553  4123  5188 W System.err: 	at com.android.internal.telephony.IPhoneSubInfo$Stub$Proxy.getSubscriberIdForSubscriber(IPhoneSubInfo.java:578)
+09-16 23:50:50.553  4123  5188 W System.err: 	at android.telephony.TelephonyManager.getSubscriberId(TelephonyManager.java:3097)
+09-16 23:50:50.553  4123  5188 W System.err: 	at android.telephony.TelephonyManager.getSubscriberId(TelephonyManager.java:3080)
+09-16 23:50:50.553  4123  5188 W System.err: 	at com.netease.ntunisdk.base.UniSdkUtils.getMobileIMSI(UniSdkUtils.java:532)
+09-16 23:50:50.553  4123  5188 W System.err: 	at com.netease.ntunisdk.base.ad.run(SdkBase.java:6119)
+09-16 23:50:50.553  4123  5188 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:50.556  5211  5211 D su      : su invoked.
+09-16 23:50:50.559  5200  5200 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command cat --es action allow --user 0 
+09-16 23:50:50.559  5200  5200 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:50.564  5200  5200 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:50.565  5214  5214 D su      : starting daemon client 2000 0
+09-16 23:50:50.568  4123  5188 W System.err: java.lang.SecurityException: getDeviceId
+09-16 23:50:50.568  4123  5188 W System.err: 	at android.os.Parcel.createException(Parcel.java:1967)
+09-16 23:50:50.568  4123  5188 W System.err: 	at android.os.Parcel.readException(Parcel.java:1935)
+09-16 23:50:50.568  4123  5188 W System.err: 	at android.os.Parcel.readException(Parcel.java:1885)
+09-16 23:50:50.568  4123  5188 W System.err: 	at com.android.internal.telephony.ITelephony$Stub$Proxy.getDeviceId(ITelephony.java:5407)
+09-16 23:50:50.568  4123  5188 W System.err: 	at android.telephony.TelephonyManager.getDeviceId(TelephonyManager.java:1244)
+09-16 23:50:50.568  4123  5188 W System.err: 	at com.netease.ntunisdk.base.UniSdkUtils.getMobileIMEI(UniSdkUtils.java:566)
+09-16 23:50:50.568  4123  5188 W System.err: 	at com.netease.ntunisdk.base.ad.run(SdkBase.java:6120)
+09-16 23:50:50.568  4123  5188 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:50.575  5221  5221 D su      : su invoked.
+09-16 23:50:50.581  5222  5222 D su      : su invoked.
+09-16 23:50:50.583  5223  5223 D su      : connecting client 5210
+09-16 23:50:50.585  5225  5225 D su      : starting daemon client 2000 0
+09-16 23:50:50.590  5232  5232 D su      : remote pid: 5210
+09-16 23:50:50.599  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:50.599  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:50.599  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:50.599  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:50.599  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:50.600  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:50.600  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:50.600  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:50.600  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:50.600  4123  4243 W System.err: 	... 20 more
+09-16 23:50:50.600  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:50.600  4123  4243 W System.err: 	... 31 more
+09-16 23:50:50.600  4123  4243 E UniSDK HTTPQ_UniSDK: reach max retry limit, give up
+09-16 23:50:50.600  5200  5200 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:50.606  5200  5200 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:50.615  5233  5233 D su      : remote pts_slave: 
+09-16 23:50:50.616  5229  5229 D su      : connecting client 5219
+09-16 23:50:50.621  5227  5227 D su      : starting daemon client 2000 0
+09-16 23:50:50.629  5248  5248 D su      : remote pid: 5219
+09-16 23:50:50.630  4123  5186 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-16 23:50:50.630  4123  5186 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-16 23:50:50.630  4123  5186 D DCTOOL  :  {"code":0,"msg":"ok"} 
+09-16 23:50:50.630  4123  5186 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-16 23:50:50.630  4123  5186 D DCTOOL  : OnToolCallback : {"code":0,"msg":"ok"}
+09-16 23:50:50.630  4123  5186 D DCTOOL  : OnToolCallback, current thread=321
+09-16 23:50:50.630  4123  5186 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-16 23:50:50.635  5200  5200 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:50.635  5200  5200 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:50.635  5245  5245 D su      : remote uid: 2000
+09-16 23:50:50.635  5200  5200 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:50.635  5200  5200 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:50.635  5254  5254 D su      : su invoked.
+09-16 23:50:50.635  5200  5200 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:50.636  5249  5249 D su      : connecting client 5220
+09-16 23:50:50.641  5275  5275 D su      : remote pid: 5220
+09-16 23:50:50.641  5268  5268 D su      : remote req pid: 5206
+09-16 23:50:50.641  5263  5263 D su      : su invoked.
+09-16 23:50:50.645  5274  5274 D su      : su invoked.
+09-16 23:50:50.646  5276  5276 D su      : remote pts_slave: 
+09-16 23:50:50.646  5200  5200 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:50.650  5281  5281 D su      : su invoked.
+09-16 23:50:50.650  5262  5262 D su      : remote pts_slave: 
+09-16 23:50:50.655  5279  5279 D su      : su invoked.
+09-16 23:50:50.660  5282  5282 D su      : su invoked.
+09-16 23:50:50.661  5289  5289 D su      : remote args: 5
+09-16 23:50:50.668  5297  5297 D su      : starting daemon client 2000 0
+09-16 23:50:50.675  5303  5303 D su      : su invoked.
+09-16 23:50:50.675  5299  5299 D su      : remote uid: 2000
+09-16 23:50:50.681  5296  5296 D su      : starting daemon client 2000 0
+09-16 23:50:50.684  5269  5269 D su      : starting daemon client 2000 0
+09-16 23:50:50.684  5315  5315 D su      : starting daemon client 2000 0
+09-16 23:50:50.685  5309  5309 D su      : starting daemon client 2000 0
+09-16 23:50:50.688  5312  5312 D su      : waiting for child exit
+09-16 23:50:50.690  4123  4145 I m.netease.chij: Background concurrent copying GC freed 63550(3MB) AllocSpace objects, 48(2MB) LOS objects, 50% free, 4MB/9MB, paused 289us total 105.517ms
+09-16 23:50:50.691  5310  5310 D su      : starting daemon client 2000 0
+09-16 23:50:50.693  5323  5323 D su      : su invoked.
+09-16 23:50:50.694  5327  5327 D su      : su invoked.
+09-16 23:50:50.694  5316  5316 D su      : connecting client 5255
+09-16 23:50:50.695  5308  5308 D su      : remote uid: 2000
+09-16 23:50:50.700  5326  5326 D su      : su invoked.
+09-16 23:50:50.701  5328  5328 D su      : su invoked.
+09-16 23:50:50.706  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:50.707  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:50.707  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:50.707  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:50.707  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:50.707  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+--------- beginning of system
+09-16 23:50:50.709  1564  2494 W SchedPolicy: add_tid_to_cgroup failed to write '1912' (No space left on device); fd=24
+09-16 23:50:50.710  5200  5200 D AndroidRuntime: Shutting down VM
+09-16 23:50:50.720  5329  5329 D su      : remote req pid: 5213
+09-16 23:50:50.720  5332  5332 D su      : connecting client 5247
+09-16 23:50:50.721  5338  5338 D su      : su invoked.
+09-16 23:50:50.721  5336  5336 D su      : su invoked.
+09-16 23:50:50.722  5334  5334 D su      : connecting client 5278
+09-16 23:50:50.722  5339  5339 D su      : connecting client 5259
+09-16 23:50:50.722  5331  5331 D su      : starting daemon client 2000 0
+09-16 23:50:50.725  5343  5343 D su      : starting daemon client 2000 0
+09-16 23:50:50.731  5340  5340 D su      : connecting client 5280
+09-16 23:50:50.733  5346  5346 D su      : remote req pid: 5208
+09-16 23:50:50.734  5342  5342 D su      : Allowing shell.
+09-16 23:50:50.736  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:50:50.736  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a245d00, error=EGL_BAD_MATCH
+09-16 23:50:50.737  5362  5362 D su      : su invoked.
+09-16 23:50:50.739  5351  5351 D su      : starting daemon client 2000 0
+09-16 23:50:50.740  5352  5352 D su      : starting daemon client 2000 0
+09-16 23:50:50.742  5348  5348 D su      : remote pid: 5255
+09-16 23:50:50.743  5341  5341 D su      : connecting client 5277
+09-16 23:50:50.743  5350  5350 D su      : remote pid: 5247
+09-16 23:50:50.744  5363  5363 D su      : remote pid: 5259
+09-16 23:50:50.744  5354  5354 D su      : connecting client 5325
+09-16 23:50:50.744  5364  5364 D su      : remote args: 5
+09-16 23:50:50.747  5347  5347 D su      : starting daemon client 2000 0
+09-16 23:50:50.759  5366  5366 D su      : remote pid: 5280
+09-16 23:50:50.762  5345  5345 D su      : starting daemon client 2000 0
+09-16 23:50:50.762  5353  5353 D su      : connecting client 5300
+09-16 23:50:50.765  5361  5361 D su      : remote pid: 5278
+09-16 23:50:50.766  5378  5378 D su      : remote pid: 5277
+09-16 23:50:50.767  5377  5377 D su      : remote pts_slave: 
+09-16 23:50:50.767  5371  5371 D su      : starting daemon client 2000 0
+09-16 23:50:50.768  5379  5379 D su      : remote pts_slave: 
+09-16 23:50:50.769  5382  5382 D su      : waiting for child exit
+09-16 23:50:50.769  5375  5375 D su      : connecting client 5335
+09-16 23:50:50.771  5388  5388 D su      : su invoked.
+09-16 23:50:50.772  5349  5349 D su      : remote args: 5
+09-16 23:50:50.772  5383  5383 D su      : remote pid: 5325
+09-16 23:50:50.773  5380  5380 D su      : remote pts_slave: 
+09-16 23:50:50.774  5374  5374 D su      : connecting client 5330
+09-16 23:50:50.778  5400  5400 D su      : remote pid: 5335
+09-16 23:50:50.779  4123  4143 I         : fastpipe: Connect success
+09-16 23:50:50.782  4123  4143 D HostConnection: HostRPC::connect sucess: app=com.netease.chiji, pid=4123, tid=4143, this=0x763851a64a80
+09-16 23:50:50.784  5392  5392 D su      : remote pid: 5300
+09-16 23:50:50.785  5401  5401 D su      : connecting client 5324
+09-16 23:50:50.786  4123  4143 D HostConnection: queryAndSetGLESMaxVersion select gles-version: 3.1 hostGLVersion:46 process:com.netease.chiji
+09-16 23:50:50.788  5384  5384 D su      : connecting client 5321
+09-16 23:50:50.788  5394  5394 D su      : remote pts_slave: 
+09-16 23:50:50.789  5373  5373 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962718 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:50.793  5389  5389 D su      : remote pts_slave: 
+09-16 23:50:50.794  5408  5408 D su      : remote pid: 5330
+09-16 23:50:50.794  5396  5396 D su      : connecting client 5294
+09-16 23:50:50.796  5405  5405 D su      : waiting for child exit
+09-16 23:50:50.796  5395  5395 D su      : remote uid: 2000
+09-16 23:50:50.797  5393  5393 D su      : remote pts_slave: 
+09-16 23:50:50.800  5419  5419 D su      : su invoked.
+09-16 23:50:50.803  5406  5406 D su      : remote pts_slave: 
+09-16 23:50:50.806  5415  5415 D su      : remote pid: 5321
+09-16 23:50:50.807  5397  5397 D su      : remote uid: 2000
+09-16 23:50:50.810  4123  4143 W IJKMEDIA: IjkMediaPlayer_native_finalize
+09-16 23:50:50.810  4123  4143 W IJKMEDIA: IjkMediaPlayer_release
+09-16 23:50:50.813  5407  5407 D su      : remote uid: 2000
+09-16 23:50:50.817  5412  5412 D su      : remote pts_slave: 
+09-16 23:50:50.819  5414  5414 D su      : remote pid: 5324
+09-16 23:50:50.820  5424  5424 D su      : remote req pid: 5235
+09-16 23:50:50.821  5425  5425 D su      : remote uid: 2000
+09-16 23:50:50.821  5411  5411 D su      : remote pts_slave: 
+09-16 23:50:50.824  5428  5428 D su      : remote pts_slave: 
+09-16 23:50:50.825  5421  5421 D su      : remote uid: 2000
+09-16 23:50:50.826  5422  5422 D su      : remote pts_slave: 
+09-16 23:50:50.833  5413  5413 D su      : Allowing shell.
+09-16 23:50:50.837  5436  5436 D su      : remote uid: 2000
+09-16 23:50:50.839  5432  5432 D su      : remote pts_slave: 
+09-16 23:50:50.840  5431  5431 D su      : remote uid: 2000
+09-16 23:50:50.840  5416  5416 D su      : remote uid: 2000
+09-16 23:50:50.847  5434  5434 D su      : remote req pid: 5253
+09-16 23:50:50.855  5443  5443 D su      : remote req pid: 5242
+09-16 23:50:50.856  5427  5427 D su      : Allowing shell.
+09-16 23:50:50.857  5437  5437 D su      : remote req pid: 5257
+09-16 23:50:50.859  5442  5442 D su      : remote req pid: 5291
+09-16 23:50:50.859  5426  5426 D su      : remote uid: 2000
+09-16 23:50:50.861  5423  5423 D su      : remote pid: 5294
+09-16 23:50:50.865  5440  5440 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962522 count=16 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:50.867  5430  5430 D su      : remote req pid: 5239
+09-16 23:50:50.874  5438  5438 D su      : remote uid: 2000
+09-16 23:50:50.875  5372  5372 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:50.875  5372  5372 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:50.877  5446  5446 D su      : remote args: 5
+09-16 23:50:50.878  5372  5372 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:50.879  5433  5433 D su      : remote args: 5
+09-16 23:50:50.884  5429  5429 D su      : remote req pid: 5216
+09-16 23:50:50.889  5447  5447 D su      : remote req pid: 5302
+09-16 23:50:50.891  5445  5445 D su      : remote args: 5
+09-16 23:50:50.891  5458  5458 D su      : waiting for child exit
+09-16 23:50:50.894  5462  5462 D su      : su invoked.
+09-16 23:50:50.895  5372  5372 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:50.899  5448  5448 D su      : remote pts_slave: 
+09-16 23:50:50.901  5372  5372 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:50.902  5459  5459 D su      : remote args: 5
+09-16 23:50:50.902  5463  5463 D su      : remote args: 5
+09-16 23:50:50.906  5441  5441 D su      : remote req pid: 5261
+09-16 23:50:50.907  5435  5435 D su      : remote uid: 2000
+09-16 23:50:50.909  5472  5472 D su      : waiting for child exit
+09-16 23:50:50.909  5469  5469 D su      : remote uid: 2000
+09-16 23:50:50.910  5473  5473 D su      : waiting for child exit
+09-16 23:50:50.911  5444  5444 D su      : remote args: 5
+09-16 23:50:50.911  5449  5449 D su      : remote args: 5
+09-16 23:50:50.912  5466  5466 D su      : Allowing shell.
+09-16 23:50:50.912  5452  5452 D su      : sending code
+09-16 23:50:50.912  5468  5468 D su      : su invoked.
+09-16 23:50:50.913  5460  5460 D su      : remote args: 5
+09-16 23:50:50.913  5454  5454 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962512 count=8 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:50.916  5486  5486 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963130 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:50.921  5476  5476 D su      : remote req pid: 5286
+09-16 23:50:50.921  5487  5487 D su      : client exited 1
+09-16 23:50:50.922  5484  5484 D su      : waiting for child exit
+09-16 23:50:50.925  5475  5475 D su      : remote req pid: 5306
+09-16 23:50:50.927  5474  5474 D su      : remote args: 5
+09-16 23:50:50.927  5489  5489 D su      : Allowing shell.
+09-16 23:50:50.929  5455  5455 D su      : remote uid: 2000
+09-16 23:50:50.930  5501  5501 D su      : su invoked.
+09-16 23:50:50.931  5508  5508 D su      : waiting for child exit
+09-16 23:50:50.934  5511  5511 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962708 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:50.934  5513  5513 D su      : remote req pid: 5295
+09-16 23:50:50.938  5515  5515 D su      : su invoked.
+09-16 23:50:50.942  5499  5499 D su      : remote args: 5
+09-16 23:50:50.942  5465  5465 D su      : waiting for child exit
+09-16 23:50:50.944  5516  5516 D su      : remote args: 5
+09-16 23:50:50.945  5482  5482 D su      : waiting for child exit
+09-16 23:50:50.946  5520  5520 D su      : waiting for child exit
+09-16 23:50:50.947  5502  5502 D su      : su invoked.
+09-16 23:50:50.949  5530  5530 D su      : su invoked.
+09-16 23:50:50.950  5503  5503 D su      : su invoked.
+09-16 23:50:50.950  5504  5504 D su      : su invoked.
+09-16 23:50:50.953  5372  5372 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:50.953  5372  5372 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:50.953  5529  5529 D su      : su invoked.
+09-16 23:50:50.953  5372  5372 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:50.953  5372  5372 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:50.953  5372  5372 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:50.957  5534  5534 D su      : Allowing shell.
+09-16 23:50:50.957  5537  5537 D su      : Allowing shell.
+09-16 23:50:50.960  5526  5526 D su      : waiting for child exit
+09-16 23:50:50.965  5535  5535 D su      : Allowing shell.
+09-16 23:50:50.967  5505  5505 D su      : remote args: 5
+09-16 23:50:50.968  5372  5372 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:50.968  5479  5479 D su      : waiting for child exit
+09-16 23:50:50.976  5550  5550 D su      : su invoked.
+09-16 23:50:50.978  5478  5478 D su      : remote req pid: 5288
+09-16 23:50:50.978  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:50.978  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:50.978  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:50.978  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:50.978  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:50.978  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:50.979  5547  5547 D su      : waiting for child exit
+09-16 23:50:50.982  5372  5372 D AndroidRuntime: Shutting down VM
+09-16 23:50:50.984  5552  5552 D su      : Allowing shell.
+09-16 23:50:50.984  5543  5543 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963210 count=12 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:50.985  5491  5491 D su      : waiting for child exit
+09-16 23:50:50.986  5514  5514 D su      : Allowing shell.
+09-16 23:50:50.989  5488  5488 D su      : child exited
+09-16 23:50:50.990  5522  5522 D su      : Allowing shell.
+09-16 23:50:50.993  5509  5509 D su      : su invoked.
+09-16 23:50:50.999  5524  5524 D su      : su invoked.
+09-16 23:50:51.003  5533  5533 D su      : Allowing shell.
+09-16 23:50:51.008  5554  5554 D su      : remote args: 5
+09-16 23:50:51.011  4123  4222 I NeoXDevice: On App CMD 22
+09-16 23:50:51.021  5560  5560 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963528 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.024  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.024  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.024  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.024  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.024  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.024  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.024  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.024  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.024  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.024  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.024  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.030  5545  5545 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963554 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.033  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.034  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.034  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.034  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.034  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.034  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.034  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.034  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.034  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.034  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.034  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.051  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.051  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.051  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.051  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.051  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.051  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.051  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.051  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.051  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.051  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.051  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.057  5531  5531 D su      : Allowing shell.
+09-16 23:50:51.060  5569  5569 D su      : waiting for child exit
+09-16 23:50:51.066  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.066  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.066  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.066  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.066  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.066  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.066  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.066  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.066  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.066  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.066  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.069  5561  5561 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963088 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.073  5563  5563 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962812 count=4 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.074  5564  5564 D su      : Allowing shell.
+09-16 23:50:51.078  5582  5582 D su      : sending code
+09-16 23:50:51.087  5565  5565 D su      : Allowing shell.
+09-16 23:50:51.087  5567  5567 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962498 count=10 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.094  5590  5590 D su      : sending code
+09-16 23:50:51.094  5593  5593 D su      : client exited 1
+09-16 23:50:51.099  5592  5592 D su      : child exited
+09-16 23:50:51.101  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.101  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.101  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.101  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.101  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.101  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.101  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.101  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.101  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.101  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.101  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.107  5585  5585 D su      : su invoked.
+09-16 23:50:51.108  5574  5574 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962118 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.116  5595  5595 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962836 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.125  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.125  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.125  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.125  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.125  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.125  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.125  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.125  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.125  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.125  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.125  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.126  5581  5581 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963686 count=4 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.144  5578  5578 D su      : sending code
+09-16 23:50:51.150  5613  5613 D su      : child exited
+09-16 23:50:51.152  5579  5579 D su      : sending code
+09-16 23:50:51.154  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.154  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.154  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.154  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.154  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.154  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.154  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.154  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.154  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.154  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.154  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.155  5615  5615 D su      : child exited
+09-16 23:50:51.155  5601  5601 D su      : Allowing shell.
+09-16 23:50:51.156  5587  5587 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963054 count=4 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.158  5616  5616 D su      : client exited 1
+09-16 23:50:51.162  5614  5614 D su      : client exited 1
+09-16 23:50:51.179  4123  4243 W System.err: javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:229)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectTls(RealConnection.java:192)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connectSocket(RealConnection.java:149)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.io.RealConnection.connect(RealConnection.java:112)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findConnection(StreamAllocation.java:184)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.findHealthyConnection(StreamAllocation.java:126)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.http.StreamAllocation.newStream(StreamAllocation.java:95)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.connect(HttpEngine.java:281)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.http.HttpEngine.sendRequest(HttpEngine.java:224)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.execute(HttpURLConnectionImpl.java:466)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.connect(HttpURLConnectionImpl.java:132)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpURLConnectionImpl.getOutputStream(HttpURLConnectionImpl.java:263)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.DelegatingHttpsURLConnection.getOutputStream(DelegatingHttpsURLConnection.java:218)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.android.okhttp.internal.huc.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:26)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.HTTPDo(HTTPQueue.java:491)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.send(HTTPQueue.java:411)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue.access$400(HTTPQueue.java:31)
+09-16 23:50:51.179  4123  4243 W System.err: 	at com.netease.ntunisdk.base.utils.HTTPQueue$QueueItemRunnable.run(HTTPQueue.java:566)
+09-16 23:50:51.179  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-16 23:50:51.179  4123  4243 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-16 23:50:51.179  4123  4243 W System.err: 	at java.lang.Thread.run(Thread.java:764)
+09-16 23:50:51.180  4123  4243 W System.err: Caused by: java.security.cert.CertificateException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrustedRecursive(TrustManagerImpl.java:646)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:495)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.checkTrusted(TrustManagerImpl.java:418)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.TrustManagerImpl.getTrustedChainForServer(TrustManagerImpl.java:339)
+09-16 23:50:51.180  4123  4243 W System.err: 	at android.security.net.config.NetworkSecurityTrustManager.checkServerTrusted(NetworkSecurityTrustManager.java:94)
+09-16 23:50:51.180  4123  4243 W System.err: 	at android.security.net.config.RootTrustManager.checkServerTrusted(RootTrustManager.java:88)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.Platform.checkServerTrusted(Platform.java:208)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.verifyCertificateChain(ConscryptFileDescriptorSocket.java:404)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeCrypto.SSL_do_handshake(Native Method)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.NativeSsl.doHandshake(NativeSsl.java:375)
+09-16 23:50:51.180  4123  4243 W System.err: 	at com.android.org.conscrypt.ConscryptFileDescriptorSocket.startHandshake(ConscryptFileDescriptorSocket.java:224)
+09-16 23:50:51.180  4123  4243 W System.err: 	... 20 more
+09-16 23:50:51.180  4123  4243 W System.err: Caused by: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found.
+09-16 23:50:51.180  4123  4243 W System.err: 	... 31 more
+09-16 23:50:51.180  5620  5620 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123963582 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.192  5612  5612 D su      : sending code
+09-16 23:50:51.192  5617  5617 D su      : child exited
+09-16 23:50:51.197  5627  5627 D su      : sending code
+09-16 23:50:51.197  5618  5618 D su      : client exited 1
+09-16 23:50:51.202  5629  5629 D su      : child exited
+09-16 23:50:51.203  5626  5626 D su      : sending code
+09-16 23:50:51.207  5610  5610 D su      : sending code
+09-16 23:50:51.212  5632  5632 D su      : client exited 1
+09-16 23:50:51.215  5631  5631 D su      : child exited
+09-16 23:50:51.219  5630  5630 D su      : client exited 1
+09-16 23:50:51.224  5633  5633 D su      : client exited 1
+09-16 23:50:51.228  5634  5634 D su      : child exited
+09-16 23:50:51.235  5637  5637 D su      : client exited 1
+09-16 23:50:51.239  5635  5635 D su      : sending code
+09-16 23:50:51.242  5542  5542 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.242  5542  5542 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.247  5639  5639 D su      : client exited 1
+09-16 23:50:51.248  5542  5542 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.250  5638  5638 D su      : child exited
+09-16 23:50:51.254  5640  5640 D su      : sending code
+09-16 23:50:51.257  5636  5636 D su      : child exited
+09-16 23:50:51.268  5642  5642 D su      : child exited
+09-16 23:50:51.270  5542  5542 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.271  5641  5641 D su      : client exited 1
+09-16 23:50:51.275  5643  5643 D su      : sending code
+09-16 23:50:51.276  5542  5542 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.283  5580  5580 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.283  5580  5580 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.288  5580  5580 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.293  5646  5646 D su      : sending code
+09-16 23:50:51.293  5644  5644 D su      : client exited 1
+09-16 23:50:51.299  5558  5558 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.299  5558  5558 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.301  5558  5558 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.301  5647  5647 D su      : sending code
+09-16 23:50:51.305  5645  5645 D su      : child exited
+09-16 23:50:51.313  5648  5648 D su      : child exited
+09-16 23:50:51.316  5580  5580 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.317  5651  5651 D su      : client exited 1
+09-16 23:50:51.318  5542  5542 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.318  5542  5542 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.318  5542  5542 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.318  5542  5542 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.318  5542  5542 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.320  5649  5649 D su      : client exited 1
+09-16 23:50:51.320  5650  5650 D su      : child exited
+09-16 23:50:51.322  5580  5580 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.330  5658  5658 D su      : sending code
+09-16 23:50:51.334  5659  5659 D su      : child exited
+09-16 23:50:51.338  5542  5542 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.347  5660  5660 D su      : client exited 1
+09-16 23:50:51.348  5580  5580 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.348  5580  5580 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.349  5580  5580 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.349  5580  5580 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.349  5580  5580 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.360  5580  5580 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.361  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.361  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.361  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.361  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.361  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.361  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.363  5542  5542 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.372  5580  5580 I main    : type=1400 audit(0.0:1722): avc: denied { call } for scontext=u:r:su:s0 tcontext=u:r:system_server:s0 tclass=binder permissive=1
+09-16 23:50:51.376  5580  5580 I main    : type=1400 audit(0.0:1723): avc: denied { transfer } for scontext=u:r:su:s0 tcontext=u:r:system_server:s0 tclass=binder permissive=1
+09-16 23:50:51.376  1408  1408 I writer  : type=1400 audit(0.0:1724): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6867 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:51.380  5558  5558 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.388  5558  5558 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.393  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.393  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.393  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.393  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.393  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.393  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.394  5580  5580 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.416  5671  5671 D su      : sending code
+09-16 23:50:51.428  5673  5673 D su      : client exited 1
+09-16 23:50:51.431  5672  5672 D su      : child exited
+09-16 23:50:51.439  5594  5594 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.439  5594  5594 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.441  5594  5594 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.444  5566  5566 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.444  5566  5566 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.446  5566  5566 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.458  5566  5566 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.467  5566  5566 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.490  5566  5566 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.491  5566  5566 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.491  5566  5566 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.491  5566  5566 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.491  5566  5566 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.495  5558  5558 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.495  5558  5558 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.495  5558  5558 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.495  5558  5558 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.495  5558  5558 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.495  5682  5682 D su      : su invoked.
+09-16 23:50:51.499  5684  5684 D su      : starting daemon client 2000 0
+09-16 23:50:51.501  5439  5439 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.501  5439  5439 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.503  5691  5691 D su      : connecting client 5681
+09-16 23:50:51.503  5594  5594 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.504  5453  5453 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.504  5453  5453 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.506  5453  5453 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.509  5594  5594 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.514  5566  5566 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.516  5694  5694 D su      : remote pid: 5681
+09-16 23:50:51.518  5439  5439 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.522  5701  5701 D su      : remote pts_slave: 
+09-16 23:50:51.524  5562  5562 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.524  5562  5562 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.525  5703  5703 D su      : remote uid: 2000
+09-16 23:50:51.528  5704  5704 D su      : remote req pid: 5674
+09-16 23:50:51.529  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.529  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.529  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.529  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.529  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.529  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.531  5566  5566 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.542  5485  5485 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.545  5485  5485 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.546  5562  5562 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.548  5705  5705 D su      : remote args: 5
+09-16 23:50:51.549  5558  5558 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.552  5706  5706 D su      : su invoked.
+09-16 23:50:51.555  5708  5708 D su      : waiting for child exit
+09-16 23:50:51.556  5544  5544 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.556  5544  5544 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.558  5485  5485 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.558  5710  5710 D su      : starting daemon client 2000 0
+09-16 23:50:51.563  5544  5544 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.566  5714  5714 D su      : connecting client 5699
+09-16 23:50:51.567  5713  5713 D su      : su invoked.
+09-16 23:50:51.572  5718  5718 D su      : remote pid: 5699
+09-16 23:50:51.572  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.572  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.572  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.572  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.572  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.572  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.574  5558  5558 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.579  5719  5719 D su      : remote pts_slave: 
+09-16 23:50:51.583  5720  5720 D su      : remote uid: 2000
+09-16 23:50:51.584  5619  5619 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.584  5619  5619 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.584  5439  5439 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.587  5721  5721 D su      : remote req pid: 5677
+09-16 23:50:51.591  5722  5722 D su      : remote args: 5
+09-16 23:50:51.595  5717  5717 D su      : Allowing shell.
+09-16 23:50:51.596  5439  5439 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.599  5724  5724 D su      : waiting for child exit
+09-16 23:50:51.599  5619  5619 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.601  5510  5510 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.601  5510  5510 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.602  5453  5453 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.608  5562  5562 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.608  5453  5453 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.619  5594  5594 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.619  5594  5594 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.620  5728  5728 D su      : su invoked.
+09-16 23:50:51.620  5594  5594 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.620  5594  5594 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.620  5594  5594 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.620  5726  5726 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962246 count=252 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.621  5510  5510 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.622  5485  5485 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.625  5562  5562 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.629  5544  5544 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.633  5485  5485 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.634  5619  5619 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.636  5731  5731 D su      : Allowing shell.
+09-16 23:50:51.644  5619  5619 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.645  5544  5544 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.645  5510  5510 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.659  5733  5733 I sh      : type=1400 audit(0.0:1725): avc: denied { execute_no_trans } for path="/system/bin/grep" dev="sda2" ino=1801 scontext=u:r:su:s0 tcontext=u:object_r:system_file:s0 tclass=file permissive=1
+09-16 23:50:51.659  5594  5594 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.677  5586  5586 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.677  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.677  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.677  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.677  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.677  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.677  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.678  5586  5586 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.679  5594  5594 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.680  5586  5586 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.681  5510  5510 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.681  5594  5742 W /system/bin/app_process: Thread attaching while runtime is shutting down: Binder:5594_2
+09-16 23:50:51.681  5594  5742 I AndroidRuntime: NOTE: attach of thread 'Binder:5594_2' failed
+09-16 23:50:51.683  5740  5740 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/4123/mem bs=1048576 skip=123962546 count=128 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 23:50:51.687  5559  5559 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.688  5559  5559 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.693  5573  5573 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.693  5573  5573 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.701  5573  5573 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.703  5559  5559 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.704  5439  5439 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.706  5439  5439 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.707  5439  5439 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.707  5439  5439 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.707  5439  5439 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.711  5453  5453 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.711  5453  5453 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.712  5453  5453 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.712  5453  5453 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.712  5453  5453 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.719  5562  5562 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.720  5562  5562 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.720  5562  5562 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.721  5619  5619 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.721  5619  5619 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.721  5619  5619 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.721  5619  5619 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.721  5619  5619 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.728  5562  5562 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.728  5562  5562 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.734  5485  5485 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.734  5485  5485 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.735  5485  5485 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.735  5485  5485 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.735  5485  5485 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.740  5586  5586 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.741  5544  5544 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.741  5544  5544 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.741  5544  5544 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.741  5544  5544 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.741  5544  5544 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.742  5439  5439 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.756  5619  5619 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.759  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.759  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.759  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.759  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.759  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.759  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.763  5559  5559 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.763  5586  5586 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.764  5453  5453 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.773  5439  5439 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.777  5439  5770 W /system/bin/app_process: Thread attaching while runtime is shutting down: Binder:5439_1
+09-16 23:50:51.777  5439  5770 I AndroidRuntime: NOTE: attach of thread 'Binder:5439_1' failed
+09-16 23:50:51.778  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.778  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.778  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.778  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.778  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.778  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.778  5559  5559 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.779  5784  5784 D su      : sending code
+09-16 23:50:51.780  5619  5619 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.783  5562  5562 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.787  5485  5485 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.790  5544  5544 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.795  5789  5789 D su      : client exited 0
+09-16 23:50:51.795  5573  5573 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.796  5788  5788 D su      : child exited
+09-16 23:50:51.801  5510  5510 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.802  5510  5510 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.802  5510  5510 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.802  5510  5510 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.802  5510  5510 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.802  5573  5573 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.830  5510  5510 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.832  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.832  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.832  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.832  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.832  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.832  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.838  5453  5453 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.843  5586  5586 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.843  5573  5573 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.844  5573  5573 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.844  5586  5586 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.844  5573  5573 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.844  5573  5573 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.844  5573  5573 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.844  5586  5586 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.844  5586  5586 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.844  5586  5586 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.846  5559  5559 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.846  5559  5559 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.846  5559  5559 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.846  5559  5559 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.846  5559  5559 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.852  5573  5573 I main    : type=1400 audit(0.0:1726): avc: denied { call } for scontext=u:r:su:s0 tcontext=u:r:servicemanager:s0 tclass=binder permissive=1
+09-16 23:50:51.854  5725  5725 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.854  5725  5725 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.855  5573  5573 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.862  5828  5828 D su      : su invoked.
+09-16 23:50:51.866  5829  5829 D su      : starting daemon client 2000 0
+09-16 23:50:51.869  5559  5559 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.870  5586  5586 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:51.870  5725  5725 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.871  5830  5830 D su      : connecting client 5827
+09-16 23:50:51.872  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.872  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.872  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.872  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.872  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.872  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.874  5562  5562 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.878  5838  5838 D su      : remote pid: 5827
+09-16 23:50:51.884  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.885  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.885  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.885  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.885  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.885  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.887  5544  5544 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.888  5839  5839 D su      : remote pts_slave: /dev/pts/1
+09-16 23:50:51.896  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.896  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.896  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.896  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.896  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.896  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.898  5485  5485 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.900  5739  5739 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 23:50:51.900  5739  5739 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:51.900  5840  5840 D su      : remote uid: 2000
+09-16 23:50:51.905  5739  5739 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:51.906  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.906  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.906  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.906  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.906  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.906  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.908  5510  5510 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.921  5725  5725 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.924  5841  5841 D su      : remote req pid: 5804
+09-16 23:50:51.928  5842  5842 D su      : remote args: 7
+09-16 23:50:51.929  5725  5725 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.930  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.930  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.930  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.930  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.930  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.930  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.933  5573  5573 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.935  5846  5846 D su      : daemon: stdin using PTY
+09-16 23:50:51.937  5739  5739 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:51.940  5844  5844 D su      : waiting for child exit
+09-16 23:50:51.945  5739  5739 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:51.948  5847  5847 D su      : daemon: stdout using PTY
+09-16 23:50:51.953  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.953  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.953  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.953  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.953  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.953  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.955  5725  5725 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.956  5725  5725 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.956  5725  5725 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.956  5725  5725 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.956  5725  5725 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.958  5586  5586 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.962  5849  5849 D su      : su invoked.
+09-16 23:50:51.967  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:51.967  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:51.967  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:51.967  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:51.967  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:51.967  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:51.969  5559  5559 D AndroidRuntime: Shutting down VM
+09-16 23:50:51.985  5739  5739 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:51.985  5739  5739 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:51.985  5739  5739 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.985  5739  5739 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:51.985  5739  5739 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:51.991  5853  5853 D su      : Allowing shell.
+09-16 23:50:52.004  5860  5860 D su      : 2000 /system/bin/sh executing 0 dd using binary dd : dd if=/proc/4123/mem bs=1048576 skip=123962546 count=128
+09-16 23:50:52.005  5739  5739 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:52.010  5725  5725 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:52.028  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:52.029  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:52.029  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:52.029  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:52.029  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:52.029  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:52.032  5739  5739 D AndroidRuntime: Shutting down VM
+09-16 23:50:52.058  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:52.058  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:52.058  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:52.058  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:52.058  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:52.058  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:52.062  5725  5725 D AndroidRuntime: Shutting down VM
+09-16 23:50:52.125  5859  5859 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command dd --es action allow --user 0 
+09-16 23:50:52.126  5859  5859 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 23:50:52.130  5859  5859 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 23:50:52.147  5859  5859 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 23:50:52.153  5859  5859 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 23:50:52.190  5859  5859 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 23:50:52.190  5859  5859 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 23:50:52.190  5859  5859 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 23:50:52.190  5859  5859 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 23:50:52.190  5859  5859 D nativebridge: call UnloadNativeBridge! state=2
+09-16 23:50:52.207  5859  5859 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 23:50:52.221  1912  1912 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 23:50:52.221  1912  1912 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 23:50:52.221  1912  1912 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 23:50:52.221  1912  1912 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 23:50:52.221  1912  1912 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 23:50:52.221  1912  1912 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 23:50:52.223  5859  5859 D AndroidRuntime: Shutting down VM
+09-16 23:50:52.450  5877  5877 D su      : sending code
+09-16 23:50:52.455  5879  5879 D su      : client exited 1
+09-16 23:50:52.457  5878  5878 D su      : child exited
+09-16 23:50:52.725  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@5a24342
+09-16 23:50:52.729  1418  1418 I allocator@2.0-s: type=1400 audit(0.0:1739): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6867 scontext=u:r:hal_graphics_allocator_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:52.729  1419  1419 I HwBinder:1419_2: type=1400 audit(0.0:1740): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6867 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:52.730  1431  1465 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-16 23:50:52.736  1418  1418 I allocator@2.0-s: type=1400 audit(0.0:1741): avc: denied { read write } for name="fastpipe" dev="tmpfs" ino=3083 scontext=u:r:hal_graphics_allocator_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:52.736  1418  1418 I allocator@2.0-s: type=1400 audit(0.0:1742): avc: denied { open } for path="/dev/fastpipe" dev="tmpfs" ino=3083 scontext=u:r:hal_graphics_allocator_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:52.823  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:50:52.823  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a306f00, error=EGL_BAD_MATCH
+09-16 23:50:52.846  1431  1654 W SurfaceFlinger: Attempting to destroy on removed layer: 9534482 Toast#0
+09-16 23:50:52.849  1431  1431 I surfaceflinger: type=1400 audit(0.0:1743): avc: denied { read write } for path="/dev/fastpipe" dev="tmpfs" ino=3083 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:54.215  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:50:54.387  4123  4222 D DCTOOL  : ntStart() queue size (1), current thread=282
+09-16 23:50:54.387  4123  4222 D DCTOOL  : ntStart() after so loaded, current thread=282
+09-16 23:50:54.387  4123  4222 D DCTOOL  : ntStart() with native and reset.
+09-16 23:50:54.388  4123  4222 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-16 23:50:54.388  4123  4222 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-16 23:50:54.388  4123  5880 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-16 23:50:54.388  4123  5880 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-16 23:50:54.388  4123  5880 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-16 23:50:54.402  4123  5880 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-16 23:50:54.403  4123  5880 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4829.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-16 23:50:54.403  4123  5880 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4829.3","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-16 23:50:54.403  4123  5880 D DCTOOL  : In C++, release the returned string. detach. 
+09-16 23:50:54.404  4123  5880 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-16 23:50:54.404  4123  5880 I DCTOOL  : OSVersion: 9
+09-16 23:50:54.404  4123  5880 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-16 23:50:54.404  4123  5880 I DCTOOL  : Serialno: 00c80dd8
+09-16 23:50:54.463  4123  5880 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-16 23:50:54.463  4123  5880 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-16 23:50:54.463  4123  5880 D DCTOOL  :  {"code":0,"msg":"ok"} 
+09-16 23:50:54.463  4123  5880 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-16 23:50:54.463  4123  5880 D DCTOOL  : OnToolCallback : {"code":0,"msg":"ok"}
+09-16 23:50:54.463  4123  5880 D DCTOOL  : OnToolCallback, current thread=323
+09-16 23:50:54.463  4123  5880 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-16 23:50:54.725  1564  3521 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@def04c1
+09-16 23:50:54.749  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:50:54.750  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a245780, error=EGL_BAD_MATCH
+09-16 23:50:54.850  1431  1464 W SurfaceFlinger: Attempting to destroy on removed layer: 3a36090 Toast#0
+09-16 23:50:55.312  1431  1431 I surfaceflinger: type=1400 audit(0.0:1744): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6867 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:56.228  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:50:56.740  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@f1045ec
+09-16 23:50:56.744  1431  1654 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-16 23:50:56.752  1418  1418 I allocator@2.0-s: type=1400 audit(0.0:1745): avc: denied { read write } for path="/dev/fastpipe" dev="tmpfs" ino=3083 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:56.752  1431  1431 I Binder:1431_3: type=1400 audit(0.0:1746): avc: denied { getattr } for path="/dev/fastpipe" dev="tmpfs" ino=3083 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:50:56.759  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:50:56.759  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a245980, error=EGL_BAD_MATCH
+09-16 23:50:58.205  4123  4222 I [23:50:58.205] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: -1948261752
+09-16 23:50:58.229  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:50:58.548  1564  1572 W System  : A resource failed to call close. 
+09-16 23:50:58.552  1564  1572 I chatty  : uid=1000(system) FinalizerDaemon identical 24 lines
+09-16 23:50:58.552  1564  1572 W System  : A resource failed to call close. 
+09-16 23:50:58.742  1564  3521 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@6e09333
+09-16 23:50:58.763  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:50:58.763  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a245d80, error=EGL_BAD_MATCH
+09-16 23:50:58.862  1431  1654 W SurfaceFlinger: Attempting to destroy on removed layer: 2f0bc4a Toast#0
+09-16 23:50:59.562  1428  1428 I ldinit  : type=1400 audit(0.0:1747): avc: denied { read } for name="partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-16 23:50:59.562  1428  1428 I ldinit  : type=1400 audit(0.0:1748): avc: denied { open } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-16 23:50:59.562  1428  1428 I ldinit  : type=1400 audit(0.0:1749): avc: denied { getattr } for path="/proc/partitions" dev="proc" ino=4026532046 scontext=u:r:ldinit:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
+09-16 23:51:00.007  1564  1616 W SchedPolicy: add_tid_to_cgroup failed to write '2332' (No space left on device); fd=24
+09-16 23:51:00.011  1564  1616 W SchedPolicy: add_tid_to_cgroup failed to write '2332' (No space left on device); fd=25
+09-16 23:51:00.042  1714  1714 I RenderThread: type=1400 audit(0.0:1750): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3083 ioctlcmd=6869 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 23:51:00.244  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:51:00.754  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@16b8187
+09-16 23:51:00.758  1431  2128 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-16 23:51:00.772  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:51:00.773  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x763888874680, error=EGL_BAD_MATCH
+09-16 23:51:00.878  1431  1465 W SurfaceFlinger: Attempting to destroy on removed layer: acb2469 Toast#0
+09-16 23:51:01.220  5885  5885 D su      : sending code
+09-16 23:51:01.223  5886  5886 D su      : child exited
+09-16 23:51:01.224  5887  5887 D su      : client exited 0
+09-16 23:51:02.245  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:51:02.757  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@17c27aa
+09-16 23:51:02.776  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:51:02.776  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a306380, error=EGL_BAD_MATCH
+09-16 23:51:03.714  1564  1564 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@f622f7
+09-16 23:51:04.258  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:51:04.760  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@13f0b49
+09-16 23:51:04.766  1431  1654 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-16 23:51:04.782  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:51:04.782  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a245880, error=EGL_BAD_MATCH
+09-16 23:51:04.900  1431  2128 W SurfaceFlinger: Attempting to destroy on removed layer: d389f38 Toast#0
+09-16 23:51:05.718  1564  1564 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@61cecfc
+09-16 23:51:06.260  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:51:06.760  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@4b84f67
+09-16 23:51:06.773  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:51:06.773  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a306700, error=EGL_BAD_MATCH
+09-16 23:51:06.891  1431  1654 W SurfaceFlinger: Attempting to destroy on removed layer: 9b3a16f Toast#0
+09-16 23:51:07.727  1564  1564 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@e8cc60b
+09-16 23:51:08.264  1564  1588 W WindowManager: Unable to start animation, surface is null or no children.
+09-16 23:51:08.765  1564  1616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@95c477b
+09-16 23:51:08.771  1431  1654 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-16 23:51:08.786  1912  1960 E EGL_emulation: tid 1960: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 23:51:08.786  1912  1960 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a306500, error=EGL_BAD_MATCH
+09-16 23:51:08.892  1431  2128 W SurfaceFlinger: Attempting to destroy on removed layer: 669dbd Toast#0
+09-16 23:51:09.734  1564  1564 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@55b41a6

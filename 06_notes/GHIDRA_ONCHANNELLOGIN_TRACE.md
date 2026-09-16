@@ -286,6 +286,88 @@ only shows that *a* root-detection mechanism exists in the binary; whether
 *that specific one* (or a different one) gates the BaseApp channel remains
 unknown. Not pursued further this session given time already invested.
 
+## Finding 6 (MAJOR, this pass): the "38+ passes stuck at onLoginReply" characterization was WRONG — BaseApp channel establishment actually succeeds
+
+**Finding:** A prior turn's live-test conclusion ("no packet ever reaches
+the fake BaseApp listener") was based on grepping a stale/wrong server log
+file and was **incorrect**. A proper packet-level capture (on-device
+`tcpdump` on ports 25000/25010, parsed with a small custom pcap parser
+since no `tshark`/`tcpdump` was available on the host) plus a full,
+unfiltered logcat review shows:
+
+1. The client DOES send BaseApp UDP packets to `172.16.1.2:25010` and
+   receives replies.
+2. The client logs `ServerConnection::createBasePlayer: id 1` — **the
+   BaseApp login handshake succeeds and entity 1 is created client-side.**
+3. The client then logs `ServerConnection::logOn: status==LOGGED_ON` and
+   `ServerConnection::logOn: to: 172.16.1.2:25010` — **full BaseApp login
+   completion**, further than any of the 38 prior documented E2E passes
+   reached.
+4. Immediately after, a **separate, concrete, fixable bug** appears:
+   `Bundle::iterator::unpack( authenticate ): Not enough data on stream at
+   11 for payload (1 left, needed 4)`, followed by
+   `Bundle::iterator::unpack: Got corrupted message header` →
+   `Nub::processOrderedPacket(...): Discarding bundle due to corrupted
+   header for message id 0` → `MainApp::poll: poll returned unexpectedly
+   (REASON_CORRUPTED_PACKET)`.
+
+**Bisection performed:** tested with `ATTEMPT_VERSIONPOINT_REPLY=0`
+(disables the `versionPointIdentity` push implicated by name) — the
+corruption **still occurs**, ruling that push out as the sole cause.
+Tested with `ATTEMPT_BASEAPP_REPLY=0` (disables the very first
+"whole-packet-encrypted ack for method=0x00" reply, sent immediately after
+receiving the client's baseAppLogin request) — this made things **strictly
+worse**: the client never reaches `createBasePlayer`/`LOGGED_ON` at all
+and fails outright with `Unable to connect to BaseApp: A NAT or firewall
+error may have occured?`. This confirms that ack **is required** and is
+not itself the corruption source in isolation — the real cause is still
+unidentified among: the ack's exact byte layout, the `createBasePlayer`
+push's format, or a timing/ordering interaction between the two.
+
+**Relationship:** This means the actual remaining blocker to reaching
+Account/Avatar/Character-Creation is **not** "nothing happens after
+onLoginReply" (the standing 38-pass characterization) but a **specific,
+later, fixable Bundle-framing bug** in one of our own server's post-login
+pushes, which the client's Mercury layer discards as corrupted and then
+(per this session's evidence) may retry the whole login cycle rather than
+proceeding further. This substantially changes the diagnosis: the problem
+looks like a wire-format bug in a specific packet, not a structural/anti-
+tamper block.
+
+**Confidence:** CONFIRMED for points 1-4 above (direct log/pcap evidence,
+reproduced across 2 separate live passes with different config toggles).
+The exact byte-level cause of the corruption is UNKNOWN (bisection ruled
+out 2 of the 3 most obvious candidate packets; the third — the
+`createBasePlayer` push itself, or an ordering/timing issue between it and
+the initial ack — has not yet been isolated).
+
+**Important methodological caveat discovered this session:** one live-test
+attempt's `LoginHandler::onLoginReply` came from `112.22.1.60` (a real
+public IP), not `172.16.1.2` — meaning that particular pass silently fell
+through to the **real production login infrastructure** instead of this
+project's local test server, despite the iptables OUTPUT DNAT rules being
+verified present and correct at the time. The exact fallback path is not
+yet understood (possibly a hardcoded/cached server-list entry using a port
+our DNAT rules don't cover, since only UDP 25000/20013 and TCP 80/443/8443
+are redirected). **Any future live-test result must verify the
+LoginHandler::onLoginReply source address is `172.16.1.2` before trusting
+the rest of that pass** — a run that silently hit production would look
+like "stuck at title screen" and could be misdiagnosed as a regression.
+
+**Next actionable experiment (highest priority, supersedes Finding 5's
+anti-tamper hypothesis given this new, more concrete lead):** Bisect
+further to isolate whether the `authenticate`-unpack corruption comes from
+the `createBasePlayer` push's byte layout specifically, or from an
+ordering/timing issue (e.g. sending the ack and createBasePlayer push
+back-to-back without waiting for any client acknowledgment in between).
+Try: (a) delaying the `createBasePlayer` push by ~50-100ms after the
+initial ack; (b) comparing the exact byte layout of the initial
+"whole-packet-encrypted ack for method=0x00" against what a real BigWorld
+Mercury bundle header actually requires at the BaseApp-channel level
+(it currently reuses the LoginApp-Reply framing convention — msgid=0xFF +
+4-byte length prefix — which may not be valid for BaseApp channel
+messages at all).
+
 ## Dead ends
 
 - Symbol-table keyword search for game-logic class names (Finding 3).

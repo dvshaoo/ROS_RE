@@ -1,0 +1,919 @@
+T14-complete plist: 560 bytes
+T18 server_list_ad.txt: 122 bytes
+23:47:40 === local_baseapp_capture START ===
+23:47:40 === HTTP plain :80 ===
+23:47:40 === HTTP TLS :443 ===
+23:47:40 === HTTP TLS :8443 ===
+23:47:40 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+23:47:40 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+23:47:40 All listeners started. Waiting...
+REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+  -> SERVE h45na_hc (empty hash check -> no patches)
+REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+  -> SERVE T14-fixed plist (560 bytes)
+REQ GET /v1 host=whoami.nie.easebar.com len=0
+  -> SERVE whoami /v1
+REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+  -> SERVE pharos_isp.txt
+REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+  -> SERVE server_list_ad.txt (122 bytes)
+REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+  -> SERVE server_list_ad.txt (122 bytes)
+23:49:59 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:49477
+23:49:59   HEX: 68656c6c6f20726f73
+23:49:59 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+23:49:59 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+23:49:59 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+23:49:59 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49477: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=329
+  BODY b'{"keypoint": "requestServerList", "extraData": "{\\"success\\": true}", "time": 1789573800.3911941, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+23:49:59 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:49478
+  -> SERVE root / (200 OK)
+23:49:59   HEX: 68656c6c6f20726f73
+23:49:59 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+23:49:59 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+23:49:59 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+23:49:59 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49478: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=287
+  BODY b'{"keypoint": "channelLogin", "time": 1789573800.399539, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+  -> SERVE root / (200 OK)
+23:49:59 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:49479
+23:49:59   HEX: 68656c6c6f20726f73
+23:49:59 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+23:49:59 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+23:49:59 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+23:49:59 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49479: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+23:49:59 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:49480
+23:49:59   HEX: 68656c6c6f20726f73
+23:49:59 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+23:49:59 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+23:49:59 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+23:49:59 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:49480: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+23:50:00 BASEAPP KEYSCAN: pid=4123 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 16 regions...
+23:50:00 BASEAPP KEYSCAN: 15 small (<=16MB) regions, 1 large regions
+23:50:02 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 1 large region(s)
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=821
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"32","server_list_host":"g61.update.easebar.com","ip_server_list_host":"2405:3200:502:18b::f4d","channel_name":"netease_global","start_time":"1789573803","finish_time":"1789573803","url":"g61.update.easebar.com/pl/npk_version_na_android.plist","push_time":"1789573803","device_model":"22081212C","download_id":"2b2c407c743541259918c016a87168f9","projec
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=620
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789573805","finish_time":"1789573805","push_time":"1789573803","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"63","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4911.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed"
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789573805","finish_time":"1789573805","push_time":"1789573803","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4911.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+23:50:13 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x76384bd38a11 key=06e9505d
+23:50:13 BASEAPP KEYSCAN: done in 12.99s, found 1 candidate object(s), 1 distinct key(s): ['06e9505d']
+23:50:13 BASEAPP KEYSCAN (early, from LoginApp reply): NEW key=06e9505d for host=127.0.0.1 (candidates: ['06e9505d'])
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=538
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789573815.0318301, "platform": "ad", "device_id": "", "sdk_version": "", "uid": "", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2b2c407c743541259918c016a87168f9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "
+  -> SERVE root / (200 OK)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789573824.182421, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2b2c407c743541259918c016a87168f9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+  -> SERVE root / (200 OK)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=572
+  BODY b'{"keypoint": "channelLoginSuc", "extraData": "{\\"code\\": 0}", "time": 1789573824.1961911, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2b2c407c743541259918c016a87168f9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.
+  -> SERVE root / (200 OK)
+23:50:49 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51861
+23:50:49   HEX: 01000004014608010000002b000000a8ea74e0d8a81b79307a0cb3950e326028cd6f9b83d548b718b1d369f1e7cbd247b4121887b505f042d4edf452e4ec6ed2a84bceb5fffa60575f1fdf2a27d99b6b247b08164092a645b1ae31f136153cd62a44ebb9a7e85336f2a57de4f9f19037931db280fdefa7dedc8d313d8e9db1ecc8991e7070bb647cf442310ab6429316662849cbbc30f92571e071ee7e91af17177e1f50f16d2c22b966ca4d429524f2d4fbcc575a26b538a821c53af0726becebd27a0339890986c2c040a5bb5d3717ca47ab6c0fab669212ce73cbe2854f8c99073b6a5dcbb2c9054230a1dec4edc27adc919569d6567d0ea82850bb03c876bf98646c421e496b2afa4a444938040200
+23:50:49 ATTEMPT_H-shape (20-byte body): replyID=0x00010846 status=1 + 20-byte body, length=25
+23:50:49 ATTEMPT_L: encrypted 24-byte body with Blowfish key=06e9505d mode=pc_variant -> c641583e5d593e29286e4433ad0bb69ee5b617476712b7ec
+23:50:49 ATTEMPT_I (default): replyID=0x00010846 status=1 + 24-byte ENCRYPTED body, length=29 (key=06e9505d)
+23:50:49 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:51861: 0100ff1d0000004608010001c641583e5d593e29286e4433ad0bb69ee5b617476712b7ec0000
+23:50:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:49   HEX: 0100000b0025d600000000ac100102010000001400000200
+23:50:49   ASCII: b'\x01\x00\x00\x0b\x00%\xd6\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+23:50:49   DECRYPTED (24 bytes): 13103aaa750b402507c3de9021b7abf490c24c61a4fb5446
+23:50:49 BASEAPP: using key=06e9505d from EARLY scan (triggered at LoginApp reply time) for ('127.0.0.1', 51862)
+23:50:49 BASEAPP: encrypted WHOLE 16-byte (wastage-padded) reply with key=06e9505d mode=pc_variant IV=0
+23:50:49 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000d625 key=06e9505d (16 bytes): ca1a3e4df1c2da0b4c6ba72c2d301a01
+23:50:49 BASEAPP UDP SENT createBasePlayer push id=5 entityId=1 type=127 key=06e9505d IV=0 (16 bytes): 92a362eff9ec868c08c6e58d416a3468
+23:50:49 BASEAPP KEEPALIVE: started for ('127.0.0.1', 51862) (setGameTime msgID=3 every 5.0s)
+23:50:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:49   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:49   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:49   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:49 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:51862 ***
+23:50:49   HEX: ff38410f2281c42146fef91f544666a6ea27a0520251346c3b4e038b6c1707f2
+23:50:49   ASCII: b'\xff8A\x0f"\x81\xc4!F\xfe\xf9\x1fTFf\xa6\xea\'\xa0R\x02Q4l;N\x03\x8bl\x17\x07\xf2'
+23:50:49   DECRYPTED (27 bytes, wastage=5): 58000861b2000061b200000c090014000654686973206400000000
+23:50:49 BASEAPP CHANNEL ACK: pkt_flags=0x0058 seq=0 key=06e9505d (16 bytes): 15e8147476b95cf2281e52f78b32ede7
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=582
+  BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789573850.406405, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "2b2c407c743541259918c016a87168f9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_versi
+  -> SERVE root / (200 OK)
+23:50:49 BASEAPP KEYSCAN: pid=4123 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 18 regions...
+23:50:49 BASEAPP KEYSCAN: 16 small (<=16MB) regions, 2 large regions
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=793
+  BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789573850","finish_time":"1789573850","push_time":"1789573850","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.13218998909","
+23:50:50 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:50   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:50   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:50   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:50 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:50   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:50   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:50   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:50 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+23:50:51 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:51   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:51   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:51   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:51 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:51   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:51   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:51   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:52   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:52   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:52   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:52   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:52   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:52   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:53 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:53   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:53   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:53   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=752
+  BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789573854","finish_time":"1789573854","push_time":"1789573854","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a41
+23:50:53 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:53   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:53   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:53   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:54 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:54   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:54   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:54   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:54 BASEAPP KEEPALIVE: sent setGameTime t=1789573854 to ('127.0.0.1', 51862) (16 bytes)
+23:50:54 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:54   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:54   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:54   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:55 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:55   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:55   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:55   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:56 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:56   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:56   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:56   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:56 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:56   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:56   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:56   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:57 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:57   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:57   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:57   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:57 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:57   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:57   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:57   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:58 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:58   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:58   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:58   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:58 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:58   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:58   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:58   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:59 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:59   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:59   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:59   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:50:59 BASEAPP KEEPALIVE: sent setGameTime t=1789573859 to ('127.0.0.1', 51862) (16 bytes)
+23:50:59 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:50:59   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:50:59   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:50:59   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:00 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:00   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:00   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:00   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:00 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:00   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:00   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:00 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x76384bd38b84 key=06e9505d
+23:51:00   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:00 BASEAPP KEYSCAN: done in 11.17s, found 1 candidate object(s), 1 distinct key(s): ['06e9505d']
+23:51:00 BASEAPP KEYSCAN: using NEW distinct key=06e9505d for ('127.0.0.1', 51862) (all candidates: ['06e9505d'])
+23:51:01 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:01   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:01   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:01   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:01 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:01   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:01   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:01   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:02 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:02   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:02   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:02   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:02 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:02   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:02   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:02   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:03   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:03   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:03   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:03   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:03   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:03   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:04 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:04   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:04   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:04   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:04 BASEAPP KEEPALIVE: sent setGameTime t=1789573864 to ('127.0.0.1', 51862) (16 bytes)
+23:51:04 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:04   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:04   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:04   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:05 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:05   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:05   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:05   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:06   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:06   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:06   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:06   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:06   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:06   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:07   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:07   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:07   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:07   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:07   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:07   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:08 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:08   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:08   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:08   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:08 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:08   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:08   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:08   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:09   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:09   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:09   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:09 BASEAPP KEEPALIVE: sent setGameTime t=1789573869 to ('127.0.0.1', 51862) (16 bytes)
+23:51:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:09   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:09   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:09   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:10 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:10   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:10   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:10   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:10 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:10   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:10   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:10   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:11 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:11   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:11   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:11   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:11 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:11   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:11   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:11   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:12   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:12   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:12   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:12   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:12   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:12   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:13 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:13   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:13   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:13   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:13 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:13   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:13   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:13   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:14 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:14   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:14   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:14   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:14 BASEAPP KEEPALIVE: sent setGameTime t=1789573874 to ('127.0.0.1', 51862) (16 bytes)
+23:51:15 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:15   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:15   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:15   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:15 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:15   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:15   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:15   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:16 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:16   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:16   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:16   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:16 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:16   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:16   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:16   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:17   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:17   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:17   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:17   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:17   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:17   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:18 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:18   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:18   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:18   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:18 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:18   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:18   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:18   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:19 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:19   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:19   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:19   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:19 BASEAPP KEEPALIVE: sent setGameTime t=1789573879 to ('127.0.0.1', 51862) (16 bytes)
+23:51:19 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:19   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:19   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:19   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:20 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:20   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:20   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:20   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:20 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:20   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:20   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:20   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:21   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:21   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:21   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:21   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:21   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:21   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:22   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:22   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:22   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:22   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:22   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:22   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:23 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:23   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:23   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:23   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:23 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:23   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:23   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:23   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:24 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:24   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:24   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:24   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:24 BASEAPP KEEPALIVE: sent setGameTime t=1789573884 to ('127.0.0.1', 51862) (16 bytes)
+23:51:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:25   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:25   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:25   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:25   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:25   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:25   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:26 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:26   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:26   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:26   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:26 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:26   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:26   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:26   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:27   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:27   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:27   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:27   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:27   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:27   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:28 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:28   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:28   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:28   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:28 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:28   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:28   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:28   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:29 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:29   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:29   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:29   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:29 BASEAPP KEEPALIVE: sent setGameTime t=1789573889 to ('127.0.0.1', 51862) (16 bytes)
+23:51:29 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:29   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:29   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:29   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:30   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:30   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:30   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:30   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:30   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:30   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:31 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:31   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:31   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:31   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:31 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:31   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:31   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:31   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:32 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:32   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:32   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:32   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:32 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:32   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:32   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:32   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:33 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:33   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:33   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:33   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:34 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:34   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:34   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:34   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:34 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:34   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:34   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:34   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:34 BASEAPP KEEPALIVE: sent setGameTime t=1789573894 to ('127.0.0.1', 51862) (16 bytes)
+23:51:35 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:35   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:35   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:35   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:35 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:35   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:35   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:35   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:36 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:36   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:36   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:36   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:36 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:36   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:36   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:36   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:37 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:37   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:37   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:37   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:37 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:37   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:37   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:37   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:38 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:38   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:38   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:38   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:38 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:38   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:38   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:38   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:39 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:39   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:39   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:39   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:39 BASEAPP KEEPALIVE: sent setGameTime t=1789573899 to ('127.0.0.1', 51862) (16 bytes)
+23:51:39 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:39   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:39   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:39   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:40 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:40   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:40   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:40   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:40 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:40   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:40   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:40   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:41 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:41   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:41   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:41   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:41 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:41   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:41   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:41   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:42 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:42   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:42   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:42   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:43 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:43   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:43   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:43   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:43 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:43   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:43   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:43   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:44 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:44   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:44   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:44   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:44 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:44   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:44   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:44   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:44 BASEAPP KEEPALIVE: sent setGameTime t=1789573904 to ('127.0.0.1', 51862) (16 bytes)
+23:51:45 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:45   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:45   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:45   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:45 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:45   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:45   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:45   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:46 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:46   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:46   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:46   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:46 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:46   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:46   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:46   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:47 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:47   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:47   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:47   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:47 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:47   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:47   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:47   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:48 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:48   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:48   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:48   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:48 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:48   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:48   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:48   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:49   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:49   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:49   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:49 BASEAPP KEEPALIVE: sent setGameTime t=1789573909 to ('127.0.0.1', 51862) (16 bytes)
+23:51:49 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:49   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:49   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:49   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:50 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:50   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:50   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:50   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:50 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:50   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:50   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:50   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:51 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:51   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:51   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:51   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:52   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:52   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:52   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:52 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:52   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:52   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:52   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:53 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:53   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:53   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:53   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:53 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:53   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:53   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:53   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:54 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:54   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:54   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:54   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:54 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:54   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:54   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:54   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:54 BASEAPP KEEPALIVE: sent setGameTime t=1789573914 to ('127.0.0.1', 51862) (16 bytes)
+23:51:55 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:55   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:55   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:55   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:55 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:55   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:55   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:55   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:56 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:56   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:56   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:56   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:56 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:56   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:56   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:56   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:57 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:57   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:57   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:57   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:57 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:57   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:57   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:57   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:58 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:58   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:58   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:58   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:58 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:58   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:58   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:58   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:59 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:59   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:59   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:59   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:51:59 BASEAPP KEEPALIVE: sent setGameTime t=1789573919 to ('127.0.0.1', 51862) (16 bytes)
+23:51:59 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:51:59   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:51:59   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:51:59   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:00 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:00   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:00   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:00   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:01 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:01   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:01   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:01   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:01 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:01   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:01   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:01   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:02 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:02   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:02   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:02   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:02 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:02   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:02   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:02   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:03   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:03   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:03   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:03 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:03   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:03   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:03   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:04 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:04   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:04   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:04   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:04 BASEAPP KEEPALIVE: sent setGameTime t=1789573924 to ('127.0.0.1', 51862) (16 bytes)
+23:52:04 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:04   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:04   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:04   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:05 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:05   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:05   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:05   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:05 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:05   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:05   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:05   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:06   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:06   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:06   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:06   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:06   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:06   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:07   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:07   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:07   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:07   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:07   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:07   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:08 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:08   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:08   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:08   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:08 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:08   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:08   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:08   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:09 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:09   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:09   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:09   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:09 BASEAPP KEEPALIVE: sent setGameTime t=1789573929 to ('127.0.0.1', 51862) (16 bytes)
+23:52:10 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:10   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:10   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:10   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:10 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:10   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:10   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:10   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:11 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:11   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:11   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:11   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:11 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:11   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:11   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:11   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:12   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:12   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:12   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:12 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:12   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:12   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:12   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:13 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:13   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:13   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:13   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:13 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:13   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:13   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:13   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:14 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:14   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:14   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:14   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:14 BASEAPP KEEPALIVE: sent setGameTime t=1789573934 to ('127.0.0.1', 51862) (16 bytes)
+23:52:14 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:14   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:14   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:14   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:15 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:15   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:15   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:15   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:15 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:15   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:15   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:15   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:16 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:16   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:16   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:16   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:16 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:16   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:16   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:16   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:17   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:17   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:17   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:17 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:17   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:17   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:17   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:18 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:18   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:18   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:18   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:19 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:19   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:19   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:19   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:19 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:19   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:19   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:19   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:19 BASEAPP KEEPALIVE: sent setGameTime t=1789573939 to ('127.0.0.1', 51862) (16 bytes)
+23:52:20 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:20   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:20   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:20   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:20 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:20   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:20   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:20   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:21   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:21   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:21   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:21 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:21   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:21   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:21   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:22   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:22   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:22   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:22 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:22   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:22   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:22   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:23 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:23   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:23   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:23   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:23 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:23   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:23   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:23   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:24 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:24   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:24   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:24   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:24 BASEAPP KEEPALIVE: sent setGameTime t=1789573944 to ('127.0.0.1', 51862) (16 bytes)
+23:52:24 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:24   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:24   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:24   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:25   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:25   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:25   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:25 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:25   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:25   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:25   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:26 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:26   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:26   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:26   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:26 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:26   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:26   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:26   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:27   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:27   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:27   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:27 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:27   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:27   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:27   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:28 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:28   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:28   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:28   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:29 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:29   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:29   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:29   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:29 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:29   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:29   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:29   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:29 BASEAPP KEEPALIVE: sent setGameTime t=1789573949 to ('127.0.0.1', 51862) (16 bytes)
+23:52:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:30   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:30   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:30   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:30   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:30   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:30   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:31 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:31   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:31   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:31   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+23:52:31 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:51862 ***
+23:52:31   HEX: 22c26a900081f6229c6192d4a8d704f55a61025eeabc30f2
+23:52:31   ASCII: b'"\xc2j\x90\x00\x81\xf6"\x9ca\x92\xd4\xa8\xd7\x04\xf5Za\x02^\xea\xbc0\xf2'
+23:52:31   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
