@@ -1,0 +1,30 @@
+T14-complete plist: 560 bytes
+T18 server_list_ad.txt: 122 bytes
+13:59:49 === local_baseapp_capture START ===
+13:59:49 === HTTP plain :80 ===
+13:59:49 === HTTP TLS :443 ===
+13:59:49 === HTTP TLS :8443 ===
+13:59:49 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+13:59:49 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+13:59:49 All listeners started. Waiting...
+13:59:51 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:61895
+13:59:51   HEX: 0100000401c788010000002b000000aaa021e713b617aca904c4ac1abc54a72dfab3f5c4c18a2043064ee614b750bce8972fb7a64947c36121cbedbf51eee773072fef9bd72d99d1c9d7747358fc76f4c8657daa62ffaa5f2e0aef120b47481180b3f8b49ac29070c42f82b46419bab2b2d528fa5ef85f763320bda73873a0ac3f374ae6b09dd9140e21b482b1495d820bc48765e74f18881976bdc89e00817d1bb9a2d68b8ab3cd3ef62d26a3578a1600b8e8683b9f29611757f1c782b7456f2d01cc17a4c9c6a2d9283296ed7ed09541aae805f5324347fa743b3e772624e5bf0c1526296f4af9d871ab2e24b139d46f93f275547037ca2d5e5248ad6724d3ff98e72e2c2e381428d48e62ef3d550200
+13:59:51 ATTEMPT_H-shape (20-byte body): replyID=0x000188c7 status=1 + 20-byte body, length=25
+13:59:51 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+13:59:51 ATTEMPT_I (default): replyID=0x000188c7 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+13:59:51 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:61895: 0100ff1d000000c78801000177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+13:59:52 BASEAPP KEYSCAN: pid=3901 base=0x3310000 target_vtable_va=0x6aed3a0 pattern=a0d3ae0600000000, scanning 17 regions...
+13:59:52 BASEAPP KEYSCAN: 16 small (<=16MB) regions, 1 large regions
+13:59:53 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 1 large region(s)
+REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+  -> SERVE pharos_isp.txt
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=582
+  BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 2}", "time": 1789538396.833076, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "7e8cd113975049e7a11042817a39f0bc", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_versi
+  -> SERVE root / (200 OK)
+14:00:08 BASEAPP KEYSCAN: done in 16.22s, found 0 candidate object(s), 0 distinct key(s): []
+14:00:08 BASEAPP KEYSCAN (early): no distinct key found yet for host=127.0.0.1 (candidates: [])
+REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+  -> SERVE h45na_hc (empty hash check -> no patches)
+REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+  -> SERVE T14-fixed plist (560 bytes)

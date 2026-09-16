@@ -1,0 +1,27 @@
+127.0.0.1 - - [16/Sep/2026 13:59:56] "GET /status/?project=h45na&gid=10001&name=STATUS HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2026 13:59:56] "GET /lighten/pharos_isp.txt HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2026 13:59:56] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-60 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 407, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 286, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3901/mem bs=1048576 skip=123962212 count=426 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [16/Sep/2026 14:00:49] "GET /pl/h45na_hc HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2026 14:00:49] "GET /pl/npk_version_na_android.plist HTTP/1.1" 200 -

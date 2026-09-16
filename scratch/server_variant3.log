@@ -1,0 +1,34 @@
+T14-complete plist: 560 bytes
+T18 server_list_ad.txt: 122 bytes
+13:21:18 === local_baseapp_capture START ===
+13:21:18 === HTTP plain :80 ===
+13:21:18 === HTTP TLS :443 ===
+13:21:18 === HTTP TLS :8443 ===
+13:21:18 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+13:21:18 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+13:21:18 All listeners started. Waiting...
+REQ GET / host=192.168.100.8:8443 len=0
+  -> SERVE root / (200 OK)
+REQ GET / host=192.168.100.8 len=0
+  -> SERVE root / (200 OK)
+REQ GET / host=192.168.100.8 len=0
+  -> SERVE root / (200 OK)
+REQ GET /HNAP1/ host=192.168.100.8 len=0
+REQ POST /mcp host=192.168.100.8 len=354
+  BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS700"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+REQ GET / host=192.168.100.8:80 len=0
+  -> SERVE root / (200 OK)
+REQ POST /mcp host=192.168.100.8 len=354
+  BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS700"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+REQ GET / host=192.168.100.8:443 len=0
+  -> SERVE root / (200 OK)
+REQ POST /mcp host=192.168.100.8:8443 len=354
+  BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS700"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+REQ GET / host=192.168.100.8:8443 len=0
+  -> SERVE root / (200 OK)
+REQ GET /loginMsg.js host=192.168.100.8 len=0
+REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+REQ GET /loginMsg.js host=192.168.100.8 len=0
+REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+REQ GET /loginMsg.js host=192.168.100.8 len=0
+REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
