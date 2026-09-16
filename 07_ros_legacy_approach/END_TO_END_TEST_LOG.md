@@ -2442,6 +2442,180 @@ Tracing `in_place_decrypt` revealed how `+0x1a` is populated and modified:
 3. Execute live verification against the emulator and verify that `processFilteredPacket` accepts the reply cleanly without any checksum error or bad flags warning.
 
 ---
-*Last updated: 2026-09-15. Do not overwrite prior entries — append new
+
+## TEST_ID: E2E-021
+- **DATE**: 2026-09-16, continuation pass. **Context**: a concurrent session
+  (Antigravity/Gemini, see `GEMINI.md`) made major independent progress
+  while this session was rate-limited: BaseApp login now reaches
+  `status==LOGGED_ON`, `createBasePlayer` succeeds (msgID 5, entity type
+  127/Account), and a Mercury reliable-channel ACK responder (committed
+  `b5d6f2b`, live-verified per commit `bafa75e`'s message, though the
+  actual E2E-022/E2E-023 write-ups referenced in that commit message were
+  never actually appended to this doc — only capture-log files were
+  committed under that message; this entry is the true next sequential ID
+  in this doc, and picks up the narrative from `GEMINI.md` §3 directly).
+  New blocker per the coordinator: after the ACK silences the
+  "Resending unacked packet #0" retry, the client calls
+  `BaseAppExtInterface` method 12 (`identifyVersionPoint`, VARIABLE_LENGTH,
+  `[u16 checkpoint_id=20][u8 strlen=15]["This document s"]`), sent with
+  flags `0x0008` (`FLAG_ON_CHANNEL` only — **not** `FLAG_HAS_SEQUENCE_NUMBER`
+  `0x0040`), resent identically ~10x over ~10s, then the client abandons
+  the whole BaseApp session and restarts LoginApp from scratch.
+- **GOAL**: static disassembly only (no live test — per standing rule,
+  none is justified without a confirmed hypothesis) to determine (1)
+  whether `identifyVersionPoint`'s resend is transport-level (Mercury
+  reliable-channel retry) or application-level, (2) the correct
+  reply/ack mechanism if one is needed, (3) whether the reconnect-loop
+  trigger is specific to this RPC or a generic watchdog.
+
+### Finding 1 (CONFIRMED): the resend is NOT the transport-level Channel-ack retry — it must be application-level
+`identifyVersionPoint`'s captured wire flags are `0x0008` (`FLAG_ON_CHANNEL`
+only). The already-solved, live-verified reliable-channel ACK mechanism
+(`GEMINI.md` §3, `Channel::checkResendTimers`/`Channel::handleAck`) is keyed
+specifically on `FLAG_HAS_SEQUENCE_NUMBER` (`0x0040`) — packets without that
+bit are not part of the sequenced/acked reliable stream at all, and indeed
+this packet doesn't have it. **This packet's repeated resend cannot be the
+generic Mercury transport-level unacked-packet retry** (that mechanism
+requires a sequence number to track, which this packet doesn't carry) — it
+must be driven by application-level logic in `ServerConnection`/BaseApp
+client code that is itself waiting for something and re-issues the whole
+call periodically until it gets it (or times out and reconnects).
+
+### Finding 2 (NEW, STRONGLY SUPPORTED but not fully confirmed): a previously-unknown `versionPointIdentity` push message exists and echoes back the same body via the same descriptor
+The earlier project string-table read (`06_trace/MERCURY_PACKET_MAP.md` §3)
+stopped at `relativePositionReference` and reported nothing resembling a
+version-check reply in what followed (only `avatarUpdate*` compression
+variants). This pass found that the `ClientInterface` string blob
+**continues for much longer than previously read** — after ~90
+`avatarUpdate*` movement-compression variants, `setSpaceViewport`,
+`setVehicle`, `stayPut`, `stayPutAlias`, `historyEventBegin/End`, it
+resumes with:
+```
+controlEntity, voiceData, restoreClient, restoreBaseApp,
+versionPointIdentity, versionPointSummary, resourceFragment,
+resourceVersionStatus, loggedOff, shortEntityMessage, longEntityMessage
+```
+**`versionPointIdentity` and `versionPointSummary` are exactly the
+server→client reply names for the client's `identifyVersionPoint` and
+`summariseVersionPoint` calls** (and `resourceFragment`/
+`resourceVersionStatus` similarly pair with `commenceResourceDownload`/
+`resourceVersionTag`) — a clean 1:1 naming match this project had not
+previously found because the string read was cut off too early.
+
+Confirmed by disassembly (registration call site `0x80e57c`, same
+`0x98b30c` registrar mechanism documented in `MERCURY_PACKET_MAP.md` §2a):
+- **`versionPointIdentity`**: FIXED_LENGTH_MESSAGE, 8-byte body
+  (`w2=0`, `w3=8`). Handler at `0x94bf48`.
+- **`versionPointSummary`**: FIXED_LENGTH_MESSAGE, 34-byte (`0x22`) body.
+  Handler at `0x94bf9c`.
+- **`resourceFragment`**: VARIABLE_LENGTH_MESSAGE, `u16` length prefix
+  (`w2=1`, `w3=2`). Handler at `0x9499a0`.
+- **`resourceVersionStatus`**: FIXED_LENGTH_MESSAGE, 8-byte body. Handler
+  at `0x9497f4` (this one WAS already disassembled incidentally earlier
+  this pass while tracing an unrelated offset — it reads two `u32` fields
+  and checks the first for `-1`/failure, logs via `0x1cada94`).
+
+Disassembled the `versionPointIdentity` handler (`0x94bf48`) in full:
+```
+x19 = x1   ; pointer to the incoming 8-byte message body
+x20 = x0   ; ServerConnection/Channel-ish "this"
+x1  = [0x457b000 + 0xb50]     ; the SAME versionPointIdentity descriptor
+                                 that was just registered for THIS handler
+mov w2, #1
+bl 0x981f7c(x0=x20, x1=descriptor, w2=1)   ; "start a new outgoing message"
+                                              (same reserve/allocate-space
+                                              family documented in E2E-019)
+ldr x8,[x20]; w1=8; blr [x8+0x10]           ; reserve 8 bytes in the stream
+ldr x8,[x19]; str x8,[x0]                    ; copy the 8 INCOMING bytes
+                                                verbatim into the new
+                                                OUTGOING message body
+```
+**This handler, when triggered, re-sends the identical 8-byte body back
+out using the SAME `versionPointIdentity` descriptor** — a literal echo,
+with no script/game-logic callback invoked (contrast with the sibling
+`restoreClient` handler at `0x949614`/`0x949614+0x0` region, which DOES
+parse its body into named fields and calls a real script hook via
+`blr [vtable+0x88]` before conditionally re-forwarding). `versionPointSummary`'s
+handler (`0x94bf9c`) is the same shape (echoes its 34-byte body verbatim).
+
+**Interpretation, honestly labeled INFERRED, not CONFIRMED**: this echo
+shape is consistent with either (a) `versionPointIdentity` being the real
+reply this project needs to synthesize server-side (echoing back
+something derived from the client's `identifyVersionPoint` body would
+make the client's own handler for the ack loop terminate), or (b) this
+being generic BigWorld relay/pass-through boilerplate for a
+peer-forwarding scenario (e.g. CellApp hand-off) that is not meaningfully
+exercised in the direct client-BaseApp path this project cares about. The
+lack of a script callback (unlike `restoreClient`) makes (b) a real
+possibility and this is NOT being reported as solved.
+
+### Finding 3 (NOT achieved this pass): the exact numeric ClientInterface message ID for `versionPointIdentity`
+Attempted to recover the numeric wire `msgID` by reading the registration
+vector's push-back index (`0x98b30c` is confirmed, by its own disassembly,
+to be a `std::vector<MethodDescription>::push_back`-shaped function that
+assigns each method's numeric ID as its 0-indexed position in a
+per-interface vector at registration time — `strb w27,[x8]` stores the
+`(currentSize)` as the new entry's ID byte). However, cross-checking this
+against the already-CONFIRMED `createBasePlayer` msgID (`5`, per
+`GEMINI.md`/prior disassembly) against its own string-order position in
+the same table (4th, 0-indexed, counting `bandwidthNotification`=0)
+produced an unresolved off-by-one discrepancy this pass could not run
+down in the available time (possibly an extra reserved slot 0 registered
+before `bandwidthNotification` that isn't part of this string sequence).
+**Did not derive a trustworthy numeric ID for `versionPointIdentity`** —
+counting through ~90 intervening `avatarUpdate*` variants by hand is
+mechanical but error-prone, and doing it on an unresolved off-by-one base
+would just produce a confidently-wrong number. Not attempted further this
+pass; flagged as the concrete blocker to a live test of Finding 2.
+
+### Finding 4 (NOT achieved this pass): generic watchdog vs. RPC-specific timeout
+Did not find or rule out a `ServerConnection`-level generic "no progress"
+watchdog independent of `identifyVersionPoint` specifically. Time this
+pass went to Findings 1-3 instead. Genuinely open.
+
+### RESULT
+- **Real, new, previously-undocumented structural finding**: the
+  `ClientInterface` push-message table extends well past the previous
+  read cutoff and contains `versionPointIdentity`/`versionPointSummary`/
+  `resourceFragment`/`resourceVersionStatus` — exact name-paired replies
+  for the four version-check `BaseAppExtInterface` methods. This directly
+  answers the coordinator's question "was a further string-table read
+  needed" — **yes, and it found exactly the missing reply names.**
+- **Not yet actionable for a live test**: the handler's echo behavior is a
+  plausible but unconfirmed mechanism (no script callback observed, unlike
+  a known-real handler), and the numeric wire `msgID` needed to actually
+  construct a wire-correct reply was not recovered this pass (off-by-one
+  ambiguity in the ID-counting scheme, not resolved). Sending a reply with
+  a guessed/wrong msgID would be indistinguishable from "wrong hypothesis"
+  and could burn a live-test cycle on the shared emulator for no
+  information gain — per standing instruction, not attempted.
+  `CLIENT_MODIFIED: NO`. No server files were changed this pass.
+
+### NEXT_ACTION
+1. Resolve the msgID off-by-one: find the ACTUAL numeric ID assignment
+   mechanism with certainty — either by carefully hand-counting all
+   `ClientInterface` string-table entries from `bandwidthNotification`
+   through `versionPointIdentity` (tedious but mechanical, ~90+ entries
+   dominated by `avatarUpdate*` variants), or by finding the CALLER-side
+   code that dispatches an incoming `0x94bf48`-shaped message and reading
+   the msgID it's keyed on directly from a jump/switch table instead of
+   from registration order.
+2. Once the ID is known, construct a live test: server sends a
+   `versionPointIdentity`-framed push (msgID=<found>, FIXED 8-byte body)
+   containing SOME plausible 8-byte payload derived from the client's own
+   `identifyVersionPoint` call (e.g. the `checkpoint_id` echoed in the
+   first 2 bytes, remaining 6 bytes zero, as the simplest first guess) and
+   observe whether the resend loop stops.
+3. If Finding 2's echo hypothesis is wrong (resend continues unchanged),
+   fall back to Finding 4: look for a generic `ServerConnection`-level
+   watchdog/keep-alive requirement (e.g. periodic `setGameTime` push, or a
+   "meaningful progress" timer) independent of `identifyVersionPoint`
+   specifically, since flags `0x0008` with no sequence number suggests the
+   Mercury layer itself considers this an unreliable, best-effort call —
+   meaning the client's own reconnect trigger may not even be reading this
+   RPC's completion at all.
+
+---
+*Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
