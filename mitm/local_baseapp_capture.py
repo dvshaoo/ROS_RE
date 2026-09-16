@@ -963,6 +963,57 @@ def serve_baseapp_udp_capture():
                     s.sendto(cbp_reply, addr)
                     log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d key=%s IV=0 (%d bytes): %s' % (
                         entity_id, entity_type, use_key, len(cbp_reply), cbp_reply.hex()))
+
+                    # E2E-028: Account.onChannelLogin push attempt via the generic
+                    # shortEntityMessage(100)/longEntityMessage(101) entity-RPC
+                    # dispatch, per E2E-025/026/027's static investigation.
+                    # `handshake`'s own numeric msgID is UNRECOVERABLE (data-driven
+                    # via script.npk, itself an established, separate blocker) --
+                    # this sidesteps that entirely by using the generic dispatch
+                    # path instead. `0x94c540`'s own method-index encoding could
+                    # NOT be resolved after 4 independent static techniques across
+                    # 3 passes (E2E-025/026/027) -- these are EXPLICITLY LABELED
+                    # GUESSES, not confirmed wire formats. onChannelLogin = local
+                    # ClientMethods index 2 (CONFIRMED from Account.def.xml's
+                    # declared order). No entityID field included (0x94c540's own
+                    # dispatch was traced to pull the target entity from internal
+                    # connection state, not the wire body).
+                    ONCHANNELLOGIN_VARIANT = os.environ.get('ONCHANNELLOGIN_VARIANT', '0')
+                    if ONCHANNELLOGIN_VARIANT in ('1', '2', '3'):
+                        import pickle
+                        import marshal
+                        time.sleep(0.05)
+                        method_index = 2  # Account.onChannelLogin, Account.def.xml ClientMethods order
+                        account_data = {'characters': []}
+                        if ONCHANNELLOGIN_VARIANT == '1':
+                            # Variant 1: shortEntityMessage (msgID 100), u8 methodIndex, pickle.
+                            ocl_msgid = 100
+                            ocl_body = bytes([method_index]) + bytes([0]) + pickle.dumps(account_data, protocol=2)
+                            ocl_length_bytes = bytes([len(ocl_body)]) if len(ocl_body) < 256 else None
+                        elif ONCHANNELLOGIN_VARIANT == '2':
+                            # Variant 2: longEntityMessage (msgID 101), u16 LE methodIndex, pickle.
+                            ocl_msgid = 101
+                            ocl_body = struct.pack('<H', method_index) + bytes([0]) + pickle.dumps(account_data, protocol=2)
+                            ocl_length_bytes = struct.pack('<H', len(ocl_body))
+                        else:  # '3'
+                            # Variant 3: shortEntityMessage (msgID 100), u8 methodIndex, marshal.
+                            ocl_msgid = 100
+                            ocl_body = bytes([method_index]) + bytes([0]) + marshal.dumps(account_data)
+                            ocl_length_bytes = bytes([len(ocl_body)]) if len(ocl_body) < 256 else None
+                        if ocl_length_bytes is not None:
+                            ocl_plain = (struct.pack('<H', 0x0001) + bytes([ocl_msgid])
+                                          + ocl_length_bytes + ocl_body + b'\x00\x00')
+                            ocl_pad_len = 8 - (len(ocl_plain) % 8)
+                            ocl_padded = ocl_plain + b'\x00' * (ocl_pad_len - 1) + bytes([ocl_pad_len])
+                            ocl_enc = bf_encrypt(ocl_padded, key_hex=use_key, iv=b'\x00' * 8)
+                            ocl_reply = ocl_enc if ocl_enc else ocl_padded
+                            s.sendto(ocl_reply, addr)
+                            log('BASEAPP UDP SENT onChannelLogin GUESS variant=%s msgid=%d methodIndex=%d key=%s IV=0 (%d bytes): %s' % (
+                                ONCHANNELLOGIN_VARIANT, ocl_msgid, method_index, use_key, len(ocl_reply), ocl_reply.hex()))
+                        else:
+                            log('BASEAPP: onChannelLogin GUESS variant=%s body too long for u8 length prefix (%d bytes), skipped' % (
+                                ONCHANNELLOGIN_VARIANT, len(ocl_body)))
+
                     # E2E-022: start the periodic keep-alive as soon as the
                     # channel is known to exist (createBasePlayer accepted),
                     # not only once identifyVersionPoint happens to arrive --
