@@ -4208,6 +4208,98 @@ If it never flips, that further strengthens hypothesis (c) regardless of
 whether the exact native setter is ever statically located.
 
 ---
+
+## TEST_ID: E2E-036
+- **DATE**: 2026-09-16, continuation pass, responding to the
+  coordinator's E2E-035 live result (`entity_ptr+0x140` TOGGLES between
+  `0x0` and a stable pointer, not a one-time flag). Per the coordinator's
+  request: search Mercury's own per-message/retry/ack code region
+  (rather than channel-creation code) for `+0x140` accesses. Pure
+  disassembly; no server/device touched. Run in parallel with the
+  coordinator's live retry-loop implementation.
+
+### Finding 1: `+0x140` IS accessed in Channel-related code — but as a `Channel` member cleaned up in its OWN destructor, raising a possible object-identity nuance
+Searched `0x984000`-`0x992000` (the Channel/`EncryptionFilter`/
+`processFilteredPacket`-adjacent region, including the already-known
+`0x98530c` Channel destructor-worker and the `Channel::handleAck`-area
+address `0x986898`) for ANY `str`/`ldr` touching `+0x140` — only **3**
+hits (vs. 124 candidates elsewhere in the whole binary), confirming this
+specific offset is genuinely rare in this exact code region:
+- **`0x985368`**, inside `0x98530c` — the SAME Channel destructor-worker
+  function this project already identified via vtable slot `+0x00` back
+  in E2E-018/E2E-021. It reads `x20 = [x19, #0x140]`; if non-null, calls
+  a cleanup function (`0x7ed3b0`) then deletes it (`0x7e1c90`). **This is
+  cleanup-on-destruction of a Channel member at `+0x140`** — i.e. a real,
+  concrete finding that `+0x140` is (also, or instead of `ServerConnection`)
+  a genuine `Channel`-class member. Given `Channel` objects are already
+  established (E2E-015/017/018) to hold their OWN back-reference to the
+  owning `Nub*`, it's plausible `Channel+0x138` ALSO equals `Nub*`
+  (channels commonly store their owning Nub), which would mean
+  **E2E-031's live-verified "`entity_ptr` == `ServerConnection`" identity
+  check may actually have been reading the CHANNEL object itself**, not
+  a separate `ServerConnection` class — both would satisfy
+  `+0x138==Nub_addr` if both hold a Nub back-pointer at that same offset.
+  This is a plausible re-reading, not proven this pass — flagged as
+  worth checking (does `Channel` independently satisfy `+0x138==Nub*`
+  from ITS OWN already-disassembled constructor?) before treating it as
+  settled.
+- **`0x985e84`**, inside a larger function (context includes
+  `[x19,#0x108]` request-list iteration, a call to `0x982efc` — likely
+  processing pending/piggyback requests — and a final send call to
+  `0x98e520`, i.e. this looks like `Channel::send()` or an immediately
+  adjacent bundle-dispatch function): reads `x19+0x140`, but ONLY inside
+  a branch gated on a debug/verbose-logging flag
+  (`ldrb w8,[0x3925000+0x9b4]`) — meaning this specific read does
+  **NOT** run in a normal (non-debug-verbose) session, and is not itself
+  the mechanism responsible for the live-observed toggle.
+- **`0x984ce8`**: already identified in E2E-034 as an unrelated
+  vector-allocator false positive.
+
+### Finding 2: even in this NEW, narrowly-targeted region, NO direct "set to a real pointer" `str` instruction was found
+Consistent with the recurring pattern across this entire investigation
+(`0x94c540`, `0x93a5e4`, and now this): the actual SETTER that assigns
+the live-observed non-null pointer value is not a plain, directly-
+scannable `str` instruction anywhere in the Channel/message-processing
+code region either. Whatever sets it is very likely reached through
+register-indexed addressing or virtual dispatch, the same class of
+limitation this project's ADRP+ADD/direct-reference tooling has hit
+repeatedly and could not resolve for the earlier candidates either.
+
+### RESULT
+- **Real, incremental progress, not a repeat of prior negative results**:
+  found `+0x140` genuinely IS touched by Channel-lifecycle code (its own
+  destructor), which the earlier channel-creation-focused searches
+  (E2E-029/030/034) had not surfaced — this is a different code region
+  than anything checked before, exactly as the coordinator asked.
+- **Did not find the actual per-message set/clear operations** that
+  would explain the observed ~2-3s toggle — those remain unlocated,
+  consistent with the by-now well-established pattern that this
+  project's static tooling cannot trace virtual-dispatch/indexed-load
+  code paths.
+- **New, worth-verifying side question raised**: is `entity_ptr` from
+  E2E-031 actually the `Channel` object rather than a separate
+  `ServerConnection` class? Both could independently satisfy
+  `+0x138==Nub*`. Not resolved this pass.
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+
+### NEXT_ACTION
+1. Given the coordinator's own retry-loop live test is the more direct,
+   immediately actionable path, this static thread is secondary —
+   continue only if the retry-loop result comes back ambiguous or
+   negative.
+2. If pursued further: check whether `Channel`'s own constructor
+   (`0x984a54`, already partially disassembled in earlier passes) sets
+   `Channel+0x138` to the Nub address, to resolve the Finding-1
+   object-identity question definitively without needing another live
+   read.
+3. Given the recurring "real setter is virtual-dispatch/indexed-load
+   only" pattern (now confirmed 3 times independently across different
+   candidate functions), further static hunting for the EXACT set/clear
+   instruction is very likely to keep hitting the same wall — the
+   coordinator's live retry-loop experiment is the pragmatically better
+   use of the next round regardless of this static thread's outcome.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
