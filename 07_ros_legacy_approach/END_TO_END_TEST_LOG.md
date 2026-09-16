@@ -3306,6 +3306,159 @@ not blocking the wire-mechanism work.
    neither blocks pursuing #1/#2 above.
 
 ---
+
+## TEST_ID: E2E-027
+- **DATE**: 2026-09-16, continuation pass, per the coordinator's
+  instruction to try ONE more focused static technique
+  (`.rela.dyn` addend + `__cxa_guard_acquire`/`release` proximity) before
+  falling back to a labeled best-guess live test. Pure disassembly; no
+  server/device touched.
+
+### Static attempt (as instructed): `.rela.dyn` addend + guard-function proximity — INCONCLUSIVE, ruled out several concrete sub-hypotheses
+1. Confirmed (already known from E2E-026) the `.rela.dyn` entry:
+   `r_offset=0x37d7cb8, r_addend=0x94c540` (an `R_AARCH64_RELATIVE`).
+2. Manually parsed the ELF `.dynsym`/`.dynstr`/`.rela.plt` tables (no
+   `pyelftools` available in this environment) to resolve
+   `__cxa_guard_acquire`'s and `__cxa_guard_release`'s PLT stub addresses
+   (`0x7e2530`, `0x808130`). Found **1555** and **1551** direct `BL`
+   callers respectively across the whole binary — far too many to check
+   individually (consistent with ~1500+ C++11 magic-statics in a binary
+   this size), so narrowed the search to callers whose surrounding code
+   (±0x400 bytes, both directions) ALSO references page `0x37d7000` with
+   an offset landing anywhere in the vtable-blob's own range
+   (`0xc80`-`0xd30`, covering every slot from -0x30 to +0x68 relative to
+   our target). **Zero matches.**
+3. Reconsidered whether the `0x37d7c80`-`0x37d7d30` blob is a real C++
+   vtable at all (my E2E-026 assumption) — re-examined one of its
+   neighboring slots (`0x37d7c98`+0x10 = `0x37d7ca8`) and found it IS
+   used elsewhere (`0x80cb4c`), but as an ordinary REGISTERED-METHOD
+   HANDLER value for a completely different `ClientInterface` method's
+   registration call, not as evidence of "constructing an object of this
+   vtable's type." **This means the whole blob is very likely NOT a C++
+   class vtable at all — it reads as a plain contiguous DATA TABLE of
+   individually-relocated function-pointer constants**, each entry
+   independently used as a handler value by different, unrelated
+   registration call sites elsewhere (the same mechanism already used
+   throughout this project for `versionPointIdentity`/`restoreClient`/
+   etc.), coincidentally laid out adjacent to each other by the linker/
+   compiler — NOT a shared class hierarchy. This is a real correction to
+   E2E-026's framing, not just an unresolved question.
+4. Searched for DIRECT `adrp+ldr` reads of `0x37d7cb8` (and the whole
+   surrounding `0xc80`-`0xd30` range) anywhere in `.text` — **zero
+   matches**, either at the exact relocation offset or anywhere nearby.
+   This rules out a simple fixed-immediate-offset read of this specific
+   table entry. **The only remaining explanation consistent with all
+   evidence gathered**: `0x94c540` is read out of this table via a
+   **register-indexed load** (e.g. `ldr x8, [xBase, xIndex, LSL #3]`,
+   where `xIndex` is a runtime value such as a numeric method ID or
+   entity-type ID) — i.e. genuinely a runtime-computed lookup table, not
+   a fixed access pattern this project's current ADRP+ADD/LDR-immediate
+   scanning tools can locate. Finding the exact base-register setup for
+   such an indexed load would require either a different scanning
+   technique (tracking register values across broader basic-block ranges
+   to catch `LSL`-indexed `LDR`s specifically) or manual exploration —
+   not completed this pass given the time already invested across two
+   passes on this exact sub-problem.
+
+### RESULT: static analysis has now been tried via 4 independent, well-reasoned techniques on this specific sub-problem (direct call, adrp+add construction, guard-function proximity, adrp+ldr direct read) — all inconclusive. Falling back to option (b) as instructed.
+This is reported as a genuine, multi-technique-exhausted blocker for
+`0x94c540`'s exact dispatch/selection mechanism specifically — not a
+reason to doubt the overall `shortEntityMessage`/`longEntityMessage`
+hypothesis itself (which remains the best-evidenced path per E2E-025/
+E2E-026), just an acknowledgment that pinning its EXACT byte-level
+selection logic via this project's current static toolkit has hit
+diminishing returns after a fair, focused attempt.
+
+### Best-guess wire format(s) for a live A/B test — EXPLICITLY LABELED UNCONFIRMED/GUESS, NOT A FINDING
+Basis for the guess (each point is either an already-CONFIRMED fact from
+prior passes, or an explicit assumption, labeled accordingly):
+- **CONFIRMED (E2E-026)**: `shortEntityMessage`=ClientInterface msgID 100
+  (`u8` length prefix), `longEntityMessage`=msgID 101 (`u16` length
+  prefix), both VARIABLE_LENGTH_MESSAGE.
+- **CONFIRMED (E2E-026's own trace of `0x94c540`'s dispatch)**: the
+  TARGET ENTITY for the bound-method call is obtained from **internal
+  connection state** (`[[x2+0x10]+0x4458]+0x140`-chain, i.e. the client's
+  own currently-bound entity), **NOT parsed from the wire body** — so the
+  guessed body format below deliberately does **NOT** include an
+  entityID field.
+- **ASSUMPTION**: the wire body encodes `[local method index within the
+  target entity's ClientMethods][remaining bytes = args]`, matching
+  standard BigWorld codegen convention for this class of generic
+  wrapper message (not independently confirmed this project).
+- **CONFIRMED (`05_entities/out/Account.def.xml`, direct read)**:
+  `onChannelLogin` is local `ClientMethods` index **2** (`0=
+  loadSceneAfterReconnect, 1=onLogin, 2=onChannelLogin, ...`), args
+  `(UINT8 status, PYTHON accountData)`.
+- **ASSUMPTION**: `PYTHON`-typed BigWorld args serialize via Python's
+  standard `pickle` protocol (documented BigWorld convention, not
+  independently confirmed against this specific client build).
+
+**Variant 1** (methodIndex as `u8`, sent via `shortEntityMessage`,
+`pickle`-encoded dict):
+```
+msgID = 100 (shortEntityMessage)
+body  = bytes([2])                      # local method index = 2 (onChannelLogin), u8
+      + bytes([0])                      # status: UINT8 = 0 (success)
+      + pickle.dumps({'characters': []}, protocol=2)   # accountData, minimal guess
+outer_len_prefix = len(body)             # u8, per shortEntityMessage's own framing
+```
+
+**Variant 2** (methodIndex as `u16` LE, sent via `longEntityMessage`,
+same args — tests whether the index width differs):
+```
+msgID = 101 (longEntityMessage)
+body  = struct.pack('<H', 2)            # local method index = 2, u16 LE
+      + bytes([0])                      # status: UINT8 = 0
+      + pickle.dumps({'characters': []}, protocol=2)
+outer_len_prefix = len(body)             # u16, per longEntityMessage's own framing
+```
+
+**Variant 3** (same as Variant 1's framing, but `marshal`-encoded instead
+of `pickle`-encoded — tests the PYTHON-serialization-format assumption
+specifically, since this is the least-certain part of the whole guess):
+```
+msgID = 100 (shortEntityMessage)
+body  = bytes([2]) + bytes([0]) + marshal.dumps({'characters': []})
+outer_len_prefix = len(body)
+```
+
+**Recommended test order**: Variant 1 first (most standard-convention
+guess), then Variant 2 (rules out index-width uncertainty independent of
+serialization format), then Variant 3 (rules out serialization-format
+uncertainty independent of index width) — this ordering isolates the two
+biggest unknowns (index width, serialization format) as separate,
+individually-diagnosable axes rather than changing both at once.
+**All three are explicitly UNCONFIRMED GUESSES** — a wire-accepted
+response (no rejection, some client-side reaction) would be the first
+real signal validating any part of this; the ABSENCE of any distinct
+reaction (identical silent behavior to not sending anything) would not
+by itself disprove the underlying `shortEntityMessage`/`longEntityMessage`
+mechanism, only this specific guessed byte layout.
+
+### RESULT
+- Static analysis on `0x94c540`'s exact selection mechanism is now
+  genuinely exhausted across 4 techniques (not for lack of trying); a
+  live A/B test with 3 explicitly-labeled guesses is the honest next
+  step, per the coordinator's own instruction.
+- `CLIENT_MODIFIED: NO`. No server/device touched — the guesses above
+  are handed to the coordinator to implement/test with their live access.
+
+### NEXT_ACTION
+1. Coordinator implements and live-tests Variant 1, then 2, then 3 (or
+   in whatever order/combination is most efficient given live-test
+   turnaround time), watching for ANY new client-side reaction (logcat
+   line, UI change, or even a distinct-shaped rejection naming something
+   new) as the signal to chase next.
+2. If ALL THREE produce zero observable difference from baseline
+   (identical to not sending anything), the `shortEntityMessage`/
+   `longEntityMessage` hypothesis itself should be treated as unconfirmed
+   (not disproven) and this thread should be paused in favor of either
+   (a) a completely different mechanism for `onChannelLogin` delivery, or
+   (b) revisiting whether `Account`/`Athlete` entity progression even
+   requires an explicit push at all versus some other trigger not yet
+   considered.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
