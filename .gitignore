@@ -29,3 +29,9 @@ __pycache__/
 # Ignore JDK distributions
 tools/jdk21/
 tools/jdk21.zip
+
+# Ignore Ghidra project database (huge, regenerable via -import of
+# 03_lib/libclient_arm64.so with the ROS_RE scripts in scratch/ghidra_scripts/)
+scratch/ghidra_project/
+scratch/ghidra_*.log
+scratch/run_ghidra_*.bat

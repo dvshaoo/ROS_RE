@@ -1,0 +1,16 @@
+Target function address: 00a4c540 (static 0x94c540)
+Function: FUN_00a4c540
+
+=== ALL references to function entry (any ref type) ===
+  from 033175d0  type=INDIRECTION  opIndex=0
+  from 033f7368  type=DATA  opIndex=0
+  from 038d7cb8  type=DATA  opIndex=0
+Total: 3
+
+=== Scanning defined Data for raw pointer == target ===
+  pointer at 038d7cb8 -> 00a4c540
+Total pointer hits: 1
+
+=== Raw byte scan for 8-byte LE pattern of static offset 0x94c540 ===
+  raw offset pattern at 00434618 (block .rela.dyn)
+Total raw-offset pattern hits: 1
