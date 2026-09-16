@@ -4117,6 +4117,97 @@ function at all). This is genuine, if indirect, evidence that:
    more immediately actionable paths forward.
 
 ---
+
+## TEST_ID: E2E-034
+- **DATE**: 2026-09-16, continuation pass, run in parallel with the
+  coordinator's own differently-timed live snapshot work. Per the
+  coordinator's request: re-check for OTHER `+0x140` setters using a
+  smarter, object-SHAPE-based filter (any `str` to `+0x140` where the
+  same base register is ALSO used for a `+0x138` access nearby — matching
+  the `ServerConnection+0x138==Nub*` shape) instead of the earlier
+  narrow address-range filter, in case the real setter lives outside
+  `0x900000`-`0x970000`. Pure disassembly; no server/device touched.
+
+### Method
+Wrote `scratch/find_serverconnection_140_setters.py`: scanned the WHOLE
+`.text` section for every non-`sp` `str ..., [reg, #0x140]` (328 sites,
+vs. the earlier narrow-range scan's 10), then for each one checked a
+generous `±0x300`-byte window for a `+0x138` access (load or store) on
+the SAME base register. **124 of 328 passed this filter.**
+
+### Result: the shape-based filter is not selective enough — spot-checked the 5 most plausible (real-pointer-valued) candidates, all confirmed false positives from unrelated classes
+Filtered further by hand to the ones storing an actual register value
+(not `xzr`/`wzr`/float/vector registers, which are clearly zero-inits or
+unrelated float fields) — 5 clusters worth checking. Disassembled each:
+- **`0x984ce8`** (same `0x984xxx` region as the Channel constructor and
+  `InactivityTimeout` getters, so the most promising-looking one):
+  turned out to be a `std::vector`-shaped allocator constructing a NEW
+  buffer object (`{data_ptr, size, 0}`) and storing it — but the
+  IMMEDIATELY FOLLOWING code (`0x984d14: ldr x0,[x19,#0x138]`) checks a
+  SEPARATE, UNRELATED field for a totally different purpose (part of a
+  much larger constructor sequentially initializing ~5+ different
+  container members at `+0x40`, `+0xb8`, `+0x138`, `+0x140`,... in a row)
+  — a coincidental large-object-with-many-members layout, not
+  `ServerConnection`.
+- **`0x868b58`** (and 4 near-identical sibling sites): `+0x140` used as a
+  plain incrementing SIZE COUNTER (`ldr;add #1;str`) paired with
+  `+0x138` as a tree/map ROOT POINTER fed into an insert call
+  (`bl 0x842490`) — a generic `std::map`/`std::set`-shaped container,
+  unrelated to `ServerConnection`.
+- **`0x921b48`** and **`0x924384`** (identical shape): both are
+  `read [x19+0x138] -> write to [x19+0x140] -> bl 0x7e1c90(delete)` —
+  a "swap into scratch slot then delete" pattern inside what looks like
+  a hash-table destructor (preceded by an open-addressing probe loop at
+  `0x924300`ff), again unrelated.
+- **`0xb8b7bc`** (and 4 identical sibling sites `0xb8bc80`/`ce0`/`d58`/
+  `dc8`): part of an auto-generated DESTRUCTOR with **5 repeating
+  identical blocks** (`+0x330`→`+0x338`, `+0x1f8`→`+0x200`, `+0x1c0`→
+  `+0x1c8`, `+0x170`→`+0x178`, `+0x138`→`+0x140`), each "if member
+  non-null, move to the adjacent slot and delete" — `+0x138`/`+0x140`
+  here is just the LAST of five identically-shaped unrelated member
+  pairs in a class with several smart-pointer-like members, not
+  `ServerConnection`.
+
+**All 5 spot-checked clusters (covering the clearest, most
+pointer-shaped candidates among the 124) are confirmed coincidental
+matches on unrelated classes** — `+0x138`/`+0x140` is evidently a common
+enough offset pair (vectors, maps, unique_ptr-style members, and our
+actual target all happen to land there) that this shape filter, while a
+reasonable idea, is not selective enough to isolate the real
+`ServerConnection` setter from generic container/destructor noise
+without checking many more of the remaining ~119 candidates by hand.
+
+### RESULT
+- **Real negative result, not a shortcut skipped**: the widened,
+  shape-filtered search did not find a better candidate than E2E-030's
+  already-known setter (which itself, per E2E-032, is likely an
+  exception/shutdown-only path). Two independent static search
+  strategies (narrow address-range in E2E-030, object-shape filter this
+  pass) have now both failed to turn up the real success-path setter.
+- This is consistent with (does not newly prove) the recurring pattern
+  already seen elsewhere in this investigation (`0x94c540`,
+  `0x93a5e4`): the real setter, if it exists as straightforward
+  assignable code at all, is very plausibly reachable only via a
+  register-indexed load or virtual dispatch this project's current
+  ADRP+ADD/direct-reference-based tooling cannot locate — not that no
+  such code exists.
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+  Script committed at `scratch/find_serverconnection_140_setters.py`,
+  full 124-candidate list in `scratch/serverconnection_140_setters.txt`
+  for anyone who wants to hand-check the remaining ~119 not spot-checked
+  this pass.
+
+### NEXT_ACTION
+Given static analysis has now been tried via multiple independent
+strategies without success, the coordinator's own parallel live
+differently-timed-snapshot experiment is the higher-value active thread
+right now. If it shows the field DOES flip to non-zero on its own,
+correlating the timing against sent/received packets would be far more
+efficient than continuing to hand-check the remaining static candidates.
+If it never flips, that further strengthens hypothesis (c) regardless of
+whether the exact native setter is ever statically located.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
