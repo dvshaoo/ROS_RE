@@ -3856,6 +3856,128 @@ memory read itself turns out to be infeasible per this project's
 historically inconsistent ptrace/mem-read access across sessions).
 
 ---
+
+## TEST_ID: E2E-032
+- **DATE**: 2026-09-16, continuation pass, responding to the coordinator's
+  live-confirmed E2E-031 result (`gate_value==0`, `entity_ptr==
+  ServerConnection`) and their request to trace the E2E-030 one-caller
+  setter's chain further to distinguish (a) not-reached, (b) wrong
+  setter, or (c) upstream/Python-layer dependency. Pure disassembly; no
+  server/device touched.
+
+### Key new finding: the setter chain traced in E2E-030 belongs to a `neox::bwclient::BaseAppLoginRequest`/`LoginHandler`/`LoginRequest` combined vtable, and its SIBLING slot's shape points to an EXCEPTION/cleanup path, not the success path
+Found `0x9395cc` (the wrapper immediately calling `0x9396c4`, which leads
+to E2E-030's setter) is itself a `.rela.dyn`-relocated vtable slot at
+`0x37d6c18`. Dumped the full surrounding vtable-group blob and its
+Itanium RTTI typeinfo-name strings — **CONFIRMED BY BINARY, real C++
+mangled names**:
+```
+0x2a4b2a0: "N4neox8bwclient12LoginRequestE"        (neox::bwclient::LoginRequest)
+0x2a4b2c0: "N4neox8bwclient19BaseAppLoginRequestE"  (neox::bwclient::BaseAppLoginRequest)
+0x2a4b2f0: "N4neox8bwclient12LoginHandlerE"         (neox::bwclient::LoginHandler)
+```
+This is a genuinely new, concrete identification — this project has
+referred to `BaseAppLoginRequest` by inferred name since E2E-007/E2E-015,
+and this is the first time its ACTUAL mangled C++ RTTI name (and its
+sibling classes' names) has been read directly from the binary.
+
+Our target slot (`0x9395cc`) sits in the `BaseAppLoginRequest`-anchored
+sub-vtable segment (between the `LoginRequest`-anchor at `-0x50` and a
+second `BaseAppLoginRequest`-anchor at `+0x30`), specifically as the LAST
+of 5 real function slots in that segment (`-0x18` through `0x0`:
+`0x9375ac, 0x9376f4, 0x939394, 0x9395cc`). **Disassembled the immediately
+preceding sibling slot (`-0x8`, `0x939394`)**: it reads a status/reason
+code from `[arg+0x18]->+0x58`, a running counter (`[this+0x70]`, always
+incremented), and a timestamp, then writes all three into a caller-
+provided buffer via a generic stream-write call — **this is the classic
+shape of `Mercury::ReplyMessageHandler::handleException()`** (recording
+an exception/reason code + diagnostic info), not a success-path handler.
+Standard Mercury `ReplyMessageHandler` interfaces declare exactly 3
+virtual methods in order: `handleMessage` (success), `handleException`
+(failure), `handleShuttingDown` (Nub teardown). If slot `-0x8` is
+`handleException` (strongly evidenced by its shape), our target slot
+`0x9395cc` (immediately after it) is very plausibly **`handleShuttingDown`**
+— an edge-case teardown callback, not the normal, per-request success
+path — matching E2E-030's own observation that this callee does
+REMOVE-from-indexed-map + release-old-channel cleanup work, which reads
+far more like teardown/cleanup than "channel successfully created."
+
+### Additional check: `initNetwork` itself (the KNOWN, confirmed-executing success path) does not set `+0x140` anywhere in its body
+Re-scanned `BaseAppLoginRequest::initNetwork`'s full body
+(`0x9389dc`-`0x939400`, already extensively disassembled in E2E-015/017/
+018 as the function that constructs the Channel and calls the CONFIRMED
+`0x992764` indexed-map INSERT) for any `str ...,[reg,#0x140]` — **zero
+hits**. The one function we know for certain executes successfully in
+our live flow (its `0x992764` INSERT call is what makes the reliable
+channel/ack mechanism work at all) does not touch this field.
+
+### Additional check: even the "simple, generic" setter (`0x93a5e4` from E2E-030) has NO discoverable caller by ANY static technique tried
+Checked for direct `BL` callers (E2E-030: zero), tail-call `B` branches
+to it (this pass: zero), and a `.rela.dyn` relocation with this address
+as its addend (this pass: zero). This function is reachable, if at all,
+only via a register-indexed load this project's tooling cannot locate —
+the SAME class of limitation already hit for `0x94c540` (E2E-026/027).
+
+### Assessment: (a)/(b)/(c)
+- **(a) "not reached despite the surrounding code running" — REFUTED as
+  stated**: the surrounding code (the `0x939700` cleanup block) almost
+  certainly ISN'T part of the normal success flow at all (per the
+  `handleShuttingDown`/`handleException`-sibling evidence above), so
+  there's no contradiction to explain — it's not that a normally-running
+  path skips this step, it's that this ENTIRE path is very likely
+  reserved for teardown/exception, which correctly doesn't fire in a
+  successful session.
+- **(b) "wrong setter, unrelated object/path" — NOW THE BEST-SUPPORTED
+  READING**, refined: not "unrelated object" (E2E-031 already proved
+  `entity_ptr`/`ServerConnection` object-identity is correct and
+  consistent) but **"wrong CODE PATH"** — E2E-030's setter is real and
+  targets the right object and field, but is very likely gated to the
+  exception/shutdown scenario, not the normal per-request success
+  scenario, which is why it doesn't fire in our (successful) flow.
+- **(c) "depends on something further upstream, possibly the Python-
+  layer/`handshake` gate" — NOT RULED OUT, and now the LEADING
+  explanation by elimination**: with `initNetwork` (known-executing)
+  confirmed NOT setting this field, and the ONLY other found setter
+  strongly suspected to be exception-only, the genuine success-path
+  setter for `ServerConnection+0x140` was **not located anywhere in
+  native code reachable by this project's static tooling this pass**.
+  This is consistent with (though does not prove) the field being set as
+  a CONSEQUENCE of some later, possibly script/Python-gated milestone
+  (e.g. successful `Account::handshake` processing) rather than being an
+  automatic, purely-native side effect of channel creation.
+
+### RESULT
+- **Real, concrete new finding**: identified the actual C++ class names
+  (`LoginRequest`/`BaseAppLoginRequest`/`LoginHandler`) behind this
+  vtable group — genuinely new information for this project, useful
+  regardless of how the `+0x140` question resolves.
+- **Refined the E2E-030 setter's role**: very likely an exception/
+  shutdown-path cleanup routine, not the normal success-path setter —
+  this is a meaningful narrowing, not a restatement of prior ambiguity.
+- **The true success-path setter remains genuinely unfound** by static
+  means, after checking the one function known to run successfully
+  (`initNetwork`) and exhausting all 3 static-reachability techniques on
+  the other lead. This shifts weight toward hypothesis (c).
+- `CLIENT_MODIFIED: NO`. Pure disassembly, no server/device touched.
+
+### NEXT_ACTION — recommend a differently-timed live snapshot, per the coordinator's own offer
+Rather than more static tracing (diminishing returns established across
+3 consecutive passes on this exact sub-problem), the highest-value next
+step is empirical: **take another live read of the SAME
+`entity_ptr+0x140` field at 1-2 DIFFERENT points in the session
+timeline** — e.g. (i) immediately after the channel ACK but before
+`createBasePlayer`, and (ii) several seconds into steady-state (keep-
+alives running, `identifyVersionPoint` still resending) — to see whether
+the field:
+- **Never changes from 0** across the whole observed session → strongly
+  supports (c): something we're not providing is required before the
+  client ever sets this field, independent of timing.
+- **Transitions to non-zero on its own at some point** without any
+  server-side change → would suggest a timing/ordering issue in when we
+  send things, not a missing prerequisite — worth knowing exactly when
+  it flips and correlating against what packet/event preceded it.
+
+---
 *Last updated: 2026-09-16. Do not overwrite prior entries — append new
 TEST_ID blocks only.*
 
