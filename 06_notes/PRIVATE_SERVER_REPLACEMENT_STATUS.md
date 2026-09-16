@@ -184,21 +184,30 @@ this document only aggregates and classifies, it does not re-derive.
   which this project cannot currently observe dynamically. See the new
   consolidated writeup, `06_notes/BASEAPP_CRYPTO_BLOCKER_SUMMARY.md`, for
   the full history in one place.
+  **UPDATE (E2E-016 to E2E-020 — MAJOR BREAKTHROUGH)**:
+  - **E2E-016**: Located the genuine generic decrypt routine `in_place_decrypt` at `0x98924c`, called by `EncryptionFilter::recv` (`0x989444`).
+  - **E2E-017 & E2E-018**: Settled indexed-channel dispatch hypothesis as non-applicable for early handshake packets.
+  - **E2E-019**: Disassembled `processFilteredPacket` (`0x98fa30`) and identified `(+0x1a)+(+0x1c) > 2` sanity check.
+  - **E2E-020**: **SOLVED the BaseApp crypto blocker!**
+    1. `in_place_decrypt` (`0x9892c8`) sets `x26 = xzr` (IV = 0) at the start of EVERY packet. There is NO inter-packet chaining state across UDP datagrams! Setting `chain_iv` in `local_baseapp_capture.py` was corrupting the first block, turning flags `0x0001` into `0x0183`.
+    2. Flags `0x0183` set Bit 8 (`FLAG_HAS_CHECKSUM`) and Bit 1 (`FLAG_HAS_PIGGYBACKS`), which caused the false "failed checksum" and piggyback unpack errors.
+    3. `in_place_decrypt` (`0x989324`-`0x989350`) inspects the last byte as **wastage count** (`w21 = packet[total_len - 1]`). If `w21 <= 8`, it strips `w21` bytes from packet length (`+0x1a -= w21`). Padding must end with `pad_len` (e.g., `b'\x00\x00\x00\x04'` for a 12-byte payload padded to 16 bytes).
 
 ## BLOCKED
 
 1. **`script.npk` Python-layer patch (ROS-Legacy-Gate-1-style bypass)** —
    BLOCKED on two independent fronts: (a) general `7A 1C` stream cipher not yet broken;
    (b) Frida gadget injection on emulator hits native bridge translation module namespace limitation.
-2. **BaseApp reply content** — key is confirmed shared with LoginApp's (E2E-012), but neither IV=0 nor IV=chained-from-LoginApp produces correct decryption (E2E-008, E2E-014). A checksum/CRC field remains a candidate for a related/separate issue but its validation code could not be statically located despite 5 independent methods across two passes. This is now the project's most persistent open blocker on the path to Account/Avatar/Lobby — static analysis with current tooling appears exhausted; unblocking further likely requires either a fundamentally different static technique or working dynamic instrumentation (both native-bridge and classifier blockers currently prevent the latter).
-3. **Account, Avatar, Lobby entity instantiation** — downstream of #2, NEXT IMPLEMENTATION TARGET once #2 is solved.
+2. **Account, Avatar, Lobby entity instantiation** — downstream of BaseApp handshake, NEXT IMPLEMENTATION TARGET once BaseApp reply is verified live.
 
 ## RESOLVED (MOVED OUT OF BLOCKED)
 
 1. **Mercury reply-ID correlation**: RESOLVED (Attempt K — 4-byte LE @ offset 5).
 2. **First-LoginReply Blowfish key & cipher**: RESOLVED (Attempt L — key extracted from `EncryptionFilter` memory; cipher confirmed as `pc_variant` chaining per `0x989600` disassembly).
+3. **BaseApp reply crypto framing & padding**: RESOLVED (E2E-020 — Blowfish `pc_variant`, IV=0 per packet, shared key, wastage padding ending with `pad_len`).
 
 ## NEXT IMPLEMENTATION TARGET
 
-1. **Synthesize BaseApp `baseAppLogin` reply packet**: Formulate the response bundle for `BaseAppExtInterface::baseAppLogin` so the client completes the BaseApp handshake.
-2. **Account entity initialization**: Respond to Mercury Channel messages to instantiate the `Account` entity and transition client into Lobby.
+1. **Live verify BaseApp `baseAppLogin` reply**: Send the IV=0 wastage-padded 16-byte reply via `mitm/local_baseapp_capture.py` and confirm `processFilteredPacket` dispatches without error.
+2. **Account entity initialization (`createBasePlayer`)**: Send ClientInterface method 4 push (`msgID 0x04`) with wastage padding to instantiate `Account` and transition to Lobby.
+

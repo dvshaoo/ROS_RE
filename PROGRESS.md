@@ -23,13 +23,16 @@ The following gates must pass in order. Don't chase a later gate while an earlie
 - **Contract**: Documented in `06_notes/LOCAL_SESSION_CONTRACT.md`.
 
 ## Milestone Chain (project gates G1–G6) — current frontier: G2 GAME SESSION (loginapp / BaseApp)
-- G1 Login: PASS
-- G2 BaseApp: INVESTIGATION (`10.0.2.2:25000` mapped to `neox::bwclient::ServerConnection` in `libclient.so`)
-- G3 Role list / G4 Hall / G5 Character / G6 Battle — not yet attempted
+- G1 Login: PASS (HTTP auth + LoginApp UDP handshake verified live)
+- G2 BaseApp: BREAKTHROUGH (BaseApp Blowfish crypto framing, IV=0 rule, and wastage padding SOLVED via disassembly of `0x98924c` in E2E-020; live confirmation pending)
+- G3 Role list / G4 Hall / G5 Character / G6 Battle — queued behind G2
 
 ## Recent Task Completion
 | Task | Status | Finding |
 |------|--------|---------|
+| **E2E-020** | COMPLETE | BaseApp crypto solved: `in_place_decrypt` (`0x98924c`) resets IV=0 per packet. Chaining IV was the root cause of `flags 183` / `failed checksum`. Padding uses BigWorld wastage count (`w21 <= 8`). |
+| **E2E-012** | COMPLETE | BaseApp channel key is CONFIRMED identical to LoginApp key via heap scan. |
+| **E2E-007** | COMPLETE | LoginApp Blowfish handshake solved (`pc_variant`, session key extracted from heap, client decodes 172.16.1.2:25010 cleanly). |
 | **T13** | COMPLETE | G4 parser schema: `##########` separator + JSON tail. Minimal payload `##########\n{}` (13 bytes) eliminates error 41006 |
 | **T14** | COMPLETE | `KeyError: 'type'` root cause: missing `"type": "package"` key in JSON tail. Also: `"version"` must be STRING, not int. |
 | **T15** | NARROW-VERIFIED | `patch/ResourcePatcher.py:1285,1299,1308-1324` — string `file_list` + `_updated/_size/_md5` tail keys resolve ZeroDivision/TypeError/missing-key crashes. Live-verified: no traceback, boot reaches `properties.init()`. |

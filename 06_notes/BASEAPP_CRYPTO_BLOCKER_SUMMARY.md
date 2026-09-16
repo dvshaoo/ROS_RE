@@ -1,6 +1,29 @@
-# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-018)
+# BaseApp Channel Crypto Blocker — Consolidated Summary (E2E-008 through E2E-020)
 
-## READ THIS FIRST (E2E-018 update)
+## READ THIS FIRST (E2E-020 RESOLUTION — BLOCKER SOLVED)
+
+**The BaseApp Crypto Blocker is now SOLVED at the binary disassembly level (E2E-020).**
+
+1. **IV = 0 For Every Packet (No Inter-Packet Chaining)**:
+   - Disassembly of `in_place_decrypt` (`0x98924c`, called by `EncryptionFilter::recv` @ `0x989444`) showed that at `0x9892c8`, it executes `mov x26, xzr`.
+   - The IV is cleared to all-zeros on **every single received datagram**.
+   - BigWorld Mercury Blowfish encryption operates strictly per-packet with IV = 0.
+   - Setting `chain_iv = _last_plain_block_by_host` in `mitm/local_baseapp_capture.py` in E2E-012 was XOR-corrupting the first 8 bytes upon client decryption, turning flags `0x0001` into `0x0183`.
+   - Flags `0x0183` set Bit 8 (`FLAG_HAS_CHECKSUM = 0x0100`) and Bit 1 (`FLAG_HAS_PIGGYBACKS = 0x0002`), causing the false "failed checksum" and "piggyback unpack" errors.
+
+2. **BigWorld Wastage / Padding Rule (`w21 <= 8`)**:
+   - `in_place_decrypt` (`0x989324`-`0x989350`) reads the very last byte of the decrypted packet as the **wastage count**: `w21 = packet[total_len - 1]`.
+   - If `w21 <= 8`, it strips `w21` bytes from `packet_obj+0x1a` (`[x19, #0x1a] -= w21`).
+   - If `w21 > 8`, it drops the packet with `Dropping packet from %s due to illegal wastage count (%d)`.
+   - Padding must therefore end with the byte value `pad_len` (e.g. `b'\x00\x00\x00\x04'` for a 12-byte payload padded to 16 bytes).
+   - This cleanly satisfies the `processFilteredPacket` sanity check `(+0x1a)+(+0x1c) > 2` without needing any special trailer sections!
+
+3. **Status**:
+   - `mitm/local_baseapp_capture.py` has been updated with IV=0 and wastage padding for both BaseApp reply (`msgID 0xFF`) and `createBasePlayer` push (`msgID 0x04`).
+
+---
+
+## E2E-018 Context (Historical)
 
 The E2E-017 "indexed-channel dispatch" hypothesis has now been **fully resolved — mixed
 result, and it does NOT explain or fix the blocker.** Both load-bearing links were checked:

@@ -500,6 +500,13 @@ class H(BaseHTTPRequestHandler):
         self._handle()
     def do_POST(self):
         self._handle()
+    def do_HEAD(self):
+        orig_write = self.wfile.write
+        self.wfile.write = lambda *args, **kwargs: None
+        try:
+            self._handle()
+        finally:
+            self.wfile.write = orig_write
     def do_CONNECT(self):
         # Forward CONNECT requests directly to local TLS port 8443
         w('CONNECT %s' % self.path)
