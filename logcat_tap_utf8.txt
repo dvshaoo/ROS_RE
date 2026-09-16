@@ -1,0 +1,784 @@
+﻿--------- beginning of main
+09-16 02:08:40.287  1559  1567 I chatty  : uid=1000(system) FinalizerDaemon expire 25 lines
+09-16 02:08:40.287  1559  1567 W System  : A resource failed to call close. 
+09-16 02:08:47.193  8160  8160 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 960 725 
+09-16 02:08:47.193  8160  8160 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-16 02:08:47.194  8160  8160 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:47.204  8160  8160 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:47.209  8160  8160 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:47.221  8160  8160 I main    : type=1400 audit(0.0:1795): avc: denied { open } for path="/data/local/cfg-ynhne/app_xpt" dev="sdb2" ino=393558 scontext=u:r:shell:s0 tcontext=u:object_r:system_data_file:s0 tclass=file permissive=1
+09-16 02:08:47.221  8160  8160 I main    : type=1400 audit(0.0:1796): avc: denied { mounton } for path="/proc/cpuinfo" dev="proc" ino=4026531992 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpuinfo:s0 tclass=file permissive=1
+09-16 02:08:47.226  8160  8160 I app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:47.226  8160  8160 W app_process: Could not create mount namespace.
+09-16 02:08:47.226  8160  8160 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:47.227  8160  8160 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:47.227  8160  8160 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-16 02:08:47.227  8160  8160 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:47.236  8160  8160 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-16 02:08:47.241  8160  8160 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=960.0, y[0]=725.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=7316291, downTime=7316291, deviceId=3, source=0x1002 }
+09-16 02:08:47.265  1559  1559 I InputDispatcher: type=1400 audit(0.0:1797): avc: denied { call } for scontext=u:r:system_server:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
+09-16 02:08:47.272  8160  8160 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=960.0, y[0]=725.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=7316291, downTime=7316291, deviceId=3, source=0x1002 }
+09-16 02:08:47.296  8160  8160 D AndroidRuntime: Shutting down VM
+09-16 02:08:47.383  5260  5356 E NeoX    : finish get cutOut info
+09-16 02:08:47.695  1401  1401 I writer  : type=1400 audit(0.0:1798): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3168 ioctlcmd=6867 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 02:08:47.711  1413  1413 I composer@2.1-se: type=1400 audit(0.0:1799): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3168 ioctlcmd=6867 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-16 02:08:47.718  8173  8173 I sh      : type=1400 audit(0.0:1800): avc: denied { getattr } for path="/system/xbin/su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 02:08:47.718  8173  8173 I sh      : type=1400 audit(0.0:1801): avc: denied { execute } for name="su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 02:08:47.718  8173  8173 I sh      : type=1400 audit(0.0:1802): avc: denied { read open } for path="/system/xbin/su" dev="sda2" ino=3773 scontext=u:r:shell:s0 tcontext=u:object_r:su_exec:s0 tclass=file permissive=1
+09-16 02:08:47.727  8176  8176 D su      : su invoked.
+09-16 02:08:47.730  8177  8177 D su      : starting daemon client 2000 0
+09-16 02:08:47.733  8178  8178 D su      : connecting client 8175
+09-16 02:08:47.736  8181  8181 D su      : remote pid: 8175
+09-16 02:08:47.739  8182  8182 D su      : remote pts_slave: 
+09-16 02:08:47.742  8183  8183 D su      : remote uid: 2000
+09-16 02:08:47.744  8184  8184 D su      : remote req pid: 2205
+09-16 02:08:47.747  8185  8185 D su      : remote args: 4
+09-16 02:08:47.751  8187  8187 D su      : waiting for child exit
+09-16 02:08:47.752  8189  8189 D su      : su invoked.
+09-16 02:08:47.755  8190  8190 D su      : Allowing shell.
+09-16 02:08:47.757  8192  8192 D su      : 2000 /system/bin/adbd executing 0 cat using binary cat : cat /proc/5260/maps
+09-16 02:08:47.767  8193  8193 D su      : sending code
+09-16 02:08:47.770  8194  8194 D su      : child exited
+09-16 02:08:47.771  8195  8195 D su      : client exited 0
+09-16 02:08:47.825  8204  8204 D su      : su invoked.
+09-16 02:08:47.827  8208  8208 D su      : su invoked.
+09-16 02:08:47.828  8210  8210 D su      : su invoked.
+09-16 02:08:47.829  8211  8211 D su      : starting daemon client 2000 0
+09-16 02:08:47.830  8191  8191 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command cat --es action allow --user 0 
+09-16 02:08:47.830  8191  8191 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:47.832  8191  8191 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:47.833  8213  8213 D su      : starting daemon client 2000 0
+09-16 02:08:47.834  8214  8214 D su      : connecting client 8203
+09-16 02:08:47.837  8212  8212 D su      : starting daemon client 2000 0
+09-16 02:08:47.838  8217  8217 D su      : connecting client 8209
+09-16 02:08:47.840  8220  8220 D su      : remote pid: 8203
+09-16 02:08:47.842  8223  8223 D su      : connecting client 8207
+09-16 02:08:47.853  8227  8227 D su      : remote pid: 8207
+09-16 02:08:47.855  8225  8225 D su      : remote pid: 8209
+09-16 02:08:47.855  8226  8226 D su      : remote pts_slave: 
+09-16 02:08:47.857  8191  8191 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:47.862  8242  8242 D su      : remote pts_slave: 
+09-16 02:08:47.863  8191  8191 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:47.863  8240  8240 D su      : remote pts_slave: 
+09-16 02:08:47.867  8243  8243 D su      : remote uid: 2000
+09-16 02:08:47.868  8237  8237 D su      : su invoked.
+09-16 02:08:47.872  8259  8259 D su      : starting daemon client 2000 0
+09-16 02:08:47.874  8257  8257 D su      : remote uid: 2000
+09-16 02:08:47.875  8263  8263 D su      : su invoked.
+09-16 02:08:47.876  8248  8248 D su      : su invoked.
+09-16 02:08:47.877  8254  8254 D su      : su invoked.
+09-16 02:08:47.880  8268  8268 D su      : starting daemon client 2000 0
+09-16 02:08:47.882  8265  8265 D su      : su invoked.
+09-16 02:08:47.883  8270  8270 D su      : starting daemon client 2000 0
+09-16 02:08:47.887  8272  8272 D su      : starting daemon client 2000 0
+09-16 02:08:47.887  8274  8274 D su      : connecting client 8258
+09-16 02:08:47.889  8269  8269 D su      : su invoked.
+09-16 02:08:47.892  8287  8287 D su      : starting daemon client 2000 0
+09-16 02:08:47.893  8279  8279 D su      : connecting client 8251
+09-16 02:08:47.894  8191  8191 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:47.895  8292  8292 D su      : su invoked.
+09-16 02:08:47.895  8191  8191 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:47.895  8191  8191 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:47.895  8191  8191 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:47.895  8191  8191 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:47.896  8283  8283 D su      : remote pid: 8258
+09-16 02:08:47.899  8296  8296 D su      : starting daemon client 2000 0
+09-16 02:08:47.899  8294  8294 D su      : remote pid: 8251
+09-16 02:08:47.899  8282  8282 D su      : connecting client 8247
+09-16 02:08:47.902  8298  8298 D su      : remote pts_slave: 
+09-16 02:08:47.902  8256  8256 D su      : remote req pid: 8200
+09-16 02:08:47.906  8290  8290 D su      : connecting client 8261
+09-16 02:08:47.908  8312  8312 D su      : remote args: 5
+09-16 02:08:47.910  8302  8302 D su      : connecting client 8289
+09-16 02:08:47.915  8317  8317 D su      : waiting for child exit
+09-16 02:08:47.915  8191  8191 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:47.918  8316  8316 D su      : su invoked.
+09-16 02:08:47.922  8327  8327 D su      : Allowing shell.
+09-16 02:08:47.924  8319  8319 D su      : remote pid: 8289
+09-16 02:08:47.927  8337  8337 D su      : remote pts_slave: 
+09-16 02:08:47.929  8333  8333 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962106 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:47.930  8335  8335 D su      : su invoked.
+09-16 02:08:47.931  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:47.931  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:47.931  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:47.931  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:47.931  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:47.931  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+--------- beginning of system
+09-16 02:08:47.932  1559  1695 W SchedPolicy: add_tid_to_cgroup failed to write '1913' (No space left on device); fd=24
+09-16 02:08:47.932  8191  8191 D AndroidRuntime: Shutting down VM
+09-16 02:08:47.934  8338  8338 D su      : remote uid: 2000
+09-16 02:08:47.936  8252  8252 D su      : remote uid: 2000
+09-16 02:08:47.938  8339  8339 D su      : starting daemon client 2000 0
+09-16 02:08:47.944  8344  8344 D su      : remote req pid: 8273
+09-16 02:08:47.945  8336  8336 D su      : su invoked.
+09-16 02:08:47.946  8348  8348 D su      : connecting client 8332
+09-16 02:08:47.953  8351  8351 D su      : remote args: 5
+09-16 02:08:47.954  8313  8313 D su      : remote pid: 8261
+09-16 02:08:47.956  8320  8320 D su      : su invoked.
+09-16 02:08:47.960  8267  8267 D su      : remote req pid: 8196
+09-16 02:08:47.963  8356  8356 D su      : waiting for child exit
+09-16 02:08:47.963  8346  8346 D su      : remote req pid: 8198
+09-16 02:08:47.964  8353  8353 D su      : remote pid: 8332
+09-16 02:08:47.965  8264  8264 D su      : connecting client 8235
+09-16 02:08:47.965  8361  8361 D su      : starting daemon client 2000 0
+09-16 02:08:47.966  1913  1962 E EGL_emulation: tid 1962: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 02:08:47.966  1913  1962 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x763870a77580, error=EGL_BAD_MATCH
+09-16 02:08:47.967  8309  8309 D su      : remote pts_slave: 
+09-16 02:08:47.970  8347  8347 D su      : su invoked.
+09-16 02:08:47.971  8311  8311 D su      : remote pid: 8247
+09-16 02:08:47.972  8352  8352 D su      : starting daemon client 2000 0
+09-16 02:08:47.974  8362  8362 D su      : remote args: 5
+09-16 02:08:47.975  8364  8364 D su      : remote pid: 8235
+09-16 02:08:47.975  8366  8366 D su      : connecting client 8318
+09-16 02:08:47.981  8276  8276 D su      : starting daemon client 2000 0
+09-16 02:08:47.981  8310  8310 D su      : remote uid: 2000
+09-16 02:08:47.981  8360  8360 D su      : su invoked.
+09-16 02:08:47.982  8370  8370 D su      : connecting client 8334
+09-16 02:08:47.982  8359  8359 D su      : remote pts_slave: 
+09-16 02:08:47.983  8372  8372 D su      : starting daemon client 2000 0
+09-16 02:08:47.983  8369  8369 D su      : su invoked.
+09-16 02:08:47.983  8363  8363 D su      : remote pts_slave: 
+09-16 02:08:47.985  8373  8373 D su      : remote pts_slave: 
+09-16 02:08:47.986  8377  8377 D su      : remote pid: 8318
+09-16 02:08:47.987  8375  8375 D su      : waiting for child exit
+09-16 02:08:47.994  8387  8387 D su      : remote pid: 8334
+09-16 02:08:47.996  8391  8391 D su      : remote pts_slave: 
+09-16 02:08:47.996  8376  8376 D su      : remote pts_slave: 
+09-16 02:08:47.997  8388  8388 D su      : remote uid: 2000
+09-16 02:08:47.998  8382  8382 D su      : remote args: 5
+09-16 02:08:47.999  8395  8395 D su      : su invoked.
+09-16 02:08:48.003  8368  8368 D su      : remote uid: 2000
+09-16 02:08:48.004  8398  8398 D su      : remote uid: 2000
+09-16 02:08:48.006  8383  8383 D su      : remote uid: 2000
+09-16 02:08:48.009  8396  8396 D su      : sending code
+09-16 02:08:48.011  8397  8397 D su      : remote pts_slave: 
+09-16 02:08:48.012  8400  8400 D su      : remote req pid: 8322
+09-16 02:08:48.014  8403  8403 D su      : Allowing shell.
+09-16 02:08:48.015  8402  8402 D su      : waiting for child exit
+09-16 02:08:48.016  8404  8404 D su      : remote req pid: 8229
+09-16 02:08:48.019  8331  8331 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.019  8331  8331 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.020  8414  8414 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962122 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.020  8406  8406 D su      : remote req pid: 8286
+09-16 02:08:48.021  8331  8331 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.022  8385  8385 D su      : Allowing shell.
+09-16 02:08:48.023  8379  8379 D su      : connecting client 8260
+09-16 02:08:48.023  8408  8408 D su      : su invoked.
+09-16 02:08:48.024  8386  8386 D su      : starting daemon client 2000 0
+09-16 02:08:48.030  8389  8389 D su      : remote uid: 2000
+09-16 02:08:48.033  8331  8331 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.038  8384  8384 D su      : connecting client 8345
+09-16 02:08:48.038  8381  8381 D su      : remote req pid: 8232
+09-16 02:08:48.039  8331  8331 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.051  8418  8418 D su      : remote args: 5
+09-16 02:08:48.052  8427  8427 D su      : remote req pid: 8234
+09-16 02:08:48.052  8399  8399 D su      : remote uid: 2000
+09-16 02:08:48.052  8407  8407 D su      : remote req pid: 8241
+09-16 02:08:48.055  8415  8415 D su      : remote args: 5
+09-16 02:08:48.056  8420  8420 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963214 count=8 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.056  8423  8423 D su      : Allowing shell.
+09-16 02:08:48.060  8425  8425 D su      : connecting client 8357
+09-16 02:08:48.060  8428  8428 D su      : remote pid: 8345
+09-16 02:08:48.060  8421  8421 D su      : remote pid: 8260
+09-16 02:08:48.060  8429  8429 D su      : remote args: 5
+09-16 02:08:48.061  8411  8411 D su      : remote uid: 2000
+09-16 02:08:48.061  8409  8409 D su      : client exited 1
+09-16 02:08:48.062  8412  8412 D su      : remote args: 5
+09-16 02:08:48.063  8410  8410 D su      : child exited
+09-16 02:08:48.070  8331  8331 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.070  8331  8331 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.070  8331  8331 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.070  8331  8331 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.070  8331  8331 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.076  8436  8436 D su      : waiting for child exit
+09-16 02:08:48.080  8446  8446 D su      : remote req pid: 8325
+09-16 02:08:48.080  8439  8439 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962114 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.080  8441  8441 D su      : remote pts_slave: 
+09-16 02:08:48.087  8331  8331 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.090  8459  8459 D su      : su invoked.
+09-16 02:08:48.092  8457  8457 D su      : su invoked.
+09-16 02:08:48.095  8464  8464 D su      : remote args: 5
+09-16 02:08:48.098  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.098  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.098  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.098  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.098  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.098  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.100  8331  8331 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.102  8431  8431 D su      : remote args: 5
+09-16 02:08:48.102  8470  8470 D su      : sending code
+09-16 02:08:48.103  8472  8472 D su      : Allowing shell.
+09-16 02:08:48.105  8465  8465 D su      : remote uid: 2000
+09-16 02:08:48.105  8471  8471 D su      : Allowing shell.
+09-16 02:08:48.106  8474  8474 D su      : waiting for child exit
+09-16 02:08:48.113  8480  8480 D su      : remote req pid: 8246
+09-16 02:08:48.114  8440  8440 D su      : remote pid: 8357
+09-16 02:08:48.117  8485  8485 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963554 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.117  8455  8455 D su      : su invoked.
+09-16 02:08:48.120  8433  8433 D su      : waiting for child exit
+09-16 02:08:48.134  8432  8432 D su      : remote req pid: 8221
+09-16 02:08:48.135  8448  8448 D su      : waiting for child exit
+09-16 02:08:48.137  8487  8487 D su      : remote pts_slave: 
+09-16 02:08:48.143  8481  8481 D su      : child exited
+09-16 02:08:48.143  8483  8483 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962802 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.146  8479  8479 D su      : client exited 1
+09-16 02:08:48.147  8478  8478 D su      : waiting for child exit
+09-16 02:08:48.155  8413  8413 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.155  8413  8413 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.155  8486  8486 D su      : remote args: 5
+09-16 02:08:48.156  8444  8444 D su      : waiting for child exit
+09-16 02:08:48.156  8413  8413 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.157  8445  8445 D su      : su invoked.
+09-16 02:08:48.157  8443  8443 D su      : remote pts_slave: 
+09-16 02:08:48.160  8434  8434 D su      : remote args: 5
+09-16 02:08:48.164  8500  8500 D su      : waiting for child exit
+09-16 02:08:48.165  8413  8413 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.165  8495  8495 D su      : remote uid: 2000
+09-16 02:08:48.166  8489  8489 D su      : Allowing shell.
+09-16 02:08:48.167  8501  8501 D su      : Allowing shell.
+09-16 02:08:48.169  8503  8503 D su      : remote uid: 2000
+09-16 02:08:48.170  8413  8413 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.187  8509  8509 D su      : su invoked.
+09-16 02:08:48.187  8515  8515 D su      : remote req pid: 8250
+09-16 02:08:48.190  8505  8505 D su      : remote args: 5
+09-16 02:08:48.195  8510  8510 D su      : remote req pid: 8300
+09-16 02:08:48.200  8512  8512 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962998 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.207  8507  8507 D su      : su invoked.
+09-16 02:08:48.209  8413  8413 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.209  8413  8413 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.209  8413  8413 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.209  8413  8413 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.209  8413  8413 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.210  8506  8506 D su      : waiting for child exit
+09-16 02:08:48.211  8419  8419 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.211  8419  8419 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.216  8419  8419 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.234  8413  8413 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.235  8419  8419 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.241  8419  8419 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.243  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.243  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.243  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.243  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.243  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.243  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.245  8413  8413 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.246  8520  8520 D su      : waiting for child exit
+09-16 02:08:48.248  8494  8494 D su      : su invoked.
+09-16 02:08:48.254  8514  8514 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963582 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.259  8536  8536 D su      : Allowing shell.
+09-16 02:08:48.263  8482  8482 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.263  8482  8482 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.266  8541  8541 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963034 count=6 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.271  8521  8521 D su      : remote args: 5
+09-16 02:08:48.272  8482  8482 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.283  8482  8482 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.289  8482  8482 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.291  8488  8488 D su      : su invoked.
+09-16 02:08:48.292  8419  8419 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.292  8419  8419 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.292  8419  8419 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.292  8419  8419 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.292  8419  8419 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.295  8516  8516 D su      : sending code
+09-16 02:08:48.296  8526  8526 D su      : su invoked.
+09-16 02:08:48.296  8527  8527 D su      : Allowing shell.
+09-16 02:08:48.297  8518  8518 D su      : Allowing shell.
+09-16 02:08:48.297  8513  8513 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.297  8513  8513 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.299  8513  8513 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.300  8548  8548 D su      : su invoked.
+09-16 02:08:48.303  8552  8552 D su      : child exited
+09-16 02:08:48.307  8550  8550 D su      : Allowing shell.
+09-16 02:08:48.311  8555  8555 D su      : sending code
+09-16 02:08:48.314  8419  8419 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.314  8554  8554 D su      : Allowing shell.
+09-16 02:08:48.315  8557  8557 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963686 count=4 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.320  8559  8559 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962812 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.321  8560  8560 D su      : Allowing shell.
+09-16 02:08:48.326  8567  8567 D su      : client exited 1
+09-16 02:08:48.327  8484  8484 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.327  8517  8517 D su      : remote args: 5
+09-16 02:08:48.329  8484  8484 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.331  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.331  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.331  8561  8561 D su      : sending code
+09-16 02:08:48.331  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.331  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.331  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.331  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.331  8484  8484 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.331  8575  8575 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963178 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.333  8570  8570 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962832 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.334  8419  8419 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.342  8589  8589 D su      : su invoked.
+09-16 02:08:48.346  8566  8566 D su      : child exited
+09-16 02:08:48.350  8584  8584 D su      : client exited 1
+09-16 02:08:48.351  8553  8553 D su      : client exited 1
+09-16 02:08:48.355  8419  8580 W /system/bin/app_process: Thread attaching while runtime is shutting down: Binder:8419_2
+09-16 02:08:48.355  8419  8580 I AndroidRuntime: NOTE: attach of thread 'Binder:8419_2' failed
+09-16 02:08:48.356  8594  8594 D su      : Allowing shell.
+09-16 02:08:48.359  8595  8595 D su      : sending code
+09-16 02:08:48.367  8582  8582 D su      : waiting for child exit
+09-16 02:08:48.368  8597  8597 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962704 count=4 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.370  8545  8545 D su      : waiting for child exit
+09-16 02:08:48.370  8482  8482 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.370  8513  8513 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.370  8482  8482 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.370  8482  8482 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.370  8482  8482 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.370  8482  8482 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.373  8599  8599 D su      : client exited 1
+09-16 02:08:48.374  8598  8598 D su      : child exited
+09-16 02:08:48.379  8513  8513 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.380  8583  8583 D su      : child exited
+09-16 02:08:48.389  8612  8612 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123963528 count=2 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.390  8482  8482 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.401  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.401  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.401  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.401  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.401  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.401  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.402  8484  8484 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.403  8482  8482 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.408  8613  8613 D su      : sending code
+09-16 02:08:48.414  8610  8610 D su      : sending code
+09-16 02:08:48.415  8482  8616 W /system/bin/app_process: Thread attaching while runtime is shutting down: Binder:8482_2
+09-16 02:08:48.418  8482  8616 I AndroidRuntime: NOTE: attach of thread 'Binder:8482_2' failed
+09-16 02:08:48.420  8579  8579 D su      : sending code
+09-16 02:08:48.422  8603  8603 D su      : sending code
+09-16 02:08:48.423  8619  8619 D su      : client exited 1
+09-16 02:08:48.426  8484  8484 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.428  8620  8620 D su      : child exited
+09-16 02:08:48.432  8621  8621 D su      : client exited 1
+09-16 02:08:48.437  8622  8622 D su      : child exited
+09-16 02:08:48.440  8627  8627 D su      : child exited
+09-16 02:08:48.443  8625  8625 D su      : client exited 1
+09-16 02:08:48.445  8626  8626 D su      : child exited
+09-16 02:08:48.460  8628  8628 D su      : client exited 1
+09-16 02:08:48.461  8615  8615 D su      : sending code
+09-16 02:08:48.465  8604  8604 D su      : sending code
+09-16 02:08:48.466  8596  8596 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.467  8596  8596 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.468  8596  8596 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.471  8632  8632 D su      : client exited 1
+09-16 02:08:48.472  8513  8513 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.472  8513  8513 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.472  8513  8513 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.472  8513  8513 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.472  8513  8513 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.474  8634  8634 D su      : client exited 1
+09-16 02:08:48.476  8633  8633 D su      : child exited
+09-16 02:08:48.483  8596  8596 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.485  8624  8624 D su      : sending code
+09-16 02:08:48.488  8596  8596 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.488  8629  8629 D su      : sending code
+09-16 02:08:48.499  8513  8513 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.507  8641  8641 D su      : child exited
+09-16 02:08:48.507  8484  8484 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.507  8484  8484 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.508  8631  8631 D su      : child exited
+09-16 02:08:48.508  8484  8484 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.508  8484  8484 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.508  8484  8484 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.511  8640  8640 D su      : client exited 1
+09-16 02:08:48.515  8596  8596 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.516  8596  8596 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.516  8596  8596 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.516  8596  8596 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.516  8596  8596 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.524  8643  8643 D su      : client exited 1
+09-16 02:08:48.529  8644  8644 D su      : child exited
+09-16 02:08:48.532  8642  8642 D su      : sending code
+09-16 02:08:48.543  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.543  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.543  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.543  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.543  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.543  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.544  8513  8513 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.546  8596  8596 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.549  8484  8484 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.553  8660  8660 D su      : client exited 1
+09-16 02:08:48.557  8659  8659 D su      : child exited
+09-16 02:08:48.558  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.558  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.558  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.558  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.558  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.558  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.559  8484  8484 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.565  8556  8556 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.567  8558  8558 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.567  8558  8558 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.569  8558  8558 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.569  8556  8556 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.571  8556  8556 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.573  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.573  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.573  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.574  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.574  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.574  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.577  8596  8596 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.593  8556  8556 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.596  8558  8558 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.599  8556  8556 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.601  8558  8558 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.609  8569  8569 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.609  8569  8569 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.613  8569  8569 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.615  8611  8611 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.616  8611  8611 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.625  8569  8569 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.629  8673  8673 D su      : su invoked.
+09-16 02:08:48.630  8569  8569 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.632  8611  8611 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.636  8675  8675 D su      : su invoked.
+09-16 02:08:48.638  8674  8674 D su      : starting daemon client 2000 0
+09-16 02:08:48.644  8677  8677 D su      : connecting client 8672
+09-16 02:08:48.645  8611  8611 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.653  8676  8676 D su      : starting daemon client 2000 0
+09-16 02:08:48.654  8611  8611 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.662  8682  8682 D su      : connecting client 8671
+09-16 02:08:48.663  8556  8556 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.663  8556  8556 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.664  8556  8556 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.664  8556  8556 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.664  8556  8556 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.669  8511  8511 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.669  8511  8511 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.671  8540  8540 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.671  8540  8540 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.672  8569  8569 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.672  8569  8569 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.672  8569  8569 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.672  8569  8569 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.672  8569  8569 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.672  8681  8681 D su      : remote pid: 8672
+09-16 02:08:48.673  8540  8540 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.673  8558  8558 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.673  8558  8558 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.673  8558  8558 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.673  8558  8558 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.673  8558  8558 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.679  8511  8511 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.680  8574  8574 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.680  8574  8574 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.681  8438  8438 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.681  8438  8438 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.681  8574  8574 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.682  8438  8438 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.687  8511  8511 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.689  8688  8688 D su      : remote pid: 8671
+09-16 02:08:48.691  8540  8540 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.692  8690  8690 D su      : remote pts_slave: 
+09-16 02:08:48.693  8556  8556 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.693  8511  8511 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.696  8540  8540 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.697  8702  8702 D su      : remote uid: 2000
+09-16 02:08:48.700  8709  8709 D su      : remote req pid: 8667
+09-16 02:08:48.703  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.703  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.703  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.703  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.703  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.703  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.703  8697  8697 D su      : remote pts_slave: 
+09-16 02:08:48.703  8710  8710 D su      : remote args: 5
+09-16 02:08:48.705  8611  8611 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.705  8611  8611 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.705  8611  8611 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.705  8611  8611 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.705  8611  8611 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.706  8556  8556 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.706  8569  8569 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.708  8558  8558 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.710  8574  8574 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.710  8438  8438 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.716  8574  8574 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.716  8438  8438 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.720  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.720  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.720  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.720  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.720  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.720  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.721  8569  8569 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.728  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.728  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.728  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.728  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.728  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.728  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.732  8558  8558 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.733  8711  8711 D su      : remote uid: 2000
+09-16 02:08:48.733  8611  8611 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.741  8725  8725 D su      : remote req pid: 8665
+09-16 02:08:48.741  8713  8713 D su      : waiting for child exit
+09-16 02:08:48.745  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.745  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.745  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.745  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.745  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.745  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.746  8611  8611 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.748  8724  8724 D su      : su invoked.
+09-16 02:08:48.749  8540  8540 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.749  8540  8540 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.749  8540  8540 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.749  8540  8540 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.749  8540  8540 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.750  8511  8511 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.750  8511  8511 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.750  8728  8728 D su      : remote args: 5
+09-16 02:08:48.751  8511  8511 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.751  8511  8511 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.751  8511  8511 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.754  8731  8731 D su      : Allowing shell.
+09-16 02:08:48.757  8735  8735 D su      : waiting for child exit
+09-16 02:08:48.758  8574  8574 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.758  8574  8574 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.758  8574  8574 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.758  8574  8574 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.758  8574  8574 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.760  8511  8511 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.761  8744  8744 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962514 count=154 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.765  8438  8438 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.765  8438  8438 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.766  8438  8438 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.766  8438  8438 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.766  8438  8438 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.766  8738  8738 D su      : su invoked.
+09-16 02:08:48.769  8540  8540 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.771  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.771  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.771  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.771  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.771  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.771  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.773  8511  8511 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.777  8761  8761 D su      : Allowing shell.
+09-16 02:08:48.781  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.781  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.781  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.781  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.781  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.781  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.782  8438  8438 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.782  8540  8540 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.788  8574  8574 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.790  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.790  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.790  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.790  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.790  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.790  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.791  8438  8438 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.794  8769  8769 D su      : 2000 /system/bin/sh executing 0 sh using binary sh : sh -c dd if=/proc/5260/mem bs=1048576 skip=123962234 count=276 2>/dev/null | grep -qa -o "$(printf "\xa0\xd3\xae\x06\x00\x00\x00\x00")"
+09-16 02:08:48.799  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.799  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.799  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.799  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.799  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.799  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.801  8574  8574 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.838  8743  8743 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.838  8743  8743 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.840  8743  8743 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.842  8777  8777 D su      : sending code
+09-16 02:08:48.849  8778  8778 D su      : child exited
+09-16 02:08:48.849  8743  8743 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.853  8779  8779 D su      : client exited 0
+09-16 02:08:48.855  8743  8743 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.870  8743  8743 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.870  8743  8743 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.870  8743  8743 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.870  8743  8743 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.870  8743  8743 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.878  8768  8768 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command sh --es action allow --user 0 
+09-16 02:08:48.878  8768  8768 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:48.879  8768  8768 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:48.884  8743  8743 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.889  8768  8768 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:48.894  8792  8792 D su      : su invoked.
+09-16 02:08:48.894  8768  8768 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:48.896  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.896  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.896  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.896  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.896  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.896  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.898  8743  8743 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.908  8793  8793 D su      : starting daemon client 2000 0
+09-16 02:08:48.910  8768  8768 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:48.910  8768  8768 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:48.910  8768  8768 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.910  8768  8768 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:48.910  8768  8768 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:48.912  8794  8794 D su      : connecting client 8791
+09-16 02:08:48.919  8804  8804 D su      : remote pid: 8791
+09-16 02:08:48.921  8768  8768 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:48.925  8805  8805 D su      : remote pts_slave: /dev/pts/1
+09-16 02:08:48.930  8808  8808 D su      : remote uid: 2000
+09-16 02:08:48.930  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:48.930  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:48.930  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:48.930  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:48.930  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:48.930  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:48.931  8796  8796 I su      : type=1400 audit(0.0:1916): avc: denied { use } for path="/dev/null" dev="tmpfs" ino=3132 scontext=u:r:su:s0 tcontext=u:r:shell:s0 tclass=fd permissive=1
+09-16 02:08:48.932  8768  8768 D AndroidRuntime: Shutting down VM
+09-16 02:08:48.935  8809  8809 D su      : remote req pid: 8788
+09-16 02:08:48.938  8791  8791 I su      : type=1400 audit(0.0:1917): avc: denied { ioctl } for path="/dev/pts/0" dev="devpts" ino=3 ioctlcmd=5404 scontext=u:r:shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+09-16 02:08:48.938  8811  8811 I su      : type=1400 audit(0.0:1918): avc: denied { read write } for name="1" dev="devpts" ino=4 scontext=u:r:su:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+09-16 02:08:48.938  8811  8811 I su      : type=1400 audit(0.0:1919): avc: denied { open } for path="/dev/pts/1" dev="devpts" ino=4 scontext=u:r:su:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+09-16 02:08:48.940  8810  8810 D su      : remote args: 7
+09-16 02:08:48.949  8814  8814 D su      : daemon: stdin using PTY
+09-16 02:08:48.950  8813  8813 D su      : waiting for child exit
+09-16 02:08:48.961  8815  8815 D su      : daemon: stdout using PTY
+09-16 02:08:48.968  8817  8817 D su      : su invoked.
+09-16 02:08:48.973  8818  8818 D su      : Allowing shell.
+09-16 02:08:48.978  8816  8816 I dd      : type=1400 audit(0.0:1920): avc: denied { getattr } for path="/dev/pts/1" dev="devpts" ino=4 scontext=u:r:su:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=1
+09-16 02:08:48.981  8820  8820 D su      : 2000 /system/bin/sh executing 0 dd using binary dd : dd if=/proc/5260/mem bs=1048576 skip=123962514 count=154
+09-16 02:08:49.061  8819  8819 I appproc : app_process main with argv: /system/bin com.android.commands.am.Am broadcast -n com.android.settings/com.android.settings.cyanogenmod.superuser.SuReceiver --ei binary_version 16 --es from_name shell --es desired_name  --ei uid 2000 --ei desired_uid 0 --es command dd --es action allow --user 0 
+09-16 02:08:49.061  8819  8819 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 0 <<<<<<
+09-16 02:08:49.065  8819  8819 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-16 02:08:49.084  8819  8819 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-16 02:08:49.090  8819  8819 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-16 02:08:49.131  8819  8819 I /system/bin/app_process: The ClassLoaderContext is a special shared library.
+09-16 02:08:49.132  8819  8819 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-16 02:08:49.132  8819  8819 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-16 02:08:49.132  8819  8819 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: No such file or directory
+09-16 02:08:49.132  8819  8819 D nativebridge: call UnloadNativeBridge! state=2
+09-16 02:08:49.162  8819  8819 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+09-16 02:08:49.172  1913  1913 W System.err: java.lang.Exception: Toast callstack! strTip=Superuser granted to Shell
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.widget.Toast.show(Toast.java:143)
+09-16 02:08:49.172  1913  1913 W System.err: 	at com.koushikdutta.superuser.SuReceiver.onReceive(SuReceiver.java:97)
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:3424)
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.app.ActivityThread.access$1200(ActivityThread.java:207)
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1674)
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.os.Looper.loop(Looper.java:193)
+09-16 02:08:49.172  1913  1913 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:6838)
+09-16 02:08:49.172  1913  1913 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+09-16 02:08:49.172  1913  1913 W System.err: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+09-16 02:08:49.172  1913  1913 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:860)
+09-16 02:08:49.174  8819  8819 D AndroidRuntime: Shutting down VM
+09-16 02:08:49.465  8830  8830 D su      : sending code
+09-16 02:08:49.469  8832  8832 D su      : client exited 1
+09-16 02:08:49.472  8831  8831 D su      : child exited
+09-16 02:08:49.954  1559  1695 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@e806e76
+09-16 02:08:49.964  1425  1458 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-16 02:08:49.995  1913  1962 E EGL_emulation: tid 1962: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-16 02:08:49.995  1913  1962 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a21de00, error=EGL_BAD_MATCH

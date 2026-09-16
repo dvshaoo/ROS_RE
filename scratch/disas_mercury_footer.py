@@ -1,0 +1,11 @@
+import capstone
+
+cs = capstone.Cs(capstone.CS_ARCH_ARM64, capstone.CS_MODE_ARM)
+
+lib_path = r'c:\Users\Raysoo\Downloads\ROS_RE\01_apk\base_decompiled\lib\arm64-v8a\libclient.so'
+with open(lib_path, 'rb') as f:
+    f.seek(0x98f980)
+    code = f.read(0x220)
+
+for insn in cs.disasm(code, 0x98f980):
+    print("0x%x: %s %s" % (insn.address, insn.mnemonic, insn.op_str))
