@@ -1,0 +1,276 @@
+--------- beginning of main
+09-17 10:46:32.628 19030 19030 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 952 795 
+09-17 10:46:32.628 19030 19030 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-17 10:46:32.630 19030 19030 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-17 10:46:32.642 19030 19030 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-17 10:46:32.648 19030 19030 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-17 10:46:32.664 19030 19030 I main    : type=1400 audit(0.0:2500): avc: denied { mounton } for path="/proc/cpuinfo" dev="proc" ino=4026531992 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpuinfo:s0 tclass=file permissive=1
+09-17 10:46:32.669 19030 19030 I app_process: The ClassLoaderContext is a special shared library.
+09-17 10:46:32.669 19030 19030 W app_process: Could not create mount namespace.
+09-17 10:46:32.669 19030 19030 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-17 10:46:32.669 19030 19030 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-17 10:46:32.669 19030 19030 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-17 10:46:32.669 19030 19030 D nativebridge: call UnloadNativeBridge! state=2
+09-17 10:46:32.680 19030 19030 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-17 10:46:32.682 19030 19030 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=526192, downTime=526192, deviceId=3, source=0x1002 }
+09-17 10:46:32.694 19030 19030 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=526192, downTime=526192, deviceId=3, source=0x1002 }
+09-17 10:46:32.709 19030 19030 D AndroidRuntime: Shutting down VM
+09-17 10:46:32.733 18605 18685 E NeoX    : finish get cutOut info
+09-17 10:46:32.784  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:32.789  1562  1569 I chatty  : uid=1000(system) FinalizerDaemon identical 25 lines
+09-17 10:46:32.789  1562  1569 W System  : A resource failed to call close. 
+--------- beginning of system
+09-17 10:46:32.932  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@ea4cecf
+09-17 10:46:33.219 18605 18685 I [10:46:33.219] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-17 10:46:33.220 18605 18685 I [10:46:33.220] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-17 10:46:33.220 18605 18685 I [10:46:33.220] M : [INFO] Nub::recreateListeningSocket 0x76384a52a000 0.0.0.0:21714
+09-17 10:46:33.251 18605 18685 I [10:46:33.251] M : [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 138.110.255.224 to 138.110.255.224:0
+09-17 10:46:33.251 18605 18685 I [10:46:33.251] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=138.110.255.224:10492
+09-17 10:46:33.251 18605 18685 I [10:46:33.251] M : [INFO] Nub::recreateListeningSocket 0x76388be7a000 0.0.0.0:55891
+09-17 10:46:33.251 18605 18685 I [10:46:33.251] M : [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
+09-17 10:46:33.452  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:33.955  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@a42738e
+09-17 10:46:33.958  1430  1590 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:46:33.972  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:33.973  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386ff43200, error=EGL_BAD_MATCH
+09-17 10:46:34.086  1430  2164 W SurfaceFlinger: Attempting to destroy on removed layer: 1b44f51 Toast#0
+09-17 10:46:34.934  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@47d643a
+09-17 10:46:35.453  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:35.958  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@b5982f2
+09-17 10:46:35.972  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:35.972  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386ff43380, error=EGL_BAD_MATCH
+09-17 10:46:36.093  1430  1463 W SurfaceFlinger: Attempting to destroy on removed layer: e7ce7bc Toast#0
+09-17 10:46:36.941  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@9989ce1
+09-17 10:46:37.458  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:37.542 18605 18685 I [10:46:37.542] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=138.110.255.224:10492
+09-17 10:46:37.673 18605 18685 I         : 
+09-17 10:46:37.673 18605 18685 I         : ERROR *****************************************************************************
+09-17 10:46:37.673 18605 18685 I [10:46:37.673] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Unable to connect to BaseApp: A NAT or firwall error may have occured?)
+09-17 10:46:37.674 18605 18685 D DCTOOL  : ntStart() queue size (1), current thread=286
+09-17 10:46:37.674 18605 18685 D DCTOOL  : ntStart() after so loaded, current thread=286
+09-17 10:46:37.674 18605 18685 D DCTOOL  : ntStart() with native and reset.
+09-17 10:46:37.674 18605 18685 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-17 10:46:37.674 18605 18685 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-17 10:46:37.675 18605 19041 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-17 10:46:37.675 18605 19041 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-17 10:46:37.675 18605 19041 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-17 10:46:37.680 18605 19041 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-17 10:46:37.681 18605 19041 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4866.1","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-17 10:46:37.681 18605 19041 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4866.1","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-17 10:46:37.681 18605 19041 D DCTOOL  : In C++, release the returned string. detach. 
+09-17 10:46:37.681 18605 19041 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-17 10:46:37.681 18605 19041 I DCTOOL  : OSVersion: 9
+09-17 10:46:37.681 18605 19041 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-17 10:46:37.681 18605 19041 I DCTOOL  : Serialno: 00c80dd8
+09-17 10:46:37.706 18605 19041 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-17 10:46:37.706 18605 19041 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-17 10:46:37.706 18605 19041 D DCTOOL  :  NOT RUNNING TIME. 
+09-17 10:46:37.706 18605 19041 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-17 10:46:37.706 18605 19041 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-17 10:46:37.706 18605 19041 D DCTOOL  : OnToolCallback, current thread=336
+09-17 10:46:37.706 18605 19041 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-17 10:46:37.959  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@24e66d8
+09-17 10:46:37.964  1430  1462 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:46:37.975  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:37.975  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a21ee00, error=EGL_BAD_MATCH
+09-17 10:46:38.090  1430  1590 W SurfaceFlinger: Attempting to destroy on removed layer: 57c5fc0 Toast#0
+09-17 10:46:38.366 18605 18685 I NeoXDevice: On App CMD 23
+09-17 10:46:38.943  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@ebcf08e
+09-17 10:46:39.461  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:39.962  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@afef41c
+09-17 10:46:39.976  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:39.976  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386fea8f00, error=EGL_BAD_MATCH
+09-17 10:46:40.095  1430  1590 W SurfaceFlinger: Attempting to destroy on removed layer: 4923516 Toast#0
+09-17 10:46:40.946  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@39b879a
+09-17 10:46:41.461  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:41.962  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@7fd6252
+09-17 10:46:41.966  1430  1463 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:46:41.978  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:41.978  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a22a580, error=EGL_BAD_MATCH
+09-17 10:46:42.949  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@1c21fc1
+09-17 10:46:43.465  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:43.523 18605 18685 I [10:46:43.523] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: -1948261752
+09-17 10:46:43.966  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@5723511
+09-17 10:46:43.984  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:43.984  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a22a680, error=EGL_BAD_MATCH
+09-17 10:46:44.104  1430  1463 W SurfaceFlinger: Attempting to destroy on removed layer: 368e3d9 Toast#0
+09-17 10:46:44.951  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@5d35754
+09-17 10:46:45.466  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:45.971  1562  1621 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@abeb07c
+09-17 10:46:45.978  1430  1462 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:46:45.987  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:45.987  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a22a880, error=EGL_BAD_MATCH
+09-17 10:46:46.099  1430  1462 W SurfaceFlinger: Attempting to destroy on removed layer: 90928e4 Toast#0
+09-17 10:46:46.134  1430  1463 W SurfaceFlinger: Attempting to set client state on removed layer: Surface(name=5fdff8b Toast)/@0x1845868 - animation-leash#0
+09-17 10:46:46.134  1430  1463 W SurfaceFlinger: Attempting to destroy on removed layer: Surface(name=5fdff8b Toast)/@0x1845868 - animation-leash#0
+09-17 10:46:46.951  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@d969643
+09-17 10:46:47.469  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:47.655  1502  1502 W wificond: Scan already started
+09-17 10:46:47.703  1423  1619 D sensor_hal: sensor_device_default_flush handle=0
+09-17 10:46:47.720  2032  2032 I netscheduler-qu: type=1400 audit(0.0:2501): avc: denied { open } for path="/data/local/cfg-ynhne/android7" dev="sdb2" ino=393607 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:system_data_file:s0 tclass=file permissive=1
+09-17 10:46:47.755  1562  3260 W SchedPolicy: add_tid_to_cgroup failed to write '2985' (No space left on device); fd=24
+09-17 10:46:47.759  2985  2985 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.droidguard.DroidGuardFastRefreshGmsTaskBoundService.ACTION_TASK_READY dat=chimera-action: cmp=com.google.android.gms/.chimera.UnstableInternalBoundBrokerService }
+09-17 10:46:47.759  2985  2985 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.droidguard.DroidGuardFastRefreshGmsTaskBoundService.ACTION_TASK_READY dat=chimera-action: cmp=com.google.android.gms/.chimera.UnstableInternalBoundBrokerService }
+09-17 10:46:47.765  1562  2539 W SchedPolicy: add_tid_to_cgroup failed to write '2985' (No space left on device); fd=25
+09-17 10:46:47.783  2032 18819 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:47.785  2985  3164 W FileUtils: Failed to chmod(/data/user/0/com.google.android.gms/app_dg_cache): android.system.ErrnoException: chmod failed: ENOENT (No such file or directory)
+09-17 10:46:47.787  2985  3164 E DGFRR   : FR error [CONTEXT service_id=25 ]
+09-17 10:46:47.787  2985  3164 E DGFRR   : brja: Failed to get VM keys.
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at brjd.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):87)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at brkv.f(:com.google.android.gms@263332017@26.33.32 (100800-974685114):3)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at brke.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):79)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at brjz.g(:com.google.android.gms@263332017@26.33.32 (100800-974685114):205)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at com.google.android.gms.droidguard.DroidGuardFastRefreshGmsTaskBoundService.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):50)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at dcmd.call(:com.google.android.gms@263332017@26.33.32 (100800-974685114):36)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at blay.d(:com.google.android.gms@263332017@26.33.32 (100800-974685114):50)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at blay.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):6)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at blay.run(:com.google.android.gms@263332017@26.33.32 (100800-974685114):33)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at blgv.run(:com.google.android.gms@263332017@26.33.32 (100800-974685114):8)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at java.lang.Thread.run(Thread.java:764)
+09-17 10:46:47.787  2985  3164 E DGFRR   : Caused by: java.nio.file.NoSuchFileException: /data/user/0/com.google.android.gms/app_dg_cache
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at sun.nio.fs.UnixFileSystemProvider.newDirectoryStream(UnixFileSystemProvider.java:434)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at j$.nio.file.spi.a.r(r8-map-id-283555603fe173f6433b237caaeabc5f61020d2b4d451306c0167409c87ae7ad:13)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at j$.nio.file.Files.newDirectoryStream(r8-map-id-283555603fe173f6433b237caaeabc5f61020d2b4d451306c0167409c87ae7ad:7)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	at brjd.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):14)
+09-17 10:46:47.787  2985  3164 E DGFRR   : 	... 13 more
+09-17 10:46:47.807  2032  8884 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:47.836  2985  2985 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.droidguard.DroidGuardFastRefreshGmsTaskBoundService.ACTION_TASK_READY dat=chimera-action: cmp=com.google.android.gms/.chimera.UnstableInternalBoundBrokerService }
+09-17 10:46:47.843  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:47.844  1562  1569 I chatty  : uid=1000(system) FinalizerDaemon identical 25 lines
+09-17 10:46:47.844  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:47.850  2032 19050 E NFC     : could not retrieve NFC service
+09-17 10:46:47.851  2032 19050 I TapAndPay: NfcAdapter is null while obtaining CardEmulation instance. [CONTEXT service_id=79 ]
+09-17 10:46:47.852  2032  8884 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:47.905  2032 18819 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:47.925  1562  1621 W SchedPolicy: add_tid_to_cgroup failed to write '2985' (No space left on device); fd=24
+09-17 10:46:47.925  2032 19050 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:47.933  2985  3175 W FileUtils: Failed to chmod(/data/user/0/com.google.android.gms/app_dg_cache): android.system.ErrnoException: chmod failed: ENOENT (No such file or directory)
+09-17 10:46:47.933  2985  3175 E DGFRR   : FR error [CONTEXT service_id=25 ]
+09-17 10:46:47.933  2985  3175 E DGFRR   : brja: Failed to get VM keys.
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brjd.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):87)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brkv.f(:com.google.android.gms@263332017@26.33.32 (100800-974685114):3)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brke.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):79)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brjz.g(:com.google.android.gms@263332017@26.33.32 (100800-974685114):205)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brji.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):112)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brgy.e(:com.google.android.gms@263332017@26.33.32 (100800-974685114):60)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brgy.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):68)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at briv.dispatchTransaction(:com.google.android.gms@263332017@26.33.32 (100800-974685114):30)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at cefz.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):64)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at zom.onTransact(:com.google.android.gms@263332017@26.33.32 (100800-974685114):23)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at android.os.Binder.transact(Binder.java:667)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at cego.onTransact(:com.google.android.gms@263332017@26.33.32 (100800-974685114):169)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at android.os.Binder.execTransact(Binder.java:731)
+09-17 10:46:47.933  2985  3175 E DGFRR   : Caused by: java.nio.file.NoSuchFileException: /data/user/0/com.google.android.gms/app_dg_cache
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at sun.nio.fs.UnixFileSystemProvider.newDirectoryStream(UnixFileSystemProvider.java:434)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at j$.nio.file.spi.a.r(r8-map-id-283555603fe173f6433b237caaeabc5f61020d2b4d451306c0167409c87ae7ad:13)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at j$.nio.file.Files.newDirectoryStream(r8-map-id-283555603fe173f6433b237caaeabc5f61020d2b4d451306c0167409c87ae7ad:7)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	at brjd.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):14)
+09-17 10:46:47.933  2985  3175 E DGFRR   : 	... 12 more
+09-17 10:46:47.934  2985  3175 W DG      : [flow devicekey] DroidGuardRunner.initSignalCollection() exception [CONTEXT service_id=25 ]
+09-17 10:46:47.934  2985  3175 W DG      : brjg
+09-17 10:46:47.934  2985  3175 W DG      : 	at brji.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):124)
+09-17 10:46:47.934  2985  3175 W DG      : 	at brgy.e(:com.google.android.gms@263332017@26.33.32 (100800-974685114):60)
+09-17 10:46:47.934  2985  3175 W DG      : 	at brgy.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):68)
+09-17 10:46:47.934  2985  3175 W DG      : 	at briv.dispatchTransaction(:com.google.android.gms@263332017@26.33.32 (100800-974685114):30)
+09-17 10:46:47.934  2985  3175 W DG      : 	at cefz.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):64)
+09-17 10:46:47.934  2985  3175 W DG      : 	at zom.onTransact(:com.google.android.gms@263332017@26.33.32 (100800-974685114):23)
+09-17 10:46:47.934  2985  3175 W DG      : 	at android.os.Binder.transact(Binder.java:667)
+09-17 10:46:47.934  2985  3175 W DG      : 	at cego.onTransact(:com.google.android.gms@263332017@26.33.32 (100800-974685114):169)
+09-17 10:46:47.934  2985  3175 W DG      : 	at android.os.Binder.execTransact(Binder.java:731)
+09-17 10:46:47.954  1495  1495 I keystore: del USRPKEY_unstable.c7202ece89390c490b1b94d5b71225e1.fallback 10015
+09-17 10:46:47.960  1495  1495 I keystore: del USRCERT_unstable.c7202ece89390c490b1b94d5b71225e1.fallback 10015
+09-17 10:46:47.961  1495  1495 I keystore: del CACERT_unstable.c7202ece89390c490b1b94d5b71225e1.fallback 10015
+09-17 10:46:47.973  1562  1577 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.stats.service.DropBoxEntryAddedReceiver
+09-17 10:46:47.978  1562  3260 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@9394747
+09-17 10:46:47.989  2032 18819 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:47.990  2985  2985 I Binder:2985_4: type=1400 audit(0.0:2502): avc: denied { read } for name="address" dev="sysfs" ino=6839 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+09-17 10:46:48.000  2985  2985 I Binder:2985_4: type=1400 audit(0.0:2503): avc: denied { open } for path="/sys/devices/pci0000:00/0000:00:03.0/virtio0/net/wlan0/address" dev="sysfs" ino=6839 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+09-17 10:46:48.000  2985  2985 I Binder:2985_4: type=1400 audit(0.0:2504): avc: denied { getattr } for path="/sys/devices/pci0000:00/0000:00:03.0/virtio0/net/wlan0/address" dev="sysfs" ino=6839 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+09-17 10:46:48.004  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:48.004  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76388a22a980, error=EGL_BAD_MATCH
+09-17 10:46:48.068  2032 18819 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:48.110  2032  8888 W GmsUrlRequestImpl: [https://android.googleapis.com/auth/devicekey] Content-Type header is overwritten.
+09-17 10:46:48.135  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:48.135  1562  1569 I chatty  : uid=1000(system) FinalizerDaemon identical 29 lines
+09-17 10:46:48.135  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:48.164  2032  2032 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.backup.extension.download.CustomBackupDownloadStarterTask.ACTION_TASK_READY dat=chimera-action: cmp=com.google.android.gms/.chimera.GmsInternalBoundBrokerService }
+09-17 10:46:48.164  2032  2032 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.backup.extension.download.CustomBackupDownloadStarterTask.ACTION_TASK_READY dat=chimera-action: cmp=com.google.android.gms/.chimera.GmsInternalBoundBrokerService }
+09-17 10:46:48.169  2032  8884 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:48.179  2032  8884 W ChimeraUtils: Module com.google.android.gms.backup_extension missing resource null(0)
+09-17 10:46:48.197  2032  8884 W ChimeraUtils: Module com.google.android.gms.backup_extension missing resource null(0)
+09-17 10:46:48.222  2032 18819 I AndroidBackupEventsLogg: (REDACTED) null shouldSample, evaluating sampling value. Event %s
+09-17 10:46:48.226  2032 19054 I AndroidBackupEventsLogg: Evaluating whether required time has passed for sampling [CONTEXT service_id=229 ]
+09-17 10:46:48.226  2032 19054 I AndroidBackupEventsLogg: (REDACTED) Setting shouldSample to false. Event %s
+09-17 10:46:48.226  2032 19054 I AndroidBackupEventsLogg: (REDACTED) Logging without sampling %s
+09-17 10:46:48.229  2032  2032 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.backup.extension.download.CustomBackupDownloadStarterTask.ACTION_TASK_READY dat=chimera-action: cmp=com.google.android.gms/.chimera.GmsInternalBoundBrokerService }
+09-17 10:46:48.237  2032 19054 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:48.248  2032  8888 W GLSUser : [AppCertManager] Exception while requesting key: 
+09-17 10:46:48.248  2032  8888 W GLSUser : java.util.concurrent.ExecutionException: dcei: Parsing Exception
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at gnkd.j(:com.google.android.gms@263332017@26.33.32 (100800-974685114):21)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at gnkl.t(:com.google.android.gms@263332017@26.33.32 (100800-974685114):73)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at amfi.b(:com.google.android.gms@263332017@26.33.32 (100800-974685114):374)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at amfg.b(:com.google.android.gms@263332017@26.33.32 (100800-974685114):29)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at amfb.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):1)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at amfe.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):58)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at ahdd.call(:com.google.android.gms@263332017@26.33.32 (100800-974685114):55)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at blay.d(:com.google.android.gms@263332017@26.33.32 (100800-974685114):50)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at blay.c(:com.google.android.gms@263332017@26.33.32 (100800-974685114):6)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at blay.run(:com.google.android.gms@263332017@26.33.32 (100800-974685114):33)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at blgv.run(:com.google.android.gms@263332017@26.33.32 (100800-974685114):8)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at java.lang.Thread.run(Thread.java:764)
+09-17 10:46:48.248  2032  8888 W GLSUser : Caused by: dcei: Parsing Exception
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at dcfj.ju(:com.google.android.gms@263332017@26.33.32 (100800-974685114):15)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at gnmw.run(:com.google.android.gms@263332017@26.33.32 (100800-974685114):56)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	... 7 more
+09-17 10:46:48.248  2032  8888 W GLSUser : Caused by: hjgm: Protocol message end-group tag did not match expected tag.
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjid.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):57)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjhc.i(:com.google.android.gms@263332017@26.33.32 (100800-974685114):61)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjfo.P(:com.google.android.gms@263332017@26.33.32 (100800-974685114):22)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjfj.q(:com.google.android.gms@263332017@26.33.32 (100800-974685114):3)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjdl.e(:com.google.android.gms@263332017@26.33.32 (100800-974685114):7)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjdl.b(:com.google.android.gms@263332017@26.33.32 (100800-974685114):1)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at hjdl.m(:com.google.android.gms@263332017@26.33.32 (100800-974685114):1)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at dcfi.a(:com.google.android.gms@263332017@26.33.32 (100800-974685114):11)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at dcfn.call(:com.google.android.gms@263332017@26.33.32 (100800-974685114):8)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+09-17 10:46:48.248  2032  8888 W GLSUser : 	... 7 more
+09-17 10:46:48.300  2032 19051 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:48.310  2032 19051 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:48.401  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:48.401  1562  1569 I chatty  : uid=1000(system) FinalizerDaemon identical 28 lines
+09-17 10:46:48.401  1562  1569 W System  : A resource failed to call close. 
+09-17 10:46:48.432  2032 19054 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+09-17 10:46:48.460  2032 19051 I Pay     : Active account was null, notification task will be cancelled. [CONTEXT service_id=198 ]
+09-17 10:46:48.497  2032 19051 E Pay     : NfcAdapter is null while obtaining CardEmulation instance. [CONTEXT service_id=198 ]
+09-17 10:46:48.497  2032 19051 E Pay     : CardEmulation is null while checking aid registration. [CONTEXT service_id=198 ]
+09-17 10:46:48.509  2032 19051 I Pay     : (REDACTED) enabling component %s
+09-17 10:46:48.509  2032 19051 E Pay     : NfcAdapter is null while obtaining CardEmulation instance. [CONTEXT service_id=198 ]
+09-17 10:46:48.509  2032 19051 E Pay     : CardEmulation is null while trying to register AIDs. [CONTEXT service_id=198 ]
+09-17 10:46:48.517  2032 19051 E Pay     : HCE service enablement failed: FAILED_CARD_EMULATION [CONTEXT service_id=198 ]
+09-17 10:46:48.536  2032 19054 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:48.550  2032 19054 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+09-17 10:46:48.657  1562  1621 D WificondControl: Scan result ready event
+09-17 10:46:48.954  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@78c993e
+09-17 10:46:49.240  1423  1619 D sensor_hal: cb_setDelay handle=0 delay-ns=200000000
+09-17 10:46:49.244  2032  3131 I ActivityScheduler: nextTriggerTime: 778056, in 235299ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 30000
+09-17 10:46:49.473  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:49.977  1562  1562 I android.anim.lf: type=1400 audit(0.0:2505): avc: denied { call } for scontext=u:r:system_server:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
+09-17 10:46:49.987  1562  2616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@7481a41
+09-17 10:46:49.991  1430  1462 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:46:50.001  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:50.001  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386fea8d00, error=EGL_BAD_MATCH
+09-17 10:46:50.115  1430  2164 W SurfaceFlinger: Attempting to destroy on removed layer: a29089d Toast#0
+09-17 10:46:50.956  1562  1562 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@13c08b5
+09-17 10:46:51.481  1562  1586 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:46:51.547  1501  1501 I storaged: type=1400 audit(0.0:2506): avc: denied { call } for scontext=u:r:storaged:s0 tcontext=u:r:init:s0 tclass=binder permissive=1
+09-17 10:46:51.551  1501  1518 E storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+09-17 10:46:51.982  1562  2616 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@e30621f
+09-17 10:46:51.997  1903  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:46:51.997  1903  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386fea8b80, error=EGL_BAD_MATCH
+09-17 10:46:52.112  1430  2153 W SurfaceFlinger: Attempting to destroy on removed layer: f5bf527 Toast#0

@@ -1065,9 +1065,26 @@ def serve_baseapp_udp_capture():
                     # content ends well before the packet's true end, to test
                     # whether that alone avoids the erroneous chain-advance path.
                     extra_slack = b'\x00' * int(os.environ.get('ATTEMPT_EXTRA_SLACK', '0'))
+                    # E2E-042 (2026-09-17): the trailing b'\x00\x00' "footer" is
+                    # ambiguous garbage that the client's Bundle parser tries to
+                    # read as another message (see GHIDRA_ONCHANNELLOGIN_TRACE.md
+                    # Finding 6/7) -- both keeping it (misread as phantom
+                    # "authenticate", id=0) and removing it (exact-fit chain-advance
+                    # edge case breaking createBasePlayer's OWN parse) fail. Instead
+                    # append a GENUINE, minimal, real ClientInterface message
+                    # (tickSync, CONFIRMED id=16, FIXED 1-byte body, per
+                    # 06_notes/CLIENTINTERFACE_MESSAGE_TABLE.md) so the parser has
+                    # real content to consume instead of ambiguous padding.
+                    # E2E-043 (2026-09-17): tried inserting 2 mystery bytes between
+                    # the length field and body (ATTEMPT_MYSTERY2) -- live-tested
+                    # and DISPROVEN: it did not change the "authenticate" corruption
+                    # at all, and broke entityId (client read entityId=65536/0x10000
+                    # instead of 1 -- a 2-byte-shifted read exactly as expected from
+                    # inserting bytes that don't belong there). Removed.
+                    filler = b'\x00\x00' if os.environ.get('ATTEMPT_NOFOOTER_CLEAN', '0') != '1' else b''
                     cbp_plain = (struct.pack('<H', 0x0001) + bytes([0x05])
                                   + struct.pack('<H', len(cbp_body)) + cbp_body
-                                  + b'\x00\x00' + extra_slack)
+                                  + filler + extra_slack)
                     cbp_pad_len = 8 - (len(cbp_plain) % 8)
                     cbp_padded = cbp_plain + b'\x00' * (cbp_pad_len - 1) + bytes([cbp_pad_len])
                     cbp_enc = bf_encrypt(cbp_padded, key_hex=use_key, iv=b'\x00' * 8)

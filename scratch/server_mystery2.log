@@ -1,0 +1,247 @@
+T14-complete plist: 560 bytes
+T18 server_list_ad.txt: 122 bytes
+10:33:05 === local_baseapp_capture START ===
+10:33:05 === HTTP plain :80 ===
+10:33:05 === FAKE LOGINAPP UDP :25000 LISTENING (will reply with LoginReplyRecord) ===
+10:33:05 === HTTP TLS :8443 ===
+10:33:05 === HTTP TLS :443 ===
+10:33:05 === FAKE BASEAPP UDP :25010 LISTENING (Attempt-BaseApp-Reply active) ===
+10:33:05 All listeners started. Waiting...
+10:33:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49878 ***
+10:33:06   HEX: 8f7ba130257f19eba6040978edd32080f342f5e7eaf9df47
+10:33:06   ASCII: b'\x8f{\xa10%\x7f\x19\xeb\xa6\x04\tx\xed\xd3 \x80\xf3B\xf5\xe7\xea\xf9\xdfG'
+10:33:06   DECRYPTED (24 bytes): 9d9c5190694fc4678a7683fca024a4446a0cd44ecc134d1d
+10:33:06 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49878 ***
+10:33:06   HEX: 8f7ba130257f19eba6040978edd32080f342f5e7eaf9df47
+10:33:06   ASCII: b'\x8f{\xa10%\x7f\x19\xeb\xa6\x04\tx\xed\xd3 \x80\xf3B\xf5\xe7\xea\xf9\xdfG'
+10:33:06   DECRYPTED (24 bytes): 9d9c5190694fc4678a7683fca024a4446a0cd44ecc134d1d
+10:33:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49878 ***
+10:33:07   HEX: 8f7ba130257f19eba6040978edd32080f342f5e7eaf9df47
+10:33:07   ASCII: b'\x8f{\xa10%\x7f\x19\xeb\xa6\x04\tx\xed\xd3 \x80\xf3B\xf5\xe7\xea\xf9\xdfG'
+10:33:07   DECRYPTED (24 bytes): 9d9c5190694fc4678a7683fca024a4446a0cd44ecc134d1d
+10:33:07 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:49878 ***
+10:33:07   HEX: 8f7ba130257f19eba6040978edd32080f342f5e7eaf9df47
+10:33:07   ASCII: b'\x8f{\xa10%\x7f\x19\xeb\xa6\x04\tx\xed\xd3 \x80\xf3B\xf5\xe7\xea\xf9\xdfG'
+10:33:07   DECRYPTED (24 bytes): 9d9c5190694fc4678a7683fca024a4446a0cd44ecc134d1d
+REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+  -> SERVE h45na_hc (empty hash check -> no patches)
+REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+  -> SERVE T14-fixed plist (560 bytes)
+REQ GET /v1 host=whoami.nie.easebar.com len=0
+  -> SERVE whoami /v1
+REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+  -> SERVE pharos_isp.txt
+REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+  -> SERVE server_list_ad.txt (122 bytes)
+REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+  -> SERVE server_list_ad.txt (122 bytes)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=329
+  BODY b'{"keypoint": "requestServerList", "extraData": "{\\"success\\": true}", "time": 1789612403.1017001, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+  -> SERVE root / (200 OK)
+10:33:22 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:61871
+10:33:22   HEX: 68656c6c6f20726f73
+10:33:22 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+10:33:22 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+10:33:22 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+10:33:22 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:61871: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=288
+  BODY b'{"keypoint": "channelLogin", "time": 1789612403.1115489, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+  -> SERVE root / (200 OK)
+10:33:22 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:61872
+10:33:22   HEX: 68656c6c6f20726f73
+10:33:22 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+10:33:22 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+10:33:22 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+10:33:22 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:61872: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+10:33:22 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:61873
+10:33:22   HEX: 68656c6c6f20726f73
+10:33:22 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+10:33:22 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+10:33:22 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+10:33:22 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:61873: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+10:33:22 LOGINAPP UDP RECV 9 bytes from 127.0.0.1:61874
+10:33:22   HEX: 68656c6c6f20726f73
+10:33:22 ATTEMPT_H-shape (20-byte body): replyID=0x736f7220 status=1 + 20-byte body, length=25
+10:33:22 ATTEMPT_L: encrypted 24-byte body with Blowfish key=fa490e60 mode=pc_variant -> 77abfe0c181a286fb53929cc3e9910e64ec498694d19f28e
+10:33:22 ATTEMPT_I (default): replyID=0x736f7220 status=1 + 24-byte ENCRYPTED body, length=29 (key=fa490e60)
+10:33:22 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:61874: 0100ff1d00000020726f730177abfe0c181a286fb53929cc3e9910e64ec498694d19f28e0000
+10:33:23 BASEAPP KEYSCAN: pid=28651 base=0x3210000 target_vtable_va=0x69ed3a0 pattern=a0d39e0600000000, scanning 15 regions...
+10:33:23 BASEAPP KEYSCAN: 14 small (<=16MB) regions, 1 large regions
+10:33:24 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 1 large region(s)
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=821
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"32","server_list_host":"g61.update.easebar.com","ip_server_list_host":"2405:3200:500:18f::f4d","channel_name":"netease_global","start_time":"1789612405","finish_time":"1789612406","url":"g61.update.easebar.com/pl/npk_version_na_android.plist","push_time":"1789612405","device_model":"22081212C","download_id":"b236d47c05e44900b6241342006b9dea","projec
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=620
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789612406","finish_time":"1789612406","push_time":"1789612405","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"58","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4765.2","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed"
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+  BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789612406","finish_time":"1789612406","push_time":"1789612405","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4765.2","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed
+10:33:37 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x76384be7c239 key=ca23e9ce
+10:33:37 BASEAPP KEYSCAN: done in 14.49s, found 1 candidate object(s), 1 distinct key(s): ['ca23e9ce']
+10:33:37 BASEAPP KEYSCAN (early, from LoginApp reply): NEW key=ca23e9ce for host=127.0.0.1 (candidates: ['ca23e9ce'])
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=537
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789612417.978008, "platform": "ad", "device_id": "", "sdk_version": "", "uid": "", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "b236d47c05e44900b6241342006b9dea", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "A
+  -> SERVE root / (200 OK)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+  -> SERVE notice (30 bytes)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=572
+  BODY b'{"keypoint": "channelLoginSuc", "extraData": "{\\"code\\": 0}", "time": 1789612437.9934449, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "b236d47c05e44900b6241342006b9dea", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.
+  -> SERVE root / (200 OK)
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=584
+  BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789612437.9882231, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "b236d47c05e44900b6241342006b9dea", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_ver
+  -> SERVE root / (200 OK)
+10:34:30 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:56934
+10:34:30   HEX: 01000004011102010000002b0000004a81f95342180d0e771736a0dcc664f70007a902fe90e286d32137f05112d5902a199d1db51cb35e8a7aa466076faffc370969fb9e53c7c93557a11cc95fe779a9c7778cee6b087ea428cfa6b9660eaae227ed600a782580a88be81829cd5be3bff5221dbea6b599b499d5afd8451bd3633a157ddd4db143f830e8cfe6fa929d5caabf20304e70b10160cdda33f0113c0d2955ca29b7df53c29b9efe717ba9d7f96a7571be3952f93493945b631edbc162c0787eefbab74d116580a41b64804069f8dec949fa2647b7153972f8b3696c0a2a8cc4afdc1719cca20eb1c3aa987631819e5f3cff4e2fde560a19d07d0f7002f1757e80b061efe53e77b8a7a961e20200
+10:34:30 ATTEMPT_H-shape (20-byte body): replyID=0x00010211 status=1 + 20-byte body, length=25
+10:34:30 ATTEMPT_L: encrypted 24-byte body with Blowfish key=ca23e9ce mode=pc_variant -> 6798572eb45be9c2d05967c934197869249419359def6803
+10:34:30 ATTEMPT_I (default): replyID=0x00010211 status=1 + 24-byte ENCRYPTED body, length=29 (key=ca23e9ce)
+10:34:30 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:56934: 0100ff1d00000011020100016798572eb45be9c2d05967c934197869249419359def68030000
+10:34:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:30   HEX: 0100000b007cc500000000ac100102010000001400000200
+10:34:30   ASCII: b'\x01\x00\x00\x0b\x00|\xc5\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+10:34:30   DECRYPTED (24 bytes): 431857b8ac68c4389ec0c7447fbe699c5462fb7336cb4099
+10:34:30 BASEAPP: using key=ca23e9ce from EARLY scan (triggered at LoginApp reply time) for ('127.0.0.1', 56935)
+10:34:30 BASEAPP: encrypted WHOLE 16-byte (wastage-padded) reply with key=ca23e9ce mode=pc_variant IV=0
+10:34:30 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x0000c57c key=ca23e9ce (16 bytes): 3db7d2abbc3e8befedb9244fb24909d1
+10:34:30 BASEAPP UDP SENT createBasePlayer push id=5 entityId=1 type=127 key=ca23e9ce IV=0 (16 bytes): 3b84546afa172c4151c65ced833b8d58
+10:34:30 BASEAPP KEEPALIVE: started for ('127.0.0.1', 56935) (setGameTime msgID=3 every 5.0s)
+10:34:30 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:30   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:30   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:30   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:30 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:31 BASEAPP KEYSCAN: pid=28651 base=0x3210000 target_vtable_va=0x69ed3a0 pattern=a0d39e0600000000, scanning 16 regions...
+10:34:31 BASEAPP KEYSCAN: 14 small (<=16MB) regions, 2 large regions
+10:34:31 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:56935 ***
+10:34:31   HEX: 9c6f1503cf6720b6cf33d05fb46fb106fdef86ae4339f658c9bffacf13c8a11a
+10:34:31   ASCII: b'\x9co\x15\x03\xcfg \xb6\xcf3\xd0_\xb4o\xb1\x06\xfd\xef\x86\xaeC9\xf6X\xc9\xbf\xfa\xcf\x13\xc8\xa1\x1a'
+10:34:31   DECRYPTED (27 bytes, wastage=5): 58000861b2000061b200000c090014000654686973206400000000
+10:34:31 BASEAPP CHANNEL ACK: pkt_flags=0x0058 seq=0 key=ca23e9ce (16 bytes): 59c6677a5b3b60c72642ad753cbd245d
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+  BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789612471.8299949, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "b236d47c05e44900b6241342006b9dea", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+  -> SERVE root / (200 OK)
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+  BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789612471","finish_time":"1789612471","push_time":"1789612471","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.169412136078",
+10:34:31 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:31   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:31   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:31   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:31 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:31 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+10:34:32 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:32   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:32   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:32   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:32 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:32 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:32   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:32   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:32   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:32 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:33 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:33   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:33   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:33   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:33 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:33 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:33   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:33   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:33   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:33 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:34 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:34   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:34   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:34   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:34 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:34 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:34   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:34   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:34   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:34 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:35 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56935 ***
+10:34:35   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:35   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:35   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:35 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+REQ GET /status/?project=h45na&gid=10001&name=STATUS host=proxy-state.nie.netease.com len=0
+REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+10:34:35 BASEAPP KEEPALIVE: sent setGameTime t=1789612475 to ('127.0.0.1', 56935) (16 bytes)
+10:34:37 LOGINAPP UDP RECV 273 bytes from 127.0.0.1:56936
+10:34:37   HEX: 01000004011202010000002b00000024ffe301407e85dfdc1f9846afd2417cae39f9d02f1e91203a7659d4497bfcef037bfd0fe57f087741ebec313887cb1ee7afeddbf69cb282f90d5c232a8ac12df05fa85583fb470b7c7d17f94b6d15b6eee327dd211eeb7b1439c2880710f50141770e69b95a2b3fe5972e69911bc9b1d48226049fd364b02b0757ee06aac39772c6ea8510bebff8db0d91931b31542bfc4911ac0c94d0b9f7166c1af1f017cf8c5b95f96e00f22bdf891b366de3473826e1734ea02f0f7c7dc17f6b87228f58c0e16d5285a221344c8d2c8c856ebb6418f42bf1dbbb35aa4ff58dbe9711a3d6b633e216931ee3f2468bfa15a351bb9ac4161373e8e7050831dc511a3a5fd8630200
+10:34:37 ATTEMPT_H-shape (20-byte body): replyID=0x00010212 status=1 + 20-byte body, length=25
+10:34:37 ATTEMPT_L: encrypted 24-byte body with Blowfish key=ca23e9ce mode=pc_variant -> 6798572eb45be9c2d05967c934197869249419359def6803
+10:34:37 ATTEMPT_I (default): replyID=0x00010212 status=1 + 24-byte ENCRYPTED body, length=29 (key=ca23e9ce)
+10:34:37 LOGINAPP UDP SENT framed reply (38 bytes) to 127.0.0.1:56936: 0100ff1d00000012020100016798572eb45be9c2d05967c934197869249419359def68030000
+10:34:37 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56937 ***
+10:34:37   HEX: 0100000b00a09a00000000ac100102010000001400000200
+10:34:37   ASCII: b'\x01\x00\x00\x0b\x00\xa0\x9a\x00\x00\x00\x00\xac\x10\x01\x02\x01\x00\x00\x00\x14\x00\x00\x02\x00'
+10:34:37   DECRYPTED (24 bytes): 1bbff30c7808f605c66763f0abde5ba10cc55fc7e2ab72a4
+10:34:37 BASEAPP: using key=ca23e9ce from EARLY scan (triggered at LoginApp reply time) for ('127.0.0.1', 56937)
+10:34:37 BASEAPP: encrypted WHOLE 16-byte (wastage-padded) reply with key=ca23e9ce mode=pc_variant IV=0
+10:34:37 BASEAPP UDP SENT whole-packet-encrypted ack for method=0x00 corr=0x00009aa0 key=ca23e9ce (16 bytes): 882d3ecfc0b7f92979cc7959099882c5
+10:34:37 BASEAPP UDP SENT createBasePlayer push id=5 entityId=1 type=127 key=ca23e9ce IV=0 (16 bytes): 3b84546afa172c4151c65ced833b8d58
+10:34:37 BASEAPP KEEPALIVE: started for ('127.0.0.1', 56937) (setGameTime msgID=3 every 5.0s)
+10:34:37 *** BASEAPP UDP RECV 24 bytes from 127.0.0.1:56937 ***
+10:34:37   HEX: 1de4b728708155f16b254f7efca656c3bd9b19da93f79d4d
+10:34:37   ASCII: b'\x1d\xe4\xb7(p\x81U\xf1k%O~\xfc\xa6V\xc3\xbd\x9b\x19\xda\x93\xf7\x9dM'
+10:34:37   DECRYPTED (23 bytes, wastage=1): 08000c120014000f5468697320646f63756d656e742073
+10:34:37 BASEAPP UDP SENT versionPointIdentity push id=94 flags=0x0008 checkpoint_id=20 key=ca23e9ce IV=0 (16 bytes): cd9f6740514583de0cba858af0bb7bf0
+10:34:37 *** BASEAPP UDP RECV 32 bytes from 127.0.0.1:56937 ***
+10:34:37   HEX: 9c6f1503cf6720b6cf33d05fb46fb106fdef86ae4339f6584debd316a0c66348
+10:34:37   ASCII: b'\x9co\x15\x03\xcfg \xb6\xcf3\xd0_\xb4o\xb1\x06\xfd\xef\x86\xaeC9\xf6XM\xeb\xd3\x16\xa0\xc6cH'
+10:34:37   DECRYPTED (27 bytes, wastage=5): 58000861b2000061b200000c090014000654686973206400000000
+10:34:37 BASEAPP CHANNEL ACK: pkt_flags=0x0058 seq=0 key=ca23e9ce (16 bytes): 59c6677a5b3b60c72642ad753cbd245d
+REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+  BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789612478.0855081, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "b236d47c05e44900b6241342006b9dea", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_vers
+  -> SERVE root / (200 OK)
+REQ GET /internalquery host=nstool.netease.com len=0
+  -> SERVE internalquery
+REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+  BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789612478","finish_time":"1789612478","push_time":"1789612478","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.131689786911",
+10:34:37 BASEAPP KEYSCAN: pid=28651 base=0x3210000 target_vtable_va=0x69ed3a0 pattern=a0d39e0600000000, scanning 16 regions...
+10:34:37 BASEAPP KEYSCAN: 14 small (<=16MB) regions, 2 large regions
+10:34:38 BASEAPP KEYSCAN: no distinct key in small regions, falling back to 2 large region(s)
+10:34:40 BASEAPP KEEPALIVE: sent setGameTime t=1789612480 to ('127.0.0.1', 56935) (16 bytes)
+10:34:42 BASEAPP KEEPALIVE: sent setGameTime t=1789612482 to ('127.0.0.1', 56937) (16 bytes)
+10:34:45 BASEAPP KEEPALIVE: sent setGameTime t=1789612485 to ('127.0.0.1', 56935) (16 bytes)
+10:34:47 BASEAPP KEEPALIVE: sent setGameTime t=1789612487 to ('127.0.0.1', 56937) (16 bytes)
+10:34:47 BASEAPP KEYSCAN: done in 16.64s, found 0 candidate object(s), 0 distinct key(s): []
+10:34:47 BASEAPP KEYSCAN: no key distinct from LoginApp's (fa490e60) found for ('127.0.0.1', 56935) (candidates: []) -- key is likely SHARED, not separate
+10:34:50 BASEAPP KEEPALIVE: sent setGameTime t=1789612490 to ('127.0.0.1', 56935) (16 bytes)
+10:34:52 BASEAPP KEEPALIVE: sent setGameTime t=1789612492 to ('127.0.0.1', 56937) (16 bytes)
+10:34:54 BASEAPP KEYSCAN: done in 16.83s, found 0 candidate object(s), 0 distinct key(s): []
+10:34:54 BASEAPP KEYSCAN: no key distinct from LoginApp's (fa490e60) found for ('127.0.0.1', 56937) (candidates: []) -- key is likely SHARED, not separate
+10:34:55 BASEAPP KEEPALIVE: sent setGameTime t=1789612495 to ('127.0.0.1', 56935) (16 bytes)
+10:34:57 BASEAPP KEEPALIVE: sent setGameTime t=1789612497 to ('127.0.0.1', 56937) (16 bytes)
+10:35:00 BASEAPP KEYSCAN: candidate EncryptionFilter at 0x76384be7c41c key=ca23e9ce
+10:35:00 BASEAPP KEEPALIVE: sent setGameTime t=1789612500 to ('127.0.0.1', 56935) (16 bytes)
+10:35:02 BASEAPP KEEPALIVE: sent setGameTime t=1789612502 to ('127.0.0.1', 56937) (16 bytes)
+10:35:05 BASEAPP KEEPALIVE: sent setGameTime t=1789612505 to ('127.0.0.1', 56935) (16 bytes)
+10:35:07 BASEAPP KEEPALIVE: sent setGameTime t=1789612507 to ('127.0.0.1', 56937) (16 bytes)
+10:35:10 BASEAPP KEEPALIVE: sent setGameTime t=1789612510 to ('127.0.0.1', 56935) (16 bytes)
+10:35:12 BASEAPP KEEPALIVE: sent setGameTime t=1789612512 to ('127.0.0.1', 56937) (16 bytes)
+10:35:15 BASEAPP KEEPALIVE: sent setGameTime t=1789612515 to ('127.0.0.1', 56935) (16 bytes)
+10:35:17 BASEAPP KEEPALIVE: sent setGameTime t=1789612517 to ('127.0.0.1', 56937) (16 bytes)
+10:35:20 BASEAPP KEEPALIVE: sent setGameTime t=1789612520 to ('127.0.0.1', 56935) (16 bytes)
+10:35:22 BASEAPP KEEPALIVE: sent setGameTime t=1789612522 to ('127.0.0.1', 56937) (16 bytes)
+10:35:25 BASEAPP KEEPALIVE: sent setGameTime t=1789612525 to ('127.0.0.1', 56935) (16 bytes)
+10:35:27 BASEAPP KEEPALIVE: sent setGameTime t=1789612527 to ('127.0.0.1', 56937) (16 bytes)
+10:35:30 BASEAPP KEEPALIVE: sent setGameTime t=1789612530 to ('127.0.0.1', 56935) (16 bytes)
+10:35:32 BASEAPP KEEPALIVE: sent setGameTime t=1789612532 to ('127.0.0.1', 56937) (16 bytes)
+10:35:35 BASEAPP KEEPALIVE: sent setGameTime t=1789612535 to ('127.0.0.1', 56935) (16 bytes)
+10:35:37 BASEAPP KEEPALIVE: sent setGameTime t=1789612537 to ('127.0.0.1', 56937) (16 bytes)
+10:35:40 BASEAPP KEEPALIVE: sent setGameTime t=1789612540 to ('127.0.0.1', 56935) (16 bytes)
+10:35:42 BASEAPP KEEPALIVE: sent setGameTime t=1789612542 to ('127.0.0.1', 56937) (16 bytes)
+10:35:45 BASEAPP KEEPALIVE: sent setGameTime t=1789612545 to ('127.0.0.1', 56935) (16 bytes)

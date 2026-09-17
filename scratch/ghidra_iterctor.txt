@@ -1,0 +1,96 @@
+=== FUN_00a837ec @ 00a837ec ===
+
+void FUN_00a837ec(long *param_1,long param_2)
+
+{
+  ushort uVar1;
+  undefined2 uVar2;
+  long lVar3;
+  long lVar4;
+  
+  lVar3 = *(long *)(param_2 + 8);
+  *(undefined4 *)(param_1 + 1) = 0;
+  *(undefined2 *)((long)param_1 + 0xc) = 0;
+  *(undefined4 *)(param_1 + 2) = 0;
+  param_1[3] = 0;
+                    /* try { // try from 00a83804 to 00b83807 has its CatchHandler @ 00a83858 */
+  *(undefined2 *)(param_1 + 5) = 0;
+  *(undefined8 *)((long)param_1 + 0x2c) = 0xffffffff;
+  param_1[7] = 0;
+  param_1[8] = 0;
+  *param_1 = lVar3;
+  if (lVar3 != 0) {
+    do {
+      lVar4 = lVar3;
+      uVar1 = *(ushort *)(lVar4 + 0x1a);
+      if (2 < uVar1) break;
+      lVar3 = *(long *)(lVar4 + 0x10);
+      *param_1 = lVar3;
+    } while (lVar3 != 0);
+    uVar2 = *(undefined2 *)(lVar4 + 0x20);
+    *(ushort *)(param_1 + 1) = uVar1;
+    *(undefined2 *)((long)param_1 + 10) = 2;
+    *(undefined2 *)(param_1 + 4) = uVar2;
+  }
+                    /* try { // try from 00a83848 to 00b8384f has its CatchHandler @ 00a83850 */
+  return;
+}
+
+
+
+=== FUN_00a8384c @ 00a8384c ===
+
+void FUN_00a8384c(undefined8 *param_1)
+
+{
+                    /* catch() { ... } // from try @ 00a837a4 with catch @ 00a83850
+                       catch() { ... } // from try @ 00a83848 with catch @ 00a83850
+                       try { // try from 00a83850 to 00b83883 has its CatchHandler @ 00a8370c */
+  *(undefined4 *)(param_1 + 1) = 0;
+  *(undefined2 *)((long)param_1 + 0xc) = 0;
+                    /* catch() { ... } // from try @ 00a83804 with catch @ 00a83858 */
+  *(undefined4 *)(param_1 + 2) = 0;
+  param_1[3] = 0;
+  *(undefined2 *)(param_1 + 5) = 0;
+  param_1[7] = 0;
+  param_1[8] = 0;
+  *(undefined8 *)((long)param_1 + 0x2c) = 0xffffffff;
+  *param_1 = 0;
+  return;
+}
+
+
+
+=== FUN_00a82828 @ 00a82828 ===
+
+void FUN_00a82828(undefined8 *param_1,long param_2)
+
+{
+  *param_1 = &PTR_FUN_038dd120;
+  param_1[1] = param_2;
+  if (param_2 != 0) {
+    *(int *)(param_2 + 8) = *(int *)(param_2 + 8) + 1;
+  }
+  param_1[2] = param_2;
+  *(undefined1 *)((long)param_1 + 0x1c) = 0;
+  *(undefined1 *)(param_1 + 3) = 1;
+  *(undefined2 *)((long)param_1 + 0x1a) = 0x500;
+  param_1[5] = 0;
+  param_1[4] = 0;
+  param_1[0xc] = 0;
+  param_1[0xb] = 0;
+  param_1[7] = 0;
+  param_1[6] = 0;
+  param_1[9] = 0;
+  param_1[8] = 0;
+  param_1[0x11] = 0;
+  param_1[0x10] = 0;
+  param_1[0xf] = 0;
+  param_1[0xe] = 0;
+  param_1[0xd] = 0;
+  FUN_00a825f0(param_1,1);
+  return;
+}
+
+
+

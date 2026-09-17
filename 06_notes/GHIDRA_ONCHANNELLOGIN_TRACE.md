@@ -508,6 +508,65 @@ site of that iterator object, which was not completed this session.
 missing fact needed to either confirm or fully rule out "path A" as the
 root cause with certainty.
 
+## Finding 8 (2026-09-17, session continuation): more live bisection, all disproven; Frida instrumentation re-confirmed blocked via a second tool
+
+**Live-tested three more hypotheses for the `authenticate`/id-0 corruption, all disproven:**
+
+1. **`ATTEMPT_TICKSYNC_FILLER`** — replaced the ambiguous `b'\x00\x00'` footer
+   with a genuine, minimal, correctly-framed `tickSync` message (id 16,
+   FIXED 1 byte) so the parser would have real content instead of
+   ambiguous padding. Result: no change to the corruption at all.
+2. **`ATTEMPT_MYSTERY2`** — inserted 2 zero bytes between the length field
+   and body, on the theory that the footer-removed test's "consumed 7
+   bytes instead of the expected 5" implied a hidden 2-byte field.
+   Disproven decisively: `entityId` was misread as `65536` (0x10000)
+   instead of `1` — an exact 2-byte-shifted read, confirming those bytes
+   don't belong there and this was never the issue.
+3. **Clean, isolated re-test of footer-removed** (no other variables) —
+   environment instability (see below) prevented a clean result from being
+   captured this round, but the original footer-removed finding (Finding
+   6/7: breaks `createBasePlayer`'s own parse with "needed 6, 4 left")
+   still stands as the best available evidence.
+
+**Frida dynamic instrumentation tried again via a second, independent
+tool** (`frida-trace`, not just raw Python `frida.attach()`), targeting
+`Bundle::iterator::unpack` directly (`libclient_arm64.so!0x983b24`, the
+static file offset). Confirmed the client process is visible to
+`frida-ps` this time (it wasn't earlier in the session), but attaching
+still fails identically: `Failed to attach: unable to connect to remote
+frida-server: closed`. This reproduces Finding 5's crash via a completely
+different tool, closing any doubt that it was a one-off — **this specific
+process has a genuine, working anti-instrumentation defense that kills
+frida-server on attach**, not a configuration problem in this session's
+Frida setup. Resolving the remaining corruption bug with certainty now
+requires either a hardened/hidden frida-server build (out of scope this
+session), a real rooted physical ARM64 device with a different
+instrumentation stack, or continued manual static analysis + live
+bisection in a future session with fresh compute budget.
+
+**New, unrelated environmental problem discovered and partially
+mitigated:** across roughly 10 consecutive live-test attempts this
+session, the client intermittently (and, for a long stretch, consistently)
+fell through to real production LoginApp servers (a different public IP
+every time, e.g. `215.6.77.76`, `138.110.255.224`, `121.21.164.196`,
+`213.240.254.125`, `115.161.174.65`, `13.57.8.187`, `91.108.2.143`)
+instead of this project's own `172.16.1.2` test server, **despite the
+iptables OUTPUT DNAT rules being verified present and correct every
+time**. Tried and ruled out: blocking all non-172.16.1.2 UDP (no effect —
+still fell through, meaning the discovery path isn't pure UDP);
+blocking all non-172.16.1.2 TCP+UDP except DNS (broke the app's own
+legitimate startup update-check, confirming it also needs broader
+internet access this project doesn't want to fully sever). The one
+reliable mitigation found: **a full clean emulator reboot followed by
+testing on the very first launch attempt** consistently lands on
+`172.16.1.2`; success rate drops on subsequent retaps/relaunches within
+the same emulator uptime, for reasons not yet root-caused (possibly a
+timing/race condition that shifts as the emulator's own clock or DNS
+cache state drifts). **Any future live-test session should reboot the
+emulator first and treat the first attempt as the most trustworthy one**,
+always verifying the `LoginHandler::onLoginReply` source IP before
+trusting the rest of a pass (per Finding 6's existing caveat).
+
 ## Dead ends
 
 - Symbol-table keyword search for game-logic class names (Finding 3).

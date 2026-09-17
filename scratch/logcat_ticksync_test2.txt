@@ -1,0 +1,155 @@
+--------- beginning of system
+09-17 10:20:21.110  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@62a4a79
+--------- beginning of main
+09-17 10:20:21.135 17138 17138 I appproc : app_process main with argv: /system/bin com.android.commands.input.Input tap 952 795 
+09-17 10:20:21.135 17138 17138 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+09-17 10:20:21.138 17138 17138 E cutils-trace: Error opening trace file: No such file or directory (2)
+09-17 10:20:21.149 17138 17138 V libnb   : enter native_bridge2_isCompatibleWith 3
+09-17 10:20:21.154 17138 17138 I libnb   : Found /system/lib64/libhoudini.so version 3
+09-17 10:20:21.175 17138 17138 I app_process: The ClassLoaderContext is a special shared library.
+09-17 10:20:21.175 17138 17138 W app_process: Could not create mount namespace.
+09-17 10:20:21.175 17138 17138 D nativebridge: PreInitializeNativeBridge name=unknown instruction_set=x86_64
+09-17 10:20:21.175 17138 17138 W nativebridge: Failed to bind-mount /data/local/cfg-ynhne/ as /proc/cpuinfo: No such file or directory
+09-17 10:20:21.175 17138 17138 W nativebridge: Failed to bind-mount /system/lib64/x86_64/cpuinfo as /proc/cpuinfo: Operation not permitted
+09-17 10:20:21.176 17138 17138 D nativebridge: call UnloadNativeBridge! state=2
+09-17 10:20:21.186 17138 17138 D AndroidRuntime: Calling main entry com.android.commands.input.Input
+09-17 10:20:21.188 17138 17138 I Input   : injectMotionEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1197831, downTime=1197831, deviceId=3, source=0x1002 }
+09-17 10:20:21.199 17138 17138 I Input   : injectMotionEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=952.0, y[0]=795.0, toolType[0]=TOOL_TYPE_UNKNOWN, buttonState=0, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1197831, downTime=1197831, deviceId=3, source=0x1002 }
+09-17 10:20:21.212 17138 17138 D AndroidRuntime: Shutting down VM
+09-17 10:20:21.248 16724 16806 E NeoX    : finish get cutOut info
+09-17 10:20:21.641  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:21.730 16724 16806 I [10:20:21.730] M : [INFO] ServerConnection::logOnBegin conneting to 172.16.1.2:25000 for loginAPP
+09-17 10:20:21.730 16724 16806 I [10:20:21.730] M : [INFO] PublicKeyCipher::setKey: Loaded 1024-bit public key
+09-17 10:20:21.731 16724 16806 I [10:20:21.731] M : [INFO] Nub::recreateListeningSocket 0x76384c40d000 0.0.0.0:24958
+09-17 10:20:21.761 16724 16806 I [10:20:21.761] M : [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 215.6.77.76 to 215.6.77.76:0
+09-17 10:20:21.761 16724 16806 I [10:20:21.761] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=215.6.77.76:38055
+09-17 10:20:21.762 16724 16806 I [10:20:21.762] M : [INFO] Nub::recreateListeningSocket 0x76384bff4000 0.0.0.0:23711
+09-17 10:20:21.762 16724 16806 I [10:20:21.762] M : [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
+09-17 10:20:22.151  1560  2707 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@973fe3f
+09-17 10:20:22.171  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:22.171  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9280, error=EGL_BAD_MATCH
+09-17 10:20:22.301  1424  2008 W SurfaceFlinger: Attempting to destroy on removed layer: 32f3086 Toast#0
+09-17 10:20:23.118  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@eb0ab6c
+09-17 10:20:23.650  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:24.157  1560  2707 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@69420c2
+09-17 10:20:24.168  1424  1439 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:20:24.187  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:24.187  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9400, error=EGL_BAD_MATCH
+09-17 10:20:24.305  1424  1439 W SurfaceFlinger: Attempting to destroy on removed layer: d3f4455 Toast#0
+09-17 10:20:25.122  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@b8cab3b
+09-17 10:20:25.653  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:26.028 16724 16806 I [10:20:26.028] M : [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=215.6.77.76:38055
+09-17 10:20:26.158  1401  1401 I writer  : type=1400 audit(0.0:6639): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:hal_audio_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:26.159  1560  2707 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@d5f3b28
+09-17 10:20:26.161 16724 16806 I         : 
+09-17 10:20:26.161 16724 16806 I         : ERROR *****************************************************************************
+09-17 10:20:26.161 16724 16806 I [10:20:26.161] M : [ERROR] ServerConnection::logOnComplete: Logon failed (Unable to connect to BaseApp: A NAT or firwall error may have occured?)
+09-17 10:20:26.161 16724 16806 D DCTOOL  : ntStart() queue size (1), current thread=289
+09-17 10:20:26.162 16724 16806 D DCTOOL  : ntStart() after so loaded, current thread=289
+09-17 10:20:26.162 16724 16806 D DCTOOL  : ntStart() with native and reset.
+09-17 10:20:26.162 16724 16806 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart. 
+09-17 10:20:26.162 16724 16806 D DCTOOL  : In C++,  Java_com_netease_unisdk_dctool_unisdkdctool_ntStart end. 
+09-17 10:20:26.162 16724 17148 D DCTOOL  : NATIVE [ntGetDeviceInfo] AttachCurrentThread successfully
+09-17 10:20:26.162 16724 17148 D DCTOOL  : NATIVE [ntGetDeviceInfo] callback here.
+09-17 10:20:26.162 16724 17148 D DCTOOL  : In C++, call back Java's ntGetDeviceInfo().
+09-17 10:20:26.170 16724 17148 D DCTOOL  : Getting NETWORK_TYPE in java : wifi
+09-17 10:20:26.178 16724 17148 D DCTOOL  : Getting DeviceInfo in java : "network_type":"wifi","mem_total":"5955.6","mem_idle":"4786.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-17 10:20:26.179 16724 17148 D DCTOOL  : In C++, get the returned string is "network_type":"wifi","mem_total":"5955.6","mem_idle":"4786.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9"
+09-17 10:20:26.179 16724 17148 D DCTOOL  : In C++, release the returned string. detach. 
+09-17 10:20:26.179 16724 17148 D DCTOOL  : In C++, NATIVE [ntGetDeviceInfo] DetachCurrentThread successed.
+09-17 10:20:26.179 16724 17148 I DCTOOL  : OSVersion: 9
+09-17 10:20:26.179 16724 17148 I DCTOOL  : brand: Redmi -- model: 22081212C
+09-17 10:20:26.179 16724 17148 I DCTOOL  : Serialno: 00c80dd8
+09-17 10:20:26.199  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:26.199  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9680, error=EGL_BAD_MATCH
+09-17 10:20:26.215 16724 17148 D DCTOOL  : NATIVE [OnToolCallback] AttachCurrentThread successfully
+09-17 10:20:26.215 16724 17148 D DCTOOL  : NATIVE [OnToolCallback] calling here.
+09-17 10:20:26.215 16724 17148 D DCTOOL  :  NOT RUNNING TIME. 
+09-17 10:20:26.215 16724 17148 D DCTOOL  : In C++, call back Java's OnToolCallback(String).
+09-17 10:20:26.215 16724 17148 D DCTOOL  : OnToolCallback : NOT RUNNING TIME.
+09-17 10:20:26.215 16724 17148 D DCTOOL  : OnToolCallback, current thread=333
+09-17 10:20:26.215 16724 17148 D DCTOOL  : NATIVE [OnToolCallback] DetachCurrentThread() Successed.
+09-17 10:20:26.227 16724 16806 I NeoXDevice: On App CMD 24
+09-17 10:20:26.317  1424  2008 W SurfaceFlinger: Attempting to destroy on removed layer: 1163a10 Toast#0
+09-17 10:20:27.126  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@b078c96
+09-17 10:20:27.666  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:28.179  1560  2707 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@cf6976c
+09-17 10:20:28.187  1424  1439 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:20:28.213  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:28.214  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9980, error=EGL_BAD_MATCH
+09-17 10:20:28.314  1424  2008 W SurfaceFlinger: Attempting to destroy on removed layer: d525b27 Toast#0
+09-17 10:20:28.636  1560  1574 I UsageStatsService: User[0] Flushing usage stats to disk
+09-17 10:20:28.715  1461  1478 E storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+09-17 10:20:29.034 16724 16806 I [10:20:29.034] M : [AUIDO]freeEventData: ui/ui_enter_game_new, times: -1948261752
+09-17 10:20:29.136  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@3d6b5ed
+09-17 10:20:29.669  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:30.163  1560  2708 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@3b2822
+09-17 10:20:30.183  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:30.183  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9900, error=EGL_BAD_MATCH
+09-17 10:20:30.311  1424  1439 W SurfaceFlinger: Attempting to destroy on removed layer: 66f29ca Toast#0
+09-17 10:20:31.139  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@25d470
+09-17 10:20:31.683  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:32.171  1560  2708 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@b4bd346
+09-17 10:20:32.178  1411  1411 I HwBinder:1411_2: type=1400 audit(0.0:6640): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:hal_graphics_allocator_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:32.181  1424  2092 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:20:32.188  1411  1411 I HwBinder:1411_2: type=1400 audit(0.0:6641): avc: denied { read write } for name="fastpipe" dev="tmpfs" ino=3140 scontext=u:r:hal_graphics_allocator_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:32.188  1411  1411 I HwBinder:1411_2: type=1400 audit(0.0:6642): avc: denied { open } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:hal_graphics_allocator_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:32.203  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:32.203  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9d00, error=EGL_BAD_MATCH
+09-17 10:20:32.316  1424  1439 W SurfaceFlinger: Attempting to destroy on removed layer: aea7fe9 Toast#0
+09-17 10:20:33.143  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@4759b0f
+09-17 10:20:33.666  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:34.174  1560  2708 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@9aa3bcc
+09-17 10:20:34.197  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:34.197  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9f00, error=EGL_BAD_MATCH
+09-17 10:20:34.320  1424  1439 W SurfaceFlinger: Attempting to destroy on removed layer: 159da34 Toast#0
+09-17 10:20:34.814  2040 21649 I gle.android.gm: Explicit concurrent copying GC freed 97869(5MB) AllocSpace objects, 34(1736KB) LOS objects, 49% free, 15MB/31MB, paused 37us total 55.538ms
+09-17 10:20:35.147  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@25ccd7a
+09-17 10:20:35.678  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:36.179  1560  2006 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@81c76d0
+09-17 10:20:36.185  1424  2008 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:20:36.198  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:36.198  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f9a9a80, error=EGL_BAD_MATCH
+09-17 10:20:36.308  1424  1439 W SurfaceFlinger: Attempting to set client state on removed layer: Surface(name=2e63f1b Toast)/@0xd2548b8 - animation-leash#0
+09-17 10:20:36.308  1424  1439 W SurfaceFlinger: Attempting to destroy on removed layer: Surface(name=2e63f1b Toast)/@0xd2548b8 - animation-leash#0
+09-17 10:20:37.150  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@e190721
+09-17 10:20:37.528  1412  1412 I composer@2.1-se: type=1400 audit(0.0:6643): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:37.543  1560  2006 E memtrack: Couldn't load memtrack module
+09-17 10:20:37.543  1560  2006 W android.os.Debug: failed to get memory consumption info: -1
+09-17 10:20:37.678  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:38.185  1560  2708 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@a766ca6
+09-17 10:20:38.212  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:38.212  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f418200, error=EGL_BAD_MATCH
+09-17 10:20:38.248  1424  1424 I surfaceflinger: type=1400 audit(0.0:6644): avc: denied { read write } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:38.316  1424  1647 W SurfaceFlinger: Attempting to set client state on removed layer: Surface(name=6a1f1ce Toast)/@0xdf4e8ef - animation-leash#0
+09-17 10:20:38.316  1424  1647 W SurfaceFlinger: Attempting to destroy on removed layer: Surface(name=6a1f1ce Toast)/@0xdf4e8ef - animation-leash#0
+09-17 10:20:38.330  1424  1440 W SurfaceFlinger: Attempting to destroy on removed layer: 6a1f1ce Toast#0
+09-17 10:20:39.148  1424  1424 I surfaceflinger: type=1400 audit(0.0:6645): avc: denied { ioctl } for path="/dev/fastpipe" dev="tmpfs" ino=3140 ioctlcmd=6867 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:39.155  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@b0f6e34
+09-17 10:20:39.683  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:40.209  1560  2006 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@3c8b08a
+09-17 10:20:40.217  1424  2092 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:20:40.221  1411  1411 I HwBinder:1411_2: type=1400 audit(0.0:6646): avc: denied { read write } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:40.221  1424  1424 I Binder:1424_5: type=1400 audit(0.0:6647): avc: denied { getattr } for path="/dev/fastpipe" dev="tmpfs" ino=3140 scontext=u:r:surfaceflinger:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=1
+09-17 10:20:40.230  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:40.230  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f418380, error=EGL_BAD_MATCH
+09-17 10:20:41.160  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@d3f42a3
+09-17 10:20:41.689  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:42.208  1560  1574 E memtrack: Couldn't load memtrack module
+09-17 10:20:42.208  1560  1574 W android.os.Debug: failed to get memory consumption info: -1
+09-17 10:20:42.209  1560  2006 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@896bda9
+09-17 10:20:42.229  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:42.229  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f418500, error=EGL_BAD_MATCH
+09-17 10:20:42.358  1424  1647 W SurfaceFlinger: Attempting to destroy on removed layer: 6b38318 Toast#0
+09-17 10:20:43.166  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@344f91e
+09-17 10:20:43.712  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:44.219  1560  2006 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@d0edaf4
+09-17 10:20:44.225  1424  1440 D SurfaceFlinger: duplicate layer name: changing Toast to Toast#1
+09-17 10:20:44.235  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:44.235  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f418680, error=EGL_BAD_MATCH
+09-17 10:20:44.367  1424  2092 W SurfaceFlinger: Attempting to destroy on removed layer: eb98acf Toast#0
+09-17 10:20:45.168  1560  1560 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@1605215
+09-17 10:20:45.711  1560  1584 W WindowManager: Unable to start animation, surface is null or no children.
+09-17 10:20:46.225  1560  2006 W NotificationService: Toast already killed. pkg=com.android.settings callback=android.app.ITransientNotification$Stub$Proxy@dfdfedb
+09-17 10:20:46.252  1929  1959 E EGL_emulation: tid 1959: eglSurfaceAttrib(1504): error 0x3009 (EGL_BAD_MATCH)
+09-17 10:20:46.252  1929  1959 W OpenGLRenderer: Failed to set EGL_SWAP_BEHAVIOR on surface 0x76386f418800, error=EGL_BAD_MATCH
