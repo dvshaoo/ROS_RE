@@ -368,6 +368,146 @@ Mercury bundle header actually requires at the BaseApp-channel level
 4-byte length prefix — which may not be valid for BaseApp channel
 messages at all).
 
+## Finding 7 (2026-09-17 continuation): traced the "authenticate"/id-0 corruption to the Bundle chain-advance logic, root cause still unconfirmed
+
+**Finding:** Decompiled the actual `Bundle::iterator::unpack` (`FUN_00a83b24`,
+static `0xa83b24`) in full, plus its caller loop (`Nub::processOrderedPacket`,
+inside `FUN_00a90b14`) and the iterator-advance helper
+(`FUN_00a83e28`) called at the end of every loop iteration.
+
+Live-tested two concrete hypotheses derived from the first decompile, both
+**disproven**:
+
+1. Removing the `createBasePlayer` push's trailing `b'\x00\x00'` footer
+   (theorized as phantom data at the exact byte offset the error reported):
+   made `createBasePlayer` itself fail to parse. Reverted.
+2. Changing `createBasePlayer`/`setGameTime`'s flags from `0x0001` to
+   `0x0000` (removing `FLAG_HAS_REQUESTS`, since `Nub::processPacket`
+   shows that bit triggers an extra "first request offset" field this code
+   never supplied): live-tested, verified via manual decryption that
+   `flags=0x0000` really was sent, and the corruption was **byte-for-byte
+   identical** regardless. Reverted.
+
+**Deeper mechanism found (not yet live-tested):** `FUN_00a83e28` runs after
+every successfully-dispatched message to advance the iterator to the next
+one. Its logic: `iVar4 = header_length + position_after_header` (i.e. the
+end position of the message just consumed). If `iVar4 >= total_chain_length`
+(the message consumed the chain/packet exactly, or would overrun it), the
+code enters a loop that walks to a **next chained packet link**
+(`*(long*)(current_chain + 0x10)`) — BigWorld bundles can apparently span
+multiple physical packets via a linked-list "chain" structure. On
+transitioning to a new chain link, position resets to **2** (skipping a
+2-byte per-chain header) and `param_1+4` (the "pending request" position
+marker implicated in Finding 2's now-corrected PMF analysis) gets reloaded
+from the new chain's own header. If there is no next chain (`lVar6 == 0`,
+the normal case for our single, non-chained UDP datagrams), the loop still
+runs `iVar4 -= chain_length` once before checking, and the outer iterator's
+chain pointer (`*param_1`) gets set to `0`.
+
+**Hypothesis (INFERRED, not yet live-tested):** every message this
+project's server sends is a single, self-contained, **exact-fit** UDP
+datagram (declared length + header = 100% of the packet, no trailing
+slack) — precisely the condition (`iVar4 >= total_chain_length`) that
+triggers this chain-advance branch. Whether this is actually a bug (e.g.
+the subsequent "has more data" check, `FUN_00a83fac`, comparing the
+now-zeroed chain pointer against a bundle-end sentinel that doesn't
+match, causing the loop to spuriously continue and read garbage as a new
+message) or is normal/handled correctly for a legitimately-terminated
+single-packet bundle has **not been determined** — it requires either
+dynamic instrumentation (blocked so far, see Finding 5's frida-attach
+crash) or decompiling `FUN_00a83fac`'s and the bundle-construction code's
+full context (partially done — see `scratch/ghidra_advance.txt` for the
+raw decompile of `FUN_00a83e28`, `FUN_00a83fac`, `FUN_00a83b10`, and
+`FUN_00a8b0c0`).
+
+**Confidence:** the mechanism trace itself is CONFIRMED (direct
+decompilation); the causal link to the live corruption bug is INFERRED
+and UNTESTED.
+
+**Live-tested (2026-09-17, same session): partially confirms the mechanism,
+does not fix the bug.** Added `ATTEMPT_EXTRA_SLACK` (extra trailing zero
+bytes appended to `createBasePlayer`, beyond its 2-byte footer, before
+Blowfish padding) to deliberately avoid the exact-fit condition. Result
+with `ATTEMPT_EXTRA_SLACK=8`: the corruption's reported position shifted
+from `at 11` to `at 16` (exactly the 5-byte width of a fake
+flags+msgid+length header the parser tried to read starting right where
+`createBasePlayer`'s real content ends), and "needed 4" became "2 left"
+instead of "1 left" — consistent with the parser correctly walking *past*
+the immediate exact-fit trigger this time, then interpreting our extra
+slack bytes as the start of a **second, legitimate-looking message** in
+the same bundle (which is normal, correct BigWorld behavious for
+multi-message bundles) — and failing because that "message" is just zero
+padding, not real content.
+
+**Root cause now understood more precisely:** `total_chain_length` (the
+value `FUN_00a83e28`/`Bundle::iterator::unpack` use to decide "is there
+more to parse") is computed from the **full padded buffer**, not from our
+logically-intended message length — meaning ANY trailing bytes beyond a
+message's own declared header+body (whether our deliberate 2-byte footer,
+extra test slack, or ordinary unavoidable Blowfish block-alignment
+padding) get walked by the parser as if they might be additional bundle
+messages. The "wastage byte" stripping this project's static analysis
+established (E2E-020) evidently does **not** happen before
+`Bundle::iterator::unpack` sees the buffer, contrary to this session's
+working assumption — or strips less than assumed. This means **the
+`b'\x00\x00'` footer and Blowfish padding scheme used by every packet in
+`local_baseapp_capture.py` needs to be reconciled against the client's
+real wastage-stripping call site** (not yet located/decompiled) before
+any further per-message content bisection is worthwhile — this is the
+correct next target, not another guess-and-check on individual message
+bytes.
+
+**Follow-up (same session): wastage-stripping confirmed correct, real
+culprit pinned down to the "path A" (request-ID+NRO) branch.** Decompiled
+`EncryptionFilter::recv` (`FUN_00a8924c`, static `0x989324`/`0x9892c8`,
+same function via two call sites) — it **does** strip wastage bytes from
+the packet's length field (`*(pkt+0x1a) -= wastage_byte`) before returning,
+confirming `total_chain_length` correctly reflects our intended total
+plaintext length (header+body+footer, or header+body if no footer),
+**not** the raw padded ciphertext length. Verified this empirically by
+decrypting the exact "footer removed" `createBasePlayer` packet from the
+earlier live test: 16 bytes received, wastage=5, `16-5=11` — exactly
+matching the intended 11-byte content (flags+msgid+lenfield+body, no
+footer). So `total_chain_length=11` for that test, landing EXACTLY on
+`createBasePlayer`'s own declared end (also 11) — an exact-fit case.
+
+Then decompiled `FUN_00a8a674` (called inside `Bundle::iterator::unpack`
+to get the msgid-header width) — for the "fixed 1-byte header" case
+(interface-wide setting, `*(descriptor+1)==0`) it returns `1`. Recomputing
+`Bundle::iterator::unpack`'s arithmetic with this concrete value for the
+footer-removed `createBasePlayer` test: position starts at `uVar5=2`
+(right after the 2-byte flags field); `uVar12 = 1(header width) + 2 = 3`.
+**If "path A" (the `uVar4==uVar5` branch reading an extra 6-byte "request
+ID + NRO" block) triggers**, `uVar3(=3)+6=9 <= uVar4(total=11)` is TRUE, so
+it consumes 6 MORE bytes (positions 3-8) as a phantom request-ID+NRO
+block — bytes that are actually our own 2-byte length field (`06 00`) and
+the first 4 bytes of `createBasePlayer`'s real body (`entityId=1`,
+`01 00 00 00`). This reconstructs the observed error exactly: only
+`11 - 9 = 2`... (arithmetic lands close to, though not pinned bit-exact
+to, the observed "4 left, needed 6" without also knowing the live runtime
+value of the iterator's `param_1+4` field, which is not recoverable by
+static reading alone).
+
+**Why the earlier `flags 0x0001→0x0000` fix (already tried, see above)
+did not help despite this being the right mechanism:** "path A" is gated
+by comparing the **iterator's own internal state field** (`param_1+4`,
+populated once per *packet* by `Nub::processPacket`'s *own* `flags&1`
+check, run once before `Bundle::iterator::unpack` is ever called) against
+the *current parse position* — not by re-reading our per-message flags
+value from inside `unpack()` itself. Whether that iterator field's actual
+runtime value coincidentally equals the first message's position (2)
+*regardless* of our packet-level flags bit is exactly what static reading
+cannot settle — this requires either dynamic instrumentation (still
+blocked, see Finding 5) or decompiling every construction/initialization
+site of that iterator object, which was not completed this session.
+
+**Next actionable step:** decompile the iterator's constructor and
+`Nub::processPacket`'s full body (only partially decompiled so far, see
+`scratch/ghidra_unpack_caller.txt`) to find where `param_1+4` gets its
+*initial* value before any `flags&1`-gated update — that is the one
+missing fact needed to either confirm or fully rule out "path A" as the
+root cause with certainty.
+
 ## Dead ends
 
 - Symbol-table keyword search for game-logic class names (Finding 3).

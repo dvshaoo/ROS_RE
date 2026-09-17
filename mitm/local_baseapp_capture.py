@@ -165,6 +165,9 @@ def _start_keepalive(sock, addr, key_hex, interval=5.0):
             try:
                 game_time = int(time.time()) & 0xffffffff
                 sgt_body = struct.pack('<I', game_time)  # 4-byte fixed body
+                # E2E-040 (2026-09-17): tried flags 0x0001 -> 0x0000 here too, same
+                # theory as createBasePlayer -- disproven there, reverted here too.
+                # See createBasePlayer's comment above for the live-test detail.
                 sgt_plain = (struct.pack('<H', 0x0001) + bytes([SETGAMETIME_MSGID])
                              + sgt_body + b'\x00\x00')
                 sgt_pad_len = 8 - (len(sgt_plain) % 8)
@@ -933,14 +936,15 @@ def serve_baseapp_udp_capture():
                     and unpadded[2] == BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID):
                 checkpoint_id = struct.unpack('<H', unpadded[5:7])[0] if len(unpadded) >= 7 else 0
                 use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
-                # E2E-039 (2026-09-17): trailing b'\x00\x00' footer removed -- same
-                # phantom-trailing-message bug as createBasePlayer (see comment
-                # there); this packet's footer would have started at offset 11
-                # (flags[2]+msgid[1]+body[8]) too, the exact offset the client's
-                # corrupted-bundle error reported.
+                # E2E-039/E2E-040 (2026-09-17): tried removing the trailing
+                # b'\x00\x00' footer here too, theorizing it as the corruption
+                # source -- but this message already uses flags=0x0008 (no
+                # FLAG_HAS_REQUESTS bit), so it was never subject to the
+                # FLAG_HAS_REQUESTS "trailing offset field" issue found in
+                # createBasePlayer (see there); reverted, footer restored.
                 vpi_body = struct.pack('<H', checkpoint_id) + b'\x00' * 6  # 8 bytes total
                 vpi_plain = (struct.pack('<H', _REPLY_FLAGS) + bytes([VERSIONPOINT_IDENTITY_MSGID])
-                             + vpi_body)
+                             + vpi_body + b'\x00\x00')
                 vpi_pad_len = 8 - (len(vpi_plain) % 8)
                 vpi_padded = vpi_plain + b'\x00' * (vpi_pad_len - 1) + bytes([vpi_pad_len])
                 vpi_enc = bf_encrypt(vpi_padded, key_hex=use_key, iv=b'\x00' * 8)
@@ -1036,10 +1040,34 @@ def serve_baseapp_udp_capture():
                     time.sleep(0.05)
                     entity_id = 1
                     entity_type = 127  # Account in entities.xml
+                    # E2E-040 (2026-09-17): tried flags 0x0001 -> 0x0000 here, on the
+                    # theory (from decompiling Bundle::iterator::unpack/FUN_00a83b24
+                    # and Nub::processPacket/FUN_00a90b14) that FLAG_HAS_REQUESTS
+                    # (bit 0) requires a trailing 2-byte "first request offset" field
+                    # this code never included. Live-tested and DISPROVEN: verified
+                    # (by decrypting the actual sent packet) that flags=0x0000 really
+                    # was sent, and the corruption was byte-for-byte IDENTICAL
+                    # ("authenticate ... at 11 ... needed 4, 1 left") regardless.
+                    # Reverted to 0x0001. The path-A/request-ID+NRO branch in
+                    # Bundle::iterator::unpack must be governed by iterator state
+                    # that isn't simply this packet's own flags bit -- understanding
+                    # it needs the CALLING loop around unpack() decompiled too (not
+                    # done this session), not just this one function in isolation.
                     cbp_body = struct.pack('<I', entity_id) + struct.pack('<H', entity_type)
+                    # E2E-041 (2026-09-17): experiment -- Ghidra-decompiled
+                    # FUN_00a83e28 (Bundle iterator advance) tries to walk to a
+                    # "next chained packet" whenever a message's declared end
+                    # position reaches/exceeds the total packet length -- exactly
+                    # what happens when a message exactly fills its packet with
+                    # no trailing slack, as every message in this file does.
+                    # ATTEMPT_EXTRA_SLACK adds deliberate extra trailing zero
+                    # bytes (beyond the 2-byte footer) so the declared message
+                    # content ends well before the packet's true end, to test
+                    # whether that alone avoids the erroneous chain-advance path.
+                    extra_slack = b'\x00' * int(os.environ.get('ATTEMPT_EXTRA_SLACK', '0'))
                     cbp_plain = (struct.pack('<H', 0x0001) + bytes([0x05])
                                   + struct.pack('<H', len(cbp_body)) + cbp_body
-                                  + b'\x00\x00')
+                                  + b'\x00\x00' + extra_slack)
                     cbp_pad_len = 8 - (len(cbp_plain) % 8)
                     cbp_padded = cbp_plain + b'\x00' * (cbp_pad_len - 1) + bytes([cbp_pad_len])
                     cbp_enc = bf_encrypt(cbp_padded, key_hex=use_key, iv=b'\x00' * 8)

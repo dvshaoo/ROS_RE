@@ -1,0 +1,1724 @@
+=== String @ 02b5b5a1: "Bundle::iterator::unpack( %s ): Not enough data on stream at %d for header (%d bytes, needed %d)
+" ===
+  referenced from 00a83b7c in FUN_00a83b24 @ 00a83b24
+
+=== String @ 02b5b648: "Bundle::iterator::unpack( %s ): Not enough data on stream at %d for request ID and NRO (%d left, nee..." ===
+  referenced from 00a83c08 in FUN_00a83b24 @ 00a83b24
+
+=== String @ 02b5b6b5: "Bundle::iterator::unpack( %s ): Not enough data on stream at %d for payload (%d left, needed %d)
+" ===
+  referenced from 00a83cd8 in FUN_00a83b24 @ 00a83b24
+
+=== String @ 02b5b717: "Bundle::iterator::unpack: Got corrupted message header
+" ===
+  referenced from 00a83ce8 in FUN_00a83b24 @ 00a83b24
+
+=== String @ 02b5dcd7: "Nub::processOrderedPacket( %s ): Discarding bundle due to corrupted header for message id %d
+" ===
+  referenced from 00a91290 in FUN_00a90b14 @ 00a90b14
+
+=== String @ 02b5e644: "PrivateKeyCipher::privateDecrypt: Not enough data on stream for encrypted data chunk
+" ===
+  referenced from 00a97324 in FUN_00a97248 @ 00a97248
+
+=== String @ 02b60310: "FixedDictDataType::createFromStreamCustom: Not enough data on stream to read value
+" ===
+  referenced from 00ab3938 in FUN_00ab3880 @ 00ab3880
+
+=== String @ 02b606c6: "VarintDataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00abf148 in FUN_00abf104 @ 00abf104
+  referenced from 00abecac in FUN_00abec68 @ 00abec68
+  referenced from 00abe7ac in FUN_00abe768 @ 00abe768
+
+=== String @ 02b6073b: "LongIntegerDataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00abf82c in FUN_00abf7f8 @ 00abf7f8
+  referenced from 00ac12b4 in FUN_00ac1280 @ 00ac1280
+  referenced from 00ac0484 in FUN_00ac0450 @ 00ac0450
+
+=== String @ 02b6078b: "VarLongIntDataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00ac1f48 in FUN_00ac1f04 @ 00ac1f04
+
+=== String @ 02b607da: "FloatDataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00ac28ec in FUN_00ac28b8 @ 00ac28b8
+  referenced from 00ac301c in FUN_00ac2fe8 @ 00ac2fe8
+
+=== String @ 02b6082c: "PythonDataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00ac3978 in FUN_00ac38c8 @ 00ac38c8
+
+=== String @ 02b60920: "VectorDataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00ac58a8 in FUN_00ac5850 @ 00ac5850
+  referenced from 00ac4e7c in FUN_00ac4e1c @ 00ac4e1c
+  referenced from 00ac44ec in FUN_00ac4494 @ 00ac4494
+
+=== String @ 02b609f1: "CompressVector3DataType::createFromStream: Not enough data on stream to read value
+" ===
+  referenced from 00ac69c4 in FUN_00ac68dc @ 00ac68dc
+  referenced from 00ac68a4 in FUN_00ac6808 @ 00ac6808
+  referenced from 00ac6f34 in FUN_00ac6e98 @ 00ac6e98
+  referenced from 00ac7054 in FUN_00ac6f6c @ 00ac6f6c
+  referenced from 00ac6218 in FUN_00ac6180 @ 00ac6180
+  referenced from 00ac6334 in FUN_00ac6250 @ 00ac6250
+
+=== String @ 02b60b80: "MailBoxDataType::createFromStream: Not enough data on stream to read EntityMailBoxRef
+" ===
+  referenced from 00aca82c in FUN_00aca7c8 @ 00aca7c8
+
+=== Decompiling 24 unique containing function(s) ===
+--- FUN_00a83b24 @ 00a83b24 ---
+
+long * FUN_00a83b24(long *param_1,long param_2)
+
+{
+  uint uVar1;
+  long lVar2;
+  uint uVar3;
+  ushort uVar4;
+  ushort uVar5;
+  ushort uVar6;
+  undefined2 uVar7;
+  int iVar8;
+  int iVar9;
+  undefined4 uVar10;
+  char *pcVar11;
+  uint uVar12;
+  undefined1 uVar13;
+  undefined8 uVar14;
+  
+                    /* try { // try from 00a83b30 to 00b83b33 has its CatchHandler @ 00a83b68 */
+                    /* try { // try from 00a83b34 to 00b83b7f has its CatchHandler @ 00a83a8c */
+  uVar4 = *(ushort *)(param_1 + 4);
+  uVar5 = *(ushort *)((long)param_1 + 10);
+  iVar9 = FUN_00a8a674(param_2);
+  uVar6 = *(ushort *)(param_1 + 1);
+  if ((int)(uint)uVar6 < (int)(iVar9 + (uint)uVar5)) {
+    uVar4 = *(ushort *)((long)param_1 + 10);
+    uVar14 = *(undefined8 *)(param_2 + 8);
+                    /* catch(type#1 @ 00000000) { ... } // from try @ 00a83b30 with catch @ 00a83b68
+                        */
+                    /* catch(type#1 @ 00000000) { ... } // from try @ 00a83ac0 with catch @ 00a83b6c
+                        */
+    uVar10 = FUN_00a8a674(param_2);
+                    /* try { // try from 00a83b80 to 00b83ba3 has its CatchHandler @ 00a83b80
+                       catch() { ... } // from try @ 00a83b80 with catch @ 00a83b80
+                       catch() { ... } // from try @ 00a83bac with catch @ 00a83b80 */
+    FUN_01dad604("Bundle::iterator::unpack( %s ): Not enough data on stream at %d for header (%d bytes, needed %d)\n"
+                 ,uVar14,(uint)uVar4,(uint)uVar6 - (uint)uVar4,uVar10);
+  }
+  else {
+                    /* try { // try from 00a83ba4 to 00b83bab has its CatchHandler @ 00a83bc4 */
+    lVar2 = *param_1 + 0x60;
+                    /* try { // try from 00a83bac to 00b83bd7 has its CatchHandler @ 00a83b80 */
+    *(undefined1 *)(param_1 + 5) = *(undefined1 *)(lVar2 + (ulong)*(ushort *)((long)param_1 + 10));
+    iVar9 = FUN_00a8b0c0(param_2,lVar2 + (ulong)uVar5,*param_1,(uint)uVar4 == (uint)uVar5);
+                    /* catch() { ... } // from try @ 00a83ba4 with catch @ 00a83bc4 */
+    *(int *)(param_1 + 6) = iVar9;
+    if (iVar9 == -1) {
+      FUN_01dad604("Bundle::iterator::unpack( %s ): Error unpacking header length at %d\n",
+                   *(undefined8 *)(param_2 + 8),*(undefined2 *)((long)param_1 + 10));
+    }
+    else {
+      iVar9 = FUN_00a8a674(param_2);
+      uVar12 = iVar9 + (uint)uVar5;
+      if ((uint)uVar4 == (uint)uVar5) {
+        uVar4 = *(ushort *)(param_1 + 1);
+        uVar3 = uVar12 & 0xffff;
+        if ((ulong)uVar3 + 6 <= (ulong)uVar4) {
+          uVar1 = uVar12 + 4;
+          uVar12 = uVar12 + 6;
+                    /* catch(type#1 @ 00000000) { ... } // from try @ 00a83c10 with catch @ 00a83c4c
+                        */
+          *(undefined4 *)((long)param_1 + 0x2c) = *(undefined4 *)(*param_1 + 0x60 + (ulong)uVar3);
+          *(undefined2 *)(param_1 + 4) = *(undefined2 *)(*param_1 + 0x60 + (ulong)(uVar1 & 0xffff));
+          uVar13 = 1;
+          goto LAB_00a83c60;
+        }
+        uVar14 = *(undefined8 *)(param_2 + 8);
+        uVar7 = *(undefined2 *)((long)param_1 + 10);
+        iVar8 = uVar4 - uVar3;
+        pcVar11 = 
+        "Bundle::iterator::unpack( %s ): Not enough data on stream at %d for request ID and NRO (%d left, needed %d)\n"
+        ;
+        iVar9 = 6;
+                    /* try { // try from 00a83c10 to 00b83c13 has its CatchHandler @ 00a83c4c */
+      }
+      else {
+        uVar4 = *(ushort *)(param_1 + 1);
+        uVar13 = 0;
+LAB_00a83c60:
+        iVar9 = (int)param_1[6];
+        *(undefined1 *)((long)param_1 + 0x29) = uVar13;
+        if (((int)(iVar9 + (uVar12 & 0xffff)) <= (int)(uint)uVar4) ||
+           (*(long *)(*param_1 + 0x10) != 0)) {
+          *(short *)((long)param_1 + 0xc) = (short)uVar12;
+                    /* try { // try from 00a83c88 to 00b83c8b has its CatchHandler @ 00a83ccc */
+          *(int *)(param_1 + 2) = iVar9;
+          if (((*(char *)(param_2 + 1) == '\x01') && ((int)*(uint *)(param_2 + 4) < 4)) &&
+             ((1 << (ulong)((*(uint *)(param_2 + 4) & 3) << 3)) + -1 <= iVar9)) {
+            *(int *)(param_1 + 2) = iVar9 + 4;
+          }
+          goto LAB_00a83cf4;
+        }
+        uVar14 = *(undefined8 *)(param_2 + 8);
+                    /* catch(type#1 @ 00000000) { ... } // from try @ 00a83c88 with catch @ 00a83ccc
+                        */
+        uVar7 = *(undefined2 *)((long)param_1 + 10);
+        iVar8 = (uint)uVar4 - (uVar12 & 0xffff);
+        pcVar11 = 
+        "Bundle::iterator::unpack( %s ): Not enough data on stream at %d for payload (%d left, needed %d)\n"
+        ;
+      }
+      FUN_01dad604(pcVar11,uVar14,uVar7,iVar8,iVar9);
+    }
+  }
+  *(undefined1 *)((long)param_1 + 0x29) = 0x20;
+  FUN_01dad604("Bundle::iterator::unpack: Got corrupted message header\n");
+LAB_00a83cf4:
+                    /* try { // try from 00a83d00 to 00b83d03 has its CatchHandler @ 00a83d44 */
+  return param_1 + 5;
+}
+
+
+
+--- FUN_00a90b14 @ 00a90b14 ---
+
+undefined4 FUN_00a90b14(long param_1,undefined8 *param_2,long *param_3,long param_4)
+
+{
+  int iVar1;
+  ushort uVar2;
+  ushort uVar3;
+  short sVar4;
+  int iVar5;
+  long lVar6;
+  bool bVar7;
+  undefined *puVar8;
+  bool bVar9;
+  undefined1 uVar10;
+  uint uVar11;
+  undefined8 uVar12;
+  long *plVar13;
+  ulong uVar14;
+  long lVar15;
+  long lVar16;
+  void *pvVar17;
+  undefined8 *puVar18;
+  long *plVar19;
+  undefined8 *puVar20;
+  code *pcVar21;
+  long *plVar22;
+  int iVar23;
+  timespec *ptVar24;
+  undefined4 uVar25;
+  long lVar26;
+  undefined8 *puVar27;
+  long *plVar28;
+  timespec *ptVar29;
+  undefined1 auStack_170 [72];
+  timespec local_128;
+  timespec local_118;
+  timespec local_108;
+  timespec local_f8;
+  undefined8 local_e8;
+  timespec local_e0 [2];
+  timespec *local_c0;
+  undefined8 local_b0;
+  undefined4 uStack_a8;
+  undefined4 uStack_a4;
+  undefined4 local_a0;
+  undefined4 uStack_9c;
+  int local_98;
+  long local_68;
+  
+  lVar6 = tpidr_el0;
+  local_68 = *(long *)(lVar6 + 0x28);
+  uVar2 = *(ushort *)(param_3 + 0xc);
+  if ((uVar2 & 1) != 0) {
+    uVar3 = *(ushort *)((long)param_3 + 0x1a);
+    if (3 < uVar3) {
+      *(ushort *)((long)param_3 + 0x1a) = uVar3 - 2;
+      *(short *)((long)param_3 + 0x1c) = *(short *)((long)param_3 + 0x1c) + 2;
+      *(undefined2 *)(param_3 + 4) =
+           *(undefined2 *)((long)param_3 + (ulong)(ushort)(uVar3 - 2) + 0x60);
+      goto LAB_00a90b9c;
+    }
+    if (param_4 == 0) {
+      uVar12 = FUN_00a81c0c(param_2);
+    }
+    else {
+      uVar12 = FUN_00a85278(param_4);
+    }
+    FUN_01dad7ac("Nub::processPacket( %s ): Not enough data for first request offset (%d bytes left)\n"
+                 ,uVar12,*(ushort *)((long)param_3 + 0x1a) - 2);
+    goto LAB_00a9108c;
+  }
+LAB_00a90b9c:
+  if ((uVar2 >> 5 & 1) == 0) {
+    plVar28 = (long *)0x0;
+LAB_00a90ba8:
+    puVar8 = PTR_DAT_03a161d8;
+    std::__ndk1::mutex::lock();
+    ptVar24 = *(timespec **)puVar8;
+    if (ptVar24 == (timespec *)0x0) {
+      ptVar24 = operator_new__(0xb8);
+      *(int *)(puVar8 + 8) = *(int *)(puVar8 + 8) + 1;
+    }
+    else {
+      *(__time_t *)puVar8 = ptVar24->tv_sec;
+    }
+    std::__ndk1::mutex::unlock();
+    FUN_00a82828(ptVar24,param_3);
+    if ((plVar28 == (long *)0x0) ||
+       (iVar5 = (int)plVar28[1] + -1, *(int *)(plVar28 + 1) = iVar5, iVar5 != 0)) {
+      *(undefined1 *)(param_1 + 0xd9) = 0;
+      if (param_4 != 0) goto LAB_00a90c78;
+LAB_00a90cb0:
+      plVar28 = (long *)0x0;
+      plVar13 = *(long **)(param_1 + 0x41e8);
+    }
+    else {
+      (**(code **)(*plVar28 + 8))(plVar28);
+      *(undefined1 *)(param_1 + 0xd9) = 0;
+      if (param_4 == 0) goto LAB_00a90cb0;
+LAB_00a90c78:
+      plVar28 = *(long **)(param_4 + 0x138);
+      if (plVar28 != (long *)0x0) {
+        *(int *)(plVar28 + 1) = (int)plVar28[1] + 1;
+      }
+      plVar13 = *(long **)(param_1 + 0x41e8);
+    }
+    if (plVar13 != (long *)0x0) {
+      (**(code **)(*plVar13 + 0x10))(plVar13,param_4);
+    }
+    FUN_00a837ec(&local_b0,ptVar24);
+    FUN_00a8384c(auStack_170,ptVar24);
+    while ((uVar14 = FUN_00a83fac(&local_b0,auStack_170), (uVar14 & 1) != 0 &&
+           (*(char *)(param_1 + 0xd9) == '\0'))) {
+      uVar11 = FUN_00a83b10(&local_b0);
+      lVar26 = *(long *)(param_1 + 0x40);
+      plVar13 = (long *)(lVar26 + (ulong)(uVar11 & 0xff) * 0x20 + 0x10);
+      if (*plVar13 == 0) {
+        if (param_4 == 0) {
+          uVar12 = FUN_00a81c0c(param_2);
+        }
+        else {
+                    /* try { // try from 00a910e0 to 00b9112b has its CatchHandler @ 00a911c4 */
+          uVar12 = FUN_00a85278(param_4);
+        }
+        uVar10 = FUN_00a83b10(&local_b0);
+        FUN_01dad604("Nub::processOrderedPacket( %s ): Discarding bundle after hitting unhandled message id %d\n"
+                     ,uVar12,uVar10);
+        uVar25 = 0xfffffffb;
+        goto LAB_00a912ec;
+      }
+      lVar15 = FUN_00a83b24(&local_b0);
+      *(long *)(lVar15 + 0x10) = param_1;
+      *(long *)(lVar15 + 0x18) = param_4;
+      if ((*(byte *)(lVar15 + 1) >> 5 & 1) != 0) {
+        if (param_4 == 0) {
+          uVar12 = FUN_00a81c0c(param_2);
+        }
+        else {
+          uVar12 = FUN_00a85278(param_4);
+        }
+        uVar10 = FUN_00a83b10(&local_b0);
+        FUN_01dad604("Nub::processOrderedPacket( %s ): Discarding bundle due to corrupted header for message id %d\n"
+                     ,uVar12,uVar10);
+LAB_00a912d4:
+                    /* try { // try from 00a912d4 to 00b912e3 has its CatchHandler @ 00a914fc */
+        uVar25 = 0xfffffffc;
+                    /* try { // try from 00a912e4 to 00b91397 has its CatchHandler @ 00a9120c */
+        *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+        goto LAB_00a912ec;
+      }
+      lVar16 = FUN_00a83d0c(&local_b0);
+      if (lVar16 == 0) {
+        if (param_4 == 0) {
+          uVar12 = FUN_00a81c0c(param_2);
+        }
+        else {
+          uVar12 = FUN_00a85278(param_4);
+        }
+        uVar10 = FUN_00a83b10(&local_b0);
+        FUN_01dad604("Nub::processOrderedPacket( %s ): Discarding rest of bundle since chain too short for data of message id %d length %d\n"
+                     ,uVar12,uVar10,*(undefined4 *)(lVar15 + 8));
+        goto LAB_00a912d4;
+      }
+      std::__ndk1::mutex::lock();
+      ptVar29 = *(timespec **)PTR_DAT_03a19f48;
+                    /* try { // try from 00a90dac to 00b90ec7 has its CatchHandler @ 00a90dac
+                       catch() { ... } // from try @ 00a90dac with catch @ 00a90dac
+                       catch() { ... } // from try @ 00a90ed4 with catch @ 00a90dac */
+      if (ptVar29 == (timespec *)0x0) {
+        ptVar29 = operator_new__(0x20);
+        *(int *)(PTR_DAT_03a19f48 + 8) = *(int *)(PTR_DAT_03a19f48 + 8) + 1;
+      }
+      else {
+        *(__time_t *)PTR_DAT_03a19f48 = ptVar29->tv_sec;
+      }
+      std::__ndk1::mutex::unlock();
+      iVar5 = *(int *)(lVar15 + 8);
+      *(undefined1 *)&ptVar29->tv_nsec = 0;
+      lVar26 = lVar26 + (ulong)(uVar11 & 0xff) * 0x20;
+      ptVar29->tv_sec = (__time_t)&PTR_FUN_038dd460;
+      ptVar29[1].tv_sec = lVar16;
+      ptVar29[1].tv_nsec = lVar16 + iVar5;
+      *(int *)(param_1 + 0x424c) = *(int *)(param_1 + 0x424c) + 1;
+      *(int *)(lVar26 + 0x18) = *(int *)(lVar26 + 0x18) + iVar5;
+      *(int *)(lVar26 + 0x1c) = *(int *)(lVar26 + 0x1c) + 1;
+      *(int *)(param_1 + 0x4250) = *(int *)(param_1 + 0x4250) - iVar5;
+      local_118.tv_sec = 0;
+      local_118.tv_nsec = 0;
+      clock_gettime(7,&local_118);
+      *(long *)(param_1 + 0x42f0) =
+           ((local_118.tv_nsec + local_118.tv_sec * 1000000000) - *(long *)(param_1 + 0x42f8)) +
+           *(long *)(param_1 + 0x42f0);
+      if (plVar28 == (long *)0x0) {
+        (**(code **)(*(long *)*plVar13 + 0x10))((long *)*plVar13,param_2,lVar15,ptVar29);
+      }
+      else {
+        (**(code **)(*plVar28 + 0x10))(plVar28,param_2,lVar15,ptVar29,*plVar13);
+      }
+      if (*PTR_DAT_03a15320 == '\0') {
+        if (ptVar29 != (timespec *)0x0) {
+          pcVar21 = *(code **)(ptVar29->tv_sec + 8);
+          goto LAB_00a90f10;
+        }
+      }
+      else {
+        uVar12 = FUN_00a7bfa8();
+                    /* try { // try from 00a90ec8 to 00b90ed3 has its CatchHandler @ 00a90fc4 */
+        local_e0[0].tv_sec = (__time_t)&PTR_FUN_038dd698;
+        local_e0[0].tv_nsec = (long)ptVar29;
+        local_c0 = local_e0;
+                    /* try { // try from 00a90ed4 to 00b90fdf has its CatchHandler @ 00a90dac */
+        FUN_00a7c0d8(uVar12,local_e0);
+        ptVar29 = local_c0;
+        if (local_e0 == local_c0) {
+          pcVar21 = *(code **)(local_c0->tv_sec + 0x20);
+        }
+        else {
+          if (local_c0 == (timespec *)0x0) goto LAB_00a90f14;
+          pcVar21 = *(code **)(local_c0->tv_sec + 0x28);
+        }
+LAB_00a90f10:
+        (*pcVar21)(ptVar29);
+      }
+LAB_00a90f14:
+      local_128.tv_sec = 0;
+      local_128.tv_nsec = 0;
+      clock_gettime(7,&local_128);
+      *(long *)(param_1 + 0x42f8) = local_128.tv_nsec + local_128.tv_sec * 1000000000;
+      FUN_00a83e28(&local_b0,0);
+    }
+    uVar25 = 0;
+LAB_00a912ec:
+    if (*PTR_DAT_03a15320 == '\0') {
+      if (ptVar24 != (timespec *)0x0) {
+        pcVar21 = *(code **)(ptVar24->tv_sec + 8);
+        goto LAB_00a91358;
+      }
+    }
+    else {
+      uVar12 = FUN_00a7bfa8();
+      local_e0[0].tv_sec = (__time_t)&PTR_FUN_038dd718;
+      local_e0[0].tv_nsec = (long)ptVar24;
+      local_c0 = local_e0;
+      FUN_00a7c0d8(uVar12,local_e0);
+      ptVar24 = local_c0;
+      if (local_e0 == local_c0) {
+        pcVar21 = *(code **)(local_c0->tv_sec + 0x20);
+      }
+      else {
+        if (local_c0 == (timespec *)0x0) goto LAB_00a9135c;
+        pcVar21 = *(code **)(local_c0->tv_sec + 0x28);
+      }
+LAB_00a91358:
+      (*pcVar21)(ptVar24);
+    }
+LAB_00a9135c:
+    uVar14 = FUN_00a83fac(&local_b0,auStack_170);
+    if (((uVar14 & 1) == 0) || (*(char *)(param_1 + 0xd9) != '\0')) {
+      lVar26 = 0x4240;
+    }
+    else {
+      lVar26 = 0x4260;
+    }
+    *(int *)(param_1 + lVar26) = *(int *)(param_1 + lVar26) + 1;
+    plVar13 = *(long **)(param_1 + 0x41e8);
+    if (plVar13 != (long *)0x0) {
+                    /* try { // try from 00a91398 to 00b913a3 has its CatchHandler @ 00a914f8 */
+      (**(code **)(*plVar13 + 0x18))(plVar13,param_4);
+    }
+                    /* try { // try from 00a913a4 to 00b9144f has its CatchHandler @ 00a9120c */
+    FUN_00a8397c(auStack_170);
+    FUN_00a8397c(&local_b0);
+    if ((plVar28 == (long *)0x0) ||
+       (iVar5 = (int)plVar28[1] + -1, *(int *)(plVar28 + 1) = iVar5, iVar5 != 0)) goto LAB_00a910a0;
+    lVar26 = *plVar28;
+  }
+  else {
+    uVar3 = *(ushort *)((long)param_3 + 0x1a);
+    if (uVar3 < 10) {
+      if (param_4 == 0) {
+        uVar12 = FUN_00a81c0c(param_2);
+      }
+      else {
+        uVar12 = FUN_00a85278(param_4);
+      }
+      FUN_01dad7ac("Nub::processPacket( %s ): Not enough footers for fragment spec (have %d bytes but need %d)\n"
+                   ,uVar12,*(ushort *)((long)param_3 + 0x1a) - 2,8);
+LAB_00a9108c:
+      uVar25 = 0xfffffffc;
+      *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+      goto LAB_00a910a0;
+    }
+    sVar4 = *(short *)((long)param_3 + 0x1c);
+    *(ushort *)((long)param_3 + 0x1a) = uVar3 - 4;
+    *(short *)((long)param_3 + 0x1c) = sVar4 + 4;
+    iVar5 = *(int *)((long)param_3 + (ulong)(ushort)(uVar3 - 4) + 0x60);
+    *(int *)(param_3 + 0xb) = iVar5;
+    if ((ushort)(uVar3 - 4) < 6) {
+      iVar23 = *(int *)((long)param_3 + 0x54);
+    }
+    else {
+      *(short *)((long)param_3 + 0x1c) = sVar4 + 8;
+      *(ushort *)((long)param_3 + 0x1a) = uVar3 - 8;
+      iVar23 = *(int *)((long)param_3 + (ulong)(ushort)(uVar3 - 8) + 0x60);
+      *(int *)((long)param_3 + 0x54) = iVar23;
+    }
+    iVar5 = iVar5 - iVar23;
+    iVar1 = iVar5 + 1;
+    if (iVar1 < 2) {
+      if (param_4 == 0) {
+        uVar12 = FUN_00a81c0c(param_2);
+      }
+      else {
+        uVar12 = FUN_00a85278(param_4);
+      }
+      FUN_01dad7ac("Nub::processPacket( %s ): Dropping fragment due to illegal bundle fragment count (%d)\n"
+                   ,uVar12,iVar1);
+      goto LAB_00a9108c;
+    }
+    plVar28 = (long *)(param_1 + 0xb8);
+    local_a0 = (undefined4)param_2[2];
+    uStack_9c = (undefined4)((ulong)param_2[2] >> 0x20);
+                    /* catch() { ... } // from try @ 00a90ec8 with catch @ 00a90fc4 */
+    local_b0 = *param_2;
+    uStack_a8 = (undefined4)param_2[1];
+    uStack_a4 = (undefined4)((ulong)param_2[1] >> 0x20);
+    local_98 = iVar23;
+    if (((uVar2 >> 4 & 1) == 0) || (param_4 == 0)) {
+                    /* try { // try from 00a91038 to 00b91043 has its CatchHandler @ 00a911bc */
+      pvVar17 = (void *)FUN_00a95864(plVar28,&local_b0);
+      if ((void *)(param_1 + 0xc0) == pvVar17) {
+                    /* try { // try from 00a9112c to 00b9120b has its CatchHandler @ 00a90fe0 */
+        bVar9 = false;
+      }
+      else {
+        plVar13 = *(long **)((long)pvVar17 + 0x40);
+        if (plVar13 == (long *)0x0) {
+          bVar9 = false;
+        }
+        else {
+          bVar9 = false;
+          *(int *)(plVar13 + 1) = (int)plVar13[1] + 1;
+          if (plVar13 != (long *)0x0) goto LAB_00a91144;
+        }
+      }
+joined_r0x00a91134:
+      if ((param_4 != 0) && ((int)param_3[9] != *(int *)((long)param_3 + 0x54))) {
+        uVar12 = FUN_00a85278(param_4);
+        FUN_01dad604("Nub::processOrderedPacket( %s ): Bundle (#%d,#%d) is missing packets before #%d\n"
+                     ,uVar12,*(undefined4 *)((long)param_3 + 0x54),(int)param_3[0xb],(int)param_3[9]
+                    );
+        goto LAB_00a9108c;
+      }
+      plVar13 = operator_new(0x28);
+      lVar26 = param_3[0xb];
+      local_f8.tv_sec = 0;
+      local_f8.tv_nsec = 0;
+      clock_gettime(7,&local_f8);
+                    /* catch() { ... } // from try @ 00a91450 with catch @ 00a914f4 */
+                    /* catch() { ... } // from try @ 00a91398 with catch @ 00a914f8 */
+      *(undefined4 *)(plVar13 + 1) = 0;
+                    /* catch() { ... } // from try @ 00a912d4 with catch @ 00a914fc */
+      *plVar13 = (long)&PTR_FUN_038dd7b8;
+      *(int *)((long)plVar13 + 0xc) = (int)lVar26;
+      *(int *)(plVar13 + 2) = iVar5;
+      plVar13[3] = local_f8.tv_nsec + local_f8.tv_sec * 1000000000;
+      plVar13[4] = (long)param_3;
+      *(int *)(param_3 + 1) = (int)param_3[1] + 1;
+      *(int *)(plVar13 + 1) = (int)plVar13[1] + 1;
+      if (bVar9) {
+        *(int *)(plVar13 + 1) = (int)plVar13[1] + 1;
+        plVar28 = *(long **)(param_4 + 0xe0);
+        if (plVar28 != plVar13) {
+          *(long **)(param_4 + 0xe0) = plVar13;
+          *(int *)(plVar13 + 1) = (int)plVar13[1] + 1;
+          if ((plVar28 != (long *)0x0) &&
+             (iVar5 = (int)plVar28[1] + -1, *(int *)(plVar28 + 1) = iVar5, iVar5 == 0)) {
+            (**(code **)(*plVar28 + 8))();
+          }
+        }
+        iVar5 = (int)plVar13[1] + -1;
+        *(int *)(plVar13 + 1) = iVar5;
+        if (iVar5 == 0) {
+          lVar26 = *plVar13;
+          plVar28 = plVar13;
+LAB_00a916a0:
+          (**(code **)(lVar26 + 8))(plVar28);
+        }
+      }
+      else {
+        puVar18 = (undefined8 *)FUN_00a95984(plVar28,&local_e8,&local_b0);
+        puVar27 = (undefined8 *)*puVar18;
+        if (puVar27 == (undefined8 *)0x0) {
+          puVar27 = operator_new(0x48);
+          puVar27[8] = 0;
+          *puVar27 = 0;
+          puVar27[1] = 0;
+          *(ulong *)((long)puVar27 + 0x34) = CONCAT44(local_98,uStack_9c);
+          *(ulong *)((long)puVar27 + 0x2c) = CONCAT44(local_a0,uStack_a4);
+          puVar27[5] = CONCAT44(uStack_a4,uStack_a8);
+          puVar27[4] = local_b0;
+          puVar27[2] = local_e8;
+          *puVar18 = puVar27;
+          puVar20 = puVar27;
+          if (*(long *)*plVar28 != 0) {
+            *plVar28 = *(long *)*plVar28;
+            puVar20 = (undefined8 *)*puVar18;
+          }
+          FUN_00942490(*(undefined8 *)(param_1 + 0xc0),puVar20);
+          *(long *)(param_1 + 200) = *(long *)(param_1 + 200) + 1;
+        }
+        plVar28 = (long *)puVar27[8];
+        if (plVar28 != plVar13) {
+          puVar27[8] = plVar13;
+          *(int *)(plVar13 + 1) = (int)plVar13[1] + 1;
+          if ((plVar28 != (long *)0x0) &&
+             (iVar5 = (int)plVar28[1] + -1, *(int *)(plVar28 + 1) = iVar5, iVar5 == 0)) {
+            lVar26 = *plVar28;
+            goto LAB_00a916a0;
+          }
+        }
+      }
+LAB_00a916f8:
+      uVar25 = 0;
+      plVar28 = (long *)0x0;
+      bVar9 = true;
+LAB_00a91704:
+      bVar7 = bVar9;
+      iVar5 = (int)plVar13[1] + -1;
+      *(int *)(plVar13 + 1) = iVar5;
+      if (iVar5 == 0) {
+        (**(code **)(*plVar13 + 8))(plVar13);
+      }
+    }
+    else {
+      plVar13 = *(long **)(param_4 + 0xe0);
+      if (plVar13 != (long *)0x0) {
+                    /* catch() { ... } // from try @ 00a9112c with catch @ 00a90fe0 */
+        *(int *)(plVar13 + 1) = (int)plVar13[1] + 1;
+      }
+      bVar9 = true;
+      pvVar17 = (void *)(param_1 + 0xc0);
+      if (plVar13 == (long *)0x0) goto joined_r0x00a91134;
+LAB_00a91144:
+      local_108.tv_sec = 0;
+      local_108.tv_nsec = 0;
+      clock_gettime(7,&local_108);
+      if (!bVar9 && 10000000000 <
+                    (ulong)((local_108.tv_nsec + local_108.tv_sec * 1000000000) - plVar13[3])) {
+        if (param_4 == 0) {
+          uVar12 = FUN_00a81c0c(param_2);
+        }
+        else {
+          uVar12 = FUN_00a85278();
+                    /* try { // try from 00a9120c to 00b912d3 has its CatchHandler @ 00a9120c
+                       catch() { ... } // from try @ 00a9120c with catch @ 00a9120c
+                       catch() { ... } // from try @ 00a912e4 with catch @ 00a9120c
+                       catch() { ... } // from try @ 00a913a4 with catch @ 00a9120c
+                       catch() { ... } // from try @ 00a9145c with catch @ 00a9120c */
+        }
+        FUN_01dad7ac("Nub::processPacket( %s ): Discarding abandoned stale overlapping fragmented bundle from seq %d to %d\n"
+                     ,uVar12,*(undefined4 *)((long)param_3 + 0x54),
+                     *(undefined4 *)((long)plVar13 + 0xc));
+        iVar23 = (int)plVar13[1] + -1;
+        *(int *)(plVar13 + 1) = iVar23;
+        if (iVar23 == 0) {
+          (**(code **)(*plVar13 + 8))(plVar13);
+        }
+        plVar13 = *(long **)((long)pvVar17 + 8);
+        if (*(long **)((long)pvVar17 + 8) == (long *)0x0) {
+          plVar13 = (long *)((long)pvVar17 + 0x10);
+          plVar19 = (long *)*plVar13;
+          if ((void *)*plVar19 != pvVar17) {
+            do {
+              lVar26 = *plVar13;
+              plVar13 = (long *)(lVar26 + 0x10);
+              plVar19 = (long *)*plVar13;
+                    /* try { // try from 00a91450 to 00b9145b has its CatchHandler @ 00a914f4 */
+            } while (*plVar19 != lVar26);
+          }
+        }
+        else {
+          do {
+            plVar19 = plVar13;
+            plVar13 = (long *)*plVar19;
+          } while ((long *)*plVar19 != (long *)0x0);
+        }
+                    /* try { // try from 00a9145c to 00b914ff has its CatchHandler @ 00a9120c */
+        if ((void *)*plVar28 == pvVar17) {
+          *plVar28 = (long)plVar19;
+        }
+        *(long *)(param_1 + 200) = *(long *)(param_1 + 200) + -1;
+        FUN_00952cdc(*(undefined8 *)(param_1 + 0xc0),pvVar17);
+        plVar13 = *(long **)((long)pvVar17 + 0x40);
+        if ((plVar13 != (long *)0x0) &&
+           (iVar23 = (int)plVar13[1] + -1, *(int *)(plVar13 + 1) = iVar23, iVar23 == 0)) {
+          (**(code **)(*plVar13 + 8))();
+        }
+        *(undefined8 *)((long)pvVar17 + 0x40) = 0;
+        operator_delete(pvVar17);
+        goto joined_r0x00a91134;
+      }
+      if (*(int *)((long)plVar13 + 0xc) != (int)param_3[0xb]) {
+        if ((*(byte *)(param_3 + 0xc) >> 4 & 1) != 0) {
+          if (*(char *)(param_1 + 0x4460) == '\0') {
+            uVar12 = FUN_00a81c0c(param_2);
+            FUN_01dad604("Nub::processPacket( %s ): Mangled fragment footers, lastFragment(%d) != p->fragEnd()(%d)\n"
+                         ,uVar12,*(undefined4 *)((long)plVar13 + 0xc),(int)param_3[0xb]);
+            goto LAB_00a91198;
+          }
+          if (param_4 == 0) {
+            uVar12 = FUN_00a81c0c(param_2);
+          }
+          else {
+            uVar12 = FUN_00a85278();
+          }
+          FUN_01dad7ac("Nub::processPacket( %s ): Mangled fragment footers, lastFragment(%d) != p->fragEnd()(%d)\n"
+                       ,uVar12,*(undefined4 *)((long)plVar13 + 0xc),(int)param_3[0xb]);
+                    /* try { // try from 00a91894 to 00b9189f has its CatchHandler @ 00a92b90 */
+          plVar28 = (long *)0x0;
+          uVar25 = 0xfffffffc;
+          *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+          bVar9 = true;
+          goto LAB_00a91704;
+        }
+        if (param_4 == 0) {
+          uVar12 = FUN_00a81c0c(param_2);
+        }
+        else {
+          uVar12 = FUN_00a85278();
+        }
+        FUN_01dad7ac("Nub::processPacket( %s ): Discarding unreliable fragment #%d (#%d,#%d) while waiting for reliable chain (#%d,#%d) to complete\n"
+                     ,uVar12,(int)param_3[9],*(undefined4 *)((long)param_3 + 0x54),(int)param_3[0xb]
+                     ,*(undefined4 *)(plVar13[4] + 0x48),*(undefined4 *)((long)plVar13 + 0xc));
+        goto LAB_00a916f8;
+      }
+LAB_00a91198:
+      local_e0[0].tv_sec = 0;
+      local_e0[0].tv_nsec = 0;
+                    /* catch() { ... } // from try @ 00a910c0 with catch @ 00a9119c */
+      clock_gettime(7,local_e0);
+                    /* catch() { ... } // from try @ 00a91038 with catch @ 00a911bc */
+      lVar15 = 0;
+                    /* catch() { ... } // from try @ 00a910e0 with catch @ 00a911c4 */
+      plVar13[3] = (long)(local_e0[0].tv_nsec + local_e0[0].tv_sec * 62500000 * 0x10);
+      lVar26 = plVar13[4];
+      if (plVar13[4] == 0) {
+        lVar16 = 0;
+      }
+      else {
+        do {
+          lVar16 = lVar26;
+          if (*(int *)(lVar16 + 0x48) == (int)param_3[9]) {
+            if (param_4 == 0) {
+              uVar12 = FUN_00a81c0c(param_2);
+            }
+            else {
+              uVar12 = FUN_00a85278(param_4);
+            }
+            FUN_01dad7ac("Nub::processPacket( %s ): Discarding duplicate fragment #%d\n",uVar12,
+                         (int)param_3[9]);
+            goto LAB_00a91968;
+          }
+          uVar14 = FUN_00a84a3c();
+          if ((uVar14 & 1) != 0) {
+            *(int *)(lVar16 + 8) = *(int *)(lVar16 + 8) + 1;
+            goto LAB_00a91780;
+          }
+          lVar26 = *(long *)(lVar16 + 0x10);
+          lVar15 = lVar16;
+        } while (*(long *)(lVar16 + 0x10) != 0);
+        lVar16 = 0;
+      }
+LAB_00a91780:
+      plVar19 = (long *)param_3[2];
+      param_3[2] = lVar16;
+                    /* try { // try from 00a91794 to 00b91853 has its CatchHandler @ 00a91794
+                       catch() { ... } // from try @ 00a91794 with catch @ 00a91794
+                       catch() { ... } // from try @ 00a91b28 with catch @ 00a91794
+                       catch() { ... } // from try @ 00a925e8 with catch @ 00a91794
+                       catch() { ... } // from try @ 00a92abc with catch @ 00a91794
+                       catch() { ... } // from try @ 00a92af4 with catch @ 00a91794 */
+      if ((plVar19 != (long *)0x0) &&
+         (iVar5 = (int)plVar19[1] + -1, *(int *)(plVar19 + 1) = iVar5, iVar5 == 0)) {
+        (**(code **)(*plVar19 + 8))();
+      }
+      *(int *)(param_3 + 1) = (int)param_3[1] + 1;
+      if (lVar15 == 0) {
+        plVar19 = (long *)plVar13[4];
+        plVar13[4] = (long)param_3;
+      }
+      else {
+        plVar19 = *(long **)(lVar15 + 0x10);
+        *(long **)(lVar15 + 0x10) = param_3;
+      }
+      if ((plVar19 != (long *)0x0) &&
+         (iVar5 = (int)plVar19[1] + -1, *(int *)(plVar19 + 1) = iVar5, iVar5 == 0)) {
+        (**(code **)(*plVar19 + 8))();
+      }
+      lVar26 = plVar13[2];
+      iVar5 = (int)lVar26 + -1;
+      *(int *)(plVar13 + 2) = iVar5;
+      if (iVar5 != 0 && 0 < (int)lVar26) {
+LAB_00a91968:
+        plVar28 = (long *)0x0;
+        bVar7 = true;
+        uVar25 = 0;
+        bVar9 = bVar7;
+        if (plVar13 == (long *)0x0) goto LAB_00a91724;
+        goto LAB_00a91704;
+      }
+      param_3 = (long *)plVar13[4];
+      if (param_3 != (long *)0x0) {
+        *(int *)(param_3 + 1) = (int)param_3[1] + 1;
+      }
+      if (bVar9) {
+        plVar28 = *(long **)(param_4 + 0xe0);
+        if (plVar28 != (long *)0x0) {
+          *(undefined8 *)(param_4 + 0xe0) = 0;
+          iVar5 = (int)plVar28[1] + -1;
+          *(int *)(plVar28 + 1) = iVar5;
+          if (iVar5 == 0) {
+            (**(code **)(*plVar28 + 8))();
+          }
+        }
+      }
+      else {
+                    /* try { // try from 00a91854 to 00b9185f has its CatchHandler @ 00a92ba4 */
+        plVar19 = *(long **)((long)pvVar17 + 8);
+        if (*(long **)((long)pvVar17 + 8) == (long *)0x0) {
+          plVar19 = (long *)((long)pvVar17 + 0x10);
+          plVar22 = (long *)*plVar19;
+          if ((void *)*plVar22 != pvVar17) {
+            do {
+              lVar26 = *plVar19;
+              plVar19 = (long *)(lVar26 + 0x10);
+              plVar22 = (long *)*plVar19;
+                    /* try { // try from 00a918d4 to 00b918df has its CatchHandler @ 00a92b7c */
+            } while (*plVar22 != lVar26);
+          }
+        }
+        else {
+          do {
+            plVar22 = plVar19;
+            plVar19 = (long *)*plVar22;
+          } while ((long *)*plVar22 != (long *)0x0);
+        }
+        if ((void *)*plVar28 == pvVar17) {
+          *plVar28 = (long)plVar22;
+        }
+        *(long *)(param_1 + 200) = *(long *)(param_1 + 200) + -1;
+        FUN_00952cdc(*(undefined8 *)(param_1 + 0xc0),pvVar17);
+        plVar28 = *(long **)((long)pvVar17 + 0x40);
+        if ((plVar28 != (long *)0x0) &&
+           (iVar5 = (int)plVar28[1] + -1, *(int *)(plVar28 + 1) = iVar5, iVar5 == 0)) {
+          (**(code **)(*plVar28 + 8))();
+        }
+        *(undefined8 *)((long)pvVar17 + 0x40) = 0;
+        operator_delete(pvVar17);
+      }
+      bVar7 = false;
+      uVar25 = 0;
+      plVar28 = param_3;
+      bVar9 = false;
+      if (plVar13 != (long *)0x0) goto LAB_00a91704;
+    }
+LAB_00a91724:
+    if (!bVar7) goto LAB_00a90ba8;
+    if ((plVar28 == (long *)0x0) ||
+       (iVar5 = (int)plVar28[1] + -1, *(int *)(plVar28 + 1) = iVar5, iVar5 != 0)) goto LAB_00a910a0;
+    lVar26 = *plVar28;
+  }
+  (**(code **)(lVar26 + 8))(plVar28);
+LAB_00a910a0:
+  if (*(long *)(lVar6 + 0x28) == local_68) {
+                    /* try { // try from 00a910c0 to 00b910cb has its CatchHandler @ 00a9119c */
+    return uVar25;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00a97248 @ 00a97248 ---
+
+int FUN_00a97248(undefined8 *param_1,long *param_2,long *param_3,code *param_4)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int iVar3;
+  long lVar4;
+  undefined8 uVar5;
+  code *pcVar6;
+  int iVar7;
+  
+  iVar1 = RSA_size((RSA *)*param_1);
+  pcVar6 = *(code **)(*param_3 + 0x10);
+  uVar2 = (**(code **)(*param_2 + 0x18))(param_2);
+  lVar4 = (*pcVar6)(param_3,uVar2);
+  iVar3 = (**(code **)(*param_2 + 0x18))(param_2);
+  iVar7 = 0;
+  while( true ) {
+    if (iVar3 == 0) {
+      if (iVar7 == 0) {
+        iVar7 = -1;
+      }
+      return iVar7;
+    }
+    uVar5 = (**(code **)(*param_2 + 0x10))(param_2,iVar1);
+    if ((char)param_2[1] != '\0') break;
+    iVar3 = RSA_size((RSA *)*param_1);
+                    /* try { // try from 00a972e4 to 00b9735b has its CatchHandler @ 00a972e4
+                       catch() { ... } // from try @ 00a972e4 with catch @ 00a972e4
+                       catch() { ... } // from try @ 00a97714 with catch @ 00a972e4 */
+    iVar3 = (*param_4)(iVar3,uVar5,lVar4,*param_1,4);
+    iVar7 = iVar3 + iVar7;
+    lVar4 = lVar4 + iVar3;
+    iVar3 = (**(code **)(*param_2 + 0x18))(param_2);
+  }
+  FUN_01dad604(
+              "PrivateKeyCipher::privateDecrypt: Not enough data on stream for encrypted data chunk\n"
+              );
+  return -1;
+}
+
+
+
+--- FUN_00ab3880 @ 00ab3880 ---
+
+void FUN_00ab3880(long *param_1,long param_2,long *param_3)
+
+{
+  ulong uVar1;
+  long lVar2;
+  void *pvVar3;
+  byte *pbVar4;
+  uint3 *puVar5;
+  long lVar6;
+  long lVar7;
+  uint uVar8;
+  ulong local_60;
+  ulong local_58;
+  void *local_50;
+  long local_48;
+  
+  lVar2 = tpidr_el0;
+  local_48 = *(long *)(lVar2 + 0x28);
+  local_58 = 0;
+  local_50 = (void *)0x0;
+  local_60 = 0;
+  pbVar4 = (byte *)(**(code **)(*param_3 + 0x10))(param_3,1);
+  uVar8 = (uint)*pbVar4;
+  if (*pbVar4 == 0xff) {
+    puVar5 = (uint3 *)(**(code **)(*param_3 + 0x10))(param_3,3);
+    uVar8 = (uint)*puVar5;
+  }
+  lVar6 = (**(code **)(*param_3 + 0x10))(param_3,uVar8);
+  if (lVar6 != 0) {
+    FUN_0093f8a8(&local_60,lVar6,uVar8);
+  }
+  if ((char)param_3[1] == '\0') {
+    uVar1 = local_60 >> 1 & 0x7f;
+    pvVar3 = (void *)((ulong)&local_60 | 1);
+    if ((local_60 & 1) != 0) {
+      uVar1 = local_58;
+      pvVar3 = local_50;
+    }
+    lVar6 = FUN_01dd9e28(*(undefined8 *)(param_2 + 0xb8),&DAT_02c506f6,pvVar3,uVar1);
+    if (lVar6 == 0) {
+      FUN_00ad8830();
+      if ((*(byte *)(param_2 + 0x50) & 1) == 0) {
+        lVar7 = param_2 + 0x51;
+      }
+      else {
+        lVar7 = *(long *)(param_2 + 0x60);
+      }
+      if ((*(byte *)(param_2 + 0x68) & 1) == 0) {
+        param_2 = param_2 + 0x69;
+      }
+      else {
+        param_2 = *(long *)(param_2 + 0x78);
+      }
+      FUN_01dad604("FixedDictDataType::createFromStreamCustom: %s.%s.createFromStream call failed\n"
+                   ,lVar7,param_2);
+    }
+    *param_1 = lVar6;
+  }
+  else {
+    FUN_01dad604(
+                "FixedDictDataType::createFromStreamCustom: Not enough data on stream to read value\n"
+                );
+    *param_1 = 0;
+  }
+  if ((local_60 & 1) != 0) {
+    operator_delete(local_50);
+  }
+  if (*(long *)(lVar2 + 0x28) != local_48) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return;
+}
+
+
+
+--- FUN_00abf104 @ 00abf104 ---
+
+void FUN_00abf104(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  int local_2c;
+  long local_28;
+  
+  lVar1 = tpidr_el0;
+  local_28 = *(long *)(lVar1 + 0x28);
+  uVar2 = FUN_00abf26c(param_3,&local_2c);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604("VarintDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  else {
+    uVar3 = FUN_01e07064((long)local_2c);
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_28) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00abec68 @ 00abec68 ---
+
+void FUN_00abec68(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  undefined2 local_2c [2];
+  long local_28;
+  
+                    /* try { // try from 00abec68 to 00bbec7b has its CatchHandler @ 00abec90 */
+  lVar1 = tpidr_el0;
+  local_28 = *(long *)(lVar1 + 0x28);
+                    /* catch() { ... } // from try @ 00abec54 with catch @ 00abec8c */
+                    /* catch() { ... } // from try @ 00abec68 with catch @ 00abec90 */
+  uVar2 = FUN_00abedd0(param_3,local_2c);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604("VarintDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  else {
+    uVar3 = FUN_01e07064(local_2c[0]);
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_28) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00abe768 @ 00abe768 ---
+
+void FUN_00abe768(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  short local_2c [2];
+  long local_28;
+  
+  lVar1 = tpidr_el0;
+  local_28 = *(long *)(lVar1 + 0x28);
+  uVar2 = FUN_00abe8d0(param_3,local_2c);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604("VarintDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  else {
+    uVar3 = FUN_01e07064((long)local_2c[0]);
+  }
+  *param_1 = uVar3;
+                    /* try { // try from 00abe7bc to 00bbe7c3 has its CatchHandler @ 00abea4c */
+                    /* try { // try from 00abe7c4 to 00bbe8df has its CatchHandler @ 00abe744 */
+  if (*(long *)(lVar1 + 0x28) == local_28) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00abf7f8 @ 00abf7f8 ---
+
+void FUN_00abf7f8(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  undefined4 *puVar1;
+  undefined8 uVar2;
+  
+                    /* try { // try from 00abf7fc to 00bbf803 has its CatchHandler @ 00abf86c */
+                    /* try { // try from 00abf804 to 00bbf863 has its CatchHandler @ 00abf798 */
+  puVar1 = (undefined4 *)(**(code **)(*param_3 + 0x10))(param_3,4);
+  if ((char)param_3[1] == '\0') {
+    uVar2 = FUN_00a058e0(*puVar1);
+  }
+  else {
+    FUN_01dad604("LongIntegerDataType::createFromStream: Not enough data on stream to read value\n")
+    ;
+    uVar2 = 0;
+  }
+  *param_1 = uVar2;
+  return;
+}
+
+
+
+--- FUN_00ac1280 @ 00ac1280 ---
+
+void FUN_00ac1280(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  undefined8 *puVar1;
+  undefined8 uVar2;
+  
+  puVar1 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,8);
+  if ((char)param_3[1] == '\0') {
+    uVar2 = thunk_FUN_01e0fe90(*puVar1);
+  }
+  else {
+    FUN_01dad604("LongIntegerDataType::createFromStream: Not enough data on stream to read value\n")
+    ;
+    uVar2 = 0;
+  }
+  *param_1 = uVar2;
+  return;
+}
+
+
+
+--- FUN_00ac0450 @ 00ac0450 ---
+
+void FUN_00ac0450(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  undefined8 *puVar1;
+  undefined8 uVar2;
+  
+                    /* catch() { ... } // from try @ 00ac0408 with catch @ 00ac0474 */
+  puVar1 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,8);
+  if ((char)param_3[1] == '\0') {
+    uVar2 = thunk_FUN_01e0fdec(*puVar1);
+  }
+  else {
+    FUN_01dad604("LongIntegerDataType::createFromStream: Not enough data on stream to read value\n")
+    ;
+    uVar2 = 0;
+  }
+  *param_1 = uVar2;
+  return;
+}
+
+
+
+--- FUN_00ac1f04 @ 00ac1f04 ---
+
+void FUN_00ac1f04(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  undefined4 local_2c;
+  long local_28;
+  
+  lVar1 = tpidr_el0;
+  local_28 = *(long *)(lVar1 + 0x28);
+  uVar2 = FUN_00ac2458(param_3,&local_2c);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604("VarLongIntDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  else {
+    uVar3 = FUN_00a058e0(local_2c);
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_28) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac28b8 @ 00ac28b8 ---
+
+void FUN_00ac28b8(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  float *pfVar1;
+  undefined8 uVar2;
+  
+  pfVar1 = (float *)(**(code **)(*param_3 + 0x10))(param_3,4);
+  if ((char)param_3[1] == '\0') {
+    uVar2 = FUN_01dfe568((double)*pfVar1);
+  }
+  else {
+    FUN_01dad604("FloatDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar2 = 0;
+  }
+  *param_1 = uVar2;
+  return;
+}
+
+
+
+--- FUN_00ac2fe8 @ 00ac2fe8 ---
+
+void FUN_00ac2fe8(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  undefined8 *puVar1;
+  undefined8 uVar2;
+  
+  puVar1 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,8);
+  if ((char)param_3[1] == '\0') {
+    uVar2 = FUN_01dfe568(*puVar1);
+  }
+  else {
+    FUN_01dad604("FloatDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar2 = 0;
+  }
+  *param_1 = uVar2;
+  return;
+}
+
+
+
+--- FUN_00ac38c8 @ 00ac38c8 ---
+
+void FUN_00ac38c8(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  ulong uVar1;
+  long lVar2;
+  byte *pbVar3;
+  uint3 *puVar4;
+  long lVar5;
+  undefined8 uVar6;
+  uint uVar7;
+  ulong local_50;
+  ulong local_48;
+  void *local_40;
+  long local_38;
+  
+  lVar2 = tpidr_el0;
+  local_38 = *(long *)(lVar2 + 0x28);
+  local_48 = 0;
+  local_40 = (void *)0x0;
+  local_50 = 0;
+  pbVar3 = (byte *)(**(code **)(*param_3 + 0x10))(param_3,1);
+  uVar7 = (uint)*pbVar3;
+  if (*pbVar3 == 0xff) {
+    puVar4 = (uint3 *)(**(code **)(*param_3 + 0x10))(param_3,3);
+    uVar7 = (uint)*puVar4;
+  }
+  lVar5 = (**(code **)(*param_3 + 0x10))(param_3,uVar7);
+  if (lVar5 != 0) {
+    FUN_0093f8a8(&local_50,lVar5,uVar7);
+  }
+  if ((char)param_3[1] == '\0') {
+    uVar1 = local_50 >> 1 & 0x7f;
+    if ((local_50 & 1) != 0) {
+      uVar1 = local_48;
+    }
+    if (uVar1 != 0) goto LAB_00ac399c;
+  }
+  FUN_01dad604("PythonDataType::createFromStream: Not enough data on stream to read value\n");
+LAB_00ac399c:
+  uVar6 = FUN_00a9c6fc(&local_50);
+  *param_1 = uVar6;
+  if ((local_50 & 1) != 0) {
+    operator_delete(local_40);
+  }
+  if (*(long *)(lVar2 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac5850 @ 00ac5850 ---
+
+void FUN_00ac5850(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  long lVar1;
+  undefined8 *puVar2;
+  undefined8 uVar3;
+  undefined8 local_50;
+  undefined8 uStack_48;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_00a7e8b4(&local_50);
+  puVar2 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,0x10);
+  uStack_48 = puVar2[1];
+  local_50 = *puVar2;
+  if ((char)param_3[1] == '\0') {
+    uVar3 = FUN_00a05a08(&local_50);
+  }
+  else {
+    FUN_01dad604("VectorDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac4e1c @ 00ac4e1c ---
+
+void FUN_00ac4e1c(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  long lVar1;
+  undefined8 *puVar2;
+  undefined8 uVar3;
+  undefined8 local_48;
+  undefined4 local_40;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_009e72b4(&local_48);
+  puVar2 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,0xc);
+  local_40 = *(undefined4 *)(puVar2 + 1);
+  local_48 = *puVar2;
+  if ((char)param_3[1] == '\0') {
+    uVar3 = FUN_00a05984(&local_48);
+  }
+  else {
+    FUN_01dad604("VectorDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac4494 @ 00ac4494 ---
+
+void FUN_00ac4494(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  long lVar1;
+  undefined8 *puVar2;
+  undefined8 uVar3;
+  undefined8 local_40;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_00a7e180(&local_40);
+  puVar2 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,8);
+  local_40 = *puVar2;
+  if ((char)param_3[1] == '\0') {
+    uVar3 = FUN_00a05908(&local_40);
+  }
+  else {
+    FUN_01dad604("VectorDataType::createFromStream: Not enough data on stream to read value\n");
+    uVar3 = 0;
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac68dc @ 00ac68dc ---
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_00ac68dc(undefined8 param_1,undefined8 param_2,undefined8 *param_3)
+
+{
+  int iVar1;
+  long lVar2;
+  ulong uVar3;
+  undefined8 uVar4;
+  long *plVar5;
+  float local_50;
+  float local_4c;
+  float fStack_48;
+  int local_44;
+  int iStack_40;
+  int local_3c;
+  long local_38;
+  
+  lVar2 = tpidr_el0;
+  local_38 = *(long *)(lVar2 + 0x28);
+  FUN_009e72b4(&local_50);
+  uVar3 = FUN_00ad7ed0(param_2,&local_44,3);
+  if ((uVar3 & 1) == 0) {
+    FUN_01dad604(
+                "CompressVector3DataType::createFromStream: Not enough data on stream to read value\n"
+                );
+    uVar4 = 0;
+  }
+  else {
+    local_50 = (float)((double)(long)local_44 / _DAT_02b48ae0);
+    local_4c = (float)((double)(long)iStack_40 / _DAT_02b48ae0);
+    fStack_48 = (float)((double)(long)local_3c / _DAT_02b48ae0);
+    plVar5 = (long *)*param_3;
+    if (plVar5 != (long *)0x0) {
+      *(int *)(plVar5 + 1) = (int)plVar5[1] + 1;
+    }
+    (**(code **)(*plVar5 + 0x148))(plVar5,&local_50,"%f %f %f");
+    iVar1 = (int)plVar5[1] + -1;
+    *(int *)(plVar5 + 1) = iVar1;
+    if (iVar1 == 0) {
+      (**(code **)(*plVar5 + 8))(plVar5);
+    }
+    uVar4 = 1;
+  }
+  if (*(long *)(lVar2 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail(uVar4);
+}
+
+
+
+--- FUN_00ac6808 @ 00ac6808 ---
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_00ac6808(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  float local_50;
+  float local_4c;
+  float fStack_48;
+  int local_44;
+  int iStack_40;
+  int local_3c;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_009e72b4(&local_50);
+  uVar2 = FUN_00ad7ed0(param_3,&local_44,3);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604(
+                "CompressVector3DataType::createFromStream: Not enough data on stream to read value\n"
+                );
+    uVar3 = 0;
+  }
+  else {
+    local_50 = (float)((double)(long)local_44 / _DAT_02b48ae0);
+    local_4c = (float)((double)(long)iStack_40 / _DAT_02b48ae0);
+    fStack_48 = (float)((double)(long)local_3c / _DAT_02b48ae0);
+    uVar3 = FUN_00a05984(&local_50);
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac6e98 @ 00ac6e98 ---
+
+void FUN_00ac6e98(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  float local_50;
+  float local_4c;
+  float fStack_48;
+  int local_44;
+  int iStack_40;
+  int local_3c;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_009e72b4(&local_50);
+  uVar2 = FUN_00ad7ed0(param_3,&local_44,3);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604(
+                "CompressVector3DataType::createFromStream: Not enough data on stream to read value\n"
+                );
+    uVar3 = 0;
+  }
+  else {
+    local_50 = (float)((double)(long)local_44 / DAT_02b5f1c0);
+    local_4c = (float)((double)(long)iStack_40 / DAT_02b5f1c0);
+    fStack_48 = (float)((double)(long)local_3c / DAT_02b5f1c0);
+    uVar3 = FUN_00a05984(&local_50);
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac6f6c @ 00ac6f6c ---
+
+void FUN_00ac6f6c(undefined8 param_1,undefined8 param_2,undefined8 *param_3)
+
+{
+  int iVar1;
+  long lVar2;
+  ulong uVar3;
+  undefined8 uVar4;
+  long *plVar5;
+  float local_50;
+  float local_4c;
+  float fStack_48;
+  int local_44;
+  int iStack_40;
+  int local_3c;
+  long local_38;
+  
+  lVar2 = tpidr_el0;
+  local_38 = *(long *)(lVar2 + 0x28);
+  FUN_009e72b4(&local_50);
+  uVar3 = FUN_00ad7ed0(param_2,&local_44,3);
+  if ((uVar3 & 1) == 0) {
+    FUN_01dad604(
+                "CompressVector3DataType::createFromStream: Not enough data on stream to read value\n"
+                );
+    uVar4 = 0;
+  }
+  else {
+    local_50 = (float)((double)(long)local_44 / DAT_02b5f1c0);
+    local_4c = (float)((double)(long)iStack_40 / DAT_02b5f1c0);
+    fStack_48 = (float)((double)(long)local_3c / DAT_02b5f1c0);
+    plVar5 = (long *)*param_3;
+    if (plVar5 != (long *)0x0) {
+      *(int *)(plVar5 + 1) = (int)plVar5[1] + 1;
+    }
+    (**(code **)(*plVar5 + 0x148))(plVar5,&local_50,"%f %f %f");
+    iVar1 = (int)plVar5[1] + -1;
+    *(int *)(plVar5 + 1) = iVar1;
+    if (iVar1 == 0) {
+      (**(code **)(*plVar5 + 8))(plVar5);
+    }
+    uVar4 = 1;
+  }
+  if (*(long *)(lVar2 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail(uVar4);
+}
+
+
+
+--- FUN_00ac6180 @ 00ac6180 ---
+
+void FUN_00ac6180(undefined8 *param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  ulong uVar2;
+  undefined8 uVar3;
+  float local_50;
+  float local_4c;
+  float fStack_48;
+  int local_44;
+  int iStack_40;
+  int local_3c;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_009e72b4(&local_50);
+  uVar2 = FUN_00ad7ed0(param_3,&local_44,3);
+  if ((uVar2 & 1) == 0) {
+    FUN_01dad604(
+                "CompressVector3DataType::createFromStream: Not enough data on stream to read value\n"
+                );
+    uVar3 = 0;
+  }
+  else {
+    local_50 = (float)((double)(long)local_44 / 10.0);
+    local_4c = (float)((double)(long)iStack_40 / 10.0);
+    fStack_48 = (float)((double)(long)local_3c / 10.0);
+    uVar3 = FUN_00a05984(&local_50);
+  }
+  *param_1 = uVar3;
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+--- FUN_00ac6250 @ 00ac6250 ---
+
+void FUN_00ac6250(undefined8 param_1,undefined8 param_2,undefined8 *param_3)
+
+{
+  int iVar1;
+  long lVar2;
+  ulong uVar3;
+  undefined8 uVar4;
+  long *plVar5;
+  float local_50;
+  float local_4c;
+  float fStack_48;
+  int local_44;
+  int iStack_40;
+  int local_3c;
+  long local_38;
+  
+  lVar2 = tpidr_el0;
+  local_38 = *(long *)(lVar2 + 0x28);
+  FUN_009e72b4(&local_50);
+  uVar3 = FUN_00ad7ed0(param_2,&local_44,3);
+  if ((uVar3 & 1) == 0) {
+    FUN_01dad604(
+                "CompressVector3DataType::createFromStream: Not enough data on stream to read value\n"
+                );
+    uVar4 = 0;
+  }
+  else {
+    local_50 = (float)((double)(long)local_44 / 10.0);
+    local_4c = (float)((double)(long)iStack_40 / 10.0);
+    fStack_48 = (float)((double)(long)local_3c / 10.0);
+    plVar5 = (long *)*param_3;
+    if (plVar5 != (long *)0x0) {
+      *(int *)(plVar5 + 1) = (int)plVar5[1] + 1;
+    }
+    (**(code **)(*plVar5 + 0x148))(plVar5,&local_50,"%f %f %f");
+    iVar1 = (int)plVar5[1] + -1;
+    *(int *)(plVar5 + 1) = iVar1;
+    if (iVar1 == 0) {
+      (**(code **)(*plVar5 + 8))(plVar5);
+    }
+    uVar4 = 1;
+  }
+  if (*(long *)(lVar2 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail(uVar4);
+}
+
+
+
+--- FUN_00aca7c8 @ 00aca7c8 ---
+
+void FUN_00aca7c8(undefined8 *param_1,undefined8 param_2,long *param_3)
+
+{
+  long lVar1;
+  undefined8 *puVar2;
+  undefined8 uVar3;
+  undefined8 local_48;
+  undefined4 local_40;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  FUN_00a81d50((ulong)&local_48 | 4);
+  puVar2 = (undefined8 *)(**(code **)(*param_3 + 0x10))(param_3,0xc);
+  local_40 = *(undefined4 *)(puVar2 + 1);
+  local_48 = *puVar2;
+  if ((char)param_3[1] == '\0') {
+    uVar3 = FUN_00ad3b7c(&local_48);
+    *param_1 = uVar3;
+  }
+  else {
+    FUN_01dad604(
+                "MailBoxDataType::createFromStream: Not enough data on stream to read EntityMailBoxRef\n"
+                );
+    *param_1 = 0;
+  }
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+

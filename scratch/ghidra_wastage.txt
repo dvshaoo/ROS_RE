@@ -1,0 +1,146 @@
+=== static 0x989324 -> 00a89324 (FUN_00a8924c @ 00a8924c) ===
+
+undefined8 FUN_00a8924c(long param_1,undefined8 param_2,undefined8 param_3,long param_4)
+
+{
+  long lVar1;
+  uint uVar2;
+  ulong uVar3;
+  byte bVar4;
+  undefined8 uVar5;
+  ulong uVar6;
+  ulong uVar7;
+  long lVar8;
+  ulong *puVar9;
+  ulong *in;
+  
+                    /* try { // try from 00a89268 to 00b89273 has its CatchHandler @ 00a893e4 */
+  if (*(char *)(param_1 + 0x2c) == '\0') {
+    uVar5 = FUN_00a81c0c(param_3);
+    FUN_01dad7ac("EncryptionFilter::recv: Dropping packet from %s due to invalid filter\n",uVar5);
+    uVar5 = 0xfffffffd;
+  }
+  else {
+    uVar6 = (ulong)*(ushort *)(param_4 + 0x1a);
+    uVar7 = (ulong)*(ushort *)(param_4 + 0x1c);
+    uVar3 = uVar7 + uVar6;
+                    /* try { // try from 00a89284 to 00b892db has its CatchHandler @ 00a89460 */
+    if ((uVar3 & 7) == 0) {
+      if ((int)uVar3 != 0) {
+        lVar8 = 0;
+        lVar1 = param_4 + 0x60;
+        puVar9 = (ulong *)0x0;
+        do {
+          in = (ulong *)(lVar1 + lVar8);
+                    /* try { // try from 00a892dc to 00b892ff has its CatchHandler @ 00a89438 */
+          BF_ecb_encrypt((uchar *)in,(uchar *)in,*(BF_KEY **)(param_1 + 0x30),0);
+          if (puVar9 != (ulong *)0x0) {
+            in = (ulong *)(param_4 + lVar8 + 0x60);
+                    /* try { // try from 00a89300 to 00b8951b has its CatchHandler @ 00a88dd4 */
+            *(ulong *)(lVar1 + lVar8) = *(ulong *)(lVar1 + lVar8) ^ *puVar9;
+          }
+          lVar8 = lVar8 + 8;
+          puVar9 = in;
+        } while (lVar8 < (long)uVar3);
+        uVar6 = (ulong)*(ushort *)(param_4 + 0x1a);
+        uVar7 = (ulong)*(ushort *)(param_4 + 0x1c);
+      }
+      uVar2 = (int)uVar7 + (int)uVar6;
+      bVar4 = *(byte *)(param_4 + (int)(uVar2 - 1) + 0x60);
+      if ((bVar4 < 9) && (bVar4 <= uVar2)) {
+        *(ushort *)(param_4 + 0x1a) = (short)uVar6 - (ushort)bVar4;
+        return 0;
+      }
+      uVar5 = FUN_00a81c0c(param_3);
+      FUN_01dad7ac("EncryptionFilter::recv: Dropping packet from %s due to illegal wastage count (%d)\n"
+                   ,uVar5,bVar4);
+    }
+    else {
+      FUN_01dad7ac("EncryptionFilter::decrypt: Input stream size (%d) is not a multiple of the block size (%d)\n"
+                   ,uVar3,8);
+    }
+    uVar5 = 0xfffffffc;
+  }
+  return uVar5;
+}
+
+
+--- callers of FUN_00a8924c ---
+  from 0331b528 in ? type=INDIRECTION
+  from 034062d0 in ? type=DATA
+  from 00a89464 in FUN_00a89444 @ 00a89444 type=UNCONDITIONAL_CALL
+  from 00a89af0 in FUN_00a89aa4 @ 00a89aa4 type=UNCONDITIONAL_CALL
+
+=== static 0x9892c8 -> 00a892c8 (FUN_00a8924c @ 00a8924c) ===
+
+undefined8 FUN_00a8924c(long param_1,undefined8 param_2,undefined8 param_3,long param_4)
+
+{
+  long lVar1;
+  uint uVar2;
+  ulong uVar3;
+  byte bVar4;
+  undefined8 uVar5;
+  ulong uVar6;
+  ulong uVar7;
+  long lVar8;
+  ulong *puVar9;
+  ulong *in;
+  
+                    /* try { // try from 00a89268 to 00b89273 has its CatchHandler @ 00a893e4 */
+  if (*(char *)(param_1 + 0x2c) == '\0') {
+    uVar5 = FUN_00a81c0c(param_3);
+    FUN_01dad7ac("EncryptionFilter::recv: Dropping packet from %s due to invalid filter\n",uVar5);
+    uVar5 = 0xfffffffd;
+  }
+  else {
+    uVar6 = (ulong)*(ushort *)(param_4 + 0x1a);
+    uVar7 = (ulong)*(ushort *)(param_4 + 0x1c);
+    uVar3 = uVar7 + uVar6;
+                    /* try { // try from 00a89284 to 00b892db has its CatchHandler @ 00a89460 */
+    if ((uVar3 & 7) == 0) {
+      if ((int)uVar3 != 0) {
+        lVar8 = 0;
+        lVar1 = param_4 + 0x60;
+        puVar9 = (ulong *)0x0;
+        do {
+          in = (ulong *)(lVar1 + lVar8);
+                    /* try { // try from 00a892dc to 00b892ff has its CatchHandler @ 00a89438 */
+          BF_ecb_encrypt((uchar *)in,(uchar *)in,*(BF_KEY **)(param_1 + 0x30),0);
+          if (puVar9 != (ulong *)0x0) {
+            in = (ulong *)(param_4 + lVar8 + 0x60);
+                    /* try { // try from 00a89300 to 00b8951b has its CatchHandler @ 00a88dd4 */
+            *(ulong *)(lVar1 + lVar8) = *(ulong *)(lVar1 + lVar8) ^ *puVar9;
+          }
+          lVar8 = lVar8 + 8;
+          puVar9 = in;
+        } while (lVar8 < (long)uVar3);
+        uVar6 = (ulong)*(ushort *)(param_4 + 0x1a);
+        uVar7 = (ulong)*(ushort *)(param_4 + 0x1c);
+      }
+      uVar2 = (int)uVar7 + (int)uVar6;
+      bVar4 = *(byte *)(param_4 + (int)(uVar2 - 1) + 0x60);
+      if ((bVar4 < 9) && (bVar4 <= uVar2)) {
+        *(ushort *)(param_4 + 0x1a) = (short)uVar6 - (ushort)bVar4;
+        return 0;
+      }
+      uVar5 = FUN_00a81c0c(param_3);
+      FUN_01dad7ac("EncryptionFilter::recv: Dropping packet from %s due to illegal wastage count (%d)\n"
+                   ,uVar5,bVar4);
+    }
+    else {
+      FUN_01dad7ac("EncryptionFilter::decrypt: Input stream size (%d) is not a multiple of the block size (%d)\n"
+                   ,uVar3,8);
+    }
+    uVar5 = 0xfffffffc;
+  }
+  return uVar5;
+}
+
+
+--- callers of FUN_00a8924c ---
+  from 0331b528 in ? type=INDIRECTION
+  from 034062d0 in ? type=DATA
+  from 00a89464 in FUN_00a89444 @ 00a89444 type=UNCONDITIONAL_CALL
+  from 00a89af0 in FUN_00a89aa4 @ 00a89aa4 type=UNCONDITIONAL_CALL
+

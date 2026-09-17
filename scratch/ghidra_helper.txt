@@ -1,0 +1,87 @@
+=== FUN_00a8a674 @ 00a8a674 ===
+
+int FUN_00a8a674(long param_1)
+
+{
+  if (*(char *)(param_1 + 1) == '\0') {
+    return 1;
+  }
+  if (*(char *)(param_1 + 1) == '\x01') {
+    return *(int *)(param_1 + 4) + 1;
+  }
+  return -1;
+}
+
+
+
+=== FUN_00a83d0c @ 00a83d0c ===
+
+void * FUN_00a83d0c(long *param_1)
+
+{
+  uint uVar1;
+  ushort uVar2;
+  uint uVar3;
+  int iVar4;
+  void *pvVar5;
+  long lVar6;
+  int iVar7;
+  ulong uVar8;
+  long lVar9;
+  
+  uVar2 = *(ushort *)((long)param_1 + 0xc);
+  uVar8 = (ulong)uVar2;
+  iVar4 = (int)param_1[2];
+  lVar9 = *param_1;
+  if ((int)(uint)*(ushort *)(param_1 + 1) < (int)(iVar4 + (uint)uVar2)) {
+    lVar6 = *(long *)(lVar9 + 0x10);
+                    /* catch(type#1 @ 00000000) { ... } // from try @ 00a83d00 with catch @ 00a83d44
+                        */
+    if (lVar6 == 0) {
+      pvVar5 = (void *)0x0;
+    }
+    else if (((uint)uVar2 == (uint)*(ushort *)(param_1 + 1)) &&
+            (iVar4 + 2 <= (int)(uint)*(ushort *)(lVar6 + 0x1a))) {
+      pvVar5 = (void *)(lVar6 + 0x62);
+    }
+    else {
+      pvVar5 = (void *)param_1[3];
+      if (pvVar5 == (void *)0x0) {
+        pvVar5 = operator_new__((long)iVar4);
+        param_1[3] = (long)pvVar5;
+        if (0 < iVar4) {
+                    /* try { // try from 00a83d7c to 00b83d7f has its CatchHandler @ 00a83db8 */
+          iVar7 = 0;
+          for (; lVar9 != 0; lVar9 = *(long *)(lVar9 + 0x10)) {
+            uVar3 = (uint)*(ushort *)(lVar9 + 0x1a) - (int)uVar8;
+            uVar1 = iVar4 - iVar7;
+            if ((int)(uVar3 & 0xffff) <= iVar4 - iVar7) {
+              uVar1 = uVar3;
+            }
+                    /* catch(type#1 @ 00000000) { ... } // from try @ 00a83d7c with catch @ 00a83db8
+                        */
+            memcpy((void *)(param_1[3] + (long)iVar7),(void *)(lVar9 + uVar8 + 0x60),
+                   (ulong)(uVar1 & 0xffff));
+            iVar4 = (int)param_1[2];
+            iVar7 = (uVar1 & 0xffff) + iVar7;
+            if (iVar4 <= iVar7) {
+              return (void *)param_1[3];
+            }
+            uVar8 = 2;
+          }
+          FUN_01dada94("Bundle::iterator::data: Run out of packets after %d of %d bytes put in temp\n"
+                       ,iVar7,iVar4);
+          pvVar5 = (void *)0x0;
+                    /* try { // try from 00a83df0 to 00b83df3 has its CatchHandler @ 00a83e34 */
+        }
+      }
+    }
+  }
+  else {
+    pvVar5 = (void *)(lVar9 + uVar8 + 0x60);
+  }
+  return pvVar5;
+}
+
+
+
