@@ -1,0 +1,674 @@
+=== FUN_00a8fa30 @ 00a8fa30 ===
+
+int FUN_00a8fa30(long param_1,undefined8 param_2,long *param_3,undefined1 *param_4)
+
+{
+  undefined1 *puVar1;
+  int *piVar2;
+  undefined4 uVar3;
+  char cVar4;
+  ushort uVar5;
+  ushort uVar6;
+  short sVar7;
+  int iVar8;
+  int iVar9;
+  long lVar10;
+  undefined1 auVar11 [16];
+  undefined *puVar12;
+  bool bVar13;
+  int iVar14;
+  undefined8 uVar15;
+  char *pcVar16;
+  long lVar17;
+  long *plVar18;
+  ulong uVar19;
+  ushort uVar20;
+  long lVar21;
+  long *plVar22;
+  uint *puVar23;
+  uint *puVar24;
+  ulong uVar26;
+  ulong uVar27;
+  long *plVar28;
+  long *plVar29;
+  int iVar30;
+  uint uVar31;
+  uint uVar32;
+  uint *puVar33;
+  long *plVar34;
+  byte bVar35;
+  byte bVar36;
+  byte bVar37;
+  byte bVar38;
+  byte bVar39;
+  byte bVar40;
+  byte bVar41;
+  byte bVar42;
+  byte bVar43;
+  byte bVar44;
+  byte bVar45;
+  byte bVar46;
+  byte bVar47;
+  byte bVar48;
+  byte bVar49;
+  byte bVar50;
+  byte bVar51;
+  byte bVar52;
+  byte bVar53;
+  byte bVar54;
+  byte bVar55;
+  byte bVar56;
+  byte bVar57;
+  byte bVar58;
+  byte bVar59;
+  byte bVar60;
+  byte bVar61;
+  byte bVar62;
+  byte bVar63;
+  byte bVar64;
+  byte bVar65;
+  byte bVar66;
+  long lVar67;
+  long lVar68;
+  long lVar69;
+  undefined1 auVar70 [16];
+  long local_138;
+  undefined1 local_124 [4];
+  char local_120 [192];
+  uint *puVar25;
+  
+  lVar10 = tpidr_el0;
+  lVar21 = *(long *)(lVar10 + 0x28);
+  puVar33 = (uint *)(param_3 + 0xc);
+  uVar6 = (ushort)*puVar33;
+                    /* try { // try from 00a8fa78 to 00b8fa7f has its CatchHandler @ 00a8fad4 */
+  if (uVar6 < 0x400) {
+    if ((uVar6 >> 3 & 1) == 0) {
+      *(int *)(param_1 + 0x4238) = *(int *)(param_1 + 0x4238) + 1;
+    }
+                    /* catch() { ... } // from try @ 00a8fa14 with catch @ 00a8fad4
+                       catch() { ... } // from try @ 00a8fa78 with catch @ 00a8fad4 */
+    if ((*(char *)(param_1 + 0x4460) == '\0') || ((uVar6 >> 9 & 1) == 0)) {
+      uVar5 = *(ushort *)((long)param_3 + 0x1a);
+      if (2 < (uint)*(ushort *)((long)param_3 + 0x1c) + (uint)uVar5) {
+        uVar20 = uVar5;
+        if ((uVar6 >> 8 & 1) != 0) {
+          if (uVar5 < 6) {
+            uVar15 = FUN_00a81c0c(param_2);
+            uVar6 = *(ushort *)((long)param_3 + 0x1a);
+            uVar5 = *(ushort *)((long)param_3 + 0x1c);
+            pcVar16 = 
+            "Nub::processFilteredPacket( %s ): Packet too short (%d bytes) for checksum!\n";
+            goto LAB_00a8fb24;
+          }
+          uVar20 = uVar5 - 4;
+          *(ushort *)((long)param_3 + 0x1c) = *(ushort *)((long)param_3 + 0x1c) + 4;
+          *(ushort *)((long)param_3 + 0x1a) = uVar20;
+          puVar23 = (uint *)((long)param_3 + (ulong)(ushort)(uVar5 - 4) + 0x60);
+          uVar31 = *puVar23;
+          *(uint *)((long)param_3 + 0x5c) = uVar31;
+          *puVar23 = 0;
+          if (uVar5 == 4) {
+            uVar32 = 0;
+          }
+          else {
+            uVar19 = (long)param_3 + (ulong)(ushort)(uVar5 - 4) + 0x60;
+            if (uVar19 <= (long)param_3 + 100U) {
+              uVar19 = (long)param_3 + 100U;
+            }
+            uVar19 = ((uVar19 + ~(ulong)param_3) - 0x60 >> 2) + 1;
+            if ((uVar19 < 8) || (uVar26 = uVar19 & 0x7ffffffffffffff8, uVar26 == 0)) {
+              uVar32 = 0;
+              puVar24 = puVar33;
+            }
+            else {
+              plVar18 = param_3 + 0xe;
+              bVar35 = 0;
+              bVar36 = 0;
+              bVar37 = 0;
+              bVar38 = 0;
+              bVar39 = 0;
+              bVar40 = 0;
+              bVar41 = 0;
+              bVar42 = 0;
+              bVar43 = 0;
+              bVar44 = 0;
+              bVar45 = 0;
+              bVar46 = 0;
+              bVar47 = 0;
+              bVar48 = 0;
+              bVar49 = 0;
+              bVar50 = 0;
+              bVar51 = 0;
+              bVar52 = 0;
+              bVar53 = 0;
+              bVar54 = 0;
+              bVar55 = 0;
+              bVar56 = 0;
+              bVar57 = 0;
+              bVar58 = 0;
+              bVar59 = 0;
+              bVar60 = 0;
+              bVar61 = 0;
+              bVar62 = 0;
+              bVar63 = 0;
+              bVar64 = 0;
+              bVar65 = 0;
+              bVar66 = 0;
+              uVar27 = uVar26;
+              do {
+                lVar67 = plVar18[-1];
+                lVar17 = plVar18[-2];
+                lVar69 = plVar18[1];
+                lVar68 = *plVar18;
+                uVar27 = uVar27 - 8;
+                plVar18 = plVar18 + 4;
+                bVar35 = (byte)lVar17 ^ bVar35;
+                bVar36 = (byte)((ulong)lVar17 >> 8) ^ bVar36;
+                bVar37 = (byte)((ulong)lVar17 >> 0x10) ^ bVar37;
+                bVar38 = (byte)((ulong)lVar17 >> 0x18) ^ bVar38;
+                bVar39 = (byte)((ulong)lVar17 >> 0x20) ^ bVar39;
+                bVar40 = (byte)((ulong)lVar17 >> 0x28) ^ bVar40;
+                bVar41 = (byte)((ulong)lVar17 >> 0x30) ^ bVar41;
+                bVar42 = (byte)((ulong)lVar17 >> 0x38) ^ bVar42;
+                bVar43 = (byte)lVar67 ^ bVar43;
+                bVar44 = (byte)((ulong)lVar67 >> 8) ^ bVar44;
+                bVar45 = (byte)((ulong)lVar67 >> 0x10) ^ bVar45;
+                bVar46 = (byte)((ulong)lVar67 >> 0x18) ^ bVar46;
+                bVar47 = (byte)((ulong)lVar67 >> 0x20) ^ bVar47;
+                bVar48 = (byte)((ulong)lVar67 >> 0x28) ^ bVar48;
+                bVar49 = (byte)((ulong)lVar67 >> 0x30) ^ bVar49;
+                bVar50 = (byte)((ulong)lVar67 >> 0x38) ^ bVar50;
+                bVar51 = (byte)lVar68 ^ bVar51;
+                bVar52 = (byte)((ulong)lVar68 >> 8) ^ bVar52;
+                bVar53 = (byte)((ulong)lVar68 >> 0x10) ^ bVar53;
+                bVar54 = (byte)((ulong)lVar68 >> 0x18) ^ bVar54;
+                bVar55 = (byte)((ulong)lVar68 >> 0x20) ^ bVar55;
+                bVar56 = (byte)((ulong)lVar68 >> 0x28) ^ bVar56;
+                bVar57 = (byte)((ulong)lVar68 >> 0x30) ^ bVar57;
+                bVar58 = (byte)((ulong)lVar68 >> 0x38) ^ bVar58;
+                bVar59 = (byte)lVar69 ^ bVar59;
+                bVar60 = (byte)((ulong)lVar69 >> 8) ^ bVar60;
+                bVar61 = (byte)((ulong)lVar69 >> 0x10) ^ bVar61;
+                bVar62 = (byte)((ulong)lVar69 >> 0x18) ^ bVar62;
+                bVar63 = (byte)((ulong)lVar69 >> 0x20) ^ bVar63;
+                bVar64 = (byte)((ulong)lVar69 >> 0x28) ^ bVar64;
+                bVar65 = (byte)((ulong)lVar69 >> 0x30) ^ bVar65;
+                bVar66 = (byte)((ulong)lVar69 >> 0x38) ^ bVar66;
+              } while (uVar27 != 0);
+              bVar51 = bVar51 ^ bVar35;
+              bVar52 = bVar52 ^ bVar36;
+              bVar53 = bVar53 ^ bVar37;
+              bVar54 = bVar54 ^ bVar38;
+              bVar55 = bVar55 ^ bVar39;
+              bVar56 = bVar56 ^ bVar40;
+              bVar57 = bVar57 ^ bVar41;
+              bVar58 = bVar58 ^ bVar42;
+              auVar70[1] = bVar52;
+              auVar70[0] = bVar51;
+              auVar70[2] = bVar53;
+              auVar70[3] = bVar54;
+              auVar70[4] = bVar55;
+              auVar70[5] = bVar56;
+              auVar70[6] = bVar57;
+              auVar70[7] = bVar58;
+              auVar70[8] = bVar59 ^ bVar43;
+              auVar70[9] = bVar60 ^ bVar44;
+              auVar70[10] = bVar61 ^ bVar45;
+              auVar70[0xb] = bVar62 ^ bVar46;
+              auVar70[0xc] = bVar63 ^ bVar47;
+              auVar70[0xd] = bVar64 ^ bVar48;
+              auVar70[0xe] = bVar65 ^ bVar49;
+              auVar70[0xf] = bVar66 ^ bVar50;
+              auVar11[1] = bVar52;
+              auVar11[0] = bVar51;
+              auVar11[2] = bVar53;
+              auVar11[3] = bVar54;
+              auVar11[4] = bVar55;
+              auVar11[5] = bVar56;
+              auVar11[6] = bVar57;
+              auVar11[7] = bVar58;
+              auVar11[8] = bVar59 ^ bVar43;
+              auVar11[9] = bVar60 ^ bVar44;
+              auVar11[10] = bVar61 ^ bVar45;
+              auVar11[0xb] = bVar62 ^ bVar46;
+              auVar11[0xc] = bVar63 ^ bVar47;
+              auVar11[0xd] = bVar64 ^ bVar48;
+              auVar11[0xe] = bVar65 ^ bVar49;
+              auVar11[0xf] = bVar66 ^ bVar50;
+              auVar70 = NEON_ext(auVar70,auVar11,8,1);
+              uVar32 = CONCAT13(bVar54 ^ auVar70[3] ^ bVar58 ^ auVar70[7],
+                                CONCAT12(bVar53 ^ auVar70[2] ^ bVar57 ^ auVar70[6],
+                                         CONCAT11(bVar52 ^ auVar70[1] ^ bVar56 ^ auVar70[5],
+                                                  bVar51 ^ auVar70[0] ^ bVar55 ^ auVar70[4])));
+              puVar24 = puVar33 + uVar26;
+              if (uVar19 == uVar26) goto LAB_00a8fea8;
+            }
+            do {
+              puVar25 = puVar24 + 1;
+              uVar32 = *puVar24 ^ uVar32;
+              puVar24 = puVar25;
+            } while (puVar25 < puVar23);
+          }
+LAB_00a8fea8:
+          *puVar23 = uVar31;
+          if (uVar32 != uVar31) {
+            uVar15 = FUN_00a81c0c(param_2);
+            FUN_01dad604("Nub::processFilteredPacket( %s ): Packet (flags %hx, size %d) failed checksum (wanted %08x, got %08x)\n"
+                         ,uVar15,(short)param_3[0xc],
+                         (uint)*(ushort *)((long)param_3 + 0x1c) +
+                         (uint)*(ushort *)((long)param_3 + 0x1a),uVar32,
+                         *(undefined4 *)((long)param_3 + 0x5c));
+            goto LAB_00a8fb2c;
+          }
+          uVar6 = (ushort)*puVar33;
+        }
+        puVar12 = PTR_DAT_03a0fe28;
+        local_124[0] = 1;
+        if ((uVar6 >> 1 & 1) == 0) {
+joined_r0x00a8ff88:
+          if ((uVar6 >> 7 & 1) == 0) {
+            if (((byte)*puVar33 >> 3 & 1) == 0) {
+              local_138 = 0;
+              bVar13 = true;
+              uVar6 = (ushort)*puVar33;
+joined_r0x00a90368:
+              if ((uVar6 >> 2 & 1) == 0) {
+LAB_00a8fba4:
+                if (((ushort)*puVar33 >> 6 & 1) != 0) {
+                    /* catch() { ... } // from try @ 00a8edbc with catch @ 00a8fbac */
+                  uVar6 = *(ushort *)((long)param_3 + 0x1a);
+                    /* catch() { ... } // from try @ 00a8f04c with catch @ 00a8fbb0 */
+                    /* catch() { ... } // from try @ 00a8eeec with catch @ 00a8fbb4 */
+                  if (uVar6 < 6) {
+                    /* catch() { ... } // from try @ 00a8f9c8 with catch @ 00a8fbb8 */
+                    /* catch() { ... } // from try @ 00a8f99c with catch @ 00a8fbbc */
+                    /* catch() { ... } // from try @ 00a8f974 with catch @ 00a8fbc0 */
+                    /* catch() { ... } // from try @ 00a8f94c with catch @ 00a8fbc4 */
+                    uVar15 = FUN_00a81c0c(param_2);
+                    /* catch() { ... } // from try @ 00a8f920 with catch @ 00a8fbc8 */
+                    /* catch() { ... } // from try @ 00a8f8f4 with catch @ 00a8fbcc */
+                    FUN_01dad7ac("Nub::processFilteredPacket( %s ): Not enough data for sequence number footer (%d bytes left)\n"
+                                 ,uVar15,*(ushort *)((long)param_3 + 0x1a) - 2);
+                    goto LAB_00a903a4;
+                  }
+                  *(ushort *)((long)param_3 + 0x1a) = uVar6 - 4;
+                  *(short *)((long)param_3 + 0x1c) = *(short *)((long)param_3 + 0x1c) + 4;
+                  *(undefined4 *)(param_3 + 9) =
+                       *(undefined4 *)((long)param_3 + (ulong)(ushort)(uVar6 - 4) + 0x60);
+                }
+                if (((ushort)*puVar33 >> 4 & 1) != 0) {
+                  if ((int)param_3[9] == 0x10000000) {
+                    uVar15 = FUN_00a81c0c(param_2);
+                    /* try { // try from 00a90134 to 00b90227 has its CatchHandler @ 00a90134
+                       catch() { ... } // from try @ 00a90134 with catch @ 00a90134
+                       catch() { ... } // from try @ 00a90234 with catch @ 00a90134 */
+                    FUN_01dad7ac("Nub::processFilteredPacket( %s ): Dropping packet due to illegal request for reliability without related sequence number\n"
+                                 ,uVar15);
+                    goto LAB_00a90470;
+                  }
+                  if (bVar13) {
+                    if (*(char *)(param_1 + 0x4460) != '\0') {
+                      uVar15 = FUN_00a81c0c(param_2);
+                      FUN_01dad7ac("Nub::processFilteredPacket( %s ): Dropping illegal once-off-reliable packet\n"
+                                   ,uVar15);
+                      goto LAB_00a90020;
+                    }
+                    FUN_00a824d8(local_120,0x500,0,0);
+                    FUN_00a82efc(local_120,(int)param_3[9]);
+                    FUN_00a8e520(param_1,param_2,local_120,0);
+                    uVar19 = FUN_00a9095c(param_1,param_2,(int)param_3[9]);
+                    FUN_00a82950(local_120);
+                    if ((uVar19 & 1) != 0) {
+                      iVar30 = 0;
+                      goto LAB_00a8fb40;
+                    }
+                  }
+                  else {
+                    local_120[0] = '\0';
+                    auVar70 = FUN_00a87078(local_138,param_3,(int)param_3[9],param_2,local_124[0],
+                                           local_120);
+                    if ((param_4 != (undefined1 *)0x0) && (local_120[0] != '\0')) {
+                      *param_4 = 0;
+                    }
+                    if (auVar70._0_8_ == 0) {
+                      bVar13 = (auVar70._8_8_ & 1) != 0;
+                      piVar2 = (int *)(param_1 + 0x425c);
+                      if (bVar13) {
+                        piVar2 = (int *)(param_1 + 0x4234);
+                      }
+                      iVar30 = -4;
+                      if (bVar13) {
+                        iVar30 = 0;
+                      }
+                      *piVar2 = *piVar2 + 1;
+                      goto joined_r0x00a90444;
+                    }
+                  }
+                }
+                *(int *)(param_3 + 1) = (int)param_3[1] + 1;
+                plVar18 = (long *)0x0;
+                iVar9 = 0;
+                plVar34 = (long *)0x0;
+                iVar30 = 0;
+                    /* try { // try from 00a90228 to 00b90233 has its CatchHandler @ 00a9025c */
+                while (plVar28 = param_3, plVar28 != (long *)0x0) {
+                  plVar29 = (long *)plVar28[2];
+                  if (plVar29 != (long *)0x0) {
+                    /* try { // try from 00a90234 to 00b9026f has its CatchHandler @ 00a90134 */
+                    *(int *)(plVar29 + 1) = (int)plVar29[1] + 1;
+                  }
+                  plVar22 = plVar29;
+                  if ((plVar18 != (long *)0x0) &&
+                     (iVar14 = (int)plVar18[1] + -1, *(int *)(plVar18 + 1) = iVar14, iVar14 == 0)) {
+                    /* catch() { ... } // from try @ 00a90228 with catch @ 00a9025c */
+                    (**(code **)(*plVar18 + 8))();
+                    plVar22 = (long *)plVar28[2];
+                  }
+                  plVar28[2] = 0;
+                  if ((plVar22 != (long *)0x0) &&
+                     (iVar14 = (int)plVar22[1] + -1, *(int *)(plVar22 + 1) = iVar14, iVar14 == 0)) {
+                    (**(code **)(*plVar22 + 8))(plVar22);
+                  }
+                  iVar14 = FUN_00a90b14(param_1,param_2,plVar28,local_138);
+                  if (iVar9 != 0) {
+                    iVar14 = iVar9;
+                  }
+                  plVar18 = plVar29;
+                  iVar9 = iVar14;
+                  param_3 = plVar28;
+                  if (plVar28 != plVar29) {
+                    if (plVar29 != (long *)0x0) {
+                      *(int *)(plVar29 + 1) = (int)plVar29[1] + 1;
+                    }
+                    iVar8 = (int)plVar28[1] + -1;
+                    *(int *)(plVar28 + 1) = iVar8;
+                    plVar34 = plVar29;
+                    iVar30 = iVar14;
+                    param_3 = plVar29;
+                    if (iVar8 == 0) {
+                      (**(code **)(*plVar28 + 8))(plVar28);
+                    }
+                  }
+                }
+                if ((plVar34 != (long *)0x0) &&
+                   (iVar9 = (int)plVar34[1] + -1, *(int *)(plVar34 + 1) = iVar9, iVar9 == 0)) {
+                  (**(code **)(*plVar34 + 8))(plVar34);
+                }
+              }
+              else {
+                uVar5 = *(ushort *)((long)param_3 + 0x1a);
+                if (uVar5 < 3) {
+                  uVar15 = FUN_00a81c0c(param_2);
+                  FUN_01dad7ac("Nub::processFilteredPacket( %s ): Not enough data for ack count footer (%d bytes left)\n"
+                               ,uVar15,*(ushort *)((long)param_3 + 0x1a) - 2);
+LAB_00a903a4:
+                  iVar30 = -4;
+                  *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+                }
+                else {
+                  uVar20 = uVar5 - 1;
+                  *(ushort *)((long)param_3 + 0x1a) = uVar20;
+                  *(short *)((long)param_3 + 0x1c) = *(short *)((long)param_3 + 0x1c) + 1;
+                  bVar35 = *(byte *)((long)param_3 + (ulong)(ushort)(uVar5 - 1) + 0x60);
+                  *(byte *)(param_3 + 6) = bVar35;
+                  if (bVar35 != 0) {
+                    iVar30 = (uint)bVar35 * 4;
+                    if ((int)(uVar20 - 2) < iVar30) {
+                      uVar15 = FUN_00a81c0c(param_2);
+                      FUN_01dad7ac("Nub::processFilteredPacket( %s ): Not enough footers for %d acks (have %d bytes but need %d)\n"
+                                   ,uVar15,(char)param_3[6],*(ushort *)((long)param_3 + 0x1a) - 2,
+                                   iVar30);
+LAB_00a9042c:
+                      iVar30 = -4;
+                      *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+                      goto joined_r0x00a90444;
+                    }
+                    if (bVar13) {
+                      if ((uVar6 >> 3 & 1) == 0) {
+                        uVar31 = 1;
+                        while( true ) {
+                          if (5 < uVar20) {
+                            *(ushort *)((long)param_3 + 0x1a) = uVar20 - 4;
+                            *(short *)((long)param_3 + 0x1c) = *(short *)((long)param_3 + 0x1c) + 4;
+                            iVar30 = *(int *)((long)param_3 + (ulong)(ushort)(uVar20 - 4) + 0x60);
+                          }
+                          FUN_00a9078c(param_1,param_2,iVar30);
+                          if (*(byte *)(param_3 + 6) <= uVar31) break;
+                          uVar20 = *(ushort *)((long)param_3 + 0x1a);
+                          uVar31 = uVar31 + 1;
+                        }
+                      }
+                      else {
+                        *(ushort *)((long)param_3 + 0x1a) = uVar20 + (ushort)bVar35 * -4;
+                        uVar15 = FUN_00a81c0c(param_2);
+                        FUN_01dad7ac("Nub::processFilteredPacket( %s ): Got %d acks without a channel\n"
+                                     ,uVar15,(char)param_3[6]);
+                      }
+                    }
+                    else {
+                      uVar31 = 1;
+                      while( true ) {
+                        if (5 < uVar20) {
+                          *(ushort *)((long)param_3 + 0x1a) = uVar20 - 4;
+                          *(short *)((long)param_3 + 0x1c) = *(short *)((long)param_3 + 0x1c) + 4;
+                          iVar30 = *(int *)((long)param_3 + (ulong)(ushort)(uVar20 - 4) + 0x60);
+                        }
+                        uVar19 = FUN_00a86898(local_138,iVar30);
+                        if ((uVar19 & 1) == 0) {
+                          uVar15 = FUN_00a81c0c(param_2);
+                    /* try { // try from 00a9062c to 00b9067b has its CatchHandler @ 00a9062c
+                       catch() { ... } // from try @ 00a9062c with catch @ 00a9062c
+                       catch() { ... } // from try @ 00a90688 with catch @ 00a9062c */
+                          FUN_01dad7ac("Nub::processFilteredPacket( %s ): delResendTimer() failed for #%d\n"
+                                       ,uVar15,iVar30);
+                          goto LAB_00a9042c;
+                        }
+                        if (*(byte *)(param_3 + 6) <= uVar31) break;
+                        uVar20 = *(ushort *)((long)param_3 + 0x1a);
+                        uVar31 = uVar31 + 1;
+                      }
+                    }
+                    goto LAB_00a8fba4;
+                  }
+                  uVar15 = FUN_00a81c0c(param_2);
+                  FUN_01dad7ac("Nub::processFilteredPacket( %s ): Packet with FLAG_HAS_ACKS had 0 acks\n"
+                               ,uVar15);
+LAB_00a90470:
+                  iVar30 = -4;
+                  *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+                }
+              }
+joined_r0x00a90444:
+              if (local_138 == 0) goto LAB_00a8fb40;
+            }
+            else {
+              lVar17 = FUN_00a950d8(param_1 + 0x41f0,param_2);
+              if (param_1 + 0x41f8 == lVar17) {
+                local_138 = 0;
+LAB_00a90040:
+                uVar15 = FUN_00a81c0c(param_2);
+                FUN_01dad7ac("Nub::processFilteredPacket( %s ): Dropping packet due to absence of local channel\n"
+                             ,uVar15);
+                iVar30 = -3;
+                goto joined_r0x00a90444;
+              }
+              local_138 = *(long *)(lVar17 + 0x38);
+              if (local_138 == 0) goto LAB_00a90040;
+              *(int *)(local_138 + 0x10) = *(int *)(local_138 + 0x10) + 1;
+              cVar4 = *(char *)(local_138 + 0xf8);
+joined_r0x00a90168:
+              if (cVar4 == '\0') {
+                if (*(char *)(local_138 + 0x105) != '\0') {
+                  if ((*(byte *)((long)param_3 + 0x61) >> 1 & 1) == 0) {
+                    uVar15 = FUN_00a85278(local_138);
+                    FUN_01dad7ac("Nub::processFilteredPacket( %s ): Dropping packet on channel wanting FLAG_CREATE_CHANNEL (flags: %x)\n"
+                                 ,uVar15,(short)*puVar33);
+                    goto LAB_00a8ff50;
+                  }
+                  *(undefined1 *)(local_138 + 0x105) = 0;
+                }
+                bVar13 = false;
+                uVar6 = (ushort)*puVar33;
+                goto joined_r0x00a90368;
+              }
+              uVar15 = FUN_00a85278(local_138);
+              FUN_01dad7ac("Nub::processFilteredPacket( %s ): Dropping packet due to remote process failure\n"
+                           ,uVar15);
+LAB_00a8ff50:
+              iVar30 = -3;
+            }
+            iVar9 = *(int *)(local_138 + 0x10) + -1;
+            *(int *)(local_138 + 0x10) = iVar9;
+            if (iVar9 == 0) {
+              (**(code **)(*(long *)(local_138 + 8) + 8))();
+            }
+            goto LAB_00a8fb40;
+          }
+          plVar18 = *(long **)(param_1 + 0x4208);
+          if (plVar18 == (long *)0x0) {
+            uVar15 = FUN_00a81c0c(param_2);
+            FUN_01dad7ac("Nub::processFilteredPacket( %s ): Got indexed channel packet with no finder registered\n"
+                         ,uVar15);
+          }
+          else {
+            uVar6 = *(ushort *)((long)param_3 + 0x1a);
+            if (5 < uVar6) {
+              sVar7 = *(short *)((long)param_3 + 0x1c);
+              *(ushort *)((long)param_3 + 0x1a) = uVar6 - 4;
+              *(short *)((long)param_3 + 0x1c) = sVar7 + 4;
+              uVar3 = *(undefined4 *)((long)param_3 + (ulong)(ushort)(uVar6 - 4) + 0x60);
+              *(undefined4 *)((long)param_3 + 0x4c) = uVar3;
+              if (5 < (ushort)(uVar6 - 4)) {
+                *(short *)((long)param_3 + 0x1c) = sVar7 + 8;
+                *(ushort *)((long)param_3 + 0x1a) = uVar6 - 8;
+                *(undefined4 *)(param_3 + 10) =
+                     *(undefined4 *)((long)param_3 + (ulong)(ushort)(uVar6 - 8) + 0x60);
+                local_120[0] = '\0';
+                local_138 = (**(code **)(*plVar18 + 0x10))(plVar18,uVar3,param_3,local_120);
+                if (local_138 != 0) {
+                  *(int *)(local_138 + 0x10) = *(int *)(local_138 + 0x10) + 1;
+                }
+                if (local_120[0] == '\0') {
+                  if (local_138 != 0) {
+                    FUN_00a87d50(local_138,
+                                 (uint)*(ushort *)((long)param_3 + 0x1c) +
+                                 (uint)*(ushort *)((long)param_3 + 0x1a));
+                    cVar4 = *(char *)(local_138 + 0xf8);
+                    goto joined_r0x00a90168;
+                  }
+                  uVar15 = FUN_00a81c0c(param_2);
+                  FUN_01dad604("Nub::processFilteredPacket( %s ): Couldn\'t get indexed channel for id %d\n"
+                               ,uVar15,*(undefined4 *)((long)param_3 + 0x4c));
+                  goto LAB_00a903a4;
+                }
+                iVar30 = 0;
+                goto joined_r0x00a90444;
+              }
+            }
+            uVar15 = FUN_00a81c0c(param_2);
+            FUN_01dad7ac("Nub::processFilteredPacket( %s ): Not enough data for indexed channel footer (%d bytes left)\n"
+                         ,uVar15,*(ushort *)((long)param_3 + 0x1a) - 2);
+          }
+        }
+        else {
+          puVar1 = param_4;
+          if (param_4 == (undefined1 *)0x0) {
+            puVar1 = local_124;
+          }
+          while (3 < uVar20) {
+            *(ushort *)((long)param_3 + 0x1a) = uVar20 - 2;
+            *(short *)((long)param_3 + 0x1c) = *(short *)((long)param_3 + 0x1c) + 2;
+            sVar7 = *(short *)((long)param_3 + (ulong)(ushort)(uVar20 - 2) + 0x60);
+            uVar31 = (int)sVar7 ^ (int)sVar7 >> 0xf;
+            if ((int)((ushort)(uVar20 - 2) - 2) < (int)uVar31) {
+              uVar15 = FUN_00a81c0c(param_2);
+              FUN_01dad7ac("Nub::processFilteredPacket( %s ): Packet too small to contain piggyback message of length %d (only %d bytes remaining)\n"
+                           ,uVar15,uVar31,*(ushort *)((long)param_3 + 0x1a) - 2);
+              goto LAB_00a90020;
+            }
+            std::__ndk1::mutex::lock();
+            plVar18 = *(long **)puVar12;
+            if (plVar18 == (long *)0x0) {
+              plVar18 = operator_new__(0x620);
+              *(int *)(puVar12 + 8) = *(int *)(puVar12 + 8) + 1;
+            }
+            else {
+              *(long *)puVar12 = *plVar18;
+            }
+            std::__ndk1::mutex::unlock();
+            FUN_00a96978(plVar18,0x5dc);
+            if (plVar18 != (long *)0x0) {
+              *(int *)(plVar18 + 1) = (int)plVar18[1] + 1;
+            }
+            uVar32 = *(ushort *)((long)param_3 + 0x1a) - uVar31;
+            *(short *)((long)param_3 + 0x1a) = (short)uVar32;
+            memcpy(plVar18 + 0xc,(void *)((long)param_3 + (ulong)(uVar32 & 0xffff) + 0x60),
+                   (long)(int)uVar31);
+            *(short *)((long)plVar18 + 0x1a) = (short)uVar31;
+            FUN_00a8fa30(param_1,param_2,plVar18,puVar1);
+            iVar30 = (int)plVar18[1] + -1;
+            *(int *)(plVar18 + 1) = iVar30;
+            if (iVar30 == 0) {
+              (**(code **)(*plVar18 + 8))(plVar18);
+            }
+            if (sVar7 < 0) {
+              uVar6 = (ushort)*puVar33;
+              goto joined_r0x00a8ff88;
+            }
+            uVar20 = *(ushort *)((long)param_3 + 0x1a);
+          }
+          uVar15 = FUN_00a81c0c(param_2);
+          FUN_01dad7ac("Nub::processFilteredPacket( %s ): Not enough data for piggyback length (%d bytes left)\n"
+                       ,uVar15,*(ushort *)((long)param_3 + 0x1a) - 2);
+        }
+LAB_00a90020:
+        iVar30 = -4;
+        *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+        goto LAB_00a8fb40;
+      }
+      uVar15 = FUN_00a81c0c(param_2);
+      uVar6 = *(ushort *)((long)param_3 + 0x1a);
+      uVar5 = *(ushort *)((long)param_3 + 0x1c);
+                    /* catch() { ... } // from try @ 00a8f0d8 with catch @ 00a8fb20 */
+      pcVar16 = "Nub::processFilteredPacket( %s ): received undersize packet (%d bytes)\n";
+LAB_00a8fb24:
+                    /* catch() { ... } // from try @ 00a8f0c8 with catch @ 00a8fb24 */
+                    /* catch() { ... } // from try @ 00a8f0bc with catch @ 00a8fb28 */
+      FUN_01dad7ac(pcVar16,uVar15,(uint)uVar5 + (uint)uVar6);
+    }
+    else {
+                    /* catch() { ... } // from try @ 00a8f314 with catch @ 00a8fad8 */
+      uVar15 = FUN_00a81c0c(param_2);
+      FUN_01dad7ac("Nub::processFilteredPacket( %s ): Got FLAG_CREATE_CHANNEL on external nub\n",
+                   uVar15);
+    }
+  }
+  else {
+                    /* try { // try from 00a8fa80 to 00b8fbef has its CatchHandler @ 00a8ed3c */
+    if (*(char *)(param_1 + 0x4460) == '\0') {
+      uVar15 = FUN_00a81c0c(param_2);
+      FUN_01dad7ac("Nub(%p)::processFilteredPacket( %s ): received packet with bad flags %x\n",
+                   param_1,uVar15,(short)*puVar33);
+    }
+  }
+LAB_00a8fb2c:
+                    /* catch() { ... } // from try @ 00a8ef78 with catch @ 00a8fb2c */
+                    /* catch() { ... } // from try @ 00a8ef68 with catch @ 00a8fb30 */
+                    /* catch() { ... } // from try @ 00a8ef5c with catch @ 00a8fb34 */
+  iVar30 = -4;
+                    /* catch() { ... } // from try @ 00a8ee18 with catch @ 00a8fb38 */
+  *(int *)(param_1 + 0x425c) = *(int *)(param_1 + 0x425c) + 1;
+LAB_00a8fb40:
+                    /* catch() { ... } // from try @ 00a8ee08 with catch @ 00a8fb48 */
+  if (*(long *)(lVar10 + 0x28) != lVar21) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+                    /* catch() { ... } // from try @ 00a8edfc with catch @ 00a8fb60 */
+                    /* catch() { ... } // from try @ 00a8f2ec with catch @ 00a8fb64
+                       catch() { ... } // from try @ 00a8f364 with catch @ 00a8fb64 */
+  return iVar30;
+}
+
+
