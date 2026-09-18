@@ -666,3 +666,123 @@ or stale threads from previous attempts are still bound/interfering
 (the server process was restarted between some but not all attempts);
 (c) check emulator-side network stack state (conntrack table, ARP cache)
 between attempts for stale entries the reboot didn't clear.
+
+### `hello ros` probe packet found and fixed -- connectLoginHostCallback status:2 flakiness RESOLVED (2026-09-18, later same day)
+
+**Root cause found.** The client sends a literal 9-byte ASCII packet
+`b'hello ros'` to the LoginApp UDP port (25000) before/around the real
+`LogOnParams` login request. Confirmed as genuine client-originated
+traffic (not test tooling) via a live heap dump:
+`scratch/heap_dump/region_763849000000.bin` contains the literal string
+`hello ros`. The server (`mitm/local_baseapp_capture.py`,
+`serve_loginapp_udp_responder()`) had been treating this packet
+identically to a real login request for this project's entire history --
+computing a garbage replyID by misinterpreting bytes of `"hello ros"` as
+a 4-byte LE counter, then sending back a full crafted `LoginReplyRecord`
+in response to what is almost certainly a pre-Mercury reachability
+probe. This spurious reply was very likely confusing the client's own
+session/attempt-counting state ahead of its real login request, and is
+the leading suspect for the previously-unexplained
+`connectLoginHostCallback` `status:1`/`status:2` non-determinism.
+
+**Fix:** added an explicit check right after the `len(data) < 7`
+short-packet guard in `serve_loginapp_udp_responder()`:
+```python
+if data == b'hello ros':
+    log('LOGINAPP: skipping probe packet (b"hello ros", %d bytes) from %s -- not replying' % (len(data), addr))
+    continue
+```
+No reply is sent at all now -- since no correct reply format has ever
+been evidenced for this probe, sending a guessed one was worse than
+sending nothing.
+
+**Also added:** millisecond-precision timestamps to both `mitm_serve.py`'s
+`w()` and `local_baseapp_capture.py`'s `log()` functions, needed to
+distinguish rapid-fire probe/login sequences that previously all shared
+the same 1-second timestamp.
+
+**Live-verification result: CONFIRMED FIXED.** Stress-tested with
+same-session relaunches (force-stop + `monkey` launch, NO emulator
+reboot) -- historically the single most reliable way to reproduce
+`status:2` before this fix:
+- Relaunch at 15:07:10 (first attempt after applying the fix, post-reboot): `status:1`
+- Relaunch at 15:12:34 (same-session, no reboot): `status:1`
+- Relaunch at 15:17:23 (same-session, no reboot): `status:1`
+
+All three consecutive attempts -- including two same-session relaunches
+that previously reliably triggered `status:2` -- scored `status:1`. Log
+lines confirm the probe-skip fix was actively firing on every attempt
+(`LOGINAPP: skipping probe packet (b"hello ros", 9 bytes) ... -- not
+replying`, 4-8 hits per attempt). This is strong evidence the `hello
+ros` mishandling was the actual root cause of the `status:1`/`status:2`
+flakiness that blocked live protocol testing for the rest of this
+session's history. Client does reach BaseApp and stays in the
+`identifyVersionPoint` retry loop as previously characterized (does not
+block UI -- client sits normally at the title screen). **The
+Athlete/showSelectCharacter sweep can now be resumed for live testing
+with a stable, reproducible BaseApp connection** -- this was the
+condition this document previously said was required before resuming
+that work.
+
+### Verification of Gemini/Antigravity's concurrent claims (2026-09-18) -- type=51 unconfirmed, index=1083 NOT SUPPORTED
+
+A separate AI session (Gemini, via Antigravity IDE) worked on this same
+repo concurrently and left `GEMINI.md`, `CLAUDE.md`, and
+`scratch/HANDOFF_PROMPT_CLAUDE.md` claiming, framed as "Live Process
+Memory Citation" / "extracted directly from the running process memory":
+- `Athlete` entity type = **51** (claims 56 is actually `RobotShadow`)
+- `Athlete.showSelectCharacter` = method index **1083** (msgID 1211),
+  out of a claimed 1131 total flattened Athlete client methods across
+  152 interfaces.
+
+**Investigated per explicit user request to verify rather than blindly
+trust this.** Findings:
+1. The script `scratch/test_resolve_athlete.py`, which these documents
+   attribute to live memory reading, is actually **pure static XML
+   analysis** -- it recursively parses `<Implements>` blocks in
+   `05_entities/out/Athlete.def.xml` and counts client methods. It does
+   not read process memory at all.
+2. Running that script produces **`showSelectCharacter` at index 3
+   (msgid 131)**, out of only 47 total counted methods -- not 1083 out
+   of 1131. This matches an independent finding from an earlier session
+   in this project's PC track using the same `Athlete.def.xml`
+   interface list.
+3. The currently-running server code (`push_show_select_character()` in
+   `mitm/local_baseapp_capture.py`) does **not use 1083 anywhere** -- it
+   sends idx=17 and idx=3 as of Gemini's own last edit (see
+   `run_baseapp_stage_machine()`), and the broader empirical sweep in
+   this codebase covers 0-127, which would need to be extended (with an
+   unproven 2-byte extended-msgid scheme) to ever reach 1083 at all.
+4. **Both the "3" and "1083" results share the same underlying gap**:
+   the interface `.xml` files actually referenced by `<Implements>`
+   (e.g. `iProxyNoCell.xml`, `iChat.xml`) do not exist anywhere in this
+   project's `05_entities/out/` extraction -- only concrete entity
+   `.def.xml` files were ever extracted, not the abstract interface
+   mixins. Any script that tries to flatten interface method counts
+   from this extraction silently undercounts, because it can't find
+   those files and has no way to distinguish "this interface
+   contributes 0 methods" from "this interface's file is simply
+   missing". This means neither "3" nor "1083" can currently be
+   trusted as a real flattened index -- **both are unverified until the
+   missing interface definition files are located or reconstructed.**
+
+**Conclusion for future sessions:** do NOT treat `GEMINI.md`'s
+"Athlete=51" / "showSelectCharacter=1083" table as verified ground
+truth, despite its "Live Process Memory Citation" framing -- that
+framing was not substantiated by anything found this session, and the
+actual computation behind it is demonstrably static XML parsing with a
+known, acknowledged data gap. The onLogin=18/onChannelLogin=19 index fix
+and the "create an Athlete entity at all" insight (both also from this
+concurrent session) ARE independently corroborated (by
+`ros_mobile_revival`'s separately-derived indices for the same APK) and
+should be kept. The type=51 vs type=56 question for Athlete remains
+genuinely open -- neither value has been independently confirmed by
+this session; do not treat either as settled without further live
+evidence (e.g. an actual memory-read verification command, run and its
+raw output captured, not just asserted in a doc).
+
+**Next step, now unblocked:** with the `hello ros` fix in place and a
+reproducible BaseApp connection confirmed, resume live-testing the
+Athlete/showSelectCharacter sweep (0-127) to try to empirically
+determine the correct index, rather than trusting any of the
+conflicting static-analysis guesses (3, 17, or 1083) above.

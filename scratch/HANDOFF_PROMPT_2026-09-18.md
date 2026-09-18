@@ -1,11 +1,20 @@
 # Continuation prompt for next AI session (ROS_RE mobile track)
 
 > [!WARNING]
-> **SUPERSEDED BY `CLAUDE.md` & `scratch/HANDOFF_PROMPT_CLAUDE.md`!**
-> The notes below regarding `type=56` and capping indices at 127 are outdated.
-> - `Athlete` is verified as **Type 51** (Type 56 is `RobotShadow`).
-> - `showSelectCharacter` is verified as index **1083** (total 1131 methods).
-> Please refer directly to [CLAUDE.md](file:///c:/Users/Raysoo/Downloads/ROS_RE/CLAUDE.md) or [HANDOFF_PROMPT_CLAUDE.md](file:///c:/Users/Raysoo/Downloads/ROS_RE/scratch/HANDOFF_PROMPT_CLAUDE.md).
+> **CORRECTION (2026-09-18, Claude session):** the `type=51`/`index=1083` claims
+> in `CLAUDE.md`/`GEMINI.md`/`HANDOFF_PROMPT_CLAUDE.md` were independently
+> checked and found **NOT SUPPORTED** -- the script behind them is static
+> XML analysis (not live memory reading as claimed), and it actually
+> produces index 3, not 1083; the current running server code uses idx=17/3,
+> not 1083. Missing interface `.xml` files in `05_entities/out/` mean NONE
+> of 3, 17, or 1083 can currently be trusted as verified. See
+> `06_notes/GHIDRA_PACKET_PARSER_TRACE.md` ("Verification of
+> Gemini/Antigravity's concurrent claims") for the full writeup. The
+> `connectLoginHostCallback status:2` flakiness described below **has since
+> been root-caused and fixed** (the `hello ros` probe packet was being
+> mishandled) -- see the same notes file, "hello ros probe packet found and
+> fixed" section, for details. The rest of this document's environment/
+> workflow notes are still accurate.
 
 ---
 
