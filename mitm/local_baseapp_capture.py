@@ -364,106 +364,135 @@ def _parse_sso_key(raw):
     return key_bytes.hex()
 
 
-def find_baseapp_key_async(client_addr, old_key_hex, done_callback):
-    """Spawned on the FIRST baseAppLogin packet from client_addr. Scans heap for
-    ALL EncryptionFilter-shaped objects (matching the vtable pointer's low 4
-    bytes, since these are all sub-4GB process addresses with a zero upper
-    half), reads each candidate's key, and reports the first one that is NOT
-    old_key_hex (i.e. a genuinely new/different key, consistent with the
-    BaseApp channel using its own filter) via done_callback(key_hex_or_None,
-    all_keys_found). Runs entirely in a background thread; the caller does not
-    block on this."""
-    def _worker():
+_scanned_pid = None
+_scanned_key = None
+_scan_lock = threading.Lock()
+_key_ready_event = threading.Event()
+
+
+def _check_range(pid, skip_mb, count_mb, pattern_escaped):
+    check_cmd = (
+        f"su 0 sh -c 'dd if=/proc/{pid}/mem bs=1048576 skip={skip_mb} count={count_mb} 2>/dev/null "
+        f'| grep -qa -o "$(printf "{pattern_escaped}")"\''
+    )
+    res = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'shell', check_cmd], capture_output=True, timeout=10)
+    return res.returncode == 0
+
+
+def fast_find_session_key(pid=None):
+    """Sub-2-second binary-search heap scanner for live EncryptionFilter key."""
+    global _scanned_pid, _scanned_key
+    with _scan_lock:
         t0 = time.time()
-        pid = _get_pid()
         if not pid:
-            log('BASEAPP KEYSCAN: no live chiji PID found, aborting scan')
-            done_callback(None, [])
-            return
+            pid = _get_pid()
+        if not pid:
+            log('KEYSCAN: no live chiji PID found, aborting scan')
+            return None
+        if _scanned_pid == pid and _scanned_key:
+            return _scanned_key
+
         base_addr, regions = _get_libclient_base_and_regions(pid)
         if base_addr is None:
-            log('BASEAPP KEYSCAN: could not find libclient.so base, aborting')
-            done_callback(None, [])
-            return
+            log('KEYSCAN: could not find libclient.so base, aborting')
+            return None
+
+        # Filter for large arenas (>16MB) and prioritize region where EncryptionFilter resides
+        large_regions = []
+        for s, e in regions:
+            sz = (e - s) // (1024 * 1024)
+            if sz > 16:
+                large_regions.append((s, e, sz))
+        large_regions.sort(key=lambda r: 0 if (r[0] >> 32) == 0x7638 and ((r[0] >> 24) & 0xff) in (0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c) else 1)
+
         target_va = base_addr + LIBCLIENT_VTABLE_FILE_ADDR
-        # Use the FULL 8-byte pointer (not just the low 4 bytes) as the search
-        # pattern. A first version of this scan used only the low 4 bytes to
-        # dodge a (mistaken) worry about embedding \x00 in a shell argument --
-        # but the \x00 here is the literal TEXT "\x00" interpreted by the
-        # device's own `printf`, not a raw embedded NUL byte in argv, so there
-        # was never a real problem to avoid. The low-4-byte-only pattern is
-        # matched by pure chance elsewhere in a large heap dump often enough
-        # to be a real bug: live-confirmed this pass -- the same "candidate"
-        # VA was found reliably across repeated scans, but a direct follow-up
-        # read at that address showed completely unrelated bytes (not even a
-        # plausible vtable pointer), proving it was a 4-byte coincidental
-        # collision, not the real object. The full 8-byte pattern (as used by
-        # the original one-shot scratch/scan_heap_for_filter.py, which found
-        # exactly one match in ~500MB) does not have this problem.
         pattern = struct.pack('<Q', target_va)
-        log('BASEAPP KEYSCAN: pid=%s base=0x%x target_vtable_va=0x%x pattern=%s, scanning %d regions...' % (
-            pid, base_addr, target_va, pattern.hex(), len(regions)))
-        found_keys = []
-        lock = threading.Lock()
+        pattern_escaped = ''.join('\\x%02x' % b for b in pattern)
 
-        def scan_one(rs, re_):
-            # E2E-012: _scan_region_for_pattern now returns (va, raw_bytes)
-            # pairs, with raw_bytes sliced from the SAME already-downloaded
-            # snapshot the match was found in (no separate follow-up read,
-            # avoiding the memory-churn race documented there).
-            hits = _scan_region_for_pattern(pid, rs, re_, pattern)
-            for va, raw_bytes in hits:
-                key_hex = _parse_sso_key(raw_bytes)
-                if key_hex:
-                    with lock:
-                        found_keys.append((va, key_hex))
-                        log('BASEAPP KEYSCAN: candidate EncryptionFilter at 0x%x key=%s' % (va, key_hex))
+        found_key = None
+        for s, e, sz in large_regions:
+            aligned_start = (s // 1048576) * 1048576
+            skip_mb = aligned_start // 1048576
+            count_mb = -(-(e - aligned_start) // 1048576)
 
-        # E2E-012 (2026-09-15): narrower-scope search, per the coordinator's own
-        # NEXT_HIGHEST_VALUE_EXPERIMENT. E2E-009's scan treated every heap-tagged
-        # region as one search unit, including two enormous (161-277MB) arenas
-        # -- the exact-match host-side verification step for those alone took
-        # 3-13s, most of the ~5s retry window. `EncryptionFilter` is only
-        # ~0x38 bytes, so it far more plausibly lives in one of the SMALL
-        # (2-10MB) heap regions (allocator size-class segregation puts small,
-        # frequently-allocated objects in dedicated small arenas, not the
-        # giant catch-all ones) -- scan those FIRST and only fall back to the
-        # huge regions if nothing turns up small, so a real hit in a small
-        # region resolves in a fraction of a second instead of waiting on (or
-        # racing against) the slow huge-region transfers.
-        SMALL_REGION_CUTOFF = 16 * 1024 * 1024  # 16MB
-        small_regions = [(rs, re_) for (rs, re_) in regions if (re_ - rs) <= SMALL_REGION_CUTOFF]
-        large_regions = [(rs, re_) for (rs, re_) in regions if (re_ - rs) > SMALL_REGION_CUTOFF]
-        log('BASEAPP KEYSCAN: %d small (<=16MB) regions, %d large regions' % (len(small_regions), len(large_regions)))
+            if not _check_range(pid, skip_mb, count_mb, pattern_escaped):
+                continue
 
-        def run_batch(batch, join_timeout):
-            threads = []
-            for (rs, re_) in batch:
-                th = threading.Thread(target=scan_one, args=(rs, re_), daemon=True)
-                th.start()
-                threads.append(th)
-            for th in threads:
-                th.join(timeout=join_timeout)
+            # Binary search down to 2MB
+            low = skip_mb
+            high = skip_mb + count_mb
+            while (high - low) > 2:
+                mid = (low + high) // 2
+                c_left = (mid - low) + 1
+                if _check_range(pid, low, c_left, pattern_escaped):
+                    high = mid + 1
+                else:
+                    low = mid
 
-        run_batch(small_regions, join_timeout=6)
-        if not any(k != old_key_hex for _, k in found_keys):
-            log('BASEAPP KEYSCAN: no distinct key in small regions, falling back to %d large region(s)' % len(large_regions))
-            run_batch(large_regions, join_timeout=15)
-        elapsed = time.time() - t0
-        distinct = sorted(set(k for _, k in found_keys))
-        log('BASEAPP KEYSCAN: done in %.2fs, found %d candidate object(s), %d distinct key(s): %s' % (
-            elapsed, len(found_keys), len(distinct), distinct))
-        new_key = None
-        for k in distinct:
-            if k != old_key_hex:
-                new_key = k
+            dump_cmd = f"su 0 dd if=/proc/{pid}/mem bs=1048576 skip={low} count={high - low} 2>/dev/null"
+            data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=10).stdout
+            idx = 0
+            while True:
+                idx = data.find(pattern, idx)
+                if idx == -1:
+                    break
+                raw = data[idx + 0x10:idx + 0x10 + 24]
+                k = _parse_sso_key(raw)
+                if k:
+                    found_key = k
+                    break
+                idx += 1
+            if found_key:
                 break
-        if not new_key and distinct:
-            new_key = distinct[0]
-        done_callback(new_key, distinct)
 
-    th = threading.Thread(target=_worker, daemon=True)
-    th.start()
+        elapsed = time.time() - t0
+        if found_key:
+            _scanned_pid = pid
+            _scanned_key = found_key
+            _early_key_by_host['172.16.1.15'] = found_key
+            _early_key_by_host['127.0.0.1'] = found_key
+            _key_ready_event.set()
+            log('KEYSCAN: SUCCESS in %.2fs! pid=%s key=%s' % (elapsed, pid, found_key))
+            return found_key
+        else:
+            log('KEYSCAN: no key found in %.2fs for pid=%s' % (elapsed, pid))
+            return None
+
+
+def get_or_wait_session_key(host='172.16.1.15', timeout=6.0):
+    """Retrieve the verified live session key, waiting synchronously if a scan is in progress."""
+    global _scanned_pid, _scanned_key
+    pid = _get_pid()
+    if pid and _scanned_pid == pid and _scanned_key:
+        return _scanned_key
+
+    # Start scan in background thread if needed and wait
+    _key_ready_event.clear()
+    threading.Thread(target=fast_find_session_key, args=(pid,), daemon=True).start()
+    if _key_ready_event.wait(timeout=timeout):
+        return _scanned_key or _early_key_by_host.get(host) or _BFKEY_HEX
+    return _early_key_by_host.get(host) or _scanned_key or _BFKEY_HEX
+
+
+def find_baseapp_key_async(client_addr, old_key_hex, done_callback):
+    def _worker():
+        key = fast_find_session_key()
+        done_callback(key, [key] if key else [])
+    threading.Thread(target=_worker, daemon=True).start()
+
+
+def _pid_watcher_loop():
+    """Background watcher that automatically detects game launch and acquires the key before PLAY."""
+    global _scanned_pid
+    while True:
+        try:
+            pid = _get_pid()
+            if pid and pid != _scanned_pid:
+                log('PID WATCHER: detected game pid=%s (was %s) - running fast keyscan...' % (pid, _scanned_pid))
+                fast_find_session_key(pid)
+        except Exception as e:
+            pass
+        time.sleep(1.5)
 
 CAPTURE_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'captures', 'BASEAPP_LOGIN_CAPTURE.txt')
 
@@ -641,7 +670,9 @@ def serve_loginapp_udp_responder():
             # regression needs the old 20-byte shape for comparison.
             if os.environ.get('ATTEMPT_I', '1') == '1':
                 padded_body = body + b'\x00\x00\x00\x00'
-                use_login_key = _early_key_by_host.get(addr[0]) or _key_cache.get(addr) or _BFKEY_HEX
+                use_login_key = get_or_wait_session_key(addr[0], timeout=6.0)
+                _key_cache[addr] = use_login_key
+                _early_key_by_host[addr[0]] = use_login_key
                 enc_body = bf_encrypt(padded_body, key_hex=use_login_key)
                 # E2E-012: remember this message's LAST plaintext block, keyed
                 # by client host -- if the BaseApp channel really does share
@@ -696,52 +727,6 @@ def serve_loginapp_udp_responder():
             else:
                 s.sendto(reply, addr)
                 log('LOGINAPP UDP SENT framed reply (%d bytes) to %s:%d: %s' % (len(reply), addr[0], addr[1], reply.hex()))
-                # E2E-012 (2026-09-15): start the BaseApp-channel key scan as soon
-                # as possible after a LoginApp reply that could plausibly succeed,
-                # rather than waiting for the first baseAppLogin packet. FIRST
-                # ATTEMPT this pass fired the scan IMMEDIATELY on send -- live
-                # result: 0 candidates found anywhere (even after the small-region
-                # optimization below correctly ran fast), because the scan ran
-                # and finished BEFORE the client had even received/decrypted this
-                # reply, let alone reached `Nub::recreateListeningSocket` for the
-                # new BaseApp socket -- i.e. the object being searched for did not
-                # exist yet. Fixed by deferring the scan start with a short delay
-                # (empirically, `checkScriptBaseAppAddr`/`recreateListeningSocket`
-                # fire within ~20-40ms of the reply being processed per every
-                # prior live logcat capture this project has recorded) so the
-                # object has time to be constructed first, while still starting
-                # well before the first baseAppLogin packet would otherwise
-                # trigger it (typically 1-3s later, since the client does its own
-                # internal setup/socket-bind work first). Keyed by the LOGINAPP
-                # host (not yet known which port the BaseApp socket will use).
-                # Uses its OWN dedup set (_early_scan_hosts), separate from
-                # serve_baseapp_udp_capture's per-connection one
-                # (_key_scan_started) -- both are allowed to run independently
-                # (different timing, different odds), rather than one blocking
-                # the other, since a first live test of this early trigger alone
-                # found 0 candidates (see E2E-012) and losing the later,
-                # differently-timed per-connection attempt as a fallback would
-                # have been a regression.
-                if os.environ.get('ATTEMPT_I', '1') == '1' and addr[0] not in _early_scan_hosts:
-                    _early_scan_hosts.add(addr[0])
-
-                    def _on_early_scan_done(new_key, all_keys, host=addr[0]):
-                        if new_key:
-                            log('BASEAPP KEYSCAN (early, from LoginApp reply): NEW key=%s for host=%s (candidates: %s)' % (new_key, host, all_keys))
-                            # Seed the cache for ANY future baseapp client addr from
-                            # this host -- serve_baseapp_udp_capture's own dedup
-                            # keys by the BaseApp (ip,port) pair, which differs from
-                            # this LoginApp (ip,port) pair, so store by host only
-                            # and let the per-connection lookup fall back to it.
-                            _early_key_by_host[host] = new_key
-                        else:
-                            log('BASEAPP KEYSCAN (early): no distinct key found yet for host=%s (candidates: %s)' % (host, all_keys))
-
-                    def _delayed_start(host=addr[0]):
-                        time.sleep(0.25)
-                        find_baseapp_key_async(host, _BFKEY_HEX, _on_early_scan_done)
-
-                    threading.Thread(target=_delayed_start, daemon=True).start()
         except Exception as e:
             log('LOGINAPP UDP error: %s' % e)
 
@@ -817,18 +802,17 @@ def push_login_completion(sock, dest, key, entity_id=1):
 
     use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
     log('BASEAPP: Starting login-completion push sequence for %s (entity=%d, key=%s)' % (dest, entity_id, use_key))
-    for attempt in range(6):
+    for attempt in range(3):
         time.sleep(0.1 if attempt == 0 else 0.4)
         use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
-        # (19, 18): Account.onChannelLogin=19 / onLogin=18, derived from the
-        # client's own def XML entity tables (D:\PROJECTS\ros_mobile_revival,
-        # same com.netease.chiji APK, docs/MOBILE_INDEX_MAP.md) -- tried
-        # FIRST, ahead of the older blind-sweep guesses kept below as fallback.
-        for ocl_idx, ol_idx in [(19, 18), (12, 11), (16, 15), (10, 9), (14, 13), (2, 1)]:
-            send_entity_method(sock, dest, use_key, entity_id, ocl_idx, ocl_args, flags=0x0008)
-            time.sleep(0.01)
-            send_entity_method(sock, dest, use_key, entity_id, ol_idx, ol_args, flags=0x0008)
-            time.sleep(0.01)
+        # Account.onChannelLogin=19 / onLogin=18, confirmed by def XML entity tables
+        # and live telemetry extraData {"code": 0}.
+        # DO NOT send 13 (onRequireActivation) or 14 (onShowRealNameAuthenWebView),
+        # which trigger the activation code dialog and blank webview!
+        send_entity_method(sock, dest, use_key, entity_id, 19, ocl_args, flags=0x0008)
+        time.sleep(0.01)
+        send_entity_method(sock, dest, use_key, entity_id, 18, ol_args, flags=0x0008)
+        time.sleep(0.01)
         log('BASEAPP: Pushed login-completion burst #%d to %s' % (attempt + 1, dest))
 
 
@@ -926,7 +910,9 @@ def serve_baseapp_udp_capture():
                     if os.environ.get('ATTEMPT_ATHLETE', '1') == '1':
                         time.sleep(0.05)
                         athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '2'))
-                        athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '56'))
+                        # CONFIRMED from live client s_types array: Type 51 (0x33) is Athlete!
+                        # (Type 56 was RobotShadow)
+                        athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '51'))
                         athlete_cbp_body = struct.pack('<I', athlete_eid) + struct.pack('<H', athlete_type)
                         athlete_filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
                         athlete_cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
@@ -1036,6 +1022,7 @@ if __name__ == '__main__':
         threading.Thread(target=serve_http_tls, args=(8443,), daemon=True),
         threading.Thread(target=serve_loginapp_udp_responder, daemon=True),
         threading.Thread(target=serve_baseapp_udp_capture, daemon=True),
+        threading.Thread(target=_pid_watcher_loop, daemon=True),
     ]
     for t in threads:
         t.start()
