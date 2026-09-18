@@ -1,0 +1,118 @@
+=== FUN_00aa0994 @ 00aa0994 ===
+
+void FUN_00aa0994(long param_1,undefined8 param_2,uint param_3)
+
+{
+                    /* WARNING: Could not recover jumptable at 0x00aa09a4. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+  (**(code **)(**(long **)(param_1 + 0x18) + 0x58))(*(long **)(param_1 + 0x18),param_2,param_3 & 1);
+  return;
+}
+
+
+
+=== FUN_00a9f8e4 @ 00a9f8e4 ===
+
+void FUN_00a9f8e4(long *param_1,long param_2)
+
+{
+  long lVar1;
+  int iVar2;
+  undefined8 uVar3;
+  long lVar4;
+  long *plVar5;
+  long *plVar6;
+  code *pcVar7;
+  long *local_40;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  plVar6 = *(long **)(param_2 + 0x28);
+  if (plVar6 == (long *)0x0) {
+    plVar6 = *(long **)(param_2 + 0x30);
+    if (plVar6 == (long *)0x0) {
+      plVar6 = *(long **)(param_2 + 0x40);
+      if (plVar6 != (long *)0x0) {
+        plVar5 = *(long **)(param_2 + 0x18);
+        pcVar7 = *(code **)(*plVar5 + 0x68);
+        *(int *)(plVar6 + 1) = (int)plVar6[1] + 1;
+        local_40 = plVar6;
+        (*pcVar7)(param_1,plVar5,&local_40);
+        if ((local_40 != (long *)0x0) &&
+           (iVar2 = (int)local_40[1] + -1, *(int *)(local_40 + 1) = iVar2, iVar2 == 0)) {
+          (**(code **)(*local_40 + 8))();
+        }
+        local_40 = (long *)0x0;
+        if (*param_1 != 0) goto LAB_00a9fa04;
+        *param_1 = 0;
+      }
+    }
+    else {
+      iVar2 = FUN_01e1ba4c(plVar6);
+      if (iVar2 == 0) {
+        lVar4 = FUN_00a03d28(*(undefined8 *)(param_2 + 0x30));
+      }
+      else {
+        *plVar6 = *plVar6 + 1;
+        uVar3 = FUN_01e2efac(0);
+        lVar4 = FUN_00a039ac(plVar6,uVar3,"DataDescription::pInitialValue default value",1,1);
+      }
+      if (lVar4 != 0) {
+        *param_1 = lVar4;
+        goto LAB_00a9fa04;
+      }
+    }
+    (**(code **)(**(long **)(param_2 + 0x18) + 0x38))(param_1);
+  }
+  else {
+    *param_1 = (long)plVar6;
+    *plVar6 = *plVar6 + 1;
+  }
+LAB_00a9fa04:
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+=== FUN_01df3738 @ 01df3738 ===
+
+undefined4 FUN_01df3738(undefined8 param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  long lVar1;
+  undefined4 uVar2;
+  long lVar3;
+  long *local_40;
+  long local_38;
+  
+  lVar1 = tpidr_el0;
+  local_38 = *(long *)(lVar1 + 0x28);
+  local_40 = (long *)FUN_01e23b68(param_2);
+  if (local_40 == (long *)0x0) {
+    uVar2 = 0xffffffff;
+  }
+  else {
+    FUN_01e23a70(&local_40);
+    uVar2 = FUN_01df1a64(param_1,local_40,param_3);
+                    /* try { // try from 01df3788 to 01ef3797 has its CatchHandler @ 01df3e60 */
+    lVar3 = *local_40;
+                    /* try { // try from 01df3798 to 01ef3817 has its CatchHandler @ 01df2b78 */
+    *local_40 = lVar3 + -1;
+    if (lVar3 + -1 == 0) {
+      (**(code **)(local_40[1] + 0x30))();
+    }
+  }
+  if (*(long *)(lVar1 + 0x28) == local_38) {
+    return uVar2;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+

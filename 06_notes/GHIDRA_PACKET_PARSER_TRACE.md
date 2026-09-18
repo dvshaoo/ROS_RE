@@ -1130,3 +1130,79 @@ GEMINI.md/CLAUDE.md/HANDOFF_PROMPT_CLAUDE.md.
    correlate server-log send timestamps against logcat timestamps (~0.6s
    constant offset observed, verify per-session since it may depend on
    emulator load) to build/refine the real method table incrementally.
+
+### Follow-up static analysis of EntityType::newDictionary (2026-09-18, same session) -- property-stream reversal is a substantially larger task than initially estimated
+
+Decompiled EntityType::newDictionary (FUN_00a2a58c, Ghidra addr, +0x100000
+from the static 0x92a58c/0xa2a58c naming used in prior notes) in full via
+scratch/ghidra_scripts/DecompilePropStream.java. Confirmed structure:
+- Top-level: if the incoming stream's remainingLength()==0, unconditionally
+  builds an empty dict via FUN_00a2a344 (PyDict_New()-equivalent) --
+  this is the exact path this project's createBasePlayer(stream=b'') hits,
+  confirming the original "empty stream -> clean empty dict" claim was
+  accurate, but "clean" only means "doesn't crash natively" -- it does NOT
+  mean every property gets a sensible type-appropriate default.
+- If non-empty AND param_3==2 ("CLIENT" domain, plausibly what
+  createBasePlayer uses): unconditionally fills every property with its
+  default value (via FUN_00aa0994), regardless of stream content shown in
+  this function.
+- If non-empty AND param_3 is 0 or 1 (BASE/CELL domains): reads a
+  presence BITMASK from the stream first (one bit per property, LSB-first
+  per byte), then for each property: bit clear -> default value
+  (FUN_00aa0994); bit set -> FUN_00a9f8e4.
+
+Followed up decompiling FUN_00aa0994, FUN_00a9f8e4, and FUN_01df3738
+(scratch/ghidra_scripts/DecompilePropDefault.java) to find the actual
+wire-value-read logic. **Found something that reshapes the plan**: both
+FUN_00aa0994 (a one-line per-DataType virtual dispatch via vtable+0x58)
+and FUN_00a9f8e4 (which references the literal string
+"DataDescription::pInitialValue default value") are DEFAULT/INITIAL-value
+getters, not raw stream deserializers. FUN_01df3738 is just the
+dict[name]=value assignment step (via an interned-string helper +
+FUN_01df1a64, presumably PyDict_SetItemString-equivalent). **None of the
+three functions actually parse property bytes off the wire** -- that must
+happen even earlier in the call chain (most likely inside the
+FUN_00ad0348/FUN_00ad02fc property-descriptor iteration this session
+has not yet decompiled, or the incoming stream is pre-parsed into
+per-property value objects by an even earlier, not-yet-identified
+caller before newDictionary runs at all).
+
+**Honest assessment**: constructing a correct, working Athlete property
+stream via pure static reversal is a substantially larger undertaking
+than initially scoped -- it requires at minimum: (1) finding where raw
+wire bytes are actually decoded into typed values (not yet located),
+(2) the exact bit-packed property ordering across all ~152 interfaces
+(likely matching the live onCreate() interface-call order this session
+already captured via logcat, but not yet confirmed to be the SAME order
+used for property serialization), (3) the per-DataType wire encoding for
+every type actually used by Athlete's properties (INT32, BOOL, STRING,
+PYTHON, ARRAY, FIXED_DICT, etc. -- several confirmed present just in
+entity_0247.xml alone), and (4) avoiding the exact native-level crash a
+prior session already hit when guessing a full stream blindly. This is
+realistically comparable in scope to other multi-session investigations
+already completed in this project (e.g. the LoginApp Blowfish key trace),
+not a same-session fix.
+
+**Options going forward, for the user to weigh**:
+1. Continue static reversal of the wire-decode path (more Ghidra
+   decompile passes, likely several more sessions' worth of work,
+   consistent with this project's established slow-but-evidence-based
+   pace).
+2. Accept the current frontier as this session's stopping point --
+   substantial, well-documented progress was made (entity activation
+   confirmed working, the exact onCreate crash pinned to a named
+   property in a named interface, Gemini's false claims conclusively
+   refuted with hard evidence, a reusable logcat-oracle technique
+   established for all future live tests) even though Character
+   Creation itself was not reached.
+3. Real ARM64 hardware + dynamic instrumentation (Frida), per
+   ACCOUNT_HANDSHAKE_SYNTHESIS.md option 4 -- the only approach with
+   direct proof-of-concept precedent in this project's history (ROS
+   Legacy's own working .nxs overrides) and the fastest way to observe
+   the ACTUAL property-stream wire format, but requires new
+   hardware/environment setup this project has flagged as a standing
+   human decision since E2E-004/005. (Capturing real production traffic
+   remains explicitly out of scope per this project's standing rules --
+   this would need to be observed on hardware running a private/LAN
+   server, or via emulator-based dynamic instrumentation if that
+   proves feasible, not against NetEase's live servers.)

@@ -1,0 +1,261 @@
+=== FUN_00acf8ac @ 00acf8ac ===
+
+uint FUN_00acf8ac(undefined8 param_1,undefined8 param_2,uint param_3,undefined8 param_4)
+
+{
+  long lVar1;
+  uint uVar2;
+  undefined **local_48;
+  undefined8 uStack_40;
+  undefined8 local_38;
+  byte local_30;
+  long local_28;
+  
+  lVar1 = tpidr_el0;
+  local_28 = *(long *)(lVar1 + 0x28);
+  local_30 = (byte)(param_3 >> 5) & 1;
+  local_48 = &PTR_FUN_038e07b8;
+  uStack_40 = param_2;
+  local_38 = param_4;
+  uVar2 = FUN_00acf5ec(param_1,param_3,&local_48);
+  if (*(long *)(lVar1 + 0x28) == local_28) {
+    return uVar2 & 1;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
+=== ? @ 009cf8ac ===
+[no function at this address]
+
+=== FUN_00a2a58c @ 00a2a58c ===
+
+undefined8 FUN_00a2a58c(undefined8 param_1,long *param_2,int param_3)
+
+{
+  uint uVar1;
+  char cVar2;
+  long lVar3;
+  long *plVar4;
+  int iVar5;
+  uint uVar6;
+  undefined8 uVar7;
+  long lVar8;
+  byte *pbVar9;
+  ulong uVar10;
+  char *pcVar11;
+  undefined4 uVar12;
+  byte *pbVar13;
+  ulong uVar14;
+  long *local_90;
+  long *local_88;
+  long *local_80;
+  undefined1 *local_78;
+  undefined8 local_70;
+  long local_68;
+  
+  lVar3 = tpidr_el0;
+  local_68 = *(long *)(lVar3 + 0x28);
+  iVar5 = (**(code **)(*param_2 + 0x18))(param_2);
+  if (iVar5 == 0) {
+    local_70 = 0;
+    uVar7 = FUN_00a2a344(param_1,&local_70);
+    local_70 = 0;
+  }
+  else {
+    uVar7 = FUN_01defc6c();
+    if (param_3 < 2) {
+      uVar12 = 0xb;
+      if (param_3 != 0) {
+        uVar12 = 0xe;
+      }
+      FUN_00acf8ac(param_1,param_2,uVar12,uVar7);
+    }
+    else {
+                    /* catch() { ... } // from try @ 00a2a38c with catch @ 00a2a658 */
+                    /* catch() { ... } // from try @ 00a2a374 with catch @ 00a2a65c */
+                    /* catch() { ... } // from try @ 00a2a35c with catch @ 00a2a660 */
+      if (param_3 == 2) {
+                    /* catch() { ... } // from try @ 00a2a344 with catch @ 00a2a664 */
+        iVar5 = FUN_00ad02ec();
+                    /* catch() { ... } // from try @ 00a2a32c with catch @ 00a2a668 */
+        if (iVar5 != 0) {
+                    /* catch() { ... } // from try @ 00a2a314 with catch @ 00a2a66c */
+                    /* catch() { ... } // from try @ 00a2a2fc with catch @ 00a2a670 */
+          uVar14 = 0;
+                    /* catch() { ... } // from try @ 00a2a2e4 with catch @ 00a2a674 */
+          do {
+                    /* catch() { ... } // from try @ 00a2a2cc with catch @ 00a2a678 */
+                    /* catch() { ... } // from try @ 00a2a2b4 with catch @ 00a2a67c */
+                    /* catch() { ... } // from try @ 00a2a29c with catch @ 00a2a680 */
+            lVar8 = FUN_00ad02fc(param_1,uVar14 & 0xffffffff);
+                    /* catch() { ... } // from try @ 00a2a284 with catch @ 00a2a684 */
+                    /* catch() { ... } // from try @ 00a2a26c with catch @ 00a2a688 */
+            if (lVar8 != 0) {
+                    /* catch() { ... } // from try @ 00a2a254 with catch @ 00a2a68c */
+                    /* catch() { ... } // from try @ 00a2a23c with catch @ 00a2a690 */
+                    /* catch() { ... } // from try @ 00a2a224 with catch @ 00a2a694 */
+                    /* catch() { ... } // from try @ 00a2a20c with catch @ 00a2a698 */
+                    /* catch() { ... } // from try @ 00a2a1f4 with catch @ 00a2a69c */
+              FUN_00aa0994(&local_88,lVar8,param_2,0);
+                    /* catch() { ... } // from try @ 00a2a1dc with catch @ 00a2a6a0 */
+                    /* catch() { ... } // from try @ 00a2a1c4 with catch @ 00a2a6a4 */
+              pbVar9 = (byte *)FUN_00aa0cc0(lVar8);
+                    /* catch() { ... } // from try @ 00a2a1ac with catch @ 00a2a6a8 */
+                    /* catch() { ... } // from try @ 00a2a194 with catch @ 00a2a6ac */
+              pbVar13 = *(byte **)(pbVar9 + 0x10);
+                    /* catch() { ... } // from try @ 00a2a17c with catch @ 00a2a6b0 */
+                    /* catch() { ... } // from try @ 00a2a164 with catch @ 00a2a6b4 */
+                    /* catch() { ... } // from try @ 00a2a14c with catch @ 00a2a6b8 */
+              if ((*pbVar9 & 1) == 0) {
+                pbVar13 = pbVar9 + 1;
+              }
+                    /* catch() { ... } // from try @ 00a2a134 with catch @ 00a2a6bc */
+                    /* catch() { ... } // from try @ 00a2a11c with catch @ 00a2a6c0 */
+              iVar5 = FUN_01df3738(uVar7,pbVar13,local_88);
+                    /* catch() { ... } // from try @ 00a2a104 with catch @ 00a2a6c4 */
+                    /* catch() { ... } // from try @ 00a2a0ec with catch @ 00a2a6c8 */
+              if (iVar5 == -1) {
+                    /* catch() { ... } // from try @ 00a2a0d4 with catch @ 00a2a6cc */
+                    /* catch() { ... } // from try @ 00a2a0bc with catch @ 00a2a6d0 */
+                pbVar9 = (byte *)FUN_00aa0cc0(lVar8);
+                    /* catch() { ... } // from try @ 00a2a0a4 with catch @ 00a2a6d4 */
+                    /* catch() { ... } // from try @ 00a2a08c with catch @ 00a2a6d8 */
+                pbVar13 = *(byte **)(pbVar9 + 0x10);
+                    /* catch() { ... } // from try @ 00a2a074 with catch @ 00a2a6dc */
+                    /* catch() { ... } // from try @ 00a2a05c with catch @ 00a2a6e0 */
+                if ((*pbVar9 & 1) == 0) {
+                  pbVar13 = pbVar9 + 1;
+                }
+                    /* catch() { ... } // from try @ 00a2a044 with catch @ 00a2a6e4 */
+                    /* catch() { ... } // from try @ 00a2a02c with catch @ 00a2a6e8 */
+                FUN_01dad604("EntityType::newDictionary: Failed to set %s\n",pbVar13);
+                    /* catch() { ... } // from try @ 00a2a018 with catch @ 00a2a6ec */
+                    /* catch() { ... } // from try @ 00a2a000 with catch @ 00a2a6f0 */
+                FUN_01e96678(0);
+              }
+                    /* catch() { ... } // from try @ 00a29fe8 with catch @ 00a2a6f4 */
+                    /* catch() { ... } // from try @ 00a29fd0 with catch @ 00a2a6f8 */
+                    /* catch() { ... } // from try @ 00a29fb8 with catch @ 00a2a6fc */
+                    /* catch() { ... } // from try @ 00a29f9c with catch @ 00a2a700 */
+                    /* catch() { ... } // from try @ 00a29d84 with catch @ 00a2a704 */
+                    /* catch() { ... } // from try @ 00a29d6c with catch @ 00a2a708 */
+              if ((local_88 != (long *)0x0) &&
+                 (lVar8 = *local_88, *local_88 = lVar8 + -1, lVar8 + -1 == 0)) {
+                    /* catch() { ... } // from try @ 00a29d54 with catch @ 00a2a70c */
+                    /* catch() { ... } // from try @ 00a29d3c with catch @ 00a2a710 */
+                    /* catch() { ... } // from try @ 00a29d24 with catch @ 00a2a714 */
+                (**(code **)(local_88[1] + 0x30))();
+              }
+            }
+                    /* catch() { ... } // from try @ 00a29d0c with catch @ 00a2a718 */
+                    /* catch() { ... } // from try @ 00a29cf4 with catch @ 00a2a71c */
+            uVar14 = uVar14 + 1;
+                    /* catch() { ... } // from try @ 00a29cdc with catch @ 00a2a720 */
+            uVar10 = FUN_00ad02ec(param_1);
+                    /* catch() { ... } // from try @ 00a29cc4 with catch @ 00a2a724 */
+                    /* catch() { ... } // from try @ 00a29cac with catch @ 00a2a728 */
+          } while (uVar14 < (uVar10 & 0xffffffff));
+        }
+      }
+      else {
+                    /* catch() { ... } // from try @ 00a29c7c with catch @ 00a2a730 */
+        uVar6 = FUN_00ad0338(param_1);
+                    /* catch() { ... } // from try @ 00a29c64 with catch @ 00a2a734 */
+                    /* catch() { ... } // from try @ 00a29c4c with catch @ 00a2a738 */
+                    /* catch() { ... } // from try @ 00a29c34 with catch @ 00a2a73c */
+                    /* catch() { ... } // from try @ 00a29c1c with catch @ 00a2a740 */
+        uVar1 = uVar6 + 0xe;
+                    /* catch() { ... } // from try @ 00a29c04 with catch @ 00a2a744 */
+        if (-1 < (int)(uVar6 + 7)) {
+          uVar1 = uVar6 + 7;
+        }
+                    /* catch() { ... } // from try @ 00a29bec with catch @ 00a2a748 */
+                    /* catch() { ... } // from try @ 00a29bd0 with catch @ 00a2a74c */
+        local_80 = (long *)0x0;
+        local_78 = (undefined1 *)0x0;
+                    /* catch() { ... } // from try @ 00a2a434 with catch @ 00a2a750 */
+        local_88 = (long *)0x0;
+        if (0xe < uVar6 + 0xe) {
+          if ((int)uVar6 < -0xe) {
+                    /* WARNING: Subroutine does not return */
+            FUN_0093ff68(&local_88);
+          }
+          uVar14 = (long)((ulong)uVar1 << 0x20) >> 0x23;
+          local_88 = operator_new(uVar14);
+          local_78 = (undefined1 *)((long)local_88 + uVar14);
+          lVar8 = -uVar14;
+          local_80 = local_88;
+          do {
+            *(undefined1 *)local_80 = 0;
+            lVar8 = lVar8 + 1;
+            local_80 = (long *)((long)local_80 + 1);
+          } while (lVar8 != 0);
+        }
+        pcVar11 = (char *)(**(code **)(*param_2 + 0x10))(param_2,1);
+        cVar2 = *pcVar11;
+        if (cVar2 != '\0') {
+          FUN_00ad05cc(param_2,&local_88);
+        }
+        if (uVar6 != 0) {
+          uVar14 = 0;
+          do {
+            lVar8 = FUN_00ad0348(param_1,uVar14 & 0xffffffff);
+            if (lVar8 != 0) {
+              if ((cVar2 == '\0') ||
+                 ((1 << (ulong)((uint)uVar14 & 7) &
+                  (uint)*(byte *)((long)local_88 + (uVar14 >> 3 & 0x1fffffff))) == 0)) {
+                FUN_00aa0994(&local_90,lVar8,param_2,0);
+              }
+              else {
+                FUN_00a9f8e4(&local_90,lVar8);
+              }
+              plVar4 = local_90;
+              pbVar9 = (byte *)FUN_00aa0cc0(lVar8);
+              pbVar13 = *(byte **)(pbVar9 + 0x10);
+              if ((*pbVar9 & 1) == 0) {
+                pbVar13 = pbVar9 + 1;
+              }
+              iVar5 = FUN_01df3738(uVar7,pbVar13,plVar4);
+              if (iVar5 == -1) {
+                pbVar9 = (byte *)FUN_00aa0cc0(lVar8);
+                pbVar13 = *(byte **)(pbVar9 + 0x10);
+                if ((*pbVar9 & 1) == 0) {
+                  pbVar13 = pbVar9 + 1;
+                }
+                FUN_01dad604("EntityType::newDictionary: Failed to set %s\n",pbVar13);
+                FUN_01e96678(0);
+              }
+                    /* catch() { ... } // from try @ 00a29d9c with catch @ 00a2a888 */
+              if ((plVar4 != (long *)0x0) &&
+                 (lVar8 = *plVar4, *plVar4 = lVar8 + -1, lVar8 + -1 == 0)) {
+                (**(code **)(plVar4[1] + 0x30))(plVar4);
+              }
+            }
+            uVar14 = uVar14 + 1;
+          } while (uVar14 < uVar6);
+        }
+        if (local_88 != (long *)0x0) {
+          local_80 = local_88;
+          operator_delete(local_88);
+        }
+      }
+    }
+  }
+  if (*(long *)(lVar3 + 0x28) != local_68) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+                    /* catch() { ... } // from try @ 00a2a41c with catch @ 00a2a640 */
+                    /* catch() { ... } // from try @ 00a2a404 with catch @ 00a2a644 */
+                    /* catch() { ... } // from try @ 00a2a3ec with catch @ 00a2a648 */
+                    /* catch() { ... } // from try @ 00a2a3d4 with catch @ 00a2a64c */
+                    /* catch() { ... } // from try @ 00a2a3bc with catch @ 00a2a650 */
+                    /* catch() { ... } // from try @ 00a2a3a4 with catch @ 00a2a654 */
+  return uVar7;
+}
+
+
+
