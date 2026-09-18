@@ -108,11 +108,36 @@ In BigWorld Mercury:
     payload = struct.pack('<I', entity_id) + struct.pack('<H', method_index) + args
     packet = struct.pack('<H', flags) + bytes([101]) + struct.pack('<H', len(payload)) + payload
     ```
-  - Also sweep extended `msgID` framing if `msgID = (128 + index) & 0xff` is used by the client parser.
+  - Also test Candidate B (extended modulo 256): `msgID = (128 + index) & 0xff` (e.g. `(128 + 1083) & 0xff = 187 / 0xBB`).
 
 ---
 
-## 6. End-to-End Execution Sequence for Claude
+## 6. Critical Protocol Rules & Bug Fixes
+
+### A. Bundle Termination Rule (`FLAG_HAS_REQUESTS`)
+- In `mitm/local_baseapp_capture.py`: Do NOT unconditionally append `00 00` footer to packet bundles!
+- Only append `00 00` footer when `flags & 1` (`FLAG_HAS_REQUESTS`) is set.
+- Unconditionally appending `00 00` leaves 2 stray bytes that the client's bundle parser treats as a truncated message ID 0 (`authenticate`), causing phantom `Bundle::get: not enough data` errors.
+
+### B. LoginApp Reachability Probe (`b'hello ros'`)
+- The client sends an ASCII 9-byte packet `b'hello ros'` to LoginApp port 25000 before/during login.
+- If treated as a normal 273-byte `LogOnParams` request, the server responds with a bogus `LoginReplyRecord`, breaking client attempt state.
+- **Rule**: In `serve_loginapp_udp_responder()`, strictly check:
+  ```python
+  if data == b'hello ros':
+      log('LOGINAPP: skipping probe packet (b"hello ros") -- not replying')
+      continue
+  ```
+
+### C. Diagnostic Telemetry: `connectLoginHostCallback`
+- Client emits HTTP Sigma keypoint `connectLoginHostCallback`:
+  - `{"status": 1}`: Success! Client proceeds to BaseApp port 25010.
+  - `{"status": 2}`: Failed pre-BaseApp handshake.
+- Check this keypoint first in logs (`SERVE_B.txt`) to know immediately if a run reaches BaseApp.
+
+---
+
+## 7. End-to-End Execution Sequence for Claude
 
 To transition client from title screen into Character Creation:
 
@@ -128,17 +153,20 @@ To transition client from title screen into Character Creation:
   5. Client reports Sigma: "accountOnBecomePlayer" + "onChannelLogin code: 0"
   6. Send createBasePlayer(Athlete, type=51, eid=1 or 2, stream=b'')
   7. Send Athlete.showSelectCharacter([]) using method index 1083:
-     - Candidate A: msgID 101 (longEntityMessage) with method_index=1083
-     - Candidate B: msgID (128 + 1083) & 0xff = 0xBB (187) with width 2
+     - Candidate A: msgID 101 (longEntityMessage) with method_index=1083, args=b'\x00'
+     - Candidate B: msgID (128 + 1083) & 0xff = 0xBB (187), length=uint16, args=b'\x00'
   8. Client UI transitions from title screen into Character Creation UI!
 ```
 
 ---
 
-## 7. Key Files in Workspace
+## 8. Key Files in Workspace
 
+- `GEMINI.md`: Master specification and memory guide for Gemini/Antigravity.
+- `CLAUDE.md`: Master specification and instructions for Claude Code / Claude desktop.
+- `scratch/HANDOFF_PROMPT_CLAUDE.md`: Clean, self-contained handoff prompt to paste into Claude.
 - `mitm/local_baseapp_capture.py`: Main integrated server (HTTP, LoginApp 25000, BaseApp 25010).
-- `scratch/HANDOFF_PROMPT_CLAUDE.md`: Quick-start prompt for Claude sessions.
 - `05_entities/out/entities.xml`: Entity definition XMLs.
 - `05_entities/out/Athlete.def.xml`: Athlete entity definition XML.
 - `05_entities/out/Account.def.xml`: Account entity definition XML.
+

@@ -1,0 +1,40 @@
+Function found: FUN_00a18504 @ 00a18504
+
+void FUN_00a18504(long param_1,undefined4 param_2,undefined2 param_3,undefined8 param_4)
+
+{
+  long lVar1;
+  long lVar2;
+  undefined8 uVar3;
+  undefined8 *puVar4;
+  undefined8 uVar5;
+  undefined4 local_4c;
+  long local_48;
+  
+  lVar1 = tpidr_el0;
+  local_48 = *(long *)(lVar1 + 0x28);
+                    /* try { // try from 00a18524 to 00b1853b has its CatchHandler @ 00a1858c */
+                    /* try { // try from 00a1853c to 00b185a7 has its CatchHandler @ 00a184c0 */
+  *(undefined4 *)(param_1 + 0xf90) = param_2;
+  local_4c = param_2;
+  lVar2 = FUN_00a29890(param_3);
+  if (lVar2 == 0) {
+    FUN_01dad604("ClientApp::onBasePlayerCreate: Bad type %d. id = %d\n",param_3,param_2);
+  }
+  else {
+    uVar3 = FUN_00a2ac04(lVar2,param_2,PTR_DAT_03a122b8,0,0,param_4,0);
+    puVar4 = (undefined8 *)FUN_00a185d0(param_1 + 0xfc0,&local_4c);
+    *puVar4 = uVar3;
+    uVar5 = FUN_00a2d284();
+    FUN_00a2d0dc(uVar5,uVar3);
+                    /* catch() { ... } // from try @ 00a18524 with catch @ 00a1858c */
+  }
+                    /* catch() { ... } // from try @ 00a18604 with catch @ 00a185a8 */
+  if (*(long *)(lVar1 + 0x28) == local_48) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+

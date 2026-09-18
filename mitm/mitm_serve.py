@@ -44,8 +44,10 @@ def w(m):
     with _lock:
         print(m, flush=True)
         try:
+            now = time.time()
+            ts = '%s.%03d' % (time.strftime('%H:%M:%S', time.localtime(now)), int((now % 1) * 1000))
             f = open(LOG, 'a', encoding='utf-8', errors='replace')
-            f.write('%s %s\n' % (time.strftime('%H:%M:%S'), m))
+            f.write('%s %s\n' % (ts, m))
             f.close()
         except Exception:
             pass

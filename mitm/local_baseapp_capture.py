@@ -517,7 +517,9 @@ _first_counter_seen = {}
 
 def log(msg):
     with _lock:
-        line = '%s %s' % (time.strftime('%H:%M:%S'), msg)
+        now = time.time()
+        ts = '%s.%03d' % (time.strftime('%H:%M:%S', time.localtime(now)), int((now % 1) * 1000))
+        line = '%s %s' % (ts, msg)
         print(line, flush=True)
         try:
             with open(CAPTURE_LOG, 'a', encoding='utf-8', errors='replace') as f:
@@ -623,6 +625,22 @@ def serve_loginapp_udp_responder():
             # stronger evidence than Attempt H's original claim, which relied on
             # retries. See END_TO_END_TEST_LOG.md E2E-006 for the full sweep record.
             if len(data) < 7:
+                continue
+            # 2026-09-18: the literal 9-byte ASCII payload b'hello ros' arrives on this
+            # port too (confirmed present in the live client's own heap,
+            # scratch/heap_dump/region_763849000000.bin -- this is genuine
+            # client-originated traffic, not our own leftover test tooling). It has been
+            # treated identically to a real 273-byte LogOnParams request for this
+            # project's whole history (garbage replyID derived from interpreting " ros"
+            # as a 4-byte LE counter), sending back a full crafted LoginReplyRecord in
+            # reply to what is very likely a pre-Mercury reachability probe, not a real
+            # login attempt. Never investigated as a possible source of the
+            # connectLoginHostCallback status:1/2 non-determinism -- skip it now instead
+            # of guessing a "correct" reply, since no reply format has ever been evidenced
+            # for it, and sending a WRONG one may be actively confusing the client's own
+            # session/attempt-counting state ahead of the real request.
+            if data == b'hello ros':
+                log('LOGINAPP: skipping probe packet (b"hello ros", %d bytes) from %s -- not replying' % (len(data), addr))
                 continue
             # Kept configurable (not hardcoded) so a future regression or a still-
             # untested candidate can be swept again without editing this file --
@@ -737,10 +755,27 @@ def _packed_int(n):
     return b'\xff' + struct.pack('<I', n)[:3]
 
 
-def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags=0x0008):
-    msgid = 128 + method_index
-    width = 2 if msgid <= 190 else 1
-    payload = struct.pack('<I', entity_id) + args
+def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags=0x0008, mode='candidate_a'):
+    if method_index < 64:
+        msgid = 128 + method_index
+        width = 2
+        payload = struct.pack('<I', entity_id) + args
+    elif method_index < 128:
+        msgid = 128 + method_index
+        width = 1
+        payload = struct.pack('<I', entity_id) + args
+    else:
+        if mode == 'candidate_b':
+            # Modulo 256: msgID = (128 + index) & 0xff
+            msgid = (128 + method_index) & 0xff
+            width = 2
+            payload = struct.pack('<I', entity_id) + args
+        else:
+            # Candidate A: Standard BigWorld longEntityMessage (ClientInterface msgID 101)
+            msgid = 101
+            width = 2
+            payload = struct.pack('<I', entity_id) + struct.pack('<H', method_index) + args
+
     lenfield = struct.pack('<I', len(payload))[:width]
     # Exact message bounds on channel, no dummy b'\x00\x00' footer
     plain = struct.pack('<H', flags) + bytes([msgid]) + lenfield + payload
@@ -757,8 +792,8 @@ def run_baseapp_stage_machine(sock, addr, key):
     """Clean 5-stage BigWorld entity lifecycle for mobile track:
     Stage 1: createBasePlayer(Account, type 38, eid=1)
     Stage 2: Account.onChannelLogin(19) + Account.onLogin(18)
-    Stage 3: createBasePlayer(Athlete, type 51, eid=2, stream=athlete_mobile_stream.bin)
-    Stage 4: Athlete.showSelectCharacter([]) idx=17 (and idx=3 backup)
+    Stage 3: createBasePlayer(Athlete, type 51, eid=1, stream=b'') (empty stream bypasses unpack via PyDict_New)
+    Stage 4: Athlete.showSelectCharacter([]) idx=1083 (Candidate A: msgID 101, Candidate B: msgID 187)
     Stage 5: HOLDING (no re-push; keepalive and ACK continue in background)
     """
     try:
@@ -785,9 +820,12 @@ def run_baseapp_stage_machine(sock, addr, key):
         time.sleep(0.1)
         use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
         import pickle
-        sauth = {'uid': '900000001', 'aid': '900000001',
-                 'username': '900000001@ad.netease_global.win.163.com',
-                 'server_name': 'North_America'}
+        sauth = {
+            'uid': '900000001',
+            'session': 'sess_local_fake_token',
+            'sdk_version': '1.0.0',
+            'channel': 'netease_global',
+        }
         p = pickle.dumps(sauth, protocol=2)
         ocl_args = struct.pack('<B', 0) + _packed_int(len(p)) + p
         ol_args = struct.pack('<i', 0) + _packed_int(0)
@@ -798,21 +836,25 @@ def run_baseapp_stage_machine(sock, addr, key):
         send_entity_method(sock, addr, use_key, account_eid, 18, ol_args, flags=0x0008)
         log('BASEAPP STAGE 2: sent Account.onLogin(idx=18, OK) to eid=%d %s' % (account_eid, addr))
 
-        # Stage 3: replace player with Athlete (type 51) + complete property stream
+        # Stage 3: replace player with Athlete (type 51) + empty property stream
+        # Disassembly proof (0x92a58c EntityType::newDictionary): empty stream jumps directly
+        # to PyDict_New(), bypassing the property stream unpack and setting defaults cleanly!
         time.sleep(0.15)
         use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
-        athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '2'))
+        athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '1'))
         athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '51'))
 
+        # Empty stream by default
         athlete_stream = b''
-        stream_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'athlete_mobile_stream.bin')
-        if os.path.isfile(stream_path):
-            try:
-                with open(stream_path, 'rb') as f:
-                    athlete_stream = f.read()
-                log('BASEAPP STAGE 3: loaded %d bytes from athlete_mobile_stream.bin' % len(athlete_stream))
-            except Exception as e:
-                log('BASEAPP STAGE 3: error loading stream: %s' % e)
+        if os.environ.get('ROS_ATHLETE_USE_STREAM_FILE') == '1':
+            stream_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'athlete_mobile_stream.bin')
+            if os.path.isfile(stream_path):
+                try:
+                    with open(stream_path, 'rb') as f:
+                        athlete_stream = f.read()
+                    log('BASEAPP STAGE 3: loaded %d bytes from athlete_mobile_stream.bin' % len(athlete_stream))
+                except Exception as e:
+                    log('BASEAPP STAGE 3: error loading stream: %s' % e)
 
         athlete_cbp_body = struct.pack('<I', athlete_eid) + struct.pack('<H', athlete_type) + athlete_stream
         athlete_filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
@@ -827,19 +869,20 @@ def run_baseapp_stage_machine(sock, addr, key):
             athlete_type, athlete_eid, len(athlete_stream), addr))
 
         # Stage 4: Athlete.showSelectCharacter([]) (empty ARRAY<STRING> = 0x00)
+        # Confirmed index from live process memory: Athlete client method 1083 (msgid 1211)
         time.sleep(0.15)
         use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
         empty_array_string = bytes([0])
 
-        # Primary index: 17 (14 interface client methods + 3 own offset)
-        send_entity_method(sock, addr, use_key, athlete_eid, 17, empty_array_string, flags=0x0008)
-        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=17 (msgid=145) to eid=%d %s' % (
+        # Candidate A: Standard BigWorld longEntityMessage (ClientInterface msgID 101, method_index=1083)
+        send_entity_method(sock, addr, use_key, athlete_eid, 1083, empty_array_string, flags=0x0008, mode='candidate_a')
+        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=1083 (Candidate A: msgid=101) to eid=%d %s' % (
             athlete_eid, addr))
 
-        # Backup index: 3 (own offset if interfaces unflattened)
+        # Candidate B: Direct modulo 256 msgID (187 / 0xBB)
         time.sleep(0.05)
-        send_entity_method(sock, addr, use_key, athlete_eid, 3, empty_array_string, flags=0x0008)
-        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=3 (msgid=131) to eid=%d %s' % (
+        send_entity_method(sock, addr, use_key, athlete_eid, 1083, empty_array_string, flags=0x0008, mode='candidate_b')
+        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=1083 (Candidate B: msgid=187) to eid=%d %s' % (
             athlete_eid, addr))
 
         # Stage 5: HOLDING
