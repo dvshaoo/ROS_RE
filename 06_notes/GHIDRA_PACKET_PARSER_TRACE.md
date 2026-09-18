@@ -1635,6 +1635,65 @@ transition despite the RPC dispatch itself working.
    confirm reproducibility before investing further static-analysis
    time (this was only observed once so far this session).
 
+## GATE 4 CLEARED (2026-09-18, later same session): 3D Lobby reached -- confirmed via screenshot AND telemetry
+
+Gemini investigated the `_realEnterHall` blocker per the handoff above
+and found the root cause and fix (commit `c0e8a09`): `_realEnterHall`
+calls `GameObject.Find('Scene').GetComponent('SceneSystem')`, which is
+`None` because the client is still on the 2D login scene -- the 3D
+`Scene` GameObject only gets instantiated by
+`Athlete.showSelectCharacter([])`'s own `_loadDefaultScene()` call
+(`idx 1083`, the same method whose *index* this session already
+verified via live memory earlier). Also found and fixed a **second**,
+previously-unnoticed wire bug specific to this call:
+`SequenceDataType`'s stream reader expects a **4-byte uint32 LE**
+length prefix for an `ARRAY`, not a 1-byte prefix -- `showSelectCharacter([])`
+must be sent with `struct.pack('<I', 0)` (4 zero bytes), not a single
+`b'\x00'`. The full corrected Stage 4 sequence is now: `showSelectCharacter([])`
+(idx 1083, 4-byte empty-array encoding) -> sleep `ROS_SCENE_LOAD_DELAY`
+(default 2.5s, to let the async scene load finish) -> `onCreateCharacter`
+(1084) -> `updateBaseCharacter` (1087) -> `updateBaseNickname` (1088) ->
+`enterHall` (1091).
+
+**Live-tested this session, independently, with logcat + screenshot.**
+Result:
+- No crash, no reconnect loop, single stable connection through the
+  entire sequence including the 2.5s scene-load wait.
+- Telemetry keypoints fired in order: `accountOnBecomePlayer` ->
+  `channelLogin`/`channelLoginSuc` -> `onCreateCharacter` ->
+  **`athleteEnterHall`** -- the last one is the definitive, unambiguous
+  confirmation that `enterHall` ran to completion without the
+  `_realEnterHall`/`GetComponent` crash this session found earlier.
+- **Screenshot confirms the client is in the actual 3D Lobby scene**:
+  currency counters, STORE/SUPPLY/MANUAL/PLATOON/DEPOT side menu,
+  "Leave Team"/"Invite" team UI, and a rendered 3D environment (not the
+  2D title/login screen). This is the first time this multi-day
+  investigation has visually reached past Character Creation into the
+  Lobby.
+- The old `iWeekendPush.tryActiveWeekendPushRedBadge` `TypeError:
+  'NoneType' object is not iterable` (root-caused earlier in this
+  file) **still occurs** -- but it is now confirmed **non-blocking**:
+  it happens during `Athlete.onBecomePlayer`/`onCreate`, a different
+  code path than the one that drives scene loading and `enterHall`, and
+  the client tolerates the script exception (logs it, continues) rather
+  than treating it as fatal. This matches the general BigWorld pattern
+  observed all session: script-level Python exceptions get logged by
+  an outer wrapper (`elkLogging.py`) and do not crash the native
+  engine or block unrelated code paths -- they only abort the
+  remainder of the specific function that raised them (in this case,
+  the tail of `Athlete.onCreate()`'s interface loop, which apparently
+  does not gate hall entry after all, resolving the "next steps"
+  question left open in the "MAJOR BREAKTHROUGH" section above).
+
+**Gate 4 (Character Select / Lobby) is now CLEARED.** Remaining known,
+non-blocking issue: the `iWeekendPush` property-default gap (low
+priority -- does not prevent reaching the Lobby; would only matter for
+whatever UI/feature depends on `weekendPushRewardsHaveGotten` actually
+being a list). This is the natural point to shift focus to
+post-Lobby verification (does the player actually control an avatar,
+can basic lobby UI be interacted with, etc.) rather than the entity
+creation/activation pipeline this document has focused on throughout.
+
 ## INVESTIGATION & RESOLUTION OF `_realEnterHall` CRASH (2026-09-18, Gemini Session)
 
 ### 1. Proof of `updateBaseNickname` Success (Independent Ground-Truth Telemetry)
