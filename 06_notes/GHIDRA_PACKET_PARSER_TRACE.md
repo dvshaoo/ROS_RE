@@ -1303,6 +1303,85 @@ either substantially more (open-ended) static reversal with no
 guaranteed payoff, or the dynamic-instrumentation/hardware option
 already flagged as a human decision point.
 
+## MAJOR CORRECTION (2026-09-18, continued): direct live-memory read of the real MethodDescription array -- Gemini's index=1083/1131-total claims were RIGHT; this session's own "62-127 silent" oracle table has a timing-correlation bug
+
+Per the user's explicit request to keep trying every remaining avenue,
+extended the live heap-scanning technique this project has used before
+(for the Blowfish key) to directly locate and read the **actual native
+`EntityType` object and its `MethodDescription` array** for a live
+Athlete entity -- not by guessing offsets, but by walking real pointers
+from a live process:
+
+1. Read `libclient.so`'s live load base from `/proc/<pid>/maps` for the
+   crashed-but-alive Athlete session (pid confirmed via `adb shell pidof`).
+2. Added the previously-cited static offset `+0x45785f0` (the
+   `std::vector<EntityType*>` global, per `GEMINI.md`) to that live base
+   and read the resulting address: it resolved to a real
+   `std::vector` (begin/end/capacity triple) with **exactly 172
+   elements** -- matching Gemini's claimed entity-type count and
+   confirming the offset is genuine (not fabricated), a fact this
+   session had not independently verified before.
+3. Read element #51 (the claimed Athlete type ID) -- got a plausible
+   `EntityType*` pointer.
+4. Read `+0x1e8` on that pointer (the claimed `MethodDescription`
+   vector) -- got another real `std::vector` triple, with
+   `(end-begin)/24 == 1131` **exactly** -- an exact integer division
+   with zero remainder, strong evidence the 24-byte stride and vector
+   bounds are both correct, and directly matching Gemini's claimed
+   "1131 total methods".
+5. Dumped the full 27144-byte array (`scratch/athlete_methodtable.bin`)
+   and parsed each 24-byte slot as a length-prefixed inline string
+   (`entry[0] >> 1` = length, matching the pattern observed: e.g.
+   `updateDailyPay`, `onReqLotteryFirstPay` at the very start, which
+   independently match names this session's earlier live-dispatch
+   testing also observed at low indices).
+6. **Searched the array for `showSelectCharacter` and found it at index
+   1083 -- exactly Gemini's claimed value.** The surrounding entries
+   confirm the entire claimed sequence: `[1081] onRefreshMSToken`,
+   `[1082] onKickOff`, `[1083] showSelectCharacter`, `[1084]
+   onCreateCharacter`, `[1085] onRoleCreateSuc`, `[1087]
+   updateBaseCharacter` -- all present at exactly the indices `GEMINI.md`
+   claimed.
+
+**This directly overturns this session's own earlier "conclusively
+refuted" verdict on Gemini's index/count claims.** The type=51 claim is
+also now much better supported (the 172-element vector and the 1131-method
+count both check out from element #51 specifically, which would be a
+large coincidence if type=51 were wrong).
+
+**However, cross-checking this real array against this session's own
+earlier live-dispatch "oracle" table (built by sending the 0-127 sweep
+and correlating logcat timestamps) exposed a bug in THAT technique**:
+the real array says idx 58 = `delHallTeamMember`, idx 59 =
+`onLeaveHallTeam`, idx 61 = `onSetMatchFPSMode` -- **not**
+`onJoinDtsCustomGame`/`onModifyRosMatchTeamLogoCallback`/`onRefreshMSToken`
+as that earlier oracle table claimed. The oracle technique itself
+(logcat reveals real method names on arg-parse failure) is still sound
+in principle, but the **timestamp-based correlation** used to match
+each logcat line back to a specific sent index was apparently thrown
+off by timing drift (plausibly because the client was busy logging the
+`iWeekendPush` exception traceback around the same time, delaying its
+processing of queued incoming messages). **Do not trust that earlier
+0-61 index table's specific name-to-index mappings going forward** --
+the *technique* remains valid evidence that real methods exist and
+respond in that range, but the *specific pairings* are unreliable
+without a live memory cross-check like this one. This live memory read
+is the more trustworthy source and should be treated as ground truth
+where the two disagree.
+
+**Corrected standing guidance**: `showSelectCharacter` = index 1083 for
+the live Athlete entity is now CONFIRMED, not a Gemini fabrication. The
+open problem is narrower than previously framed: this project's actual
+wire ENCODING for indices >= 128 (this project's two prior live tests,
+"Candidate A" longEntityMessage and "Candidate B" modulo-256, both
+either crashed the connection or silently no-opped) is unproven, not
+the index itself. The next step is to properly reverse-engineer the
+`ClientInterface` msgID 101 (`longEntityMessage`) handler's exact
+payload layout via Ghidra (find its registered handler function from
+the `_INIT_44` registration table and decompile it) rather than
+guessing the payload structure again, since a wrong guess previously
+produced a worse, native-level crash.
+
 ### Hypothesis tested and REFUTED: long passive wait after the onCreate crash
 
 Per `ACCOUNT_HANDSHAKE_SYNTHESIS.md` option 3 ("just wait longer, doing

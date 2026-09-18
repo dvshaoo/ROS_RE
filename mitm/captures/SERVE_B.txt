@@ -31511,3 +31511,32 @@
 16:50:00.178   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789721400","finish_time":"1789721400","user_id":"1","push_time":"1789721400","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4881.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
 16:52:19.215 T14-complete plist: 560 bytes
 16:52:19.216 T18 server_list_ad.txt: 122 bytes
+17:07:50.048 REQ GET / host=192.168.100.8 len=0
+17:07:50.048   -> SERVE root / (200 OK)
+17:07:50.085 REQ GET / host=192.168.100.8 len=0
+17:07:50.086   -> SERVE root / (200 OK)
+17:07:50.094 REQ GET / host=192.168.100.8:8443 len=0
+17:07:50.095   -> SERVE root / (200 OK)
+17:07:56.130 REQ GET /HNAP1/ host=192.168.100.8 len=0
+17:07:58.271 REQ POST /mcp host=192.168.100.8 len=354
+17:07:58.271   BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS701"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+17:07:58.272 REQ GET / host=192.168.100.8:80 len=0
+17:07:58.272   -> SERVE root / (200 OK)
+17:07:58.276 REQ POST /mcp host=192.168.100.8 len=354
+17:07:58.276   BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS701"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+17:07:58.285 REQ GET / host=192.168.100.8:443 len=0
+17:07:58.285   -> SERVE root / (200 OK)
+17:07:58.293 REQ POST /mcp host=192.168.100.8:8443 len=354
+17:07:58.293   BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS701"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+17:07:58.297 REQ GET / host=192.168.100.8:8443 len=0
+17:07:58.298   -> SERVE root / (200 OK)
+17:07:58.299 REQ GET /loginMsg.js host=192.168.100.8 len=0
+17:07:58.300 REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+17:07:58.305 REQ GET /loginMsg.js host=192.168.100.8 len=0
+17:07:58.312 REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+17:07:58.320 REQ GET /loginMsg.js host=192.168.100.8 len=0
+17:07:58.326 REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+17:19:59.781 REQ GET /internalquery host=nstool.netease.com len=0
+17:19:59.782   -> SERVE internalquery
+17:20:01.312 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=766
+17:20:01.312   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789723200","finish_time":"1789723200","user_id":"1","push_time":"1789723200","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4923.0","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
