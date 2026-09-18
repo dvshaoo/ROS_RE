@@ -1821,5 +1821,81 @@ From `UIMAIN_INVENTORY.md`, `UIMAIN_AUDIT_RUNTIME.md`, and `UIMAIN_BYTECODE_FULL
   - Welfare: `anchor-upper-right/common-entry/welfare` $\to$ `UIWelfareController`
   - All of these handlers were previously suppressed or unresponsive because `UIMain.on_enter` aborted prematurely during `UIModes.on_enter`.
 
+## Live-test result of commit 7ae0f3e (2026-09-18, later same session): the onLeaveHallTeam fix does NOT work -- this is a systemic missing-property problem, not isolated bugs
+
+Live-tested `7ae0f3e`'s fix (send `Athlete.onLeaveHallTeam()` idx 59
+before/after `enterHall` to resolve the `hallTeamData` crash) with
+logcat capturing. **Result: the crash still occurs, unchanged**:
+```
+File "entities\iHallTeam.py", line 358, in onLeaveHallTeam
+File "entities\iHallTeam.py", line 747, in isInFormedTeam
+AttributeError: 'PlayerAthlete' object has no attribute 'hallTeamData'
+```
+**Root cause of why the fix didn't work**: `onLeaveHallTeam()` itself
+calls `isInFormedTeam()`, which reads the SAME missing `hallTeamData`
+property. Calling a method that depends on a property is not a
+substitute for the property actually existing -- this was never going
+to work, regardless of which method or how many times it's called.
+`hallTeamData` needs to be set as a PROPERTY (via whatever the correct
+property-initialization/push mechanism turns out to be), not worked
+around via an RPC.
+
+**This is bigger than one property.** The same test surfaced two MORE
+previously-unseen missing-property crashes, in completely different
+code paths, all with the identical shape (`AttributeError: 'PlayerAthlete'
+object has no attribute 'X'`):
+- `entities\Athlete.py:670 _realEnterHall` -> `ui\UISelectMode.py:105
+  selectDone` -> missing `timerRefreshMSToken`
+- `ui\main\UIG89MainAnwser.py:212 refreshMonthlyBenefit` ->
+  `entities\iMonthPayRebateSpecialAward.py:99 have_award_can_receive`
+  -> missing `monthPayRebateSpecialAwardInfo`
+
+Combined with the already-known `weekendPushRewardsHaveGotten` crash
+(root-caused earlier in this file) and now `hallTeamData`, that's
+**four** distinct properties confirmed missing so far, each surfacing
+in a different, unrelated UI/script code path, all with the exact same
+"property was never initialized, ends up None/missing, and the first
+code that touches it crashes" signature. **This strongly suggests the
+real problem is structural**: this project's `createBasePlayer(Athlete,
+stream=b'')` empty-stream approach does not populate ANY of Athlete's
+non-trivially-defaulted properties (confirmed earlier in this file: for
+`createBasePlayer`'s domain=0, ANY non-empty stream triggers a native
+exception, so there is currently no way to set these properties at
+entity-creation time at all) -- and there are likely many more such
+properties beyond the four found so far, since discovery has been
+purely incidental (whatever code path happens to run during this
+session's specific test sequence).
+
+**Do not keep patching these one at a time as they're discovered.**
+Sending a method call that depends on the missing property (like
+`onLeaveHallTeam` for `hallTeamData`) cannot work as a category of fix.
+What's actually needed is one of:
+1. Find the real property-push/property-update wire mechanism (distinct
+   from both `createBasePlayer`'s stream and from per-entity method
+   calls) that lets a server set an already-created entity's property
+   after the fact -- this was flagged as unsolved in the "MAJOR
+   CORRECTION" section of this file and remains unsolved. This is the
+   most likely correct general fix, if it can be found.
+2. Determine whether these properties have a sensible client-side
+   default that simply isn't being applied because of how this
+   project's `createBasePlayer` stream is constructed, and whether
+   there's a legitimate way to trigger proper default-initialization
+   without violating the domain=0 empty-stream constraint already
+   established.
+3. As a last resort, catalog every property that scripts touch during
+   normal Lobby usage (grep the extracted `entities\*.py`-referencing
+   error strings this project can observe live, or better, find a way
+   to enumerate Athlete's full property list the same way this session
+   found its full method list via live memory) and determine which
+   ones need non-None defaults, rather than discovering them one crash
+   at a time through incidental testing.
+
+Screenshot after this test: still in the Lobby (reaching it is not
+regressed), but the promo-box duplication is UNCHANGED (still 4-5
+overlapping copies) and there is still no visible character/avatar
+model on the terrace, consistent with the `_refresh_members`/
+`hallTeamData` crash still aborting `UIMain.on_enter` before it can
+finish initializing the Lobby UI properly.
+
 
 
