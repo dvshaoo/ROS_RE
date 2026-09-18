@@ -530,3 +530,71 @@ broader logcat capture (all tags, not just the guessed ones, from the
 exact moment of tap-to-reset) or (b) Ghidra tracing of whatever function
 handles the "return to title" / "cancel login" transition to find its
 trigger condition.
+
+### LIVE RETEST 2026-09-18, round 2 (full emulator reboot + fixed telemetry logging)
+
+**Fixed a logging bug found while investigating:** `mitm/mitm_serve.py` was
+truncating all logged HTTP POST bodies to 512 bytes (`w('  BODY %.512r' %
+body[:512])`), silently cutting off the tail of every telemetry JSON
+payload. Changed to log the full body (`w('  BODY %r' % body)`).
+
+**Did a full `ldconsole reboot --index 0`, reapplied iptables DNAT (rules
+were empty again post-reboot, as expected), restarted the capture server,
+and tested the FIRST launch attempt after reboot:**
+
+- **CONFIRMED: clean reboot + first attempt = reliable.** No "Slow
+  connection" / "Failed to connect" errors; LoginApp -> BaseApp ->
+  `createBasePlayer` -> `identifyVersionPoint` loop all proceeded exactly
+  as in the very first successful run of this session (`12:19` run
+  earlier). This validates the "session/emulator-network state degrades
+  across repeated relaunches within one boot; first-attempt-after-reboot
+  is the reliable test condition" theory from the previous log entry.
+- **CONFIRMED AGAIN: `identifyVersionPoint` retry loop reproduces
+  identically on this clean run too** -- it is NOT an artifact of
+  connection flakiness; it is a rock-solid, 100%-reproducible client
+  behavior independent of the network-state issue.
+
+**NEW FINDING -- a definitive success/failure signal, found by comparing
+telemetry between a successful and a failed same-session relaunch:** the
+client POSTs a `sigma-keypoint-h45na.proxima.nie.easebar.com` telemetry
+event with `"keypoint": "connectLoginHostCallback"` right after every
+LoginApp reply. Its `extraData` field carries a `status` value that is:
+- **`{"status": 1}`** on runs that go on to reach BaseApp successfully
+- **`{"status": 2}`** on runs that show "Slow connection" and never dial
+  BaseApp at all (no `BASEAPP UDP RECV` follows, ever, for that attempt)
+
+This is now the **exact, unambiguous, greppable signal** to check first
+in any future capture log (`grep connectLoginHostCallback`) instead of
+inferring success/failure from UI screenshots or timing gaps. **Compared
+the raw LoginApp reply bytes and RECV-to-SENT timing between a status=1
+run and a status=2 run: they are structurally identical** (same 38-byte
+frame shape, same encrypted body construction, sub-second RECV-to-reply
+latency in both cases) -- **the difference is NOT in our reply's content
+or our own latency.** The actual root cause of why the client sometimes
+scores this as status 2 remains unidentified; it plausibly involves
+leftover state/traffic from a still-active previous session (each
+relaunch in this test left the OLD BaseApp keepalive loop running against
+a stale client socket that no longer exists), but this has not been
+proven. This matches the project's previously-documented, still-unsolved
+"server-selection race" instability -- not a new bug, but now with a
+much more precise diagnostic signal than existed before.
+
+**Also confirmed via the fixed full-body logging:** the `"error_log":
+"Login Succ"` telemetry event (with `gameserver_result`/`gas_result`/
+`loginserver_result` all `"false"`) is ONLY ever sent on **successful**
+runs (status=1, reaches BaseApp) -- it does NOT fire at all on status=2
+failed runs, which stop right after the failed `connectLoginHostCallback`
+and never reach this later checkpoint. This means the earlier concern
+that "false" here might indicate a hidden failure was likely a red
+herring / expected value for this specific telemetry checkpoint (it may
+just report the state of later-phase flags that haven't been reached yet
+at the time this particular event fires) -- **not confirmed as related to
+the Character-Creation blocker.**
+
+**Also confirmed (side finding, same as before):** every fresh launch,
+even the clean post-reboot one, still shows a "Slow connection" dialog
+ONCE very early (during the `file_list_assets`/`file_list_res/*` HTTPS
+manifest-fetch phase, before the title screen even appears) -- dismissing
+it lets the flow proceed normally. This is a separate, reproducible
+issue from the later LoginApp-stage status=2 failures, and still not
+root-caused.

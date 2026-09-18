@@ -139,7 +139,7 @@ class H(BaseHTTPRequestHandler):
             host = '?'
         w('REQ %s %s host=%s len=%d' % (self.command, self.path, host, length))
         if body:
-            w('  BODY %.512r' % body[:512])
+            w('  BODY %r' % body)
         if self.path == '/pl/h45na_hc':
             w('  -> SERVE h45na_hc (empty hash check -> no patches)')
             res = b'{"code":0,"md5":"","size":0}'
