@@ -1302,3 +1302,31 @@ recommendation, further progress from here most plausibly requires
 either substantially more (open-ended) static reversal with no
 guaranteed payoff, or the dynamic-instrumentation/hardware option
 already flagged as a human decision point.
+
+### Hypothesis tested and REFUTED: long passive wait after the onCreate crash
+
+Per `ACCOUNT_HANDSHAKE_SYNTHESIS.md` option 3 ("just wait longer, doing
+nothing new"), tested whether the client does anything spontaneous
+after the `iWeekendPush` crash if simply left alone with no new
+experimental server pushes -- a genuinely untested angle, since every
+prior session's live tests were at most ~20-90s and always intermixed
+with active experimentation. Left an already-crashed session (Athlete
+entity created, `onCreate` already thrown past `iWeekendPush`) idle for
+a full 5 minutes with `adb logcat` capturing throughout and no new
+packets sent.
+
+**Result: REFUTED.** Screen remained at the title screen the entire
+time; logcat recorded zero further `onCreate`/`onBecomePlayer`/
+`showSelectCharacter`/`enterHall`/`WeekendPush`/`Traceback` references
+in the 5-minute window (only routine keepalive/versionPointIdentity
+retry traffic, already characterized). There is no timer-based retry or
+delayed fallback that spontaneously resumes or restarts the entity's
+`onCreate` sequence after the exception. This closes
+`ACCOUNT_HANDSHAKE_SYNTHESIS.md`'s option 3 as well -- all three of that
+document's "cheap, no new tooling" options (debug-flag observability,
+now satisfied for free via logcat; entity-defs fingerprint check, now
+understood not to be the blocker; long passive wait) have been tried
+and none unblocked progress on their own. Only option 4 (real hardware
++ dynamic instrumentation) and genuinely new, open-ended static
+reversal (e.g. finding a distinct property-update wire mechanism, not
+yet located) remain as live threads.
