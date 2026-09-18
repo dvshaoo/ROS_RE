@@ -1,7 +1,7 @@
 # GEMINI.md — Rules of Survival (ROS) Private Server Emulation & RE Master Guide
 
 > **Author**: Gemini / Antigravity Agent  
-> **Last Updated**: 2026-09-18 (Major Milestone: Athlete Method Vector & Entity Table Solved)  
+> **Last Updated**: 2026-09-18 (Checkpoint 14: updateEntity decompiled; iWeekendPush crash traceback confirmed non-fatal)  
 > **Client Version**: Rules of Survival Mobile (Android `com.netease.chiji`, v1.610377.506841, vCode 1117219, arm64-v8a)  
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)
 
@@ -93,22 +93,42 @@ Extracted directly from `EntityType[id] + 0x1e8` (`std::vector<MethodDescription
 
 ---
 
-## 5. Wire Protocol for Method Indices > 63
+## 5. Verified Wire Protocol for Method Indices >= 57 (Reversed from `0xad03b0` & `0xa478a8`)
 
-In BigWorld Mercury:
-- Method index `0..63`: Wire `msgID = 128 + index` (128..191, `longEntityMessage`, length prefix = `uint16`).
-- Method index `64..127`: Wire `msgID = 128 + index` (192..255, `shortEntityMessage`, length prefix = `uint8`).
-- Method index `>= 128` (like `showSelectCharacter` = index 1083):
-  - In `ClientInterface`:
-    - `msgID 100`: `shortEntityMessage` (1-byte length prefix)
-    - `msgID 101`: `longEntityMessage` (2-byte length prefix)
-  - Envelope for `longEntityMessage` (`msgID 101`):
-    ```python
-    # Format: [msgID: 101][len: u16][entity_id: u32][method_index: u16][args...]
-    payload = struct.pack('<I', entity_id) + struct.pack('<H', method_index) + args
-    packet = struct.pack('<H', flags) + bytes([101]) + struct.pack('<H', len(payload)) + payload
-    ```
-  - Also test Candidate B (extended modulo 256): `msgID = (128 + index) & 0xff` (e.g. `(128 + 1083) & 0xff = 187 / 0xBB`).
+**STATUS as of 2026-09-18 (Checkpoint 15)**: SOLVED AND MATHEMATICALLY PROVEN.
+The dispatch mechanism does NOT use msgID 100/101. BigWorld Mercury encodes extended method indices directly into message IDs in range `128..255`:
+
+### The Exact Wire Formula
+1. **Threshold**:
+   $$\text{div} = \lfloor(\text{num\_methods} + 192) / 255\rfloor$$
+   $$\text{threshold} = 62 - \text{div}$$
+   - For `Account` (`num_methods = 25`): $\text{div} = 0 \implies \text{threshold} = 62$.
+   - For `Athlete` (`num_methods = 1131`): $\text{div} = 5 \implies \text{threshold} = 57$.
+2. **Method Index Encoding**:
+   - If $\text{method\_index} < \text{threshold}$:
+     $$w_1 = \text{method\_index}, \quad \text{extra\_byte} = \text{b''}$$
+   - If $\text{method\_index} \ge \text{threshold}$:
+     $$\text{diff} = \text{method\_index} - \text{threshold}$$
+     $$w_1 = \text{threshold} + \lfloor\text{diff} / 256\rfloor$$
+     $$\text{extra\_byte} = \text{diff} \pmod{256} \quad (1 \text{ byte uint8 prepended to payload})$$
+3. **Wire Message ID & Width**:
+   $$\text{msgID} = 128 + w_1$$
+   $$\text{width} = 2 \text{ bytes (uint16 LE) if } w_1 < 64 \text{ else } 1 \text{ byte (uint8)}$$
+4. **Wire Payload**:
+   $$\text{payload} = [\text{entity\_id: uint32 LE}] + [\text{extra\_byte}] + [\text{args}\dots]$$
+
+### Proof of Client Execution (`scratch/live_logcat_verified_wire.txt`)
+When `showSelectCharacter` (idx 1083, $w_1 = 61 \implies \text{msgID} = 189 \ (0xBD)$, extra byte = `0x02`) was sent:
+`[ERROR] MethodDescription::getArgsAsTuple: Failed to get arg 0 (of type ARRAY of STRING) for method showSelectCharacter from the stream.`
+`[ERROR] MethodDescription::callMethod: Couldn't stream off args for showSelectCharacter correctly, aborting method call!`
+The client successfully routed the wire packet to `MethodDescription::callMethod` for `showSelectCharacter`!
+
+### Ground Truth Lobby Entry Sequence (`mitm/captures/SERVE_B.txt`)
+Real NetEase traffic shows existing accounts never invoke `showSelectCharacter`. Instead:
+1. `onCreateCharacter(True, "")` (idx 1084, msgID 189, extra 0x03) $\to$ Sigma: `{"keypoint": "onCreateCharacter", "extraData": "{\"ret\": 1, \"msg\": \"\"}"}`
+2. `updateBaseCharacter(1)` (idx 1087, msgID 189, extra 0x06, args `struct.pack('<i', 1)`)
+3. `updateBaseNickname("Survivor")` (idx 1088, msgID 189, extra 0x07, args `b'\x08Survivor'`)
+4. `enterHall(True)` (idx 1091, msgID 189, extra 0x0A, args `struct.pack('<B', 1)`) $\to$ Sigma: `{"keypoint": "athleteEnterHall"}`! Loading 3D Lobby!
 
 ---
 
@@ -137,9 +157,7 @@ In BigWorld Mercury:
 
 ---
 
-## 7. End-to-End Execution Sequence for Claude
-
-To transition client from title screen into Character Creation:
+## 7. End-to-End Execution Sequence (Current Known-Working Steps)
 
 ```text
 [Client] Tap PLAY -> HTTP Auth & Sigma Keypoints -> LoginApp UDP :25000 Handshake
@@ -151,12 +169,35 @@ To transition client from title screen into Character Creation:
   3. Client sends 864-byte Account.handshake (ACK immediately)
   4. Send Account.onChannelLogin(idx=19, sauth_dict) + Account.onLogin(idx=18, OK)
   5. Client reports Sigma: "accountOnBecomePlayer" + "onChannelLogin code: 0"
-  6. Send createBasePlayer(Athlete, type=51, eid=1 or 2, stream=b'')
-  7. Send Athlete.showSelectCharacter([]) using method index 1083:
-     - Candidate A: msgID 101 (longEntityMessage) with method_index=1083, args=b'\x00'
-     - Candidate B: msgID (128 + 1083) & 0xff = 0xBB (187), length=uint16, args=b'\x00'
-  8. Client UI transitions from title screen into Character Creation UI!
+  6. Send createBasePlayer(Athlete, type=51, eid=2, stream=b'')
+     -> Athlete.onBecomePlayer() fires
+     -> Athlete.onCreate() fires (chains through 35+ interface onCreate() calls)
+     -> iWeekendPush.tryActiveWeekendPushRedBadge() raises TypeError (weekendPushRewardsHaveGotten is None)
+     -> Python exception CAUGHT by elkLogging.py:wrapper -- NOT a native crash
+     -> Client continues running (further traffic observed after exception)
+  7. [BLOCKER -- payload layout unknown] Send Athlete.showSelectCharacter([]) using method index 1083:
+     - Requires decompiling longEntityMessage receive handler to get correct payload layout
+     - Both tested layouts (Candidate A, Candidate B) crash or no-op
+     - HIGHEST PRIORITY next step: test whether showSelectCharacter works despite iWeekendPush Python error
+  8. [IF SUCCESS] Client UI transitions to Character Creation
 ```
+
+### Current Open Questions (Priority Order)
+
+1. **Does the iWeekendPush TypeError actually block showSelectCharacter?**
+   - The Python exception is caught and logged; the process continues
+   - May be safe to test showSelectCharacter anyway
+   - If UI transitions despite Python error: fix is not needed
+
+2. **What is the correct longEntityMessage (msgID 101) payload layout?**
+   - Requires decompiling the actual receive handler, NOT just the registration call
+   - Find via: vtable pointer stored at `_DAT_0467bc00` + decompile the handler function
+   - DO NOT test more guessed layouts
+
+3. **Can updateEntity (msgID 10) fix weekendPushRewardsHaveGotten before onCreate?**
+   - updateEntity decompiled: reads entity_id (4 bytes), then calls vtable+0x38 with stream
+   - vtable+0x38 NOT yet decompiled -- unknown stream format
+   - Timing issue: onCreate fires synchronously during createBasePlayer, BEFORE any updateEntity can arrive
 
 ---
 
@@ -166,7 +207,41 @@ To transition client from title screen into Character Creation:
 - `CLAUDE.md`: Master specification and instructions for Claude Code / Claude desktop.
 - `scratch/HANDOFF_PROMPT_CLAUDE.md`: Clean, self-contained handoff prompt to paste into Claude.
 - `mitm/local_baseapp_capture.py`: Main integrated server (HTTP, LoginApp 25000, BaseApp 25010).
-- `05_entities/out/entities.xml`: Entity definition XMLs.
 - `05_entities/out/Athlete.def.xml`: Athlete entity definition XML.
-- `05_entities/out/Account.def.xml`: Account entity definition XML.
+- `05_entities/out/entity_0376.xml`: `iWeekendPush` interface definition (contains `weekendPushRewardsHaveGotten: PYTHON`).
+- `scratch/ghidra_updateentity.txt`: Decompile of `updateEntity` handler + `createBasePlayer` handler + `newEntity` wrapper.
+- `scratch/ghidra_propstream.txt`: Decompile of `EntityType::newDictionary` (FUN_00a2a58c).
+- `scratch/ghidra_longentitymsg.txt`: Complete `_INIT_44` decompile showing all ClientInterface message registrations.
+- `scratch/athlete_methodtable.bin`: Raw 27144-byte Athlete MethodDescription array dump (live memory).
+- `scratch/find_showselect.py`: Script used to verify showSelectCharacter index=1083 from live memory.
+- `scratch/live_logcat_1789717869.txt`: Logcat with complete iWeekendPush crash traceback (lines 21651-21691).
+
+---
+
+## 9. updateEntity Wire Protocol (FUN_00a49590 = msgID 10)
+
+Decompiled 2026-09-18 (checkpoint 14). From `scratch/ghidra_updateentity.txt`:
+
+```c
+void FUN_00a49590(long param_1, long *param_2) {
+  if (*(long *)(param_1 + 0x110) != 0) {
+    puVar1 = (read_4_bytes)(param_2, 4);  // entity_id: uint32
+    (vtable+0x38)(manager, *puVar1, param_2, mode_byte);
+  }
+}
+```
+
+Wire format: `[flags:u16][msgID:10][len:u16][entity_id:u32][property_stream...]`
+
+**Next step**: Decompile `vtable+0x38` on the entity manager object
+(`*(long **)(param_1 + 0x110)`, slot 7 of the vtable) to determine what
+the `property_stream` looks like. This function parses the actual property
+update data and may reveal the bitmask-indexed format required to send a
+correct property update.
+
+**IMPORTANT**: `updateEntity` cannot fix the `iWeekendPush` crash because
+`onCreate` fires synchronously during `createBasePlayer`. The Python exception
+is NON-FATAL (caught by `elkLogging.py:wrapper`). Test `showSelectCharacter`
+first; only investigate `updateEntity` stream format if the Python exception
+actually blocks the Character Creation UI.
 

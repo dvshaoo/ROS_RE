@@ -1445,3 +1445,103 @@ and none unblocked progress on their own. Only option 4 (real hardware
 + dynamic instrumentation) and genuinely new, open-ended static
 reversal (e.g. finding a distinct property-update wire mechanism, not
 yet located) remain as live threads.
+
+---
+
+## Session 2026-09-18 Checkpoint 14: updateEntity handler decompiled; complete crash traceback; ClientInterface msgID table
+
+### Complete confirmed crash traceback (live_logcat_1789717869.txt lines 21651-21691)
+
+`
+TypeError: 'NoneType' object is not iterable
+  File elkLogging.py:92 in wrapper
+  File entities\\Athlete.py:255 in onBecomePlayer
+  File entities\\Athlete.py:361 in onCreate
+  File entities\\iFriend.py:18 in onCreate
+  File entities\\iHallTeam.py:31 in onCreate
+  File entities\\iBindPhone.py:23 in onCreate
+  File entities\\iGMAdmin.py:31 in onCreate
+  File entities\\iRank.py:22 in onCreate
+  File entities\\iCommonLive.py:12 in onCreate
+  File entities\\iComplaintHall.py:12 in onCreate
+  File entities\\iShare.py:22 in onCreate
+  File entities\\iTreasureChest.py:17 in onCreate
+  File entities\\iDailyActivity.py:18 in onCreate
+  File entities\\iCustomControlManagerBase.py:13 in onCreate
+  File entities\\iBlackMarket.py:26 in onCreate
+  File entities\\iDtsBigMapDownloader.py:18 in onCreate
+  File entities\\iItemExchange.py:23 in onCreate
+  File entities\\iGoldBattle.py:14 in onCreate
+  File entities\\iYuanbaoBattle.py:17 in onCreate
+  File entities\\iInternationalChallengeCupRpc.py:9 in onCreate
+  File entities\\iItemConvert.py:40 in onCreate
+  File entities\\iDtsLevelSystem.py:11 in onCreate
+  File entities\\iPayedPartner.py:11 in onCreate
+  File entities\\iMonthPayRebateSpecialAward.py:22 in onCreate
+  File entities\\iAccumulateCharge.py:30 in onCreate
+  File entities\\iDayTask.py:16 in onCreate
+  File entities\\iSpecTrain.py:12 in onCreate
+  File entities\\iLottery.py:21 in onCreate
+  File entities\\iFacebook.py:14 in onCreate
+  File entities\\iSteam.py:11 in onCreate
+  File entities\\iActivityLimitTime.py:40 in onCreate
+  File entities\\iRosMatch.py:32 in onCreate
+  File entities\\iPrizeMatch.py:19 in onCreate
+  File entities\\iHorseRacing.py:26 in onCreate
+  File entities\\iDtsActivityTask.py:15 in onCreate
+  File entities\\iWeekendPush.py:14 in onCreate
+  File entities\\iWeekendPush.py:66 in tryActiveWeekendPushRedBadge
+`
+
+Root cause: weekendPushRewardsHaveGotten is PYTHON-typed with no <Default> in
+entity_0376.xml. With createBasePlayer domain=0 + empty stream, FUN_00aa0994
+(pInitialValue getter) returns None for this property. iWeekendPush.py:66
+iterates it -> TypeError.
+
+### updateEntity handler (msgID 10) -- FUN_00a49590
+
+`c
+void FUN_00a49590(long param_1, long *param_2) {
+  if (*(long *)(param_1 + 0x110) != 0) {
+    puVar1 = (stream_read4)(param_2, 4);  // entity_id: uint32
+    (vtable+0x38)(manager, *puVar1, param_2, mode_byte);  // passes rest of stream
+  }
+}
+`
+
+Wire: [msgID:10][len:u16][entity_id:u32][property_stream...]
+vtable+0x38 on the entity manager is the actual property-update dispatcher.
+NOT YET DECOMPILED -- this is the next Ghidra task (find the manager class
+vtable and decompile slot 7 = offset 0x38 / 8).
+
+### Critical open question
+
+The Python crash from iWeekendPush is caught by elkLogging.py:wrapper and logged
+but does NOT kill the native process (further logcat output observed after the
+traceback). The question is: does this partial onCreate failure actually PREVENT
+showSelectCharacter from driving the Character Creation UI?
+
+HIGHEST PRIORITY NEXT LIVE TEST: Send longEntityMessage (msgID 101) for
+showSelectCharacter (method index 1083) with correct wire encoding after Athlete
+entity creation, and observe if the UI transitions to Character Creation despite
+the Python exception. If yes, the iWeekendPush issue is a non-fatal, do-not-fix
+item and the main remaining blocker shifts entirely to the longEntityMessage
+payload format for indices >= 128.
+
+### Confirmed domain=0 in createBasePlayer (FUN_00a18504)
+
+`c
+uVar3 = FUN_00a2ac04(lVar2, param_2, PTR_DAT_03a122b8, 0, 0, param_4, 0);
+//                                                                        ^ domain=0 hardcoded
+`
+Cannot be changed from server side. Property stream for domain=0 requires
+bitmask-indexed format which has NOT been reverse-engineered yet.
+
+### ClientInterface msgID table (from _INIT_44 registration order)
+
+msgID  5: createBasePlayer  (variable, 2-byte len prefix)
+msgID 10: updateEntity      (variable, 2-byte len prefix) <- property push mechanism
+msgID 99: loggedOff         (1 byte)
+msgID 100: shortEntityMessage  (variable, 1-byte len prefix)
+msgID 101: longEntityMessage   (variable, 2-byte len prefix)
+
