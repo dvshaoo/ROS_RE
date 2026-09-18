@@ -1075,4 +1075,9 @@ if __name__ == '__main__':
         t.start()
     log('All listeners started. Waiting...')
     while True:
-        time.sleep(60)
+        try:
+            time.sleep(60)
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            log('MAIN LOOP error: %s' % e)
