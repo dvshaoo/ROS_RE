@@ -63,6 +63,16 @@ The user looked at the Lobby screenshot and noticed several buttons/UI areas app
 3. Prioritize whatever blocks reaching a genuinely playable state (e.g. a working "start match"/matchmaking flow) over purely cosmetic gaps, but document everything found either way.
 4. Update `06_notes/GHIDRA_PACKET_PARSER_TRACE.md` with a clear inventory: what's present and working, what's missing and why (with evidence), and what's still unknown.
 
+## The user's standing priority right now: EVERYTHING reachable from the Lobby, exhaustively
+
+To be explicit about scope, since the user has repeated and broadened this ask twice now: **the current focus for this whole project is the Lobby UI, comprehensively** — not just the two issues first flagged. This includes, but is not limited to:
+- Profile / stats screens (player profile, match history, rank, whatever this game's real client shows).
+- Every button/icon reachable from the main Lobby screen — Settings, Start/matchmaking, mode select, inventory, character customization, mail, friends, clan/guild, anything else a real Lobby has.
+- **Rendering/drawing correctness**, not just presence — e.g. the character-model issue above is a drawing/rendering gap (nothing renders at all), and the promo-box duplication is also a rendering gap (wrong number of copies drawn). Treat "does it draw correctly" as equally in-scope as "does the button exist and respond."
+- For each navigable screen: does tapping into it work at all, does it render without obvious corruption/missing assets, and does it show sensible (even if placeholder) data rather than blank/broken state.
+
+Do not treat issues 1–3 above as an exhaustive list — they're the ones already found by accident during Gate 4 testing. The actual ask is a full sweep: go through everything clickable/visible in and from the Lobby, note what works, what's broken, what's missing, and why (with evidence per this project's zero-guesswork rule), and fix what's fixable from the server side. Update `06_notes/GHIDRA_PACKET_PARSER_TRACE.md` with the full inventory as you go, not just at the end, so Claude can pick up and live-test incrementally rather than waiting for one giant batch.
+
 ## Division of labor (same as last time)
 
 You (Gemini) investigate and implement fix candidates for these two issues. Claude will live-test them (emulator control, logcat capture, screenshot verification) rather than each of us duplicating both halves. Commit your evidence and fix candidates with clear messages describing what you found and why you believe the fix is correct; note in the commit or in the notes file exactly what env var / sequence Claude should run to test it, if anything non-default is needed.
