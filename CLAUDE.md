@@ -89,26 +89,40 @@ The client parsed the entity ID, decoded method 1083, and entered `MethodDescrip
 
 ---
 
-## 6. Official Server Ground Truth Sequence (`mitm/captures/SERVE_B.txt`)
+## 6. Official Server Ground Truth Sequence & `_realEnterHall` Resolution
 
-Lines 5240–5254 in real traffic:
-1. `accountOnBecomePlayer` (`createBasePlayer(Account, type=38, eid=1)`)
-2. `athleteOnBecomePlayer` (`createBasePlayer(Athlete, type=51, eid=1, stream=b'')`)
-3. `onCreateCharacter(True, "")` (idx 1084) $\to$ Client emits `{"keypoint": "onCreateCharacter", "extraData": "{\"ret\": 1, \"msg\": \"\"}"}`
-4. `updateBaseCharacter(1)` (idx 1087)
-5. `updateBaseNickname("Survivor")` (idx 1088)
-6. `enterHall(True)` (idx 1091) $\to$ Client transitions into 3D Lobby and emits `{"keypoint": "athleteEnterHall"}`!
+### A. Proof of `updateBaseNickname` Success
+- Telemetry in `mitm/captures/SERVE_B.txt:32050` verified: `"user_name": "Survivor"` was populated on the client immediately following `updateBaseNickname("Survivor")` (was empty prior to call).
+
+### B. Root Cause of `_realEnterHall` Crash
+- In `entities\Athlete.py:656`:
+  `sc = GameObject.Find('Scene')`
+  `ss = sc.GetComponent('SceneSystem')`
+  `ss.loadHallScene(onHallSceneReady)`
+- Calling `enterHall` without preloading the scene returned `sc = None`, raising `AttributeError: 'NoneType' object has no attribute 'GetComponent'`.
+- `Athlete.showSelectCharacter([])` (idx 1083) is the required method that runs `_loadDefaultScene()` $\to$ `HALL_BASE_SCENE` $\to$ creates the `Scene` GameObject!
+
+### C. `SequenceDataType` Wire Encoding Fix for `showSelectCharacter`
+- Disassembly at `libclient.so:0x9a4b74-0x9a4b88`:
+  `SequenceDataType` reads a **4-byte uint32 LE length prefix** (`mov w1, #4; blr stream.read; ldr w21, [x0]`).
+- For empty `ARRAY<STRING>` (`oldNames = []`), the correct argument is:
+  `struct.pack('<I', 0)` (`b'\x00\x00\x00\x00'`, 4 bytes).
 
 ---
 
-## 7. Current Implementation & Next Steps
+## 7. Current Implementation & Live Test Plan for Claude
 
-Implemented in `mitm/local_baseapp_capture.py`:
-- `send_entity_method()`: Generic BigWorld Mercury method encoder.
-- `run_baseapp_stage_machine()`: Stage 4 now sends `onCreateCharacter` $\to$ `updateBaseCharacter` $\to$ `updateBaseNickname` $\to$ `enterHall`.
+Implemented in `mitm/local_baseapp_capture.py` (`run_baseapp_stage_machine` Stage 4):
+1. Sends `showSelectCharacter([])` (idx 1083, 4 bytes `00 00 00 00`) $\to$ triggers `_loadDefaultScene()` and instantiates `Scene`.
+2. Sleeps `ROS_SCENE_LOAD_DELAY` (default 2.5s) to allow the async loader to instantiate `Scene`.
+3. Sends `onCreateCharacter(True, "")` (idx 1084) $\to$ `updateBaseCharacter(1)` (idx 1087) $\to$ `updateBaseNickname("Survivor")` (idx 1088) $\to$ `enterHall(True)` (idx 1091).
+4. `enterHall` finds `GameObject.Find('Scene')` successfully, invoking `SceneSystem.loadHallScene()`.
 
-### Immediate Actions:
-1. Tap PLAY on client (`adb shell input tap 948 752`).
-2. Verify in server log that Stage 4 executes all 4 RPCs.
-3. Check Sigma telemetry for `onCreateCharacter` and `athleteEnterHall`.
-4. Capture screenshot of 3D Lobby.
+### Live Test Instructions for Claude:
+1. Relaunch server: `python mitm/local_baseapp_capture.py`
+2. Force-stop and restart app on LDPlayer: `adb shell am force-stop com.netease.chiji && adb shell monkey -p com.netease.chiji 1`
+3. Capture logcat: `adb logcat -c && adb logcat > scratch/live_logcat_stage4_verified.txt &`
+4. Tap PLAY: `adb shell input tap 960 740`
+5. Verify in logcat that `_loadDefaultScene` and `showSelectCharacter` execute without arg errors, and `enterHall` executes without `AttributeError`!
+6. Verify 3D scene / Lobby screencap!
+

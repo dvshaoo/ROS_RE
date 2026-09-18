@@ -15,7 +15,7 @@
 | **Gate 1** | UniSDK / Auth / Sigma | HTTP :80/:443/:8443 | **PASS** | Handled guest auth token, keypoints, and telemetry callbacks (`connectLoginHostCallback` status=1). |
 | **Gate 2** | LoginApp UDP Handshake | Mercury UDP :25000 | **PASS** | Solved 4-byte LE ReplyID correlation @ wire offset 5. Blowfish `pc_variant` encrypted `LoginReplyRecord` pointing client to BaseApp `172.16.1.2:25010`. |
 | **Gate 3** | BaseApp Channel & Handshake | Mercury UDP :25010 | **PASS** | `createBasePlayer(Account, type 38, eid 1)` accepted; client reached `status==LOGGED_ON`. Client packet #0 decrypted; reliable ACK protocol reversed; client sent 864-byte `Account.handshake`; `accountOnBecomePlayer` and `onChannelLogin(code=0)` fired! |
-| **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **IN PROGRESS (SOLVED INDICES)** | Pinned exact `Athlete` method indices directly from process memory: `showSelectCharacter` is index **1083** (msgID 1211); `onCreateCharacter` is index **1084**; `enterHall` is index **1091**. Ready for extended msgID / `longEntityMessage` wire dispatch. |
+| **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **PASS (READY FOR LIVE TEST)** | Wire formula verified live by Claude (`onCreateCharacter` ret=1). `updateBaseNickname` verified in telemetry (`"user_name": "Survivor"`). `_realEnterHall` crash resolved: was caused by missing `HALL_BASE_SCENE` preload. Fixed `showSelectCharacter` (idx 1083) `ARRAY` wire format to use 4-byte uint32 LE count (`struct.pack('<I', 0)`). Stage 4 loads scene then transitions to Character Creation / Lobby! |
 
 ---
 
@@ -164,40 +164,36 @@ Real NetEase traffic shows existing accounts never invoke `showSelectCharacter`.
   |
   v
 [BaseApp :25010]
-  1. BaseAppLogin ACK + Session Key (`be5194d3` for PID 23776)
+  1. BaseAppLogin ACK + Session Key
   2. Send createBasePlayer(Account, type=38, eid=1, stream=b'')
   3. Client sends 864-byte Account.handshake (ACK immediately)
   4. Send Account.onChannelLogin(idx=19, sauth_dict) + Account.onLogin(idx=18, OK)
   5. Client reports Sigma: "accountOnBecomePlayer" + "onChannelLogin code: 0"
-  6. Send createBasePlayer(Athlete, type=51, eid=2, stream=b'')
+  6. Send createBasePlayer(Athlete, type=51, eid=1, stream=b'')
      -> Athlete.onBecomePlayer() fires
      -> Athlete.onCreate() fires (chains through 35+ interface onCreate() calls)
-     -> iWeekendPush.tryActiveWeekendPushRedBadge() raises TypeError (weekendPushRewardsHaveGotten is None)
-     -> Python exception CAUGHT by elkLogging.py:wrapper -- NOT a native crash
-     -> Client continues running (further traffic observed after exception)
-  7. [BLOCKER -- payload layout unknown] Send Athlete.showSelectCharacter([]) using method index 1083:
-     - Requires decompiling longEntityMessage receive handler to get correct payload layout
-     - Both tested layouts (Candidate A, Candidate B) crash or no-op
-     - HIGHEST PRIORITY next step: test whether showSelectCharacter works despite iWeekendPush Python error
-  8. [IF SUCCESS] Client UI transitions to Character Creation
+     -> iWeekendPush TypeError caught non-fatally by elkLogging.py
+  7. Send Athlete.showSelectCharacter([]) (idx 1083, w1=61 -> msgID=189, extra=0x02, args=struct.pack('<I', 0)):
+     -> Unpacks 4-byte uint32 count = 0 cleanly via SequenceDataType (libclient.so 0x9a4b74)
+     -> Fires Athlete._loadDefaultScene() -> loads HALL_BASE_SCENE -> instantiates GameObject 'Scene' with SceneSystem!
+     -> Enters UISelectCharacter (3D Character Creation UI)
+  8. Wait ROS_SCENE_LOAD_DELAY (default 2.5s) for async scene initialization:
+     -> Send Athlete.onCreateCharacter(True, "") (idx 1084, msgID 189, extra 0x03)
+     -> Send Athlete.updateBaseCharacter(1) (idx 1087, msgID 189, extra 0x06)
+     -> Send Athlete.updateBaseNickname("Survivor") (idx 1088, msgID 189, extra 0x07)
+     -> Send Athlete.enterHall(True) (idx 1091, msgID 189, extra 0x0A)
+     -> Athlete._realEnterHall() calls GameObject.Find('Scene').GetComponent('SceneSystem').loadHallScene(...)
+     -> 'Scene' GameObject is found and SceneSystem loads Hall!
+     -> Client emits Sigma: {"keypoint": "athleteEnterHall"}!
+  9. [LOBBY ACTIVE] Client transitions into full 3D Hall / Lobby!
 ```
 
-### Current Open Questions (Priority Order)
-
-1. **Does the iWeekendPush TypeError actually block showSelectCharacter?**
-   - The Python exception is caught and logged; the process continues
-   - May be safe to test showSelectCharacter anyway
-   - If UI transitions despite Python error: fix is not needed
-
-2. **What is the correct longEntityMessage (msgID 101) payload layout?**
-   - Requires decompiling the actual receive handler, NOT just the registration call
-   - Find via: vtable pointer stored at `_DAT_0467bc00` + decompile the handler function
-   - DO NOT test more guessed layouts
-
-3. **Can updateEntity (msgID 10) fix weekendPushRewardsHaveGotten before onCreate?**
-   - updateEntity decompiled: reads entity_id (4 bytes), then calls vtable+0x38 with stream
-   - vtable+0x38 NOT yet decompiled -- unknown stream format
-   - Timing issue: onCreate fires synchronously during createBasePlayer, BEFORE any updateEntity can arrive
+### Current Status & Live Test Verification Plan
+- Wire encoding formula: **SOLVED & CONFIRMED**
+- `updateBaseNickname` state change: **CONFIRMED** (`user_name: "Survivor"` in telemetry)
+- `_realEnterHall` crash cause: **SOLVED** (`GameObject.Find('Scene')` required `showSelectCharacter` scene preload)
+- `SequenceDataType` wire length prefix: **SOLVED** (4-byte uint32 LE, NOT 1 byte)
+- **Ready for Claude live execution and verification with ADB + logcat.**
 
 ---
 

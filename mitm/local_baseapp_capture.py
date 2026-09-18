@@ -866,39 +866,57 @@ def run_baseapp_stage_machine(sock, addr, key):
         log('BASEAPP STAGE 3: sent createBasePlayer(Athlete type=%d, eid=%d, stream=%d B) to %s' % (
             athlete_type, athlete_eid, len(athlete_stream), addr))
 
-        # Stage 4: Athlete character activation & enterHall (ground truth from SERVE_B.txt)
+        # Stage 4: Athlete character activation & enterHall
+        # Root cause of _realEnterHall crash:
+        # In Athlete.py:656, _realEnterHall calls GameObject.Find('Scene').GetComponent('SceneSystem').loadHallScene(...)
+        # If the 3D scene (HALL_BASE_SCENE) was never loaded, GameObject.Find('Scene') returns None!
+        # Athlete.showSelectCharacter(idx 1083) runs _loadDefaultScene() which sets world.set_active_scene(HALL_BASE_SCENE).
+        # Disassembly evidence (libclient.so 0x9a4b74): SequenceDataType reads a 4-byte uint32 LE count prefix (mov w1, #4; blr read; ldr w21, [x0]).
+        # Therefore ARRAY<STRING> with 0 elements requires struct.pack('<I', 0) (4 zero bytes, not 1 zero byte).
         time.sleep(0.1)
         use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
 
-        # 1. Athlete.onCreateCharacter(True, "") (idx 1084)
-        # Athlete.def.xml: <onCreateCharacter><Arg>BOOL</Arg><Arg>STRING</Arg></onCreateCharacter>
-        # Official server telemetry: {"keypoint": "onCreateCharacter", "extraData": "{\"ret\": 1, \"msg\": \"\"}"}
-        occ_args = struct.pack('<B', 1) + _packed_int(0)
-        send_entity_method(sock, addr, use_key, athlete_eid, 1084, occ_args, flags=0x0008, num_methods=1131)
-        log('BASEAPP STAGE 4: sent Athlete.onCreateCharacter(ret=1, reason="") idx=1084 to eid=%d %s' % (athlete_eid, addr))
+        # Step 4a: Athlete.showSelectCharacter([]) (idx 1083) to initialize 3D scene / Character UI
+        if os.environ.get('ROS_SHOW_SELECT', '1') == '1':
+            ssc_args = struct.pack('<I', 0) # 4-byte LE count = 0
+            send_entity_method(sock, addr, use_key, athlete_eid, 1083, ssc_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=1083 (ARRAY<STRING> count=0, 4 bytes) to eid=%d %s' % (athlete_eid, addr))
 
-        # 2. Athlete.updateBaseCharacter(1) (idx 1087)
-        # Athlete.def.xml: <updateBaseCharacter><Arg>INT32</Arg></updateBaseCharacter>
-        time.sleep(0.05)
-        ubc_args = struct.pack('<i', 1)
-        send_entity_method(sock, addr, use_key, athlete_eid, 1087, ubc_args, flags=0x0008, num_methods=1131)
-        log('BASEAPP STAGE 4: sent Athlete.updateBaseCharacter(1) idx=1087 to eid=%d %s' % (athlete_eid, addr))
+        # Step 4b: Auto enter hall if configured
+        if os.environ.get('ROS_AUTO_ENTER_HALL', '1') == '1':
+            scene_delay = float(os.environ.get('ROS_SCENE_LOAD_DELAY', '2.5'))
+            log('BASEAPP STAGE 4: waiting %.1fs for client _loadDefaultScene to instantiate Scene GameObject...' % scene_delay)
+            time.sleep(scene_delay)
 
-        # 3. Athlete.updateBaseNickname("Survivor") (idx 1088)
-        # Athlete.def.xml: <updateBaseNickname><Arg>STRING</Arg></updateBaseNickname>
-        time.sleep(0.05)
-        nick = b"Survivor"
-        ubn_args = _packed_int(len(nick)) + nick
-        send_entity_method(sock, addr, use_key, athlete_eid, 1088, ubn_args, flags=0x0008, num_methods=1131)
-        log('BASEAPP STAGE 4: sent Athlete.updateBaseNickname("Survivor") idx=1088 to eid=%d %s' % (athlete_eid, addr))
+            # 1. Athlete.onCreateCharacter(True, "") (idx 1084)
+            # Athlete.def.xml: <onCreateCharacter><Arg>BOOL</Arg><Arg>STRING</Arg></onCreateCharacter>
+            # Official server telemetry: {"keypoint": "onCreateCharacter", "extraData": "{\"ret\": 1, \"msg\": \"\"}"}
+            occ_args = struct.pack('<B', 1) + _packed_int(0)
+            send_entity_method(sock, addr, use_key, athlete_eid, 1084, occ_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP STAGE 4: sent Athlete.onCreateCharacter(ret=1, reason="") idx=1084 to eid=%d %s' % (athlete_eid, addr))
 
-        # 4. Athlete.enterHall(True) (idx 1091)
-        # Athlete.def.xml: <enterHall><Arg>BOOL</Arg></enterHall> (isFirstLoginOfDay=True)
-        # Official server telemetry: {"keypoint": "athleteEnterHall"}
-        time.sleep(0.1)
-        eh_args = struct.pack('<B', 1)
-        send_entity_method(sock, addr, use_key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
-        log('BASEAPP STAGE 4: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, addr))
+            # 2. Athlete.updateBaseCharacter(1) (idx 1087)
+            # Athlete.def.xml: <updateBaseCharacter><Arg>INT32</Arg></updateBaseCharacter>
+            time.sleep(0.05)
+            ubc_args = struct.pack('<i', 1)
+            send_entity_method(sock, addr, use_key, athlete_eid, 1087, ubc_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP STAGE 4: sent Athlete.updateBaseCharacter(1) idx=1087 to eid=%d %s' % (athlete_eid, addr))
+
+            # 3. Athlete.updateBaseNickname("Survivor") (idx 1088)
+            # Athlete.def.xml: <updateBaseNickname><Arg>STRING</Arg></updateBaseNickname>
+            time.sleep(0.05)
+            nick = b"Survivor"
+            ubn_args = _packed_int(len(nick)) + nick
+            send_entity_method(sock, addr, use_key, athlete_eid, 1088, ubn_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP STAGE 4: sent Athlete.updateBaseNickname("Survivor") idx=1088 to eid=%d %s' % (athlete_eid, addr))
+
+            # 4. Athlete.enterHall(True) (idx 1091)
+            # Athlete.def.xml: <enterHall><Arg>BOOL</Arg></enterHall> (isFirstLoginOfDay=True)
+            # Official server telemetry: {"keypoint": "athleteEnterHall"}
+            time.sleep(0.1)
+            eh_args = struct.pack('<B', 1)
+            send_entity_method(sock, addr, use_key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP STAGE 4: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, addr))
 
         # Stage 5: HOLDING
         log('BASEAPP STAGE 5: All entity lifecycle stages complete. Entering HOLDING state for %s' % (addr,))

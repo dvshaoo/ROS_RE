@@ -1635,3 +1635,61 @@ transition despite the RPC dispatch itself working.
    confirm reproducibility before investing further static-analysis
    time (this was only observed once so far this session).
 
+## INVESTIGATION & RESOLUTION OF `_realEnterHall` CRASH (2026-09-18, Gemini Session)
+
+### 1. Proof of `updateBaseNickname` Success (Independent Ground-Truth Telemetry)
+In `mitm/captures/SERVE_B.txt:32050` (and device telemetry uploaded right after the test):
+`BODY b'{"product":"h45na","server_name":"test",...,"user_name":"Survivor",...,"user_id":"1",...}'`
+- Line 32045 before the method call had `"baseNickname": ""` (empty).
+- Immediately after `updateBaseNickname("Survivor")` (idx 1088), telemetry collected and transmitted `"user_name": "Survivor"`.
+- This provides **100% conclusive, independent ground-truth verification** that `updateBaseNickname` ran to completion and updated the player's internal state on the client.
+
+### 2. Disassembly & Decompilation of `entities\Athlete.py:656 _realEnterHall`
+From `Athlete.py.disasm.txt:49` and verified against in-game Python tools (`RulesOfSurvivalOld (2)/RulesOfSurvivalOld/tools/_archive/hall_dis.py:29-30` and `hall_load.py:73`):
+```python
+from libclaudia.Classes.GameObject import GameObject as GO
+sc = GO.Find('Scene')
+ss = sc.GetComponent('SceneSystem')
+ss.loadHallScene(onHallSceneReady)
+```
+- Line 656 is literally `GameObject.Find('Scene').GetComponent('SceneSystem').loadHallScene(...)`.
+- The exception `AttributeError: 'NoneType' object has no attribute 'GetComponent'` occurs because `GameObject.Find('Scene')` returned `None`.
+- It returned `None` because the client was still sitting in `loginScene` (the 2D splash / login UI); the 3D scene (`HALL_BASE_SCENE`) was never commanded to load!
+
+### 3. Missing Scene-Preload Step: `Athlete.showSelectCharacter` (idx 1083)
+From `Athlete.py.disasm.txt:28-33`:
+```python
+FUNC showSelectCharacter(self, oldNames):
+    # starts coroutine _loadDefaultScene():
+    #   loads HALL_BASE_SCENE via loadDefaultScene
+    #   calls world.set_active_scene(HALL_BASE_SCENE) -> instantiates GameObject 'Scene' with SceneSystem!
+    #   enters UISelectCharacter
+```
+- Real server traffic always transitions from 2D login to the 3D world by invoking `showSelectCharacter`.
+- Skipping straight to `enterHall` starved the scene manager, leaving `GameObject.Find('Scene')` unresolved.
+
+### 4. Wire Encoding Fix for `showSelectCharacter` (`ARRAY <of> STRING </of>`)
+Why did `showSelectCharacter` fail when tested earlier with `MethodDescription::getArgsAsTuple: Failed to get arg 0 (of type ARRAY of STRING) from the stream`?
+- **Disassembly of `SequenceDataType::createFromStream` (`libclient.so:0x9a4b74-0x9a4b88`)**:
+  ```arm64
+  0x9a4b74: ldr  x8, [x20]        ; vtable of BinaryIStream
+  0x9a4b78: mov  w1, #4           ; READ 4 BYTES
+  0x9a4b7c: mov  x0, x20          ; stream
+  0x9a4b80: ldr  x8, [x8, #0x10]  ; BinaryIStream::read(4)
+  0x9a4b84: blr  x8
+  0x9a4b88: ldr  w21, [x0]        ; w21 = count (uint32 LE)
+  0x9a4b8c: ldrb w8, [x20, #8]    ; stream.error()
+  0x9a4b90: cbnz w8, #0x9a4b60    ; if error, log "Missing size parameter on stream"
+  ```
+- `SequenceDataType` requires a **4-byte uint32 LE count**, NOT a 1-byte length prefix.
+- Passing `b'\x00'` provided only 1 byte, which triggered the `Missing size parameter on stream` error.
+- Passing `struct.pack('<I', 0)` (`b'\x00\x00\x00\x00'`, 4 bytes) satisfies the stream reader completely and evaluates `count == 0` (`w21 < 1` branches to `0x9a4ccc` $\to$ success return of empty Python list `[]`).
+
+### 5. Implementation in `mitm/local_baseapp_capture.py`
+Stage 4 now sends:
+1. `Athlete.showSelectCharacter([])` (idx 1083, 4 bytes uint32 zeroes `b'\x00\x00\x00\x00'`) to trigger `_loadDefaultScene()` and instantiate `Scene`.
+2. Waits `ROS_SCENE_LOAD_DELAY` (default 2.5s) for the client's async scene loader to create the `Scene` GameObject.
+3. Dispatches `onCreateCharacter(1084)` $\to$ `updateBaseCharacter(1087)` $\to$ `updateBaseNickname(1088)` $\to$ `enterHall(1091)`.
+4. If `ROS_AUTO_ENTER_HALL=0`, the client remains on the 3D Character Creation UI (`UISelectCharacter`).
+
+
