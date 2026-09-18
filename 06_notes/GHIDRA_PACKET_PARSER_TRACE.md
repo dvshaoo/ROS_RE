@@ -872,3 +872,71 @@ server at a time, then run `ROS_STAGE4_MODE=sweep` (with
 `ROS_ATHLETE_SWEEP_DELAY` around 0.4-0.5s) and watch both the log for
 any reconnect-loop crash (indicating a bad idx, same symptom as
 Candidate A) and the screen for a UI transition to Character Creation.
+
+### Empirical showSelectCharacter sweep (idx 0-127, two distinct eids) completed -- ZERO effect, and the real blocker is deeper than the index (2026-09-18, later same day)
+
+With a clean, single-agent test window (see prior section -- the
+concurrent-Gemini-session collision was resolved by the user pausing
+that session), ran the full `ROS_STAGE4_MODE=sweep` empirically across
+idx 0-127 using the safe, standard `msgid = 128 + idx` per-entity
+encoding (no candidate-A/B guessing involved), twice: once with
+`ROS_ATHLETE_EID=1` (same eid as Account) and once with
+`ROS_ATHLETE_EID=2` (distinct eid, to rule out an eid-collision
+silently breaking the second `createBasePlayer`). **Both sweeps
+completed cleanly with zero reconnects/crashes and zero visible UI
+change** -- the client stayed at the title screen through the entire
+0-127 range in both cases.
+
+This negative result, combined with a check of this session's HTTP
+telemetry, points to a much more fundamental problem than "which index
+is showSelectCharacter": **`accountOnBecomePlayer` -- the telemetry
+keypoint that would confirm `Account.onLogin`/`onChannelLogin` actually
+activated the player entity client-side -- has NEVER fired in any live
+test run today**, including the `live_test_hellofix_1789715211.out`
+stress test that this document earlier (correctly) characterized as
+"CONFIRMED FIXED" for the `connectLoginHostCallback` status:1/2
+flakiness. That characterization stands (status:1 IS reliably reached
+now), but status:1 only proves the client dials BaseApp -- it says
+nothing about whether the subsequent Account activation RPCs actually
+took effect. Grepping every `server_console_*.log` and the hellofix
+`.out` file from today for `accountOnBecomePlayer` returns zero matches
+in all of them.
+
+**This exact problem was already identified and documented as a
+structural, "genuine pause point" by a PRIOR session, in
+`06_notes/ACCOUNT_HANDSHAKE_SYNTHESIS.md` (2026-09-16, after E2E-037)** --
+a document this session had not re-read until now. That synthesis
+states plainly: `onChannelLogin`'s wire format was tested with 3 labeled
+variants (pickle/u8-index, marshal, u16-index via `longEntityMessage`),
+407 packets over ~20s under a retry flood, with **zero observable
+effect in ALL cases**, and a live-memory-verified gate field
+(`entity+0x140`) was found to toggle on its own on a ~2-3s period in a
+way that doesn't fit a simple "missing setter call" theory. That
+document explicitly recommends NOT continuing to guess
+`onChannelLogin`'s wire format further, and instead pursuing one of:
+(1) finding a controllable debug/verbose-logging flag in the native
+code for better observability without decrypting anything, (2)
+re-verifying the entity-defs/interface fingerprint check
+(`0x32ef9816`) actually passes in the current session, (3) a long
+passive-observation test with no new experimental pushes, or (4) real
+ARM64 hardware + dynamic instrumentation (Frida-style) -- the only
+option with direct proof-of-concept evidence it can work at all
+(ROS Legacy's own working `.nxs` overrides).
+
+**Conclusion for future sessions:** the `showSelectCharacter` index
+guessing this session (Gemini's 1083, both wire candidates, and this
+session's empirical 0-127 sweep) was very likely never going to show
+any effect regardless of the correct index, because the prerequisite
+Account-to-Athlete entity activation itself has never been confirmed
+to succeed. **Do not resume index-guessing/sweeping for
+showSelectCharacter until `accountOnBecomePlayer` (or equivalent
+positive evidence of entity activation) is confirmed to fire.** The
+next concrete step should be one of `ACCOUNT_HANDSHAKE_SYNTHESIS.md`'s
+options 1-3 (cheap, no new tooling/hardware needed) before considering
+option 4 (hardware/dynamic-instrumentation, a standing human decision
+point flagged since E2E-004/005). Also: Gemini's claim (in
+`GEMINI.md`/`CLAUDE.md`) of having observed `accountOnBecomePlayer` and
+`onChannelLogin(code=0)` firing is now the THIRD Gemini claim this
+session that could not be independently reproduced (after type=51 and
+index=1083) -- treat any of that session's "live-verified" claims with
+default skepticism until independently reproduced in a fresh log.
