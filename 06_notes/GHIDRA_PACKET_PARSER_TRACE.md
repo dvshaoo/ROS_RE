@@ -940,3 +940,193 @@ point flagged since E2E-004/005). Also: Gemini's claim (in
 session that could not be independently reproduced (after type=51 and
 index=1083) -- treat any of that session's "live-verified" claims with
 default skepticism until independently reproduced in a fresh log.
+
+## MAJOR BREAKTHROUGH (2026-09-18, continued): logcat is a live method-dispatch oracle; found the real crash blocking Character Creation
+
+After the user paused the concurrent Gemini session, resumed live testing with a
+technique not previously used in this project: capturing `adb logcat` DURING
+a live BaseApp test. This was cheap (no new tooling, no Ghidra work) and
+turned out to be enormously more informative than any static analysis this
+project has done -- the client's native engine and Python script layer both
+log verbosely to logcat by default (tag `M`), with lines like
+`ServerConnection::createBasePlayer: id 1`, `[ERROR] MethodDescription::...`,
+and full Python tracebacks. This directly satisfies
+ACCOUNT_HANDSHAKE_SYNTHESIS.md's option 1 ("find better observability")
+without needing a debug flag at all -- the visibility was there the whole
+time, just never captured during an active test.
+
+### Finding 1: Account/Athlete entity activation DOES work -- earlier "never activated" theory was WRONG
+
+Logcat directly confirms, in order, for a real test run:
+```
+ServerConnection::createBasePlayer: id 1        <- Account (Stage 1)
+ServerConnection::logOn: status==LOGGED_ON
+ServerConnection::logOn: to:   172.16.1.2:25010
+ServerConnection::createBasePlayer: id 1        <- Athlete (Stage 3, same eid)
+FixedDictDataType::setCustomClassFunctions: RankData.playerRankRecordConverter
+... (more setCustomClassFunctions lines) ...
+[ERROR] Script execution returned the error TypeError
+Traceback (most recent call last):
+  File elkLogging.py, line 92, in wrapper
+  File entities/Athlete.py, line 255, in onBecomePlayer
+  File entities/Athlete.py, line 361, in onCreate
+  File entities/iFriend.py, line 18, in onCreate
+  ... (32 more interface onCreate calls, in registration order) ...
+  File entities/iWeekendPush.py, line 14, in onCreate
+  File entities/iWeekendPush.py, line 66, in tryActiveWeekendPushRedBadge
+TypeError: NoneType object is not iterable
+```
+Athlete.onBecomePlayer and Athlete.onCreate DO execute -- this
+directly contradicts this session's earlier conclusion (based on the absence
+of an accountOnBecomePlayer HTTP telemetry keypoint) that entity activation
+had never succeeded. That telemetry keypoint's absence was a red herring, or
+is simply a different, unrelated event -- the actual native/script-level
+activation is confirmed working via this log.
+
+### Finding 2: the EXACT crash that (very likely) blocks whatever triggers Character Creation
+
+Athlete.onCreate() calls every implemented interface's onCreate() in
+registration order (this traceback IS the live, ground-truth interface
+registration order -- more reliable than any static XML parse this project
+has done, since it's the actual runtime call sequence). The chain is:
+iFriend -> iHallTeam -> iBindPhone -> iGMAdmin -> iRank -> iCommonLive ->
+iComplaintHall -> iShare -> iTreasureChest -> iDailyActivity ->
+iCustomControlManagerBase -> iBlackMarket -> iDtsBigMapDownloader ->
+iItemExchange -> iGoldBattle -> iYuanbaoBattle ->
+iInternationalChallengeCupRpc -> iItemConvert -> iDtsLevelSystem ->
+iPayedPartner -> iMonthPayRebateSpecialAward -> iAccumulateCharge ->
+iDayTask -> iSpecTrain -> iLottery -> iFacebook -> iSteam ->
+iActivityLimitTime -> iRosMatch -> iPrizeMatch -> iHorseRacing ->
+iDtsActivityTask -> iWeekendPush -- and crashes inside iWeekendPush,
+specifically in tryActiveWeekendPushRedBadge (iWeekendPush.py:66) with
+TypeError: NoneType object is not iterable.
+
+Root cause identified precisely: 05_entities/out/entity_0247.xml (the
+iWeekendPush interface's property definitions, confirmed as one of
+Athlete's Implements interfaces in Athlete.def.xml:101) defines
+weekendPushRewardsHaveGotten as type PYTHON with no Default tag.
+This project's createBasePlayer(Athlete, ..., stream=b'') sends a
+completely empty property stream, which -- per the disassembly evidence
+already documented (EntityType::newDictionary jumping to PyDict_New()
+for an empty stream) -- does NOT populate every property with a
+type-appropriate default (e.g. an empty list for something meant to be
+iterated); PYTHON-typed properties with no explicit default appear to
+end up None. tryActiveWeekendPushRedBadge (per its name) evidently
+iterates over self.weekendPushRewardsHaveGotten expecting a list, gets
+None, and throws.
+
+Why this matters: since Python exceptions propagate up and abort the
+rest of the calling function, every interface after iWeekendPush in
+that registration-order list never gets its onCreate() called at all
+this run -- iCustomControlManagerBase through iDtsActivityTask (22
+interfaces) are silently skipped. If the actual "check if the player has
+no characters yet, trigger showSelectCharacter" logic lives in
+Athlete.onCreate() itself (after its interface loop) or in any interface
+later in this list, it never runs, which would fully explain why
+Character Creation never appears regardless of any wire-level index sent
+via send_entity_method() -- the trigger logic itself is being starved by
+an unrelated, earlier exception.
+
+### Finding 3: logcat is also a live entity-method-dispatch oracle -- Gemini's 1081/1131 claims are now conclusively refuted
+
+Every send_entity_method() call this project makes to a real registered
+per-entity method ID produces one of three observable logcat outcomes:
+1. `[ERROR] MethodDescription::getArgsAsTuple: Failed to get arg N (of type
+   T) for method REAL_NAME from the stream` + `[ERROR]
+   MethodDescription::callMethod: Couldn't stream off args ... aborting` --
+   the client tells us the method's real name even when our args are wrong.
+2. `[WARNING] ... CHEAT: Data still remains on stream after all args have
+   been streamed off! (N bytes remaining)` -- the call actually dispatched
+   successfully (with our extra byte(s) ignored), meaning that real method
+   takes fewer/no args.
+3. Silence -- no registered method exists at that index (or, less likely
+   for idx<64, a framing issue on our end; not distinguished yet).
+
+Running the existing ROS_STAGE4_MODE=sweep (idx 0-127, safe
+msgid=128+idx encoding) with adb logcat capturing simultaneously, then
+correlating server-side send timestamps against logcat timestamps
+(constant offset ~0.6s, verified via an anchor match), produced this
+empirically-confirmed, ground-truth partial method table for the live
+Athlete entity (this is not any prior static analysis -- it's observed
+runtime dispatch):
+```
+idx  method
+ 16  (silent success / no-arg method)
+ 36  (silent success / no-arg method)
+ 49  (silent success / no-arg method)
+ 54  onEnterHallTeam
+ 55  syncHallTeamMatchingRandom
+ 56  onInvitedToHallTeam
+ 57  addHallTeamMember
+ 58  onJoinDtsCustomGame
+ 59  onModifyRosMatchTeamLogoCallback
+ 60  updateWeekendPushRecordScore
+ 61  onRefreshMSToken
+```
+(idx 0-15, 17-35, 37-53 also produced real method names -- payment/lottery/
+friend-list/mail-related methods -- omitted here for brevity, full raw
+correlation available by re-running the sweep+logcat capture; see
+scratch/server_console_oracle_*.log + scratch/live_logcat_oracle_*.txt
+from this session for the complete raw data.)
+
+Critically: idx 62 through 127 produced ZERO logcat output of any kind
+across two separate sweep runs (one full 0-127, one focused re-test of
+55-90 with a longer 0.6s delay for cleaner correlation) -- no error, no
+CHEAT warning, nothing. This means idx 61 (onRefreshMSToken) is very
+likely the LAST directly-dispatchable client method on this live Athlete
+entity -- the entity's real total client-method count is approximately
+62 (idx 0-61), not 1131 (Gemini's claim) and not exactly 47 either (this
+session's earlier static XML analysis, which undercounted due to missing
+interface files but happened to land closer to reality than Gemini's number).
+
+showSelectCharacter was NOT found anywhere in the observed 0-61 range.
+Combined with Finding 2 (the onCreate crash preventing later interfaces
+from initializing), the most likely explanations, in order of plausibility:
+1. showSelectCharacter (or whatever actually drives Character Creation)
+   is gated behind Athlete.onCreate() completing successfully, and it
+   currently never does because of the iWeekendPush crash -- fixing
+   Finding 2 might make it fire automatically without needing to guess an
+   index at all.
+2. showSelectCharacter is dispatched through a different entity type
+   (Account?) or a different mechanism entirely (e.g., a property change
+   callback rather than a direct RPC), consistent with Gemini's own
+   GEMINI.md framing being unreliable throughout this session.
+
+Gemini's claims are now conclusively refuted, not just unverified: the
+live, empirically-observed method table places onRefreshMSToken at index
+61, not 1081 as GEMINI.md/CLAUDE.md asserted -- a 1020-index
+discrepancy that cannot be explained by any reasonable margin of error.
+Every one of Gemini's "live process memory citation" claims checked this
+session (type=51 unconfirmed either way, index=1083 for showSelectCharacter,
+1131 total methods, and now onRefreshMSToken=1081) has failed independent
+verification. Future sessions should not trust any un-reproduced claim from
+GEMINI.md/CLAUDE.md/HANDOFF_PROMPT_CLAUDE.md.
+
+### Recommended next step (concrete, not guessing)
+
+1. Fix the iWeekendPush crash first. Either (a) construct a minimal
+   non-empty Athlete property stream that at least sets
+   weekendPushRewardsHaveGotten (and any other no-default PYTHON/ARRAY
+   properties that might have the same problem in interfaces reached
+   later) to an empty-list encoding, or (b) investigate whether BigWorld
+   has a simpler mechanism to force type-appropriate defaults for an
+   empty stream that this project isn't currently triggering correctly.
+   This requires figuring out the wire encoding BigWorld uses for a
+   PYTHON-typed property's "empty list" value (likely pickle or marshal,
+   consistent with existing pickle usage elsewhere in this project's
+   onChannelLogin payload construction).
+2. Re-test with logcat capturing after that fix -- if Athlete.onCreate
+   completes without exception, check logcat for any NEW method name
+   references beyond onRefreshMSToken (the previously-blocked
+   iCustomControlManagerBase through iDtsActivityTask interfaces would
+   now get their onCreate() called, potentially registering MORE client
+   methods beyond idx 61, possibly including whatever drives character
+   selection) and re-run the ROS_STAGE4_MODE=sweep oracle technique
+   against the now-larger method table.
+3. Keep using the logcat-during-test technique going forward -- it
+   should be standard practice for every live test from now on, not an
+   occasional extra step. Capture via: `adb logcat -c && adb logcat >
+   scratch/live_logcat_LABEL_TIMESTAMP.txt &` before every test,
+   correlate server-log send timestamps against logcat timestamps (~0.6s
+   constant offset observed, verify per-session since it may depend on
+   emulator load) to build/refine the real method table incrementally.
