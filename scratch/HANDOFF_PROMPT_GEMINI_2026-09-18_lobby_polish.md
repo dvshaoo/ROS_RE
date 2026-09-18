@@ -1,9 +1,9 @@
-# Handoff prompt for Gemini/Antigravity — Lobby UI duplication + missing character model
+# Handoff prompt for Gemini/Antigravity — Lobby UI duplication + missing character model + full Lobby UI audit
 
 > **Project**: Rules of Survival Mobile Private Server Emulation (Game Preservation)
 > **Workspace**: `C:\Users\Raysoo\Downloads\ROS_RE`
 > **Client**: `com.netease.chiji`, v1.610377.506841, vCode 1117219, arm64-v8a
-> **This file**: written by Claude after independently live-testing your scene-preload fix (`c0e8a09`). It worked — the 3D Lobby is reached and confirmed via the `athleteEnterHall` telemetry keypoint and a screenshot. Two new, narrower issues found during that same test. Read this before doing anything else.
+> **This file**: written by Claude after independently live-testing your scene-preload fix (`c0e8a09`). It worked — the 3D Lobby is reached and confirmed via the `athleteEnterHall` telemetry keypoint and a screenshot. Two new, narrower issues found during that same test, plus a broader ask from the user at the end (issue 3) to audit the whole Lobby UI, not just these two. Read this before doing anything else.
 
 ---
 
@@ -52,6 +52,16 @@ The Lobby screenshot shows the environment (bike, crates, mountains) and UI chro
 1. `Athlete.def.xml` / the interface .xml files already extracted in `05_entities/out/` for what `updateBaseCharacter`'s single `INT32 charType` argument actually selects (a preset character type/gender enum?) and whether `charType=1` is even a valid value, or whether appearance requires additional properties/RPCs this project isn't sending yet (e.g. something in the `dtsWearableAppearanceList`/`dtsBodyAppearanceList`-style fields Claude's earlier live memory dump saw referenced in a nearby FIXED_DICT structure for hall team members — see the `addHallTeamMember` entry in the "MAJOR CORRECTION" section's method table dump for the exact field list of a related structure, which may hint at what Athlete's own equivalent fields look like).
 2. Whether there's a specific property-push (not a method call) needed to give the character a visible model — reuse the live-memory-scanning technique (walk `EntityType[51]`'s structure, this time looking at its *properties* list rather than its *methods* list, if such a properties array can be located the same way the `MethodDescription` array was found) to check what `Athlete`'s appearance-related properties actually are and what a sensible non-empty value looks like.
 3. Cross-check `mitm/captures/SERVE_B.txt` for what a real server sends around character creation that might set appearance data — this project has used that capture as ground truth for the Gate 4 sequence already, so it may contain the answer directly.
+
+## New issue 3 (broader ask from the user): audit the WHOLE Lobby UI, not just these two things
+
+The user looked at the Lobby screenshot and noticed several buttons/UI areas appear to be missing or non-functional beyond just the two issues above — e.g. no visible Settings button, no visible way to actually start a match, and generally other Lobby chrome that a real Lobby screen should have. The side menu currently only shows STORE/SUPPLY/MANUAL/PLATOON/DEPOT; a real Rules of Survival lobby has considerably more (Settings/gear icon, a mode-select and "Start"/matchmaking button, inventory/character customization entry points, mail/friends, etc.).
+
+**What to do**: rather than chasing individual missing buttons one at a time, do a systematic pass:
+1. Take a full, careful screenshot pass of the Lobby (and any sub-screens reachable from it) and compare against what a real client's Lobby is known to look like (`mitm/captures/SERVE_B.txt` and this project's other captured reference material, plus general knowledge of this specific game's real UI layout, may help establish what "complete" looks like).
+2. For each missing/non-functional element, determine whether it's missing because: (a) it depends on server-pushed data this project isn't sending yet (most likely for things like character/inventory-dependent UI), (b) it's gated behind a property or entity this project hasn't initialized (same class of issue as the character-model and `iWeekendPush` problems already found), or (c) it's actually present but not rendering for a client-side reason unrelated to protocol correctness (in which case, document it as a known limitation rather than chasing it indefinitely — same judgment call as the promo-UI duplication issue above).
+3. Prioritize whatever blocks reaching a genuinely playable state (e.g. a working "start match"/matchmaking flow) over purely cosmetic gaps, but document everything found either way.
+4. Update `06_notes/GHIDRA_PACKET_PARSER_TRACE.md` with a clear inventory: what's present and working, what's missing and why (with evidence), and what's still unknown.
 
 ## Division of labor (same as last time)
 
