@@ -49,16 +49,18 @@
 - **`[19] msgid=147`**: **`onChannelLogin(UINT8 ret, PYTHON sauth)`** (`ret=0, sauth={'uid':'900000001', ...}`)
 
 ### B. `Athlete` (Type 51) — 1131 Methods Total
-`Athlete` inherits 152 interfaces resulting in 1080 flattened interface methods preceding Athlete's own methods:
+- `[  54] msgid= 182`: `onEnterHallTeam`
+- `[  59] msgid= 187`: `onLeaveHallTeam()` (resets solo team state, prevents `hallTeamData` crash)
 - `[1081] msgid=1209`: `onRefreshMSToken(STRING, STRING)`
 - `[1082] msgid=1210`: `onKickOff()`
-- **`[1083] msgid=1211`**: **`showSelectCharacter(ARRAY<STRING> oldNames)`** (Drives Character Creation UI if character does not exist)
+- **`[1083] msgid=1211`**: **`showSelectCharacter(ARRAY<STRING> oldNames)`** (Preloads 3D scene; required before enterHall)
 - **`[1084] msgid=1212`**: **`onCreateCharacter(BOOL success, STRING reason)`** (Character creation confirmation)
-- **`[1085] msgid=1213`**: **`onRoleCreateSuc(INT32 roleId)`**
-- **`[1087] msgid=1215`**: **`updateBaseCharacter(INT32 charType)`**
+- **`[1085] msgid=1213`**: **`onRoleCreateSuc(INT32 roleId)`** (Role create success, roleId=10002)
+- **`[1087] msgid=1215`**: **`updateBaseCharacter(INT32 charType)`** (10002=MALE, 10005=FEMALE per `getCharactersData`)
 - **`[1088] msgid=1216`**: **`updateBaseNickname(STRING nick)`**
 - **`[1091] msgid=1219`**: **`enterHall(BOOL isFirstLoginOfDay)`** (Lobby entry!)
 - `[1103] msgid=1231`: `onLogin(INT32, STRING)`
+
 
 ---
 

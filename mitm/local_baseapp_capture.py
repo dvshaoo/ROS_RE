@@ -895,14 +895,24 @@ def run_baseapp_stage_machine(sock, addr, key):
             send_entity_method(sock, addr, use_key, athlete_eid, 1084, occ_args, flags=0x0008, num_methods=1131)
             log('BASEAPP STAGE 4: sent Athlete.onCreateCharacter(ret=1, reason="") idx=1084 to eid=%d %s' % (athlete_eid, addr))
 
-            # 2. Athlete.updateBaseCharacter(1) (idx 1087)
-            # Athlete.def.xml: <updateBaseCharacter><Arg>INT32</Arg></updateBaseCharacter>
-            time.sleep(0.05)
-            ubc_args = struct.pack('<i', 1)
-            send_entity_method(sock, addr, use_key, athlete_eid, 1087, ubc_args, flags=0x0008, num_methods=1131)
-            log('BASEAPP STAGE 4: sent Athlete.updateBaseCharacter(1) idx=1087 to eid=%d %s' % (athlete_eid, addr))
+            # 2. Athlete.onRoleCreateSuc(char_type) (idx 1085)
+            # Athlete.def.xml: <onRoleCreateSuc><Arg>INT32</Arg></onRoleCreateSuc>
+            char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10002'))
+            if os.environ.get('ROS_SEND_ROLE_CREATE_SUC', '1') == '1':
+                time.sleep(0.05)
+                orcs_args = struct.pack('<i', char_type)
+                send_entity_method(sock, addr, use_key, athlete_eid, 1085, orcs_args, flags=0x0008, num_methods=1131)
+                log('BASEAPP STAGE 4: sent Athlete.onRoleCreateSuc(%d) idx=1085 to eid=%d %s' % (char_type, athlete_eid, addr))
 
-            # 3. Athlete.updateBaseNickname("Survivor") (idx 1088)
+            # 3. Athlete.updateBaseCharacter(char_type) (idx 1087)
+            # Ground truth: 10002=MALE, 10005=FEMALE per probe_character_data.py & cc_stub_player.py.
+            # Value 1 has no entry in legacyProperties.getCharactersData(), which prevented avatar creation.
+            time.sleep(0.05)
+            ubc_args = struct.pack('<i', char_type)
+            send_entity_method(sock, addr, use_key, athlete_eid, 1087, ubc_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP STAGE 4: sent Athlete.updateBaseCharacter(%d) idx=1087 to eid=%d %s' % (char_type, athlete_eid, addr))
+
+            # 4. Athlete.updateBaseNickname("Survivor") (idx 1088)
             # Athlete.def.xml: <updateBaseNickname><Arg>STRING</Arg></updateBaseNickname>
             time.sleep(0.05)
             nick = b"Survivor"
@@ -910,13 +920,27 @@ def run_baseapp_stage_machine(sock, addr, key):
             send_entity_method(sock, addr, use_key, athlete_eid, 1088, ubn_args, flags=0x0008, num_methods=1131)
             log('BASEAPP STAGE 4: sent Athlete.updateBaseNickname("Survivor") idx=1088 to eid=%d %s' % (athlete_eid, addr))
 
-            # 4. Athlete.enterHall(True) (idx 1091)
+            # 5. Athlete.onLeaveHallTeam() (idx 59)
+            # Athlete.def.xml: <onLeaveHallTeam></onLeaveHallTeam> (0 args)
+            # Solves AttributeError: 'PlayerAthlete' object has no attribute 'hallTeamData' by triggering solo team state
+            if os.environ.get('ROS_SEND_LEAVE_TEAM', '1') == '1':
+                time.sleep(0.05)
+                send_entity_method(sock, addr, use_key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
+                log('BASEAPP STAGE 4: sent Athlete.onLeaveHallTeam() idx=59 to eid=%d %s' % (athlete_eid, addr))
+
+            # 6. Athlete.enterHall(True) (idx 1091)
             # Athlete.def.xml: <enterHall><Arg>BOOL</Arg></enterHall> (isFirstLoginOfDay=True)
             # Official server telemetry: {"keypoint": "athleteEnterHall"}
             time.sleep(0.1)
             eh_args = struct.pack('<B', 1)
             send_entity_method(sock, addr, use_key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
             log('BASEAPP STAGE 4: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, addr))
+
+            # Optional post-hall leave team reassert
+            if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '1') == '1':
+                time.sleep(0.1)
+                send_entity_method(sock, addr, use_key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
+                log('BASEAPP STAGE 4: sent Athlete.onLeaveHallTeam() idx=59 (post-hall) to eid=%d %s' % (athlete_eid, addr))
 
         # Stage 5: HOLDING
         log('BASEAPP STAGE 5: All entity lifecycle stages complete. Entering HOLDING state for %s' % (addr,))

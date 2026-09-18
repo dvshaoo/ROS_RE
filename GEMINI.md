@@ -52,16 +52,19 @@ Extracted directly from `EntityType[id] + 0x1e8` (`std::vector<MethodDescription
 `Athlete` implements 152 interfaces, resulting in 1080 flattened interface methods preceding Athlete's own client methods:
 - `[ 54] msgid= 182`: `onEnterHallTeam`
 - `[ 56] msgid= 184`: `onInvitedToHallTeam`
+- `[ 59] msgid= 187`: `onLeaveHallTeam()` (resets solo team state, prevents `hallTeamData` crash)
 - `[104] msgid= 232`: `startHeroSelect`
 - `[407] msgid= 535`: `onSelectAssistant`
 - `[1081] msgid=1209`: `onRefreshMSToken(STRING, STRING)`
 - `[1082] msgid=1210`: `onKickOff()`
-- **`[1083] msgid=1211`**: **`showSelectCharacter(ARRAY<STRING> oldNames)`** (Empty array `0x00` -> **Drives Character Creation UI**)
+- **`[1083] msgid=1211`**: **`showSelectCharacter(ARRAY<STRING> oldNames)`** (Empty array 4-byte uint32 count=0 -> **Preloads 3D scene**)
 - **`[1084] msgid=1212`**: **`onCreateCharacter(BOOL success, STRING reason)`**
-- **`[1085] msgid=1213`**: **`onRoleCreateSuc(INT32 roleId)`**
-- **`[1087] msgid=1215`**: **`updateBaseCharacter(INT32 charType)`**
+- **`[1085] msgid=1213`**: **`onRoleCreateSuc(INT32 roleId)`** (roleId=10002)
+- **`[1087] msgid=1215`**: **`updateBaseCharacter(INT32 charType)`** (10002=MALE, 10005=FEMALE per `getCharactersData`)
+- **`[1088] msgid=1216`**: **`updateBaseNickname(STRING nick)`**
 - **`[1091] msgid=1219`**: **`enterHall(BOOL isFirstLoginOfDay)`** (Lobby entry!)
 - `[1103] msgid=1231`: `onLogin(INT32, STRING)`
+
 
 ---
 
@@ -177,15 +180,18 @@ Real NetEase traffic shows existing accounts never invoke `showSelectCharacter`.
      -> Unpacks 4-byte uint32 count = 0 cleanly via SequenceDataType (libclient.so 0x9a4b74)
      -> Fires Athlete._loadDefaultScene() -> loads HALL_BASE_SCENE -> instantiates GameObject 'Scene' with SceneSystem!
      -> Enters UISelectCharacter (3D Character Creation UI)
-  8. Wait ROS_SCENE_LOAD_DELAY (default 2.5s) for async scene initialization:
-     -> Send Athlete.onCreateCharacter(True, "") (idx 1084, msgID 189, extra 0x03)
-     -> Send Athlete.updateBaseCharacter(1) (idx 1087, msgID 189, extra 0x06)
-     -> Send Athlete.updateBaseNickname("Survivor") (idx 1088, msgID 189, extra 0x07)
-     -> Send Athlete.enterHall(True) (idx 1091, msgID 189, extra 0x0A)
-     -> Athlete._realEnterHall() calls GameObject.Find('Scene').GetComponent('SceneSystem').loadHallScene(...)
-     -> 'Scene' GameObject is found and SceneSystem loads Hall!
-     -> Client emits Sigma: {"keypoint": "athleteEnterHall"}!
-  9. [LOBBY ACTIVE] Client transitions into full 3D Hall / Lobby!
+   8. Wait ROS_SCENE_LOAD_DELAY (default 2.5s) for async scene initialization:
+      -> Send Athlete.onCreateCharacter(True, "") (idx 1084, msgID 189, extra 0x03)
+      -> Send Athlete.onRoleCreateSuc(10002) (idx 1085, msgID 189, extra 0x04)
+      -> Send Athlete.updateBaseCharacter(10002) (idx 1087, msgID 189, extra 0x06) [10002=MALE, 10005=FEMALE]
+      -> Send Athlete.updateBaseNickname("Survivor") (idx 1088, msgID 189, extra 0x07)
+      -> Send Athlete.onLeaveHallTeam() (idx 59, msgID 185, extra 0x02) [Resets solo team state; prevents hallTeamData crash]
+      -> Send Athlete.enterHall(True) (idx 1091, msgID 189, extra 0x0A)
+      -> Athlete._realEnterHall() calls GameObject.Find('Scene').GetComponent('SceneSystem').loadHallScene(...)
+      -> 'Scene' GameObject is found and SceneSystem loads Hall!
+      -> Client emits Sigma: {"keypoint": "athleteEnterHall"}!
+      -> Send Athlete.onLeaveHallTeam() (idx 59) post-hall to guarantee solo state
+   9. [LOBBY ACTIVE] Client transitions into full 3D Hall / Lobby with visible avatar and solo team chrome!
 ```
 
 ### Current Status & Live Test Verification Plan
@@ -193,6 +199,8 @@ Real NetEase traffic shows existing accounts never invoke `showSelectCharacter`.
 - `updateBaseNickname` state change: **CONFIRMED** (`user_name: "Survivor"` in telemetry)
 - `_realEnterHall` crash cause: **SOLVED** (`GameObject.Find('Scene')` required `showSelectCharacter` scene preload)
 - `SequenceDataType` wire length prefix: **SOLVED** (4-byte uint32 LE, NOT 1 byte)
+- `hallTeamData` crash & UI duplication cause: **SOLVED** (missing solo team sync; fixed via `onLeaveHallTeam` idx 59)
+- Character model missing cause: **SOLVED** (`updateBaseCharacter` must be `10002` Male or `10005` Female, not `1`)
 - **Ready for Claude live execution and verification with ADB + logcat.**
 
 ---

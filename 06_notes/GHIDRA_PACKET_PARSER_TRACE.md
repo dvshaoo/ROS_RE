@@ -1751,4 +1751,75 @@ Stage 4 now sends:
 3. Dispatches `onCreateCharacter(1084)` $\to$ `updateBaseCharacter(1087)` $\to$ `updateBaseNickname(1088)` $\to$ `enterHall(1091)`.
 4. If `ROS_AUTO_ENTER_HALL=0`, the client remains on the 3D Character Creation UI (`UISelectCharacter`).
 
+---
+
+## LOBBY POLISH & ROOT-CAUSE INVESTIGATION (2026-09-18, Gemini Session)
+
+### 1. Root Cause of Duplicated/Overlapping Promo Boxes ("Haven't Paid", 20% Gold Bonus, "小小白因拉")
+- **Observed Bug**: 4-5 stacked/overlapping cards in Lobby displaying "Haven't Paid", "All team members receive additional 20%", "小小白因拉", "Leave Team", and "0/0".
+- **Hard Evidence from Live Logcat (`live_logcat_scenefix_1789735992.txt:70170-70185`)**:
+  ```python
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "ui\UIMgr.py", line 967, in enterHallUI
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "ui\UIMain.py", line 1265, in on_enter
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "ui\main\UIModes.py", line 405, in on_enter
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "ui\main\UIModes.py", line 627, in _refresh_members
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "ui\main\UIModes.py", line 636, in _init_ui_visibilities
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "ui\main\UIModes.py", line 256, in members_num
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : File "entities\iHallTeam.py", line 744, in isInTeam
+  09-18 21:17:50.679 11778 11886 I [21:17:50.679] M <SCRIPT> : AttributeError: 'PlayerAthlete' object has no attribute 'hallTeamData'
+  ```
+- **Disassembly & Design Fact**:
+  - `05_entities/out/entity_0335.xml:43` defines `hallTeamData` as type `PYTHON`, but with `<Flags> BASE </Flags>`.
+  - In BigWorld, properties with `<Flags> BASE </Flags>` are strictly server-side; they are NEVER instantiated in the client's entity dictionary at entity creation.
+  - Because `UIMain.on_enter` crashed on `AttributeError: 'PlayerAthlete' object has no attribute 'hallTeamData'` inside `UIModes.on_enter:405` -> `_refresh_members`:
+    1. The subsequent calls in `UIMain.on_enter` (`_init_ui_widgets`, `_refresh_members`, `_init_self_ui`) were completely aborted!
+    2. In `MainScene.csb`, Cocos Studio by default provides 5 template member cards (`member-0` through `member-4` under `anchor-center/`) with default `visible=True` and placeholder texts ("Haven't Paid", "小小白因拉", "Grants 20% extra gold in any mode...").
+    3. Because `_init_ui_widgets` (which calls `member-{}.setVisible(False)`) was aborted, all 5 template cards were drawn simultaneously overlapping on screen!
+- **Fix Candidate**:
+  - `Athlete` implements `iHallTeam` client methods (`05_entities/out/entity_0335.xml:525-554`):
+    - `[ 54] onEnterHallTeam(INT32 teamType, GID leaderGID, INT8 teamSize, ARRAY<HALL_TEAM_MEMBER_CLIENT> members, INT32 mapGroup, BOOL autoMatch, BOOL ready)`
+    - `[ 59] onLeaveHallTeam()` (0 args)
+  - Sending `onLeaveHallTeam` (idx 59) instructs the client to enter clean solo team state (`hallTeamData = {}`).
+  - Wire encoding for idx 59 on Athlete (1131 methods):
+    - `threshold = 57`, `diff = 59 - 57 = 2`, `w1 = 57`, `extra_byte = b'\x02'`, `msgid = 128 + 57 = 185 (0xB9)`.
+    - Payload = `[eid: uint32 LE] + b'\x02'` (5 bytes).
+
+### 2. Root Cause of Missing Character/Avatar Model
+- **Observed Bug**: Terrace is empty; bike, crates, lake, and mountains render, but no avatar appears.
+- **Hard Evidence from Disassembly & Properties Table**:
+  - `UIMain.py:234` `_display_self` calls:
+    `legacyProperties.getCharactersData(player.getCharacterType())`
+  - Our server was sending `Athlete.updateBaseCharacter(1)` (idx 1087).
+  - Ground truth from `RulesOfSurvivalOld/tools/probe_character_data.py:32-34` and `cc_stub_player.py:1020, 1147`:
+    - `CHAR_TYPES = [10002, 10005, 10001]`
+    - `10002` = MALE (`character/dataosha_male/male.gim`, dress parts `[1101, 2101, 4101, 5101]`)
+    - `10005` = FEMALE (`character/dataosha_female/female.gim`)
+    - `1` is NOT a valid character type; `getCharactersData(1)` returns `None`!
+    - When `getCharactersData(1)` returns `None`, `dts_show_model_path` is empty/None, so `scene.createDressModelAsync` is never called.
+  - Also: `Athlete.onRoleCreateSuc(10002)` (idx 1085, `struct.pack('<i', 10002)`) confirms character role creation.
+- **Fix Candidate**:
+  - Update `updateBaseCharacter` to send `10002` (`struct.pack('<i', 10002)`).
+  - Send `onRoleCreateSuc(10002)` (idx 1085) prior to `updateBaseCharacter`.
+
+### 3. Exhaustive Lobby UI Navigation & Rendering Audit
+From `UIMAIN_INVENTORY.md`, `UIMAIN_AUDIT_RUNTIME.md`, and `UIMAIN_BYTECODE_FULL.txt`:
+- **Start / Matchmaking Button (`anchor-bottom-right/go`)**:
+  - Managed by `UIModes` component.
+  - Was completely blocked because `UIModes.on_enter` crashed at line 405 on `hallTeamData`!
+  - Resolving the `hallTeamData` exception unblocks `UIModes` initialization, enabling the Start button and mode selector (`solo`, `dual`, `squad`, `fireteam`).
+- **Currency Counters ("283283")**:
+  - `MainScene.csb` hardcodes "283283" as the Cocos Studio design placeholder text for coin and diamond.
+  - Handled by `player.onCurrencyChanged(-1)` or `setCurrencyWithOwned`.
+- **Navigation Buttons & Controllers**:
+  - Store: `anchor-middle-left/entry/mall` $\to$ `UIMallController`
+  - Appearance / Depot: `anchor-middle-left/entry/change_clothes` $\to$ `UIDtsAppearanceMainController`
+  - Settings: `anchor-upper-right/top-navigator/setting` $\to$ `UISettingForPC` / `UISettings`
+  - Friends: `anchor-middle-left/entry/friend` $\to$ `UIFriendship`
+  - Rank: `anchor-middle-left/entry/rank` $\to$ `UIRankList` / `UINationalRank`
+  - Profile: `anchor-upper-left/profile` $\to$ `UIMeetMainPage`
+  - Activities: `anchor-middle-left/entry/activities` $\to$ `UIDtsActivity`
+  - Welfare: `anchor-upper-right/common-entry/welfare` $\to$ `UIWelfareController`
+  - All of these handlers were previously suppressed or unresponsive because `UIMain.on_enter` aborted prematurely during `UIModes.on_enter`.
+
+
 
