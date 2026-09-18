@@ -786,3 +786,89 @@ reproducible BaseApp connection confirmed, resume live-testing the
 Athlete/showSelectCharacter sweep (0-127) to try to empirically
 determine the correct index, rather than trusting any of the
 conflicting static-analysis guesses (3, 17, or 1083) above.
+
+### Athlete.showSelectCharacter idx=1083 candidates LIVE-TESTED and REJECTED (2026-09-18, later same day)
+
+With the `hello ros` fix in place and a reproducible BaseApp connection
+confirmed, live-tested the two wire-encoding candidates for
+`showSelectCharacter` at the Gemini-claimed index 1083
+(`run_baseapp_stage_machine()` Stage 4 in
+`mitm/local_baseapp_capture.py`), isolated one at a time via a new
+`ROS_STAGE4_MODE` env var (`none`/`a`/`b`/`sweep`):
+
+- **Candidate A (`ClientInterface` msgID 101 `longEntityMessage`,
+  payload = `entity_id:u32 + method_index:u16 + args`) -- CONFIRMED to
+  crash the client's BaseApp channel.** With Candidate A alone enabled,
+  the client dropped and re-established its BaseApp UDP channel from a
+  new ephemeral port every ~2.5 seconds, cycling through the full
+  Stage 1-4 sequence each time (5+ reconnects observed in ~15 seconds).
+  With Stage 4 disabled entirely (`ROS_STAGE4_MODE=none`), the exact
+  same setup produced a single stable connection with no reconnects.
+  This isolates the crash to this specific payload/message-id
+  combination -- likely a malformed `longEntityMessage` body the
+  client's Bundle parser can't recover from, consistent with this
+  format never having been confirmed against this binary (see prior
+  note: `CLIENTINTERFACE_MESSAGE_TABLE.md` confirms msgID 101 exists and
+  is a 2-byte-length VARIABLE message, but the internal
+  `entity_id+method_index` field layout used here is a standard-BigWorld
+  assumption, not something confirmed byte-for-byte for this client).
+  **Do not send Candidate A. It actively breaks the connection.**
+- **Candidate B (direct `msgID = (128 + index) & 0xff`, here `187`, with
+  a 2-byte length prefix) -- does NOT crash the connection**, but also
+  produced no visible UI change (client remained at the title screen
+  through a 30+ second stable connection after it fired). Since msgID
+  187 is not a real registered `ClientInterface` id for a 1-byte-msgid
+  entity method space (the client's per-entity extension range for
+  `idx<128` is msgIDs 128-255, but 1083 doesn't fit that space
+  semantically -- 187 here is just `1211 & 0xff` reinterpreted, which
+  has no defined meaning in the confirmed message table), this was
+  likely silently ignored or misrouted by the client rather than
+  correctly dispatched.
+
+**Conclusion:** neither candidate for idx=1083 works, reinforcing the
+earlier finding that 1083 itself is unverified. Both `local_baseapp_capture.py`'s
+default (`ROS_STAGE4_MODE`) and this document now treat 1083/Candidate-A
+as actively harmful and Candidate-B as a no-op. Added a third mode,
+`ROS_STAGE4_MODE=sweep`, that empirically sweeps `showSelectCharacter`
+across idx 0-127 using the standard, non-guessed `msgid = 128 + idx`
+per-entity method encoding (the same encoding already proven safe for
+`Account.onLogin`/`onChannelLogin` at idx 18/19) -- this sweep was
+implemented but **not yet live-verified** as of this note; see next
+section.
+
+### BLOCKER: concurrent Gemini/Antigravity session actively interfering with live tests (2026-09-18)
+
+While attempting to run the `sweep` mode live test, discovered via a
+screenshot the user shared of their Antigravity IDE that **a separate
+Gemini agent session is actively running concurrently** against the
+same emulator, the same `local_baseapp_capture.py`, and the same
+`com.netease.chiji` process -- issuing its own `pidof`/keyscan/adb
+commands with the same standing instruction ("continue until Character
+Creation"). This was not previously flagged as an active, live
+collision (earlier concurrent-edit notes in this document were about
+file edits landing between sessions, not simultaneous emulator/process
+control).
+
+Symptoms consistent with this collision during this test attempt:
+- Two duplicate `python.exe` server processes ended up bound to the
+  same UDP ports simultaneously (`SO_REUSEADDR` let both bind), until
+  manually killed.
+- A relaunched client instance (`pid=18426`) got stuck retrying its
+  own internal Blowfish-key live-memory scan ("KEYSCAN: no key found")
+  for several minutes and cycled through repeated LoginApp requests
+  without ever completing a fresh BaseApp handshake -- plausibly because
+  the app process, iptables rules, or server process were being
+  touched by the other session mid-attempt.
+- An unrelated "Events" UI popup appeared on-screen that this session's
+  own tap sequence did not intentionally trigger.
+
+**This means the `sweep` mode implementation exists in
+`mitm/local_baseapp_capture.py` (Stage 4, `ROS_STAGE4_MODE=sweep`,
+default is now the safe no-op `'b'`) but has NOT yet been live-verified
+end-to-end**, because test conditions were not clean during this
+attempt. Next session (or once the concurrency conflict is resolved)
+should: confirm only ONE agent/session is driving the emulator and
+server at a time, then run `ROS_STAGE4_MODE=sweep` (with
+`ROS_ATHLETE_SWEEP_DELAY` around 0.4-0.5s) and watch both the log for
+any reconnect-loop crash (indicating a bad idx, same symptom as
+Candidate A) and the screen for a UI transition to Character Creation.

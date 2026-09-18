@@ -869,21 +869,63 @@ def run_baseapp_stage_machine(sock, addr, key):
             athlete_type, athlete_eid, len(athlete_stream), addr))
 
         # Stage 4: Athlete.showSelectCharacter([]) (empty ARRAY<STRING> = 0x00)
-        # Confirmed index from live process memory: Athlete client method 1083 (msgid 1211)
-        time.sleep(0.15)
-        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
-        empty_array_string = bytes([0])
+        # 2026-09-18 CORRECTION: the "1083" index and "confirmed from live process
+        # memory" framing (from GEMINI.md/CLAUDE.md) were independently checked this
+        # session and found UNSUPPORTED -- the script behind that number is static
+        # XML analysis, not memory reading, and actually yields index 3 out of 47
+        # counted methods (not 1083 of 1131); see 06_notes/GHIDRA_PACKET_PARSER_TRACE.md
+        # "Verification of Gemini/Antigravity's concurrent claims". Treat idx=1083
+        # here as an UNVERIFIED CANDIDATE to be live-tested, not a known-good value.
+        # ROS_STAGE4_MODE controls what's sent, to isolate which candidate (if any)
+        # causes the reconnect-loop symptom observed 2026-09-18 ~15:24 (client
+        # dropped and re-established the BaseApp channel every ~2.5s after Stage 4
+        # fired): 'none' (skip Stage 4 entirely), 'a' (candidate A only, msgid 101
+        # longEntityMessage -- LIVE-TESTED 2026-09-18, CONFIRMED to crash/reconnect
+        # the client, do not use), 'b' (candidate B only, direct msgid=(128+idx)&0xff
+        # -- LIVE-TESTED 2026-09-18, does NOT crash the connection but idx=1083 alone
+        # produced no visible UI change, so this idx is likely still wrong), 'both'
+        # (original default, NOT recommended -- 'a' half of it crashes the client),
+        # 'sweep' (empirically sweep idx 0-127 using the standard, non-guessed
+        # msgid=128+idx encoding -- for idx<128 send_entity_method() ignores the
+        # mode param entirely, so this path carries no candidate-A/B ambiguity).
+        stage4_mode = os.environ.get('ROS_STAGE4_MODE', 'b')
+        if stage4_mode == 'none':
+            log('BASEAPP STAGE 4: SKIPPED (ROS_STAGE4_MODE=none) for %s' % (addr,))
+        elif stage4_mode == 'sweep':
+            use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+            empty_array_string = bytes([0])
+            lo = int(os.environ.get('ROS_ATHLETE_SWEEP_LO', '0'))
+            hi = int(os.environ.get('ROS_ATHLETE_SWEEP_HI', '127'))
+            hi = min(hi, 127)  # send_entity_method packs msgid as one byte for idx<128
+            delay = float(os.environ.get('ROS_ATHLETE_SWEEP_DELAY', '0.4'))
+            log('BASEAPP STAGE 4: starting showSelectCharacter SWEEP idx=%d..%d (delay=%.2fs) to eid=%d %s' % (
+                lo, hi, delay, athlete_eid, addr))
+            for idx in range(lo, hi + 1):
+                if addr not in _stage_machine_started:
+                    break  # connection was reset/replaced -- stop sweeping the old one
+                send_entity_method(sock, addr, use_key, athlete_eid, idx, empty_array_string, flags=0x0008)
+                log('BASEAPP STAGE 4 SWEEP: sent Athlete.showSelectCharacter([]) idx=%d (msgid=%d) to eid=%d %s' % (
+                    idx, 128 + idx, athlete_eid, addr))
+                time.sleep(delay)
+            log('BASEAPP STAGE 4: SWEEP complete (%d..%d) for %s' % (lo, hi, addr))
+        else:
+            time.sleep(0.15)
+            use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+            empty_array_string = bytes([0])
+            athlete_show_idx = int(os.environ.get('ROS_ATHLETE_SHOW_IDX', '1083'))
 
-        # Candidate A: Standard BigWorld longEntityMessage (ClientInterface msgID 101, method_index=1083)
-        send_entity_method(sock, addr, use_key, athlete_eid, 1083, empty_array_string, flags=0x0008, mode='candidate_a')
-        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=1083 (Candidate A: msgid=101) to eid=%d %s' % (
-            athlete_eid, addr))
+            if stage4_mode in ('a', 'both'):
+                # Candidate A: Standard BigWorld longEntityMessage (ClientInterface msgID 101)
+                send_entity_method(sock, addr, use_key, athlete_eid, athlete_show_idx, empty_array_string, flags=0x0008, mode='candidate_a')
+                log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=%d (Candidate A: msgid=101) to eid=%d %s' % (
+                    athlete_show_idx, athlete_eid, addr))
 
-        # Candidate B: Direct modulo 256 msgID (187 / 0xBB)
-        time.sleep(0.05)
-        send_entity_method(sock, addr, use_key, athlete_eid, 1083, empty_array_string, flags=0x0008, mode='candidate_b')
-        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=1083 (Candidate B: msgid=187) to eid=%d %s' % (
-            athlete_eid, addr))
+            if stage4_mode in ('b', 'both'):
+                # Candidate B: Direct modulo 256 msgID
+                time.sleep(0.05)
+                send_entity_method(sock, addr, use_key, athlete_eid, athlete_show_idx, empty_array_string, flags=0x0008, mode='candidate_b')
+                log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=%d (Candidate B: msgid=%d) to eid=%d %s' % (
+                    athlete_show_idx, (128 + athlete_show_idx) & 0xff, athlete_eid, addr))
 
         # Stage 5: HOLDING
         log('BASEAPP STAGE 5: All entity lifecycle stages complete. Entering HOLDING state for %s' % (addr,))
