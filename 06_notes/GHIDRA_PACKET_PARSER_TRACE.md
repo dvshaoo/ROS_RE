@@ -1545,3 +1545,93 @@ msgID 99: loggedOff         (1 byte)
 msgID 100: shortEntityMessage  (variable, 1-byte len prefix)
 msgID 101: longEntityMessage   (variable, 2-byte len prefix)
 
+## MAJOR CONFIRMATION (2026-09-18, later session): extended wire-index encoding formula VERIFIED WORKING live -- reached real function bodies past arg-parsing
+
+A concurrent session (via Antigravity/Gemini, reflected in updated
+`CLAUDE.md`/`GEMINI.md`) implemented a specific "threshold" formula for
+encoding extended (>=64) per-entity method indices directly into the
+128-255 msgID space (not via msgID 100/101 `shortEntityMessage`/
+`longEntityMessage` at all -- a different mechanism than this
+project's previously-tested, always-crashing Candidate A/B):
+
+```python
+div = (num_methods + 192) // 255
+threshold = 62 - div
+if method_index < threshold:
+    w1, extra_byte = method_index, b''
+else:
+    diff = method_index - threshold
+    w1 = threshold + (diff // 256)
+    extra_byte = bytes([diff % 256])
+msgid = 128 + w1
+width = 2 if w1 < 64 else 1
+payload = struct.pack('<I', entity_id) + extra_byte + args
+```
+
+**Live-tested this session, independently, with logcat capturing.**
+Sent `Athlete.onCreateCharacter(True, "")` (idx 1084) immediately after
+`createBasePlayer(Athlete, stream=b'')`, followed by
+`updateBaseCharacter(1)` (idx 1087), `updateBaseNickname("Survivor")`
+(idx 1088), and `enterHall(True)` (idx 1091) -- all via this formula,
+no `showSelectCharacter` call at all (per a "ground truth" claim from
+real captured traffic, `mitm/captures/SERVE_B.txt`, that existing
+accounts skip straight to `onCreateCharacter` without a
+`showSelectCharacter` round-trip).
+
+**Result: CONFIRMED WORKING for at least two of the four RPCs, with
+no crash:**
+- No `MethodDescription::getArgsAsTuple: Failed to get arg` error for
+  any of the four calls (previously the tell-tale sign of a
+  wrong-but-reached dispatch, or in Candidate A/B's case, a full
+  connection crash/reconnect loop -- neither happened here; a single
+  stable connection persisted through the whole sequence).
+- **`onCreateCharacter` telemetry keypoint fired with `{"ret": 1, "msg":
+  ""}`** (`mitm/captures/SERVE_B.txt` / server console log) -- direct,
+  unambiguous proof the client correctly decoded the wire message,
+  dispatched to the real `Athlete.onCreateCharacter` Python method, and
+  that method ran to completion successfully.
+- `enterHall(True)` was also correctly dispatched -- logcat shows
+  execution reaching `entities\Athlete.py:674 enterHall` ->
+  `entities\Athlete.py:656 _realEnterHall`, i.e. **past all arg-parsing
+  into the actual method body** -- but crashed there with
+  `AttributeError: 'NoneType' object has no attribute 'GetComponent'`.
+  This is a *different* class of bug than the earlier `iWeekendPush`
+  crash (which was a missing default value for a plain data property);
+  `GetComponent` is a Unity/engine-style call on what is almost
+  certainly an unloaded/uninitialized Scene or GameObject reference --
+  consistent with `_realEnterHall` needing some 3D hall scene/asset to
+  already be loaded (via a preload step this project's server does not
+  yet send) before it can actually attach the player to the hall scene.
+
+**This conclusively resolves the standing "wire encoding for
+method_index >= 128 is unknown" blocker** documented earlier in this
+file -- the threshold-formula-based direct-msgID encoding (not
+`longEntityMessage`) is the correct mechanism, now proven via a real
+successful RPC round-trip (`onCreateCharacter` ret=1), not just a
+plausible-looking arg-parse error message.
+
+**New, narrower blocker identified**: `_realEnterHall`
+(`entities\Athlete.py:656`) dereferences something that is `None` and
+calls `.GetComponent` on it. `updateBaseCharacter`/`updateBaseNickname`
+produced no error output either way (inconclusive whether they fully
+succeeded or were silently accepted) -- not yet independently confirmed
+successful the way `onCreateCharacter` was via its telemetry keypoint.
+Screen remained at the title screen throughout this test (no visible
+UI transition), consistent with the crash preventing the actual scene
+transition despite the RPC dispatch itself working.
+
+**Next steps (not yet done)**:
+1. Confirm whether `updateBaseCharacter`/`updateBaseNickname` fully
+   succeeded (look for their own telemetry/script side-effects, if any
+   exist) rather than assuming success from silence alone.
+2. Investigate what object `_realEnterHall` expects to already be
+   non-None before calling `.GetComponent` on it -- likely a scene/
+   GameObject reference that a real server would have caused to load
+   via an earlier step (a resource/scene-preload push, or a client-side
+   asset load triggered by an earlier RPC this sequence is missing).
+   This is a new, distinct crash from the `iWeekendPush` one -- do not
+   conflate them.
+3. Re-run this exact sequence with logcat capture at least once more to
+   confirm reproducibility before investing further static-analysis
+   time (this was only observed once so far this session).
+
