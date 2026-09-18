@@ -767,12 +767,9 @@ def push_show_select_character(sock, dest, key, athlete_eid):
     """
     pinned = int(os.environ.get('ROS_ATHLETE_SHOW_IDX', '-1'))
     lo = int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_LO', '0'))
-    # NOTE: send_entity_method() packs msgid as a single byte (`bytes([msgid])`),
-    # so msgid = 128 + idx must stay <= 255 -- idx is capped at 127. The mobile
-    # track's own sweep goes up to 260, which would need an extended/2-byte
-    # msgid scheme this project's send_entity_method does not implement; not
-    # attempting that here without wire evidence it exists.
-    hi = min(int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_HI', '127')), 127)
+    # Confirmed from live client logcat: SimpleClientEntity::methodEvent: No method starting with message id 62
+    # So Athlete methods only exist from 0 to 61. Capping sweep at 61 prevents corrupted longEntityMessage (msgid >= 191).
+    hi = min(int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_HI', '61')), 61)
     empty_array_string = bytes([0])  # enc_array_string([]) per MobileAthlete
     span = (hi - lo + 1) if pinned < 0 else 1
     for _ in range(span):
