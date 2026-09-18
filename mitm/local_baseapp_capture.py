@@ -750,67 +750,102 @@ def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags
     sock.sendto(enc if enc else plain_padded, dest)
 
 
-_last_completion_push = {}
-_athlete_sweep_counter = {}
+_stage_machine_started = set()
 
 
-def push_show_select_character(sock, dest, key, athlete_eid):
-    """Sweep candidate wire indices for Athlete.showSelectCharacter(ARRAY<STRING>
-    oldNames), since the absolute index isn't locked even in the sibling
-    D:\\PROJECTS\\ros_mobile_revival project (same com.netease.chiji APK,
-    still sweep-mode as of its own last update). An empty ARRAY<STRING> is a
-    single 0x00 count byte (BigWorld packed-length convention: enc_array_string([])).
-    ROS_ATHLETE_SHOW_IDX pins one index if set (>=0); otherwise sweeps
-    ROS_ATHLETE_SHOW_SWEEP_LO..HI, one NEW index per call (each call = one
-    login-completion burst cycle), so a live multi-tick run gradually covers
-    the whole range like the mobile track's own sweep does.
+def run_baseapp_stage_machine(sock, addr, key):
+    """Clean 5-stage BigWorld entity lifecycle for mobile track:
+    Stage 1: createBasePlayer(Account, type 38, eid=1)
+    Stage 2: Account.onChannelLogin(19) + Account.onLogin(18)
+    Stage 3: createBasePlayer(Athlete, type 51, eid=2, stream=athlete_mobile_stream.bin)
+    Stage 4: Athlete.showSelectCharacter([]) idx=17 (and idx=3 backup)
+    Stage 5: HOLDING (no re-push; keepalive and ACK continue in background)
     """
-    pinned = int(os.environ.get('ROS_ATHLETE_SHOW_IDX', '-1'))
-    lo = int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_LO', '0'))
-    # Confirmed from live client logcat: SimpleClientEntity::methodEvent: No method starting with message id 62
-    # So Athlete methods only exist from 0 to 61. Capping sweep at 61 prevents corrupted longEntityMessage (msgid >= 191).
-    hi = min(int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_HI', '61')), 61)
-    empty_array_string = bytes([0])  # enc_array_string([]) per MobileAthlete
-    span = (hi - lo + 1) if pinned < 0 else 1
-    for _ in range(span):
+    try:
+        # Stage 1: createBasePlayer for Account
+        time.sleep(0.05)
+        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+        account_eid = int(os.environ.get('ROS_ACCOUNT_EID', '1'))
+        account_type = int(os.environ.get('ROS_ACCOUNT_TYPE', '38'))
+        cbp_flags = int(os.environ.get('CBP_FLAGS', '0x0008'), 16)
+
+        cbp_body = struct.pack('<I', account_eid) + struct.pack('<H', account_type)
+        filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
+        cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
+                      + struct.pack('<H', len(cbp_body)) + cbp_body
+                      + filler)
+        cbp_pad_len = 8 - (len(cbp_plain) % 8)
+        cbp_padded = cbp_plain + b'\x00' * (cbp_pad_len - 1) + bytes([cbp_pad_len])
+        cbp_enc = bf_encrypt(cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
+        sock.sendto(cbp_enc if cbp_enc else cbp_padded, addr)
+        log('BASEAPP STAGE 1: sent createBasePlayer(Account type=%d, eid=%d) to %s' % (
+            account_type, account_eid, addr))
+
+        # Stage 2: Account onChannelLogin and onLogin
+        time.sleep(0.1)
+        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+        import pickle
+        sauth = {'uid': '900000001', 'aid': '900000001',
+                 'username': '900000001@ad.netease_global.win.163.com',
+                 'server_name': 'North_America'}
+        p = pickle.dumps(sauth, protocol=2)
+        ocl_args = struct.pack('<B', 0) + _packed_int(len(p)) + p
+        ol_args = struct.pack('<i', 0) + _packed_int(0)
+
+        send_entity_method(sock, addr, use_key, account_eid, 19, ocl_args, flags=0x0008)
+        log('BASEAPP STAGE 2: sent Account.onChannelLogin(idx=19) to eid=%d %s' % (account_eid, addr))
+        time.sleep(0.04)
+        send_entity_method(sock, addr, use_key, account_eid, 18, ol_args, flags=0x0008)
+        log('BASEAPP STAGE 2: sent Account.onLogin(idx=18, OK) to eid=%d %s' % (account_eid, addr))
+
+        # Stage 3: replace player with Athlete (type 51) + complete property stream
         time.sleep(0.15)
-        if pinned >= 0:
-            idx = pinned
-        else:
-            idx = _athlete_sweep_counter.get(dest, lo)
-            _athlete_sweep_counter[dest] = idx + 1 if idx + 1 <= hi else lo
-        use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
-        send_entity_method(sock, dest, use_key, athlete_eid, idx, empty_array_string, flags=0x0008)
-        log('BASEAPP ATHLETE SWEEP: sent showSelectCharacter candidate index=%d (msgid=%d) to entity=%d %s' % (
-            idx, 128 + idx, athlete_eid, dest))
+        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+        athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '2'))
+        athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '51'))
 
+        athlete_stream = b''
+        stream_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'athlete_mobile_stream.bin')
+        if os.path.isfile(stream_path):
+            try:
+                with open(stream_path, 'rb') as f:
+                    athlete_stream = f.read()
+                log('BASEAPP STAGE 3: loaded %d bytes from athlete_mobile_stream.bin' % len(athlete_stream))
+            except Exception as e:
+                log('BASEAPP STAGE 3: error loading stream: %s' % e)
 
-def push_login_completion(sock, dest, key, entity_id=1):
-    now = time.time()
-    if now - _last_completion_push.get(dest, 0) < 3.0:
-        return
-    _last_completion_push[dest] = now
+        athlete_cbp_body = struct.pack('<I', athlete_eid) + struct.pack('<H', athlete_type) + athlete_stream
+        athlete_filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
+        athlete_cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
+                              + struct.pack('<H', len(athlete_cbp_body)) + athlete_cbp_body
+                              + athlete_filler)
+        athlete_pad_len = 8 - (len(athlete_cbp_plain) % 8)
+        athlete_cbp_padded = athlete_cbp_plain + b'\x00' * (athlete_pad_len - 1) + bytes([athlete_pad_len])
+        athlete_cbp_enc = bf_encrypt(athlete_cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
+        sock.sendto(athlete_cbp_enc if athlete_cbp_enc else athlete_cbp_padded, addr)
+        log('BASEAPP STAGE 3: sent createBasePlayer(Athlete type=%d, eid=%d, stream=%d B) to %s' % (
+            athlete_type, athlete_eid, len(athlete_stream), addr))
 
-    import pickle
-    sauth = {'uid': '1', 'aid': '1', 'username': 'player', 'server_name': 'YumaLocal'}
-    p = pickle.dumps(sauth, protocol=2)
-    ocl_args = struct.pack('<B', 0) + _packed_int(len(p)) + p
-    ol_args = struct.pack('<i', 0) + _packed_int(0)
+        # Stage 4: Athlete.showSelectCharacter([]) (empty ARRAY<STRING> = 0x00)
+        time.sleep(0.15)
+        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+        empty_array_string = bytes([0])
 
-    use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
-    log('BASEAPP: Starting login-completion push sequence for %s (entity=%d, key=%s)' % (dest, entity_id, use_key))
-    for attempt in range(3):
-        time.sleep(0.1 if attempt == 0 else 0.4)
-        use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
-        # Account.onChannelLogin=19 / onLogin=18, confirmed by def XML entity tables
-        # and live telemetry extraData {"code": 0}.
-        # DO NOT send 13 (onRequireActivation) or 14 (onShowRealNameAuthenWebView),
-        # which trigger the activation code dialog and blank webview!
-        send_entity_method(sock, dest, use_key, entity_id, 19, ocl_args, flags=0x0008)
-        time.sleep(0.01)
-        send_entity_method(sock, dest, use_key, entity_id, 18, ol_args, flags=0x0008)
-        time.sleep(0.01)
-        log('BASEAPP: Pushed login-completion burst #%d to %s' % (attempt + 1, dest))
+        # Primary index: 17 (14 interface client methods + 3 own offset)
+        send_entity_method(sock, addr, use_key, athlete_eid, 17, empty_array_string, flags=0x0008)
+        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=17 (msgid=145) to eid=%d %s' % (
+            athlete_eid, addr))
+
+        # Backup index: 3 (own offset if interfaces unflattened)
+        time.sleep(0.05)
+        send_entity_method(sock, addr, use_key, athlete_eid, 3, empty_array_string, flags=0x0008)
+        log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=3 (msgid=131) to eid=%d %s' % (
+            athlete_eid, addr))
+
+        # Stage 5: HOLDING
+        log('BASEAPP STAGE 5: All entity lifecycle stages complete. Entering HOLDING state for %s' % (addr,))
+    except Exception as e:
+        log('BASEAPP STAGE MACHINE error: %s' % e)
 
 
 def serve_baseapp_udp_capture():
@@ -874,61 +909,14 @@ def serve_baseapp_udp_capture():
                 log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x key=%s (%d bytes): %s' % (
                     method_id, corr, use_key, len(reply), reply.hex()))
 
-                # Send createBasePlayer for Account
-                if os.environ.get('ATTEMPT_CREATEBASEPLAYER', '1') == '1':
-                    time.sleep(0.05)
-                    entity_id = 1
-                    # CONFIRMED from live client s_types array: Type 38 (0x26) is Account!
-                    # (Type 127 was AutoRoyaleHelicopter, which caused AttributeError on PlayerAutoRoyaleHelicopter)
-                    entity_type = int(os.environ.get('ROS_ACCOUNT_TYPE', '38'))
-                    cbp_body = struct.pack('<I', entity_id) + struct.pack('<H', entity_type)
-                    extra_slack = b'\x00' * int(os.environ.get('ATTEMPT_EXTRA_SLACK', '0'))
-                    cbp_flags = int(os.environ.get('CBP_FLAGS', '0x0008'), 16)
-                    filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
-                    cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
-                                  + struct.pack('<H', len(cbp_body)) + cbp_body
-                                  + filler + extra_slack)
-                    cbp_pad_len = 8 - (len(cbp_plain) % 8)
-                    cbp_padded = cbp_plain + b'\x00' * (cbp_pad_len - 1) + bytes([cbp_pad_len])
-                    cbp_enc = bf_encrypt(cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
-                    cbp_reply = cbp_enc if cbp_enc else cbp_padded
-                    s.sendto(cbp_reply, addr)
-                    log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d (Account) key=%s IV=0 (%d bytes): %s' % (
-                        entity_id, entity_type, use_key, len(cbp_reply), cbp_reply.hex()))
+                # Start coordinated Stage Machine for this connection
+                if addr not in _stage_machine_started:
+                    _stage_machine_started.add(addr)
+                    threading.Thread(target=run_baseapp_stage_machine,
+                                      args=(s, addr, use_key), daemon=True).start()
 
-                    # Also create an Athlete entity (type 56, confirmed via
-                    # D:\PROJECTS\ros_mobile_revival, same com.netease.chiji
-                    # APK) -- without this, the client's Account never
-                    # receives the showSelectCharacter push that opens
-                    # Create-Character, no matter how correct onLogin/
-                    # onChannelLogin are. Athlete.showSelectCharacter's
-                    # absolute wire index is NOT locked upstream either
-                    # (still sweep-mode there) -- swept live below.
-                    if os.environ.get('ATTEMPT_ATHLETE', '1') == '1':
-                        time.sleep(0.05)
-                        athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '2'))
-                        # CONFIRMED from live client s_types array: Type 51 (0x33) is Athlete!
-                        # (Type 56 was RobotShadow)
-                        athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '51'))
-                        athlete_cbp_body = struct.pack('<I', athlete_eid) + struct.pack('<H', athlete_type)
-                        athlete_filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
-                        athlete_cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
-                                              + struct.pack('<H', len(athlete_cbp_body)) + athlete_cbp_body
-                                              + athlete_filler)
-                        athlete_pad_len = 8 - (len(athlete_cbp_plain) % 8)
-                        athlete_cbp_padded = athlete_cbp_plain + b'\x00' * (athlete_pad_len - 1) + bytes([athlete_pad_len])
-                        athlete_cbp_enc = bf_encrypt(athlete_cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
-                        athlete_cbp_reply = athlete_cbp_enc if athlete_cbp_enc else athlete_cbp_padded
-                        s.sendto(athlete_cbp_reply, addr)
-                        log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d (Athlete) key=%s IV=0 (%d bytes): %s' % (
-                            athlete_eid, athlete_type, use_key, len(athlete_cbp_reply), athlete_cbp_reply.hex()))
-                        threading.Thread(target=push_show_select_character,
-                                          args=(s, addr, use_key, athlete_eid), daemon=True).start()
-
-                    if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
-                        _start_keepalive(s, addr, use_key)
-
-                    threading.Thread(target=push_login_completion, args=(s, addr, use_key, 1), daemon=True).start()
+                if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
+                    _start_keepalive(s, addr, use_key)
                 continue
 
             # 2. Decrypt encrypted channel packets
@@ -962,7 +950,6 @@ def serve_baseapp_udp_capture():
                         s.sendto(ack_reply, addr)
                         log('BASEAPP CHANNEL ACK: pkt_flags=0x%04x seq=%d key=%s (%d bytes): %s' % (
                             pkt_flags, seq, use_key, len(ack_reply), ack_reply.hex()))
-                        threading.Thread(target=push_login_completion, args=(s, addr, use_key, 1), daemon=True).start()
                         continue
                     else:
                         log('BASEAPP CHANNEL ACK: ignoring out-of-range seq=%d' % seq)
@@ -988,8 +975,13 @@ def serve_baseapp_udp_capture():
                     _REPLY_FLAGS, checkpoint_id, use_key, len(vpi_reply), vpi_reply.hex()))
                 if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
                     _start_keepalive(s, addr, use_key)
-                threading.Thread(target=push_login_completion, args=(s, addr, use_key, 1), daemon=True).start()
                 continue
+
+            # 5. Log any client upstream RPCs
+            if unpadded is not None and len(unpadded) >= 3:
+                up_msgid = unpadded[2]
+                log('BASEAPP UPSTREAM RECV: msgid=0x%02x (%d) len=%d: %s' % (
+                    up_msgid, up_msgid, len(unpadded), unpadded.hex()))
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 
