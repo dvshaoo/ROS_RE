@@ -1,0 +1,11 @@
+Function: FUN_00a8384c @ 00a8384c body=[[00a8384c, 00a83873]]
+00a8384c  mov w9,#0xffffffff
+00a83850  str wzr,[x8, #0x8]
+00a83854  strh wzr,[x8, #0xc]
+00a83858  str wzr,[x8, #0x10]
+00a8385c  str xzr,[x8, #0x18]
+00a83860  strh wzr,[x8, #0x28]
+00a83864  stp xzr,xzr,[x8, #0x38]
+00a83868  stur x9,[x8, #0x2c]
+00a8386c  str xzr,[x8]
+00a83870  ret

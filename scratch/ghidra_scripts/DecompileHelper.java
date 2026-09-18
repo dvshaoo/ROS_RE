@@ -17,7 +17,7 @@ public class DecompileHelper extends GhidraScript {
         DecompInterface decomp = new DecompInterface();
         decomp.openProgram(currentProgram);
 
-        long[] targets = {0xa8a674L, 0xa83d0cL};
+        long[] targets = {0x00a90b14L};
         for (long a : targets) {
             Address addr = toAddr(a);
             Function f = getFunctionAt(addr);

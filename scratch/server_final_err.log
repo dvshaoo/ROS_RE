@@ -3254,3 +3254,1704 @@ Traceback (most recent call last):
     raise TimeoutExpired(self.args, orig_timeout)
 subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
 127.0.0.1 - - [17/Sep/2026 11:24:33] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9235 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:24:39] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9303 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:24:45] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9371 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:24:52] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9439 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:24:57] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9507 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:03] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9575 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:09] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9643 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:15] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9711 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:21] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9779 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:27] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9847 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:34] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9915 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:39] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-9983 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:45] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10051 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:51] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10119 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:25:56] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10187 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:02] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10255 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:08] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10323 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:14] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10391 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:21] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10459 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:27] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10527 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:33] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10595 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:38] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10663 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:45] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10731 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:51] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10799 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:26:57] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10867 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:03] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [17/Sep/2026 11:27:08] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-10935 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+Exception in thread Thread-11003 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:15] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11071 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:21] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11139 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:27] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11207 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:33] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11275 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:39] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11343 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:45] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11411 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:52] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11479 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:27:56] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11547 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:03] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11615 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:09] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11683 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:16] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11751 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:21] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11819 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:27] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11887 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:33] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-11955 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:39] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12023 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:45] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12091 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:51] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12159 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:28:57] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12227 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:03] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12295 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:09] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12363 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:14] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12431 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:20] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12499 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:27] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12567 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:32] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12635 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:38] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12703 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:44] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12771 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:50] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12839 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:29:56] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12907 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:02] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-12975 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:07] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13043 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:13] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13111 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:19] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13179 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:25] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13247 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:31] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13315 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:37] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13383 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:43] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13451 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:50] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13519 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:30:56] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13587 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:01] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13655 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:08] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13723 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:14] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13791 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:19] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13859 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:25] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13927 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:31] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-13995 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:37] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-14063 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:43] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-14131 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds
+127.0.0.1 - - [17/Sep/2026 11:31:49] "POST / HTTP/1.1" 200 -
+Exception in thread Thread-14199 (scan_one):
+Traceback (most recent call last):
+  File "C:\Python314\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 411, in scan_one
+    hits = _scan_region_for_pattern(pid, rs, re_, pattern)
+  File "C:\Users\Raysoo\Downloads\ROS_RE\mitm\local_baseapp_capture.py", line 290, in _scan_region_for_pattern
+    data = subprocess.run([ADB, '-s', DEVICE_SERIAL, 'exec-out', dump_cmd], capture_output=True, timeout=30).stdout
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\subprocess.py", line 1664, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['C:\\LDPlayer\\LDPlayer9\\adb.exe', '-s', 'emulator-5554', 'exec-out', 'su 0 dd if=/proc/3856/mem bs=1048576 skip=123962506 count=160 2>/dev/null']' timed out after 30 seconds

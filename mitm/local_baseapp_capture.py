@@ -42,7 +42,7 @@ except Exception:
 # a ONE-SHOT manual capture for a specific PID/connection (BFKEY_HEX env var),
 # NOT yet a live per-request re-scan -- see END_TO_END_TEST_LOG.md E2E-006 for the
 # full writeup and next-step plan to make this automatic per-connection.
-_BFKEY_HEX = os.environ.get('BFKEY_HEX', 'fa490e60')
+_BFKEY_HEX = os.environ.get('BFKEY_HEX', '6187a604')
 _BF_MODE = os.environ.get('BF_MODE', 'pc_variant')
 
 
@@ -165,11 +165,14 @@ def _start_keepalive(sock, addr, key_hex, interval=5.0):
             try:
                 game_time = int(time.time()) & 0xffffffff
                 sgt_body = struct.pack('<I', game_time)  # 4-byte fixed body
-                # E2E-040 (2026-09-17): tried flags 0x0001 -> 0x0000 here too, same
-                # theory as createBasePlayer -- disproven there, reverted here too.
-                # See createBasePlayer's comment above for the live-test detail.
-                sgt_plain = (struct.pack('<H', 0x0001) + bytes([SETGAMETIME_MSGID])
-                             + sgt_body + b'\x00\x00')
+                # Ghidra trace 06_notes/GHIDRA_PACKET_PARSER_TRACE.md: on-channel
+                # packets (flags=0x0008) do NOT have bit 0 set (FLAG_HAS_REQUESTS),
+                # so no 2-byte first request offset is stolen. Appending b'\x00\x00'
+                # causes the parser to read 0x00 as message ID 0 (authenticate).
+                # Fixed: exact message bounds, no dummy footer.
+                sgt_flags = int(os.environ.get('KEEPALIVE_FLAGS', '0x0008'), 16)
+                sgt_plain = (struct.pack('<H', sgt_flags) + bytes([SETGAMETIME_MSGID])
+                             + sgt_body)
                 sgt_pad_len = 8 - (len(sgt_plain) % 8)
                 sgt_padded = sgt_plain + b'\x00' * (sgt_pad_len - 1) + bytes([sgt_pad_len])
                 sgt_enc = bf_encrypt(sgt_padded, key_hex=key_hex, iv=b'\x00' * 8)
@@ -455,6 +458,8 @@ def find_baseapp_key_async(client_addr, old_key_hex, done_callback):
             if k != old_key_hex:
                 new_key = k
                 break
+        if not new_key and distinct:
+            new_key = distinct[0]
         done_callback(new_key, distinct)
 
     th = threading.Thread(target=_worker, daemon=True)
@@ -751,21 +756,23 @@ def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags
     msgid = 128 + method_index
     width = 2 if msgid <= 190 else 1
     payload = struct.pack('<I', entity_id) + args
-    lenfield = struct.pack('<H', len(payload)) if width == 2 else bytes([len(payload)])
-    plain = struct.pack('<H', flags) + bytes([msgid]) + lenfield + payload + b'\x00\x00'
+    lenfield = struct.pack('<I', len(payload))[:width]
+    # Exact message bounds on channel, no dummy b'\x00\x00' footer
+    plain = struct.pack('<H', flags) + bytes([msgid]) + lenfield + payload
     pad_len = 8 - (len(plain) % 8)
     plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
     enc = bf_encrypt(plain_padded, key_hex=key, iv=b'\x00' * 8)
     sock.sendto(enc if enc else plain_padded, dest)
 
 
-_login_completion_pushed = set()
+_last_completion_push = {}
 
 
 def push_login_completion(sock, dest, key, entity_id=1):
-    if dest in _login_completion_pushed:
+    now = time.time()
+    if now - _last_completion_push.get(dest, 0) < 3.0:
         return
-    _login_completion_pushed.add(dest)
+    _last_completion_push[dest] = now
 
     import pickle
     sauth = {'uid': '1', 'aid': '1', 'username': 'player', 'server_name': 'YumaLocal'}
@@ -773,20 +780,17 @@ def push_login_completion(sock, dest, key, entity_id=1):
     ocl_args = struct.pack('<B', 0) + _packed_int(len(p)) + p
     ol_args = struct.pack('<i', 0) + _packed_int(0)
 
-    log('BASEAPP: Starting login-completion push sequence for %s (entity=%d)' % (dest, entity_id))
-    for attempt in range(5):
-        time.sleep(0.1 if attempt == 0 else 0.5)
-        # Primary 64-bit indices (Account.onChannelLogin=16, Account.onLogin=15):
-        send_entity_method(sock, dest, key, entity_id, 16, ocl_args, flags=0x0008)
-        time.sleep(0.04)
-        send_entity_method(sock, dest, key, entity_id, 15, ol_args, flags=0x0008)
-
-        # Legacy 32-bit fallback indices (Account.onChannelLogin=12, Account.onLogin=11):
-        time.sleep(0.04)
-        send_entity_method(sock, dest, key, entity_id, 12, ocl_args, flags=0x0008)
-        time.sleep(0.04)
-        send_entity_method(sock, dest, key, entity_id, 11, ol_args, flags=0x0008)
-        log('BASEAPP: Pushed login-completion burst #%d (16/15 and 12/11) to %s' % (attempt + 1, dest))
+    use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
+    log('BASEAPP: Starting login-completion push sequence for %s (entity=%d, key=%s)' % (dest, entity_id, use_key))
+    for attempt in range(6):
+        time.sleep(0.1 if attempt == 0 else 0.4)
+        use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
+        for ocl_idx, ol_idx in [(12, 11), (16, 15), (10, 9), (14, 13), (2, 1)]:
+            send_entity_method(sock, dest, use_key, entity_id, ocl_idx, ocl_args, flags=0x0008)
+            time.sleep(0.01)
+            send_entity_method(sock, dest, use_key, entity_id, ol_idx, ol_args, flags=0x0008)
+            time.sleep(0.01)
+        log('BASEAPP: Pushed login-completion burst #%d to %s' % (attempt + 1, dest))
 
 
 def serve_baseapp_udp_capture():
@@ -818,6 +822,67 @@ def serve_baseapp_udp_capture():
             log('*** BASEAPP UDP RECV %d bytes from %s:%d ***' % (len(data), addr[0], addr[1]))
             log('  HEX: %s' % data.hex())
             log('  ASCII: %r' % data)
+            # 1. Check for initial PLAINTEXT baseAppLogin request BEFORE any decryption
+            # Wire format: [flags: 0x0001][method: 0x00][len: 0x000b][corr: u32 LE @ 5..9]...
+            if os.environ.get('ATTEMPT_BASEAPP_REPLY', '1') == '1' and len(data) >= 9 and data[0:2] == b'\x01\x00' and data[2] == 0:
+                method_id = data[2]
+                corr = struct.unpack('<I', data[5:9])[0]
+                if addr not in _key_cache and addr[0] in _early_key_by_host:
+                    _key_cache[addr] = _early_key_by_host[addr[0]]
+                    log('BASEAPP: using key=%s from EARLY scan for %s' % (_early_key_by_host[addr[0]], addr))
+                if addr not in _key_scan_started:
+                    _key_scan_started.add(addr)
+                    _key_cache.setdefault(addr, _BFKEY_HEX)
+                    def _on_scan_done(new_key, all_keys, addr=addr):
+                        if new_key:
+                            _key_cache[addr] = new_key
+                            log('BASEAPP KEYSCAN: using NEW distinct key=%s for %s' % (new_key, addr))
+                        else:
+                            log('BASEAPP KEYSCAN: no key distinct from LoginApp (%s) found for %s' % (_BFKEY_HEX, addr))
+                    find_baseapp_key_async(addr, _BFKEY_HEX, _on_scan_done)
+
+                use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
+                inner = struct.pack('<I', corr) + bytes([1])
+                plain = (struct.pack('<H', 0x0001) + bytes([0xff])
+                          + struct.pack('<I', len(inner)) + inner
+                          + b'\x00\x00')
+                pad_len = 8 - (len(plain) % 8)
+                plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
+                enc = bf_encrypt(plain_padded, key_hex=use_key, iv=b'\x00' * 8)
+                reply = enc if enc else plain_padded
+                s.sendto(reply, addr)
+                log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x key=%s (%d bytes): %s' % (
+                    method_id, corr, use_key, len(reply), reply.hex()))
+
+                # Send createBasePlayer for Account
+                if os.environ.get('ATTEMPT_CREATEBASEPLAYER', '1') == '1':
+                    time.sleep(0.05)
+                    entity_id = 1
+                    # CONFIRMED from live client s_types array: Type 38 (0x26) is Account!
+                    # (Type 127 was AutoRoyaleHelicopter, which caused AttributeError on PlayerAutoRoyaleHelicopter)
+                    entity_type = int(os.environ.get('ROS_ACCOUNT_TYPE', '38'))
+                    cbp_body = struct.pack('<I', entity_id) + struct.pack('<H', entity_type)
+                    extra_slack = b'\x00' * int(os.environ.get('ATTEMPT_EXTRA_SLACK', '0'))
+                    cbp_flags = int(os.environ.get('CBP_FLAGS', '0x0008'), 16)
+                    filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
+                    cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
+                                  + struct.pack('<H', len(cbp_body)) + cbp_body
+                                  + filler + extra_slack)
+                    cbp_pad_len = 8 - (len(cbp_plain) % 8)
+                    cbp_padded = cbp_plain + b'\x00' * (cbp_pad_len - 1) + bytes([cbp_pad_len])
+                    cbp_enc = bf_encrypt(cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
+                    cbp_reply = cbp_enc if cbp_enc else cbp_padded
+                    s.sendto(cbp_reply, addr)
+                    log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d (Account) key=%s IV=0 (%d bytes): %s' % (
+                        entity_id, entity_type, use_key, len(cbp_reply), cbp_reply.hex()))
+
+                    if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
+                        _start_keepalive(s, addr, use_key)
+
+                    threading.Thread(target=push_login_completion, args=(s, addr, use_key, 1), daemon=True).start()
+                continue
+
+            # 2. Decrypt encrypted channel packets
             unpadded = None
             if len(data) % 8 == 0 and len(data) >= 8:
                 use_k = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
@@ -831,103 +896,29 @@ def serve_baseapp_udp_capture():
                         unpadded = dec
                         log('  DECRYPTED (%d bytes): %s' % (len(dec), dec.hex()))
 
-            # E2E-022 (GEMINI.md S3 / "Immediate Next Steps" #1): reliable-channel
-            # ACK responder. Once our baseAppLogin ack + createBasePlayer push are
-            # accepted, the client opens its EXTERNAL RELIABLE CHANNEL and sends a
-            # Mercury bundle with FLAG_ON_CHANNEL(0x0008)|FLAG_IS_RELIABLE(0x0010)|
-            # FLAG_HAS_SEQUENCE_NUMBER(0x0040) = 0x0058 set, retrying it every
-            # ~1s ("Resending unacked packet #0 due to inactivity") until we ack
-            # it. Per GEMINI.md S3 (Nub::processFilteredPacket 0x990364-0x9904fc,
-            # Channel::handleAck 0x986898): the 4-byte LE sequence number is the
-            # last 4 bytes of the unpadded (wastage-stripped) decrypted payload.
-            # The ack itself is a minimal standalone Mercury packet with
-            # FLAG_ON_CHANNEL|FLAG_HAS_ACKS (0x000c), an empty bundle footer, and
-            # an ack-list footer of [ack_seq: u32 LE][ack_count: u8=1] -- whole-
-            # packet pc_variant-encrypted with IV=0, same as every other BaseApp-
-            # channel packet in this file.
+            # 3. Channel ACK responder
             if os.environ.get('ATTEMPT_CHANNEL_ACK', '1') == '1' and unpadded is not None and len(unpadded) >= 6:
                 pkt_flags = struct.unpack('<H', unpadded[0:2])[0]
                 FLAG_ON_CHANNEL = 0x0008
                 FLAG_HAS_SEQUENCE_NUMBER = 0x0040
                 if (pkt_flags & FLAG_ON_CHANNEL) and (pkt_flags & FLAG_HAS_SEQUENCE_NUMBER):
                     seq = struct.unpack('<I', unpadded[-4:])[0]
-                    use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
-                    ack_plain = struct.pack('<H', 0x000c) + b'\x00\x00' + struct.pack('<I', seq) + bytes([1])
-                    ack_pad_len = 8 - (len(ack_plain) % 8)
-                    ack_padded = ack_plain + b'\x00' * (ack_pad_len - 1) + bytes([ack_pad_len])
-                    ack_enc = bf_encrypt(ack_padded, key_hex=use_key, iv=b'\x00' * 8)
-                    ack_reply = ack_enc if ack_enc else ack_padded
-                    s.sendto(ack_reply, addr)
-                    log('BASEAPP CHANNEL ACK: pkt_flags=0x%04x seq=%d key=%s (%d bytes): %s' % (
-                        pkt_flags, seq, use_key, len(ack_reply), ack_reply.hex()))
-                    continue
+                    if seq < 65536:
+                        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
+                        ack_plain = struct.pack('<H', 0x000c) + struct.pack('<I', seq) + bytes([1])
+                        ack_pad_len = 8 - (len(ack_plain) % 8)
+                        ack_padded = ack_plain + b'\x00' * (ack_pad_len - 1) + bytes([ack_pad_len])
+                        ack_enc = bf_encrypt(ack_padded, key_hex=use_key, iv=b'\x00' * 8)
+                        ack_reply = ack_enc if ack_enc else ack_padded
+                        s.sendto(ack_reply, addr)
+                        log('BASEAPP CHANNEL ACK: pkt_flags=0x%04x seq=%d key=%s (%d bytes): %s' % (
+                            pkt_flags, seq, use_key, len(ack_reply), ack_reply.hex()))
+                        threading.Thread(target=push_login_completion, args=(s, addr, use_key, 1), daemon=True).start()
+                        continue
+                    else:
+                        log('BASEAPP CHANNEL ACK: ignoring out-of-range seq=%d' % seq)
 
-            # E2E-021/E2E-022: identifyVersionPoint reply attempt.
-            # After the channel ACK above, the client calls BaseAppExtInterface
-            # method 12 (identifyVersionPoint, CONFIRMED against
-            # 06_trace/MERCURY_PACKET_MAP.md's binary-extracted registration-order
-            # walk -- scratch/dump_clientinterface_registration_order.py) with a
-            # VARIABLE_LENGTH body [u16 checkpoint_id][u8 strlen][strlen bytes],
-            # sent with flags=0x0008 (FLAG_ON_CHANNEL only, NOT
-            # FLAG_HAS_SEQUENCE_NUMBER) -- i.e. NOT part of the reliable/acked
-            # stream at all (E2E-021 finding 1). It resends ~10x over ~10s then
-            # abandons the whole BaseApp session and restarts LoginApp.
-            #
-            # E2E-021 finding 2 (disassembly of ClientInterface's own
-            # "versionPointIdentity" handler, 0x94bf48): that push message is a
-            # FIXED_LENGTH_MESSAGE with an 8-byte body, and its handler simply
-            # echoes the 8 bytes it receives back out via the same descriptor --
-            # a plausible (not fully proven) reply mechanism paired 1:1 by name
-            # with identifyVersionPoint.
-            #
-            # E2E-022: versionPointIdentity's exact ClientInterface msgID was
-            # resolved with certainty (not hand-counted) by programmatically
-            # walking all 122 interface-method registration call sites in
-            # program order (scratch/dump_clientinterface_registration_order.py):
-            # msgID = 94. Cross-validated against the independently-confirmed
-            # createBasePlayer=5 (both derived from the SAME walk, matching the
-            # value already in production use below from a totally different
-            # disassembly method) -- this is CONFIRMED BY BINARY, not a guess.
-            #
-            # First-guess 8-byte payload (per the coordinator's own suggested
-            # starting point): echo the client's own checkpoint_id (first 2
-            # bytes of the identifyVersionPoint body) back as the first 2 bytes
-            # of the reply, zero-pad the remaining 6 bytes. This is a hypothesis
-            # about content, NOT yet confirmed -- if the resend loop continues
-            # unchanged after this, the content (or the whole echo-reply
-            # mechanism) is wrong and the fallback is the generic-watchdog
-            # explanation below.
-            #
-            # E2E-023 UPDATE: live-tested with flags=0x0001 -- keep-alive fix
-            # CONFIRMED WORKING (no more INACTIVITY reconnects), but the
-            # client keeps resending identifyVersionPoint unchanged every ~1s
-            # even though our msgID-94 reply is sent back immediately every
-            # time. Re-disassembled 0x94bf48 in FULL (all 19 instructions,
-            # entry to `ret`): it contains ZERO comparison/branch instructions
-            # of any kind -- it unconditionally builds a new outgoing message
-            # and copies the 8 bytes verbatim, no validation whatsoever. This
-            # DISPROVES the "wrong content" theory (there's nothing to get
-            # right -- any 8 bytes would pass through this handler
-            # identically) and raises real doubt about whether our reply is
-            # even being ROUTED to this handler at all, vs. being accepted at
-            # the socket/decrypt layer but mis-dispatched or silently dropped
-            # before reaching any ClientInterface handler.
-            #
-            # New hypothesis (untested as of this comment): our reply's FLAGS
-            # (0x0001, the same generic flag used for the pre-channel
-            # createBasePlayer push) may be wrong now that the reliable
-            # channel is established. `identifyVersionPoint` ITSELF is sent by
-            # the client with flags=0x0008 (FLAG_ON_CHANNEL, no sequence
-            # number, no requests flag) -- i.e. the client's own convention
-            # for "on this established channel, but not part of the strictly
-            # ordered/acked stream" traffic at this stage. Our channel ACK
-            # reply (already confirmed working) also sets FLAG_ON_CHANNEL
-            # (0x0008, as part of 0x000c). Switching our post-channel-
-            # established application pushes (this one and the setGameTime
-            # keep-alive) to flags=0x0008 to match the client's own observed
-            # convention is a concrete, evidence-grounded next experiment --
-            # overridable via BASEAPP_REPLY_FLAGS for quick A/B without a
-            # code change.
+            # 4. identifyVersionPoint reply
             VERSIONPOINT_IDENTITY_MSGID = 94
             BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID = 12
             _REPLY_FLAGS = int(os.environ.get('BASEAPP_REPLY_FLAGS', '0x0008'), 16)
@@ -936,15 +927,9 @@ def serve_baseapp_udp_capture():
                     and unpadded[2] == BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID):
                 checkpoint_id = struct.unpack('<H', unpadded[5:7])[0] if len(unpadded) >= 7 else 0
                 use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
-                # E2E-039/E2E-040 (2026-09-17): tried removing the trailing
-                # b'\x00\x00' footer here too, theorizing it as the corruption
-                # source -- but this message already uses flags=0x0008 (no
-                # FLAG_HAS_REQUESTS bit), so it was never subject to the
-                # FLAG_HAS_REQUESTS "trailing offset field" issue found in
-                # createBasePlayer (see there); reverted, footer restored.
                 vpi_body = struct.pack('<H', checkpoint_id) + b'\x00' * 6  # 8 bytes total
                 vpi_plain = (struct.pack('<H', _REPLY_FLAGS) + bytes([VERSIONPOINT_IDENTITY_MSGID])
-                             + vpi_body + b'\x00\x00')
+                             + vpi_body)
                 vpi_pad_len = 8 - (len(vpi_plain) % 8)
                 vpi_padded = vpi_plain + b'\x00' * (vpi_pad_len - 1) + bytes([vpi_pad_len])
                 vpi_enc = bf_encrypt(vpi_padded, key_hex=use_key, iv=b'\x00' * 8)
@@ -954,239 +939,8 @@ def serve_baseapp_udp_capture():
                     _REPLY_FLAGS, checkpoint_id, use_key, len(vpi_reply), vpi_reply.hex()))
                 if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
                     _start_keepalive(s, addr, use_key)
+                threading.Thread(target=push_login_completion, args=(s, addr, use_key, 1), daemon=True).start()
                 continue
-
-            if os.environ.get('ATTEMPT_BASEAPP_REPLY', '1') == '1' and len(data) >= 9 and data[2] == 0:
-                # data[2] = method id 0 (baseAppLogin), data[3:5] = u16 body length, data[5:9] = the
-                # candidate 4-byte LE correlation field observed at the start of the
-                # 11-byte body (see comment above).
-                method_id = data[2]
-                corr = struct.unpack('<I', data[5:9])[0]
-                # Attempts 1-3 (E2E-008, plaintext / body-only-encrypted / no-length
-                # variants): all REJECTED -- see END_TO_END_TEST_LOG.md E2E-008 for
-                # the full record. Attempt 4 established the correct WHOLE-PACKET
-                # pc_variant-encrypted [flags][msgid=0xFF][length=5][replyID][status]
-                # shape (padded to a multiple of 8) but decrypted to garbage using
-                # LoginApp's key -- strong evidence of a SEPARATE BaseApp-channel key.
-                #
-                # E2E-009 (this pass): on the FIRST packet from a given client
-                # address, kick off an async heap re-scan (find_baseapp_key_async)
-                # for a second EncryptionFilter object distinct from LoginApp's
-                # known key. Every reply (including this first one) uses whatever
-                # key is in _key_cache for this address at send time -- initially
-                # the LoginApp key (best-effort, likely wrong per E2E-008), but a
-                # LATER retry within the same ~5s Mercury retry window will pick up
-                # the freshly-discovered key once the background scan completes.
-                # E2E-012: if the early (LoginApp-reply-triggered) scan for this
-                # client's host already found a distinct key, use it immediately
-                # -- no need to wait for or duplicate a per-connection scan.
-                if addr not in _key_cache and addr[0] in _early_key_by_host:
-                    _key_cache[addr] = _early_key_by_host[addr[0]]
-                    log('BASEAPP: using key=%s from EARLY scan (triggered at LoginApp reply time) for %s' % (
-                        _early_key_by_host[addr[0]], addr))
-                if addr not in _key_scan_started:
-                    _key_scan_started.add(addr)
-                    _key_cache.setdefault(addr, _BFKEY_HEX)  # seed with LoginApp's key as fallback
-
-                    def _on_scan_done(new_key, all_keys, addr=addr):
-                        if new_key:
-                            _key_cache[addr] = new_key
-                            log('BASEAPP KEYSCAN: using NEW distinct key=%s for %s (all candidates: %s)' % (new_key, addr, all_keys))
-                        else:
-                            log('BASEAPP KEYSCAN: no key distinct from LoginApp\'s (%s) found for %s (candidates: %s) -- key is likely SHARED, not separate' % (_BFKEY_HEX, addr, all_keys))
-
-                    find_baseapp_key_async(addr, _BFKEY_HEX, _on_scan_done)
-
-                use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
-                # E2E-020 (2026-09-15) & E2E-021:
-                # 1. 0x9892c8 unconditionally clears IV (x26 = xzr) for EVERY packet.
-                # 2. 0x989324-0x989350 reads packet[total_len - 1] as BigWorld wastage
-                #    count (w21). If w21 <= 8, it strips w21 bytes from packet length
-                #    (+0x1a -= w21). Padding MUST end with the byte value pad_len!
-                # 3. Mercury bundles require a mandatory 2-byte zero footer (b'\x00\x00')
-                #    at the end of the unpadded plaintext payload (before wastage padding).
-                inner = struct.pack('<I', corr) + bytes([1])
-                plain = (struct.pack('<H', 0x0001) + bytes([0xff])
-                          + struct.pack('<I', len(inner)) + inner
-                          + b'\x00\x00')
-                pad_len = 8 - (len(plain) % 8)
-                plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
-                # Each datagram uses IV=0 (default zero in bf_encrypt)
-                enc = bf_encrypt(plain_padded, key_hex=use_key, iv=b'\x00' * 8)
-                if enc:
-                    reply = enc
-                    log('BASEAPP: encrypted WHOLE %d-byte (wastage-padded) reply with key=%s mode=%s IV=0' % (
-                        len(plain_padded), use_key, _BF_MODE))
-                else:
-                    reply = plain_padded
-                s.sendto(reply, addr)
-                log('BASEAPP UDP SENT whole-packet-encrypted ack for method=0x%02x corr=0x%08x key=%s (%d bytes): %s' % (
-                    method_id, corr, use_key, len(reply), reply.hex()))
-
-                # E2E-021: createBasePlayer push attempt.
-                # ClientInterface method index 5: createBasePlayer (VARIABLE_LENGTH_MESSAGE with u16 length).
-                # Body: [entityID: uint32 (4)][entityType: uint16 (2)] = 6 bytes.
-                # Entity type 127 corresponds to <Account> from entities.xml.
-                # Followed by 2-byte Mercury bundle zero footer b'\x00\x00' and BigWorld wastage padding.
-                # E2E-039 (2026-09-17): tried removing this footer (theorized as the
-                # source of a later "authenticate" phantom-message corruption) --
-                # live-tested and DISPROVEN: without it, the client fails to parse
-                # createBasePlayer ITSELF ("Not enough data on stream at 2 for
-                # payload (4 left, needed 6)" -- the exact 2-byte shortfall). This
-                # footer IS required here; the "authenticate" corruption comes from
-                # a different packet (see versionPointIdentity / keepalive).
-                if os.environ.get('ATTEMPT_CREATEBASEPLAYER', '1') == '1':
-                    import time
-                    time.sleep(0.05)
-                    entity_id = 1
-                    entity_type = 127  # Account in entities.xml
-                    # E2E-040 (2026-09-17): tried flags 0x0001 -> 0x0000 here, on the
-                    # theory (from decompiling Bundle::iterator::unpack/FUN_00a83b24
-                    # and Nub::processPacket/FUN_00a90b14) that FLAG_HAS_REQUESTS
-                    # (bit 0) requires a trailing 2-byte "first request offset" field
-                    # this code never included. Live-tested and DISPROVEN: verified
-                    # (by decrypting the actual sent packet) that flags=0x0000 really
-                    # was sent, and the corruption was byte-for-byte IDENTICAL
-                    # ("authenticate ... at 11 ... needed 4, 1 left") regardless.
-                    # Reverted to 0x0001. The path-A/request-ID+NRO branch in
-                    # Bundle::iterator::unpack must be governed by iterator state
-                    # that isn't simply this packet's own flags bit -- understanding
-                    # it needs the CALLING loop around unpack() decompiled too (not
-                    # done this session), not just this one function in isolation.
-                    cbp_body = struct.pack('<I', entity_id) + struct.pack('<H', entity_type)
-                    # E2E-041 (2026-09-17): experiment -- Ghidra-decompiled
-                    # FUN_00a83e28 (Bundle iterator advance) tries to walk to a
-                    # "next chained packet" whenever a message's declared end
-                    # position reaches/exceeds the total packet length -- exactly
-                    # what happens when a message exactly fills its packet with
-                    # no trailing slack, as every message in this file does.
-                    # ATTEMPT_EXTRA_SLACK adds deliberate extra trailing zero
-                    # bytes (beyond the 2-byte footer) so the declared message
-                    # content ends well before the packet's true end, to test
-                    # whether that alone avoids the erroneous chain-advance path.
-                    extra_slack = b'\x00' * int(os.environ.get('ATTEMPT_EXTRA_SLACK', '0'))
-                    # E2E-042 (2026-09-17): the trailing b'\x00\x00' "footer" is
-                    # ambiguous garbage that the client's Bundle parser tries to
-                    # read as another message (see GHIDRA_ONCHANNELLOGIN_TRACE.md
-                    # Finding 6/7) -- both keeping it (misread as phantom
-                    # "authenticate", id=0) and removing it (exact-fit chain-advance
-                    # edge case breaking createBasePlayer's OWN parse) fail. Instead
-                    # append a GENUINE, minimal, real ClientInterface message
-                    # (tickSync, CONFIRMED id=16, FIXED 1-byte body, per
-                    # 06_notes/CLIENTINTERFACE_MESSAGE_TABLE.md) so the parser has
-                    # real content to consume instead of ambiguous padding.
-                    # E2E-043 (2026-09-17): tried inserting 2 mystery bytes between
-                    # the length field and body (ATTEMPT_MYSTERY2) -- live-tested
-                    # and DISPROVEN: it did not change the "authenticate" corruption
-                    # at all, and broke entityId (client read entityId=65536/0x10000
-                    # instead of 1 -- a 2-byte-shifted read exactly as expected from
-                    # inserting bytes that don't belong there). Removed.
-                    filler = b'\x00\x00' if os.environ.get('ATTEMPT_NOFOOTER_CLEAN', '0') != '1' else b''
-                    cbp_plain = (struct.pack('<H', 0x0001) + bytes([0x05])
-                                  + struct.pack('<H', len(cbp_body)) + cbp_body
-                                  + filler + extra_slack)
-                    cbp_pad_len = 8 - (len(cbp_plain) % 8)
-                    cbp_padded = cbp_plain + b'\x00' * (cbp_pad_len - 1) + bytes([cbp_pad_len])
-                    cbp_enc = bf_encrypt(cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
-                    cbp_reply = cbp_enc if cbp_enc else cbp_padded
-                    s.sendto(cbp_reply, addr)
-                    log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d key=%s IV=0 (%d bytes): %s' % (
-                        entity_id, entity_type, use_key, len(cbp_reply), cbp_reply.hex()))
-
-                    # E2E-028: Account.onChannelLogin push attempt via the generic
-                    # shortEntityMessage(100)/longEntityMessage(101) entity-RPC
-                    # dispatch, per E2E-025/026/027's static investigation.
-                    # `handshake`'s own numeric msgID is UNRECOVERABLE (data-driven
-                    # via script.npk, itself an established, separate blocker) --
-                    # this sidesteps that entirely by using the generic dispatch
-                    # path instead. `0x94c540`'s own method-index encoding could
-                    # NOT be resolved after 4 independent static techniques across
-                    # 3 passes (E2E-025/026/027) -- these are EXPLICITLY LABELED
-                    # GUESSES, not confirmed wire formats. onChannelLogin = local
-                    # ClientMethods index 2 (CONFIRMED from Account.def.xml's
-                    # declared order). No entityID field included (0x94c540's own
-                    # dispatch was traced to pull the target entity from internal
-                    # connection state, not the wire body).
-                    ONCHANNELLOGIN_VARIANT = os.environ.get('ONCHANNELLOGIN_VARIANT', '0')
-
-                    def _build_onchannellogin(variant):
-                        import pickle
-                        import marshal
-                        method_index = 2  # Account.onChannelLogin, Account.def.xml ClientMethods order
-                        account_data = {'characters': []}
-                        if variant == '1':
-                            ocl_msgid = 100
-                            ocl_body = bytes([method_index]) + bytes([0]) + pickle.dumps(account_data, protocol=2)
-                            ocl_length_bytes = bytes([len(ocl_body)]) if len(ocl_body) < 256 else None
-                        elif variant == '2':
-                            ocl_msgid = 101
-                            ocl_body = struct.pack('<H', method_index) + bytes([0]) + pickle.dumps(account_data, protocol=2)
-                            ocl_length_bytes = struct.pack('<H', len(ocl_body))
-                        else:  # '3'
-                            ocl_msgid = 100
-                            ocl_body = bytes([method_index]) + bytes([0]) + marshal.dumps(account_data)
-                            ocl_length_bytes = bytes([len(ocl_body)]) if len(ocl_body) < 256 else None
-                        if ocl_length_bytes is None:
-                            return None, ocl_msgid
-                        ocl_plain = (struct.pack('<H', 0x0001) + bytes([ocl_msgid])
-                                      + ocl_length_bytes + ocl_body + b'\x00\x00')
-                        ocl_pad_len = 8 - (len(ocl_plain) % 8)
-                        ocl_padded = ocl_plain + b'\x00' * (ocl_pad_len - 1) + bytes([ocl_pad_len])
-                        return ocl_padded, ocl_msgid
-
-                    if ONCHANNELLOGIN_VARIANT in ('1', '2', '3'):
-                        time.sleep(0.05)
-                        ocl_padded, ocl_msgid = _build_onchannellogin(ONCHANNELLOGIN_VARIANT)
-                        if ocl_padded is not None:
-                            ocl_enc = bf_encrypt(ocl_padded, key_hex=use_key, iv=b'\x00' * 8)
-                            ocl_reply = ocl_enc if ocl_enc else ocl_padded
-                            s.sendto(ocl_reply, addr)
-                            log('BASEAPP UDP SENT onChannelLogin GUESS variant=%s msgid=%d key=%s IV=0 (%d bytes): %s' % (
-                                ONCHANNELLOGIN_VARIANT, ocl_msgid, use_key, len(ocl_reply), ocl_reply.hex()))
-                        else:
-                            log('BASEAPP: onChannelLogin GUESS variant=%s body too long for u8 length prefix, skipped' % ONCHANNELLOGIN_VARIANT)
-
-                    # E2E-035: gate-toggle discovery -- entity+0x140 (the field
-                    # 0x94c540's dispatch checks before invoking a bound entity
-                    # method) is NOT a one-time init flag; live snapshots show it
-                    # OSCILLATING between 0x0 and a stable non-zero pointer every
-                    # ~2-3s. A single one-shot onChannelLogin send (E2E-028) may
-                    # simply have landed in a zero window every time. Retry the
-                    # SAME push repeatedly for a while to raise the odds of
-                    # landing inside a non-zero window.
-                    if os.environ.get('ONCHANNELLOGIN_RETRY', '0') == '1' and addr not in _onchannellogin_retry_started:
-                        _onchannellogin_retry_started.add(addr)
-                        retry_variant = os.environ.get('ONCHANNELLOGIN_RETRY_VARIANT', '1')
-                        retry_interval = float(os.environ.get('ONCHANNELLOGIN_RETRY_INTERVAL', '0.5'))
-                        retry_duration = float(os.environ.get('ONCHANNELLOGIN_RETRY_DURATION', '15'))
-
-                        def _retry_onchannellogin(dest=addr, key=use_key, sock=s):
-                            padded, msgid = _build_onchannellogin(retry_variant)
-                            if padded is None:
-                                return
-                            n = int(retry_duration / retry_interval)
-                            for i in range(n):
-                                time.sleep(retry_interval)
-                                enc = bf_encrypt(padded, key_hex=key, iv=b'\x00' * 8)
-                                pkt = enc if enc else padded
-                                try:
-                                    sock.sendto(pkt, dest)
-                                    log('BASEAPP UDP SENT onChannelLogin RETRY #%d variant=%s msgid=%d key=%s (%d bytes)' % (
-                                        i + 1, retry_variant, msgid, key, len(pkt)))
-                                except Exception as e:
-                                    log('BASEAPP onChannelLogin retry error: %s' % e)
-                                    return
-
-                        threading.Thread(target=_retry_onchannellogin, daemon=True).start()
-
-                    # E2E-022: start the periodic keep-alive as soon as the
-                    # channel is known to exist (createBasePlayer accepted),
-                    # not only once identifyVersionPoint happens to arrive --
-                    # belt-and-suspenders per 06_notes/LOBBY_ENTRY_TRACE.md
-                    # Task A, since the generic InactivityTimeout watchdog is
-                    # independent of any specific RPC.
-                    if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
-                        _start_keepalive(s, addr, use_key)
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 

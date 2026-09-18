@@ -1,0 +1,348 @@
+=== FUN_00a96978 @ 00a96978 ===
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_00a96978(undefined8 *param_1,short param_2)
+
+{
+  undefined8 uVar1;
+  undefined8 uVar2;
+  
+  uVar2 = _UNK_02b5e588;
+  uVar1 = _DAT_02b5e580;
+  *(undefined4 *)(param_1 + 1) = 0;
+  param_1[0xb] = 0x10000000;
+  param_1[2] = 0;
+  param_1[5] = 0;
+  *(undefined1 *)(param_1 + 6) = 0;
+  *(undefined8 *)((long)param_1 + 0x1a) = 0;
+  *param_1 = &PTR_FUN_038dd868;
+  *(short *)(param_1 + 3) = param_2 + -0x1c;
+  param_1[10] = uVar2;
+  param_1[9] = uVar1;
+  param_1[7] = 0;
+  return;
+}
+
+
+
+--------------------------------------------------
+
+=== FUN_00a96a14 @ 00a96a14 ===
+
+void FUN_00a96a14(long param_1,undefined8 param_2,undefined8 param_3)
+
+{
+  int iVar1;
+  
+                    /* try { // try from 00a96a3c to 00b96a47 has its CatchHandler @ 00a97044 */
+  iVar1 = FUN_00a8a250(param_2,param_1 + 0x60,0x5c0,param_3);
+  if (-1 < iVar1) {
+    *(short *)(param_1 + 0x1a) = (short)iVar1;
+  }
+                    /* try { // try from 00a96a48 to 00b96b73 has its CatchHandler @ 00a95e88 */
+  return;
+}
+
+
+
+--------------------------------------------------
+
+=== FUN_00a8ccfc @ 00a8ccfc ===
+
+void FUN_00a8ccfc(long param_1,ulong param_2)
+
+{
+  long lVar1;
+  undefined *puVar2;
+  int iVar3;
+  int iVar4;
+  ulong uVar5;
+  int *piVar6;
+  long *plVar7;
+  undefined8 uVar8;
+  long lVar9;
+  char *pcVar10;
+  char *pcVar11;
+  long *plVar12;
+  undefined8 *puVar13;
+  timespec local_88;
+  undefined8 local_78;
+  timespec local_70;
+  undefined8 local_60;
+  long local_58;
+  
+  lVar1 = tpidr_el0;
+  local_58 = *(long *)(lVar1 + 0x28);
+  local_70.tv_sec = 0;
+  local_70.tv_nsec = 0;
+  clock_gettime(7,&local_70);
+  *(long *)(param_1 + 0x42f8) = local_70.tv_nsec + local_70.tv_sec * 1000000000;
+  local_70.tv_sec = 0;
+  local_70.tv_nsec = 0;
+                    /* try { // try from 00a8cd5c to 00b8cd63 has its CatchHandler @ 00a8cea4 */
+  clock_gettime(7,&local_70);
+                    /* try { // try from 00a8cd64 to 00b8d06f has its CatchHandler @ 00a8c2ac */
+  *(long *)(param_1 + 0x4328) = local_70.tv_nsec + local_70.tv_sec * 1000000000;
+  *(int *)(param_1 + 0x4368) = *(int *)(param_1 + 0x4368) + 1;
+  FUN_00a8199c(&local_70);
+  lVar9 = param_1 + 0x18;
+  iVar3 = FUN_00a96a14(*(undefined8 *)(param_1 + 0xb0),lVar9,&local_70);
+  local_88.tv_sec = 0;
+  local_88.tv_nsec = 0;
+  clock_gettime(7,&local_88);
+  uVar5 = ((local_88.tv_nsec + local_88.tv_sec * 1000000000) - *(long *)(param_1 + 0x4328)) +
+          *(long *)(param_1 + 0x4320);
+  *(ulong *)(param_1 + 0x4320) = uVar5;
+  if (0 < iVar3) {
+    if (*(ulong *)(param_1 + 0x4338) < uVar5) {
+      *(ulong *)(param_1 + 0x4338) = uVar5;
+    }
+    if (uVar5 < *(ulong *)(param_1 + 0x4330)) {
+      *(ulong *)(param_1 + 0x4330) = uVar5;
+    }
+    *(ulong *)(param_1 + 0x4318) = *(long *)(param_1 + 0x4318) + uVar5;
+    *(int *)(param_1 + 0x4340) = *(int *)(param_1 + 0x4340) + 1;
+    *(undefined8 *)(param_1 + 0x4320) = 0;
+    *(int *)(param_1 + 0x436c) = *(int *)(param_1 + 0x436c) + 1;
+    *(int *)(param_1 + 0x4230) = *(int *)(param_1 + 0x4230) + 1;
+    *(int *)(param_1 + 0x421c) = *(int *)(param_1 + 0x421c) + iVar3 + 0x1c;
+    *(int *)(param_1 + 0x4250) = *(int *)(param_1 + 0x4250) + iVar3 + 0x1c;
+                    /* catch() { ... } // from try @ 00a8c9d8 with catch @ 00a8ce54 */
+    plVar12 = *(long **)(param_1 + 0xb0);
+    if (plVar12 != (long *)0x0) {
+      *(int *)(plVar12 + 1) = (int)plVar12[1] + 1;
+    }
+                    /* catch() { ... } // from try @ 00a8c48c with catch @ 00a8ce68 */
+    puVar2 = PTR_DAT_03a0fe28;
+    std::__ndk1::mutex::lock();
+    puVar13 = *(undefined8 **)puVar2;
+    if (puVar13 == (undefined8 *)0x0) {
+      puVar13 = operator_new__(0x620);
+      *(int *)(puVar2 + 8) = *(int *)(puVar2 + 8) + 1;
+    }
+    else {
+      *(undefined8 *)puVar2 = *puVar13;
+                    /* catch() { ... } // from try @ 00a8c478 with catch @ 00a8ce88 */
+    }
+    std::__ndk1::mutex::unlock();
+    FUN_00a96978(puVar13,0x5dc);
+    if (puVar13 != (undefined8 *)0x0) {
+      *(int *)(puVar13 + 1) = *(int *)(puVar13 + 1) + 1;
+    }
+    plVar7 = *(long **)(param_1 + 0xb0);
+    *(undefined8 **)(param_1 + 0xb0) = puVar13;
+    if ((plVar7 != (long *)0x0) &&
+       (iVar4 = (int)plVar7[1] + -1, *(int *)(plVar7 + 1) = iVar4, iVar4 == 0)) {
+      (**(code **)(*plVar7 + 8))();
+    }
+    *(short *)((long)plVar12 + 0x1a) = (short)iVar3;
+    iVar3 = FUN_00a8d380(param_1,&local_70,plVar12);
+    local_88.tv_sec = 0;
+    local_88.tv_nsec = 0;
+                    /* catch() { ... } // from try @ 00a8c670 with catch @ 00a8cf74 */
+                    /* catch() { ... } // from try @ 00a8c8c8 with catch @ 00a8cf78 */
+    clock_gettime(7,&local_88);
+                    /* catch() { ... } // from try @ 00a8c680 with catch @ 00a8cf7c */
+    uVar5 = ((local_88.tv_nsec + local_88.tv_sec * 1000000000) - *(long *)(param_1 + 0x42f8)) +
+            *(long *)(param_1 + 0x42f0);
+    *(ulong *)(param_1 + 0x42f0) = uVar5;
+    if (*(ulong *)(param_1 + 0x4308) < uVar5) {
+      *(ulong *)(param_1 + 0x4308) = uVar5;
+    }
+    if (uVar5 < *(ulong *)(param_1 + 0x4300)) {
+      *(ulong *)(param_1 + 0x4300) = uVar5;
+    }
+    *(ulong *)(param_1 + 0x42e8) = *(long *)(param_1 + 0x42e8) + uVar5;
+    *(int *)(param_1 + 0x4310) = *(int *)(param_1 + 0x4310) + 1;
+    *(undefined8 *)(param_1 + 0x42f0) = 0;
+    if (iVar3 != 0) {
+      puVar13 = (undefined8 *)__cxa_allocate_exception(0x28);
+      *(int *)(puVar13 + 1) = iVar3;
+      *puVar13 = &PTR_FUN_038dd5a8;
+      *(undefined8 *)((long)puVar13 + 0x1c) = local_60;
+      *(long *)((long)puVar13 + 0x14) = local_70.tv_nsec;
+      *(__time_t *)((long)puVar13 + 0xc) = local_70.tv_sec;
+                    /* WARNING: Subroutine does not return */
+      __cxa_throw(puVar13,&PTR_vtable_038dd530,FUN_00a87ab8);
+    }
+    iVar3 = (int)plVar12[1] + -1;
+    *(int *)(plVar12 + 1) = iVar3;
+    if (iVar3 == 0) {
+      (**(code **)(*plVar12 + 8))(plVar12);
+    }
+    uVar8 = 1;
+LAB_00a8d004:
+    if (*(long *)(lVar1 + 0x28) == local_58) {
+      return;
+    }
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail(uVar8);
+  }
+  local_88.tv_sec = 0;
+  local_88.tv_nsec = 0;
+  iVar4 = clock_gettime(7,&local_88);
+                    /* catch() { ... } // from try @ 00a8c46c with catch @ 00a8cea0
+                       catch() { ... } // from try @ 00a8c514 with catch @ 00a8cea0 */
+                    /* catch() { ... } // from try @ 00a8c728 with catch @ 00a8cea4
+                       catch() { ... } // from try @ 00a8cd5c with catch @ 00a8cea4 */
+                    /* catch() { ... } // from try @ 00a8c444 with catch @ 00a8cea8 */
+  *(long *)(param_1 + 0x42f0) =
+       ((local_88.tv_nsec + local_88.tv_sec * 1000000000) - *(long *)(param_1 + 0x42f8)) +
+       *(long *)(param_1 + 0x42f0);
+  if (iVar3 == -1) {
+    uVar5 = FUN_00a89cec(lVar9);
+    if (((uVar5 & 1) == 0) || ((piVar6 = (int *)__errno(), *piVar6 == 0xb && ((param_2 & 1) == 0))))
+    {
+      uVar8 = 0;
+      goto LAB_00a8d004;
+    }
+    *(int *)(param_1 + 0x4370) = *(int *)(param_1 + 0x4370) + 1;
+    iVar3 = *piVar6;
+    if ((iVar3 == 0xb) || ((iVar3 == 0x71 || (iVar3 == 0x6f)))) {
+      FUN_00a8199c(&local_88);
+      uVar5 = FUN_00a8a3e4(lVar9,&local_88);
+      if ((uVar5 & 1) != 0) {
+        if ((((*piVar6 == 0x6f) &&
+             (lVar9 = FUN_00a950d8(param_1 + 0x41f0,&local_88), param_1 + 0x41f8 != lVar9)) &&
+            (lVar9 = *(long *)(lVar9 + 0x38), lVar9 != 0)) && (*(int *)(lVar9 + 0x20) == 0)) {
+          uVar8 = FUN_00a85278(lVar9);
+          FUN_01dadbb4("Nub::processPendingEvents: Marking channel to %s as dead (%s)\n",uVar8,
+                       "REASON_NO_SUCH_PORT");
+          FUN_00a87d44(lVar9,1);
+        }
+        puVar13 = (undefined8 *)__cxa_allocate_exception(0x28);
+        *(undefined4 *)(puVar13 + 1) = 0xfffffffe;
+        *puVar13 = &PTR_FUN_038dd5a8;
+        *(undefined8 *)((long)puVar13 + 0x1c) = local_78;
+        *(long *)((long)puVar13 + 0x14) = local_88.tv_nsec;
+        *(__time_t *)((long)puVar13 + 0xc) = local_88.tv_sec;
+                    /* WARNING: Subroutine does not return */
+        __cxa_throw(puVar13,&PTR_vtable_038dd530,FUN_00a87ab8);
+      }
+      FUN_01dad7ac("Nub::processPendingEvents: getClosedPort() failed\n");
+      iVar3 = *piVar6;
+    }
+    pcVar10 = strerror(iVar3);
+    pcVar11 = "Nub::processPendingEvents: Throwing REASON_GENERAL_NETWORK - %s\n";
+  }
+  else {
+    *(int *)(param_1 + 0x4370) = *(int *)(param_1 + 0x4370) + 1;
+    piVar6 = (int *)__errno(iVar4);
+    pcVar10 = strerror(*piVar6);
+    pcVar11 = 
+    "Nub::processPendingEvents: Throwing REASON_GENERAL_NETWORK (1). recvFromEndpoint(-1)_- %s\n";
+  }
+  FUN_01dad7ac(pcVar11,pcVar10);
+  puVar13 = (undefined8 *)__cxa_allocate_exception(0x10);
+  *puVar13 = &PTR_FUN_038dd580;
+  *(undefined4 *)(puVar13 + 1) = 0xfffffffd;
+                    /* WARNING: Subroutine does not return */
+  __cxa_throw(puVar13,&PTR_vtable_038dd518,FUN_00a87ab8);
+}
+
+
+
+--------------------------------------------------
+
+=== FUN_00a8d380 @ 00a8d380 ===
+
+ulong FUN_00a8d380(long param_1,undefined8 param_2,long param_3)
+
+{
+  long *plVar1;
+  char cVar2;
+  char cVar3;
+  bool bVar4;
+  int iVar5;
+  uint uVar6;
+  long lVar7;
+  long *plVar8;
+  undefined8 uVar9;
+  ulong uVar10;
+  
+  lVar7 = FUN_00a950d8(param_1 + 0x41f0);
+  if ((param_1 + 0x41f8 != lVar7) && (lVar7 = *(long *)(lVar7 + 0x38), lVar7 != 0)) {
+    FUN_00a87d50(lVar7,(uint)*(ushort *)(param_3 + 0x1c) + (uint)*(ushort *)(param_3 + 0x1a));
+    plVar8 = *(long **)(lVar7 + 0x40);
+    if (plVar8 != (long *)0x0) {
+      plVar1 = plVar8 + 1;
+      do {
+        cVar2 = '\x01';
+        bVar4 = (bool)ExclusiveMonitorPass(plVar1,0x10);
+        if (bVar4) {
+          *(int *)plVar1 = (int)*plVar1 + 1;
+          cVar2 = ExclusiveMonitorsStatus();
+        }
+      } while (cVar2 != '\0');
+      cVar2 = *(char *)(lVar7 + 0xf8);
+      do {
+        iVar5 = (int)*plVar1 + -1;
+        cVar3 = '\x01';
+        bVar4 = (bool)ExclusiveMonitorPass(plVar1,0x10);
+        if (bVar4) {
+          *(int *)plVar1 = iVar5;
+          cVar3 = ExclusiveMonitorsStatus();
+        }
+      } while (cVar3 != '\0');
+      if (iVar5 == 0) {
+        (**(code **)(*plVar8 + 8))();
+      }
+      if (cVar2 == '\0') {
+                    /* try { // try from 00a8d4a0 to 00b8d4a7 has its CatchHandler @ 00a8d7a4 */
+        plVar8 = *(long **)(lVar7 + 0x40);
+        if (plVar8 != (long *)0x0) {
+                    /* try { // try from 00a8d4a8 to 00b8d557 has its CatchHandler @ 00a8d42c */
+          plVar1 = plVar8 + 1;
+          do {
+            cVar2 = '\x01';
+            bVar4 = (bool)ExclusiveMonitorPass(plVar1,0x10);
+            if (bVar4) {
+              *(int *)plVar1 = (int)*plVar1 + 1;
+              cVar2 = ExclusiveMonitorsStatus();
+            }
+          } while (cVar2 != '\0');
+        }
+        uVar6 = (**(code **)(*plVar8 + 0x18))(plVar8,param_1,param_2,param_3);
+        plVar1 = plVar8 + 1;
+        do {
+          iVar5 = (int)*plVar1 + -1;
+          cVar2 = '\x01';
+          bVar4 = (bool)ExclusiveMonitorPass(plVar1,0x10);
+          if (bVar4) {
+            *(int *)plVar1 = iVar5;
+            cVar2 = ExclusiveMonitorsStatus();
+          }
+        } while (cVar2 != '\0');
+        if (iVar5 == 0) {
+          (**(code **)(*plVar8 + 8))(plVar8);
+        }
+        goto LAB_00a8d464;
+      }
+    }
+  }
+  if (*(char *)(param_1 + 0x4460) != '\0') {
+                    /* try { // try from 00a8d42c to 00b8d49f has its CatchHandler @ 00a8d42c
+                       catch() { ... } // from try @ 00a8d42c with catch @ 00a8d42c
+                       catch() { ... } // from try @ 00a8d4a8 with catch @ 00a8d42c
+                       catch() { ... } // from try @ 00a8d560 with catch @ 00a8d42c
+                       catch() { ... } // from try @ 00a8d614 with catch @ 00a8d42c
+                       catch() { ... } // from try @ 00a8d6cc with catch @ 00a8d42c */
+    lVar7 = FUN_00a9576c(param_1 + 0x44b0,param_2);
+    if (param_1 + 0x44b8 != lVar7) {
+      uVar9 = FUN_00a81c0c(param_2);
+      FUN_01dada94("Nub::processPacket( %s ): Ignoring incoming packet on recently dead channel\n",
+                   uVar9);
+      uVar6 = 0;
+LAB_00a8d464:
+      return (ulong)uVar6;
+    }
+  }
+  uVar10 = FUN_00a8fa30(param_1,param_2,param_3,0);
+  return uVar10;
+}
+
+
+
+--------------------------------------------------
+

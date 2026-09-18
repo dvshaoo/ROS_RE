@@ -1,0 +1,99 @@
+=== References TO 0467af50 (identifyVersionPoint InterfaceElement) ===
+  ref from 0090c8f4  in function _INIT_44 @ 0090c5a0
+  ref from 00a47534  in function FUN_00a474e8 @ 00a474e8
+
+=== Decompile of caller: FUN_00a474e8 @ 00a474e8 ===
+
+void FUN_00a474e8(long *param_1)
+
+{
+  ulong uVar1;
+  undefined *__src;
+  uint uVar2;
+  long lVar3;
+  ushort uVar4;
+  ushort uVar5;
+  int iVar6;
+  ushort *puVar7;
+  undefined1 *puVar8;
+  ulong uVar9;
+  void *pvVar10;
+  ulong local_60;
+  ulong local_58;
+  void *local_50;
+  long local_48;
+  
+  uVar4 = DAT_03a241b4;
+  lVar3 = tpidr_el0;
+  local_48 = *(long *)(lVar3 + 0x28);
+  iVar6 = (**(code **)(*param_1 + 0x18))();
+  if ((int)((uint)uVar4 - iVar6) < 1) goto LAB_00a476a0;
+  FUN_00a81f7c(param_1,DAT_0467af50,0);
+  uVar5 = DAT_03a241b4;
+  puVar7 = (ushort *)(**(code **)(*param_1 + 0x10))(param_1,2);
+  *puVar7 = uVar5;
+  uVar2 = ((uint)uVar4 - iVar6) - 3;
+  uVar9 = (ulong)(uVar2 & ((int)uVar2 >> 0x1f ^ 0xffffffffU));
+  __src = DAT_0467a200;
+  uVar1 = DAT_0467a1f8;
+  if ((DAT_0467a1f0 & 1) == 0) {
+    __src = &DAT_0467a1f1;
+    uVar1 = (ulong)(DAT_0467a1f0 >> 1);
+  }
+  if (uVar9 <= uVar1) {
+    uVar1 = uVar9;
+  }
+  local_58 = 0;
+  local_50 = (void *)0x0;
+  local_60 = 0;
+  if (0xffffffffffffffef < uVar1) {
+                    /* WARNING: Subroutine does not return */
+    FUN_009383b0(&local_60);
+  }
+  if (uVar1 < 0x17) {
+    pvVar10 = (void *)((ulong)&local_60 | 1);
+    local_60 = (uVar1 & 0x7f) << 1;
+    if (uVar1 != 0) goto LAB_00a475ec;
+  }
+  else {
+    uVar9 = (ulong)((int)uVar1 + 0x10) & 0xfffffff0;
+    pvVar10 = operator_new(uVar9);
+    local_60 = uVar9 | 1;
+    local_58 = uVar1;
+    local_50 = pvVar10;
+LAB_00a475ec:
+    memcpy(pvVar10,__src,uVar1);
+  }
+  *(undefined1 *)((long)pvVar10 + uVar1) = 0;
+  pvVar10 = (void *)((ulong)&local_60 | 1);
+  uVar1 = local_60 >> 1 & 0x7f;
+  if ((local_60 & 1) != 0) {
+    pvVar10 = local_50;
+    uVar1 = local_58;
+  }
+  if ((int)uVar1 < 0xff) {
+    puVar8 = (undefined1 *)(**(code **)(*param_1 + 0x10))(param_1,1);
+    *puVar8 = (char)uVar1;
+  }
+  else {
+    puVar8 = (undefined1 *)(**(code **)(*param_1 + 0x10))(param_1,1);
+    *puVar8 = 0xff;
+    puVar8 = (undefined1 *)(**(code **)(*param_1 + 0x10))(param_1,3);
+    *puVar8 = (char)uVar1;
+    puVar8[1] = (char)(uVar1 >> 8);
+    puVar8[2] = (char)(uVar1 >> 0x10);
+  }
+  (**(code **)(*param_1 + 0x20))(param_1,pvVar10,uVar1 & 0xffffffff);
+  if ((local_60 & 1) != 0) {
+    operator_delete(local_50);
+  }
+LAB_00a476a0:
+  if (*(long *)(lVar3 + 0x28) == local_48) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  __stack_chk_fail();
+}
+
+
+
