@@ -598,3 +598,71 @@ manifest-fetch phase, before the title screen even appears) -- dismissing
 it lets the flow proceed normally. This is a separate, reproducible
 issue from the later LoginApp-stage status=2 failures, and still not
 root-caused.
+
+### Athlete entity + showSelectCharacter sweep implemented (2026-09-18) -- live-verification BLOCKED by connection flakiness
+
+**Implemented in `mitm/local_baseapp_capture.py`, ported directly from
+`D:\PROJECTS\ros_mobile_revival`'s already-proven recipe (same
+`com.netease.chiji` APK):**
+
+1. **Fixed the `onLogin`/`onChannelLogin` index guessing.** The existing
+   sweep list never tried indices 18/19 -- the exact values
+   `ros_mobile_revival` derived from the client's own def-XML entity
+   tables (`docs/MOBILE_INDEX_MAP.md`: `Account.onLogin=18`,
+   `onChannelLogin=19`). Added `(19, 18)` as the first candidate pair in
+   `push_login_completion`'s sweep list.
+2. **Added Athlete entity creation.** The server previously only ever
+   created an `Account` entity (`createBasePlayer type=38`) -- it never
+   created an `Athlete` entity at all. Without an Athlete entity, there
+   is nothing to push `showSelectCharacter` through, so Character
+   Creation could never appear regardless of how correct
+   `onLogin`/`onChannelLogin` were. Added a second `createBasePlayer`
+   push for `type=56` (Athlete, confirmed value from
+   `ros_mobile_revival`), entity id 2 by default.
+3. **Added `push_show_select_character()`**: sends
+   `Athlete.showSelectCharacter(ARRAY<STRING> oldNames=[])` (empty-array
+   encoding: single `0x00` byte, matching `MobileAthlete
+   .show_select_character_args()`) via `send_entity_method`, sweeping
+   candidate wire indices. **The absolute index is NOT locked even in
+   the upstream `ros_mobile_revival` project** (still sweep-mode as of
+   its own last update) -- ours sweeps too.
+4. **Hard constraint found and respected:** `send_entity_method()` packs
+   `msgid` as a single byte (`bytes([msgid])`); since `msgid = 128 +
+   idx`, `idx` cannot exceed 127 without implementing a 2-byte extended
+   msgid scheme this project doesn't have evidence for. The sweep is
+   capped at `idx <= 127` (`ROS_ATHLETE_SHOW_SWEEP_HI` defaults to 127,
+   clamped). One full sweep pass (0-127, 0.15s per index) takes ~19
+   seconds and fires automatically once per BaseApp connection.
+
+**LIVE-VERIFICATION STATUS: BLOCKED, not disproven.** Attempted to test
+the full 0-127 sweep four times this session (one same-session relaunch,
+one full `ldconsole reboot` + first-attempt, one immediate retry after
+that, one more retry) -- **three of the four attempts got
+`connectLoginHostCallback` `status: 2` (client never dials BaseApp at
+all)**, so the sweep code never even got a chance to run. Only ONE
+earlier attempt (before this Athlete-entity change) reached `status: 1`
+long enough to observe indices 0-19 with no visible Character Creation
+UI change (but that run used the OLD 20-iteration sweep cap, not the
+current full 0-127 range, so it does not rule out any index >= 20).
+
+**IMPORTANT CORRECTION to the previous "reboot fixes it" theory:** a full
+emulator reboot, wiped-then-reapplied iptables DNAT, and a fresh server
+process were NOT sufficient to reliably reproduce `status: 1` on the very
+next launch -- one post-reboot attempt still scored `status: 2`. The
+`status: 1` vs `status: 2` split is **not fully explained by
+session/relaunch degradation alone**; something else is contributing
+that was not identified this session.
+
+**TOP PRIORITY FOR NEXT SESSION:** root-cause the `connectLoginHostCallback`
+`status: 2` flakiness itself -- this is now the primary blocker to ANY
+further live protocol testing (the Athlete/showSelectCharacter sweep,
+and any future fix, cannot be verified while this remains unpredictable).
+Suggested angles not yet tried: (a) packet-capture the LoginApp
+request/reply exchange for a `status:1` run vs a `status:2` run at the
+raw UDP level (not just the higher-level telemetry) to check for
+retransmissions, duplicate replies, or timing differences finer than
+1-second log resolution; (b) check whether multiple LoginApp UDP sockets
+or stale threads from previous attempts are still bound/interfering
+(the server process was restarted between some but not all attempts);
+(c) check emulator-side network stack state (conntrack table, ARP cache)
+between attempts for stale entries the reboot didn't clear.

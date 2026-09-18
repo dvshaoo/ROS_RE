@@ -766,6 +766,41 @@ def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags
 
 
 _last_completion_push = {}
+_athlete_sweep_counter = {}
+
+
+def push_show_select_character(sock, dest, key, athlete_eid):
+    """Sweep candidate wire indices for Athlete.showSelectCharacter(ARRAY<STRING>
+    oldNames), since the absolute index isn't locked even in the sibling
+    D:\\PROJECTS\\ros_mobile_revival project (same com.netease.chiji APK,
+    still sweep-mode as of its own last update). An empty ARRAY<STRING> is a
+    single 0x00 count byte (BigWorld packed-length convention: enc_array_string([])).
+    ROS_ATHLETE_SHOW_IDX pins one index if set (>=0); otherwise sweeps
+    ROS_ATHLETE_SHOW_SWEEP_LO..HI, one NEW index per call (each call = one
+    login-completion burst cycle), so a live multi-tick run gradually covers
+    the whole range like the mobile track's own sweep does.
+    """
+    pinned = int(os.environ.get('ROS_ATHLETE_SHOW_IDX', '-1'))
+    lo = int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_LO', '0'))
+    # NOTE: send_entity_method() packs msgid as a single byte (`bytes([msgid])`),
+    # so msgid = 128 + idx must stay <= 255 -- idx is capped at 127. The mobile
+    # track's own sweep goes up to 260, which would need an extended/2-byte
+    # msgid scheme this project's send_entity_method does not implement; not
+    # attempting that here without wire evidence it exists.
+    hi = min(int(os.environ.get('ROS_ATHLETE_SHOW_SWEEP_HI', '127')), 127)
+    empty_array_string = bytes([0])  # enc_array_string([]) per MobileAthlete
+    span = (hi - lo + 1) if pinned < 0 else 1
+    for _ in range(span):
+        time.sleep(0.15)
+        if pinned >= 0:
+            idx = pinned
+        else:
+            idx = _athlete_sweep_counter.get(dest, lo)
+            _athlete_sweep_counter[dest] = idx + 1 if idx + 1 <= hi else lo
+        use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
+        send_entity_method(sock, dest, use_key, athlete_eid, idx, empty_array_string, flags=0x0008)
+        log('BASEAPP ATHLETE SWEEP: sent showSelectCharacter candidate index=%d (msgid=%d) to entity=%d %s' % (
+            idx, 128 + idx, athlete_eid, dest))
 
 
 def push_login_completion(sock, dest, key, entity_id=1):
@@ -785,7 +820,11 @@ def push_login_completion(sock, dest, key, entity_id=1):
     for attempt in range(6):
         time.sleep(0.1 if attempt == 0 else 0.4)
         use_key = _key_cache.get(dest) or _early_key_by_host.get(dest[0]) or key or _BFKEY_HEX
-        for ocl_idx, ol_idx in [(12, 11), (16, 15), (10, 9), (14, 13), (2, 1)]:
+        # (19, 18): Account.onChannelLogin=19 / onLogin=18, derived from the
+        # client's own def XML entity tables (D:\PROJECTS\ros_mobile_revival,
+        # same com.netease.chiji APK, docs/MOBILE_INDEX_MAP.md) -- tried
+        # FIRST, ahead of the older blind-sweep guesses kept below as fallback.
+        for ocl_idx, ol_idx in [(19, 18), (12, 11), (16, 15), (10, 9), (14, 13), (2, 1)]:
             send_entity_method(sock, dest, use_key, entity_id, ocl_idx, ocl_args, flags=0x0008)
             time.sleep(0.01)
             send_entity_method(sock, dest, use_key, entity_id, ol_idx, ol_args, flags=0x0008)
@@ -875,6 +914,33 @@ def serve_baseapp_udp_capture():
                     s.sendto(cbp_reply, addr)
                     log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d (Account) key=%s IV=0 (%d bytes): %s' % (
                         entity_id, entity_type, use_key, len(cbp_reply), cbp_reply.hex()))
+
+                    # Also create an Athlete entity (type 56, confirmed via
+                    # D:\PROJECTS\ros_mobile_revival, same com.netease.chiji
+                    # APK) -- without this, the client's Account never
+                    # receives the showSelectCharacter push that opens
+                    # Create-Character, no matter how correct onLogin/
+                    # onChannelLogin are. Athlete.showSelectCharacter's
+                    # absolute wire index is NOT locked upstream either
+                    # (still sweep-mode there) -- swept live below.
+                    if os.environ.get('ATTEMPT_ATHLETE', '1') == '1':
+                        time.sleep(0.05)
+                        athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '2'))
+                        athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '56'))
+                        athlete_cbp_body = struct.pack('<I', athlete_eid) + struct.pack('<H', athlete_type)
+                        athlete_filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
+                        athlete_cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
+                                              + struct.pack('<H', len(athlete_cbp_body)) + athlete_cbp_body
+                                              + athlete_filler)
+                        athlete_pad_len = 8 - (len(athlete_cbp_plain) % 8)
+                        athlete_cbp_padded = athlete_cbp_plain + b'\x00' * (athlete_pad_len - 1) + bytes([athlete_pad_len])
+                        athlete_cbp_enc = bf_encrypt(athlete_cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
+                        athlete_cbp_reply = athlete_cbp_enc if athlete_cbp_enc else athlete_cbp_padded
+                        s.sendto(athlete_cbp_reply, addr)
+                        log('BASEAPP UDP SENT createBasePlayer push id=5 entityId=%d type=%d (Athlete) key=%s IV=0 (%d bytes): %s' % (
+                            athlete_eid, athlete_type, use_key, len(athlete_cbp_reply), athlete_cbp_reply.hex()))
+                        threading.Thread(target=push_show_select_character,
+                                          args=(s, addr, use_key, athlete_eid), daemon=True).start()
 
                     if os.environ.get('ATTEMPT_KEEPALIVE', '1') == '1':
                         _start_keepalive(s, addr, use_key)
