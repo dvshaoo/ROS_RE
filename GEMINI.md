@@ -1,154 +1,144 @@
 # GEMINI.md — Rules of Survival (ROS) Private Server Emulation & RE Master Guide
 
 > **Author**: Gemini / Antigravity Agent  
-> **Last Updated**: 2026-09-16  
+> **Last Updated**: 2026-09-18 (Major Milestone: Athlete Method Vector & Entity Table Solved)  
 > **Client Version**: Rules of Survival Mobile (Android `com.netease.chiji`, v1.610377.506841, vCode 1117219, arm64-v8a)  
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)
 
 ---
 
-## 1. Executive Summary & Current Milestones (Status)
+## 1. Executive Summary & Milestones Status
 
 | Gate | Component | Protocol | Status | Key Finding / Implementation |
 |:---|:---|:---|:---:|:---|
 | **Gate 0** | Patch / CDN Server | HTTP :80/:443 | **PASS** | Bypassed patch check using local HTTP server (`mitm_serve.py` / `local_baseapp_capture.py`). Returns valid update manifest. |
 | **Gate 1** | UniSDK / Auth / Sigma | HTTP :80/:443/:8443 | **PASS** | Handled guest auth token, keypoints, and telemetry callbacks (`connectLoginHostCallback` status=1). |
 | **Gate 2** | LoginApp UDP Handshake | Mercury UDP :25000 | **PASS** | Solved 4-byte LE ReplyID correlation @ wire offset 5. Blowfish `pc_variant` encrypted `LoginReplyRecord` pointing client to BaseApp `172.16.1.2:25010`. |
-| **Gate 3** | BaseApp Channel & Entity Init | Mercury UDP :25010 | **IN PROGRESS (SOLVED)** | Disassembled `in_place_decrypt` (IV=0 per packet) and BigWorld wastage padding. Client reaches `status==LOGGED_ON`, creates Base Player (`Account`, type 127, msg ID 5). Client packet #0 decrypted; ACK protocol reversed. |
-| **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **PENDING** | Awaiting ACK response delivery to unblock client reliable channel, followed by `onEnumerateCharacters` / role creation. |
+| **Gate 3** | BaseApp Channel & Handshake | Mercury UDP :25010 | **PASS** | `createBasePlayer(Account, type 38, eid 1)` accepted; client reached `status==LOGGED_ON`. Client packet #0 decrypted; reliable ACK protocol reversed; client sent 864-byte `Account.handshake`; `accountOnBecomePlayer` and `onChannelLogin(code=0)` fired! |
+| **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **IN PROGRESS (SOLVED INDICES)** | Pinned exact `Athlete` method indices directly from process memory: `showSelectCharacter` is index **1083** (msgID 1211); `onCreateCharacter` is index **1084**; `enterHall` is index **1091**. Ready for extended msgID / `longEntityMessage` wire dispatch. |
 
 ---
 
-## 2. Solved Protocol & Binary Reverse-Engineering Discoveries
+## 2. Definitive Entity Types (Live Process Memory Citation)
 
-### A. LoginApp UDP Reply (`0x938070` LoginHandler::handleMessage)
-- **Reply ID**: Extracted from client request packet at wire offset `5:9` (4-byte LE `uint32`).
-- **Wire Framing**:
-  ```text
-  [flags: u16 = 0x0001]
-  [msgID: u8 = 0xFF (Mercury::REPLY_MESSAGE_ID)]
-  [length: u32 = len(inner)]
-  [inner payload]:
-      [replyID: u32 LE]
-      [status: u8 = 0x01 (SUCCESS)]
-      [LoginReplyRecord: 24 bytes (padded from 20 bytes)]
-  [footer: b'\x00\x00']
-  ```
-- **LoginReplyRecord Layout (20 bytes + 4 bytes pad = 24 bytes)**:
-  - BaseApp IP (4 bytes, network order) + BaseApp Port (2 bytes, big-endian) + Pad (2 bytes)
-  - BaseApp IP (4 bytes) + BaseApp Port (2 bytes) + Pad (2 bytes)
-  - Session Key / trailing u32 (4 bytes LE)
-  - Padded with 4 zero bytes to satisfy Blowfish 8-byte block size (`24 % 8 == 0`).
+Extracted directly from `libclient.so:base + 0x45785f0` (`std::vector<EntityType*>` in running process memory, 172 entity types total):
 
-### B. Blowfish Encryption Mode (`pc_variant`) & IV Rules
-- **Binary citations**:
-  - `EncryptionFilter::encrypt` (`0x98938c` in `libclient.so`)
-  - `in_place_decrypt` (`0x98924c` in `libclient.so`)
-- **Cipher Mechanics**:
-  - OpenSSL `BF_ecb_encrypt` with non-standard plaintext XOR chaining:
-    - Encrypt: `dst[i] = BF_ecb_encrypt(src[i] ^ prev_plaintext)`
-    - Decrypt: `dst[i] = BF_ecb_decrypt(src[i]) ^ prev_plaintext`
-- **Critical Discovery (E2E-020)**:
-  - At `0x9892c8`, `in_place_decrypt` executes: `mov x26, xzr`.
-  - **The IV is reset to all-zeros (`b'\x00'*8`) on EVERY datagram**. There is **NO** inter-packet chaining state across UDP datagrams.
-- **Wastage / Padding Rule**:
-  - `in_place_decrypt` (`0x989324`-`0x989350`) reads the last byte of decrypted plaintext: `wastage = packet[total_len - 1]`.
-  - If `wastage <= 8`, it strips `wastage` bytes from packet length.
-  - Padding must always end with the byte value `pad_len` (e.g., `b'\x00' * (pad_len - 1) + bytes([pad_len])`).
-
-### C. Live Session Key Discovery
-- Client generates a 4-byte Blowfish key per connection using OpenSSL `RAND_bytes(4)`.
-- Key is stored in an `EncryptionFilter` C++ object.
-- Vtable pointer in `libclient.so`: `base + 0x37dd3a0`.
-- Object field: `+0x10` contains SSO length control byte (`0x08` for 4 bytes), `+0x11` contains the 4 raw key bytes.
-- The BaseApp reliable channel reuses the same live key (`fa490e60`).
-
-### D. `createBasePlayer` Wire Format
-- **Message ID**: **5** (`0x05` in `ClientInterface`, disassembled at `0x947dc4` & `ClientApp::onBasePlayerCreate` `0x918504`).
-  *(Note: Message ID 4 is `resetEntities`, NOT `createBasePlayer`)*.
-- **Wire Layout**:
-  ```text
-  [flags: u16 = 0x0001]
-  [msgID: u8 = 0x05]
-  [length: u16 = 6]
-  [entityID: u32 = 1]
-  [entityType: u16 = 127 (<Account/> from entities.xml)]
-  [footer: b'\x00\x00']
-  [BigWorld wastage padding to multiple of 8]
-  ```
-- **Live logcat confirmation**:
-  ```text
-  [INFO] LoginHandler::onLoginReply: after Endpoint::convertAddress from 172.16.1.2 to 172.16.1.2:0
-  [INFO] ServerConnection::checkScriptBaseAppAddr not call script, script addr=172.16.1.2:25010
-  [INFO] Nub::recreateListeningSocket 0x76384e06c000 0.0.0.0:58112
-  [INFO] external channel minUnackPacketResendPeriod: 0.100000, InactivityTimeout 10.000000
-  [INFO] ServerConnection::createBasePlayer: id 1
-  [INFO] ServerConnection::logOn: status==LOGGED_ON
-  [INFO] ServerConnection::logOn: to: 172.16.1.2:25010
-  ```
+| Entity Type ID | Hex | Entity Class Name | Provenance / Role |
+|:---:|:---:|:---|:---|
+| **37** | `0x25` | `LoginProxy` | Interim proxy before Account |
+| **38** | `0x26` | `Account` | **Base Account player** (verified live in heap `pPlayerEntity_` @ `0x763892626820`, eid=1) |
+| **39** | `0x27` | `BattleAccount` | In-battle proxy |
+| **40** | `0x28` | `Avatar` | In-game avatar |
+| **51** | `0x33` | **`Athlete`** | **Lobby player entity** (CRITICAL: Previously mistaken as 56, but 56 is `RobotShadow`!) |
+| **56** | `0x38` | `RobotShadow` | Do not use for Athlete! |
 
 ---
 
-## 3. The Current Blocker & Reliable Channel ACK Protocol
+## 3. Definitive Client Method Vectors (Live Process Memory Citation)
 
-### The Issue
-Client reaches `status==LOGGED_ON` and initiates the external reliable channel by sending packet #0:
-```text
-[WARNING] Channel::checkResendTimers( 172.16.1.2:25010 ): Resending unacked packet #0 due to inactivity
-```
-Client decrypts cleanly on server as:
-- Flags: `0x0058` (`FLAG_ON_CHANNEL = 0x0008` | `FLAG_IS_RELIABLE = 0x0010` | `FLAG_HAS_SEQUENCE_NUMBER = 0x0040`)
-- Sequence number: `0` (last 4 bytes of unpadded payload)
-- Payload: Client's initial BaseApp handshake / `identifyVersionPoint` (Method ID 12).
+Extracted directly from `EntityType[id] + 0x1e8` (`std::vector<MethodDescription>`, where each element is 24 bytes storing libc++ `std::string` inline method names):
 
-### Mercury Reliable ACK Wire Specification
-Disassembly of `Nub::processFilteredPacket` (`0x990364`-`0x9904fc`) and `Channel::handleAck` (`0x986898`):
-1. **Flags**:
-   - `FLAG_ON_CHANNEL` (`0x0008`): Resolves destination channel object.
-   - `FLAG_HAS_ACKS` (`0x0004`): Activates ACK processing path.
-   - Combined Flags: `0x000c`.
-2. **Body**:
-   - Empty bundle zero footer: `b'\x00\x00'` (2 bytes).
-3. **ACK Footer**:
-   - `[ack_seq_0: uint32 LE] ... [ack_count: uint8]`
-   - For packet #0: `struct.pack('<I', 0) + bytes([1])` (5 bytes).
-4. **Full Standalone ACK Packet Construction**:
-   ```python
-   # 1. Plaintext construction (9 bytes)
-   plain = struct.pack('<H', 0x000c) + b'\x00\x00' + struct.pack('<I', seq) + bytes([1])
-   
-   # 2. BigWorld wastage padding (16 bytes)
-   pad_len = 8 - (len(plain) % 8) # 7 bytes
-   plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
-   
-   # 3. Blowfish pc_variant encryption with IV = 0
-   ack_enc = bf_encrypt(plain_padded, key_hex=session_key, iv=b'\x00' * 8)
-   
-   # 4. Transmit
-   udp_sock.sendto(ack_enc, client_addr)
+### A. `Account` (Type 38) — 25 Methods Total
+- `[11] msgid=139`: `onRankRefresh`
+- `[12] msgid=140`: `onEnterQueueFailed`
+- `[13] msgid=141`: `onRequireActivation`
+- `[14] msgid=142`: `onShowRealNameAuthenWebView`
+- `[17] msgid=145`: `loadSceneAfterReconnect`
+- **`[18] msgid=146`**: **`onLogin(INT32 ret, STRING reason)`** (OK = `ret=0, reason=''`)
+- **`[19] msgid=147`**: **`onChannelLogin(UINT8 ret, PYTHON sauth)`** (OK = `ret=0, sauth={'uid':'900000001', ...}`)
+- `[24] msgid=152`: `onLoginPCServer(BOOL)`
+
+### B. `Athlete` (Type 51) — 1131 Methods Total
+`Athlete` implements 152 interfaces, resulting in 1080 flattened interface methods preceding Athlete's own client methods:
+- `[ 54] msgid= 182`: `onEnterHallTeam`
+- `[ 56] msgid= 184`: `onInvitedToHallTeam`
+- `[104] msgid= 232`: `startHeroSelect`
+- `[407] msgid= 535`: `onSelectAssistant`
+- `[1081] msgid=1209`: `onRefreshMSToken(STRING, STRING)`
+- `[1082] msgid=1210`: `onKickOff()`
+- **`[1083] msgid=1211`**: **`showSelectCharacter(ARRAY<STRING> oldNames)`** (Empty array `0x00` -> **Drives Character Creation UI**)
+- **`[1084] msgid=1212`**: **`onCreateCharacter(BOOL success, STRING reason)`**
+- **`[1085] msgid=1213`**: **`onRoleCreateSuc(INT32 roleId)`**
+- **`[1087] msgid=1215`**: **`updateBaseCharacter(INT32 charType)`**
+- **`[1091] msgid=1219`**: **`enterHall(BOOL isFirstLoginOfDay)`** (Lobby entry!)
+- `[1103] msgid=1231`: `onLogin(INT32, STRING)`
+
+---
+
+## 4. Entity Lifecycle & Property Stream Unpacking Mechanics
+
+### Disassembly Evidence (`libclient.so`)
+1. **`ClientApp::onBasePlayerCreate` (`0x918504`, Ghidra `0x00a18504`)**:
+   ```c
+   *(undefined4 *)(param_1 + 0xf90) = param_2; // eid
+   lVar2 = FUN_00a29890(param_3);              // EntityType[type]
+   uVar3 = FUN_00a2ac04(lVar2, param_2, ..., param_4, 0); // Entity creation via stream
+   puVar4 = (undefined8 *)FUN_00a185d0(param_1 + 0xfc0, &local_4c);
+   *puVar4 = uVar3;                            // entities_[eid] = uVar3
+   uVar5 = FUN_00a2d284();                     // Entities singleton (base + 0x45786e0)
+   FUN_00a2d0dc(uVar5, uVar3);                 // Entities::setPlayer(Entity*)
    ```
 
+2. **`EntityType::newDictionary` (`0x92a58c`)**:
+   - `0x92a5cc: ldr x8, [x8, #0x18]; blr x8`: Calls `BinaryIStream::remainingLength()`.
+   - `0x92a5d4: cbz w0, #0x92a60c`:
+     - **If stream is empty (`remainingLength == 0`)**: jumps to `0x92a60c` -> calls `0x92a344` (`PyDict_New()`), initializes default entity dictionary, and succeeds cleanly!
+     - **If stream is non-empty**: calls `0x9cf8ac` to unpack properties. If the stream contains malformed or mismatched data (like the guessed 3632-byte stream), it throws an exception / fails, preventing `setPlayer` from running!
+   - **Rule**: `createBasePlayer(Athlete)` should be sent with an **empty stream (`stream = b''`)** unless exact properties are verified.
+
+3. **Live Process Heap Verification**:
+   - `Entities` singleton pointer: `base + 0x45786e0` (`0x76384cdec360`).
+   - `*Entities` (offset 0): `pPlayerEntity_` (`0x763892626820`).
+   - Currently verified in memory: Type 38 (`Account`), `eid = 1`.
+
 ---
 
-## 4. Key Files & Architecture
+## 5. Wire Protocol for Method Indices > 63
 
-- `mitm/local_baseapp_capture.py`: Integrated MITM server running HTTP (:80/:443/:8443), LoginApp UDP (:25000), and BaseApp UDP (:25010).
-- `mitm/mitm_serve.py`: Base HTTP response generator for UniSDK, G0/G1 patches, and Sigma keypoints.
-- `01_apk/base_decompiled/lib/arm64-v8a/libclient.so`: Main game native library containing the NeoX / BigWorld engine.
-- `05_entities/out/entities.xml`: Extracted entity types (`Account = 127`, `Athlete = 128`).
-- `06_notes/BASEAPP_CRYPTO_BLOCKER_SUMMARY.md`: Detailed step-by-step crypto trace and disassembly proof.
+In BigWorld Mercury:
+- Method index `0..63`: Wire `msgID = 128 + index` (128..191, `longEntityMessage`, length prefix = `uint16`).
+- Method index `64..127`: Wire `msgID = 128 + index` (192..255, `shortEntityMessage`, length prefix = `uint8`).
+- Method index `>= 128` (like `showSelectCharacter` = index 1083):
+  - In `ClientInterface`:
+    - `msgID 100`: `shortEntityMessage` (1-byte length prefix)
+    - `msgID 101`: `longEntityMessage` (2-byte length prefix)
+  - Envelope for `longEntityMessage` (`msgID 101`):
+    ```python
+    # Format: [msgID: 101][len: u16][entity_id: u32][method_index: u16][args...]
+    payload = struct.pack('<I', entity_id) + struct.pack('<H', method_index) + args
+    packet = struct.pack('<H', flags) + bytes([101]) + struct.pack('<H', len(payload)) + payload
+    ```
+  - Also sweep extended `msgID` framing if `msgID = (128 + index) & 0xff` is used by the client parser.
 
 ---
 
-## 5. Immediate Next Steps for Next Session
+## 6. End-to-End Execution Sequence for Claude
 
-1. **Deploy ACK Responder in `local_baseapp_capture.py`**:
-   - When receiving any packet on UDP 25010 with `FLAG_HAS_SEQUENCE_NUMBER` (`0x0040`):
-     Extract `seq = struct.unpack('<I', data_decrypted[-4:])[0]`.
-     Immediately send back the 16-byte encrypted ACK packet.
-2. **Verify Client Logcat**:
-   - Confirm `Resending unacked packet #0 due to inactivity` stops completely.
-   - Confirm `delResendTimer()` logs success for packet #0.
-3. **Handle Incoming Client RPC & Gate 4 (Lobby Transition)**:
-   - Parse client's `identifyVersionPoint` or entity method call.
-   - Send role / character enumeration response (`onEnumerateCharacters` / role list) to transition the UI from "Logging in" spinner to Character Creation / Lobby.
+To transition client from title screen into Character Creation:
+
+```text
+[Client] Tap PLAY -> HTTP Auth & Sigma Keypoints -> LoginApp UDP :25000 Handshake
+  |
+  v
+[BaseApp :25010]
+  1. BaseAppLogin ACK + Session Key (`be5194d3` for PID 23776)
+  2. Send createBasePlayer(Account, type=38, eid=1, stream=b'')
+  3. Client sends 864-byte Account.handshake (ACK immediately)
+  4. Send Account.onChannelLogin(idx=19, sauth_dict) + Account.onLogin(idx=18, OK)
+  5. Client reports Sigma: "accountOnBecomePlayer" + "onChannelLogin code: 0"
+  6. Send createBasePlayer(Athlete, type=51, eid=1 or 2, stream=b'')
+  7. Send Athlete.showSelectCharacter([]) using method index 1083:
+     - Candidate A: msgID 101 (longEntityMessage) with method_index=1083
+     - Candidate B: msgID (128 + 1083) & 0xff = 0xBB (187) with width 2
+  8. Client UI transitions from title screen into Character Creation UI!
+```
+
+---
+
+## 7. Key Files in Workspace
+
+- `mitm/local_baseapp_capture.py`: Main integrated server (HTTP, LoginApp 25000, BaseApp 25010).
+- `scratch/HANDOFF_PROMPT_CLAUDE.md`: Quick-start prompt for Claude sessions.
+- `05_entities/out/entities.xml`: Entity definition XMLs.
+- `05_entities/out/Athlete.def.xml`: Athlete entity definition XML.
+- `05_entities/out/Account.def.xml`: Account entity definition XML.
