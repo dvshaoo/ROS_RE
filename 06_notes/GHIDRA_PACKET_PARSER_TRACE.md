@@ -1206,3 +1206,99 @@ not a same-session fix.
    this would need to be observed on hardware running a private/LAN
    server, or via emulator-based dynamic instrumentation if that
    proves feasible, not against NetEase's live servers.)
+
+### Further static reversal this session: confirmed createBasePlayer's domain flag is fixed at 0, and any non-empty stream there is fatal -- the property-stream route is a genuine dead end
+
+Continued decompiling the call chain leading into EntityType::newDictionary
+to find where raw property bytes actually get parsed. Findings, each
+confirmed against the real binary (not inferred/guessed):
+
+- **FUN_00ad0348/FUN_00ad02fc/FUN_00ad02ec/FUN_00ad0338** are plain
+  index-scaled property-descriptor table lookups (`base + index*0x68`),
+  not value readers.
+- **FUN_00ad05cc** (called from newDictionary's bitmask branch) only
+  retrieves N raw bytes from the stream into the presence-bitmask vector
+  -- it does not touch per-property values at all.
+- **FUN_00a2ac04**, the direct wrapper around newDictionary, is called
+  from `ClientApp::onBasePlayerCreate` (FUN_00a18504) with this exact,
+  confirmed argument list: `FUN_00a2ac04(entityType, eid,
+  PTR_DAT_03a122b8, 0, 0, stream, 0)` -- **the trailing `0` is the domain
+  flag passed straight through to newDictionary, and it is a fixed
+  literal at this call site, not something this project can choose or
+  vary.** This directly refutes an earlier passing assumption (based on
+  an ambiguous quote in GEMINI.md) that domain might be 2 (CLIENT) for
+  createBasePlayer -- verified in this project's own Ghidra project, it
+  is 0.
+- Per newDictionary's own logic (already documented above): if
+  `domain < 2` (which 0 satisfies) AND the stream is non-empty, the
+  function immediately calls **FUN_00acf8ac** -- confirmed via decompile
+  to be an exception-construction helper (wraps FUN_00acf5ec, a
+  multi-condition validity/type check dispatcher). **This means ANY
+  non-empty stream sent with `createBasePlayer` will hit this exception
+  path -- there is no way to smuggle real property values into
+  createBasePlayer's stream at all for domain 0.** Sending `stream=b''`
+  (this project's current, empty-stream approach) is not just "the
+  simplest option that happens to avoid a crash" -- **it is the ONLY
+  valid choice for this call**, confirmed by the domain value being
+  fixed.
+- Followed the OTHER newDictionary caller and its follow-up,
+  **FUN_00a2ac64** (`EntityType::newEntity`), which runs immediately
+  after newDictionary and does a SECOND pass: for every property NOT
+  already present in the assembled dict, it fetches a default value
+  (again via FUN_00a9f8e4/pInitialValue-style logic) and inserts it
+  before final entity construction (`FUN_00a20fe0`). This confirms every
+  property genuinely does end up in the dict one way or another --
+  `weekendPushRewardsHaveGotten` ending up `None` is not a missing-key
+  bug, it is the DataType system's genuine, correct default for a
+  PYTHON-typed property with no `<Default>` in its .def.xml, when no
+  base-side Python `__init__` (which this project's raw protocol
+  emulator does not and cannot run) has set it to something else first.
+
+**Conclusion: the iWeekendPush crash cannot be fixed by changing what
+this project sends in `createBasePlayer` at all.** Whatever the real
+fix is, it must happen via a mechanism OTHER than the property stream
+(e.g. an explicit post-creation property-update push, if one exists and
+can be reverse-engineered, or accepting that this specific interface's
+crash is a structural gap given this project's approach of not running
+real base-side Python entity logic).
+
+### Hypothesis tested and REFUTED: idx 62+ are NOT auto-generated property-setter pseudo-methods
+
+Given the empirical oracle table stops cleanly at idx 61
+(`onRefreshMSToken`), hypothesized that idx 62+ (silent in the earlier
+0-127 sweep) might be BigWorld's common pattern of auto-generated
+per-property "setter" pseudo-methods appended after the real
+ClientMethods table, and tested it live: sent idx 62-75 with a
+plausible cPickle protocol-0 empty-list payload (`b'(lp0\n.'`, 6 bytes)
+in case one of them was `weekendPushRewardsHaveGotten`'s setter (added
+as `ROS_STAGE4_MODE=propset` in `mitm/local_baseapp_capture.py`, kept
+for future reference).
+
+**Result: REFUTED.** Captured logcat throughout -- zero
+`MethodDescription` errors and zero `CHEAT` warnings for any of idx
+62-75, the same total silence as the original sweep. This rules out the
+"pseudo-method property setters share the per-entity method numbering
+space" theory for this entity/build. idx 62-127 are very likely
+genuinely unregistered/out-of-range for this specific dispatch
+mechanism, not an alternate property-update channel.
+
+### Session summary and honest stopping point
+
+This session made substantial, hard-evidence progress: confirmed entity
+activation genuinely works, pinned the exact crash and its root cause
+by name (property, interface, file, line), built and validated a
+reusable logcat-based dispatch oracle, conclusively refuted three of
+Gemini's specific "live-verified" claims with concrete counter-evidence,
+and now further confirmed via direct decompilation that the
+property-stream route is fundamentally blocked at the protocol level
+(not a solvable encoding problem) and that the property-setter-in-method-space
+hypothesis is false. What remains unknown -- the real mechanism (if any)
+for pushing a corrected property value to the client after entity
+creation, or an alternate trigger path for Character Creation that
+doesn't depend on `iWeekendPush` completing -- was not found this
+session and does not have an obvious next static-analysis target
+identified yet. Per `ACCOUNT_HANDSHAKE_SYNTHESIS.md`'s own standing
+recommendation, further progress from here most plausibly requires
+either substantially more (open-ended) static reversal with no
+guaranteed payoff, or the dynamic-instrumentation/hardware option
+already flagged as a human decision point.

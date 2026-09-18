@@ -908,6 +908,37 @@ def run_baseapp_stage_machine(sock, addr, key):
                     idx, 128 + idx, athlete_eid, addr))
                 time.sleep(delay)
             log('BASEAPP STAGE 4: SWEEP complete (%d..%d) for %s' % (lo, hi, addr))
+        elif stage4_mode == 'propset':
+            # 2026-09-18 HYPOTHESIS TEST: confirmed via Ghidra (FUN_00a18504 ->
+            # FUN_00a2ac04 -> EntityType::newDictionary) that createBasePlayer's
+            # domain flag is FIXED at 0, and any non-empty stream there triggers
+            # a native exception path (FUN_00acf8ac) rather than being parsed --
+            # so per-property defaults (e.g. the None that crashes
+            # iWeekendPush.tryActiveWeekendPushRedBadge on weekendPushRewardsHaveGotten)
+            # cannot be fixed via the createBasePlayer stream at all. This mode
+            # tests whether idx 62+ (silent/unregistered in the 0-127 method
+            # sweep, right after the last real client method onRefreshMSToken at
+            # idx=61) are actually auto-generated property-SETTER pseudo-methods
+            # (a known BigWorld pattern) rather than unregistered indices --
+            # sending a plausible pickle-encoded empty list ([]) as the arg, in
+            # case one of them is weekendPushRewardsHaveGotten's setter.
+            use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
+            lo = int(os.environ.get('ROS_PROPSET_LO', '62'))
+            hi = int(os.environ.get('ROS_PROPSET_HI', '75'))
+            hi = min(hi, 127)
+            delay = float(os.environ.get('ROS_PROPSET_DELAY', '0.5'))
+            # cPickle protocol-0 encoding of an empty list: '(lp0\n.'
+            empty_list_pickle = b'(lp0\n.'
+            log('BASEAPP STAGE 4: starting property-setter probe idx=%d..%d (delay=%.2fs) with empty-list pickle payload to eid=%d %s' % (
+                lo, hi, delay, athlete_eid, addr))
+            for idx in range(lo, hi + 1):
+                if addr not in _stage_machine_started:
+                    break
+                send_entity_method(sock, addr, use_key, athlete_eid, idx, empty_list_pickle, flags=0x0008)
+                log('BASEAPP STAGE 4 PROPSET: sent candidate property-setter idx=%d (msgid=%d) empty-list-pickle to eid=%d %s' % (
+                    idx, 128 + idx, athlete_eid, addr))
+                time.sleep(delay)
+            log('BASEAPP STAGE 4: PROPSET probe complete (%d..%d) for %s' % (lo, hi, addr))
         else:
             time.sleep(0.15)
             use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX

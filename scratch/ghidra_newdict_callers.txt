@@ -1,0 +1,69 @@
+=== Callers of FUN_00a2a58c (EntityType::newDictionary) ===
+ref from 03316340 in function ?
+ref from 033f22e8 in function ?
+ref from 00a2ac34 in function FUN_00a2ac04@00a2ac04
+ref from 00a21f30 in function FUN_00a21ebc@00a21ebc
+
+=== FUN_00ad0348 @ 00ad0348 ===
+
+long FUN_00ad0348(long param_1,uint param_2)
+
+{
+  ulong uVar1;
+  long lVar2;
+  ulong uVar3;
+  
+  uVar1 = (ulong)*(uint *)(*(long *)(param_1 + 0x88) + (ulong)param_2 * 4);
+                    /* catch() { ... } // from try @ 00ad02ec with catch @ 00ad0368 */
+  uVar3 = (*(long *)(param_1 + 0x60) - *(long *)(param_1 + 0x58) >> 3) * 0x4ec4ec4ec4ec4ec5;
+  lVar2 = *(long *)(param_1 + 0x58) + uVar1 * 0x68;
+  if (uVar3 < uVar1 || uVar3 - uVar1 == 0) {
+    lVar2 = 0;
+  }
+  return lVar2;
+}
+
+
+
+=== FUN_00ad02fc @ 00ad02fc ===
+
+long FUN_00ad02fc(long param_1,uint param_2)
+
+{
+  ulong uVar1;
+  long lVar2;
+  ulong uVar3;
+  
+  uVar1 = (ulong)*(uint *)(*(long *)(param_1 + 0x70) + (ulong)param_2 * 4);
+  uVar3 = (*(long *)(param_1 + 0x60) - *(long *)(param_1 + 0x58) >> 3) * 0x4ec4ec4ec4ec4ec5;
+  lVar2 = *(long *)(param_1 + 0x58) + uVar1 * 0x68;
+  if (uVar3 < uVar1 || uVar3 - uVar1 == 0) {
+    lVar2 = 0;
+  }
+  return lVar2;
+}
+
+
+
+=== FUN_00ad02ec @ 00ad02ec ===
+
+ulong FUN_00ad02ec(long param_1)
+
+{
+                    /* try { // try from 00ad02ec to 00bd02f7 has its CatchHandler @ 00ad0368 */
+                    /* try { // try from 00ad02f8 to 00bd0383 has its CatchHandler @ 00ad0240 */
+  return (ulong)(*(long *)(param_1 + 0x78) - *(long *)(param_1 + 0x70)) >> 2;
+}
+
+
+
+=== FUN_00ad0338 @ 00ad0338 ===
+
+ulong FUN_00ad0338(long param_1)
+
+{
+  return (ulong)(*(long *)(param_1 + 0x90) - *(long *)(param_1 + 0x88)) >> 2;
+}
+
+
+

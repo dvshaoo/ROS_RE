@@ -1,0 +1,141 @@
+=== FUN_00acf5ec @ 00acf5ec ===
+
+undefined8 FUN_00acf5ec(long param_1,uint param_2,long *param_3)
+
+{
+  bool bVar1;
+  byte bVar2;
+  byte bVar3;
+  long lVar4;
+  ulong uVar5;
+  long lVar6;
+  uint uVar7;
+  
+                    /* try { // try from 00acf5f4 to 00bcf69f has its CatchHandler @ 00acf5f4
+                       catch() { ... } // from try @ 00acf5f4 with catch @ 00acf5f4
+                       catch() { ... } // from try @ 00acf6ac with catch @ 00acf5f4 */
+  lVar6 = 0;
+  do {
+    bVar1 = ((&DAT_02b62400)[lVar6] & param_2) == 0;
+    if ((param_2 & 8) != 0) {
+      bVar1 = (&DAT_02b62400)[lVar6] != param_2;
+    }
+    if (!bVar1) {
+      lVar4 = *(long *)(param_1 + 0x58);
+      uVar5 = (*(long *)(param_1 + 0x60) - lVar4 >> 3) * 0x4ec4ec4ec4ec4ec5;
+      if ((int)uVar5 != 0) {
+        uVar7 = 0;
+        do {
+          lVar4 = lVar4 + (ulong)uVar7 * 0x68;
+          if (uVar5 <= uVar7) {
+            lVar4 = 0;
+          }
+          uVar5 = FUN_00a9f2e0(lVar4);
+                    /* try { // try from 00acf6a0 to 00bcf6ab has its CatchHandler @ 00acf71c */
+                    /* try { // try from 00acf6ac to 00bcf737 has its CatchHandler @ 00acf5f4 */
+          if (((((uVar5 & 1) == 0) &&
+               (bVar3 = (&DAT_02b61b60)[lVar6 * 2], bVar2 = FUN_00aa0cec(lVar4),
+               bVar3 == (bVar2 & 1))) &&
+              (bVar3 = FUN_00a9f2ec(lVar4), ((lVar6 - 1U < 2 ^ bVar3) & 1) == 0)) &&
+             ((((uVar5 = FUN_00a9f2d4(lVar4), (param_2 >> 4 & 1) == 0 || ((uVar5 & 1) != 0)) &&
+               ((uVar5 = FUN_00aa0cf8(lVar4), (param_2 >> 5 & 1) == 0 || ((uVar5 & 1) != 0)))) &&
+              (uVar5 = (**(code **)(*param_3 + 0x10))(param_3,lVar4), (uVar5 & 1) == 0)))) {
+            return 0;
+          }
+          lVar4 = *(long *)(param_1 + 0x58);
+          uVar7 = uVar7 + 1;
+          uVar5 = (*(long *)(param_1 + 0x60) - lVar4 >> 3) * 0x4ec4ec4ec4ec4ec5;
+        } while (uVar7 < (uint)uVar5);
+      }
+    }
+                    /* catch() { ... } // from try @ 00acf6a0 with catch @ 00acf71c */
+    bVar1 = 2 < lVar6;
+    lVar6 = lVar6 + 1;
+    if (bVar1) {
+                    /* try { // try from 00acf738 to 00bcf7e3 has its CatchHandler @ 00acf738
+                       catch() { ... } // from try @ 00acf738 with catch @ 00acf738
+                       catch() { ... } // from try @ 00acf7f0 with catch @ 00acf738 */
+      return 1;
+    }
+  } while( true );
+}
+
+
+
+=== FUN_00a2ac64 @ 00a2ac64 ===
+
+long FUN_00a2ac64(long param_1,undefined4 param_2,undefined8 param_3,undefined8 param_4,
+                 undefined4 param_5,undefined8 param_6)
+
+{
+  long lVar1;
+  int iVar2;
+  uint uVar3;
+  long lVar4;
+  undefined8 uVar5;
+  ulong uVar6;
+  byte *pbVar7;
+  long lVar8;
+  byte *pbVar9;
+  uint uVar10;
+  long *local_70;
+  long local_68;
+  
+  lVar1 = tpidr_el0;
+  local_68 = *(long *)(lVar1 + 0x28);
+  lVar4 = *(long *)(param_1 + 0x208);
+  if (lVar4 == 0) {
+    FUN_00a28f30(param_1 + 0x200);
+    lVar4 = *(long *)(param_1 + 0x208);
+  }
+  lVar4 = FUN_01e30d24(lVar4,0);
+  if (lVar4 == 0) {
+                    /* try { // try from 00a2adb8 to 00b2adbf has its CatchHandler @ 00a2e004 */
+    FUN_01e96678();
+    FUN_01dad604("EntityType::newEntity: Allocation failed.\n");
+  }
+  else {
+                    /* try { // try from 00a2acd0 to 00b2acd7 has its CatchHandler @ 00a2e00c */
+    iVar2 = FUN_00acd5d0(param_1);
+    if (iVar2 != 0) {
+      uVar10 = 0;
+      do {
+        uVar5 = FUN_00acd5ec(param_1,uVar10);
+        uVar6 = FUN_00a9f2e0();
+        if (((uVar6 & 1) != 0) || (uVar6 = FUN_00a9f2d4(uVar5), (uVar6 & 1) != 0)) {
+          pbVar7 = (byte *)FUN_00aa0cc0(uVar5);
+          pbVar9 = *(byte **)(pbVar7 + 0x10);
+          if ((*pbVar7 & 1) == 0) {
+            pbVar9 = pbVar7 + 1;
+          }
+          lVar8 = FUN_01df36d0(param_6,pbVar9);
+          if (lVar8 == 0) {
+                    /* try { // try from 00a2ad44 to 00b2ad4b has its CatchHandler @ 00a2e008 */
+            FUN_00a9f8e4(&local_70,uVar5);
+            pbVar7 = (byte *)FUN_00aa0cc0(uVar5);
+            pbVar9 = *(byte **)(pbVar7 + 0x10);
+            if ((*pbVar7 & 1) == 0) {
+              pbVar9 = pbVar7 + 1;
+            }
+            FUN_01df3738(param_6,pbVar9,local_70);
+            if ((local_70 != (long *)0x0) &&
+               (lVar8 = *local_70, *local_70 = lVar8 + -1, lVar8 + -1 == 0)) {
+              (**(code **)(local_70[1] + 0x30))();
+            }
+          }
+        }
+        uVar10 = uVar10 + 1;
+        uVar3 = FUN_00acd5d0(param_1);
+      } while (uVar10 < uVar3);
+    }
+    FUN_00a20fe0(lVar4,param_1,param_2,param_3,param_4,param_5,param_6);
+  }
+  if (*(long *)(lVar1 + 0x28) != local_68) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return lVar4;
+}
+
+
+
