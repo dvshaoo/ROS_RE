@@ -783,6 +783,75 @@ def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags
     sock.sendto(enc if enc else plain_padded, dest)
 
 
+def send_create_cell_player(sock, dest, key, space_id=1, vehicle_id=0, pos=(0.0, 0.0, 0.0), dir_rot=(0.0, 0.0, 0.0), stream=b'', flags=0x0008):
+    """Encodes and sends createCellPlayer (ClientInterface msgID 6) using BigWorld Mercury's wire protocol.
+    Reversed from libclient.so FUN_00a47e8c (handler) -> slot 1 FUN_00a1894c -> slot 6 FUN_00a19b1c -> Entity::readCellPlayerData.
+    Header: spaceID(u32 LE), vehicleID(u32 LE), pos(3*f32 LE), dir(3*f32 LE) = 32 bytes prefix.
+    Payload: prefix (32 bytes) + stream (empty stream b'' triggers newDictionary(domain=1) to populate all 454 client properties with defaults).
+    Length prefix: uint16 LE (ClientInterface msgID 6 has lenfield=2).
+    """
+    x, y, z = pos
+    yaw, pitch, roll = dir_rot
+    body = struct.pack('<IIffffff', space_id, vehicle_id, x, y, z, yaw, pitch, roll) + stream
+    plain = struct.pack('<H', flags) + bytes([0x06]) + struct.pack('<H', len(body)) + body
+    pad_len = 8 - (len(plain) % 8)
+    plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
+    enc = bf_encrypt(plain_padded, key_hex=key, iv=b'\x00' * 8)
+    sock.sendto(enc if enc else plain_padded, dest)
+
+
+def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_type=None, nick=None):
+    """Sends the authoritative response sequence for character creation / lobby entry."""
+    if char_type is None:
+        char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10002'))
+    if nick is None:
+        nick = b"Survivor"
+    elif isinstance(nick, str):
+        nick = nick.encode('utf-8')
+
+    # 1. Athlete.onCreateCharacter(True, "") (idx 1084)
+    occ_args = struct.pack('<B', 1) + _packed_int(0)
+    send_entity_method(sock, dest, key, athlete_eid, 1084, occ_args, flags=0x0008, num_methods=1131)
+    log('BASEAPP: sent Athlete.onCreateCharacter(ret=1, reason="") idx=1084 to eid=%d %s' % (athlete_eid, dest))
+
+    # 2. Athlete.onRoleCreateSuc(char_type) (idx 1085)
+    if os.environ.get('ROS_SEND_ROLE_CREATE_SUC', '1') == '1':
+        time.sleep(0.05)
+        orcs_args = struct.pack('<i', char_type)
+        send_entity_method(sock, dest, key, athlete_eid, 1085, orcs_args, flags=0x0008, num_methods=1131)
+        log('BASEAPP: sent Athlete.onRoleCreateSuc(%d) idx=1085 to eid=%d %s' % (char_type, athlete_eid, dest))
+
+    # 3. Athlete.updateBaseCharacter(char_type) (idx 1087)
+    time.sleep(0.05)
+    ubc_args = struct.pack('<i', char_type)
+    send_entity_method(sock, dest, key, athlete_eid, 1087, ubc_args, flags=0x0008, num_methods=1131)
+    log('BASEAPP: sent Athlete.updateBaseCharacter(%d) idx=1087 to eid=%d %s' % (char_type, athlete_eid, dest))
+
+    # 4. Athlete.updateBaseNickname(nick) (idx 1088)
+    time.sleep(0.05)
+    ubn_args = _packed_int(len(nick)) + nick
+    send_entity_method(sock, dest, key, athlete_eid, 1088, ubn_args, flags=0x0008, num_methods=1131)
+    log('BASEAPP: sent Athlete.updateBaseNickname(%r) idx=1088 to eid=%d %s' % (nick, athlete_eid, dest))
+
+    # 5. Athlete.onLeaveHallTeam() (idx 59)
+    if os.environ.get('ROS_SEND_LEAVE_TEAM', '1') == '1':
+        time.sleep(0.05)
+        send_entity_method(sock, dest, key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
+        log('BASEAPP: sent Athlete.onLeaveHallTeam() idx=59 to eid=%d %s' % (athlete_eid, dest))
+
+    # 6. Athlete.enterHall(True) (idx 1091)
+    time.sleep(0.1)
+    eh_args = struct.pack('<B', 1)
+    send_entity_method(sock, dest, key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
+    log('BASEAPP: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, dest))
+
+    # Optional post-hall leave team reassert
+    if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '1') == '1':
+        time.sleep(0.1)
+        send_entity_method(sock, dest, key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
+        log('BASEAPP: sent Athlete.onLeaveHallTeam() idx=59 (post-hall) to eid=%d %s' % (athlete_eid, dest))
+
+
 _stage_machine_started = set()
 
 
@@ -880,6 +949,17 @@ def run_baseapp_stage_machine(sock, addr, key):
         log('BASEAPP STAGE 3: sent createBasePlayer(Athlete type=%d, eid=%d, stream=%d B) to %s' % (
             athlete_type, athlete_eid, len(athlete_stream), addr))
 
+        # Stage 3.5: createCellPlayer for Athlete (ClientInterface msgID 6, 0x06)
+        # Transition entity to cell domain: fires Entity::readCellPlayerData -> EntityType::newDictionary(domain=1),
+        # which sets defaults for all 454 client properties in PyDict_New() and updates self.__dict__,
+        # then executes ClientApp vtable slot 3, calling onBecomeCellPlayer!
+        if os.environ.get('ROS_SEND_CELL_PLAYER', '1') == '1':
+            time.sleep(0.05)
+            space_id = int(os.environ.get('ROS_SPACE_ID', '1'))
+            send_create_cell_player(sock, addr, use_key, space_id=space_id, vehicle_id=0, stream=b'', flags=0x0008)
+            log('BASEAPP STAGE 3.5: sent createCellPlayer(spaceID=%d, eid=%d, stream=0 B) to %s' % (
+                space_id, athlete_eid, addr))
+
         # Stage 4: Athlete character activation & enterHall
         # Root cause of _realEnterHall crash:
         # In Athlete.py:656, _realEnterHall calls GameObject.Find('Scene').GetComponent('SceneSystem').loadHallScene(...)
@@ -901,60 +981,9 @@ def run_baseapp_stage_machine(sock, addr, key):
             scene_delay = float(os.environ.get('ROS_SCENE_LOAD_DELAY', '2.5'))
             log('BASEAPP STAGE 4: waiting %.1fs for client _loadDefaultScene to instantiate Scene GameObject...' % scene_delay)
             time.sleep(scene_delay)
-
-            # 1. Athlete.onCreateCharacter(True, "") (idx 1084)
-            # Athlete.def.xml: <onCreateCharacter><Arg>BOOL</Arg><Arg>STRING</Arg></onCreateCharacter>
-            # Official server telemetry: {"keypoint": "onCreateCharacter", "extraData": "{\"ret\": 1, \"msg\": \"\"}"}
-            occ_args = struct.pack('<B', 1) + _packed_int(0)
-            send_entity_method(sock, addr, use_key, athlete_eid, 1084, occ_args, flags=0x0008, num_methods=1131)
-            log('BASEAPP STAGE 4: sent Athlete.onCreateCharacter(ret=1, reason="") idx=1084 to eid=%d %s' % (athlete_eid, addr))
-
-            # 2. Athlete.onRoleCreateSuc(char_type) (idx 1085)
-            # Athlete.def.xml: <onRoleCreateSuc><Arg>INT32</Arg></onRoleCreateSuc>
-            char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10002'))
-            if os.environ.get('ROS_SEND_ROLE_CREATE_SUC', '1') == '1':
-                time.sleep(0.05)
-                orcs_args = struct.pack('<i', char_type)
-                send_entity_method(sock, addr, use_key, athlete_eid, 1085, orcs_args, flags=0x0008, num_methods=1131)
-                log('BASEAPP STAGE 4: sent Athlete.onRoleCreateSuc(%d) idx=1085 to eid=%d %s' % (char_type, athlete_eid, addr))
-
-            # 3. Athlete.updateBaseCharacter(char_type) (idx 1087)
-            # Ground truth: 10002=MALE, 10005=FEMALE per probe_character_data.py & cc_stub_player.py.
-            # Value 1 has no entry in legacyProperties.getCharactersData(), which prevented avatar creation.
-            time.sleep(0.05)
-            ubc_args = struct.pack('<i', char_type)
-            send_entity_method(sock, addr, use_key, athlete_eid, 1087, ubc_args, flags=0x0008, num_methods=1131)
-            log('BASEAPP STAGE 4: sent Athlete.updateBaseCharacter(%d) idx=1087 to eid=%d %s' % (char_type, athlete_eid, addr))
-
-            # 4. Athlete.updateBaseNickname("Survivor") (idx 1088)
-            # Athlete.def.xml: <updateBaseNickname><Arg>STRING</Arg></updateBaseNickname>
-            time.sleep(0.05)
-            nick = b"Survivor"
-            ubn_args = _packed_int(len(nick)) + nick
-            send_entity_method(sock, addr, use_key, athlete_eid, 1088, ubn_args, flags=0x0008, num_methods=1131)
-            log('BASEAPP STAGE 4: sent Athlete.updateBaseNickname("Survivor") idx=1088 to eid=%d %s' % (athlete_eid, addr))
-
-            # 5. Athlete.onLeaveHallTeam() (idx 59)
-            # Athlete.def.xml: <onLeaveHallTeam></onLeaveHallTeam> (0 args)
-            # Solves AttributeError: 'PlayerAthlete' object has no attribute 'hallTeamData' by triggering solo team state
-            if os.environ.get('ROS_SEND_LEAVE_TEAM', '1') == '1':
-                time.sleep(0.05)
-                send_entity_method(sock, addr, use_key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
-                log('BASEAPP STAGE 4: sent Athlete.onLeaveHallTeam() idx=59 to eid=%d %s' % (athlete_eid, addr))
-
-            # 6. Athlete.enterHall(True) (idx 1091)
-            # Athlete.def.xml: <enterHall><Arg>BOOL</Arg></enterHall> (isFirstLoginOfDay=True)
-            # Official server telemetry: {"keypoint": "athleteEnterHall"}
-            time.sleep(0.1)
-            eh_args = struct.pack('<B', 1)
-            send_entity_method(sock, addr, use_key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
-            log('BASEAPP STAGE 4: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, addr))
-
-            # Optional post-hall leave team reassert
-            if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '1') == '1':
-                time.sleep(0.1)
-                send_entity_method(sock, addr, use_key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
-                log('BASEAPP STAGE 4: sent Athlete.onLeaveHallTeam() idx=59 (post-hall) to eid=%d %s' % (athlete_eid, addr))
+            send_character_creation_response_chain(sock, addr, use_key, athlete_eid)
+        else:
+            log('BASEAPP STAGE 4: ROS_AUTO_ENTER_HALL=0 -> Waiting in Character Creation UI for user interaction / upstream RPC.')
 
         # Stage 5: HOLDING
         log('BASEAPP STAGE 5: All entity lifecycle stages complete. Entering HOLDING state for %s' % (addr,))
@@ -1091,11 +1120,20 @@ def serve_baseapp_udp_capture():
                     _start_keepalive(s, addr, use_key)
                 continue
 
-            # 5. Log any client upstream RPCs
+            # 5. Log and dispatch any client upstream RPCs
             if unpadded is not None and len(unpadded) >= 3:
                 up_msgid = unpadded[2]
                 log('BASEAPP UPSTREAM RECV: msgid=0x%02x (%d) len=%d: %s' % (
                     up_msgid, up_msgid, len(unpadded), unpadded.hex()))
+                if up_msgid not in (VERSIONPOINT_IDENTITY_MSGID, BASEAPPEXT_IDENTIFYVERSIONPOINT_MSGID):
+                    log('  UPSTREAM PAYLOAD RAW: %r' % unpadded)
+                    # If waiting in interactive Character Creation mode (ROS_AUTO_ENTER_HALL=0):
+                    if os.environ.get('ROS_AUTO_ENTER_HALL', '1') == '0':
+                        log('BASEAPP: interactive mode received upstream message (msgid=%d)! Dispatching character creation response chain...' % up_msgid)
+                        use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX
+                        athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '1'))
+                        threading.Thread(target=send_character_creation_response_chain,
+                                         args=(s, addr, use_key, athlete_eid), daemon=True).start()
         except Exception as e:
             log('BASEAPP UDP error: %s' % e)
 
