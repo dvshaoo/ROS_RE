@@ -1,0 +1,6658 @@
+[
+ {
+  "idx": 0,
+  "name": "dailyPay",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 1,
+  "name": "dailyPayLoginToday",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 2,
+  "name": "getGift",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 3,
+  "name": "choseGalaxy",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 4,
+  "name": "tenDayGift",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 5,
+  "name": "buyTenDayGiftTime",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 6,
+  "name": "startDailyPayActive",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 7,
+  "name": "endDailyPayActive",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 8,
+  "name": "playerUUID",
+  "flag": 44,
+  "raw_type": "OBJECT_UUID",
+  "type": "BLOB",
+  "included": true
+ },
+ {
+  "idx": 9,
+  "name": "playerName",
+  "flag": 44,
+  "raw_type": "KEY_NAME",
+  "type": "BLOB",
+  "included": true
+ },
+ {
+  "idx": 10,
+  "name": "bindedPlayerName",
+  "flag": 44,
+  "raw_type": "KEY_NAME",
+  "type": "BLOB",
+  "included": true
+ },
+ {
+  "idx": 11,
+  "name": "identifierName",
+  "flag": 172,
+  "raw_type": "KEY_NAME",
+  "type": "BLOB",
+  "included": true
+ },
+ {
+  "idx": 12,
+  "name": "baseNickname",
+  "flag": 44,
+  "raw_type": "KEY_NAME",
+  "type": "BLOB",
+  "included": true
+ },
+ {
+  "idx": 13,
+  "name": "gid",
+  "flag": 44,
+  "raw_type": "GID",
+  "type": "UINT64",
+  "included": true
+ },
+ {
+  "idx": 14,
+  "name": "isDestroying",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 15,
+  "name": "isClientReady",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 16,
+  "name": "baseTimerRecord",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 17,
+  "name": "proxyIDs",
+  "flag": 8,
+  "raw_type": "ARRAY <of> INT16 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 18,
+  "name": "channelInfo",
+  "flag": 8,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 19,
+  "name": "deviceInfo",
+  "flag": 8,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 20,
+  "name": "clientEngineInfo",
+  "flag": 8,
+  "raw_type": "CLIENT_ENGINE_INFO",
+  "type": "FIXED_DICT:CLIENT_ENGINE_INFO",
+  "included": false
+ },
+ {
+  "idx": 21,
+  "name": "extraAccountInfo",
+  "flag": 8,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 22,
+  "name": "sdkUserName",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 23,
+  "name": "friendLists",
+  "flag": 40,
+  "raw_type": "FRIEND_LISTS",
+  "type": "FIXED_DICT:FRIEND_LISTS",
+  "included": false
+ },
+ {
+  "idx": 24,
+  "name": "requestFriendDict",
+  "flag": 8,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 25,
+  "name": "mails",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 26,
+  "name": "lastReceivedMailID",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 27,
+  "name": "lastBindMonth",
+  "flag": 44,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 28,
+  "name": "lastBindTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 29,
+  "name": "beforeReqIDTime",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 30,
+  "name": "afterReqIDTime",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 31,
+  "name": "bindedPhoneNumber",
+  "flag": 40,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 32,
+  "name": "encBindedPhoneNumber",
+  "flag": 44,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 33,
+  "name": "hasGetMonthlyAward",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 34,
+  "name": "hasBindPhone",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 35,
+  "name": "firstTimeBind",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 36,
+  "name": "verifyConnectionTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 37,
+  "name": "firstBindTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 38,
+  "name": "mobileAccountLastAwardMonth",
+  "flag": 44,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 39,
+  "name": "telNoInviteInfo",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 40,
+  "name": "telNoInviteGetAwardDayCnt",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 41,
+  "name": "telNoInviteGetAwardTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 42,
+  "name": "isEnteringHallTeam",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 43,
+  "name": "canMatchBigMap",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 44,
+  "name": "canMatchFPSMode",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 45,
+  "name": "canMatchNextGen",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 46,
+  "name": "canMatchOccupation",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 47,
+  "name": "canNotMatchGameTypes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 48,
+  "name": "gameTypeGoingToStart",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 49,
+  "name": "timeStampGameTypeStart",
+  "flag": 12,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 50,
+  "name": "hallTeamMailBox",
+  "flag": 8,
+  "raw_type": "GLOBAL_MAIL_BOX_INFO",
+  "type": "FIXED_DICT:GLOBAL_MAIL_BOX_INFO",
+  "included": false
+ },
+ {
+  "idx": 51,
+  "name": "hallTeamData",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 52,
+  "name": "hallTeamSize",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 53,
+  "name": "hallTeamType",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 54,
+  "name": "hallTeamLeaderGID",
+  "flag": 8,
+  "raw_type": "GID",
+  "type": "UINT64",
+  "included": false
+ },
+ {
+  "idx": 55,
+  "name": "hallTeamInviteRecord",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 56,
+  "name": "hallTeamIgnoredInviters",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 57,
+  "name": "recentHallTeammates",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 58,
+  "name": "notifiedNoGrass",
+  "flag": 40,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 59,
+  "name": "joinStream",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 60,
+  "name": "matchingMapID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 61,
+  "name": "occupation",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 62,
+  "name": "recommanderLevel",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 63,
+  "name": "matchedPlayerInfo",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 64,
+  "name": "selectedHero",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 65,
+  "name": "candidateHeros",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 66,
+  "name": "matchedPlayerSelectionInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 67,
+  "name": "heroSelectEndTime",
+  "flag": 12,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 68,
+  "name": "isHeroLocked",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 69,
+  "name": "recordLastTeamType",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 70,
+  "name": "refreshCandidateHeroCnt",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 71,
+  "name": "hallTeamLastTypeRefreshTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 72,
+  "name": "lastHallTeamSize",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 73,
+  "name": "lastHallTeamType",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 74,
+  "name": "lastHallTeamMapGroup",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 75,
+  "name": "isMinScorePlayer",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 76,
+  "name": "minScorePlayerGID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 77,
+  "name": "guideModePanelVisible",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 78,
+  "name": "timerDoOfflineOp",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 79,
+  "name": "offlineOpQueue",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 80,
+  "name": "isMuzzled",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 81,
+  "name": "ownChatIntervalStartTime",
+  "flag": 40,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 82,
+  "name": "ownChatInterval",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 83,
+  "name": "ownChatIntervalTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 84,
+  "name": "muzzledStartTime",
+  "flag": 40,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 85,
+  "name": "muzzledTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 86,
+  "name": "isJingmo",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 87,
+  "name": "jingmoStartTime",
+  "flag": 40,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 88,
+  "name": "jingmoTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 89,
+  "name": "isChatVIP",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 90,
+  "name": "chatRoomID",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 91,
+  "name": "lastChatMsgID",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 92,
+  "name": "historyPayedYuanbao",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 93,
+  "name": "historyPayAwardYuanbao",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 94,
+  "name": "historyPayGoodsIDs",
+  "flag": 44,
+  "raw_type": "ARRAY <of> STRING </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 95,
+  "name": "shipmentSNList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> STRING </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 96,
+  "name": "sumCash",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 97,
+  "name": "firstPayStateAdvance",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 98,
+  "name": "vipLevel",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 99,
+  "name": "payYuanbaoDuringEvent",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 100,
+  "name": "payRebateAwardInfo",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 101,
+  "name": "payRebateVersion",
+  "flag": 44,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 102,
+  "name": "newFirstPayState",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 103,
+  "name": "newFirstPayTime",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 104,
+  "name": "newFirstPayAccumulate",
+  "flag": 44,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 105,
+  "name": "newFirstPayAccumulateState",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 106,
+  "name": "payMoneyDuringMonth",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 107,
+  "name": "monthPayRebateAwardInfo",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 108,
+  "name": "monthPayRebateVersion",
+  "flag": 44,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 109,
+  "name": "payGoodTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 110,
+  "name": "lastPayTs",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 111,
+  "name": "payExtDFts",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 112,
+  "name": "gmGroup",
+  "flag": 8,
+  "raw_type": "GM_GROUP",
+  "type": "UINT8",
+  "included": false
+ },
+ {
+  "idx": 113,
+  "name": "startFreezeYuanbaoTime",
+  "flag": 40,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 114,
+  "name": "freezeYuanbaoTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 115,
+  "name": "freezeYuanbaoReason",
+  "flag": 40,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 116,
+  "name": "unFreezeYuanbaoReason",
+  "flag": 40,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 117,
+  "name": "dtsLockTime",
+  "flag": 40,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 118,
+  "name": "procList",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 119,
+  "name": "clientHeartbeatTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 120,
+  "name": "clientLastHeartbeatTime",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 121,
+  "name": "logLastHeartbeatTime",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 122,
+  "name": "lastPingNumber",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 123,
+  "name": "negYBMatchMark",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 124,
+  "name": "negYBMatchTip",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 125,
+  "name": "negYBAppearanceMark",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 126,
+  "name": "negYBAppearanceTip",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 127,
+  "name": "showGmRedPointTime",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 128,
+  "name": "bHeatBeatNotifyCell",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 129,
+  "name": "lastUploadCCLogTime",
+  "flag": 8,
+  "raw_type": "FLOATTIME",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 130,
+  "name": "banFashionMark",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 131,
+  "name": "banFashionTip",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 132,
+  "name": "upPhotoFlag",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 133,
+  "name": "rankRecord",
+  "flag": 44,
+  "raw_type": "PLAYER_RANK_RECORD",
+  "type": "FIXED_DICT:PLAYER_RANK_RECORD",
+  "included": true
+ },
+ {
+  "idx": 134,
+  "name": "score",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 135,
+  "name": "scoreRank",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 136,
+  "name": "maxScore",
+  "flag": 44,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 137,
+  "name": "ownSeasonID",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 138,
+  "name": "seasonMaxScore",
+  "flag": 40,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 139,
+  "name": "hasNewInfo",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 140,
+  "name": "firstLevelUpTime",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 141,
+  "name": "seasonFirstLevelUpTime",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 142,
+  "name": "hasReachKingSection",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 143,
+  "name": "currencyList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> CURRENCY_ITEM </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 144,
+  "name": "freezedCurrencyIDs",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 145,
+  "name": "gp",
+  "flag": 44,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 146,
+  "name": "sp",
+  "flag": 44,
+  "raw_type": "UINT64",
+  "type": "UINT64",
+  "included": true
+ },
+ {
+  "idx": 147,
+  "name": "freeYuanbao",
+  "flag": 44,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 148,
+  "name": "payYuanbao",
+  "flag": 44,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 149,
+  "name": "isFreezeYuanbao",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 150,
+  "name": "sessionSp",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 151,
+  "name": "everyDayGP",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 152,
+  "name": "everyDayGPLastResetTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 153,
+  "name": "dailyFirstGame",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 154,
+  "name": "dailyFirstGameLastResetTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 155,
+  "name": "hasGetNewVersionGPReward",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 156,
+  "name": "hasGetRC2Reward",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 157,
+  "name": "instantExchangedCurrency",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 158,
+  "name": "everyDayShare",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 159,
+  "name": "everyDayShareLastResetTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 160,
+  "name": "extraBattleAwardResetTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 161,
+  "name": "hasCheckedUniversalFragmentConvert",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 162,
+  "name": "miscVar",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 163,
+  "name": "miscIntVar",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 164,
+  "name": "miscOpTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 165,
+  "name": "miscMapVar",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 166,
+  "name": "activityProgressXmas2017",
+  "flag": 40,
+  "raw_type": "ARRAY <of> COMMON_ACTIVITY_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 167,
+  "name": "activityProgress201701",
+  "flag": 40,
+  "raw_type": "ARRAY <of> COMMON_ACTIVITY_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 168,
+  "name": "quizCoin201701",
+  "flag": 40,
+  "raw_type": "ARRAY <of> QUIZ_COIN_201701_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 169,
+  "name": "activityProgressValentine2018",
+  "flag": 40,
+  "raw_type": "ARRAY <of> COMMON_ACTIVITY_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 170,
+  "name": "activityProgressSpring2018",
+  "flag": 40,
+  "raw_type": "ARRAY <of> COMMON_ACTIVITY_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 171,
+  "name": "activityProgressSpring2018_2",
+  "flag": 40,
+  "raw_type": "ARRAY <of> COMMON_ACTIVITY_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 172,
+  "name": "activityProgressEaster2018",
+  "flag": 40,
+  "raw_type": "ARRAY <of> COMMON_ACTIVITY_DATA </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 173,
+  "name": "xmas2018CollectProps",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 174,
+  "name": "xmas2018CollectAwards",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 175,
+  "name": "xmas2018LotteryTasks",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 176,
+  "name": "xmas2018MaxLotteryIdx",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 177,
+  "name": "xmas2018LotteryTimes",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 178,
+  "name": "xmas2018LuckyVal",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 179,
+  "name": "xmas2019Gifts",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 180,
+  "name": "xmas2019OldUserGiftGotIdx",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 181,
+  "name": "xmas2019OldUserFlag",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 182,
+  "name": "xmas2019OldUserLastTs",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 183,
+  "name": "xmas2019GenerousRewards",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 184,
+  "name": "valentine2019CollectProps",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 185,
+  "name": "kofSupply",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 186,
+  "name": "kofSupplys",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 187,
+  "name": "kofSupplyCnt",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 188,
+  "name": "bf2019carnival",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 189,
+  "name": "bf2019accumYB",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 190,
+  "name": "bf2019getYBs",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 191,
+  "name": "commonHolidaySignInRecord",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 192,
+  "name": "dtsLTLotteryTableData",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 193,
+  "name": "ra527ver",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 194,
+  "name": "ra527utype",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 195,
+  "name": "ra527utypeTs",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 196,
+  "name": "ra527welR",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 197,
+  "name": "ra527specInvRs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 198,
+  "name": "ra527tasks",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 199,
+  "name": "ra527pt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 200,
+  "name": "ra527ptRs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 201,
+  "name": "ra527finalR",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 202,
+  "name": "ra527kill",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 203,
+  "name": "ra527game",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 204,
+  "name": "ra527invgid",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 205,
+  "name": "ra527pay",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 206,
+  "name": "ra527pflag",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 207,
+  "name": "hasGetHalfYearFinalReward",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 208,
+  "name": "hasGetLTLotteryFinalReward",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 209,
+  "name": "commonDailyClickGameRecord",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 210,
+  "name": "dtsLTLotteryPartFinalReward",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 211,
+  "name": "lastSystemLikeActVal2018",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 212,
+  "name": "lastWroteLoveLetter2018",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 213,
+  "name": "lastLikeLoveLetter2018",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 214,
+  "name": "dayLikeCountLoveLetter2018",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 215,
+  "name": "rewardGotActVal2018",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 216,
+  "name": "nmcEndTs",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 217,
+  "name": "nmcSignTs",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 218,
+  "name": "nmcSignLeft",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 219,
+  "name": "nmcPt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 220,
+  "name": "nmcLC",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 221,
+  "name": "nmcDecPtTs",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 222,
+  "name": "nmcBetLog",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 223,
+  "name": "nmcOld",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 224,
+  "name": "lastRotatePoliceDataTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 225,
+  "name": "policeAwardRecord",
+  "flag": 8,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 226,
+  "name": "maxComplainTimesOneDay",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 227,
+  "name": "dtsCreditSystemComplainTimesReset",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 228,
+  "name": "complainedPlayerToday",
+  "flag": 8,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 229,
+  "name": "currentGid",
+  "flag": 8,
+  "raw_type": "GID",
+  "type": "UINT64",
+  "included": false
+ },
+ {
+  "idx": 230,
+  "name": "currentRecordType",
+  "flag": 8,
+  "raw_type": "INT16",
+  "type": "INT16",
+  "included": false
+ },
+ {
+  "idx": 231,
+  "name": "channelList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 232,
+  "name": "followList",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 233,
+  "name": "isEnteringRoom",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 234,
+  "name": "needOBRoomTip",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 235,
+  "name": "needNormalRoomTip",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 236,
+  "name": "canCreateRoom",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 237,
+  "name": "canCreateMultiRoom",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 238,
+  "name": "customGameRoomMailBox",
+  "flag": 8,
+  "raw_type": "GLOBAL_MAIL_BOX_INFO",
+  "type": "FIXED_DICT:GLOBAL_MAIL_BOX_INFO",
+  "included": false
+ },
+ {
+  "idx": 239,
+  "name": "searchCoolDown",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 240,
+  "name": "requestListCoolDown",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 241,
+  "name": "requestListCDTimer",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 242,
+  "name": "dtsAppearancePackage",
+  "flag": 44,
+  "raw_type": "DTS_APPEARANCE_PACKAGE3",
+  "type": "FIXED_DICT:DTS_APPEARANCE_PACKAGE3",
+  "included": true
+ },
+ {
+  "idx": 243,
+  "name": "recentGotPropIDList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 244,
+  "name": "dtsWearableAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 245,
+  "name": "dtsBodyAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 246,
+  "name": "dtsAppearanceGender",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 247,
+  "name": "dtsDyeingAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 248,
+  "name": "dtsWeaponAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 249,
+  "name": "dtsBattlegroundPropAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 250,
+  "name": "dtsEmojiList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 251,
+  "name": "dtsEmojiID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 252,
+  "name": "dtsVehicleAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 253,
+  "name": "dtsShowWearableAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 254,
+  "name": "dtsShowBodyAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 255,
+  "name": "dtsShowFlyingAccessoryList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 256,
+  "name": "dtsShowDyeingAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 257,
+  "name": "dtsShowWeaponAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 258,
+  "name": "dtsShowBattlegroundPropAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 259,
+  "name": "dtsShowVehicleAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 260,
+  "name": "dtsMaleDefaultWearableAppearanceList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 261,
+  "name": "dtsFemaleDefaultWearableAppearanceList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 262,
+  "name": "dtsMaleDefaultBodyAppearanceList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 263,
+  "name": "dtsFemaleDefaultBodyAppearanceList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 264,
+  "name": "dtsMaleDefaultBattlegroundPropAppearanceList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 265,
+  "name": "dtsFemaleDefaultBattlegroundPropAppearanceList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 266,
+  "name": "dtsTagAppearanceList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 267,
+  "name": "dtsShowTagAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 268,
+  "name": "dtsOutGameBag",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 269,
+  "name": "dtsOutGameBagByGender",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 270,
+  "name": "dtsHallVehicleAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 271,
+  "name": "hideAppearanceToEnemy",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 272,
+  "name": "dtsOutGameWeapon",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 273,
+  "name": "dtsOutGameWeaponPos",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 274,
+  "name": "dtsOutGameWeaponMale",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 275,
+  "name": "dtsOutGameWeaponPosMale",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 276,
+  "name": "dtsOutGameWeaponFemale",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 277,
+  "name": "dtsOutGameWeaponPosFemale",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 278,
+  "name": "dtsJetWingsAppearanceID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 279,
+  "name": "dtsVehiclePlateNumberAppearanceID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 280,
+  "name": "dtsShowAircraftAppearanceID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 281,
+  "name": "dtsPendantAppearanceList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 282,
+  "name": "dtsShowPendantList",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 283,
+  "name": "dtsCustomPlanePlan",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 284,
+  "name": "defaultCustomPlanePlanIdx",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 285,
+  "name": "buySupplementTimes",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 286,
+  "name": "buyTimeLastResetTime",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 287,
+  "name": "availSupplement",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 288,
+  "name": "randomItemGetTimesDict",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 289,
+  "name": "randomGetTimeLastResetTime",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 290,
+  "name": "guaranteeBoxGetPropIDList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 291,
+  "name": "supplementGuaranteeTypeGetPropIDList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 292,
+  "name": "isUsePreciousTicketDiscount",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 293,
+  "name": "hasAlreadyShowSupplyID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 294,
+  "name": "multipleOpenTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 295,
+  "name": "freeLotteryTimesDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 296,
+  "name": "hasGotCompensation20191009",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 297,
+  "name": "hasFinishConvertDtsGlider",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 298,
+  "name": "weekendBuySupplementCntDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 299,
+  "name": "accumulateBuySupplementCntDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 300,
+  "name": "weekendAwardReceivedRecord",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 301,
+  "name": "lastClearWeekendRecordTimeStr",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 302,
+  "name": "lastSelectWatchAdSupplementID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 303,
+  "name": "newActivityRedPointInfo",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 304,
+  "name": "supplementWatchAdData",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 305,
+  "name": "shareCount",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 306,
+  "name": "nextReward",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 307,
+  "name": "finalReward",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 308,
+  "name": "rewards",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 309,
+  "name": "dailyEvent",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 310,
+  "name": "periodShareCount",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 311,
+  "name": "periodNextReward",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 312,
+  "name": "periodRewards",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 313,
+  "name": "periodEvent",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 314,
+  "name": "lastShare",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 315,
+  "name": "lastOpenDailyBox",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 316,
+  "name": "lastGetNewbieReward",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 317,
+  "name": "shares",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 318,
+  "name": "startTimings",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 319,
+  "name": "numFreeChestOpenedToday",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 320,
+  "name": "lastOpenFreeChest",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 321,
+  "name": "dailyActivity",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 322,
+  "name": "dailyActivityRewardState",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT8 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 323,
+  "name": "weeklyActivity",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 324,
+  "name": "weeklyActivityRewardState",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT8 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 325,
+  "name": "activityProgress",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 326,
+  "name": "activityState",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT8 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 327,
+  "name": "lastRecordActivity",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 328,
+  "name": "currency_awards",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 329,
+  "name": "alarmed_currency_awards",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 330,
+  "name": "items_awards",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 331,
+  "name": "alarmed_items_awards",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 332,
+  "name": "reset_award_monitor_timestamp",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 333,
+  "name": "rose_receive_count",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 334,
+  "name": "signedDay",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 335,
+  "name": "currentMonth",
+  "flag": 40,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 336,
+  "name": "lastSignedTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 337,
+  "name": "lastResetSNCountTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 338,
+  "name": "dailySNGetCount",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 339,
+  "name": "customControlSchemeDicts",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 340,
+  "name": "uisettingModeIdx",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 341,
+  "name": "isScaleRevised",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 342,
+  "name": "freshManSurveyLeftCnt",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 343,
+  "name": "versionSurveyLeftCnt",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 344,
+  "name": "heroModeSurveyLeftCnt",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 345,
+  "name": "lastVersionUrl",
+  "flag": 44,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 346,
+  "name": "lastHeroSurveyUrl",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 347,
+  "name": "showSurveyIndex",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 348,
+  "name": "showSurveyRedPoint",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 349,
+  "name": "buyMallGoodTimes",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 350,
+  "name": "buyMallTimeLastResetTime",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 351,
+  "name": "availMallGoods",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 352,
+  "name": "weaponAppearanceSortInfoLastReqTimeStamp",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 353,
+  "name": "weaponAppearanceSortInfoTag",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 354,
+  "name": "weaponAppearanceSortInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 355,
+  "name": "dtsMallHeroInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 356,
+  "name": "shareCurrencyYear",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 357,
+  "name": "shareCurrencyMonth",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 358,
+  "name": "shareCurrencyDay",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 359,
+  "name": "shareCurrencyLimitList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 360,
+  "name": "shareMallGoodCntDictDay",
+  "flag": 44,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 361,
+  "name": "shareMallGoodCntDictWeek",
+  "flag": 44,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 362,
+  "name": "shareMallGoodCntDictForEver",
+  "flag": 44,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 363,
+  "name": "shareMallGoodTime",
+  "flag": 40,
+  "raw_type": "DATETIME_RECORD",
+  "type": "FIXED_DICT:DATETIME_RECORD",
+  "included": false
+ },
+ {
+  "idx": 364,
+  "name": "purchasedWelfare",
+  "flag": 44,
+  "raw_type": "ARRAY <of> PURCHASED_WELFARE_INFO </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 365,
+  "name": "availWelfare",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 366,
+  "name": "anticheatCheckFileList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 367,
+  "name": "anticheatCheckFileTimer",
+  "flag": 8,
+  "raw_type": "TIMER_ID",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 368,
+  "name": "anticheatNpkVersionInfo",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 369,
+  "name": "nationalityInfo",
+  "flag": 44,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 370,
+  "name": "specTrainID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 371,
+  "name": "specTrainRewards",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 372,
+  "name": "specTrainGroupOpen",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 373,
+  "name": "hasViewedSpecTrainNewProps",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 374,
+  "name": "courseFavoriteList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> COURSE_FAVORITE_DATA </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 375,
+  "name": "blackMarketState",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 376,
+  "name": "blackMarketBuyTimes",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 377,
+  "name": "blackMarketTotalMoney",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 378,
+  "name": "currentBlackMarketItemID",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 379,
+  "name": "boughtBlackMarketItemID",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 380,
+  "name": "lastBlackMarketItemID",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 381,
+  "name": "CDDurationPassedTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 382,
+  "name": "CDDurationCurLoginStartTimestamp",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 383,
+  "name": "ExistDurationPassedTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 384,
+  "name": "ExistDurationCurLoginStartTimestamp",
+  "flag": 8,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 385,
+  "name": "blackMarketNextStateTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 386,
+  "name": "blackMarketLevelWeight",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 387,
+  "name": "limitPackageBuyTimes",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 388,
+  "name": "limitPackageBuyTimesLastResetTime",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 389,
+  "name": "availLimitPackage",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 390,
+  "name": "halfMonthPackageBuyTimes",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 391,
+  "name": "halfMonthPackageBuyTimesLastResetTime",
+  "flag": 40,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 392,
+  "name": "availHalfMonthPackage",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 393,
+  "name": "halfAnniversaryExtraBoxBuyTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 394,
+  "name": "thirdAnniversaryExtraBoxBuyTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 395,
+  "name": "quizRebornCard",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 396,
+  "name": "chongdingAward",
+  "flag": 44,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 397,
+  "name": "lastGetQuizRebornCardTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 398,
+  "name": "inviterSetted",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 399,
+  "name": "allowFirstDownloadBigMap",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 400,
+  "name": "isPauseDownloadingBigMap",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 401,
+  "name": "curGameEnterMapType",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 402,
+  "name": "hasReceivedClothDLCAward",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 403,
+  "name": "exchangedItemList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 404,
+  "name": "availableExchangeItem",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 405,
+  "name": "openSupplyScore",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 406,
+  "name": "openSupplyTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 407,
+  "name": "openMallTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 408,
+  "name": "openHalfMonthPackageTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 409,
+  "name": "openWorkShopScore",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 410,
+  "name": "openSupplyGiftInfo",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 411,
+  "name": "openSupplyGiftLastRefreshTimeDays",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 412,
+  "name": "goldBattleInfo",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 413,
+  "name": "lastExchangeID",
+  "flag": 44,
+  "raw_type": "UUID",
+  "type": "BLOB",
+  "included": true
+ },
+ {
+  "idx": 414,
+  "name": "isExchangeConfirmed",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 415,
+  "name": "costAppearanceID",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 416,
+  "name": "exchangedAppearanceID",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 417,
+  "name": "videoAdvertisementInfo",
+  "flag": 44,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 418,
+  "name": "springGameOpenNum",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 419,
+  "name": "springGameShareUrl",
+  "flag": 44,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 420,
+  "name": "springShareNum",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 421,
+  "name": "springInviteNewNum",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 422,
+  "name": "springGameInviteAwardList",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 423,
+  "name": "childPropertyList",
+  "flag": 40,
+  "raw_type": null,
+  "type": null,
+  "included": false
+ },
+ {
+  "idx": 424,
+  "name": "childBaseClientPropertyList",
+  "flag": 44,
+  "raw_type": null,
+  "type": null,
+  "included": true
+ },
+ {
+  "idx": 425,
+  "name": "childPropertyList2",
+  "flag": 40,
+  "raw_type": null,
+  "type": null,
+  "included": false
+ },
+ {
+  "idx": 426,
+  "name": "childClientPropertyList2",
+  "flag": 44,
+  "raw_type": null,
+  "type": null,
+  "included": true
+ },
+ {
+  "idx": 427,
+  "name": "lastCancelRosMatchTime",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 428,
+  "name": "rmtWeekNo",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 429,
+  "name": "rmtTaskProg",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 430,
+  "name": "rmtTaskAdds",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 431,
+  "name": "rmtSignInDayNoList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 432,
+  "name": "rmtWeekRwFlags",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 433,
+  "name": "rmtTmpTeamID",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 434,
+  "name": "rmtMaxPopTeamUp",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 435,
+  "name": "rmtShopRedDot",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 436,
+  "name": "rmtWeekRank1Tip",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 437,
+  "name": "frozenPrizeMatchCoin",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 438,
+  "name": "curPrizeMatchCashReq",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 439,
+  "name": "prizeMatchWeekDayNo",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 440,
+  "name": "prizeMatchDayData",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 441,
+  "name": "masterPrizeMatchData",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 442,
+  "name": "hasHorseRaceRookieBetVisit",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 443,
+  "name": "dynamicDifficultyMapLevels",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 444,
+  "name": "headFrameTag",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 445,
+  "name": "chatBubbleTag",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 446,
+  "name": "dtsNameplateAppearance",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 447,
+  "name": "hasRequestRecalledHuiliuerList",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 448,
+  "name": "huiliuRebate",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 449,
+  "name": "friendInfo",
+  "flag": 8,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 450,
+  "name": "backTasks",
+  "flag": 12,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 451,
+  "name": "backRewards",
+  "flag": 12,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 452,
+  "name": "recallRewards",
+  "flag": 12,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 453,
+  "name": "friendsTaskProgress",
+  "flag": 8,
+  "raw_type": "PY_DICT",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 454,
+  "name": "recallableFriends",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 455,
+  "name": "recalledFriends",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 456,
+  "name": "recallerGid",
+  "flag": 8,
+  "raw_type": "GID",
+  "type": "UINT64",
+  "included": false
+ },
+ {
+  "idx": 457,
+  "name": "recallProgress",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 458,
+  "name": "backState",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 459,
+  "name": "lastBackTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 460,
+  "name": "meetBackState",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 461,
+  "name": "backPlayerLastLoginTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 462,
+  "name": "backPlayerAccumulatedLoginTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 463,
+  "name": "playerReturnVersion",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 464,
+  "name": "friendBackInfo",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 465,
+  "name": "seasonBackState",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 466,
+  "name": "shareGiftInfoTemp",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 467,
+  "name": "battleGiftInfoTemp",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 468,
+  "name": "battleGiftIdTaskMap",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 469,
+  "name": "matchTeamTaskState",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 470,
+  "name": "matchTeamTaskProgress",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 471,
+  "name": "isBattleGiftPlayerHuiliuState",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 472,
+  "name": "battleGiftRandomTask",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 473,
+  "name": "redPacketGiftInfoTemp",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 474,
+  "name": "watchLiveGiftInfoTemp",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 475,
+  "name": "timerUsePropTimerDict",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 476,
+  "name": "timerUsePropGottenDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 477,
+  "name": "dayCounters",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 478,
+  "name": "classifiedAvailableConvertItem",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 479,
+  "name": "lastRequestStartCommanderTime",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 480,
+  "name": "commanderChance",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 481,
+  "name": "braveBookDataList",
+  "flag": 44,
+  "raw_type": "BRAVE_BOOK_DATA_LIST",
+  "type": "FIXED_DICT:BRAVE_BOOK_DATA_LIST",
+  "included": true
+ },
+ {
+  "idx": 482,
+  "name": "_payedPartnerReqs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 483,
+  "name": "_finishedPayedPartnerOrders",
+  "flag": 12,
+  "raw_type": "ARRAY <of> FINISHED_PEIWAN_ORDER </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 484,
+  "name": "newLevelup",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 485,
+  "name": "lastTimeResetSuperTurnTable",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 486,
+  "name": "superTurnTableAppearTimeLeft",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 487,
+  "name": "superTurnTableStatusNow",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 488,
+  "name": "hasShowTurnTableEffect",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 489,
+  "name": "superTurnTableWeaponTimeLeft",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 490,
+  "name": "superTurnTableCarTimeLeft",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 491,
+  "name": "isOldVersionTurntable",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 492,
+  "name": "signKofAwardLevel",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 493,
+  "name": "kofSignAwardTime",
+  "flag": 12,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 494,
+  "name": "kofSignAwardRefreshTime",
+  "flag": 12,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 495,
+  "name": "accumulateChargeV4Data",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 496,
+  "name": "updateStampsCheckList",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 497,
+  "name": "hasNewVid",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 498,
+  "name": "refreshVidChance",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 499,
+  "name": "refreshVidChanceResetTime",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 500,
+  "name": "vidMallSnapshot",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 501,
+  "name": "firstShowCosmicSupplyAD",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 502,
+  "name": "newRecallBindingCode",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 503,
+  "name": "isRecallPlayer",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 504,
+  "name": "newRecallScore",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 505,
+  "name": "newRecallReward",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 506,
+  "name": "recallBindingMac",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 507,
+  "name": "isFinishRecallTask",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 508,
+  "name": "resetRecallTime",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 509,
+  "name": "newRecallRewardNum",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 510,
+  "name": "hasShowCosmicSupplyTips",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 511,
+  "name": "weekendPushWindowOpen",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 512,
+  "name": "weekendPushRecordScore",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 513,
+  "name": "weekendPushGetReward",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 514,
+  "name": "weekendPushScoreDiff",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 515,
+  "name": "weekendPushRewardsHaveGotten",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 516,
+  "name": "weekendPushLastCollectionPrefix",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 517,
+  "name": "weekendPushRequestTimer",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 518,
+  "name": "redPackageResetStamp",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 519,
+  "name": "ntesVIPExpireDate",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 520,
+  "name": "dtsInGameActionSuitAppearanceIDs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 521,
+  "name": "anniversaryCoin",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 522,
+  "name": "anniversaryCoinDailyGetInGame",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 523,
+  "name": "anniversaryCoinTotalGetInGame",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 524,
+  "name": "anniversaryCoinUsed",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 525,
+  "name": "anniversaryCoinDailyGetH5",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 526,
+  "name": "anv2019payRebates",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 527,
+  "name": "anv2019SignInIdx",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 528,
+  "name": "anv2019SignInTs",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 529,
+  "name": "anniversaryLimitActionStage",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 530,
+  "name": "resetAnniversaryCoinTimes",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 531,
+  "name": "anniversaryH5GameShareUrl2019",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 532,
+  "name": "anniversaryH5GameRewardList2019",
+  "flag": 8,
+  "raw_type": "ARRAY <of> INT64 </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 533,
+  "name": "pzType",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 534,
+  "name": "pzTasks",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 535,
+  "name": "pzGrids",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 536,
+  "name": "pzRewards",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 537,
+  "name": "pzPick",
+  "flag": 8,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 538,
+  "name": "anv2020payRebates",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 539,
+  "name": "anniversarySignReward2020",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 540,
+  "name": "anniversaryPhotoSignReward2020",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 541,
+  "name": "anniversaryPhotoSignReward2020OnOtherServer",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 542,
+  "name": "anniversaryPhotoSignCurrStageIdx",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 543,
+  "name": "anniversary3rdAccumulateLogin",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 544,
+  "name": "anniversary3rdBindInviteCode",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 545,
+  "name": "anniversary3rdRecallReward",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 546,
+  "name": "anniversary3rdRecallPlayers",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 547,
+  "name": "anniversary3rdLotterySignState",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 548,
+  "name": "anniversary3rdLotteryTaskData",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 549,
+  "name": "anniversary3rdLotteryTaskLogin",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 550,
+  "name": "anniversary3rdLotteryTaskLoginNew",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 551,
+  "name": "anniversary3rdTreasureOpenTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 552,
+  "name": "getAirShipReward",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 553,
+  "name": "isFirstTimeEnter3rd",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 554,
+  "name": "awardedNewPlayerStepGroups",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 555,
+  "name": "isTaskStarted",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 556,
+  "name": "isWatchTaskGuide",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 557,
+  "name": "settingData",
+  "flag": 12,
+  "raw_type": "TYPE_SETTING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 558,
+  "name": "getChickenGiftTimes",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 559,
+  "name": "lastTimeGetChickenGift",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 560,
+  "name": "receiveXmasGiftTimes",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 561,
+  "name": "currentXmasGiftID",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 562,
+  "name": "lastTimeGetBonusGift",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 563,
+  "name": "firstEnterXmasTree",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 564,
+  "name": "ballColorList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 565,
+  "name": "hasGottenBallDict",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 566,
+  "name": "ballOnTree",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 567,
+  "name": "isTreeBright",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 568,
+  "name": "canMakeWish",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 569,
+  "name": "xmasTreeDate",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 570,
+  "name": "canMakeWishDate",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 571,
+  "name": "canGetBallNum",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 572,
+  "name": "selectedWishBallID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 573,
+  "name": "selectedWishBallDate",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 574,
+  "name": "xmasRepairArea2020SpCurrency",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 575,
+  "name": "xmasRepairArea2020Progress",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 576,
+  "name": "xmasActivity2020NormalRepairGuranatee",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 577,
+  "name": "xmasRepairArea2020FinishRecord",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 578,
+  "name": "xmasRepairArea2020RewardLottery",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 579,
+  "name": "xmasRepairArea2020RewardRecord",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 580,
+  "name": "xmasRepairArea2020RewardLotteryRound",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 581,
+  "name": "xmasRepairArea2020ShowTips",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 582,
+  "name": "xmasActivity2020HasShowInfo",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 583,
+  "name": "xmasActivity2020HasGetFinalReward",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 584,
+  "name": "xmasActivity2020DaiySnowmanReardReset",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 585,
+  "name": "xmasActivity2020DaiySnowmanRewardCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 586,
+  "name": "xmasActivity2020DaiySpCurrencyCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 587,
+  "name": "showActivity2020Guide",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 588,
+  "name": "hasXmasActivity2020RookieLottery",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 589,
+  "name": "hasXmasActivitySnowmanBrokenReward",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 590,
+  "name": "newYearGoalSendInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 591,
+  "name": "newYearGoalReceiveInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 592,
+  "name": "globalNewYearGoalTaskInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 593,
+  "name": "newYearGoalTaskIDList",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 594,
+  "name": "newYearGoalLoginTime",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 595,
+  "name": "newYearGoalInviteRedPointList",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 596,
+  "name": "forbidedNewYearGoalTaskIDList",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 597,
+  "name": "currentNewYearGoalDataID",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 598,
+  "name": "getLuckyTurnPropList",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 599,
+  "name": "luckyTurnTaskProgress",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 600,
+  "name": "currentluckyTurnDataID",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 601,
+  "name": "collectNewYearWordTaskInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 602,
+  "name": "collectNewYearWordRefreshTimes",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 603,
+  "name": "isCollectNewYearWordFinished",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 604,
+  "name": "newYearWordInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 605,
+  "name": "lastTimeRefreshNewYearWordTask",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 606,
+  "name": "dragonDanceJoinTime",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 607,
+  "name": "dragonDanceFeedTutorial",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 608,
+  "name": "dragonDanceItemGiveCount",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 609,
+  "name": "dragonDanceItemLastGiveTime",
+  "flag": 8,
+  "raw_type": "LONGTIME",
+  "type": "UINT64",
+  "included": false
+ },
+ {
+  "idx": 610,
+  "name": "dragonDanceItems",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 611,
+  "name": "dragonDanceLuckyBag",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 612,
+  "name": "dragonGrowthPersonal",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 613,
+  "name": "dragonDanceItemSendInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 614,
+  "name": "dragonDanceItemReceiveInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 615,
+  "name": "dragonDanceAskSendInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 616,
+  "name": "dragonDanceAskReceiveInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 617,
+  "name": "dragonDanceAwardedList",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 618,
+  "name": "treasureMallIndexLastResetTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 619,
+  "name": "currentTreasureIndex",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 620,
+  "name": "treasureMallOpenState",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 621,
+  "name": "treasureMallIndexTargetRefreshTime",
+  "flag": 12,
+  "raw_type": "TIMESTAMP_INT",
+  "type": "UINT32",
+  "included": true
+ },
+ {
+  "idx": 622,
+  "name": "refreshTreasureMallIndexTimer",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 623,
+  "name": "dtsWeekStarDiamondCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 624,
+  "name": "lastResetWeekStarDiamondCntTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 625,
+  "name": "lastResetCanUseHalfYuanbaoTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 626,
+  "name": "dtsStarDiamondCanUseHalfYuanbao",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 627,
+  "name": "dtsDayDiamondCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 628,
+  "name": "dtsMaxDiamondCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 629,
+  "name": "lastResetInFightDayDiamondCntTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 630,
+  "name": "canNotifyClientGetValentineMarkByLogin",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 631,
+  "name": "hasBoughtValentineWeapon",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 632,
+  "name": "markNumGotByKillToday",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 633,
+  "name": "hideMaterialDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 634,
+  "name": "girlsDayTaskTreeProgress",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 635,
+  "name": "girlsDayExchangeCount",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 636,
+  "name": "girlsDayLastLoginTime",
+  "flag": 8,
+  "raw_type": "LONGTIME",
+  "type": "UINT64",
+  "included": false
+ },
+ {
+  "idx": 637,
+  "name": "girlsDayOnlineTime",
+  "flag": 8,
+  "raw_type": "LONGTIME",
+  "type": "UINT64",
+  "included": false
+ },
+ {
+  "idx": 638,
+  "name": "girlsDayTaskInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 639,
+  "name": "girlsDayFavorTotal",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 640,
+  "name": "girlsDayFavorPersonal",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 641,
+  "name": "crazyCarnivalCurrency",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 642,
+  "name": "crazyCarnivalExchangeTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 643,
+  "name": "crazyCarnivalExchangeLastResetTimes",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 644,
+  "name": "crazyCarnivalYBCost",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 645,
+  "name": "crazyCarnivalYBCostRewardState",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 646,
+  "name": "dtsCrazyCarnivalTask",
+  "flag": 8,
+  "raw_type": "DTS_ACTIVIY_TASK_SERVER_MAP",
+  "type": "FIXED_DICT:DTS_ACTIVIY_TASK_SERVER_MAP",
+  "included": false
+ },
+ {
+  "idx": 647,
+  "name": "dtsDoneCrazyCarnivalTaskIds",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 648,
+  "name": "dtsCrazyCarnivalRewardTaskIds",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 649,
+  "name": "dtsCrazyCarnivalActiviytDays",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 650,
+  "name": "dtsCrazyCarnivalTaskLastResetTimes",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 651,
+  "name": "dtsCrazyCarnivalTicketsDayCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 652,
+  "name": "asActivityRecords",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 653,
+  "name": "asTaskRecords",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 654,
+  "name": "asAwardRecords",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 655,
+  "name": "asOnlineTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 656,
+  "name": "asActivityTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 657,
+  "name": "asTaskTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 658,
+  "name": "asContactInfoCollected",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 659,
+  "name": "asBraveBookKeepSeasonState",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 660,
+  "name": "asHasClickBraveBookBtn",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 661,
+  "name": "marryState",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 662,
+  "name": "haveLove",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 663,
+  "name": "loverInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 664,
+  "name": "declaredPropList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 665,
+  "name": "proposalPropIDs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 666,
+  "name": "recevedProposalPropIDs",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 667,
+  "name": "recevedProposalCustomText",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 668,
+  "name": "enteredUIMarriage",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 669,
+  "name": "lastLeaveMsgTimeStamp",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 670,
+  "name": "marriageUsedPropIDs",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 671,
+  "name": "gotMarriageExtraAwardInfoIDs",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 672,
+  "name": "customLayoutData",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 673,
+  "name": "customLayoutSid",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 674,
+  "name": "dtsAprilFoolSurpriseStamp",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 675,
+  "name": "dtsAprilFoolLuckyValue",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 676,
+  "name": "hasGetDtsAprilFoolProp",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 677,
+  "name": "dtsAprilFoolSurpriseStampDayCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 678,
+  "name": "dtsAprilFoolActivityDayNo",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 679,
+  "name": "dtsAprilFoolDailyGameAwardTimes",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 680,
+  "name": "dtsAprilFoolAdvanceTickets",
+  "flag": 12,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 681,
+  "name": "dtsAprilFoolBaseLotteryRoundCnt",
+  "flag": 12,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 682,
+  "name": "dtsAprilFoolBaseLotteryCnt",
+  "flag": 12,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": true
+ },
+ {
+  "idx": 683,
+  "name": "dtsAprilFoolCurrBaseGrid",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 684,
+  "name": "dtsAprilFoolCurrBaseGridHasGot",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 685,
+  "name": "dtsAprilFoolAdvanceGridHasGot",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 686,
+  "name": "dtsAprilFoolAdvanceTotalLotteryCnt",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 687,
+  "name": "dtsBasketballActivityQuizTicket",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 688,
+  "name": "dtsBasketballActivityTask",
+  "flag": 8,
+  "raw_type": "DTS_ACTIVIY_TASK_SERVER_MAP",
+  "type": "FIXED_DICT:DTS_ACTIVIY_TASK_SERVER_MAP",
+  "included": false
+ },
+ {
+  "idx": 689,
+  "name": "dtsDoneBasketballActivityTaskIds",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 690,
+  "name": "dtsBasketballActivityRewardTaskIds",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 691,
+  "name": "dtsBasketballActivityDays",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 692,
+  "name": "dtsBasketballActivityTaskLastResetTimes",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 693,
+  "name": "waterCoin",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 694,
+  "name": "lastResetWaterCoinCntTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 695,
+  "name": "dailyWaterCoinCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 696,
+  "name": "curSplashModeTaskProgress",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 697,
+  "name": "songkranFestivalGiftGot",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 698,
+  "name": "lastResetSplashModeTaskTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 699,
+  "name": "drawBoxGottenReward",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 700,
+  "name": "drawBoxLuckyValue",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 701,
+  "name": "drawBoxMaterialAmountDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 702,
+  "name": "drawBoxGetPropIDList",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 703,
+  "name": "pumpkinAmountGotToday",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 704,
+  "name": "dtsPumpkingItem2020DayCnt",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 705,
+  "name": "dtsPumpkingItem2020RefreshDayNo",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 706,
+  "name": "shipAdvSNList",
+  "flag": 8,
+  "raw_type": "ARRAY <of> STRING </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 707,
+  "name": "hasAdConnect",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 708,
+  "name": "watchAdData",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 709,
+  "name": "heroLevelDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 710,
+  "name": "heroWeekExp",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 711,
+  "name": "heroLevelRewardDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 712,
+  "name": "lastUpdateHeroWeekExpTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 713,
+  "name": "airwarVoteSelectItem",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 714,
+  "name": "airwarVoteCommentItem",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 715,
+  "name": "airwarVoteLikeComment",
+  "flag": 12,
+  "raw_type": "ARRAY <of> STRING </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 716,
+  "name": "airwarVoteDislikeComment",
+  "flag": 12,
+  "raw_type": "ARRAY <of> STRING </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 717,
+  "name": "gotAirwarVoteChosenReward",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 718,
+  "name": "sumYBInCreditSys",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 719,
+  "name": "isInitCredit",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 720,
+  "name": "lastTimeNaturalAddCredit",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 721,
+  "name": "creditSystemBalanceTimes",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 722,
+  "name": "creditGiftLastWeek",
+  "flag": 12,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 723,
+  "name": "creditBalanceTime",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 724,
+  "name": "creditCoupletsTime",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 725,
+  "name": "creditStatusLastWeek",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 726,
+  "name": "g89CreditScore",
+  "flag": 12,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 727,
+  "name": "bestScoreInHistory",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 728,
+  "name": "historyScoreDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 729,
+  "name": "beyondHistorySectionReward",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 730,
+  "name": "accumulatedHistoryBeyondRewardState",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 731,
+  "name": "accumulatedHistoryBeyondRewardIDs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 732,
+  "name": "beyondRewardState",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 733,
+  "name": "showLadderRedPoint",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 734,
+  "name": "getLuckyTurnPropListNA",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 735,
+  "name": "luckyTurnTaskProgressNA",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 736,
+  "name": "currentluckyTurnDataID_NA",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 737,
+  "name": "halfAnniversaryMemoryInfo",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 738,
+  "name": "hasRequestedFriendInMemory",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 739,
+  "name": "applyFriendRemarkType",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 740,
+  "name": "applyFriendRemarkContent",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 741,
+  "name": "landDroneCompsSlot",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 742,
+  "name": "landDroneCompsLevel",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 743,
+  "name": "landDroneTechPoint",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 744,
+  "name": "dtsFestivalTaskDayNo",
+  "flag": 8,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 745,
+  "name": "dtsFestivalRoundTask",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 746,
+  "name": "dtsFestivalTaskReward",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 747,
+  "name": "dtsFestivalTaskHasReward",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 748,
+  "name": "dtsFestivalTaskRewardPoint",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 749,
+  "name": "dtsFestivalTaskRewardPointDayLimit",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 750,
+  "name": "dtsFestivalTaskQualityDayLimit",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 751,
+  "name": "dtsFestivalPointReward",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 752,
+  "name": "dtsFestivalBuyDiscountProp",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 753,
+  "name": "weaponProficiency",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 754,
+  "name": "hasInitWeaponProficiency",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 755,
+  "name": "weaponAccumulateDamage",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 756,
+  "name": "weaponHitrate",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 757,
+  "name": "weaponAccumulateShoot",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 758,
+  "name": "weaponAccumulateHit",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 759,
+  "name": "weaponComments",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 760,
+  "name": "weaponVoteLikeComment",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 761,
+  "name": "hasReviewWeaponDict",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 762,
+  "name": "weaponProficiencyRankVersion",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 763,
+  "name": "highestProficiencyWeapons",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 764,
+  "name": "choosedBestWeaponID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 765,
+  "name": "proficiencyState",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 766,
+  "name": "realNameAuthed",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 767,
+  "name": "msToken",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 768,
+  "name": "msTicket",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 769,
+  "name": "hostID",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 770,
+  "name": "msHttpAP",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 771,
+  "name": "freshManState",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 772,
+  "name": "finishedDtsTraining",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 773,
+  "name": "baseCharacterType",
+  "flag": 44,
+  "raw_type": "UINT32",
+  "type": "UINT32",
+  "included": true
+ },
+ {
+  "idx": 774,
+  "name": "baseLevel",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 775,
+  "name": "isMobileAccount",
+  "flag": 44,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 776,
+  "name": "disconnectTimerID",
+  "flag": 8,
+  "raw_type": "TIMER_ID",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 777,
+  "name": "reconnecting",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 778,
+  "name": "lastLogInTime",
+  "flag": 44,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 779,
+  "name": "lastLogOutTime",
+  "flag": 44,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 780,
+  "name": "createTime",
+  "flag": 44,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": true
+ },
+ {
+  "idx": 781,
+  "name": "isTourist",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 782,
+  "name": "roleCreatTimestamp",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 783,
+  "name": "ursAccount",
+  "flag": 40,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 784,
+  "name": "exp",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 785,
+  "name": "lastOperation",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 786,
+  "name": "firstLogOnUdidForRealName",
+  "flag": 40,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 787,
+  "name": "isCheater",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 788,
+  "name": "isBan",
+  "flag": 40,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 789,
+  "name": "startBanTime",
+  "flag": 40,
+  "raw_type": "INT64",
+  "type": "INT64",
+  "included": false
+ },
+ {
+  "idx": 790,
+  "name": "banTime",
+  "flag": 40,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 791,
+  "name": "banReason",
+  "flag": 40,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 792,
+  "name": "oldNicknameList",
+  "flag": 40,
+  "raw_type": "ARRAY <of> STRING </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 793,
+  "name": "realPlayerName",
+  "flag": 8,
+  "raw_type": "KEY_NAME",
+  "type": "BLOB",
+  "included": false
+ },
+ {
+  "idx": 794,
+  "name": "processedRedPoints",
+  "flag": 44,
+  "raw_type": "ARRAY <of> INT32 </of>",
+  "type": "ARRAY",
+  "included": true
+ },
+ {
+  "idx": 795,
+  "name": "lastChangeNameTime",
+  "flag": 40,
+  "raw_type": "FLOAT",
+  "type": "FLOAT",
+  "included": false
+ },
+ {
+  "idx": 796,
+  "name": "redBadgeInfo",
+  "flag": 44,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 797,
+  "name": "identifyTagID",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 798,
+  "name": "lastGMRedhintMsg",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 799,
+  "name": "pushGMRedHintMsgTimerID",
+  "flag": 8,
+  "raw_type": "TIMER_ID",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 800,
+  "name": "readGMRedhintMsg",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 801,
+  "name": "rawUrs",
+  "flag": 8,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": false
+ },
+ {
+  "idx": 802,
+  "name": "filePickerToken",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 803,
+  "name": "filePickerDelToken",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 804,
+  "name": "filePickerVoiceToken",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 805,
+  "name": "filePickerVoiceDelToken",
+  "flag": 12,
+  "raw_type": "STRING",
+  "type": "STRING",
+  "included": true
+ },
+ {
+  "idx": 806,
+  "name": "extraCommonInfo",
+  "flag": 40,
+  "raw_type": "ARRAY <of> PYTHON </of>",
+  "type": "ARRAY",
+  "included": false
+ },
+ {
+  "idx": 807,
+  "name": "tantanSex",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 808,
+  "name": "tantanPicCount",
+  "flag": 44,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 809,
+  "name": "requestObserveTimerID",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 810,
+  "name": "mongoTestData",
+  "flag": 8,
+  "raw_type": "MONGO_TEST_DATA",
+  "type": "FIXED_DICT:MONGO_TEST_DATA",
+  "included": false
+ },
+ {
+  "idx": 811,
+  "name": "weaponKillCount",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 812,
+  "name": "rDayNo",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 813,
+  "name": "rDayData",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 814,
+  "name": "rAccumData",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 815,
+  "name": "serialReqs",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 816,
+  "name": "needDrawCardConfirm",
+  "flag": 8,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": false
+ },
+ {
+  "idx": 817,
+  "name": "valentineSuitsCollected",
+  "flag": 8,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": false
+ },
+ {
+  "idx": 818,
+  "name": "transformSuitsCollected",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 819,
+  "name": "propsFromRandomItemGiftbag",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 820,
+  "name": "useOwnAppearOverHeroAppear",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 821,
+  "name": "hasInformedHeroOwnCloth",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 822,
+  "name": "hasShowSpecialTipsPanel",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 823,
+  "name": "hasShowSpecialTipsPanelRestTime",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 824,
+  "name": "cclive_last_start_time",
+  "flag": 8,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": false
+ },
+ {
+  "idx": 825,
+  "name": "newFunctionGuideRecord",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 826,
+  "name": "enterGameCountRecord",
+  "flag": 12,
+  "raw_type": "INT32",
+  "type": "INT32",
+  "included": true
+ },
+ {
+  "idx": 827,
+  "name": "hasAccountInOtherPlatform",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 828,
+  "name": "hasAccountInOtherServer",
+  "flag": 12,
+  "raw_type": "BOOL",
+  "type": "INT8",
+  "included": true
+ },
+ {
+  "idx": 829,
+  "name": "hasShowNoGPSPermissionTips",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 830,
+  "name": "freeHeroRefreshTimes",
+  "flag": 12,
+  "raw_type": "PYTHON",
+  "type": "PYTHON",
+  "included": true
+ },
+ {
+  "idx": 831,
+  "name": "freeHeroRefreshWeekIdx",
+  "flag": 12,
+  "raw_type": "INT8",
+  "type": "INT8",
+  "included": true
+ }
+]

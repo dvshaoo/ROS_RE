@@ -2295,6 +2295,79 @@ server-side property-stream route (their "Solution C") which this file had previ
 written off. Gemini's `scratch/test_domain_0xb.py` is filtering Athlete's property
 descriptors against exactly this `0xb` mask.
 
+## 2026-09-19 RESULT: the property stream works — root-cause `TypeError` is ELIMINATED live
+
+Built and shipped the stream (`scratch/gen_stream_v2.py` ->
+`data/athlete_mobile_stream.bin`, loaded by the existing
+`ROS_ATHLETE_USE_STREAM_FILE=1` hook). Measured live across three iterations:
+
+| run | stream | first desync | `tryActiveWeekendPushRedBadge` TypeError |
+|:--|:--|:--|:--|
+| baseline (empty stream) | 0 B | n/a | **present** |
+| v1, XML types, proto-2 pickles | 1745 B | rejected by Mercury entirely | present |
+| v1, XML types, proto-0 pickles | 1456 B | ordinal 128 | present |
+| **v2, runtime types** | **1457 B** | **ordinal ~305** | **GONE (0 occurrences)** |
+
+**The original root cause is fixed.** `weekendPushRewardsHaveGotten` now arrives as
+`[]` instead of `None`, and `iWeekendPush.tryActiveWeekendPushRedBadge` no longer
+raises — it does not appear in the log at all. The `onCreate` chain now runs far
+enough that `enterHall` executes and walks its own interface chain
+(`iShareGift.enterHall` -> `iBattleGift` -> `iRedPacketGift` ->
+`iDtsRepertoryPackage` -> `iChildTable`).
+
+### Three hard lessons, each found by live measurement
+
+1. **The message must fit one Mercury packet.** A 1745-byte stream was rejected
+   outright: `Bundle::iterator::unpack( createBasePlayer ): Not enough data on stream
+   at 2 for payload (1465 left, needed 1751)`. The usable budget is **1465 bytes**
+   for `entity_id(4) + type(2) + stream`, so the stream must be <= 1459 B. Pickle
+   protocol 0 (`N.` = 2 bytes) instead of protocol 2 (`\x80\x02N.` = 4) across 143
+   PYTHON properties is what made it fit. Anything larger needs real bundle
+   fragmentation, which is not implemented.
+2. **XML `<Type>` is NOT authoritative — the runtime DataType is.** The same property
+   name is declared with different types across interfaces. Feeding XML types desynced
+   the stream at ordinal 128 (`multipleOpenTimes`, declared `PYTHON` but actually a
+   sequence), reported as
+   `SequenceDataType::createFromStream: Invalid size on stream: 36589058`.
+3. **Each descriptor's DataType pointer is at `+0x18`**, and its vtable identifies the
+   wire type exactly. Only 36 distinct DataType objects / **13 vtables** serve all 832
+   properties (`scratch/find_datatype_ptr.py` ->
+   `scratch/datatype_vtables.txt`):
+
+   | vtable | type | n | | vtable | type | n |
+   |:--|:--|--:|:-:|:--|:--|--:|
+   | `0x6af6c38` | INT32 | 256 | | `0x6af5f90` | FIXED_DICT | 11 |
+   | `0x6af7a28` | PYTHON | 247 | | `0x6af7418` | UINT64 | 9 |
+   | `0x6af69d8` | INT8 | 117 | | `0x6af84f8` | BLOB | 7 |
+   | `0x6af6448` | ARRAY | 81 | | `0x6af70f8` | UINT32 | 2 |
+   | `0x6af6050` | STRING | 44 | | `0x6af6778` | UINT8 | 1 |
+   | `0x6af7228` | INT64 | 30 | | `0x6af6b08` | INT16 | 1 |
+   | `0x6af7778` | FLOAT | 26 | | | | |
+
+   (vtable addresses are live; subtract the load base for static ones)
+
+### Confirmed wire encodings
+
+- `PYTHON` — `packed_int(len) + pickle`, decompiled from `FUN_00ac38c8`
+  (`PythonDataType::createFromStream`): reads 1 byte, and if it is `0xff` reads 3 more
+  as a 24-bit length. Identical to `_packed_int` already in the server. The
+  "Not enough data on stream to read value" log it emits is a **warning**, not fatal —
+  it fires when the resulting string is empty, then unpickles anyway.
+- `ARRAY` — 4-byte LE count (0 for empty), matching `SequenceDataType` @ `0x9a4b74`.
+- Integers/floats — plain little-endian, natural width.
+- `STRING` / `BLOB` — `packed_int(len)`.
+
+### What remains
+
+The stream still desyncs by **1 byte at around ordinal 305**, so properties after that
+point stay unset — `baseLevel`, `childBaseClientPropertyList`, `hostID`, and
+`hallTeamData` still raise `AttributeError`, and the client returns to the title
+screen instead of the Lobby. Everything before ordinal ~305 (including the target at
+258) is consumed correctly. The three bare `FIXED_DICT` properties (ordinals 48, 92,
+231 — `rankRecord`, `dtsAppearancePackage`, `braveBookDataList`) are the prime
+suspects, because their field lists are the only part of v2 still derived from XML
+rather than from the runtime DataType.
+
 ### Full deserializer spec (all values below verified this session, not inferred)
 
 `FUN_00acf8ac(entityType, stream, flagMask, dict)` wraps a visitor
