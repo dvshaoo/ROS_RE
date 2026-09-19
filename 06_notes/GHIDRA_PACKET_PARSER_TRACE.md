@@ -2390,6 +2390,24 @@ which includes the target at 258. The residual 1-byte deficit is isolated to
 `newYearGoalTaskIDList`. One of them is really a 2-byte type (we write 3 bytes for
 PYTHON: `\x02` + `N.`), which is exactly the observed 1-byte overrun.
 
+### Environment note: the emulator lost root and needs a manual LDPlayer restart
+
+Bisection stopped at K=305 because the emulator wedged: `adb shell` still answered but
+`screencap` returned 0 bytes and the game would not launch. `adb reboot` brought it
+back to `sys.boot_completed=1` with a working shell, **but root did not come back** —
+`/system/bin/su` exists yet `su 0 id` returns nothing (polled 6 times over 90s). Without
+root there is no `iptables` DNAT (so the client cannot reach our server) and no
+`/proc/<pid>/mem` access.
+
+**Recovery is manual**: close and reopen LDPlayer from its own launcher (not
+`adb reboot`), confirm the root toggle is still on, then reapply the five DNAT rules.
+Prefer restarting LDPlayer over `adb reboot` in future sessions for this reason.
+
+Also learned the hard way: every `adb logcat > file &` leaves a live adb client behind.
+Nine of them accumulated and wedged the adb connection (plain `pidof` began timing out
+at 120s). Kill stray `adb` processes — keeping the long-lived adb *server* — between
+test rounds.
+
 ### What remains
 
 The stream still desyncs by **1 byte at around ordinal 305**, so properties after that
