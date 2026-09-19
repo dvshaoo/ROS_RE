@@ -15,6 +15,8 @@ ROOT = r'C:\Users\Raysoo\Downloads\ROS_RE'
 XMLDIR = os.path.join(ROOT, '05_entities', 'out')
 OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
 TARGET = 'weekendPushRewardsHaveGotten'
+import sys
+TRUNC = int(sys.argv[1]) if len(sys.argv)>1 else None
 
 VTABLE_TYPE = {
     '0x6af6c38': 'INT32',
@@ -144,6 +146,8 @@ for ordinal, r in enumerate(inc):
     if blob is None:
         unhandled.append((ordinal, r['idx'], r['name'], rt, r['type']))
         blob = PRIM['PYTHON']
+    if TRUNC is not None and ordinal >= TRUNC:
+        break
     layout.append((ordinal, r['idx'], len(stream), len(blob), rt, r['name']))
     stream += blob
 

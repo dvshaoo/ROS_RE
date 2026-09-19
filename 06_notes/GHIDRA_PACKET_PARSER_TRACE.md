@@ -2357,6 +2357,39 @@ enough that `enterHall` executes and walks its own interface chain
 - Integers/floats — plain little-endian, natural width.
 - `STRING` / `BLOB` — `packed_int(len)`.
 
+### Narrowing the residual desync — method and result
+
+Two diagnostics, both reusable:
+
+**1. Ordinal-stamped INT32s** (`scratch/gen_stream_stamped.py`). Writing
+`1000000 + ordinal` into every INT32 instead of `0` makes the client's own error
+message reveal its exact cursor: it reported
+`SequenceDataType::createFromStream: Invalid size on stream: 1000219` at
+`700 bytes remaining`, i.e. cursor `1457-700-4 = 753`, which is **exactly** the
+offset our layout assigns to ordinal 219. So the stream was byte-perfect up to there.
+(That particular error is an artifact of stamping — `recallProgress` is read as a
+sequence, but since both INT32 and an empty ARRAY are 4 bytes it is size-neutral and
+harmless with the normal all-zero values.)
+
+**2. Truncation bisection** (`scratch/gen_stream_trunc.py <K>` emits ordinals
+`0..K-1`). If the stream is in sync, the client consumes every byte and the only
+complaint is an end-of-data one at `0 bytes remaining`; any real desync instead shows
+`Invalid size on stream: <garbage>` with a non-zero remainder. Results:
+
+| K | bytes | verdict |
+|--:|--:|:--|
+| 262 | 876 | in sync through ordinal 261 |
+| 284 | 930 | in sync through 283 |
+| 295 | 968 | in sync through 294 |
+| 301 | 974 | **in sync through 300** |
+
+So **454 of the 454 properties are correctly typed and sized up to ordinal 300**,
+which includes the target at 258. The residual 1-byte deficit is isolated to
+**ordinals 301-304**, all four of which we currently encode as `PYTHON`:
+`newYearGoalSendInfo`, `newYearGoalReceiveInfo`, `globalNewYearGoalTaskInfo`,
+`newYearGoalTaskIDList`. One of them is really a 2-byte type (we write 3 bytes for
+PYTHON: `\x02` + `N.`), which is exactly the observed 1-byte overrun.
+
 ### What remains
 
 The stream still desyncs by **1 byte at around ordinal 305**, so properties after that

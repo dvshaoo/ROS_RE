@@ -15,6 +15,7 @@ ROOT = r'C:\Users\Raysoo\Downloads\ROS_RE'
 XMLDIR = os.path.join(ROOT, '05_entities', 'out')
 OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
 TARGET = 'weekendPushRewardsHaveGotten'
+STAMP = True
 
 VTABLE_TYPE = {
     '0x6af6c38': 'INT32',
@@ -140,6 +141,8 @@ for ordinal, r in enumerate(inc):
             blob = enc_field(xml_t.split(':', 1)[1]) if xml_t.startswith('FIXED_DICT:') else None
     else:
         blob = PRIM.get(rt)
+        if STAMP and rt == 'INT32':
+            blob = struct.pack('<i', 1000000 + ordinal)
 
     if blob is None:
         unhandled.append((ordinal, r['idx'], r['name'], rt, r['type']))
