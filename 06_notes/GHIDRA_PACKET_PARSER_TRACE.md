@@ -1897,5 +1897,376 @@ model on the terrace, consistent with the `_refresh_members`/
 `hallTeamData` crash still aborting `UIMain.on_enter` before it can
 finish initializing the Lobby UI properly.
 
+## Session 2026-09-18 Checkpoint 16 (Claude, direct investigation per user instruction "ikaw na mismo mag fix ng lahat nayan" -- stop delegating to Gemini, fix it directly): updateEntity dispatch chain fully traced to `ClientVarLenMessageHandler::handleMessage`
+
+Per the user's explicit instruction to personally implement fixes rather than
+relying on Gemini, this session re-derived and extended Checkpoint 14's
+`updateEntity` (ClientInterface msgID 10) lead via direct Ghidra headless
+decompilation (all `.java` scripts in `scratch/ghidra_scripts/`, run via the
+standard `analyzeHeadless.bat -postScript` pattern already established in
+this project).
+
+### 1. `_INIT_44` registration confirms `updateEntity` handler = `FUN_00a49590`
+
+Full decompile of `_INIT_44` (`scratch/ghidra_init44_decompiled.txt`) shows
+the exact registration sequence for the `ClientInterface` message table:
+```c
+DAT_0467b0d0 = &PTR_FUN_038d7ca8;   // vtable ptr (shared by several handlers)
+uRam000000000467b0e0 = 0;           // handler+0x10: packed field, see below
+_DAT_0467b0d8 = FUN_00a49590;       // handler+0x8: the actual per-message callback
+DAT_0467b0e8 = FUN_00a8b30c(&DAT_0467af78, "updateEntity", 1, 2);
+```
+This confirms `updateEntity` is a real, distinct native message (separate
+from `createEntity`'s `FUN_00a49368`, `createCellPlayer`'s `FUN_00a47e8c`,
+etc. -- all of which share the same `PTR_FUN_038d7ca8` vtable but have
+their own callback at handler+0x8), registered as `variable-length, 2-byte
+len prefix, min size 2` -- i.e. `[msgID:10][len:u16][entity_id:u32][property_stream...]`,
+matching Checkpoint 14's original finding exactly.
+
+### 2. `FUN_00a49590` (the updateEntity callback) re-confirmed
+
+```c
+void FUN_00a49590(long param_1, long *param_2) {
+  if (*(long *)(param_1 + 0x110) != 0) {
+    puVar1 = (**(code**)(*param_2 + 0x10))(param_2, 4);  // stream_read4 -> entity_id
+    (**(code**)(**(long**)(param_1+0x110) + 0x38))(*(long**)(param_1+0x110), *puVar1, param_2, *(undefined1*)(param_1+0xe98));
+    return;
+  }
+}
+```
+i.e. `param_1` is a "manager" object; if its `+0x110` field (a pointer to
+some other object) is non-null, read entity_id (u32) from the stream, then
+call the manager's `+0x110` object's own vtable slot `+0x38` with
+`(that_object, entity_id, stream, mode_byte_from_param_1+0xe98)`.
+
+### 3. FALSIFIED HYPOTHESIS: `param_1` is NOT the static handler struct `&DAT_0467b0d0`
+
+Initial attempt assumed `param_1 == &DAT_0467b0d0` (the static registration
+object itself), since `_DAT_0467b0d8 = FUN_00a49590` looks like storing a
+per-instance callback. Computed the live address as
+`load_base + 0x467b1e0` (`= &DAT_0467b0d0 + 0x110`) using the established
+"live load base from `/proc/<pid>/maps` + static Ghidra offset" technique,
+confirmed load base `0x03308000` for both a stale session (pid 31882) and a
+fresh one (pid 4964, after force-stop + relaunch + reaching the Lobby via
+`createBasePlayer: id 1` in logcat -- confirmed live via
+`scratch/live_logcat_mgrptr_probe.txt`). **Both reads returned `0x0`.**
+
+This is not a dead end -- it's a real, useful negative result: it proves
+`FUN_00a49590`'s `param_1` is NOT the static per-interface handler object.
+
+### 4. ROOT CAUSE FOUND: the real caller is `ClientVarLenMessageHandler::handleMessage` (`FUN_00a4c540`), confirmed by its own embedded log string
+
+Found by decompiling vtable slot `[2]` of `PTR_FUN_038d7ca8` (the shared
+handler vtable) -- slot `[0]` is a trivial empty destructor stub, not the
+dispatcher. `FUN_00a4c540`'s own literal error-log string
+(`"ClientVarLenMessageHandler::handleMessage Handler for ClientMessage
+(header.length%d) did not consume all data, remain %d bytes\n"`) directly
+names the function -- zero guesswork, straight from an embedded string:
+
+```c
+void FUN_00a4c540(long param_1 /*handler obj, e.g. &DAT_0467b0d0*/,
+                   undefined8 param_2 /*source addr*/,
+                   long param_3        /*header*/,
+                   long *param_4       /*stream*/)
+{
+  lVar8 = *(long *)(*(long *)(param_3 + 0x10) + 0x4458);  // <-- THE REAL MANAGER OBJECT
+  if (*(long *)(lVar8 + 0x140) != 0) {                     // readiness check
+    uVar2 = *(undefined4 *)(param_3 + 8);                  // header.length
+    if (DAT_0467d128 == '\0') {                            // fast/sync path (not deferred)
+      pcVar7 = *(code **)(param_1 + 8);                    // = FUN_00a49590 (the registered callback)
+      plVar1 = (long *)(lVar8 + ((long)*(ulong *)(param_1 + 0x10) >> 1));
+      if ((*(ulong *)(param_1 + 0x10) & 1) != 0) {         // packed "is-indirect" bit, unset for updateEntity
+        pcVar7 = *(code **)(pcVar7 + *plVar1);
+      }
+      (*pcVar7)(plVar1, param_4, uVar2);                   // <-- ACTUAL CALL: FUN_00a49590(lVar8, stream, length)
+      ...
+    }
+  }
+}
+```
+**This proves the true `param_1` passed into `FUN_00a49590` is `lVar8`, a
+LIVE per-connection object resolved at message-dispatch time from
+`*(header+0x10) + 0x4458`** -- NOT the static `&DAT_0467b0d0` handler
+struct. This fully explains the null read in step 3: that was the wrong
+object entirely. `handler+0x10`'s packed encoding (`bit0` = indirect-call
+flag, `bits[1:]` = byte offset added to `lVar8`) is a generic mechanism
+shared by every handler using this vtable -- for `updateEntity` it's `0`,
+so no indirection: `FUN_00a49590` is called directly with `lVar8` itself as
+its manager pointer.
+
+### 5. What `*(header+0x10)` is, and the concrete next step
+
+`*(header+0x10)` is very likely the per-connection `ServerConnection`
+object (or a `NetworkInterface`/`Channel` it owns) -- logcat already shows
+`ServerConnection::createBasePlayer` as a real, live class name in this
+binary, and BigWorld's `ServerConnection` is conventionally a process-wide
+singleton reachable via a static accessor, which would make `lVar8` (at
+offset `+0x4458` from it) findable the same way without needing a live
+message in flight to catch `param_3`. **This is the concrete next step,
+not yet done**: find the `ServerConnection` singleton's static instance
+pointer (via Ghidra string/xref search for `"ServerConnection"` and its
+accessor function), read `+0x4458` from it to get `lVar8` live, confirm
+`+0x140 != 0` (readiness), then dump `lVar8`'s own structure to find and
+decompile its vtable slot `+0x38` -- which is the actual property-stream
+decoder and the last unresolved link needed to construct a valid
+`updateEntity` wire payload for pushing real values onto `hallTeamData`
+and the other three confirmed-missing Athlete properties.
+
+### Status: real, verified progress; not yet a working fix
+
+Per the project's zero-guesswork rule, no property-push has been attempted
+or sent to the live client this session -- everything above is static
+analysis backed by decompiled code and one live memory read that
+falsified a specific hypothesis (a useful negative result, not a stall).
+The four missing-property crashes documented in the previous checkpoint
+are UNCHANGED and still block `hallTeamData`/Start-button, Lobby
+gender/appearance rendering, `timerRefreshMSToken`, and
+`monthPayRebateSpecialAwardInfo`. Continuing this thread (finding the
+`ServerConnection` singleton, decompiling `lVar8`'s vtable+0x38) is the
+direct path to a real fix, and should be picked up next rather than
+resuming ad-hoc live-memory heap scanning, which this session also tried
+(scanning `EntityType[51]`'s struct at offsets `0x1b8`/`0x1d0`/`0x1e8` for
+a second, non-fixed-stride vector besides the confirmed 1131-entry Methods
+table at `+0x1e8`) and which did not turn up the property names
+(`hallTeamData` etc.) in either of the two additional vectors found there
+-- those vectors' actual contents remain unidentified and are a dead end
+for now, superseded by the `ServerConnection`/`handleMessage` lead above.
+
+## Same session, continued (per user instruction "gawin mo lahat tapos ifix mo" -- keep going, land the fix): five more approaches tried to pin down the manager singleton; all ruled out with hard evidence, none succeeded
+
+Continuing directly from Checkpoint 16's open question ("find the
+`ServerConnection` singleton's static instance pointer"). Tried five
+genuinely different techniques in this same session. None succeeded in
+pinning down the live manager object, but each produced a concrete,
+evidence-backed result -- recorded here so no future session re-tries the
+same ruled-out paths.
+
+### Attempt 1: Ghidra symbol table search for `ServerConnection` accessor functions
+
+`scratch/ghidra_scripts/FindServerConnectionSingleton.java`. Result:
+**zero function symbols** contain "ServerConnection" (confirms this
+binary's function table is fully stripped -- no demangled symbols exist
+anywhere, only `FUN_xxxxxxxx` addresses). However, found 87 **string**
+literals containing "ServerConnection", including the confirmed RTTI
+mangled type name `N4neox8bwclient16ServerConnectionE` (class is
+`neox::bwclient::ServerConnection`) and many `std::__ndk1::function`
+type-erased closure mangled names (e.g.
+`...ServerConnectionC1ERNS3_7Mercury3NubEiE4$_11...`), confirming this
+codebase wraps most `ServerConnection` callbacks in `std::function`
+closures rather than plain virtual dispatch -- this is significant: it
+means simple vtable-slot xref-chasing (which worked for the `updateEntity`
+handler class) does **not** reliably work for finding how `ServerConnection`
+itself gets invoked, since type-erased closures don't leave a simple
+"address stored as data" trail.
+
+### Attempt 2: Decompile `ServerConnection::createBasePlayer` (`FUN_00a47dc4`) to confirm field layout
+
+Confirmed via its own log string
+(`"ServerConnection::createBasePlayer: id %d\n"`). Field offsets used
+(`+0x118`=entity id being created, `+0x110`=pointer to the "manager"
+object, `+0xe98`=a mode byte, `+0xee0`/`+0xef0`/`+0xec8`/`+0xed8`=buffered
+createCellPlayer bookkeeping) are **identical in kind** to the ones
+`FUN_00a49590` (`updateEntity`'s handler) uses on its own `param_1`. This
+is strong structural confirmation that `updateEntity`'s `lVar8` (from
+Checkpoint 16) and `createBasePlayer`'s `param_1` are **the same
+`ServerConnection` instance** -- i.e. the manager object updateEntity
+needs really is the live `ServerConnection`. Also confirmed
+`(**(code**)*puVar4)(puVar4, id, type, stream, mode)` -- i.e.
+`createBasePlayer` invokes the manager's vtable **slot [0]**, while
+`updateEntity` invokes **slot [0x38]** -- two different entry points on
+the same polymorphic manager object.
+
+### Attempt 3: Trace call graph upward from `createBasePlayer`/`onBasePlayerCreate` to find a caller that reads a fixed global
+
+Both `FUN_00a47dc4` and `ClientApp::onBasePlayerCreate` (`FUN_00a18504`,
+decompiled in full this round -- confirmed fields `+0xf90`=entity id,
+`+0xfc0`=entity id->object map, matching a plausible "Entities/EntityManager"
+layout) have **no direct callers found via Ghidra xrefs** except entries
+Ghidra tags `DATA` or `INDIRECTION` at addresses `033ef8e0` and
+`03315978`. Checked both:
+- `033ef8e0` -> **`.eh_frame`** (confirmed via `MemoryBlock` lookup,
+  `scratch/ghidra_scripts/CheckBlockName.java`)
+- `03315978` -> **`.eh_frame_hdr`** (`scratch/ghidra_scripts/CheckIndirectionSlot.java`)
+
+**Both are DWARF exception-handling/unwind metadata, not vtables or call
+sites.** Every function has entries here as a normal side effect of being
+compiled with unwind tables -- this does NOT indicate indirect/virtual
+invocation. **This conclusively refutes the Attempt-1-adjacent hypothesis
+that `onBasePlayerCreate`'s vtable slot could be found this way.**
+Combined with Attempt 1's finding (heavy `std::function` closure usage),
+the real invocation path for these handlers is almost certainly through
+type-erased closures registered at `ServerConnection`/`ClientApp`
+construction time, not raw vtable dispatch -- which is much harder to
+trace statically without either (a) a symbol-preserving debug build, or
+(b) dynamic instrumentation to catch the actual indirect call target at
+runtime.
+
+### Attempt 4: Live memory field-signature scan for the `ServerConnection` heap object
+
+Confirmed the live-load-base technique still works across process
+launches (`0x03308000` for both pid 31882 and a fresh pid 4964 after
+force-stop+relaunch -- **the `.so`'s own code/data load base is stable**),
+but confirmed heap object addresses are **not** stable across launches
+(the `EntityType` vector's live pointer differed between the two pids,
+even though the element count, 172, matched as expected for static data).
+Live-tested a fresh session end-to-end: relaunched the app, dismissed the
+Events popup, selected Classic Mode controls, and confirmed
+`ServerConnection::createBasePlayer: id 1` fired in logcat -- Gate 4 flow
+is unaffected/still working.
+
+Dumped a targeted 4MB heap window (`763892600000`-`763892a00000`, chosen
+because a stale CLAUDE.md reference (`pPlayerEntity_ @ 0x763892626820`)
+fell inside it) and scanned for the `ServerConnection` signature
+(int32 `1` at `+0x118`, heap-pointer-shaped value at `+0x110`, whose
+target's first qword is itself a plausible code-segment pointer). Initial
+loose filter (`+0x118==1` only) produced 917 false-positive hits (an
+`int32` equal to `1` is far too common in arbitrary heap data -- refcounts,
+small flags, etc.). Adding the vtable-plausibility check
+(target's first qword in `0x03000000`-`0x08000000`) produced **zero**
+matches inside this 4MB window -- **the `ServerConnection` object is not
+allocated near that stale address in this session's heap.** This is a
+real negative result, not a bug: heap layout is per-launch and this
+narrow a window was always a long shot. A full-heap search would need to
+cover ~1.5GB+ across 19 `libc_malloc` regions (`scratch/maps_4964_full.txt`),
+impractical to brute-force via `adb`+`dd` pulls in reasonable time.
+
+### Honest status: the `updateEntity` property-push mechanism is real and structurally confirmed, but its live manager object could not be pinned down this session
+
+What IS now solid, evidence-backed knowledge (safe to build on in a future
+session):
+- `updateEntity` (msgID 10) genuinely exists as a native property-push
+  mechanism independent of `createBasePlayer`'s domain=0 restriction.
+- Its handler (`FUN_00a49590`) and the generic dispatcher that calls it
+  (`ClientVarLenMessageHandler::handleMessage`, `FUN_00a4c540`) are fully
+  decompiled and understood.
+- The manager object both `updateEntity` (vtable slot `0x38`) and
+  `createBasePlayer` (vtable slot `0`) operate on is the same object, and
+  is very likely the live `ServerConnection` instance itself (class
+  `neox::bwclient::ServerConnection`, confirmed via RTTI string).
+- That object is NOT reachable through a simple static vtable/global
+  pointer chase -- this codebase uses `std::function` type-erased closures
+  heavily for `ServerConnection`'s own callback wiring, which defeats the
+  address-xref-chasing technique that worked for the (simpler,
+  non-closure-based) `updateEntity`/`createEntity`/etc. handler class.
+
+What's NOT done: the live address of this manager object, and therefore
+its vtable slot `0x38` target (the actual property-stream decoder) is
+still undetermined. Per this project's zero-guesswork rule, no
+`updateEntity` payload has been sent to the live client, since the wire
+format past the entity-id prefix is still unknown and a prior session's
+blind guess in a similar situation caused a worse native crash than doing
+nothing.
+
+### Attempt 5: swept all 18 smaller `libc_malloc` regions (466MB) for the same signature -- refuted the technique itself, not just the address
+
+Extended Attempt 4's scan from one guessed 4MB window to all 18 of the
+smaller `libc_malloc` regions in `scratch/maps_4964_full.txt` (skipped
+only the one anomalous 1510MB reserved-arena region as impractical to
+pull). Result: **thousands of "strict" hits per region** (2202, 1350,
+328, 1601, 43247, 83, 23, 90, 52, 10, 15, 10, 104 across the regions that
+had any) -- i.e. the signature (int32 `1` at `+0x118`, heap pointer at
+`+0x110` whose target's first qword looks like a code address) is
+**far too common** in this game engine's live heap to identify one
+specific object. This is expected in hindsight: any small object with a
+refcount/counter of 1 and an embedded pointer to another polymorphic
+object is indistinguishable from `ServerConnection` under this filter --
+BigWorld/this engine allocates huge numbers of structurally similar
+objects. **This refutes generic-signature heap scanning as a viable
+technique for this specific problem, not just this specific attempt's
+guessed address.** A stronger signature would need additional confirmed
+fields unique to `ServerConnection` (e.g. an exact known port number or
+IP-address byte pattern from the live session), which were not available
+this round.
+
+### Realistic next steps, in order of promise (updated after Attempt 5)
+
+1. **Dynamic instrumentation (Frida) on real ARM64 hardware**, per
+   `ACCOUNT_HANDSHAKE_SYNTHESIS.md` option 4 -- now the clearly favored
+   option given Attempt 5's result. A single breakpoint/hook on
+   `FUN_00a49590` or `FUN_00a4c540` reads `param_1`/`lVar8` directly at
+   runtime, which is exactly the information five different static/live
+   approaches this session could not otherwise obtain. Previously flagged
+   as needing new hardware/environment setup -- a standing human decision,
+   not something to set up unilaterally, but this session's results make
+   a strong case that it's the only remaining practical path for this
+   specific sub-problem.
+2. Narrow a future heap scan using a MUCH stronger signature (e.g. a byte
+   pattern including the live session's actual server IP/port, or a
+   second correlated field beyond `+0x118`/`+0x110`) -- possible but
+   would need a concretely identified additional field first, which this
+   session did not find.
+3. Continue static analysis around `ServerConnection` construction
+   (`operator_new` of a matching size immediately followed by a
+   constructor call and a store to a `.bss`/`.data` global) -- not yet
+   tried, but Attempt 1 already showed this codebase wraps most
+   `ServerConnection` wiring in `std::function` closures, which makes
+   even the constructor call site harder to correlate to a single fixed
+   global than in a typical C++ binary.
+
+## Attempt 6 (same session, after user pushback "hindi mo kaya ayusin?"): searched for the exact known server IP:port byte pattern instead of a generic structural signature -- found it, twice, but could not conclusively resolve the enclosing object's base address
+
+Since our own private server is fixed at `172.16.1.2:25010`
+(`mitm/local_baseapp_capture.py` `BASEAPP_HOST`/`BASEAPP_PORT`), searched
+all 18 smaller `libc_malloc` regions for the raw 6-byte pattern
+`AC 10 01 02 61 B2` (IP octets + port in big-endian, matching BigWorld's
+`Mercury::Address{uint32 ip; uint16 port;}` layout) instead of the
+generic "refcount==1 + valid pointer" heuristic that produced thousands
+of false positives in Attempt 5.
+
+**Result: exactly 2 hits in 466MB** (`scratch/scan_address.py`), both with
+plausible padding (2 zero bytes after the port, consistent with 8-byte
+alignment) and both preceded by a run of small integer/pointer-shaped
+values:
+- `0x7638486b9170` -- preceded by a heap pointer, two `1`s, a `0`; followed
+  by a heap pointer, then a value (`0x6b887f0`) that is itself in
+  `.data.rel.ro`'s plausible vtable-pointer range.
+- `0x76384dd16ed8` -- similar shape, preceded by a heap pointer and a `1`.
+
+This is a MUCH stronger signal than anything found in Attempts 1-5 (a
+6-byte exact-value match instead of a generic shape match), and strongly
+suggests one or both of these is the live `ServerConnection`'s own stored
+target address, or a direct copy of it.
+
+**However**: brute-force-testing candidate object base addresses (offsets
+0 to 0x300 back from each hit, `scratch/probe_sc_base.py`) against the
+already-confirmed field layout from `FUN_00a47dc4`
+(`+0x118`==entity id 1, `+0x110`==valid pointer with plausible vtable)
+found 2 candidate bases for the second hit (`0x76384dd16db0` and
+`0x76384dd16d88`) that pass that specific check, but validating them
+further against `FUN_00a47dc4`'s OTHER known fields (`+0xe98`, `+0xec8`,
+`+0xed8`, `+0xee0`, `+0xef0`) produced garbage/implausible values for
+both candidates (`scratch/validate_sc_candidate.py`) -- i.e. neither
+candidate base is fully self-consistent across all known field offsets.
+Cross-checking against a decompile of `ServerConnection::logOnBegin`
+(`FUN_00a3bcb0`) and `checkScriptBaseAppAddr` (`FUN_00a3a134`) did not
+turn up an unambiguous single fixed byte-offset for the Address field
+either (`scratch/ghidra_logonbegin_decompiled.txt`) -- both functions are
+long, deal with multiple `Address`-shaped arguments/temporaries, and
+didn't yield a clean `this+CONST` read of a persistent Address member in
+the portion decompiled.
+
+**Plausible explanation, not yet confirmed**: `ServerConnection` may use
+multiple inheritance (it implements at least two distinct interfaces --
+recall `createBasePlayer` invokes the manager's vtable slot `0` while
+`updateEntity` invokes slot `0x38` on what was assumed to be the same
+object). Under multiple inheritance, the "this" pointer handed to
+different virtual interfaces of the same underlying object can differ by
+a fixed sub-object offset -- meaning `+0x110`/`+0x118` (read via one
+interface pointer) and `+0xe98` etc. (read via `ServerConnection`'s own
+"primary" this, per `FUN_00a47dc4`) may legitimately be different
+coordinate spaces, not a sign the candidate address is wrong. This was
+not confirmed or refuted this session.
+
+**Status**: closer than Attempts 1-5 (found the actual connection address
+in memory, not just a generic shape match) but still short of a
+conclusively validated `ServerConnection` base address. Given six
+different technique families have now been tried across this session
+(direct offset guess, vtable-slot decompile, symbol/string search,
+targeted heap scan, full generic-signature heap scan, exact-value heap
+scan) without a fully closed result, dynamic instrumentation (Frida) is
+the clearly indicated next tool rather than a seventh static variant --
+one runtime read of `param_1` inside `FUN_00a49590` or `FUN_00a4c540`
+would settle this immediately and is the kind of read no amount of
+additional static guessing reliably replaces.
 
 

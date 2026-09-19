@@ -32525,3 +32525,136 @@
 21:50:23.595 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=610
 21:50:23.596   BODY b'{"keypoint": "LoadingDuration", "extraData": "{\\"mapID\\": 20, \\"time\\": \\"32.68\\", \\"firstLd\\": 1}", "time": 1789739426.381084, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "b9cdd47f61064cd3a485906661ebc642", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
 21:50:23.597   -> SERVE root / (200 OK)
+22:19:51.539 REQ GET /internalquery host=nstool.netease.com len=0
+22:19:51.540   -> SERVE internalquery
+22:19:53.079 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=789
+22:19:53.079   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","user_name":"Survivor","collect_condition":"15","channel_name":"netease_global","start_time":"1789741194","finish_time":"1789741194","user_id":"1","push_time":"1789741194","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"3944.0","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:22:30.689 REQ GET /pl/h45na_hc host=g61.update.easebar.com len=0
+22:22:30.689   -> SERVE h45na_hc (empty hash check -> no patches)
+22:22:31.080 REQ GET /pl/npk_version_na_android.plist host=g61.update.easebar.com len=0
+22:22:31.081   -> SERVE T14-fixed plist (560 bytes)
+22:22:36.834 REQ GET /v1 host=whoami.nie.easebar.com len=0
+22:22:36.834   -> SERVE whoami /v1
+22:22:37.202 REQ GET /lighten/pharos_isp.txt host=impression.update.netease.com len=0
+22:22:37.202   -> SERVE pharos_isp.txt
+22:22:37.253 REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+22:22:37.253   -> SERVE server_list_ad.txt (122 bytes)
+22:22:37.275 REQ GET /server_list_ad.txt host=h45na.update.easebar.com len=0
+22:22:37.275   -> SERVE server_list_ad.txt (122 bytes)
+22:22:37.350 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=328
+22:22:37.351   BODY b'{"keypoint": "requestServerList", "extraData": "{\\"success\\": true}", "time": 1789741360.096426, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:22:37.351   -> SERVE root / (200 OK)
+22:22:37.352 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=288
+22:22:37.352   BODY b'{"keypoint": "channelLogin", "time": 1789741360.1052361, "udid": "11178811c6a412d9", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:22:37.352   -> SERVE root / (200 OK)
+22:22:39.378 REQ GET /internalquery host=nstool.netease.com len=0
+22:22:39.379   -> SERVE internalquery
+22:22:39.495 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=821
+22:22:39.496   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"32","server_list_host":"g61.update.easebar.com","ip_server_list_host":"2405:3200:500:19f::f4d","channel_name":"netease_global","start_time":"1789741362","finish_time":"1789741362","url":"g61.update.easebar.com/pl/npk_version_na_android.plist","push_time":"1789741362","device_model":"22081212C","download_id":"16fbc6888a994d66ae256dfb94ee647a","project":"h45na","source":"netease_p1","type":"Patch","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4836.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:22:39.540 REQ GET /internalquery host=nstool.netease.com len=0
+22:22:39.540   -> SERVE internalquery
+22:22:39.566 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=620
+22:22:39.567   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789741362","finish_time":"1789741362","push_time":"1789741362","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"67","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4836.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:22:39.601 REQ GET /internalquery host=nstool.netease.com len=0
+22:22:39.602   -> SERVE internalquery
+22:22:39.629 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=621
+22:22:39.629   BODY b'{"product":"h45na","server_name":"test","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"33","channel_name":"netease_global","start_time":"1789741362","finish_time":"1789741362","push_time":"1789741362","device_model":"22081212C","project":"h45na","source":"netease_p1","time_cost":"100","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4836.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:22:44.619 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+22:22:44.619   -> SERVE notice (30 bytes)
+22:22:44.688 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+22:22:44.688   -> SERVE notice (30 bytes)
+22:22:44.728 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+22:22:44.729   BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789741367.512403, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:22:44.729   -> SERVE root / (200 OK)
+22:22:44.733 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=571
+22:22:44.733   BODY b'{"keypoint": "channelLoginSuc", "extraData": "{\\"code\\": 0}", "time": 1789741367.524308, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:22:44.733   -> SERVE root / (200 OK)
+22:22:48.707 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+22:22:48.707   -> SERVE notice (30 bytes)
+22:22:48.725 REQ GET /notice_pc_hw.txt host=h45na.update.easebar.com len=0
+22:22:48.725   -> SERVE notice (30 bytes)
+22:22:48.732 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=584
+22:22:48.732   BODY b'{"keypoint": "requestSysNotice_Auto", "extraData": "{\\"success\\": true}", "time": 1789741371.5469589, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:22:48.733   -> SERVE root / (200 OK)
+22:23:25.673 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+22:23:25.673   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789741408.3900721, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:23:25.674   -> SERVE root / (200 OK)
+22:23:25.716 REQ GET /internalquery host=nstool.netease.com len=0
+22:23:25.716   -> SERVE internalquery
+22:23:25.735 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+22:23:25.736   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789741408","finish_time":"1789741408","push_time":"1789741408","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.131967067719","udid":"11178811c6a412d9","urs_result":"false","network_type":"wifi","mem_total":"5955.6","mem_idle":"4855.5","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:23:25.754 REQ GET /internalquery host=nstool.netease.com len=0
+22:23:25.755   -> SERVE internalquery
+22:23:25.774 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=752
+22:23:25.774   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"15","channel_name":"netease_global","start_time":"1789741408","finish_time":"1789741408","push_time":"1789741408","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"4855.5","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:23:26.283 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=639
+22:23:26.283   BODY b'{"keypoint": "athleteOnBecomeNonPlayer", "extraData": "{\\"usedNames\\": \\"[]\\"}", "time": 1789741409.0953341, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "gid": 0, "baseNickname": "", "playerName": "", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:23:26.283   -> SERVE root / (200 OK)
+22:23:28.477 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=636
+22:23:28.477   BODY b'{"keypoint": "onCreateCharacter", "extraData": "{\\"ret\\": 1, \\"msg\\": \\"\\"}", "time": 1789741411.2916989, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "gid": 0, "baseNickname": "", "playerName": "", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:23:28.478   -> SERVE root / (200 OK)
+22:23:29.206 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=598
+22:23:29.207   BODY b'{"keypoint": "athleteEnterHall", "time": 1789741412.014267, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "gid": 0, "baseNickname": "Survivor", "playerName": "", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:23:29.207   -> SERVE root / (200 OK)
+22:24:21.368 REQ GET /status/?project=h45na&gid=0&name=STATUS host=proxy-state.nie.netease.com len=0
+22:24:24.523 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=583
+22:24:24.524   BODY b'{"keypoint": "connectLoginHostCallback", "extraData": "{\\"status\\": 1}", "time": 1789741467.3109429, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:24:24.524   -> SERVE root / (200 OK)
+22:24:24.987 REQ GET /internalquery host=nstool.netease.com len=0
+22:24:24.988   -> SERVE internalquery
+22:24:25.004 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=794
+22:24:25.005   BODY b'{"product":"h45na","server_name":"North_America","server_ip":"172.16.1.2","server_port":"25000","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","collect_condition":"34","channel_name":"netease_global","start_time":"1789741467","finish_time":"1789741467","push_time":"1789741467","device_model":"22081212C","error_log":"Login Succ","gameserver_result":"false","gas_result":"false","loginserver_result":"false","project":"h45na","source":"netease_p1","time_cost":"0.206408023834","udid":"11178811c6a412d9","urs_result":"false","network_type":"wifi","mem_total":"5955.6","mem_idle":"3894.7","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:24:25.495 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=638
+22:24:25.495   BODY b'{"keypoint": "athleteOnBecomeNonPlayer", "extraData": "{\\"usedNames\\": \\"[]\\"}", "time": 1789741468.037792, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "gid": 0, "baseNickname": "", "playerName": "", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:24:25.495   -> SERVE root / (200 OK)
+22:24:27.334 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=635
+22:24:27.334   BODY b'{"keypoint": "onCreateCharacter", "extraData": "{\\"ret\\": 1, \\"msg\\": \\"\\"}", "time": 1789741470.148412, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "gid": 0, "baseNickname": "", "playerName": "", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:24:27.335   -> SERVE root / (200 OK)
+22:24:27.804 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=611
+22:24:27.805   BODY b'{"keypoint": "LoadingDuration", "extraData": "{\\"mapID\\": 20, \\"time\\": \\"43.39\\", \\"firstLd\\": 1}", "time": 1789741470.4842401, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:24:27.805   -> SERVE root / (200 OK)
+22:24:27.841 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=599
+22:24:27.841   BODY b'{"keypoint": "athleteEnterHall", "time": 1789741470.6500399, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "gid": 0, "baseNickname": "Survivor", "playerName": "", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:24:27.841   -> SERVE root / (200 OK)
+22:24:48.759 REQ GET /internalquery host=nstool.netease.com len=0
+22:24:48.760   -> SERVE internalquery
+22:24:48.778 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=789
+22:24:48.778   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","user_name":"Survivor","collect_condition":"15","channel_name":"netease_global","start_time":"1789741491","finish_time":"1789741491","user_id":"1","push_time":"1789741491","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"3683.8","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+22:24:50.607 REQ POST / host=sigma-keypoint-h45na.proxima.nie.easebar.com len=611
+22:24:50.608   BODY b'{"keypoint": "LoadingDuration", "extraData": "{\\"mapID\\": 20, \\"time\\": \\"12.97\\", \\"firstLd\\": 0}", "time": 1789741493.4088039, "platform": "ad", "device_id": "fake_device_ros_re", "sdk_version": "2.13.0", "uid": "guest_11178811c6a412d9", "udid": "11178811c6a412d9", "channel": "netease_global", "app_channel": "google_play", "pay_channel": "google_play", "download_id": "16fbc6888a994d66ae256dfb94ee647a", "device": "#22081212C#Qualcomm Technologies, Inc MSM8998#4#0#Adreno (TM) 750", "package_version": "1.610377.506841", "patch_version": "1.0.0.en", "sequence": 0, "os_name": "Android", "os_version": "Pie"}'
+22:24:50.608   -> SERVE root / (200 OK)
+22:53:26.344 REQ GET /internalquery host=nstool.netease.com len=0
+22:53:26.347   -> SERVE internalquery
+22:53:27.888 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=789
+22:53:27.888   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","user_name":"Survivor","collect_condition":"15","channel_name":"netease_global","start_time":"1789743208","finish_time":"1789743209","user_id":"1","push_time":"1789743208","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"3956.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+23:23:25.772 REQ GET /internalquery host=nstool.netease.com len=0
+23:23:25.772   -> SERVE internalquery
+23:23:27.303 REQ POST /client/mobile_upload/ host=data-detect.nie.netease.com len=789
+23:23:27.304   BODY b'{"product":"h45na","server_name":"test","server_ip":"0.0.0.0","server_port":"0","data_type":"1","os":"Android","os_version":"9","mobile_type":"Redmi 22081212C","user_name":"Survivor","collect_condition":"15","channel_name":"netease_global","start_time":"1789745008","finish_time":"1789745008","user_id":"1","push_time":"1789745008","device_model":"22081212C","error_log":"Client Monitoring Exception","frame_rate_avg":"30","lag_frame_rate":"20","project":"h45na","scene_id":"-1","scene_location":"-1,-1","source":"netease_p1","udid":"11178811c6a412d9","network_type":"wifi","mem_total":"5955.6","mem_idle":"3940.9","cpu_model":"AArch64 Processor rev 4 (aarch64)","cpu_clockspeed":"2865600","device_id":"11178811c6a412d9","client_dns_ip":"NULL","client_dns_result":"NULL","version":"2.8.2"}'
+13:22:36.399 REQ GET / host=192.168.100.8 len=0
+13:22:36.401   -> SERVE root / (200 OK)
+13:22:36.455 REQ GET / host=192.168.100.8 len=0
+13:22:36.455   -> SERVE root / (200 OK)
+13:22:36.465 REQ GET / host=192.168.100.8:8443 len=0
+13:22:36.465   -> SERVE root / (200 OK)
+13:22:42.489 REQ GET /HNAP1/ host=192.168.100.8 len=0
+13:22:44.650 REQ POST /mcp host=192.168.100.8 len=354
+13:22:44.650   BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS701"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+13:22:44.652 REQ GET / host=192.168.100.8:80 len=0
+13:22:44.652   -> SERVE root / (200 OK)
+13:22:44.657 REQ POST /mcp host=192.168.100.8 len=354
+13:22:44.657   BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS701"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+13:22:44.668 REQ GET / host=192.168.100.8:443 len=0
+13:22:44.668   -> SERVE root / (200 OK)
+13:22:44.673 REQ POST /mcp host=192.168.100.8:8443 len=354
+13:22:44.673   BODY b'{\n\t\t\t\t"jsonrpc": "2.0",\n\t\t\t\t"id": "hns-probe",\n\t\t\t\t"method": "server/discover",\n\t\t\t\t"params": {\n\t\t\t\t\t"_meta": {\n\t\t\t\t\t\t"io.modelcontextprotocol/protocolVersion": "2026-07-28",\n\t\t\t\t\t\t"io.modelcontextprotocol/clientInfo": {\n\t\t\t\t\t\t\t"name": "AV-HNS",\n\t\t\t\t\t\t\t"version": "HNS701"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t"io.modelcontextprotocol/clientCapabilities": {}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}'
+13:22:44.677 REQ GET / host=192.168.100.8:8443 len=0
+13:22:44.677   -> SERVE root / (200 OK)
+13:22:44.678 REQ GET /loginMsg.js host=192.168.100.8 len=0
+13:22:44.679 REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+13:22:44.683 REQ GET /loginMsg.js host=192.168.100.8 len=0
+13:22:44.688 REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+13:22:44.693 REQ GET /loginMsg.js host=192.168.100.8 len=0
+13:22:44.697 REQ GET /cgi/get.cgi?cmd=home_login host=192.168.100.8 len=0
+13:22:44.756 REQ POST / host=192.168.100.8 len=0
+13:22:44.756   -> SERVE root / (200 OK)
