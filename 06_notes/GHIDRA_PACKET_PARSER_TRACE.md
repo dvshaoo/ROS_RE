@@ -2257,6 +2257,70 @@ interface pointer) and `+0xe98` etc. (read via `ServerConnection`'s own
 coordinate spaces, not a sign the candidate address is wrong. This was
 not confirmed or refuted this session.
 
+## 2026-09-19: FIXED a real bug — `sauth` was missing the `'aid'` key, crashing `onLoginByServerSauth`
+
+Found by running the first properly-controlled `ROS_AUTO_ENTER_HALL=0` test (server
+sends ONLY `showSelectCharacter([])` then holds, so the client is never force-marched
+into the Lobby). Evidence in `scratch/live_logcat_charcreate_test.txt`:
+
+```
+Traceback (most recent call last):
+  File "elkLogging.py", line 92, in wrapper
+  File "entities\Account.py", line 56, in onChannelLogin
+  File "common\decorators.py", line 339, in inner
+  File "helpers\channel\channel_login.py", line 411, in onLoginByServerSauth
+KeyError: 'aid'
+```
+
+Our `Account.onChannelLogin(ret, sauth)` shipped a `sauth` dict containing only
+`uid`/`session`/`sdk_version`/`channel`. The client's `onLoginByServerSauth` indexes
+`sauth['aid']` and raised, aborting login completion **before** anything downstream
+could run. This had never been seen before because the auto-enter-hall sequence
+force-drove the client past it every previous session.
+
+**Fix applied** in `mitm/local_baseapp_capture.py`: added `'aid'`, and (default-on,
+`ROS_SAUTH_DEFAULTDICT=1`) ship a `collections.defaultdict(str, ...)` instead of a plain
+dict so any *other* key the client indexes yields `''` rather than raising. Rationale:
+`script.npk` is encrypted so the required key set cannot be read statically, and a
+defaultdict turns "one KeyError per server restart" into a single test that reveals the
+whole downstream path.
+
+**Verified live** (`scratch/live_logcat_sauthfix.txt`): `KeyError: 'aid'` occurrences
+went **1 → 0**, and no other `KeyError` appeared. The full entity `onCreate` chain now
+runs and the `Scene` GameObject is created.
+
+This is independently corroborated by `07_ros_legacy_approach/PC_LAUNCHER_STUDY.md:110-113`,
+which documents the PC private-server community hitting the same class of problem —
+the client's own `channel_login.py` glue aborting in `onLoginByServerSauth` before
+reaching `enterHall`.
+
+### Still open: the Character Creation UI does not appear
+
+The user supplied a reference screenshot (from other devs' working setup) of a real
+Character Creation screen — 3D character on the hall terrace, a "Tap to Enter NAME"
+field, and a "CREATE" button. So this screen **does exist and is reachable**; the
+earlier note in `HANDOFF_PROMPT_GEMINI_2026-09-18_lobby_polish.md` claiming "there is
+no interactive Character Creation UI in this client" is **WRONG and is hereby retracted**.
+
+Current live state with the `sauth` fix applied and `ROS_AUTO_ENTER_HALL=0`:
+- Login completes, `onCreate` chain runs, `showSelectCharacter([])` is delivered.
+- `_loadDefaultScene()` runs and the `Scene` GameObject is created
+  (`GetAllSubObj set([<Scene (GameObject) at 0x763838542390>])`).
+- **Then nothing.** That `GetAllSubObj` line is the last `<SCRIPT>` output; the client
+  sits on the title screen and never presents the name-entry/CREATE UI.
+
+Note `showSelectCharacter` is the **only** character-UI-shaped method in the whole
+1131-entry Athlete client method table (`scratch/athlete_methods_all.txt`):
+```
+[1083] showSelectCharacter   [1084] onCreateCharacter   [1085] onRoleCreateSuc
+[1086] onChangeNickname      [1087] updateBaseCharacter [1088] updateBaseNickname
+```
+so the trigger is not some other un-called RPC. Leading hypothesis, **not yet tested**:
+we pass `oldNames = []` (empty `ARRAY<STRING>`), and the method is named
+*show**Select**Character* — an empty list may make the client's UI code take a
+select-nothing path, whereas the real flow may require either a non-empty list or some
+additional state before it will render the create form.
+
 **Status**: closer than Attempts 1-5 (found the actual connection address
 in memory, not just a generic shape match) but still short of a
 conclusively validated `ServerConnection` base address. Given six

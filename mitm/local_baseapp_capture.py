@@ -818,12 +818,26 @@ def run_baseapp_stage_machine(sock, addr, key):
         time.sleep(0.1)
         use_key = _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or key or _BFKEY_HEX
         import pickle
-        sauth = {
+        # Live-confirmed (2026-09-19, scratch/live_logcat_charcreate_test.txt):
+        #   entities\Account.py:56 onChannelLogin -> helpers\channel\channel_login.py:411
+        #   onLoginByServerSauth -> KeyError: 'aid'
+        # The client indexes sauth by keys we don't know the full set of, and script.npk is
+        # encrypted so the key list can't be read statically. ROS_SAUTH_DEFAULTDICT=1 (default)
+        # ships a collections.defaultdict instead of a plain dict so every unknown key yields
+        # '' instead of raising, letting one live test reveal the whole downstream path at once
+        # rather than one KeyError per server restart.
+        sauth_known = {
             'uid': '900000001',
+            'aid': '900000001',
             'session': 'sess_local_fake_token',
             'sdk_version': '1.0.0',
             'channel': 'netease_global',
         }
+        if os.environ.get('ROS_SAUTH_DEFAULTDICT', '1') == '1':
+            import collections
+            sauth = collections.defaultdict(str, sauth_known)
+        else:
+            sauth = sauth_known
         p = pickle.dumps(sauth, protocol=2)
         ocl_args = struct.pack('<B', 0) + _packed_int(len(p)) + p
         ol_args = struct.pack('<i', 0) + _packed_int(0)
