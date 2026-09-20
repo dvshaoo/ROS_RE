@@ -29,16 +29,29 @@ def pid_of():
 PID = None
 
 
+def dd_b64(skip, bs, count):
+    """Binary-safe memory read. `adb exec-out` cannot be used: this adbd/su combination turns every
+    0x0A byte into 0x0D 0x0A (a 4096-byte page came back as 4169 bytes), shifting all later data.
+    Round-tripping through base64 keeps the payload text-only, so line-ending translation is harmless."""
+    import base64
+    cmd = f"su 0 sh -c 'dd if=/proc/{PID}/mem bs={bs} skip={skip} count={count} 2>/dev/null | base64'"
+    r = subprocess.run(ADB + ['shell', cmd], capture_output=True, timeout=60)
+    txt = b''.join(r.stdout.split())
+    try:
+        return base64.b64decode(txt + b'=' * (-len(txt) % 4))
+    except Exception:
+        return b''
+
+
 def chunk(ci):
     if ci not in _cache:
-        data = sh(f'su 0 dd if=/proc/{PID}/mem bs={CHUNK} skip={ci} count=1 2>/dev/null', binary=True)
+        data = dd_b64(ci, CHUNK, 1)
         if len(data) < CHUNK:
-            # a short read means part of the 64KB window is unmapped: /proc/pid/mem stops at the
-            # first fault, so re-read page by page and zero-fill only the unreadable pages
+            # short read = part of the window is unmapped; /proc/pid/mem stops at the first fault,
+            # so re-read page by page and zero-fill only the unreadable pages
             data = b''
-            for p in range(CHUNK // 4096):
-                pg = sh(f'su 0 dd if=/proc/{PID}/mem bs=4096 skip={ci * (CHUNK // 4096) + p} '
-                        f'count=1 2>/dev/null', binary=True)
+            for pnum in range(CHUNK // 4096):
+                pg = dd_b64(ci * (CHUNK // 4096) + pnum, 4096, 1)
                 data += pg.ljust(4096, bytes(1))[:4096]
         _cache[ci] = data[:CHUNK]
     return _cache[ci]

@@ -2966,3 +2966,48 @@ are both desynced at ordinal 207. **Next:** rebuild the encoder from the live ru
 `std::string` name, `DataType*`, 8 B misc), verify it on `dtsAppearancePackage` (must give 4 fields named
 `itemList/itemsList/layoutInfo/_packageCapacity`), then re-run `scratch/drive_login.py` and check that the
 `childBaseClientPropertyList` error is gone.
+
+
+## Checkpoint 20b (2026-09-20): FIXED — stream now consumed cleanly; next blocker is `extconfigs.getServiceAccessPoint`
+
+### Change
+`scratch/gen_stream_v3.py` replaces `gen_stream_v2.py`. It encodes from the client's **runtime DataType
+tree** (`scratch/athlete_runtime_types.json`, produced by `scratch/dump_runtime_types.py`, encoder in
+`scratch/runtime_encoder.py`) instead of XML regexes and vtable addresses. Key differences from v2:
+fixed-size arrays get no count and exactly `fixed` inline elements
+(`childBaseClientPropertyList` 307 B / `childClientPropertyList2` 294 B, each 1 element of a 76 / 81-field
+FIXED_DICT); everything else is byte-identical to v2 (cross-check: 1457 - 2x4 count bytes + 293 + 261 = 2003
+vs 2002 from the encoder, the 1-byte gap being the specially-cased target property). Stream = **2178 B**
+(`ROS_STREAM_DEFAULTS=min`: numbers/strings zero, PYTHON collections take their declared `[]`/`{}`), sent as
+2 Mercury fragments by `send_mercury_message`.
+
+### Runtime type-tree facts (verified live, `scratch/dump_runtime_types.py`)
+- ARRAY DataType: `+0x28` element `DataType*`, `+0x30` int32 fixed size. FIXED_DICT: `+0x20/+0x28` begin/end of
+  40-byte field records `[std::string name (24 B)][DataType* (8 B)][8 B]`. Validated on
+  `dtsAppearancePackage`: exactly 4 fields named `itemList, itemsList, layoutInfo, _packageCapacity`.
+- Class names come from RTTI (`vtable[-1] -> typeinfo -> mangled name`), so no vtable addresses are hard-coded.
+  Only 14 classes exist in the whole tree: `IntegerDataType<c,h,s,i>`, `LongIntegerDataType<j,x,y>`,
+  `FloatDataType<f>`, `String/Blob/Python/Array/FixedDict/MailBox DataType`. `MailBoxDataType` is **not** used
+  anywhere in the 454 included properties.
+
+### Live result (`scratch/lc_v3min.txt`)
+- Two `createBasePlayer: id 1` lines. **No** `SequenceDataType`/`PythonDataType` errors, **no**
+  `Could not create ...`, **no** `MemoryIStream ... still N bytes left` after the Athlete message, **no**
+  `AttributeError` (`hostID`, `gameObject`, `baseLevel`, `childBaseClientPropertyList` are all gone).
+  The Athlete stream is consumed exactly.
+- `Athlete.onBecomePlayer` now runs. It raises
+  `TypeError: 'NoneType' object has no attribute '__getitem__'` at `entities\Athlete.py:275` ->
+  `extconfigs.py:50 getServiceAccessPoint`. This is client-side service configuration (a `None` config object),
+  not the property stream.
+- After ~25 s the screen shows the game's own loading tip screen with a progress bar (the hall scene is loading).
+
+### Tooling gotcha found on the way
+`adb exec-out "su 0 dd ..."` **converts every 0x0A byte into 0x0D 0x0A** on this adbd/su pair (a 4096-byte page
+returned 4169 bytes; differences start at the first LF). Use `adb shell "su 0 sh -c 'dd ... | base64'"` and decode
+(`dump_dd_b64` in `scratch/dump_runtime_types.py`) or `dd of=file` + `adb pull`. **`fast_find_session_key()` in
+`mitm/local_baseapp_capture.py` still reads regions through `exec-out`**; a LF inside the vtable-pointer pattern or
+the 24 key bytes would silently break the match, so keyscan may still miss on some launches. Not yet changed.
+
+### Superseded / retracted by this checkpoint
+`gen_stream_v2.py` output (1457 / 1585 B) is desynced at ordinal 207 and must not be used; the
+"ordinals 301-305 residual" was a downstream symptom of that.
