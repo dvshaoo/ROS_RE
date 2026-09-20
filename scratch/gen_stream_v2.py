@@ -90,11 +90,13 @@ for fn in os.listdir(XMLDIR):
             if d:
                 py_defaults.setdefault(nm, ' '.join(d.group(1).split()))
 
-# Protocol-1 EMPTY_LIST / EMPTY_DICT opcodes: 2 bytes each, exactly the same width as
-# protocol-0 None (b'N.'), so switching these costs nothing against the 1465-byte
-# single-packet budget. Verified: pickle.loads(b'].') == [] and pickle.loads(b'}.') == {}
-PY_EMPTY_LIST = packed_int(2) + b'].'
-PY_EMPTY_DICT = packed_int(2) + b'}.'
+# Protocol-0 MARK+LIST / MARK+DICT. The 2-byte protocol-1 opcodes (b'].' / b'}.') load
+# fine under Python 3 but the client's Python 2 cPickle REJECTS them --
+# "cPickle.UnpicklingError: bad pickle data" was the first error in the log and it
+# cascaded into a stream desync. b'(l.' is already proven accepted: it is what
+# weekendPushRewardsHaveGotten has been shipping since the fix landed.
+PY_EMPTY_LIST = packed_int(3) + b'(l.'
+PY_EMPTY_DICT = packed_int(3) + b'(d.'
 
 
 def enc_field(t, depth=0):
