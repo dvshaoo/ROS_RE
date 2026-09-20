@@ -6,10 +6,11 @@ which the client reads as an inline 1-element FIXED_DICT (76 / 81 fields), desyn
 ordinal 207 onward. v3 encodes straight from athlete_runtime_types.json (scratch/dump_runtime_types.py).
 
 Env:
-  ROS_STREAM_DEFAULTS = min (default) | xml
+  ROS_STREAM_DEFAULTS = xml (default) | min
      min : zero for numbers/strings, and PYTHON collections take their declared []/{} default (the v2 "all"
            behaviour) -- isolates the desync fix from any default-value question.
-     xml : every property honours its declared <Default> literal from the entity XML.
+     xml : every property honours its declared <Default> literal from the entity XML. REQUIRED for a correct
+           Lobby: with `min` the avatar model is missing and promo boxes duplicate (live A/B, 2026-09-20).
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ ROOT = RE.ROOT
 OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
 LAYOUT = os.path.join(ROOT, 'scratch', 'athlete_stream_layout.txt')
 TARGET = 'weekendPushRewardsHaveGotten'
-MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'min')
+MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'xml')
 
 
 def elem_literal(e):

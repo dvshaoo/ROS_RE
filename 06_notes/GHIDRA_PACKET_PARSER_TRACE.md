@@ -3011,3 +3011,32 @@ the 24 key bytes would silently break the match, so keyscan may still miss on so
 ### Superseded / retracted by this checkpoint
 `gen_stream_v2.py` output (1457 / 1585 B) is desynced at ordinal 207 and must not be used; the
 "ordinals 301-305 residual" was a downstream symptom of that.
+
+
+## Checkpoint 20c (2026-09-20): full Lobby with avatar model — declared XML defaults are what make the Lobby clean
+
+### Live A/B (same 2178 B layout, only the property VALUES differ; both consume the stream cleanly)
+| run | `ROS_STREAM_DEFAULTS` | Lobby |
+|:--|:--|:--|
+| `scratch/lc_v3min.txt` | `min` (zeros; PYTHON collections `[]`/`{}`) | renders, but **no avatar model**, 4-5 overlapping duplicated promo boxes ("All team members receive additional 20%..."), a stray **Leave Team** button |
+| `scratch/lc_v3xml.txt` | `xml` (each property's declared `<Default>`) | **avatar model on the terrace, "Survivor" nameplate + rank icon, START, Ranked, Invite 0/0, clean solo-team state**, promos essentially clean (one leftover "Finish / check the" text fragment) |
+Evidence: `scratch/lobby_avatar_2026-09-20.png` (xml). The user independently reported that in the earlier state the
+player only appeared after navigating to the Ranked page, i.e. the avatar is created lazily by that page's path
+when the underlying data is wrong, and at Lobby entry when it is right (consistent with, not proof of, the A/B).
+
+### What differs: 27 properties (82 bytes) — `min` -> `xml`
+`baseLevel` 0->1, `finishedDtsTraining` 0->1, `needOBRoomTip` 0->1, `needNormalRoomTip` 0->1, `firstTimeBind` 0->1,
+`showSurveyRedPoint` 0->1, `xmasRepairArea2020ShowTips` 0->1, `readGMRedhintMsg` 0->1, `firstEnterXmasTree` 0->1,
+`isOldVersionTurntable` 0->1, `freeHeroRefreshWeekIdx` 0->1, `weaponProficiencyRankVersion` 0->1, `refreshVidChance` 0->5,
+sentinels `-1`: `choseGalaxy`, `scoreRank`, `maxScore`(int64), `xmas2018MaxLotteryIdx`, `finalReward`, `costAppearanceID`,
+`exchangedAppearanceID`, `proficiencyState`; date-like ints `lastTimeGetChickenGift` / `lastTimeGetBonusGift`
+(0x0133ec85 = 20180101), `dragonDanceJoinTime` (201904); `g89CreditScore` 0.0 -> 100.0; and the first INT32 of
+`childClientPropertyList2`'s element 0 (0 -> -1).
+**Which of these actually fixes the promo duplication / avatar is NOT yet isolated** — see the bisect below.
+
+### Also this checkpoint
+- `scratch/gen_stream_v3.py` default is now `xml`; `min` is kept only for A/B work.
+- The screenshot is kept local-only unless force-added: `.gitignore` excludes `scratch/*.png`.
+- Still open: `extconfigs.getServiceAccessPoint` TypeError in `Athlete.onBecomePlayer` (line 275) — non-fatal here,
+  cause unknown (encrypted script; the server answers `nstool.netease.com/internalquery` with 200, so it is not a
+  plain missing HTTP config).
