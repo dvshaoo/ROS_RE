@@ -22,6 +22,7 @@ import struct
 import subprocess
 import threading
 import time
+import pickle
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mitm_serve as base  # reuse H, generate_whoami_payload, PLIST, etc.
@@ -928,6 +929,40 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     eh_args = struct.pack('<B', 1)
     send_entity_method(sock, dest, key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
     log('BASEAPP: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, dest))
+
+    # Server-pushed interface state that is not part of the Athlete property stream.  Keep the
+    # verified character/lobby RPC order above intact; these initializers run only afterwards,
+    # while the hall scene is still loading.  Method 745 was verified from the live 1,131-entry
+    # Athlete client-method table (neighbors 749..751 are sync/onShowOld/onShowNewCarnivalBg).
+    hall_state_rpcs = [
+        (745, {
+            'operation': 0,
+            'luckySeasonDraws': 0,
+            'luckyRoundCloseTime': 0,
+            'luckySeasonNo': 0,
+            'luckyRoundBuff': 0,
+            'luckyRoundState': 0,
+            'luckySeasonEndTime': 0,
+            'luckySeasonGiftGotState': [],
+            'luckyRoundGotIndex': [],
+            'luckyRoundGift': [],
+            'luckyRoundDraws': 0,
+            'luckyRoundNo': 0,
+            'luckySeasonCharge': 0,
+            'luckyRoundGiftValue': [],
+            'luckyRoundRefreshTime': 0,
+            'luckyRoundIsSuper': False,
+            'luckyRoundByRecommend': False,
+        }, 'Athlete.onUpdateLuckyCarnivalData'),
+    ]
+    for method_index, value, label in hall_state_rpcs:
+        time.sleep(0.05)
+        payload = pickle.dumps(value, protocol=0)
+        send_entity_method(sock, dest, key, athlete_eid, method_index,
+                           _packed_int(len(payload)) + payload,
+                           flags=0x0008, num_methods=1131)
+        log('BASEAPP: sent %s idx=%d to eid=%d %s' %
+            (label, method_index, athlete_eid, dest))
 
     # Optional post-hall leave team reassert -- same known-ineffective workaround, see above.
     if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '0') == '1':

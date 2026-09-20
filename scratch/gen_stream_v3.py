@@ -20,11 +20,20 @@ import xmltypes as X
 ROOT = RE.ROOT
 OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
 LAYOUT = os.path.join(ROOT, 'scratch', 'athlete_stream_layout.txt')
-TARGET = 'weekendPushRewardsHaveGotten'
 MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'xml')
 # Bisection aid: with ROS_XML_ONLY=name1,name2 only those properties honour their XML default and every
 # other property behaves as in `min` mode. Used to isolate which defaults make the Lobby render correctly.
 XML_ONLY = {n for n in os.environ.get('ROS_XML_ONLY', '').split(',') if n}
+
+# Values that the private BaseApp must provide instead of the XML/default encoder's None.
+# Keep these semantic server values in one table: every entry is encoded through the property's
+# live runtime DataType, so adding an override does not bypass the verified v3 wire layout.
+PROPERTY_OVERRIDES = {
+    'weekendPushRewardsHaveGotten': [],
+    # Athlete.onBecomePlayer passes this to extconfigs.getServiceAccessPoint(ap), which indexes
+    # ap[0], ap[1] (and ap[2] for published iOS). Point all services at the LAN gateway only.
+    'msHttpAP': ['172.16.1.2', 80, 443],
+}
 
 
 def elem_literal(e):
@@ -84,8 +93,8 @@ for ordinal, r in enumerate(included):
     prop_default, elem_default = decl_defaults(r['name'], r['type'])
     node = RE.resolve(r['type'], table)
     kind = RE.kind_of(node['cls'])[0]
-    if r['name'] == TARGET:
-        blob = RE.py_default_bytes([])          # the original TypeError fix
+    if r['name'] in PROPERTY_OVERRIDES:
+        blob = ModeEncoder(table).enc(r['type'], PROPERTY_OVERRIDES[r['name']], r['name'])
     else:
         default = elem_default if (kind == 'ARRAY' and node.get('fixed', 0) > 0) else prop_default
         e = ModeEncoder(table)
@@ -94,8 +103,9 @@ for ordinal, r in enumerate(included):
     layout.append((ordinal, r['idx'], len(stream), len(blob), kind, r['name']))
     stream += blob
 
-t = [l for l in layout if l[5] == TARGET][0]
-print('%s: ordinal=%d idx=%d offset=%d len=%d' % (TARGET, t[0], t[1], t[2], t[3]))
+for name in PROPERTY_OVERRIDES:
+    t = [l for l in layout if l[5] == name][0]
+    print('%s: ordinal=%d idx=%d offset=%d len=%d' % (name, t[0], t[1], t[2], t[3]))
 print('total stream: %d bytes' % len(stream))
 for nm in ('childBaseClientPropertyList', 'childClientPropertyList2'):
     l = [x for x in layout if x[5] == nm][0]

@@ -3075,3 +3075,29 @@ Lesson recorded: a single A/B pair is not evidence. Replicate any run whose outc
 - Consistent with the user's observation (avatar/clean hall appear after visiting Rank): navigating triggers a UI
   refresh that the server-driven Stage-4 sequence does not. Cause still unknown.
 - Next: repeat with the emulator untouched (no one at the keyboard) and compare t0..t4.
+
+## Checkpoint 20f (2026-09-20): service endpoint + Lucky Carnival state unblock the first hall build
+
+### Verified causes and changes
+- Recovered `extconfigs.getServiceAccessPoint(ap)` bytecode indexes `ap[0]` and `ap[1]` (also `ap[2]` on the
+  published-iOS path). `Athlete.onBecomePlayer` passes `self.msHttpAP`, whose stream value had been `None`.
+  `scratch/gen_stream_v3.py` now has one runtime-Type-driven `PROPERTY_OVERRIDES` table and encodes
+  `msHttpAP = ['172.16.1.2', 80, 443]`; this stays entirely on the LAN. The same table retains the verified
+  `weekendPushRewardsHaveGotten = []` override. Generated stream size is 2209 B and remains aligned.
+- Once that abort was removed, the next deterministic abort identified the missing dynamic attribute
+  `iLuckyCarnivalIsSuper`. It is initialized by the client method `Athlete.onUpdateLuckyCarnivalData`; method
+  index 745 was verified against the live 1,131-entry Athlete client-method table (nearby 749..751 are the
+  expected `syncTurnTableStatus`, `onShowOldCarnivalBg`, and `onShowNewCarnivalBg`). The local BaseApp now sends
+  a complete empty/default Lucky Carnival dictionary only after the unchanged Stage-4 RPC sequence.
+
+### Repeated live results and limits
+- With only `msHttpAP` fixed, the original `extconfigs.py:50` TypeError disappeared, but initial hall UI creation
+  then aborted on `iLuckyCarnivalIsSuper`; this negative result is why the server-state initializer was added.
+- After both changes, two fresh PLAY-to-hall runs rendered the avatar without opening Ranked. The later clean
+  capture (`scratch/issue1_run3b.png`) had no duplicated promo stack and no stray Leave Team. An intermediate
+  run had the action/emoji panel open; the user confirmed they had tapped the emoji, so the three
+  `dtsInGameActionAppearanceIDs` tracebacks from that run are interaction-triggered, not fresh-login errors.
+- **Not fully fixed / no zero-error claim:** the clean visual run still logged
+  `monthPayRebateSpecialAwardInfo` missing in `UIG89MainAnwser.refreshMonthlyBenefit`, plus
+  `UIMain.showRedPoint` line 2453 iterating `None`. These are the next fresh-init blockers and may also explain
+  Depot Back failing through the same `showRedPoint` path.

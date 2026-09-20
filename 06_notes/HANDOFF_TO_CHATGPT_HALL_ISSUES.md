@@ -26,6 +26,13 @@ in the checklist ticked with a clean exit.
   onRoleCreateSuc(10002) -> updateBaseCharacter(10002) -> updateBaseNickname("Survivor") -> enterHall(True).
 
 ## Open issue 1 (PRIORITY): avatar missing after login until Rank/Depot is visited
+- **Partial progress, not closed (Checkpoint 20f):** `msHttpAP` was proven to be the value indexed by
+  `extconfigs.getServiceAccessPoint`; it now carries the LAN endpoint `['172.16.1.2', 80, 443]`. The next abort,
+  missing `iLuckyCarnivalIsSuper`, is now initialized with the verified
+  `Athlete.onUpdateLuckyCarnivalData` client RPC (index 745) after the unchanged Stage-4 sequence. Two fresh
+  transitions then showed the avatar without a Ranked refresh; the clean replicate had no duplicate promo stack
+  and no Leave Team. Do not mark the issue complete yet: fresh init still has
+  `monthPayRebateSpecialAwardInfo` missing and `UIMain.showRedPoint` iterating `None`.
 - Right after login: duplicated overlapping promo boxes, stray "Leave Team", NO avatar. After the user navigates to
   Ranked (or Depot/Weapon page) the avatar appears and the hall is clean. Same stream sometimes gives a clean hall
   (replicate test failed) -> NOT caused by property default values (notes 20d, retracted claim).
