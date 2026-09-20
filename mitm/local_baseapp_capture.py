@@ -795,8 +795,14 @@ def supplement_avail_payload(per_kind=2, now=None):
         if per_kind and count.get(kind, 0) >= per_kind:
             continue
         count[kind] = count.get(kind, 0) + 1
+        if os.environ.get('ROS_SUPPLEMENT_SLIM', '1') == '1':
+            # a single method message is limited to 65,535 bytes (2-byte length), so keep only small scalar keys
+            v = {k: x for k, x in v.items() if isinstance(x, (int, float, bool, str)) or x is None
+                 or (k in ('CURRENCY_OPTION',) and len(repr(x)) < 400)}
         picked[sid] = v
     payload = pickle.dumps(picked, protocol=0)
+    if len(payload) > 65000:
+        log('SUPPLEMENT: WARNING payload %d B exceeds the 2-byte method length; lower ROS_SUPPLEMENT_PER_KIND' % len(payload))
     log('SUPPLEMENT: %d of %d records, %d bytes pickled (kinds=%s)' % (len(picked), len(data), len(payload), sorted(count.items())))
     _SUPPLEMENT_CACHE[key] = payload
     return payload

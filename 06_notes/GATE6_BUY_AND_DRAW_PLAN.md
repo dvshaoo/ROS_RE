@@ -67,3 +67,19 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
 - Next: (1) find `SupplementKindEnum` values (defined via a helper in `common/shared` consts) or bisect by sending one KIND at a time and noting which tab fills; (2) send ALL records of a
   kind (real server sends every online one) and check the boxes; (3) once a box is selectable, tap DRAW, capture the exposed index/args of openSupplyBox, implement it (deduct currency with
   onYBUpdated 203, pick prizes from SUPPLEMENT_LIST PROP_ID/PROBABILITY, reply onOpenSupplyBox 387 with appearanceIDs); (4) same approach for mall goods (data_mall_goods) and lotteries.
+
+## Supply box — negative results & limits (2026-09-20, late)
+- **A method message is capped at 65,535 bytes**: `send_entity_method` uses a 2-byte length for method index 392 (w1 = 58 < 64). Sending all 243 online records (706 KB pickled)
+  failed with `OSError 10040` (datagram too large, and the length field would overflow anyway). Fragmenting (`send_mercury_message`) does not lift the per-message length cap; a longer
+  variable-length form (escape value + wider length) is NOT verified. `ROS_SUPPLEMENT_SLIM=1` (default) keeps only scalar keys (+ small `CURRENCY_OPTION`); `ROS_SUPPLEMENT_PER_KIND` (default 2) limits records.
+- **More/slimmer records did not fill any tab** (53 records, 42 KB, all KINDs, ids 1..; `scratch/sup4_tab*.png`): STAR still shows two "敬请期待" empty boxes, SUPREME/VEHICLE/LOOKS blank,
+  FIREARMS shows "DRAW 1x 1". So record COUNT/SIZE is not the blocker.
+- What the STAR page does (`ui\UISupplyPackage.py`): `onQueryAvailableSupplement(availSupplement)` -> `sorted(availSupplement.keys())` -> assigns up to two boxes (`box1`, `box2`) ->
+  `_initBoxWidget(boxName, supplementID, supplementInfo)` which picks a handler by `supplement_utils.getSupplementKind(supplementID)`: NORMAL_SUPPLEMENT -> `_initBoxWidget_generalBox`,
+  TIME_LIMIT_SUPPLEMENT -> `_initBoxWidget_timeLimitBox`, WEAPON_SUPPLEMENT -> ..., otherwise `_initBoxWidget_emptyBox` (the "coming soon" box we see). `getSupplementKind` reads
+  `getSupplementData(id)['KIND']` from the client's own tables (`legacyProperties`), and the numeric values of `SupplementKindEnum` are created by `initEnums` (not readable statically).
+  Hypotheses to test: (a) the dict handed to the page is pre-filtered by `iSupplement.generalSupplementFilter` and none of our ids maps to NORMAL/TIME_LIMIT because the KIND the client sees
+  differs from the KIND in `data_supplement`; (b) `legacyProperties` supplement data is not loaded in this client state; (c) values must contain extra dynamic keys added by the real server.
+- **Tooling gap:** the disassembler (`tools/script_disas.py` / `scratch/disassemble_targets.py`) has an incomplete NeoX opcode map (opcodes 160 etc. unresolved, garbled listings), so function bodies
+  cannot be read; only NAMES/CONSTS are reliable (`scratch/dump_code_consts.py <file> <funcs>`). Completing the opcode map (e.g. by aligning known stdlib modules that are also in script.npk with
+  their public Python 2.7 bytecode) would let us read `getSupplementKind`, `_initBoxWidget`, `iSupplement.onQueryAvailableSupplement` exactly and stop guessing. This is the recommended next step.
