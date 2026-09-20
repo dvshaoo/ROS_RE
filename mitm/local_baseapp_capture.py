@@ -961,6 +961,30 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         (745, _packed_int(len(lucky_carnival_pickle)) + lucky_carnival_pickle,
          'Athlete.onUpdateLuckyCarnivalData'),
     ]
+    # onGetAnniversaryAirShipRank(INT64 rank, INT64 score, STRING isOpen, INT64 leftTime, INT64 rankListLength):
+    # UIMain.refreshAirShipPanel(isOpen, leftTime) drives btn_airship's panel_coming/panel_ready/panel_finish.
+    # Without it all three panels render at once (overlapping "Finish" / "check the <time>" above Ranked).
+    # Index 873 derived from the entity_0177 ClientMethods order anchored on live-verified names at 853/859/860/864.
+    # isOpen values seen in the script constants: 'end', 'over', 'open', 'ready' (semantics still being verified live).
+    airship_state = os.environ.get('ROS_AIRSHIP_STATE', 'end').encode('utf-8')
+    if airship_state != b'-':
+        airship_payload = (struct.pack('<qq', 0, 0) + _packed_int(len(airship_state)) + airship_state +
+                           struct.pack('<qq', 0, 0))
+        airship_label = 'Athlete.onGetAnniversaryAirShipRank(isOpen=%s)' % airship_state.decode('utf-8')
+        # UIMain is only built after the hall scene is ready (roughly 60-90 s after enterHall, depending on when the
+        # "Please select controls" screen is confirmed); an earlier call finds no panel to update. The call is
+        # idempotent, so resend it at several offsets (seconds, comma separated; 0 = immediately with the others).
+        airship_delays = [float(x) for x in os.environ.get('ROS_AIRSHIP_DELAYS', '45,90,150').split(',') if x.strip()]
+        if airship_delays and max(airship_delays) > 0:
+            def _late_airship(d):
+                send_entity_method(sock, dest, key, athlete_eid, 873, airship_payload,
+                                   flags=0x0008, num_methods=1131)
+                log('BASEAPP: (delayed %.0fs) sent %s idx=873 to eid=%d %s' %
+                    (d, airship_label, athlete_eid, dest))
+            for d in airship_delays:
+                threading.Timer(d, _late_airship, args=(d,)).start()
+        else:
+            hall_state_rpcs.append((873, airship_payload, airship_label))
     for method_index, payload, label in hall_state_rpcs:
         time.sleep(0.05)
         send_entity_method(sock, dest, key, athlete_eid, method_index,

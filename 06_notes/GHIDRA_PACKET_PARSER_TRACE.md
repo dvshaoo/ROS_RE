@@ -3131,3 +3131,24 @@ Live results (server restarted with the new code, `ROS_AUTO_ENTER_HALL=1`):
   `freeYuanbao=1000` / `payYuanbao=500` in the stream did NOT change the top bar (still `283283` x3), and the Depot page shows
   0/0/0. So `freeYuanbao`/`payYuanbao` do not feed those slots (or the client caches them from another RPC). Still unknown.
   The override run's stream was regenerated back to defaults afterwards.
+
+## Checkpoint 20h (2026-09-20): overlapping labels above Ranked = airship panel state; script-decrypt tooling
+
+- New tools (no source needed any more): `tools/script_index.py` (decrypts every module of `04_obb/extracted/script.npk` with the legacy
+  `ros_script_decrypt`, writes `scratch/script_index.txt` = names/consts per file), `tools/script_query.py <file-substr> [regex]`,
+  `tools/script_disas.py <path> <func>` (NAMES/VARNAMES are reliable; the opcode column of the disassembly is NOT — opcodes are
+  remapped, treat it as a names list only).
+- Cause of the stacked "Finish" + "check the 12:25:30" + RushHour tank above Ranked: `UIMain.btn_airship` has three child panels
+  (`panel_coming`, `panel_ready`, `panel_finish`); `UIMain.refreshAirShipPanel(isOpen, leftTime)` selects one. Its only caller is
+  the client RPC `iAnniversaryAthlete.onGetAnniversaryAirShipRank(INT64 rank, INT64 score, STRING isOpen, INT64 leftTime,
+  INT64 rankListLength)` (def: entity_0177.xml). Nothing ever called it, so all three panels showed.
+- Runtime index 873: entity_0177 ClientMethods order anchored on live-verified names at 853 (onGetAnniversaryAward), 859, 860, 864
+  (from `scratch/athlete_methods_all.txt`, most other names blank in that dump).
+- LIVE RESULT: sending it at ~2 s after enterHall did nothing (UIMain not built yet). Sending `isOpen='end'` 90 s later, once the hall UI
+  exists, replaced the stacked labels by ONE label "Finish / check the reward" (`scratch/air3_now.png`). The RushHour banner + tank icon remain
+  (part of the button itself). Untested: `over`/`open`/`ready` (consts in refreshAirShipPanel); `over` may hide the button.
+  The server now resends at `ROS_AIRSHIP_DELAYS` (default `45,90,150` s); state via `ROS_AIRSHIP_STATE` (default `end`, `-` disables).
+  One run; replicate before calling it closed.
+- Startup flake seen: after restarting the server while an old game process is still alive, that stale client triggers a KEYSCAN
+  against a dead session and the fresh launch can SIGSEGV in NeoXMain before login; `drive_login` then needs a retry. Force-stop the
+  app before restarting the server.
