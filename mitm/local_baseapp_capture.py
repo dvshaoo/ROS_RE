@@ -960,6 +960,18 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         (1099, struct.pack('<I', 0), 'Athlete.gmsyncRedPoints([])'),
         (745, _packed_int(len(lucky_carnival_pickle)) + lucky_carnival_pickle,
          'Athlete.onUpdateLuckyCarnivalData'),
+        # These two attributes are BASE-only, so the property stream cannot carry them, yet UIMain reads them on
+        # enter (UIMain.on_enter -> iMonthPayRebateSpecialAward.is_all_award_done, UIMainLiveIcon.showActivityRedBadge).
+        # The uncaught AttributeError aborts the rest of UIMain.on_enter. Indices 768 / 754 read from the live
+        # 1,131-entry Athlete method-name table (scratch/dump_athlete_methods.py).
+        # syncMonthPayRebateSpecialAwardInfo(PYTHON info)
+        # is_all_award_done does info['awards'] (live KeyError with {}), so the dict needs an 'awards' key.
+        (768, _packed_int(len(pickle.dumps({'awards': {}}, protocol=0))) + pickle.dumps({'awards': {}}, protocol=0),
+         "Athlete.syncMonthPayRebateSpecialAwardInfo({'awards': {}})"),
+        # onPersonalRecommendStateUpdated(INT32 state, INT32 refreshTime, PYTHON gift, INT32 version)
+        (754, struct.pack('<ii', 0, 0) + _packed_int(len(pickle.dumps({}, protocol=0))) +
+         pickle.dumps({}, protocol=0) + struct.pack('<i', 0),
+         'Athlete.onPersonalRecommendStateUpdated(0,0,{},0)'),
     ]
     # ---- RPCs that only take visible effect once UIMain exists (sent again at ROS_HALL_LATE_DELAYS seconds) ----
     # UIMain is built roughly 60-90 s after enterHall (depends on when "Please select controls" is confirmed); an
@@ -996,6 +1008,12 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         late_rpcs.append((201, struct.pack('<qi', dev_sp, 0), 'Athlete.onSPUpdated(%d)' % dev_sp))
         late_rpcs.append((203, struct.pack('<qqi', dev_free_yb, dev_pay_yb, 0),
                           'Athlete.onYBUpdated(free=%d, pay=%d)' % (dev_free_yb, dev_pay_yb)))
+    if os.environ.get('ROS_CURRENCY_PROBE', '0') == '1':
+        # Discovery aid: onCurrencyUpdated(INT32 id, INT64 val, INT32 src)=204 with val = 1000 + id for each MallCurrencyType id.
+        # The number that appears in the top-bar coin slot reveals which id that slot (UIMain.curExchangeCoin) shows.
+        for cid in list(range(1, 24)) + [30, 31, 32, 91, 199, 201, 202, 207, 208, 209, 210, 211, 212, 213, 214, 99999]:
+            if cid not in (2, 7):       # YUANBAO / PAY_YUANBAO are derived from freeYuanbao/payYuanbao
+                late_rpcs.append((204, struct.pack('<iqi', cid, 1000 + cid, 0), 'Athlete.onCurrencyUpdated(id=%d, %d)' % (cid, 1000 + cid)))
     late_delays = [float(x) for x in os.environ.get('ROS_HALL_LATE_DELAYS', '45,90,150').split(',') if x.strip()]
 
     def _send_late_rpcs(delay):

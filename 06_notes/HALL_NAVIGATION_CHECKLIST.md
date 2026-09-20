@@ -35,3 +35,12 @@ For each: does Back/X return to the hall? which traceback?
 - Depot exit bug (see table) is a second, separate `NoneType is not iterable` in `UIMain.showRedPoint` (UIMain.py:2453):
   some red-point property/list is still None; candidates are the Athlete properties the stream fills with `N.`
   for PYTHON types. To identify: log which Athlete PYTHON property is read at UIMain.py:2453.
+
+## Open items added 2026-09-20 (user reports)
+- **Daily login popup ("LOG IN DAILY TO CLAIM GIFTS", 388 Gold marked "Claimable", TOTAL LOGINS: 0d) — the free reward cannot be claimed.**
+  Appears right after the hall UI finishes building (it was never reachable before UIMain.on_enter stopped aborting). The claim is a base
+  method the client calls (find it with `python tools/script_query.py ui/UIDailyLogin ""` / the sign-in UI script) and the server must reply with
+  the matching client method (result + updated state), or nothing happens. Not investigated yet.
+- Top-bar currency now real (diamond slot shows freeYuanbao; coin slot needs `currencyList`) — see notes 20j.
+- New-player guide overlay (dimmed hall, yellow arrows on START) appears on some fresh logins.
+- "RushHour" banner + tank icon (btn_airship) still visible; profile "My Page" shows `ID: 0`.

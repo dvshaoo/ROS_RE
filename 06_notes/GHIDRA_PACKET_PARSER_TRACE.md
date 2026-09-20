@@ -3172,3 +3172,33 @@ Live results (server restarted with the new code, `ROS_AUTO_ENTER_HALL=1`):
 - Other findings: profile "My Page" shows `ID: 0` and no name (player id / name fields unset); the top-left avatar tap opens it and its X did not close
   it but Android Back did. Back from the hall root shows the normal "Exit game?" dialog.
 - Flake: `drive_login` sometimes stops at the server-select list (the "Philippines" row must be tapped) after a crashed/first launch.
+
+## Checkpoint 20j (2026-09-20): ROOT CAUSE of the messy hall + currency solved — `UIMain.on_enter` was aborting
+
+**Finding.** `UIMain.on_enter` (UIMain.py:1594) raised on two BASE-only attributes, so everything after that line never ran. That single abort
+explains the stacked airship labels, the fake `283283 x3` top bar, the "Racing 05min 30s" placeholder, missing timers, and the previously
+"non-deterministic" hall. Fix = give the client those two attributes through the RPCs the real server uses (after the unchanged Stage-4 sequence):
+- `Athlete.onPersonalRecommendStateUpdated(INT32 state, INT32 refreshTime, PYTHON gift, INT32 version)` idx 754 -> `(0, 0, {}, 0)`.
+- `Athlete.syncMonthPayRebateSpecialAwardInfo(PYTHON info)` idx 768 -> `{'awards': {}}` (`{}` gave `KeyError: 'awards'` in `is_all_award_done`).
+Indices come from the full live method-name table: new `scratch/dump_athlete_methods.py` -> `scratch/athlete_methods_full.txt` (0 blanks; the old
+dump left every name > 22 chars empty because std::string long names are heap pointers). It also re-confirmed 201/202/203/745/873/1099.
+
+**Live result (fresh logins, no interaction except PLAY/Back on popups):** 0 SCRIPT ERROR in 4 consecutive runs (fix2, fix3, cur4, final1); final3 had
+1 error = the known `Athlete._loadDefaultScene ... 'NoneType' has no attribute 'SetLoadingProcess'` timing race, hall unaffected. Screens:
+`scratch/fix2_closed.png`, `scratch/final3_hall.png`. Now visible: real top bar, "Betting mm:ss" timer, no stacked airship labels, no red "!".
+The hall UI then proceeds to the normal daily-login popup ("LOG IN DAILY TO CLAIM GIFTS", 388 Gold "Claimable") — its claim does not work yet (open item)
+and, on some logins, the new-player guide overlay dims the hall (yellow arrows on START).
+
+**Currency (supersedes the negative result in 20i):** the bar was never refreshed because on_enter aborted. Real sources:
+- diamond slot = `freeYuanbao + payYuanbao` (stream properties);
+- coin slot = `currencyList` entry with **id 213** (`UIMain.curExchangeCoin`, found by probing `onCurrencyUpdated(id, 1000+id)` over the MallCurrencyType
+  ids: the slot showed 1213). It is an event coin, not GP (id 1) / SP (id 3).
+`scratch/gen_stream_v3.py` now: `PROPERTY_OVERRIDES['currencyList']` (dynamic ARRAY of `{id INT32, num INT64}`, count-prefixed; encoder support only for
+override properties) and default dev balance `gp=999999, sp=5000, freeYuanbao=999999`, `ROS_CURRENCY_LIST='1:999999,3:5000,213:999999'`
+(`ROS_PROP_OVERRIDES` / `ROS_CURRENCY_LIST` env to change). Stream = 2245 B. Verified live: top bar shows 999999 / 999999.
+Probe aid kept: `ROS_CURRENCY_PROBE=1` (+ `ROS_HALL_LATE_DELAYS`) resends `onCurrencyUpdated` per id after the hall UI exists.
+
+**Retractions / corrections.** 20h/20i said the airship RPC "fixes the labels" — unnecessary: the labels were a symptom of the aborted on_enter and vanish
+without it (airship + currency RPCs stay opt-in and off by default). The 20i "top-bar slots are not driven by GP/SP/YB" conclusion was wrong (on_enter
+had not run). The earlier "Ranked open/close cleans the hall" symptom is very likely the same abort (navigation re-runs display code).
+Open: daily-login claim, `_loadDefaultScene` race, guide overlay, RushHour banner/tank, My Page `ID: 0`, Depot 2nd Back `refreshTransformPanel`, Gate 5.

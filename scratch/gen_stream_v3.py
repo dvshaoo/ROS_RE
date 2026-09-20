@@ -12,7 +12,7 @@ Env:
      xml : every property honours its declared <Default> literal from the entity XML. (An earlier claim that this is
            REQUIRED for a clean Lobby was retracted: the same stream rendered both clean and messy -- see notes 20d.)
 """
-import os, sys
+import os, sys, struct
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import runtime_encoder as RE
 import xmltypes as X
@@ -25,7 +25,10 @@ MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'xml')
 # other property behaves as in `min` mode. Used to isolate which defaults make the Lobby render correctly.
 # Per-property value overrides for INT properties, e.g. ROS_PROP_OVERRIDES=freeYuanbao=1000,payYuanbao=500
 OVR = {}
-for _kv in os.environ.get('ROS_PROP_OVERRIDES', '').split(','):
+# Dev balance shown in the hall top bar (gp = gold coin, sp = silver coin, freeYuanbao/payYuanbao = diamonds).
+# Set ROS_PROP_OVERRIDES='-' to disable, or supply your own list.
+_DEFAULT_OVR = 'gp=999999,sp=5000,freeYuanbao=999999,payYuanbao=0'
+for _kv in os.environ.get('ROS_PROP_OVERRIDES', _DEFAULT_OVR).split(','):
     if '=' in _kv:
         _k, _v = _kv.split('=', 1)
         OVR[_k.strip()] = int(_v)
@@ -39,6 +42,11 @@ PROPERTY_OVERRIDES = {
     # Athlete.onBecomePlayer passes this to extconfigs.getServiceAccessPoint(ap), which indexes
     # ap[0], ap[1] (and ap[2] for published iOS). Point all services at the LAN gateway only.
     'msHttpAP': ['172.16.1.2', 80, 443],
+    # currencyList = ARRAY<CURRENCY_ITEM{id INT32, num INT64}> (dynamic array). iCurrency.getCurrencyAmount(id) reads it for every
+    # currency except YUANBAO (that one is freeYuanbao+payYuanbao). ids are MallCurrencyType consts: GP=1, YUANBAO=2, SP=3
+    # (first three only; later ids not verified). id 213 is the top-bar coin slot (UIMain.curExchangeCoin), live-verified by probe. Override with ROS_CURRENCY_LIST='1:100000,3:5000' ('-' = empty).
+    'currencyList': [{'id': int(kv.split(':')[0]), 'num': int(kv.split(':')[1])}
+                     for kv in os.environ.get('ROS_CURRENCY_LIST', '1:999999,3:5000,213:999999').split(',') if ':' in kv],
 }
 
 
@@ -75,6 +83,7 @@ def decl_defaults(name, node):
 
 class ModeEncoder(RE.Encoder):
     minmode = False
+    dynamic_arrays = False      # True only for PROPERTY_OVERRIDES: encode a non-empty list default into a count-prefixed array
 
     def enc(self, node, default=None, path=''):
         n = RE.resolve(node, self.table)
@@ -88,6 +97,9 @@ class ModeEncoder(RE.Encoder):
             # a fixed-size array carries the ELEMENT default (the <of><Default> block); pass it down
             return b''.join(self.enc(n['elem'], default if isinstance(default, dict) else None, path + '[]')
                             for _ in range(n['fixed']))
+        if kind == 'ARRAY' and n.get('fixed', 0) == 0 and self.dynamic_arrays and isinstance(default, list) and default:
+            return struct.pack('<I', len(default)) + b''.join(
+                self.enc(n['elem'], item, path + '[]') for item in default)
         return super().enc(node, default, path)
 
 
@@ -100,7 +112,9 @@ for ordinal, r in enumerate(included):
     node = RE.resolve(r['type'], table)
     kind = RE.kind_of(node['cls'])[0]
     if r['name'] in PROPERTY_OVERRIDES:
-        blob = ModeEncoder(table).enc(r['type'], PROPERTY_OVERRIDES[r['name']], r['name'])
+        oe = ModeEncoder(table)
+        oe.dynamic_arrays = True
+        blob = oe.enc(r['type'], PROPERTY_OVERRIDES[r['name']], r['name'])
     else:
         default = elem_default if (kind == 'ARRAY' and node.get('fixed', 0) > 0) else prop_default
         if r['name'] in OVR and kind == 'INT':
