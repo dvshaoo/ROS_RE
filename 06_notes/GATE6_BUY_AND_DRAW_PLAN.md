@@ -49,3 +49,21 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
 - Next: locate + decode `assets/data/properties` (see the client log line `[trouger] properties.init()... assets/data/properties`), dump the Supplement table, then
   (1) send `onQueryAvailableSupplement` with real ids after enterHall, (2) implement `openSupplyBox` (+ currency deduction via 201-204 and the item grant),
   (3) reply `onOpenSupplyBox`. Same table source is needed for the Store goods list (`MallGoods`) and prices/peso.
+
+## Supply box — progress (2026-09-20, later)
+- **Data tables found and readable:** APK `assets.npk` (NXPK, zlib members; index = header+0x14, 28-byte entries) holds the client tables as PLAIN-TEXT Python literals
+  (`data = {id: {'type':..., 'value': {...}}}`), NOT the OBB. `tools/load_table.py` reads/dumps them (`--dump` -> `scratch/assets_dump/<sig>.bin`). Member signatures are a hash of the path
+  (algorithm not yet identified: crc32/adler/fnv/murmur/djb2/sdbm/oat/bkdr all failed against script.npk pairs, see `scratch/find_npk_hash.py`); tables are identified by content:
+  `9e1c8652` = `data_supplement` (248 supplement boxes: 121 OneSupplementBoxWithGuarantee, 114 AllSupplementBoxWithGuarantee, 7 OneSupplementBox, 1 AllSupplementBox; KIND values
+  2,3,4,5,6,7,99,101,102,103,201,202, None). `ui` listing of table file names: member `5390b52a` (`data_mall_goods.py`, `data_lottery.py`, `data_mall.NN.py` ... present in that XML).
+- **Upstream call decode (new):** decrypted client packet = `flags(2)` + messages `[id 0xfa..0xfd][len16][payload]` + `seq(4)`; payload[0] = exposed method index. Verified live:
+  `fa 01 00 dd` = method 0xdd (221) with no args = `queryAvailableSupplement` (sent every time a Supply tab opens). `0x67` = telemetry(string), `0x2f` = UI-enter telemetry, `0x0f`, `0x20`, `0x7d` also telemetry-like.
+  `mitm/local_baseapp_capture.py`: `parse_upstream_messages` / `handle_upstream_calls` log each new (method,len) as `UPSTREAM CALL: ...` and answer 0xdd with
+  `Athlete.onQueryAvailableSupplement` (idx 392; payload = pickle-0 dict {supplementID: table record}, `ROS_SUPPLEMENT_PER_KIND`, default 2 per (type,KIND) = 22 records, 59.5 KB, fragmented fine).
+- **Live result:** before the reply every Supply tab was empty and DRAW/Skip did nothing. After it, the STAR SUPPLY tab renders its real UI (DRAW 1x 288/2888 diamonds, DRAW 10x, FREE +10 star,
+  star-ticket header) but both boxes show "敬请期待" (coming soon), so no supplement is selected and DRAW still sends nothing; SUPREME / VEHICLE / LOOKS stay blank and FIREARMS shows "DRAW 1x 1"
+  with a Skip overlay (screens `scratch/tab_*.png`, `scratch/draw_star.png`). No script errors. So the reply channel works; the RECORD SET/SHAPE is still wrong for the per-tab filters
+  (`generalSupplementFilter`/`advanceSupplementFilter`/`vehicleSupplementFilter` use `supplement_utils.getSupplementKind` against SupplementKindEnum whose numeric values are unknown).
+- Next: (1) find `SupplementKindEnum` values (defined via a helper in `common/shared` consts) or bisect by sending one KIND at a time and noting which tab fills; (2) send ALL records of a
+  kind (real server sends every online one) and check the boxes; (3) once a box is selectable, tap DRAW, capture the exposed index/args of openSupplyBox, implement it (deduct currency with
+  onYBUpdated 203, pick prizes from SUPPLEMENT_LIST PROP_ID/PROBABILITY, reply onOpenSupplyBox 387 with appearanceIDs); (4) same approach for mall goods (data_mall_goods) and lotteries.

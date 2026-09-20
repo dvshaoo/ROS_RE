@@ -766,6 +766,82 @@ def serve_loginapp_udp_responder():
             log('LOGINAPP UDP error: %s' % e)
 
 
+_SUPPLEMENT_CACHE = {}
+
+
+def supplement_avail_payload(per_kind=2, now=None):
+    """Pickle (protocol 0) of {supplementID: record} for Athlete.onQueryAvailableSupplement.
+
+    Records are the client's own data_supplement rows (APK assets.npk member 9e1c8652, tools/load_table.py) that are online and
+    in sale; only `per_kind` of each KIND/type are sent so the RPC stays small. The record shape is an inference from
+    common/supplement_utils (timeFilter/isInSaleFilter/preprocessOneSupplementBox) and is being verified live."""
+    now = now or time.strftime('%Y.%m.%d %H:%M:%S')
+    key = (per_kind, now[:10])
+    if key in _SUPPLEMENT_CACHE:
+        return _SUPPLEMENT_CACHE[key]
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+    import load_table as LT
+    text = LT.read_member(0x9e1c8652).decode('utf-8')
+    data = LT.parse_table(text)
+    picked, count = {}, {}
+    for sid in sorted(data):
+        rec = data[sid]
+        v = rec['value']
+        on = str(v.get('ONLINE_TIME', '')).replace('-', '.')
+        off = str(v.get('OFFLINE_TIME', '')).replace('-', '.')
+        if not (on <= now <= off) or not v.get('IS_IN_SALE', True):
+            continue
+        kind = (rec['type'], v.get('KIND'))
+        if per_kind and count.get(kind, 0) >= per_kind:
+            continue
+        count[kind] = count.get(kind, 0) + 1
+        picked[sid] = v
+    payload = pickle.dumps(picked, protocol=0)
+    log('SUPPLEMENT: %d of %d records, %d bytes pickled (kinds=%s)' % (len(picked), len(data), len(payload), sorted(count.items())))
+    _SUPPLEMENT_CACHE[key] = payload
+    return payload
+
+
+# Client -> server exposed base-method indices (first payload byte of a 0xfa..0xfd message in a decrypted bundle), derived from live
+# captures: the Supply page sends `fa 01 00 dd` (no args) each time it opens, and UIAdvanceSupplyPackage.on_enter calls
+# base.queryAvailableSupplement() (base table idx 470). Everything else is logged so the mapping can be extended.
+EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement'}
+_seen_exposed = set()
+
+
+def parse_upstream_messages(unpadded):
+    """Yield (msg_id, payload) for the [id][len16][payload] messages of a decrypted client packet (flags 0x0040 = 4-byte seq footer)."""
+    if len(unpadded) < 8:
+        return
+    flags = struct.unpack('<H', unpadded[0:2])[0]
+    body = unpadded[2:-4] if flags & 0x0040 else unpadded[2:]
+    pos = 0
+    while pos + 3 <= len(body):
+        mid = body[pos]
+        ln = struct.unpack('<H', body[pos + 1:pos + 3])[0]
+        if mid < 0xfa or pos + 3 + ln > len(body):
+            return
+        yield mid, body[pos + 3:pos + 3 + ln]
+        pos += 3 + ln
+
+
+def handle_upstream_calls(sock, addr, key, unpadded):
+    for mid, payload in parse_upstream_messages(unpadded):
+        if not payload:
+            continue
+        method = payload[0]
+        name = EXPOSED_METHODS.get(method)
+        sig = (method, len(payload))
+        if sig not in _seen_exposed:
+            _seen_exposed.add(sig)
+            log('UPSTREAM CALL: msg=0x%02x method=0x%02x (%d) %s args=%s' % (
+                mid, method, method, name or '?', payload[1:1 + 24].hex()))
+        if name == 'queryAvailableSupplement':
+            sup = supplement_avail_payload(int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2')))
+            send_entity_method(sock, addr, key, 1, 392, _packed_int(len(sup)) + sup, flags=0x0008, num_methods=1131)
+            log('BASEAPP: replied to queryAvailableSupplement with onQueryAvailableSupplement(%d B) to %s' % (len(sup), addr))
+
+
 def _packed_int(n):
     if n < 0xff:
         return bytes([n])
@@ -973,6 +1049,11 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
          pickle.dumps({}, protocol=0) + struct.pack('<i', 0),
          'Athlete.onPersonalRecommendStateUpdated(0,0,{},0)'),
     ]
+    # onQueryAvailableSupplement(PYTHON availSupplementDict) idx 392 (live table). Without it the Supply page is empty and DRAW sends nothing.
+    _sup_n = int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2'))
+    if _sup_n >= 0 and os.environ.get('ROS_SUPPLEMENT', '1') == '1':
+        _sup = supplement_avail_payload(_sup_n)
+        hall_state_rpcs.append((392, _packed_int(len(_sup)) + _sup, 'Athlete.onQueryAvailableSupplement(%d B)' % len(_sup)))
     # ---- RPCs that only take visible effect once UIMain exists (sent again at ROS_HALL_LATE_DELAYS seconds) ----
     # UIMain is built roughly 60-90 s after enterHall (depends on when "Please select controls" is confirmed); an
     # earlier call finds no widget to update. All of these are idempotent, so they are simply resent.
@@ -1262,6 +1343,12 @@ def serve_baseapp_udp_capture():
                     else:
                         unpadded = dec
                         log('  DECRYPTED (%d bytes): %s' % (len(dec), dec.hex()))
+
+            if unpadded is not None:
+                try:
+                    handle_upstream_calls(s, addr, _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX, unpadded)
+                except Exception as _e:
+                    log('UPSTREAM CALL handler error: %r' % (_e,))
 
             # 3. Channel ACK responder
             if os.environ.get('ATTEMPT_CHANNEL_ACK', '1') == '1' and unpadded is not None and len(unpadded) >= 6:
