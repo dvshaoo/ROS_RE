@@ -41,6 +41,24 @@ update the .md notes with every code change + live test). Detailed history: `06_
   Leave Team, Invite, offers, Racing, Ranked, friends, START, chat/voice) is in HALL_NAVIGATION_CHECKLIST.md, none ticked
   yet except Depot. Per route record: opens? renders data? exits with X and Back? traceback?
 
+## Open issue 4: currency display wrong (diamonds / coins)
+- Top bar in the hall (scratch/probe_T_series_t0.png) shows THREE currency slots, all with the identical value
+  `283283` (gold-coin icon, second coin icon, red diamond-like icon). Identical values suggest all three read the
+  same property or the same default, not distinct balances. The diamond slot does not show a diamond amount.
+- The Depot/Weapon page (scratch/probe_T_series_t2.png) shows `0 / 0 / 0` for its puzzle/gem/diamond counters, so
+  the values the UI reads differ per screen -> the currency properties (Athlete properties for gold/coin/diamond
+  and their stream defaults in `data/athlete_mobile_stream.bin`) are not set to distinct, meaningful values.
+- To do: (a) find which Athlete property names back each top-bar slot (search `scratch/athlete_stream_layout.txt`
+  and `scratch/athlete_props_full.txt` for gold/coin/diamond/money/gem/cash; 283283 is likely a stream default
+  from the xml defaults or a sentinel); (b) set distinct values in `gen_stream_v3.py` (a per-property override
+  table) and live-verify each slot changes as expected; (c) record the property-name -> UI-slot mapping in the notes.
+
+## Open issue 5: general UI problems seen in the hall
+- Duplicated overlapping promo boxes ("All team members receive additional 20%", "Haven't Paid", "GAMING",
+  "Finish / check the ..." fragment), stray "Leave Team" at top right, mixed Chinese placeholder text (Review popup),
+  hall clean vs messy is non-deterministic. Treat as symptoms of issues 1/2/4 until proven separate; re-check after
+  each fix with a fresh login and NO interaction.
+
 ## Other known open items
 - `fast_find_session_key()` in `mitm/local_baseapp_capture.py` still reads memory via `adb exec-out` (LF->CRLF
   corruption risk); use base64 via `adb shell` like `scratch/dump_runtime_types.py`.
