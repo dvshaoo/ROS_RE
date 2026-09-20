@@ -874,8 +874,16 @@ def handle_upstream_calls(sock, addr, key, unpadded):
                 mid, method, method, name or '?', payload[1:1 + 24].hex()))
         if name == 'queryAvailableSupplement':
             sup = supplement_avail_payload(int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2')))
-            send_entity_method(sock, addr, key, 1, 392, _packed_int(len(sup)) + sup, flags=0x0008, num_methods=1131)
-            log('BASEAPP: replied to queryAvailableSupplement with onQueryAvailableSupplement(%d B) to %s' % (len(sup), addr))
+            delay = float(os.environ.get('ROS_SUPPLEMENT_REPLY_DELAY', '0'))
+
+            def _reply(sup=sup, addr=addr, key=key):
+                send_entity_method(sock, addr, key, 1, 392, _packed_int(len(sup)) + sup, flags=0x0008, num_methods=1131)
+                log('BASEAPP: replied to queryAvailableSupplement with onQueryAvailableSupplement(%d B) to %s (delay %.2fs)' % (
+                    len(sup), addr, delay))
+            if delay > 0:
+                threading.Timer(delay, _reply).start()
+            else:
+                _reply()
 
 
 def _packed_int(n):

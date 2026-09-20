@@ -106,3 +106,12 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   `assets/data/tables_beta`) and whether our patched/empty hash check leaves it unloaded; (b) an in-client probe: the client contains a debug Python console (`ui\UIDebugCommand`, opened via `UIDebugEntrance`, F6 key does
   nothing in the hall) — enabling it would let us run `legacyProperties.getSupplementData(1)` directly; (c) read the live Python object from process memory.
 - Also observed: pressing F6 (adb keyevent 135) in the hall does nothing; `systemJumpPanel` (Athlete client method idx 1096) has no script implementation in the index; `iGMAdmin` is anti-cheat/log upload, not code execution.
+
+## Supply — negative result: reply delay is NOT the cause (2026-09-20, late, Claude)
+- Added `ROS_SUPPLEMENT_REPLY_DELAY` (seconds; the `queryAvailableSupplement` reply is sent from a timer). With 0.7 s delay and 53 records (44,380 B) the STAR tab STILL shows two "敬请期待" boxes and
+  the other tabs stay blank; no script error (screens `scratch/now1.png`, `scratch/now2.png`; the auto-tab screenshots `sup5_tab*.png` are INVALID — the user navigated during the run and they show the Profile page).
+- Remaining hypothesis: `legacyProperties.getSupplementData(id)` is falsy in this client (kind -1 -> emptyBox). Verified facts: ids 1 (kind 1) and 2 (kind 2) are the only current general boxes and
+  are always sent; `_initBoxWidget` -> `kind2HandleFunc[kind]` (NORMAL/TIME_LIMIT/WEAPON) else `_initBoxWidget_emptyBox`. `properties.init(data_path)` uses `ResourceManager.openSection` on the
+  `assets/data/properties` tree (in assets.npk: `data/properties/supplement/data_supplement.py` exists). Whether the loader (lazy: `lazyInitAsync` from `UILogin._delay_on_enter`) actually loaded
+  supplement data is unknown. Next: read `properties.load_all_data_modules` / `lazyInit` bodies with the corrected disassembler and check what `is_lazy`/`FIRST_LOAD_STAGE*` skip; or probe the live
+  Python object (memory) for `legacyProperties` module dict; or bring up the debug console (`ui\UIDebugCommand`).
