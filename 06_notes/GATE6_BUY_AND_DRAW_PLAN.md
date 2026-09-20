@@ -115,3 +115,9 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   `assets/data/properties` tree (in assets.npk: `data/properties/supplement/data_supplement.py` exists). Whether the loader (lazy: `lazyInitAsync` from `UILogin._delay_on_enter`) actually loaded
   supplement data is unknown. Next: read `properties.load_all_data_modules` / `lazyInit` bodies with the corrected disassembler and check what `is_lazy`/`FIRST_LOAD_STAGE*` skip; or probe the live
   Python object (memory) for `legacyProperties` module dict; or bring up the debug console (`ui\UIDebugCommand`).
+
+## Diagnostic idea NOT pursued (2026-09-20): client hotfix channel
+- `iProxy.sendHotfix(INT32 proxyID, STRING md5, STRING hotfix)` (client method idx 11) -> `tps.onProxyDataDownloadComplete` -> `cPickle.loads(zlib.decompress(hotfix))` -> `tps.run_hotfix(source, md5, compiled)`
+  = `compile(source,'hotfix','exec')` + exec in `__main__` (when proxyID == `const.PROXY_KEY_HOTFIX`, value not read; `PROXY_KEY_HOTFIX_COMPILED` variant uses marshal). It would let us run read-only
+  probes inside the client (e.g. `legacyProperties.getSupplementData(1)`), but it is a server->client code-execution path, the tool permission layer refused it, and it was backed out (nothing committed).
+  Safer alternatives to identify why the Supply boxes are empty: read `properties.load_all_data_modules` behaviour statically, inspect process memory, or ask the user to enable the client's own debug console.
