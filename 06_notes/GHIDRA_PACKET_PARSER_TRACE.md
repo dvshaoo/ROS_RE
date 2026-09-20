@@ -3101,3 +3101,33 @@ Lesson recorded: a single A/B pair is not evidence. Replicate any run whose outc
   `monthPayRebateSpecialAwardInfo` missing in `UIG89MainAnwser.refreshMonthlyBenefit`, plus
   `UIMain.showRedPoint` line 2453 iterating `None`. These are the next fresh-init blockers and may also explain
   Depot Back failing through the same `showRedPoint` path.
+
+## Checkpoint 20g (2026-09-20): auto nickname `Dev | Raysoo`, `gmsyncRedPoints([])`, currency negative result
+
+Code: `mitm/local_baseapp_capture.py` — default nickname now `ROS_BASE_NICKNAME` (default `Dev | Raysoo`); after the unchanged
+Stage-4 sequence the server also sends `Athlete.gmsyncRedPoints([])` (client-method idx 1099, empty dynamic ARRAY = `<I 0`)
+then `onUpdateLuckyCarnivalData` (idx 745). Tooling: `scratch/drive_login.py`/`lobby_probe.py` honour `ADB_PATH`
+(`ROS_SERVER_LOG` for the server log); new `scratch/fresh_run.sh <label>` (fresh login + controls Confirm + full-logcat
+SCRIPT ERROR list) and `scratch/depot_test.sh <label>` (Depot open + Android Back); `gen_stream_v3.py` takes
+`ROS_PROP_OVERRIDES=name=int,...` for INT properties.
+
+Live results (server restarted with the new code, `ROS_AUTO_ENTER_HALL=1`):
+- Run 1 and run 2 (fresh logins, no interaction): hall shows the avatar, nickname exactly `Dev | Raysoo`, no duplicate
+  promo stack, no stray "Leave Team". (After the "Please select controls" screen is confirmed.) Screens:
+  `scratch/rp1_hall4.png`, `scratch/fresh_cur1_hall.png`.
+- `UIMain.showRedPoint` NoneType error: absent in both fresh runs, and the first Android Back out of the Depot popup
+  no longer raised it (`scratch/depot_v1_logcat.txt`, 0 SCRIPT ERROR). Consistent with `displayAll -> showRedPoint(Globals.redPoints)`.
+  Two runs so far; replicate more before calling it closed.
+- Fresh-login SCRIPT ERRORs still present (run 2, full logcat stream): (1) `iMonthPayRebateSpecialAward.is_all_award_done`
+  -> `monthPayRebateSpecialAwardInfo` missing (from `UIMain.on_enter`); (2) NEW: `UIMainLiveIcon.showActivityRedBadge` ->
+  `personalRecommendState` missing (`entity_0141.xml`: INT32, XML default 0; not in the 454-property stream, so it must be
+  set by an RPC/other path). Run 1 additionally logged `Athlete._loadDefaultScene` `'NoneType' ... SetLoadingProcess` once
+  (not reproduced in run 2; likely a timing race).
+- Depot Back, second press: crashes in `UIDtsAppearanceCostume.on_leave -> DtsAppearanceRightPanelPattern1.on_leave ->
+  onHideTransformBtn`: `'NoneType' object has no attribute 'refreshTransformPanel'`. The leave aborts halfway and leaves a
+  blank scene with no HUD (user is stuck until the app is restarted). Cause not identified (a transform-panel object that
+  was never created).
+- NEGATIVE: currency. The three top-bar slots read `283283`, which does not occur in the stream. Setting
+  `freeYuanbao=1000` / `payYuanbao=500` in the stream did NOT change the top bar (still `283283` x3), and the Depot page shows
+  0/0/0. So `freeYuanbao`/`payYuanbao` do not feed those slots (or the client caches them from another RPC). Still unknown.
+  The override run's stream was regenerated back to defaults afterwards.

@@ -23,6 +23,12 @@ LAYOUT = os.path.join(ROOT, 'scratch', 'athlete_stream_layout.txt')
 MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'xml')
 # Bisection aid: with ROS_XML_ONLY=name1,name2 only those properties honour their XML default and every
 # other property behaves as in `min` mode. Used to isolate which defaults make the Lobby render correctly.
+# Per-property value overrides for INT properties, e.g. ROS_PROP_OVERRIDES=freeYuanbao=1000,payYuanbao=500
+OVR = {}
+for _kv in os.environ.get('ROS_PROP_OVERRIDES', '').split(','):
+    if '=' in _kv:
+        _k, _v = _kv.split('=', 1)
+        OVR[_k.strip()] = int(_v)
 XML_ONLY = {n for n in os.environ.get('ROS_XML_ONLY', '').split(',') if n}
 
 # Values that the private BaseApp must provide instead of the XML/default encoder's None.
@@ -97,6 +103,8 @@ for ordinal, r in enumerate(included):
         blob = ModeEncoder(table).enc(r['type'], PROPERTY_OVERRIDES[r['name']], r['name'])
     else:
         default = elem_default if (kind == 'ARRAY' and node.get('fixed', 0) > 0) else prop_default
+        if r['name'] in OVR and kind == 'INT':
+            default = OVR[r['name']]
         e = ModeEncoder(table)
         e.minmode = bool(XML_ONLY) and r['name'] not in XML_ONLY
         blob = e.enc(r['type'], default, r['name'])

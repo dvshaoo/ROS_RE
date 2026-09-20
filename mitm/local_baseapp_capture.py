@@ -881,7 +881,7 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     if char_type is None:
         char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10002'))
     if nick is None:
-        nick = b"Survivor"
+        nick = os.environ.get('ROS_BASE_NICKNAME', 'Dev | Raysoo').encode('utf-8')
     elif isinstance(nick, str):
         nick = nick.encode('utf-8')
 
@@ -934,8 +934,7 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     # verified character/lobby RPC order above intact; these initializers run only afterwards,
     # while the hall scene is still loading.  Method 745 was verified from the live 1,131-entry
     # Athlete client-method table (neighbors 749..751 are sync/onShowOld/onShowNewCarnivalBg).
-    hall_state_rpcs = [
-        (745, {
+    lucky_carnival = {
             'operation': 0,
             'luckySeasonDraws': 0,
             'luckyRoundCloseTime': 0,
@@ -953,14 +952,19 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
             'luckyRoundRefreshTime': 0,
             'luckyRoundIsSuper': False,
             'luckyRoundByRecommend': False,
-        }, 'Athlete.onUpdateLuckyCarnivalData'),
+    }
+    lucky_carnival_pickle = pickle.dumps(lucky_carnival, protocol=0)
+    hall_state_rpcs = [
+        # gmsyncRedPoints(ARRAY<RED_POINT>): UIMain.displayAll passes Globals.redPoints
+        # directly to showRedPoint(), so the server must initialize it even when empty.
+        (1099, struct.pack('<I', 0), 'Athlete.gmsyncRedPoints([])'),
+        (745, _packed_int(len(lucky_carnival_pickle)) + lucky_carnival_pickle,
+         'Athlete.onUpdateLuckyCarnivalData'),
     ]
-    for method_index, value, label in hall_state_rpcs:
+    for method_index, payload, label in hall_state_rpcs:
         time.sleep(0.05)
-        payload = pickle.dumps(value, protocol=0)
         send_entity_method(sock, dest, key, athlete_eid, method_index,
-                           _packed_int(len(payload)) + payload,
-                           flags=0x0008, num_methods=1131)
+                           payload, flags=0x0008, num_methods=1131)
         log('BASEAPP: sent %s idx=%d to eid=%d %s' %
             (label, method_index, athlete_eid, dest))
 

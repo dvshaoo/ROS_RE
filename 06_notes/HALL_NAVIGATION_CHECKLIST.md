@@ -14,6 +14,7 @@ Screen is landscape 1920x1080 in tap coordinates (`wm size` reports the native 1
 | Route | Opens | Exit | Error |
 |---|---|---|---|
 | Depot -> Review popup | yes (placeholder Chinese text, no data) | X tap ignored; Android Back crashes | `UIDtsAppearanceMainController.on_leave -> UIMain.displayAll -> UIMain.showRedPoint` (UIMain.py:2453) `TypeError: 'NoneType' object is not iterable` -> leave aborted, user stuck |
+| Depot -> Back (2nd press) | Depot main page | Back crashes | `UIDtsAppearanceCostume.on_leave -> DtsAppearanceRightPanelPattern1.on_leave -> onHideTransformBtn`: `NoneType.refreshTransformPanel`; blank scene, stuck |
 
 ## To test (tick when done)
 Left menu: [ ] Store  [ ] Supply  [ ] Manual  [ ] Platoon  [ ] Depot  [ ] Lucky Club  [ ] NEW! tag
