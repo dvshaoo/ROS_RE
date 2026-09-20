@@ -1,7 +1,7 @@
 # GEMINI.md — Rules of Survival (ROS) Private Server Emulation & RE Master Guide
 
 > **Author**: Gemini / Antigravity Agent  
-> **Last Updated**: 2026-09-18 (Checkpoint 14: updateEntity decompiled; iWeekendPush crash traceback confirmed non-fatal)  
+> **Last Updated**: 2026-09-19 (Checkpoint 18: iWeekendPush TypeError proved as single root cause of both missing attributes & Level Destroy)  
 > **Client Version**: Rules of Survival Mobile (Android `com.netease.chiji`, v1.610377.506841, vCode 1117219, arm64-v8a)  
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)
 

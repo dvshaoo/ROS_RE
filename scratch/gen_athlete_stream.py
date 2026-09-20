@@ -115,6 +115,36 @@ def encode(typ, depth=0):
 
 
 rows = json.load(open(ROWS, encoding='utf-8'))
+
+# ---------------------------------------------------------------------------
+# Optional argument handling – allow limiting the stream to specific property
+# indices (e.g. 300-304). This is useful for focused debugging of the athlete
+# property table.
+# ---------------------------------------------------------------------------
+import argparse
+parser = argparse.ArgumentParser(description='Generate Athlete property stream')
+parser.add_argument('--indices', type=str, default='',
+                    help='Comma‑separated list or range of property indices to include (e.g. "300-304" or "300,301,302")')
+args = parser.parse_args()
+
+# Convert the user‑provided string into a set of integer indices.
+def parse_indices(spec: str):
+    if not spec:
+        return None
+    result = set()
+    for part in spec.split(','):
+        part = part.strip()
+        if '-' in part:
+            start, end = part.split('-')
+            result.update(range(int(start), int(end) + 1))
+        else:
+            result.add(int(part))
+    return result
+
+include_indices = parse_indices(args.indices)
+# ---------------------------------------------------------------------------
+# End of argument handling
+# ---------------------------------------------------------------------------
 inc = [r for r in rows if r['included']]
 print(f'included properties: {len(inc)}')
 
@@ -122,6 +152,9 @@ stream = b''
 unhandled = []
 layout = []
 for ordinal, r in enumerate(inc):
+    # If the user limited the stream to specific property indices, skip others.
+    if include_indices is not None and r['idx'] not in include_indices:
+        continue
     typ = r['type']
     # the two ARRAY-of-inline-FIXED_DICT decls whose nested <Properties> defeat the
     # simple type regex; an empty ARRAY is 4 zero bytes regardless of element type

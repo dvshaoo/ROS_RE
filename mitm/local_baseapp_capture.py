@@ -953,7 +953,7 @@ def run_baseapp_stage_machine(sock, addr, key):
         # Transition entity to cell domain: fires Entity::readCellPlayerData -> EntityType::newDictionary(domain=1),
         # which sets defaults for all 454 client properties in PyDict_New() and updates self.__dict__,
         # then executes ClientApp vtable slot 3, calling onBecomeCellPlayer!
-        if os.environ.get('ROS_SEND_CELL_PLAYER', '1') == '1':
+        if os.environ.get('ROS_SEND_CELL_PLAYER', '0') == '1':
             time.sleep(0.05)
             space_id = int(os.environ.get('ROS_SPACE_ID', '1'))
             send_create_cell_player(sock, addr, use_key, space_id=space_id, vehicle_id=0, stream=b'', flags=0x0008)

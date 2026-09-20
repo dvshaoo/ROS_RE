@@ -112,19 +112,25 @@ The client parsed the entity ID, decoded method 1083, and entered `MethodDescrip
 
 ---
 
-## 7. Current Implementation & Live Test Plan for Claude
+## 7. Checkpoint 18: Definitive Root Cause of the Two Missing Attributes & Teardown
 
-Implemented in `mitm/local_baseapp_capture.py` (`run_baseapp_stage_machine` Stage 4):
-1. Sends `showSelectCharacter([])` (idx 1083, 4 bytes `00 00 00 00`) $\to$ triggers `_loadDefaultScene()` and instantiates `Scene`.
-2. Sleeps `ROS_SCENE_LOAD_DELAY` (default 2.5s) to allow the async loader to instantiate `Scene`.
-3. Sends `onCreateCharacter(True, "")` (idx 1084) $\to$ `updateBaseCharacter(1)` (idx 1087) $\to$ `updateBaseNickname("Survivor")` (idx 1088) $\to$ `enterHall(True)` (idx 1091).
-4. `enterHall` finds `GameObject.Find('Scene')` successfully, invoking `SceneSystem.loadHallScene()`.
+See detailed breakdown in [HANDOFF_TO_CLAUDE_WEEKENDPUSH_LOBBY.md](file:///c:/Users/Raysoo/Downloads/ROS_RE/scratch/HANDOFF_TO_CLAUDE_WEEKENDPUSH_LOBBY.md).
 
-### Live Test Instructions for Claude:
-1. Relaunch server: `python mitm/local_baseapp_capture.py`
-2. Force-stop and restart app on LDPlayer: `adb shell am force-stop com.netease.chiji && adb shell monkey -p com.netease.chiji 1`
-3. Capture logcat: `adb logcat -c && adb logcat > scratch/live_logcat_stage4_verified.txt &`
-4. Tap PLAY: `adb shell input tap 960 740`
-5. Verify in logcat that `_loadDefaultScene` and `showSelectCharacter` execute without arg errors, and `enterHall` executes without `AttributeError`!
-6. Verify 3D scene / Lobby screencap!
+### The Root Cause:
+1. `iHallTeam.onCreate()` line 45 sets `self.hallTeamData = {}`.
+2. `Athlete.onCreate()` line 365 sets `self.timerRefreshMSToken = None`.
+3. Both methods are chained via `safesuper(Class, self).onCreate()` over 143 interfaces.
+4. In `entities\iWeekendPush.py:14`, `onCreate` calls `tryActiveWeekendPushRedBadge()`.
+5. At line 66, it does `set(rewardsCanGet) - set(self.weekendPushRewardsHaveGotten)`.
+6. Because `weekendPushRewardsHaveGotten` has `<Flags> BASE_AND_CLIENT </Flags>` and NO default in `entity_0376.xml`, sending an empty stream in `createBasePlayer(Athlete)` initializes it as `None`.
+7. `set(None)` raises `TypeError: 'NoneType' object is not iterable` (verified in `live_logcat_charcreate_test.txt:153421`).
+8. This unhandled `TypeError` **aborts the unwinding of the entire `onCreate()` chain**!
+9. Consequently:
+   - `self.hallTeamData = {}` never runs $\to$ `AttributeError: hallTeamData` in `UIModes.on_enter`.
+   - `self.timerRefreshMSToken = None` never runs $\to$ `AttributeError: timerRefreshMSToken` in `onBecomeNonPlayer`.
+   - `onBecomeNonPlayer` crash causes `setPlayer::new player is null` $\to$ `App CMD 31` (Quit) $\to$ `Level Destroy (-1)`.
+
+### Resolution Strategy:
+Neutralize `TypeError` in `tryActiveWeekendPushRedBadge` or supply default in `createBasePlayer` property stream.
+Once `onCreate()` finishes cleanly, `hallTeamData` and `timerRefreshMSToken` exist automatically, allowing the client to transition past the "Please select controls" screen (`hall_entry_t12s.png`) into the interactive 3D Lobby!
 
