@@ -2178,6 +2178,77 @@ fields unique to `ServerConnection` (e.g. an exact known port number or
 IP-address byte pattern from the live session), which were not available
 this round.
 
+### Attempt 7 (2026-09-20): precisely characterized WHY Frida attach fails -- ptrace itself works; the failure is specific to frida-server's own use of it
+
+Per an explicit instruction to prioritize Frida for this exact blocker (finding the live
+`ServerConnection`/manager object), retried attach with much more careful diagnostics
+than Attempt 4's session. New, decisive findings:
+
+1. **`ptrace` itself works fine on this system.** `strace -p <game_pid>` attaches
+   successfully and streams live syscalls from the running game process
+   (`epoll_pwait`, `read`, `openat` on `/proc/<pid>/status` observed). This rules out
+   a kernel/SELinux/policy block -- SELinux is `Permissive` here anyway.
+2. **`gdbserver --attach` also successfully ptrace-attaches** to the game process
+   (`Attached; pid = 8320`) before failing for an unrelated, mundane reason: the only
+   `gdbserver` on this device (`/system/bin/gdbserver`) is a **32-bit x86 build**
+   (`ELF executable, 32-bit LSB 386, static, stripped`) and refuses to debug the
+   64-bit target ("Can't debug 64-bit process with 32-bit GDBserver"). No 64-bit
+   `gdbserver`/`lldb-server` binary exists on the device or was found on the host.
+3. **The x86_64 `frida-server` fails silently.** Across every configuration tried
+   (foreground, daemonized via `-D`, `-v` verbose, `-C` ignore-crashes, explicit
+   `-d` staging directory, listening on `0.0.0.0:27042` instead of the default) it
+   exits with **status 0 and zero log output** at the exact moment a Python client
+   calls `.attach(pid)`, even though it correctly serves `enumerate_processes()`
+   beforehand. Both a version-matched venv (17.16.4) and the host global install
+   reproduce this identically.
+4. **The arm64 `frida-server-16`** (already present at `/data/local/tmp/frida-server-16`,
+   confirmed via `file`: `ELF 64-bit LSB arm64, dynamic, for Android 21, NDK r25b`, v16.2.1)
+   behaves differently and **does not crash** -- it returns a specific, reproducible
+   error instead: `NotSupportedError: unable to perform ptrace getregs: Device or
+   resource busy`. This is a real error surfaced over the wire, not a dropped
+   connection.
+5. **That error is NOT specific to the arm64-translated game process.** Retried
+   against `surfaceflinger` (native x86_64 on this x86_64 LDPlayer image) with the
+   exact same `frida-server-16` instance -- **identical error**. This refutes the
+   working hypothesis carried since Attempt 3 (that the `libhoudini` ARM64-on-x86_64
+   translation layer specifically breaks instrumentation of translated targets). The
+   failure is not target-architecture-dependent.
+
+**Conclusion**: the common factor across both failure modes is `frida-server` itself,
+not the target. The most likely explanation (inference, not yet proven): `frida-server`
+supports exactly two "genuinely native" configurations -- x86_64 server on an x86_64
+kernel, or arm64 server on an arm64 kernel -- and this LDPlayer image's arm64
+userspace-translation-over-an-x86_64-kernel setup satisfies neither cleanly: the
+x86_64 server can enumerate (pure `/proc` reads) but something in its actual
+injection path (architecture-aware, since ptrace register layouts differ per-arch)
+fails post-`fork`/pre-attach silently; the arm64 server gets further (engages real
+ptrace calls) but that binary's own ptrace glue -- itself running as translated code --
+collides with something (possibly `libhoudini`'s handling of a translated process
+issuing arm64-shaped `PTRACE_GETREGSET` calls) and gets `EBUSY` back from the kernel
+every time.
+
+This is a materially more precise result than Attempt 4's generic "closed" -- it names
+a syscall (`ptrace GETREGS`), a specific errno-class failure (`EBUSY`), and rules out
+one previously-plausible hypothesis (architecture-specific targets) with a real
+control test (native `surfaceflinger`).
+
+**Concrete unblock options, cheapest first, none attempted yet**:
+1. Source a genuine **64-bit `gdbserver` or `lldb-server` for android-arm64** (the
+   Android NDK ships both; none is currently on this host or device) and drive it
+   with a host-side `gdb`/`lldb` client over the GDB Remote Serial Protocol. Since
+   plain `ptrace` is proven to work and `gdbserver` itself successfully reaches the
+   ptrace-attach step, this is the most promising concrete next step for reviving
+   dynamic instrumentation here -- it does not depend on Frida's injection machinery
+   at all, only on the kernel ptrace primitive already shown to work.
+2. Try an even older/newer `frida-server` build in case this is a version-specific
+   regression against this particular Android/kernel combination, rather than a
+   structural incompatibility.
+3. Accept dynamic instrumentation as blocked on this specific LDPlayer image and
+   continue the property-sync investigation via Ghidra static analysis plus the
+   live-`/proc/<pid>/mem` read technique already used successfully throughout this
+   project (which needs no ptrace at all, since it just opens `/proc/<pid>/mem` for
+   direct reads with root -- a fundamentally different and already-working mechanism).
+
 ### Realistic next steps, in order of promise (updated after Attempt 5)
 
 1. **Dynamic instrumentation (Frida) on real ARM64 hardware**, per
