@@ -5,6 +5,18 @@ Read `CLAUDE.md` first (standing rules: local/LAN only, zero guesswork — verif
 update the .md notes with every code change + live test). Detailed history: `06_notes/GHIDRA_PACKET_PARSER_TRACE.md`
 (Checkpoints 20, 20b, 20d, 20e). Route checklist: `06_notes/HALL_NAVIGATION_CHECKLIST.md`.
 
+## GOAL (broader than any single bug): a smooth, complete hall lobby UI
+The Depot crash is only one sample. The real goal is that EVERY hall page and button opens, shows sensible data, and
+exits cleanly (X and Android Back), with no `SCRIPT ERROR` tracebacks. The common root cause of the crashes seen so
+far is client UI scripts reading Athlete properties / server data that are `None` or unset (stream fills PYTHON props with
+`N.`, empty/zero defaults, missing server replies). So work systematically:
+1. Harvest: drive every route in HALL_NAVIGATION_CHECKLIST.md, collect all `SCRIPT ERROR` tracebacks from logcat.
+2. Group tracebacks by the property/data they read; fix by giving real defaults (`[]`, `{}`, `0`, valid strings) or
+   real server replies -- one general mechanism (per-property override table in `gen_stream_v3.py`), not one-off patches.
+3. Re-run the whole route sweep after every fix and record the before/after error count in the notes.
+Definition of done: fresh login with no interaction -> avatar visible, clean hall, correct currency, and every route
+in the checklist ticked with a clean exit.
+
 ## Current state (what works)
 - Gates 0-3 pass. Gate 4: the real 3D Lobby renders (START, Ranked, Invite 0/0, currency bar, side menu).
 - `createBasePlayer(Athlete)` property stream is real and sequential: 454 of 832 properties, bare ordered
@@ -29,7 +41,7 @@ update the .md notes with every code change + live test). Detailed history: `06_
   reply? the server already answers internalquery with 200 — check the body shape); (b) supply a valid value and
   live-test whether the avatar shows with zero interaction; (c) repeat the time-series with hands off.
 
-## Open issue 2: cannot leave the Depot page
+## Open issue 2: cannot leave the Depot page (one example of the general "None data" crash class)
 - Depot opens a REVIEW popup with placeholder Chinese text ("这里是评价内容一共三行"), no data. Its X tap is ignored.
 - Android Back (`input keyevent 4`) crashes: `UIDtsAppearanceMainController.on_leave -> UIMain.displayAll ->
   UIMain.showRedPoint (UIMain.py:2453)` `TypeError: 'NoneType' object is not iterable` -> leave aborted, user stuck.
