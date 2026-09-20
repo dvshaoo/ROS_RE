@@ -833,8 +833,17 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     send_entity_method(sock, dest, key, athlete_eid, 1088, ubn_args, flags=0x0008, num_methods=1131)
     log('BASEAPP: sent Athlete.updateBaseNickname(%r) idx=1088 to eid=%d %s' % (nick, athlete_eid, dest))
 
-    # 5. Athlete.onLeaveHallTeam() (idx 59)
-    if os.environ.get('ROS_SEND_LEAVE_TEAM', '1') == '1':
+    # 5. Athlete.onLeaveHallTeam() (idx 59) -- KNOWN INEFFECTIVE, disabled by default.
+    # Retracted (06_notes/GHIDRA_PACKET_PARSER_TRACE.md, commit 5b7b911): onLeaveHallTeam
+    # itself calls isInFormedTeam() -> reads self.hallTeamData, which is exactly the
+    # attribute this call was meant to work around. Calling an RPC that depends on the
+    # missing property cannot substitute for the property actually existing.
+    # The real mechanism (property-stream deserialization via EntityType::newDictionary /
+    # FUN_00acf5ec / FUN_00acf8ac) is documented in that file; hallTeamData itself has
+    # BASE-only flags (0x08), not BASE_AND_CLIENT, so it is never sent to the client at
+    # all via that path either -- its origin remains unresolved. Left gated behind an
+    # opt-in env var rather than deleted, in case a future session wants to re-probe it.
+    if os.environ.get('ROS_SEND_LEAVE_TEAM', '0') == '1':
         time.sleep(0.05)
         send_entity_method(sock, dest, key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
         log('BASEAPP: sent Athlete.onLeaveHallTeam() idx=59 to eid=%d %s' % (athlete_eid, dest))
@@ -845,8 +854,8 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     send_entity_method(sock, dest, key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
     log('BASEAPP: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, dest))
 
-    # Optional post-hall leave team reassert
-    if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '1') == '1':
+    # Optional post-hall leave team reassert -- same known-ineffective workaround, see above.
+    if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '0') == '1':
         time.sleep(0.1)
         send_entity_method(sock, dest, key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
         log('BASEAPP: sent Athlete.onLeaveHallTeam() idx=59 (post-hall) to eid=%d %s' % (athlete_eid, dest))

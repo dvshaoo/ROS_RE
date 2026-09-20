@@ -50,7 +50,7 @@
 
 ### B. `Athlete` (Type 51) — 1131 Methods Total
 - `[  54] msgid= 182`: `onEnterHallTeam`
-- `[  59] msgid= 187`: `onLeaveHallTeam()` (resets solo team state, prevents `hallTeamData` crash)
+- `[  59] msgid= 187`: `onLeaveHallTeam()` **(does NOT prevent the `hallTeamData` crash — retracted; see below)**
 - `[1081] msgid=1209`: `onRefreshMSToken(STRING, STRING)`
 - `[1082] msgid=1210`: `onKickOff()`
 - **`[1083] msgid=1211`**: **`showSelectCharacter(ARRAY<STRING> oldNames)`** (Preloads 3D scene; required before enterHall)
