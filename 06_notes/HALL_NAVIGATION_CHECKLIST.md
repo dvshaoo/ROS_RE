@@ -59,3 +59,17 @@ For each: does Back/X return to the hall? which traceback?
   seen in the server log in that login). Suggested/Packs/Looks tabs empty, Fire tab lists items but purchase does not work, top-up shows "USD".
   Next: with the guide out of the way, capture the exact upstream message on tab open / on buy and find the reply RPC via `tools/script_query.py ui/TreasureMall...`.
 - Environment note: after the emulator VM was restarted the iptables NAT rules were empty; reapply the 5 DNAT rules (tcp 80/443/8443, udp 25000/20013 -> 172.16.1.2 same port).
+
+## Store investigation, session 2026-09-20 (later)
+- The forced new-function guide is a single step: tapping START clears the overlay (verified `scratch/start1.png`); after that STORE opens (`scratch/store3.png`).
+- Store sidebar: SUGGESTED, PACKS, LOOKS, FIREARMS, TOP-UP (submenu), OTHERS, TOKEN MALL. Store header already shows 999999 gold + 999999 diamond.
+  SUGGESTED shows only the banner ("THE SUN KNOWS EVERYTHING!" BUY 3000 diamond); the item list under it is empty. No script error.
+- Client mall code (`ui\UIMall.py`): `doQueryMallGoodsFromServer`, `queryAvailableMallGoods(ByType)`, `onQueryAvailableMallGoods`, `buyMallGood`, `_showMallResult`,
+  `getMallData`, `fillGoods/fillGoods2`. So the list is filled from a server reply (`onQueryAvailableMallGoods`) and purchases need a reply too.
+- Server log finding: the BaseApp DOES receive and decrypt client bundles (`DECRYPTED (...)` lines; earlier greps for "UPSTREAM RECV" were the wrong pattern).
+  In one Store session the distinct non-keepalive payloads were telemetry-like (strings `AppearanceRecommend`, `UIDtsAppearanceMall`, `UIMallController`,
+  `MallAdvancedSupplement`, `UIAdvanceSupplyPackage`) plus a ~2.5 KB settings blob (`{0:74,1:74,...}` sent when Settings/Store settings were touched).
+  No recognisable `queryAvailableMallGoods` call was seen, so the exposed-method message id of that call is still unmapped (the bundle header bytes 0x58/0x78
+  hide the msg id). Next: map Athlete exposed base-method ids from the live EntityType (like the client-method table, `EntityType+0x?`), decode the bundle,
+  then answer `onQueryAvailableMallGoods` (args: see entity def) with a goods list built from the client's own mall tables (`tables.MallGoods`, locate in script.npk/data).
+- Reminder: prices show "USD" from the client's locale tables (`translate_properties_en`, `PayGoods`); the peso change belongs to that table/currency-symbol path, not to the property stream.
