@@ -32,11 +32,16 @@ lc = os.path.join(ROOT, 'scratch', f'probe_{label}_logcat.txt')
 d = subprocess.run([PY, os.path.join(ROOT, 'scratch', 'drive_login.py'), lc], capture_output=True, text=True)
 print([l for l in d.stdout.splitlines() if l.startswith(('LOGIN OK', 'TIMED OUT'))])
 
-time.sleep(70)   # the Lobby scene finishes loading well after the login
-shot = os.path.join(ROOT, 'scratch', f'probe_{label}.png')
-subprocess.run(ADB + ['shell', 'screencap -p /data/local/tmp/probe.png'], capture_output=True)
-subprocess.run(ADB + ['pull', '/data/local/tmp/probe.png', shot], capture_output=True)
-print('screenshot:', shot, os.path.getsize(shot) if os.path.exists(shot) else 'MISSING')
+# PROBE_DELAYS="70,60,60" -> screenshots after 70 s, then 60 s later, then 60 s later (default: one at 70 s).
+# Several shots show whether a messy hall repairs itself over time WITHOUT any interaction.
+delays = [int(x) for x in os.environ.get('PROBE_DELAYS', '70').split(',') if x]
+shot = None
+for k, dly in enumerate(delays):
+    time.sleep(dly)
+    shot = os.path.join(ROOT, 'scratch', f'probe_{label}' + (f'_t{k}' if len(delays) > 1 else '') + '.png')
+    subprocess.run(ADB + ['shell', 'screencap -p /data/local/tmp/probe.png'], capture_output=True)
+    subprocess.run(ADB + ['pull', '/data/local/tmp/probe.png', shot], capture_output=True)
+    print('screenshot @+%ds:' % sum(delays[:k + 1]), shot, os.path.getsize(shot) if os.path.exists(shot) else 'MISSING')
 
 t = open(lc, encoding='utf-8', errors='replace').read()
 errs = {k: t.count(k) for k in ('SequenceDataType', 'PythonDataType', 'Could not create', 'still',

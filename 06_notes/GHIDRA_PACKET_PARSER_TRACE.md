@@ -3013,7 +3013,7 @@ the 24 key bytes would silently break the match, so keyscan may still miss on so
 "ordinals 301-305 residual" was a downstream symptom of that.
 
 
-## Checkpoint 20c (2026-09-20): full Lobby with avatar model — declared XML defaults are what make the Lobby clean
+## Checkpoint 20c (RETRACTED — see 20d) (2026-09-20): full Lobby with avatar model — declared XML defaults are what make the Lobby clean
 
 ### Live A/B (same 2178 B layout, only the property VALUES differ; both consume the stream cleanly)
 | run | `ROS_STREAM_DEFAULTS` | Lobby |
@@ -3065,3 +3065,13 @@ The exact same stream produced a clean and a messy Lobby, so **the earlier concl
 User observation (2026-09-20): after visiting the **Ranked** page and returning, the hall is clean with the avatar. Together with the non-determinism this points at a timing/refresh issue in the *initial hall build* (e.g. hall UI built twice, or an RPC arriving before the client finished a step) rather than at any property value. `extconfigs.getServiceAccessPoint` raising inside `Athlete.onBecomePlayer` (deterministic in every run) is a candidate for leaving initialisation incomplete, but it does not explain the run-to-run difference.
 
 Lesson recorded: a single A/B pair is not evidence. Replicate any run whose outcome could be timing-dependent before acting on it.
+
+## Checkpoint 20e (2026-09-20): no-interaction time series (inconclusive) + probe tooling
+
+- `scratch/lobby_probe.py` now takes `PROBE_DELAYS="70,60,60"` and saves `probe_<label>_t<k>.png` at each delay.
+- Run `T_series` (xml stream, delays 60x5): `t0` (16:59:07) = MESSY hall — duplicate promo boxes, stray "Leave Team",
+  no avatar. `t2` (17:01:09) = Weapon "Review" page with the avatar visible, i.e. the user had touched the emulator.
+  The run is therefore CONTAMINATED and does not answer whether a messy hall self-heals with no input.
+- Consistent with the user's observation (avatar/clean hall appear after visiting Rank): navigating triggers a UI
+  refresh that the server-driven Stage-4 sequence does not. Cause still unknown.
+- Next: repeat with the emulator untouched (no one at the keyboard) and compare t0..t4.
