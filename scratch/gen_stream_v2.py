@@ -71,6 +71,31 @@ for m in re.finditer(r'<(\w+)>\s*([\w\s<>/]+?)\s*</\1>', alias_txt):
     if v and '<' not in v:
         simple_alias[m.group(1)] = v
 
+# ---- declared <Default> per property name ----
+# A PYTHON property whose .def declares [] or {} must arrive as that empty collection,
+# not as None: the client's onCreate handlers iterate them directly, and None raises
+# TypeError which aborts the whole 143-interface chain. 111 properties declare {} and
+# 17 declare [], so this is not specific to iNewYearGoal.
+py_defaults = {}
+_prop_re = re.compile(r'<(\w+)>\s*<Type>\s*([\w<>\s/]+?)\s*</Type>(.*?)</\1>', re.S)
+for fn in os.listdir(XMLDIR):
+    if not fn.endswith('.xml'):
+        continue
+    t = re.sub(r'<!--.*?-->', '',
+               open(os.path.join(XMLDIR, fn), encoding='utf-8', errors='replace').read(),
+               flags=re.S)
+    for pblock in re.findall(r'<Properties>(.*?)</Properties>', t, re.S):
+        for nm, _ty, rest in _prop_re.findall(pblock):
+            d = re.search(r'<Default>(.*?)</Default>', rest, re.S)
+            if d:
+                py_defaults.setdefault(nm, ' '.join(d.group(1).split()))
+
+# Protocol-1 EMPTY_LIST / EMPTY_DICT opcodes: 2 bytes each, exactly the same width as
+# protocol-0 None (b'N.'), so switching these costs nothing against the 1465-byte
+# single-packet budget. Verified: pickle.loads(b'].') == [] and pickle.loads(b'}.') == {}
+PY_EMPTY_LIST = packed_int(2) + b'].'
+PY_EMPTY_DICT = packed_int(2) + b'}.'
+
 
 def enc_field(t, depth=0):
     """Encode a nested FIXED_DICT field (XML types are all we have for these)."""
@@ -138,6 +163,11 @@ for ordinal, r in enumerate(inc):
         if blob is None:
             xml_t = str(r['type'] or '')
             blob = enc_field(xml_t.split(':', 1)[1]) if xml_t.startswith('FIXED_DICT:') else None
+    elif rt == 'PYTHON':
+        d = py_defaults.get(r['name'])
+        blob = (PY_EMPTY_LIST if d == '[]' else
+                PY_EMPTY_DICT if d == '{}' else
+                PRIM['PYTHON'])
     else:
         blob = PRIM.get(rt)
 
