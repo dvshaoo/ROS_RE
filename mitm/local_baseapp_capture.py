@@ -769,6 +769,36 @@ def serve_loginapp_udp_responder():
 _SUPPLEMENT_CACHE = {}
 
 
+def _supplement_runtime_record(record):
+    """Build the dynamic record shape consumed by the Supply UIs.
+
+    The static data_supplement row stores its price in the CURRENCY_OPTION
+    variant.  UISupplyPackage reads the flattened fields below from the
+    server-supplied dict (verified from decrypted client bytecode).
+    """
+    value = dict(record['value'])
+    # SupplementBoxBase.KIND has schema default 1.  literal table rows omit
+    # fields that use their inherited/default value.
+    value.setdefault('KIND', 1)
+    option = value.get('CURRENCY_OPTION')
+    if isinstance(option, dict) and isinstance(option.get('value'), dict):
+        option_type = option.get('type')
+        fields = option['value']
+        if option_type == 'ConstantCurrencyTypeWithMultiBuyPrice':
+            value['CURRENCY_ID'] = fields.get('CURRENCY_TYPE')
+            value['BUY_TIMES_PRICE'] = fields.get('PRICE')
+            value['BUY_MULTIPLE_TIMES_PRICE'] = fields.get('MULTIPLE_BUY_PRICE')
+        elif option_type == 'DoubleCurrencyTypeAndConstPrice':
+            value['CURRENCY_ID'] = (fields.get('CURRENCY_TYPE1'), fields.get('CURRENCY_TYPE2'))
+            value['BUY_TIMES_PRICE'] = (fields.get('PRICE1'), fields.get('PRICE2'))
+        elif option_type == 'DoubleCurrencyTypeWithMultiBuyPrice':
+            value['CURRENCY_ID'] = (fields.get('CURRENCY_TYPE1'), fields.get('CURRENCY_TYPE2'))
+            value['BUY_TIMES_PRICE'] = (fields.get('PRICE1'), fields.get('PRICE2'))
+            value['BUY_MULTIPLE_TIMES_PRICE'] = (
+                fields.get('MULTIPLE_BUY_PRICE1'), fields.get('MULTIPLE_BUY_PRICE2'))
+    return value
+
+
 def supplement_avail_payload(per_kind=2, now=None):
     """Pickle (protocol 0) of {supplementID: record} for Athlete.onQueryAvailableSupplement.
 
@@ -786,18 +816,18 @@ def supplement_avail_payload(per_kind=2, now=None):
     picked, count = {}, {}
     for sid in sorted(data):
         rec = data[sid]
-        v = rec['value']
+        v = _supplement_runtime_record(rec)
         on = str(v.get('ONLINE_TIME', '')).replace('-', '.')
         off = str(v.get('OFFLINE_TIME', '')).replace('-', '.')
         if not (on <= now <= off) or not v.get('IS_IN_SALE', True):
             continue
-        kind = (rec['type'], v.get('KIND'))
+        kind = v['KIND']
         if per_kind and count.get(kind, 0) >= per_kind:
             continue
         count[kind] = count.get(kind, 0) + 1
         if os.environ.get('ROS_SUPPLEMENT_SLIM', '1') == '1':
             # a single method message is limited to 65,535 bytes (2-byte length), so keep only small scalar keys
-            v = {k: x for k, x in v.items() if isinstance(x, (int, float, bool, str)) or x is None
+            v = {k: x for k, x in v.items() if isinstance(x, (int, float, bool, str, tuple)) or x is None
                  or (k in ('CURRENCY_OPTION',) and len(repr(x)) < 400)}
         picked[sid] = v
     payload = pickle.dumps(picked, protocol=0)

@@ -32,6 +32,12 @@ record negative results, never claim fixed from one run), then this file, `06_no
 5. **Gate 5 (START -> island, no timer/plane):** see `06_notes/GATE5_START_TO_ISLAND_PLAN.md` (`matchBattleGround` 96 -> `transferToBattleServer` -> BattleAccount/Avatar).
 6. Other: Depot 2nd Back crash (`refreshTransformPanel` None), My Page `ID: 0`, RushHour banner, non-root/LAN beta readiness (server currently finds the session key via root memory scan).
 
+## 2026-09-20 continuation: opcode-map correction (verified)
+- The old `scratch/disassemble_targets.py` permutation was from a different NeoX build and silently produced plausible but false listings (for example it decoded the argument load in `getSupplementKind` as `RAISE_VARARGS`). Do not use that legacy permutation.
+- Verified this client's anchors from small, structurally unambiguous functions: NeoX `93=LOAD_FAST`, `155=LOAD_GLOBAL`, `96=LOAD_ATTR`, `131=CALL_FUNCTION`, `104=STORE_FAST`, `148=POP_JUMP_IF_FALSE`, `74=RETURN_VALUE`, `23=BINARY_SUBSCR`, plus fused `94=LOAD_CONST+RETURN_VALUE` and fused `160=LOAD_FAST(varnames[oparg>>8])+LOAD_ATTR(names[oparg&0xff])`. `57=POP_TOP`, `66=BINARY_MODULO`, and `77=STORE_MAP` were then verified in `_initBoxWidget`.
+- `tools/script_disas.py` now caches filename -> NPK signature in `scratch/script_module_sigs.json`; repeat queries take about one second instead of decrypting the whole NPK for roughly two minutes. Importing the disassembler no longer runs its old Athlete ad-hoc main routine.
+- Readable ground truth now obtained: `getSupplementKind(id)` returns `legacyProperties.getSupplementData(id).KIND` or `-1`; `iSupplement.onQueryAvailableSupplement` splits the incoming dict with per-kind filters; `UISupplyPackage._initBoxWidget` accepts only NORMAL, TIME_LIMIT and WEAPON and otherwise uses its empty-box path.
+
 ## Rules of the road
 - Every change: live test -> notes (include negative results, correct wrong old claims) -> atomic commit. Replicate before claiming fixed.
 - Do NOT commit `mitm/mitm_serve.py` or `mitm/captures/SERVE_B.txt` (Gemini's unreviewed edits). Do NOT reboot LDPlayer; if the VM dies the user restarts it, then reapply

@@ -11,7 +11,7 @@ until grep -q "SCRIPT ERROR count" scratch/fresh_${L}_summary.txt 2>/dev/null; d
 sleep 8; $A shell input tap 100 45; sleep 2; $A shell input tap 1620 980; sleep 4
 $A logcat -c; wc -l < scratch/server_redpoints.out > scratch/_n.txt
 $A shell input tap 70 380; sleep 10
-$A shell screencap -p /sdcard/c.png; $A pull /sdcard/c.png scratch/${L}_supply.png >/dev/null
+for t in 280 385 485 590 695; do $A shell input tap 85 $t; sleep 9; $A shell screencap -p /sdcard/c.png; $A pull /sdcard/c.png scratch/${L}_tab$t.png >/dev/null; done
 N=$(cat scratch/_n.txt); tail -n +$N scratch/server_redpoints.out | grep -aE "UPSTREAM CALL|replied to|SUPPLEMENT" | cut -c1-200 | tail -8
 timeout 30 $A logcat -d | grep -a -A25 "SCRIPT ERROR" | grep -aE 'File "(ui|entities|common)|Error' | sed -E 's/^.*<SCRIPT> : *//' | cut -c1-140 | tail -8
 echo DONE
