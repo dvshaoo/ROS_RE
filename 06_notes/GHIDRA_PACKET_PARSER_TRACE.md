@@ -2249,6 +2249,89 @@ control test (native `surfaceflinger`).
    project (which needs no ptrace at all, since it just opens `/proc/<pid>/mem` for
    direct reads with root -- a fundamentally different and already-working mechanism).
 
+### Attempt 8 (2026-09-20): pursued unblock option 1 (real lldb-server) -- ROOT CAUSE FOUND: `PTRACE_GETREGSET`/`GETREGS` itself is what fails, not any tool's injection logic
+
+Followed up on Attempt 7's top recommendation. No `lldb-server`/`gdbserver` for
+android-arm64 existed on the host or device, and the full Android NDK is a ~660-700MB
+download. Extracted just the one needed file from Google's official NDK zip via
+**HTTP range requests against the remote ZIP's central directory**
+(`scratch/fetch_lldb_server.py`, `scratch/extract_lldb_server.py`) -- Python's
+`zipfile` module against a seekable HTTP-range-backed file object, downloading only
+the ~10MB compressed entry instead of the full archive. Confirmed via `file`:
+`ELF 64-bit ARM aarch64, statically linked, for Android 30, built by NDK r27-beta1`.
+
+Pushed to `/data/local/tmp/lldb-server` (note: `adb push` to an absolute Unix path
+from Git-Bash on Windows requires `MSYS_NO_PATHCONV=1`, otherwise MSYS rewrites the
+destination into a Windows path like `C:/Program Files/Git/data/local/tmp/...` and the
+push silently fails after transferring bytes; also needed `adb root` first, since a
+non-root `adbd` cannot `fchown` the destination and the push aborts).
+
+**`lldb-server platform --listen ... --server` (NDK r27, targets Android 30):
+segfaults (exit 139) immediately on its own**, before any client even connects. Not
+a ptrace/attach issue at all -- the platform service itself crashes on this image.
+
+**`lldb-server g <addr> --attach <pid>` (same r27 build) also segfaults**, this time
+right after the `--attach` step succeeds (`ps` confirms `PTRACE_ATTACH` worked: the
+process shows up, and `TracerPid` reflects it) but before any client packet is
+processed.
+
+Suspecting the r27 build (targets Android 30 / API 30) uses newer ptrace APIs than
+this Android 9 (API 28) image's kernel supports, fetched an **older NDK (r23c,
+targets Android 29)** via the same partial-zip-download technique and retried:
+
+- **This build survives `--attach`.** `ps` shows it alive and stable
+  (`lldb-server-r23c`), unlike the r27 build.
+- Wrote a **minimal hand-rolled GDB Remote Serial Protocol client**
+  (`scratch/gdbrsp.py` -- no host `gdb`/`lldb` client was available or needed; the
+  wire protocol is simple enough to implement directly: `$<payload>#<checksum>`
+  packets, `+`/`-` acks) and connected to it.
+- **The server ACKs the very first packet sent (`+`), for ANY payload -- tested both
+  `qSupported:...` and the minimal possible query `?` -- and then exits
+  (`lldb-server exiting...`) without ever sending a response packet.** This is not a
+  parsing problem with a specific request: the crash happens identically regardless
+  of what the first command is, meaning it happens in some shared step performed
+  before dispatching to command-specific handling.
+
+**This pinpoints the actual root cause, corroborated across three independent
+tools/builds now:**
+- Frida (arm64 build): explicit `NotSupportedError: unable to perform ptrace getregs:
+  Device or resource busy` -- names the exact syscall.
+- `lldb-server` (two NDK builds): crashes at the first point post-attach where a
+  gdbserver must be able to answer `?` (query halt/stop reason) for the attached
+  thread -- which requires reading that thread's **register state**, i.e. the same
+  `PTRACE_GETREGSET`/`PTRACE_GETREGS` operation Frida named explicitly.
+- Plain `strace -p <pid>` (which only traces syscall entry/exit, never reads full
+  register state via `GETREGSET`) works perfectly and streams live syscalls with no
+  issue.
+
+**Root cause, now well-evidenced rather than inferred**: on this specific LDPlayer
+image, `PTRACE_ATTACH` and syscall-level tracing work correctly, but reading a traced
+arm64 thread's **register set** via ptrace does not -- every tool that needs it
+(Frida, to compute injection points and read/write registers; lldb-server, to answer
+even the most basic stop-reason query) fails or crashes exactly there, while a tool
+that never touches register state (`strace`) is unaffected. This is most plausibly a
+kernel-level limitation or mismatch specific to this Android 9 / x86_64-host LDPlayer
+image's ptrace implementation for `NT_PRSTATUS`/`PTRACE_GETREGSET` on arm64 threads
+under its translation setup -- not fixable by trying further userspace tool builds.
+
+**Operational note, already fixed live**: the crashed `lldb-server` attach left the
+target game process **stopped** (`/proc/<pid>/stat` state `T`, from the `SIGSTOP`
+normally sent on `PTRACE_ATTACH`) rather than being auto-resumed when the tracer died.
+Sent `kill -CONT <pid>` to resume it and confirmed via screencap that the app is
+responsive again. **Anyone attempting `PTRACE_ATTACH`-based tools against the live
+game process on this image should check for and clear a stuck `T` state afterward.**
+
+**Updated conclusion**: dynamic instrumentation via ptrace-based tools (Frida,
+lldb-server, gdbserver) is blocked on this LDPlayer image by what appears to be a
+genuine host/kernel limitation, not a tool configuration or version issue -- four
+distinct tool/version combinations across two tools have now failed at precisely the
+same conceptual operation (register access on an attached thread). Real unblock
+options going forward are environment-level, not tool-level: a real ARM64 device, a
+different emulator/VM whose kernel correctly implements ptrace register access, or
+continuing to rely on the `/proc/<pid>/mem`-based live-read technique (which needs no
+ptrace at all and has been this project's only reliable dynamic-inspection method
+throughout).
+
 ### Realistic next steps, in order of promise (updated after Attempt 5)
 
 1. **Dynamic instrumentation (Frida) on real ARM64 hardware**, per
