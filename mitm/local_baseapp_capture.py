@@ -796,6 +796,9 @@ def _supplement_runtime_record(record):
             value['BUY_TIMES_PRICE'] = (fields.get('PRICE1'), fields.get('PRICE2'))
             value['BUY_MULTIPLE_TIMES_PRICE'] = (
                 fields.get('MULTIPLE_BUY_PRICE1'), fields.get('MULTIPLE_BUY_PRICE2'))
+    # UISupplyPackage._showSupplementResult reads availSupplement[id]['NEXT_BUY_TIMES_PRICE'] (same shape as BUY_TIMES_PRICE).
+    if 'BUY_TIMES_PRICE' in value:
+        value.setdefault('NEXT_BUY_TIMES_PRICE', value['BUY_TIMES_PRICE'])
     return value
 
 
@@ -841,7 +844,9 @@ def supplement_avail_payload(per_kind=2, now=None):
 # Client -> server exposed base-method indices (first payload byte of a 0xfa..0xfd message in a decrypted bundle), derived from live
 # captures: the Supply page sends `fa 01 00 dd` (no args) each time it opens, and UIAdvanceSupplyPackage.on_enter calls
 # base.queryAvailableSupplement() (base table idx 470). Everything else is logged so the mapping can be extended.
-EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement'}
+EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb: 'openSupplyBoxFree', 0xdc: 'openMultipleSupplyBox'}
+# wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
+_dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
 _seen_exposed = set()
 
 
@@ -872,6 +877,20 @@ def handle_upstream_calls(sock, addr, key, unpadded):
             _seen_exposed.add(sig)
             log('UPSTREAM CALL: msg=0x%02x method=0x%02x (%d) %s args=%s' % (
                 mid, method, method, name or '?', payload[1:1 + 24].hex()))
+        if name in ('openSupplyBox', 'openMultipleSupplyBox') and len(payload) >= 9:
+            sid, cur = struct.unpack_from('<ii', payload, 1)
+            n = 10 if name == 'openMultipleSupplyBox' else 1
+            prizes = supplement_pick_prizes(sid, n)
+            blob = pickle.dumps(prizes, protocol=0)
+            if name == 'openSupplyBox':
+                reply = struct.pack('<i', sid) + _packed_int(len(blob)) + blob + bytes(1)
+                ridx = 387      # onOpenSupplyBox(INT32 id, PYTHON appearanceIDs, BOOL isWatchAd)
+            else:
+                reply = struct.pack('<i', sid) + _packed_int(len(blob)) + blob
+                ridx = 389      # onMultiOpenSupplyBox(INT32 id, PYTHON appearanceIDs)
+            send_entity_method(sock, addr, key, 1, ridx, reply, flags=0x0008, num_methods=1131)
+            log('BASEAPP: %s(id=%d cur=%d) -> prizes=%s (client idx %d)' % (name, sid, cur, prizes, ridx))
+            continue
         if name == 'queryAvailableSupplement':
             sup = supplement_avail_payload(int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2')))
             delay = float(os.environ.get('ROS_SUPPLEMENT_REPLY_DELAY', '0'))
@@ -884,6 +903,28 @@ def handle_upstream_calls(sock, addr, key, unpadded):
                 threading.Timer(delay, _reply).start()
             else:
                 _reply()
+
+
+def supplement_pick_prizes(sid, count):
+    """Prize hall-prop ids for a draw: the box's own guarantee targets and SUPPLEMENT_LIST prop ids (client table data_supplement).
+    First slice: uniform choice from those legitimate prizes (real weights/drop tables live in the prop-group tables, not yet decoded)."""
+    import random
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+    import load_table as LT
+    data = LT.parse_table(LT.read_member(0x9e1c8652).decode('utf-8')) if 'data' not in _SUPPLEMENT_CACHE else _SUPPLEMENT_CACHE['data']
+    _SUPPLEMENT_CACHE['data'] = data
+    v = data.get(sid, {}).get('value', {})
+    pool = []
+    for g in v.get('GUARANTEE_LIST') or []:
+        val = g.get('value', {}) if isinstance(g, dict) else {}
+        if 'GUARANTEE_PROP_ID' in val:
+            pool.append(int(val['GUARANTEE_PROP_ID']))
+    for it in v.get('SUPPLEMENT_LIST') or []:
+        if isinstance(it, dict) and 'PROP_ID' in it:
+            pool.append(int(it['PROP_ID']))
+    if not pool:
+        pool = [361154]
+    return [random.choice(pool) for _ in range(count)]
 
 
 def _packed_int(n):

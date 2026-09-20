@@ -130,3 +130,12 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
 - Disassembler fixes (`scratch/disassemble_targets.py` DEC map): 32=ROT_TWO, 58=STORE_SUBSCR, 103=JUMP_ABSOLUTE, 33=POP_BLOCK; `UISupplyPackage.onQueryAvailableSupplement` is now fully readable
   (sorted by `getSupplementSortKey`, previous-box split by `getSupplementIsPreviousBox`, boxes filled with `_initBoxWidget`). Tools: `scratch/raw_code.py`, `scratch/module_lists.py`, `scratch/find_list_const.py`, `scratch/memgrep.sh` (memory scan: NOT useful, script strings are not stored plainly).
 - Remaining: SUPREME/LOOKS/VEHICLE/FIREARMS tabs, then DRAW (`openSupplyBox`).
+
+## Supply DRAW works (first slice) — 2026-09-21
+- Live decode: DRAW sends exposed method `0xda` = `openSupplyBox` (base idx 467), args `INT32 supplementID, INT32 currencyID, ARRAY<INT32> (4-byte count), BOOL`; DRAW 10x sends `0xdc` = `openMultipleSupplyBox`
+  (469). Wire method index = base index - 249 in this region (queryAvailableSupplement 470 -> 0xdd, both live-verified); 468 openSupplyBoxFree -> 0xdb.
+- Server (`handle_upstream_calls`): replies `onOpenSupplyBox(INT32 id, PYTHON prizeList, BOOL)` idx 387 / `onMultiOpenSupplyBox(INT32 id, PYTHON prizeList)` idx 389. Prize ids = random choice among the record's
+  own `GUARANTEE_LIST[].GUARANTEE_PROP_ID` and `SUPPLEMENT_LIST[].PROP_ID` (real drop weights are in the prop-group tables, not decoded). Records also carry `NEXT_BUY_TIMES_PRICE` (read by `_showSupplementResult`).
+- LIVE (`scratch/dr1_after1.png`): the result screen renders with real names/models (Dark Hood, Red Hood, Flyswatter - Dark Scissors, Bacpack - Bloody Hand Lv.3, plus two placeholder Chinese box names) and "Buy Another 95".
+  The client re-sent the call (3 replies for 1 tap) — retransmission handling not yet checked. NOT done: currency deduction, inventory grant, free draw (0xdb), stats/guarantee counters.
+- Remaining Supply tabs: SUPREME (black), LOOKS (white), VEHICLE (needs "Skip" intro tap) — next.
