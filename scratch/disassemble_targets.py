@@ -12,6 +12,10 @@ DEC = {
     110:115, 114:105, 125:93, 131:131, 135:102, 136:132, 137:113,
     143:100, 148:114, 149:92, 151:107, 155:116, 156:110,
     158:120, 132:110, 176:95,
+    103:113, # JUMP_ABSOLUTE
+    33:87,  # POP_BLOCK
+    58:60,  # STORE_SUBSCR (SupplementID2BoxIndex[id] = n)
+    32:2,   # ROT_TWO (tuple assign box1Used, box2Used = False, False in UISupplyPackage.onQueryAvailableSupplement)
 }
 
 # NeoX fused instruction: LOAD_CONST oparg; RETURN_VALUE.  Verified by the

@@ -121,3 +121,12 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   = `compile(source,'hotfix','exec')` + exec in `__main__` (when proxyID == `const.PROXY_KEY_HOTFIX`, value not read; `PROXY_KEY_HOTFIX_COMPILED` variant uses marshal). It would let us run read-only
   probes inside the client (e.g. `legacyProperties.getSupplementData(1)`), but it is a server->client code-execution path, the tool permission layer refused it, and it was backed out (nothing committed).
   Safer alternatives to identify why the Supply boxes are empty: read `properties.load_all_data_modules` behaviour statically, inspect process memory, or ask the user to enable the client's own debug console.
+
+## Supply — ROOT CAUSE FOUND: oversize datagram (2026-09-21, Claude) — STAR tab now works
+- The `onQueryAvailableSupplement` reply was sent by `send_entity_method` as ONE UDP datagram (44-59 KB). The client drops any datagram above ~1472 B (Checkpoint 20:
+  `EncryptionFilter::recv` illegal wastage), so the reply was NEVER processed although the server logged "replied". All the record-shape/size/timing/KIND experiments were therefore meaningless.
+- Fix: `send_entity_method` now routes any call with `1+len(lenfield)+len(payload) > 1468` through `send_mercury_message` (fragment bundle, like createBasePlayer). 44 KB -> 31 fragments.
+- LIVE: STAR SUPPLY now renders fully (STAR SUPPLY + ELITE SUPPLY boxes, item previews, "Previous" button, DRAW 1x 5/50, DRAW 10x 50/500) with 53 slim records (`scratch/sup6_tab280.png`).
+- Disassembler fixes (`scratch/disassemble_targets.py` DEC map): 32=ROT_TWO, 58=STORE_SUBSCR, 103=JUMP_ABSOLUTE, 33=POP_BLOCK; `UISupplyPackage.onQueryAvailableSupplement` is now fully readable
+  (sorted by `getSupplementSortKey`, previous-box split by `getSupplementIsPreviousBox`, boxes filled with `_initBoxWidget`). Tools: `scratch/raw_code.py`, `scratch/module_lists.py`, `scratch/find_list_const.py`, `scratch/memgrep.sh` (memory scan: NOT useful, script strings are not stored plainly).
+- Remaining: SUPREME/LOOKS/VEHICLE/FIREARMS tabs, then DRAW (`openSupplyBox`).

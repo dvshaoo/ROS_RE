@@ -972,6 +972,13 @@ def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags
     payload = struct.pack('<I', entity_id) + extra_byte + args
     lenfield = struct.pack('<I', len(payload))[:width]
 
+    if len(payload) > 65535 and width == 2:
+        raise ValueError('method payload %d B exceeds the 2-byte length field' % len(payload))
+    if 1 + len(lenfield) + len(payload) > 1468:
+        # The client drops any datagram above ~1472 B (EncryptionFilter::recv, see notes Checkpoint 20). Large method calls
+        # (e.g. onQueryAvailableSupplement, tens of KB) must be sent as a Mercury fragment bundle like createBasePlayer.
+        send_mercury_message(sock, dest, key, bytes([msgid]) + lenfield + payload, flags=flags)
+        return
     plain = struct.pack('<H', flags) + bytes([msgid]) + lenfield + payload
     pad_len = 8 - (len(plain) % 8)
     plain_padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
