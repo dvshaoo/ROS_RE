@@ -3152,3 +3152,23 @@ Live results (server restarted with the new code, `ROS_AUTO_ENTER_HALL=1`):
 - Startup flake seen: after restarting the server while an old game process is still alive, that stale client triggers a KEYSCAN
   against a dead session and the fresh launch can SIGSEGV in NeoXMain before login; `drive_login` then needs a retry. Force-stop the
   app before restarting the server.
+
+## Checkpoint 20i (2026-09-20): currency RPCs (negative for top bar) and airship RPC side effect
+
+- Currency decode (scripts): `iCurrency.getCurrencyAmount(currencyID)`: YUANBAO -> `self.yuanbao`, PAY_YUANBAO -> `self.payYuanbao`, others -> `currencyList`
+  (list of `{id, num}`). Client RPCs (entity_0385, runtime indices read straight from the live method table, exact-name anchors):
+  `onSPUpdated(INT64 sp, INT32 src)`=201, `onGPUpdated(INT64 gp, INT32 src)`=202, `onYBUpdated(INT64 freeYuanbao, INT64 payYuanbao,
+  INT32 src)`=203, `onCurrencyUpdated(INT32 id, INT64 val, INT32 src)`=204. `MallCurrencyType` consts start GP=1, YUANBAO=2, SP=3 (first three
+  only; later ids not verified). Each handler sets the property then `onCurrencyChangedToUI(type)`; `UIMain.onCurrencyChanged` only updates
+  `panelDiamond` (YUANBAO) / `panelCoin` (else).
+- LIVE (2 sessions): sending 201/202/203 after the hall UI exists produced the system toast "You got 10000 Diamond" (so the RPCs land) but the
+  three top-bar slots STILL read `283283`. NEGATIVE: those three slots are not driven by GP/SP/YB updates. Unknown widget: candidates are the
+  `panel_latin/PanelCoinLatin/Value` variant or a prefab placeholder fed by another path. Depot page counters (0/0/0) also unchanged.
+- The currency RPCs are now opt-in (`ROS_DEV_CURRENCY=1`; values `ROS_DEV_GP/SP/FREE_YB/PAY_YB`), because they only add a toast each login.
+- Airship RPC (idx 873) correction of 20h: it ALSO opens the full-screen "AIRSHIP BATTLE" page (`UIAirShipRankList`) — seen with a single send
+  and with repeats. The tidy "Finish / check the reward" label is a side effect and remains after the page is closed with Back. Because a
+  blocking page after 90 s is worse than the overlapping labels, it is now opt-in (`ROS_AIRSHIP_STATE=end`, once at `ROS_AIRSHIP_DELAY`, default 90 s).
+  Need a call that sets the panel state without opening the page.
+- Other findings: profile "My Page" shows `ID: 0` and no name (player id / name fields unset); the top-left avatar tap opens it and its X did not close
+  it but Android Back did. Back from the hall root shows the normal "Exit game?" dialog.
+- Flake: `drive_login` sometimes stops at the server-select list (the "Philippines" row must be tapped) after a crashed/first launch.

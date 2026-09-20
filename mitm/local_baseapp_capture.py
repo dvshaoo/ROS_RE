@@ -961,30 +961,53 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         (745, _packed_int(len(lucky_carnival_pickle)) + lucky_carnival_pickle,
          'Athlete.onUpdateLuckyCarnivalData'),
     ]
+    # ---- RPCs that only take visible effect once UIMain exists (sent again at ROS_HALL_LATE_DELAYS seconds) ----
+    # UIMain is built roughly 60-90 s after enterHall (depends on when "Please select controls" is confirmed); an
+    # earlier call finds no widget to update. All of these are idempotent, so they are simply resent.
+    late_rpcs = []
     # onGetAnniversaryAirShipRank(INT64 rank, INT64 score, STRING isOpen, INT64 leftTime, INT64 rankListLength):
     # UIMain.refreshAirShipPanel(isOpen, leftTime) drives btn_airship's panel_coming/panel_ready/panel_finish.
     # Without it all three panels render at once (overlapping "Finish" / "check the <time>" above Ranked).
     # Index 873 derived from the entity_0177 ClientMethods order anchored on live-verified names at 853/859/860/864.
-    # isOpen values seen in the script constants: 'end', 'over', 'open', 'ready' (semantics still being verified live).
-    airship_state = os.environ.get('ROS_AIRSHIP_STATE', 'end').encode('utf-8')
+    # isOpen values seen in the script constants: 'end', 'over', 'open', 'ready'; 'end' verified live = "Finish".
+    # OPT-IN (ROS_AIRSHIP_STATE=end): default off because the RPC also opens the full-screen AIRSHIP BATTLE page (live-verified,
+    # even with a single send); the label fix is a side effect of that. NOT idempotent: the RPC also calls UIAirShipRankList.refreshUI/enter_ui, so a second call pops the full-screen
+    # "AIRSHIP BATTLE" page over the hall (seen live). Send it exactly once, ROS_AIRSHIP_DELAY seconds after enterHall.
+    airship_state = os.environ.get('ROS_AIRSHIP_STATE', '-').encode('utf-8')
     if airship_state != b'-':
         airship_payload = (struct.pack('<qq', 0, 0) + _packed_int(len(airship_state)) + airship_state +
                            struct.pack('<qq', 0, 0))
         airship_label = 'Athlete.onGetAnniversaryAirShipRank(isOpen=%s)' % airship_state.decode('utf-8')
-        # UIMain is only built after the hall scene is ready (roughly 60-90 s after enterHall, depending on when the
-        # "Please select controls" screen is confirmed); an earlier call finds no panel to update. The call is
-        # idempotent, so resend it at several offsets (seconds, comma separated; 0 = immediately with the others).
-        airship_delays = [float(x) for x in os.environ.get('ROS_AIRSHIP_DELAYS', '45,90,150').split(',') if x.strip()]
-        if airship_delays and max(airship_delays) > 0:
-            def _late_airship(d):
-                send_entity_method(sock, dest, key, athlete_eid, 873, airship_payload,
-                                   flags=0x0008, num_methods=1131)
-                log('BASEAPP: (delayed %.0fs) sent %s idx=873 to eid=%d %s' %
-                    (d, airship_label, athlete_eid, dest))
-            for d in airship_delays:
-                threading.Timer(d, _late_airship, args=(d,)).start()
-        else:
-            hall_state_rpcs.append((873, airship_payload, airship_label))
+
+        def _send_airship_once():
+            send_entity_method(sock, dest, key, athlete_eid, 873, airship_payload, flags=0x0008, num_methods=1131)
+            log('BASEAPP: (once) sent %s idx=873 to eid=%d %s' % (airship_label, athlete_eid, dest))
+        threading.Timer(float(os.environ.get('ROS_AIRSHIP_DELAY', '90')), _send_airship_once).start()
+    # iCurrency client methods (entity_0385), runtime indices read straight from the live Athlete method table:
+    # onSPUpdated(INT64 sp, INT32 src)=201, onGPUpdated(INT64 gp, INT32 src)=202,
+    # onYBUpdated(INT64 freeYuanbao, INT64 payYuanbao, INT32 src)=203. Each sets the property and calls
+    # onCurrencyChangedToUI, which is what refreshes the top-bar CurrencyBarComp (it otherwise keeps the prefab "283283").
+    dev_gp = int(os.environ.get('ROS_DEV_GP', '100000'))
+    dev_sp = int(os.environ.get('ROS_DEV_SP', '5000'))
+    dev_free_yb = int(os.environ.get('ROS_DEV_FREE_YB', '10000'))
+    dev_pay_yb = int(os.environ.get('ROS_DEV_PAY_YB', '0'))
+    if os.environ.get('ROS_DEV_CURRENCY', '0') == '1':
+        late_rpcs.append((202, struct.pack('<qi', dev_gp, 0), 'Athlete.onGPUpdated(%d)' % dev_gp))
+        late_rpcs.append((201, struct.pack('<qi', dev_sp, 0), 'Athlete.onSPUpdated(%d)' % dev_sp))
+        late_rpcs.append((203, struct.pack('<qqi', dev_free_yb, dev_pay_yb, 0),
+                          'Athlete.onYBUpdated(free=%d, pay=%d)' % (dev_free_yb, dev_pay_yb)))
+    late_delays = [float(x) for x in os.environ.get('ROS_HALL_LATE_DELAYS', '45,90,150').split(',') if x.strip()]
+
+    def _send_late_rpcs(delay):
+        for method_index, payload, label in late_rpcs:
+            send_entity_method(sock, dest, key, athlete_eid, method_index, payload,
+                               flags=0x0008, num_methods=1131)
+            log('BASEAPP: (late %.0fs) sent %s idx=%d to eid=%d %s' % (delay, label, method_index, athlete_eid, dest))
+            time.sleep(0.05)
+
+    if late_rpcs:
+        for d in late_delays:
+            threading.Timer(d, _send_late_rpcs, args=(d,)).start()
     for method_index, payload, label in hall_state_rpcs:
         time.sleep(0.05)
         send_entity_method(sock, dest, key, athlete_eid, method_index,
