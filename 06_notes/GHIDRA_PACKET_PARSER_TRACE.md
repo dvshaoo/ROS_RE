@@ -3020,9 +3020,13 @@ the 24 key bytes would silently break the match, so keyscan may still miss on so
 |:--|:--|:--|
 | `scratch/lc_v3min.txt` | `min` (zeros; PYTHON collections `[]`/`{}`) | renders, but **no avatar model**, 4-5 overlapping duplicated promo boxes ("All team members receive additional 20%..."), a stray **Leave Team** button |
 | `scratch/lc_v3xml.txt` | `xml` (each property's declared `<Default>`) | **avatar model on the terrace, "Survivor" nameplate + rank icon, START, Ranked, Invite 0/0, clean solo-team state**, promos essentially clean (one leftover "Finish / check the" text fragment) |
-Evidence: `scratch/lobby_avatar_2026-09-20.png` (xml). The user independently reported that in the earlier state the
-player only appeared after navigating to the Ranked page, i.e. the avatar is created lazily by that page's path
-when the underlying data is wrong, and at Lobby entry when it is right (consistent with, not proof of, the A/B).
+Evidence: `scratch/lobby_avatar_2026-09-20.png` (xml).
+**Interaction caveat (user report, 2026-09-20):** in the user's own session a clean Lobby with the avatar appeared only
+*after navigating to the Ranked page and back*, so that screenshot alone does not show the stream fix. The A/B above does
+not depend on it: `scratch/drive_login.py` stops tapping once the login is detected and `scratch/lobby_probe.py` only
+screenshots ~95 s later, so no probe run touches the Lobby UI. What the user's observation adds is a clue: opening the
+Ranked page rebuilds/refreshes the hall and repairs the messy state, i.e. the *initial* hall build is what depends on the
+property values.
 
 ### What differs: 27 properties (82 bytes) — `min` -> `xml`
 `baseLevel` 0->1, `finishedDtsTraining` 0->1, `needOBRoomTip` 0->1, `needNormalRoomTip` 0->1, `firstTimeBind` 0->1,
@@ -3040,3 +3044,24 @@ sentinels `-1`: `choseGalaxy`, `scoreRank`, `maxScore`(int64), `xmas2018MaxLotte
 - Still open: `extconfigs.getServiceAccessPoint` TypeError in `Athlete.onBecomePlayer` (line 275) — non-fatal here,
   cause unknown (encrypted script; the server answers `nstool.netease.com/internalquery` with 200, so it is not a
   plain missing HTTP config).
+
+
+## Checkpoint 20d (2026-09-20): RETRACTION — the clean/messy Lobby is NOT determined by the property defaults
+
+Bisect of the 27 differing properties (`scratch/lobby_probe.py`, no Lobby interaction in any run; screenshot ~95 s after login):
+
+| run | stream | hall |
+|:--|:--|:--|
+| `min` | zeros | messy (duplicate promo boxes, Leave Team, no avatar) |
+| `xml` | all declared defaults | **clean** (avatar, no duplicates) |
+| A `baseLevel, finishedDtsTraining` | xml for those 2 only | messy |
+| B (11 flag properties) | xml for those 11 only | **clean** |
+| B1 (5 room-tip / first-time flags) | | messy |
+| B2 (6 remaining flags) | | messy |
+| **B replicate** | **identical to B** | **messy** |
+
+The exact same stream produced a clean and a messy Lobby, so **the earlier conclusion (Checkpoint 20c) that declared defaults make the Lobby clean is retracted**. B1 and B2 individually messy but B (= B1 + B2) clean once was noise, not an interaction effect. What survives: the stream is consumed exactly in every run, and the Lobby renders in every run.
+
+User observation (2026-09-20): after visiting the **Ranked** page and returning, the hall is clean with the avatar. Together with the non-determinism this points at a timing/refresh issue in the *initial hall build* (e.g. hall UI built twice, or an RPC arriving before the client finished a step) rather than at any property value. `extconfigs.getServiceAccessPoint` raising inside `Athlete.onBecomePlayer` (deterministic in every run) is a candidate for leaving initialisation incomplete, but it does not explain the run-to-run difference.
+
+Lesson recorded: a single A/B pair is not evidence. Replicate any run whose outcome could be timing-dependent before acting on it.

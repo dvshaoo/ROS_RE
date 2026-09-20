@@ -9,8 +9,8 @@ Env:
   ROS_STREAM_DEFAULTS = xml (default) | min
      min : zero for numbers/strings, and PYTHON collections take their declared []/{} default (the v2 "all"
            behaviour) -- isolates the desync fix from any default-value question.
-     xml : every property honours its declared <Default> literal from the entity XML. REQUIRED for a correct
-           Lobby: with `min` the avatar model is missing and promo boxes duplicate (live A/B, 2026-09-20).
+     xml : every property honours its declared <Default> literal from the entity XML. (An earlier claim that this is
+           REQUIRED for a clean Lobby was retracted: the same stream rendered both clean and messy -- see notes 20d.)
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +22,9 @@ OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
 LAYOUT = os.path.join(ROOT, 'scratch', 'athlete_stream_layout.txt')
 TARGET = 'weekendPushRewardsHaveGotten'
 MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'xml')
+# Bisection aid: with ROS_XML_ONLY=name1,name2 only those properties honour their XML default and every
+# other property behaves as in `min` mode. Used to isolate which defaults make the Lobby render correctly.
+XML_ONLY = {n for n in os.environ.get('ROS_XML_ONLY', '').split(',') if n}
 
 
 def elem_literal(e):
@@ -56,10 +59,12 @@ def decl_defaults(name, node):
 
 
 class ModeEncoder(RE.Encoder):
+    minmode = False
+
     def enc(self, node, default=None, path=''):
         n = RE.resolve(node, self.table)
         kind = RE.kind_of(n['cls'])[0]
-        if MODE == 'min':
+        if MODE == 'min' or self.minmode:
             if kind in ('INT', 'FLOAT', 'STRING', 'BLOB'):
                 default = None
             elif kind == 'PYTHON' and not (default == [] or default == {}):
@@ -72,7 +77,7 @@ class ModeEncoder(RE.Encoder):
 
 
 included = [r for r in rows if (r['flag'] & 0x10) == 0 and (r['flag'] & 0x08) and (r['flag'] & 0x06)]
-print('included properties:', len(included), '| mode:', MODE)
+print('included properties:', len(included), '| mode:', MODE, '| xml-only:', sorted(XML_ONLY) or '-')
 
 stream, layout = b'', []
 for ordinal, r in enumerate(included):
@@ -83,7 +88,9 @@ for ordinal, r in enumerate(included):
         blob = RE.py_default_bytes([])          # the original TypeError fix
     else:
         default = elem_default if (kind == 'ARRAY' and node.get('fixed', 0) > 0) else prop_default
-        blob = ModeEncoder(table).enc(r['type'], default, r['name'])
+        e = ModeEncoder(table)
+        e.minmode = bool(XML_ONLY) and r['name'] not in XML_ONLY
+        blob = e.enc(r['type'], default, r['name'])
     layout.append((ordinal, r['idx'], len(stream), len(blob), kind, r['name']))
     stream += blob
 
