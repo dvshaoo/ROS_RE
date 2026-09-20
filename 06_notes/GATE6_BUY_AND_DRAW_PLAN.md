@@ -29,3 +29,23 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
 1. Build the upstream decoder (bundle -> exposed index -> method name -> typed args) and log every client call with names. This also unlocks Gate 5 (START).
 2. Store: answer `queryAvailableMallGoods*`, then `buyMallGood` (deduct currency by `onCurrencyUpdated`/`onYBUpdated` (201-204), add item).
 3. Draws: `openSupplyBox*`, lucky carnival, then the event lotteries. Verify each with a live tap + logcat + inventory check; add peso pricing last.
+
+## Supply box (draw) — findings 2026-09-20 (first slice)
+- Live: SUPPLY opens a page with tabs STAR / SUPREME / LOOKS / VEHICLE / FIREARMS SUPPLY and a "DRAW 1x 100" + "Skip" overlay; the prize area is empty and tapping DRAW
+  or Skip sends NOTHING to the server (0 non-keepalive bundles), no script error (`scratch/supply1..4.png`). The only bundle on open is a telemetry call
+  (method byte 0x67, string "MallAdvancedSupplementVehicle").
+- Why (scripts): `entities\iSupplement.py`. `availSupplementDict` (client attribute) is filled ONLY by the server RPC
+  `onQueryAvailableSupplement(PYTHON availSupplementDict)` (entity_0315 client method, runtime idx 392 in the Athlete client-method table). The client then splits it by
+  `supplement_utils.getSupplementKind(id)` (general/advance/vehicle/weapon/brave-book/month/kof/hero/anniversary/time-limit/blackFriday2020 dicts). With no
+  reply the lists stay empty and the DRAW handler never sends. `Athlete.openSupplyBox` (client side, iSupplement) checks `availSupplementDict`, currency and coupons,
+  then calls `self.base.openSupplyBox(...)` (base idx 467 in the 1393-entry table; also 468 openSupplyBoxFree, 469 openMultipleSupplyBox).
+- Server replies the client understands (entity_0315 ClientMethods): `onOpenSupplyBox(INT32 supplementID, PYTHON appearanceIDs, BOOL isWatchAd)` idx 387,
+  `onOpenFreeSupplyBox(INT32, PYTHON)` 388, `onMultiOpenSupplyBox(INT32, PYTHON)` 389, `onOpenSupplyBoxFailed(INT32, STRING, INT32, INT32)` 390,
+  `onMultiOpenSupplyBoxFailed` 391, `onQueryAvailableSupplement(PYTHON)` 392.
+- BLOCKER: supplement definitions (ids, kind, prices, probabilities, `PROP_ID_LIST`, guarantee lists) are read via `getSupplementData` -> `legacyProperties`, i.e. the
+  client's `assets/data/properties` tables inside the OBB/NPK (not in script.npk). To build a correct `availSupplementDict` (keys = real supplement ids; value tuple shape
+  unknown) and a drop table, we must extract those tables from the OBB (`main/patch.1117219.com.netease.chiji.obb`, ~3.4 GB; `04_obb/obb_extract` has 1.7 GB extracted
+  but a grep for `SupplementData`/`SUPPLEMENT_LIST` found nothing, so the tables are compressed/serialised) or read them from the live process. Not guessed.
+- Next: locate + decode `assets/data/properties` (see the client log line `[trouger] properties.init()... assets/data/properties`), dump the Supplement table, then
+  (1) send `onQueryAvailableSupplement` with real ids after enterHall, (2) implement `openSupplyBox` (+ currency deduction via 201-204 and the item grant),
+  (3) reply `onOpenSupplyBox`. Same table source is needed for the Store goods list (`MallGoods`) and prices/peso.
