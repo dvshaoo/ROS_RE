@@ -25,7 +25,7 @@
 | **Gate 1** | UniSDK / Auth / Sigma | HTTP :80/:443/:8443 | **PASS** | Guest auth token and Sigma keypoints handled cleanly. |
 | **Gate 2** | LoginApp Handshake | Mercury UDP :25000 | **PASS** | 4-byte LE ReplyID correlation @ wire offset 5. Blowfish encrypted `LoginReplyRecord` redirecting to BaseApp :25010. |
 | **Gate 3** | BaseApp Handshake | Mercury UDP :25010 | **PASS** | `createBasePlayer(Account, type=38, eid=1)` accepted; client packet #0 decrypted; 864-byte `Account.handshake` ACKed; `Account.onChannelLogin(19)` + `Account.onLogin(18)` sent. Client reported `accountOnBecomePlayer`, `onChannelLogin(code=0)`, and `Login Succ`. |
-| **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **IMPLEMENTED** | **Reversed BigWorld Mercury wire formula from `libclient.so:0xad03b0`.** Official server ground truth sequence (`onCreateCharacter` $\to$ `updateBaseCharacter` $\to$ `updateBaseNickname` $\to$ `enterHall`) implemented in Stage 4. |
+| **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **PASS (Lobby renders)** | **2026-09-20: the real 3D Lobby renders** (START, Ranked, Leave Team / Invite 0/0, currency bar, side menu) with the runtime-DataType-driven Athlete property stream (`scratch/gen_stream_v3.py`). Open: `extconfigs.getServiceAccessPoint` TypeError in `onBecomePlayer`, overlapping promo boxes, no avatar model. |
 
 ---
 
@@ -157,3 +157,5 @@ Once `onCreate()` finishes cleanly, `hallTeamData` and `timerRefreshMSToken` exi
 - **Use ONE adb binary** (LDPlayer 34.0.4 vs SDK 37.0.1 fight over the adb server); start the server with `ADB_PATH`.
 - **Do not trust "no error" as "in sync".** Verify alignment with a specific client error whose numbers match a
   known stream offset (see `06_notes/GHIDRA_PACKET_PARSER_TRACE.md`, Checkpoint 20).
+
+- **Milestone (2026-09-20):** with the v3 stream the client consumes all 2178 B exactly (no DataType errors, no "still N bytes left"), `Athlete.onBecomePlayer` runs, and the real Lobby renders (`scratch/lobby_reached_2026-09-20.png`). The old `hallTeamData` / `timerRefreshMSToken` / `hostID` / `baseLevel` AttributeErrors are gone. `gen_stream_v2.py` output is desynced at ordinal 207 -- do not use it.
