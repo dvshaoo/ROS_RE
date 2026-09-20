@@ -29,6 +29,14 @@ in the checklist ticked with a clean exit.
 - Right after login: duplicated overlapping promo boxes, stray "Leave Team", NO avatar. After the user navigates to
   Ranked (or Depot/Weapon page) the avatar appears and the hall is clean. Same stream sometimes gives a clean hall
   (replicate test failed) -> NOT caused by property default values (notes 20d, retracted claim).
+- USER-CONFIRMED REPRO (2026-09-20, latest wording): after PLAY -> hall, the duplicated/overlapping promo boxes and stray
+  elements are on screen and no character. Opening the **Ranked mode selection** and then EXITING it makes the duplicates
+  disappear and the character appear. So the open+close of that page runs a display/refresh path (page `on_enter`/`on_leave`
+  -> `UIMain.displayAll`, the same function that crashes in the Depot exit) that the initial hall build does not complete.
+  Implication: the initial hall is left half-built, likely because `onBecomePlayer` aborts at Athlete.py:275, or the first
+  `displayAll` hits a None. Test idea: trigger the same refresh from the server side / find what the mode-selection close
+  calls, and make the first build complete (fix the traceback) instead of relying on user navigation. Capture logcat
+  `SCRIPT ERROR`s before vs after the Ranked open/close to see which call changes state.
 - A no-interaction time series (notes 20e) was contaminated by the user touching the emulator; still unknown whether
   the hall self-heals with no input.
 - Lead (UNVERIFIED): the only script traceback during a fresh login is
