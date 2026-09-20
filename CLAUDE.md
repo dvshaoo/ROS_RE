@@ -134,3 +134,26 @@ See detailed breakdown in [HANDOFF_TO_CLAUDE_WEEKENDPUSH_LOBBY.md](file:///c:/Us
 Neutralize `TypeError` in `tryActiveWeekendPushRedBadge` or supply default in `createBasePlayer` property stream.
 Once `onCreate()` finishes cleanly, `hallTeamData` and `timerRefreshMSToken` exist automatically, allowing the client to transition past the "Please select controls" screen (`hall_entry_t12s.png`) into the interactive 3D Lobby!
 
+
+---
+
+## 8. Checkpoint 20 (2026-09-20): property-stream ground truth (supersedes anything older that conflicts)
+
+- **`createBasePlayer(Athlete)` property stream is real and parsed sequentially** (`EntityType::newDictionary` ->
+  `FUN_00acf8ac`, flag mask `0x0b`): a bare ordered concatenation of the 454 properties passing
+  `(f&0x10)==0 && (f&0x08) && (f&0x06)`. No bitmask, no index tags. (The old "domain=0 + non-empty stream =
+  exception" claim was wrong.)
+- **Fixed-size arrays have NO count on the wire.** `SequenceDataType::createFromStream` (`FUN_00aa4b14`) reads the
+  4-byte count only when the DataType's fixed size (`+0x30`) is 0. `childBaseClientPropertyList` and
+  `childClientPropertyList2` are `ARRAY <of> FIXED_DICT ... <size> 1 </size>`: the element (a large FIXED_DICT)
+  is written inline with no count. Encoding them as "count 0" desyncs the whole stream from ordinal 207.
+  The generator must be built from the **runtime** DataType tree, not XML regexes (`scratch/dump_runtime_types.py`).
+- **One Mercury packet carries at most ~1459 B of `createBasePlayer` stream.** Larger messages must be fragmented
+  (`send_mercury_message` in `mitm/local_baseapp_capture.py`); an oversize single datagram is dropped by the
+  client with `EncryptionFilter::recv: Dropping packet ... illegal wastage count`, which looks like "the entity
+  layer went silent" and logs only ONE `createBasePlayer` instead of two.
+- **Session-key scan:** `fast_find_session_key()` must scan every heap region >= 2 MB (was > 16 MB, which skipped the
+  10 MB region holding the EncryptionFilter on some launches). Load base and heap layout change every launch.
+- **Use ONE adb binary** (LDPlayer 34.0.4 vs SDK 37.0.1 fight over the adb server); start the server with `ADB_PATH`.
+- **Do not trust "no error" as "in sync".** Verify alignment with a specific client error whose numbers match a
+  known stream offset (see `06_notes/GHIDRA_PACKET_PARSER_TRACE.md`, Checkpoint 20).

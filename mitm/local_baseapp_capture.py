@@ -397,11 +397,17 @@ def fast_find_session_key(pid=None):
             log('KEYSCAN: could not find libclient.so base, aborting')
             return None
 
-        # Filter for large arenas (>16MB) and prioritize region where EncryptionFilter resides
+        # Scan every region >= 2MB, prioritising the ones where EncryptionFilter usually
+        # lives. The old cutoff (sz > 16) skipped the region that actually held the filter
+        # on some launches -- scratch/scan_all_regions.py found the live key in a 10MB
+        # region (763854e00000-763855800000) that the cutoff excluded, so KEYSCAN reported
+        # "no key found" while the key was sitting in memory. Heap layout differs per
+        # launch, which is why the scan succeeded on some runs and not others. Regions
+        # under 2MB are still skipped: the binary search below bottoms out at 2MB.
         large_regions = []
         for s, e in regions:
             sz = (e - s) // (1024 * 1024)
-            if sz > 16:
+            if sz >= 2:
                 large_regions.append((s, e, sz))
         large_regions.sort(key=lambda r: 0 if (r[0] >> 32) == 0x7638 and ((r[0] >> 24) & 0xff) in (0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c) else 1)
 
@@ -455,6 +461,16 @@ def fast_find_session_key(pid=None):
             log('KEYSCAN: SUCCESS in %.2fs! pid=%s key=%s' % (elapsed, pid, found_key))
             return found_key
         else:
+            # Remember that the watcher already probed this process.  Before the
+            # first LoginApp request the EncryptionFilter often does not exist yet,
+            # so a miss is expected.  Leaving _scanned_pid on the previous process
+            # made the 1.5s watcher immediately scan again and monopolise
+            # _scan_lock; the request-triggered scan then sat behind several stale
+            # scans until the Mercury login request had already timed out.  An
+            # explicit fast_find_session_key(pid) still re-scans because the cache
+            # fast path above requires both this PID *and* a non-empty key.
+            _scanned_pid = pid
+            _scanned_key = None
             log('KEYSCAN: no key found in %.2fs for pid=%s' % (elapsed, pid))
             return None
 
@@ -755,6 +771,65 @@ def _packed_int(n):
     return b'\xff' + struct.pack('<I', n)[:3]
 
 
+_mercury_out_seq = {}
+_mercury_out_seq_lock = threading.Lock()
+
+
+def _send_encrypted_datagram(sock, dest, key, plain):
+    """Pad, encrypt, and send one Mercury UDP datagram."""
+    pad_len = 8 - (len(plain) % 8)
+    padded = plain + b'\x00' * (pad_len - 1) + bytes([pad_len])
+    enc = bf_encrypt(padded, key_hex=key, iv=b'\x00' * 8)
+    wire = enc if enc else padded
+    sock.sendto(wire, dest)
+    return len(wire)
+
+
+def send_mercury_message(sock, dest, key, message, flags=0x0008):
+    """Send message bytes, fragmenting a bundle when it exceeds one UDP packet.
+
+    ``message`` starts at the Mercury message ID (the packet flags are supplied
+    separately). BigWorld fragment packets carry the same logical byte stream
+    across packet bodies and end in three uint32 footers: fragment-begin,
+    fragment-end, then this packet's sequence number.
+    """
+    # BigWorld Packet::maxCapacity() is 1472 - 2-byte header - 27 bytes of
+    # reserved footer capacity. Staying at that official chunk size also leaves
+    # enough room for the 12 bytes of actual fragment/sequence footers and the
+    # Blowfish padding added by this client build.
+    # The encrypted ROS client accepts a 1472-byte datagram. With a 2-byte
+    # packet header and PKCS-style wastage padding, up to 1468 message bytes
+    # fit in one packet (measured live: createBasePlayer stream <= 1459 B).
+    single_packet_message_max = 1468
+    fragment_body_max = 1443
+    if len(message) <= single_packet_message_max:
+        return [_send_encrypted_datagram(sock, dest, key,
+                                         struct.pack('<H', flags) + message)]
+
+    chunks = [message[i:i + fragment_body_max]
+              for i in range(0, len(message), fragment_body_max)]
+    with _mercury_out_seq_lock:
+        first_seq = _mercury_out_seq.get(dest, 0)
+        _mercury_out_seq[dest] = first_seq + len(chunks)
+    last_seq = first_seq + len(chunks) - 1
+
+    # Fragment identity requires FLAG_IS_FRAGMENT and a sequence footer. Do not
+    # force FLAG_IS_RELIABLE here: reliability is a property of the declared
+    # message, while fragment sequence numbers are also valid on their own.
+    # The ROS client otherwise routes these ad-hoc sequence IDs through its
+    # reliable receive window before the fragment collector sees them.
+    fragment_flags = flags | 0x0020 | 0x0040
+    wire_sizes = []
+    for index, chunk in enumerate(chunks):
+        seq = first_seq + index
+        footer = struct.pack('<III', first_seq, last_seq, seq)
+        plain = struct.pack('<H', fragment_flags) + chunk + footer
+        wire_sizes.append(_send_encrypted_datagram(sock, dest, key, plain))
+    log('MERCURY: sent fragmented bundle packets=%d seq=%d..%d message=%d B wire=%s flags=0x%04x' % (
+        len(chunks), first_seq, last_seq, len(message), wire_sizes, fragment_flags))
+    return wire_sizes
+
+
 def send_entity_method(sock, dest, key, entity_id, method_index, args=b'', flags=0x0008, num_methods=1131):
     """Encodes and sends an entity method call using BigWorld Mercury's exact wire protocol
     reversed from libclient.so (FUN_00a478a8 and 0xad03b0).
@@ -948,15 +1023,14 @@ def run_baseapp_stage_machine(sock, addr, key):
 
         athlete_cbp_body = struct.pack('<I', athlete_eid) + struct.pack('<H', athlete_type) + athlete_stream
         athlete_filler = b'\x00\x00' if (cbp_flags & 1) != 0 else b''
-        athlete_cbp_plain = (struct.pack('<H', cbp_flags) + bytes([0x05])
-                              + struct.pack('<H', len(athlete_cbp_body)) + athlete_cbp_body
-                              + athlete_filler)
-        athlete_pad_len = 8 - (len(athlete_cbp_plain) % 8)
-        athlete_cbp_padded = athlete_cbp_plain + b'\x00' * (athlete_pad_len - 1) + bytes([athlete_pad_len])
-        athlete_cbp_enc = bf_encrypt(athlete_cbp_padded, key_hex=use_key, iv=b'\x00' * 8)
-        sock.sendto(athlete_cbp_enc if athlete_cbp_enc else athlete_cbp_padded, addr)
+        athlete_cbp_message = (bytes([0x05])
+                               + struct.pack('<H', len(athlete_cbp_body))
+                               + athlete_cbp_body + athlete_filler)
+        athlete_wire_sizes = send_mercury_message(
+            sock, addr, use_key, athlete_cbp_message, flags=cbp_flags)
         log('BASEAPP STAGE 3: sent createBasePlayer(Athlete type=%d, eid=%d, stream=%d B) to %s' % (
             athlete_type, athlete_eid, len(athlete_stream), addr))
+        log('BASEAPP STAGE 3: createBasePlayer wire datagrams=%s' % athlete_wire_sizes)
 
         # Stage 3.5: createCellPlayer for Athlete (ClientInterface msgID 6, 0x06)
         # Transition entity to cell domain: fires Entity::readCellPlayerData -> EntityType::newDictionary(domain=1),

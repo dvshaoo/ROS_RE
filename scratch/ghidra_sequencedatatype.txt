@@ -1,0 +1,130 @@
+string @ 02b5f2d6 : SequenceDataType::createFromStream: Missing size parameter on stream
+
+   ref from 00aa4b64 in FUN_00aa4b14
+string @ 02b5f31c : SequenceDataType::createFromStream: Invalid size on stream: %d (%d bytes remaining)
+
+   ref from 00aa4d00 in FUN_00aa4b14
+string @ 02b5f371 : SequenceDataType::createFromStream: creating element %d, Invalid size on stream: %d (%d bytes remaining)
+
+   ref from 00aa4c7c in FUN_00aa4b14
+string @ 02b5f3db : SequenceDataType::createFromStream: Insufficient data on stream to create %d elements
+
+   ref from 00aa4cd8 in FUN_00aa4b14
+
+=== FUN_00aa4b14 @ 00aa4b14 ===
+
+void FUN_00aa4b14(undefined8 *param_1,long *param_2,long *param_3,uint param_4)
+
+{
+  int iVar1;
+  char cVar2;
+  long lVar3;
+  bool bVar4;
+  long *plVar5;
+  int iVar6;
+  undefined4 uVar7;
+  int *piVar8;
+  long lVar9;
+  long **pplVar10;
+  code *pcVar11;
+  long *local_80;
+  long *local_78;
+  long *local_70;
+  long local_68;
+  
+  lVar3 = tpidr_el0;
+  local_68 = *(long *)(lVar3 + 0x28);
+  iVar1 = (int)param_2[6];
+  if (iVar1 == 0) {
+    piVar8 = (int *)(**(code **)(*param_3 + 0x10))(param_3,4);
+                       catch() { ... } // from try @ 00aa4b58 with catch @ 00aa4b88 */
+    iVar1 = *piVar8;
+    cVar2 = (char)param_3[1];
+  }
+  else {
+    cVar2 = (char)param_3[1];
+  }
+  if (cVar2 == '\0') {
+    iVar6 = (**(code **)(*param_3 + 0x18))(param_3);
+    if ((iVar1 < 0) || (iVar6 < iVar1)) {
+                       catch() { ... } // from try @ 00aa4a38 with catch @ 00aa4cec */
+      uVar7 = (**(code **)(*param_3 + 0x18))(param_3);
+      FUN_01dad604("SequenceDataType::createFromStream: Invalid size on stream: %d (%d bytes remaining)\n"
+                   ,iVar1,uVar7);
+      *(undefined1 *)(param_3 + 1) = 1;
+      *param_1 = 0;
+    }
+    else {
+      (**(code **)(*param_2 + 0xb0))(&local_70,param_2,iVar1);
+      if (local_70 == (long *)0x0) {
+        *(undefined1 *)(param_3 + 1) = 1;
+      }
+      else {
+        if (0 < iVar1) {
+          iVar6 = 0;
+          do {
+            (**(code **)(*(long *)param_2[5] + 0x58))
+                      (&local_78,(long *)param_2[5],param_3,param_4 & 1);
+            if (local_78 == (long *)0x0) {
+              uVar7 = (**(code **)(*param_3 + 0x18))(param_3);
+              FUN_01dad604("SequenceDataType::createFromStream: creating element %d, Invalid size on stream: %d (%d bytes remaining)\n"
+                           ,iVar6,iVar1,uVar7);
+              bVar4 = true;
+              pplVar10 = (long **)param_1;
+            }
+            else {
+              pcVar11 = *(code **)(*param_2 + 0xb8);
+              local_80 = local_78;
+              *local_78 = *local_78 + 1;
+              (*pcVar11)(param_2,local_70,iVar6,&local_80);
+              if ((local_80 != (long *)0x0) &&
+                 (lVar9 = *local_80, *local_80 = lVar9 + -1, lVar9 + -1 == 0)) {
+                       catch() { ... } // from try @ 00aa4b50 with catch @ 00aa4c58 */
+                (**(code **)(local_80[1] + 0x30))();
+              }
+              bVar4 = false;
+              pplVar10 = &local_80;
+            }
+                       catch() { ... } // from try @ 00aa49ac with catch @ 00aa4c94 */
+            plVar5 = local_78;
+            *pplVar10 = (long *)0x0;
+            if ((plVar5 != (long *)0x0) && (lVar9 = *plVar5, *plVar5 = lVar9 + -1, lVar9 + -1 == 0))
+            {
+              (**(code **)(plVar5[1] + 0x30))();
+            }
+            if (bVar4) goto LAB_00aa4d28;
+            iVar6 = iVar6 + 1;
+          } while (iVar6 < iVar1);
+        }
+        plVar5 = local_70;
+                       catch() { ... } // from try @ 00aa44cc with catch @ 00aa4cd0 */
+        if ((char)param_3[1] == '\0') {
+          local_70 = (long *)0x0;
+          *param_1 = plVar5;
+          goto LAB_00aa4d5c;
+        }
+        FUN_01dad604("SequenceDataType::createFromStream: Insufficient data on stream to create %d elements\n"
+                     ,iVar1);
+      }
+      *param_1 = 0;
+LAB_00aa4d28:
+      if ((local_70 != (long *)0x0) && (lVar9 = *local_70, *local_70 = lVar9 + -1, lVar9 + -1 == 0))
+      {
+        (**(code **)(local_70[1] + 0x30))();
+      }
+    }
+  }
+  else {
+                       try { // try from 00aa4b60 to 00ba4e77 has its CatchHandler @ 00aa4264 */
+    FUN_01dad604("SequenceDataType::createFromStream: Missing size parameter on stream\n");
+    *param_1 = 0;
+  }
+LAB_00aa4d5c:
+  if (*(long *)(lVar3 + 0x28) != local_68) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return;
+}
+
+

@@ -15,6 +15,8 @@ ROOT = r'C:\Users\Raysoo\Downloads\ROS_RE'
 XMLDIR = os.path.join(ROOT, '05_entities', 'out')
 OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
 TARGET = 'weekendPushRewardsHaveGotten'
+COLLECTION_DEFAULTS_MODE = os.environ.get('ROS_COLLECTION_DEFAULTS_MODE', 'all')
+COMPACT_COLLECTION_DEFAULTS = {'getGift', TARGET}
 
 VTABLE_TYPE = {
     '0x6af6c38': 'INT32',
@@ -31,6 +33,7 @@ VTABLE_TYPE = {
     '0x6af6778': 'UINT8',
     '0x6af6b08': 'INT16',
 }
+VTABLE_BY_OFFSET = {int(k, 16) & 0xffff: v for k, v in VTABLE_TYPE.items()}
 
 
 def packed_int(n):
@@ -152,7 +155,8 @@ print(f'included: {len(inc)}')
 
 stream, layout, unhandled = b'', [], []
 for ordinal, r in enumerate(inc):
-    rt = VTABLE_TYPE.get(vt.get(r['idx']))
+    raw_vt = vt.get(r['idx'])
+    rt = VTABLE_BY_OFFSET.get(int(raw_vt, 16) & 0xffff) if raw_vt else None
 
     if r['name'] == TARGET:
         blob = packed_int(3) + b'(l.'          # protocol-0 [] -- the actual fix
@@ -167,6 +171,15 @@ for ordinal, r in enumerate(inc):
             blob = enc_field(xml_t.split(':', 1)[1]) if xml_t.startswith('FIXED_DICT:') else None
     elif rt == 'PYTHON':
         d = py_defaults.get(r['name'])
+        if (COLLECTION_DEFAULTS_MODE == 'compact' and
+                r['name'] not in COMPACT_COLLECTION_DEFAULTS):
+            d = None
+        elif COLLECTION_DEFAULTS_MODE.startswith('upto:') and \
+                ordinal >= int(COLLECTION_DEFAULTS_MODE[5:]):
+            # Bisection aid: only honour declared []/{} defaults for ordinals < K, so a
+            # desync that appears once defaults are enabled can be pinned to the first
+            # property whose default encoding breaks the client's read.
+            d = None
         blob = (PY_EMPTY_LIST if d == '[]' else
                 PY_EMPTY_DICT if d == '{}' else
                 PRIM['PYTHON'])
@@ -186,6 +199,7 @@ for u in unhandled:
 t = [l for l in layout if l[5] == TARGET][0]
 print(f'\n{TARGET}: ordinal={t[0]} idx={t[1]} offset={t[2]} len={t[3]}')
 print(f'total stream: {len(stream)} bytes  (message = {len(stream) + 6}, budget 1465)')
+print(f'collection defaults mode: {COLLECTION_DEFAULTS_MODE}')
 print('type histogram:', collections.Counter(l[4] for l in layout).most_common())
 
 os.makedirs(os.path.dirname(OUTBIN), exist_ok=True)

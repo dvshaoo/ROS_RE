@@ -2449,6 +2449,20 @@ server-side property-stream route (their "Solution C") which this file had previ
 written off. Gemini's `scratch/test_domain_0xb.py` is filtering Athlete's property
 descriptors against exactly this `0xb` mask.
 
+> **PARTIALLY RETRACTED (2026-09-20) — read "Checkpoint 20" at the end of this file first.**
+> Three claims in the sections below are wrong or unproven:
+> 1. *"In sync through ordinal 300"* (truncation bisect) — the criterion used (no `Invalid size`
+>    error on a truncated stream) was too weak. The stream actually desyncs at **ordinal 207**
+>    (`childBaseClientPropertyList`, a fixed-size array). The "1-byte residual at 301-305" was a
+>    downstream symptom.
+> 2. *"The TypeError is ELIMINATED"* — that run only shows the entity layer executing once the
+>    Athlete packet reached the client; see the retraction of claim 3 for why it sometimes did not.
+> 3. *"A 1585-byte stream is accepted, the 1465 B budget is not a ceiling"* — **false.** Absence of a
+>    `Bundle::iterator::unpack` error was taken as acceptance, but a packet dropped earlier by
+>    `EncryptionFilter::recv: Dropping packet ... illegal wastage count (100)` never reaches the
+>    Bundle parser, so no error is logged. The measured single-packet ceiling (`createBasePlayer`
+>    stream <= 1459 B) stands.
+
 ## 2026-09-19 RESULT: the property stream works — root-cause `TypeError` is ELIMINATED live
 
 Built and shipped the stream (`scratch/gen_stream_v2.py` ->
@@ -2863,3 +2877,92 @@ The manager class is **`ClientApp`** (not `ServerConnection`; `ServerConnection`
      Verify if `onBecomeCellPlayer` fires and whether client properties populate without Python exceptions.
 2. **Test `onEnterHallTeam` (idx 54) / Team Initialization**:
    - If `hallTeamData` is needed to satisfy `isInTeam()`, send `onEnterHallTeam` (idx 54) with a solo team structure before `enterHall(True)`.
+
+
+## Checkpoint 20 (2026-09-20): client now receives both createBasePlayer packets; the real stream desync is a FIXED-SIZE ARRAY at ordinal 207
+
+Every item below was changed AND live-tested this session. Evidence files are in `scratch/`.
+
+### 1. Server: session-key scan skipped the region that held the key
+`mitm/local_baseapp_capture.py` `fast_find_session_key()` filtered heap regions with `sz > 16` (MB).
+`scratch/scan_all_regions.py` (Gemini) found the live EncryptionFilter key in a **10 MB** region
+(`763854e00000-763855800000`), so KEYSCAN logged "no key found" while the key was in memory.
+Heap layout differs per launch, which is why the scan succeeded on some launches and not others.
+**Fix:** threshold `sz >= 2` (the binary search bottoms out at 2 MB). Regions come from
+`libc_malloc`/`[heap]` lines only, so nothing else filters them.
+
+### 2. Live result of that fix (with Gemini's uncommitted fragmentation code also active)
+`scratch/lc_keyfix.txt`: **two** `ServerConnection::createBasePlayer: id 1` lines (Account
+16:03:12.004, Athlete 16:03:12.316), no `Dropping packet` warning, and the entity layer now runs
+(Python tracebacks from `Athlete.py`, `enterHall` walking its interface chain).
+Before (`scratch/lc_setplayer.txt`, 1585 B stream, old server code): only **one** createBasePlayer, then
+`EncryptionFilter::recv: Dropping packet from 172.16.1.2:25010 due to illegal wastage count (100)` and
+`MainApp::poll ... REASON_CORRUPTED_PACKET`.
+**Not separated:** the keyscan fix and Gemini's `send_mercury_message` fragmentation were both in the
+working tree for the good run, so which of the two rescued the 1585-byte case is unproven. The
+1457-byte single-packet run (`scratch/lc_upto0.txt`, `ROS_COLLECTION_DEFAULTS_MODE=upto:0`) also shows two
+createBasePlayer lines. Fragment reassembly worked at least in the sense that the client saw the whole
+stream: its own error reported `783 bytes remaining` at cursor 798, and 798+4+783 = 1585.
+Gemini's fragmentation (`send_mercury_message`, 1443-byte chunks, footers `first_seq,last_seq,seq`) is
+therefore not refuted, but not yet isolated either.
+
+### 3. The desync: `childBaseClientPropertyList` / `childClientPropertyList2` are `<size> 1 </size>` arrays
+Decompiled `SequenceDataType::createFromStream` = `FUN_00aa4b14` (`scratch/ghidra_sequencedatatype.txt`,
+script `scratch/ghidra_scripts/FindSequenceDataType.java`):
+```c
+iVar1 = (int)param_2[6];                 // DataType+0x30 : FIXED element count declared in the type
+if (iVar1 == 0) iVar1 = *(int*)stream.read(4);   // count is on the wire ONLY when no fixed size
+if (iVar1 < 0 || remaining < iVar1) log("Invalid size on stream: %d (%d bytes remaining)", iVar1, remaining);
+for (i = 0; i < iVar1; i++)              // element type = DataType+0x28
+    if (elem == NULL) log("creating element %d, Invalid size on stream: %d (%d bytes remaining)", i, iVar1, ...);
+```
+So in `creating element 0, Invalid size on stream: 1` the `1` is the **sequence's own count**, not a value
+read from our stream (our stream contains no `0x01` byte at all). A fixed-size array has **no count on the
+wire**. `05_entities/out/entity_0141.xml` declares both `childBaseClientPropertyList` and
+`childClientPropertyList2` as `ARRAY <of> FIXED_DICT ... </of> <size> 1 </size>`, and the generator wrote a
+4-byte zero count for each, so the client read the entire dict body (dozens of fields, nested arrays) out
+of the bytes that followed and stayed misaligned to the end.
+**Arithmetic that ties it together:** the element's first 8 fields are primitives totalling
+1+8+8+1+4+4+8+8 = **42 bytes**, then `package2` (a nested FIXED_DICT) starts with an ARRAY count.
+Our ordinal 207 offset + 42 equals the client's failing cursor in every run:
+711+42 = 753 (stamped-INT32 run: client read our ordinal-219 stamp `1000219` as a count),
+756+42 = **798** (all-defaults run: bytes `28 64 2e 00` = `"(d."` misread as count 3040296),
+and in the no-defaults run the first nested count at 753 read `0` (valid) so parsing continued and
+failed later at cursor 985 (`2e 02 4e 2e` = `.\x02N.`, value 776864302).
+
+### 4. Why earlier bisection was misleading
+The truncation bisect declared "in sync through K" when a truncated stream produced no
+`Invalid size` error. A misaligned client can consume any number of bytes without that error (integer
+reads never fail; PYTHON reads are length-prefixed), so silence proved nothing. The only positive
+alignment evidence is a *specific* client error whose numbers can be checked against a known offset,
+as in section 3. Use that style of check, not silence.
+
+### 5. Generalised lesson
+The XML-regex type extractor could not see past a nested `<Properties>` block and returned `None` for
+every ARRAY-of-FIXED_DICT, which the generator then forced to "ARRAY, count 0". **Fixed-size arrays exist
+elsewhere too** (`grep -l "<size>" 05_entities/out/*.xml` finds 7 files, e.g. `ARRAY <of> INT32 </of>
+<size> 2 </size>`). Any included property with a `<size>` is mis-encoded until the generator is rewritten
+around the *runtime* type tree (`scratch/dump_runtime_types.py`, in progress) instead of XML regexes.
+
+### 6. Tooling changes this session
+- `scratch/drive_login.py`: detects the server log's encoding (UTF-16LE vs UTF-8) — it read a UTF-8 log
+  as UTF-16LE, found no matches and re-tapped 13 times after a login had already succeeded. Events-popup
+  close button is `(1845, 105)` (Gemini measured it), not `(1841, 108)`.
+- `scratch/gen_stream_v2.py`: new `ROS_COLLECTION_DEFAULTS_MODE=upto:K` (defaults only for ordinals < K).
+  `all` (default) and Gemini's `compact` are unchanged.
+- **Two different adb binaries** are in use: LDPlayer's is 34.0.4, the Android SDK's is 37.0.1. Mixed client
+  versions restart each other's adb server and are a likely cause of earlier "wedged" sessions. Launch the
+  server with `ADB_PATH=C:\Users\Raysoo\AppData\Local\Android\Sdk\platform-tools\adb.exe` so everything
+  uses one.
+- `adb exec-out "su 0 dd ..."` returns **extra trailing bytes** (4097 for a 4 KB page, 65551 for 64 KB);
+  always slice to the requested length.
+- New: `scratch/xmltypes.py` (ElementTree access to the entity XMLs; 722/723 files parse),
+  `scratch/dump_runtime_types.py` (WIP), `scratch/ghidra_scripts/FindSequenceDataType.java`.
+
+### 7. State at the end of this checkpoint / next step
+`data/athlete_mobile_stream.bin` is currently the `upto:0` baseline (1457 B). It, and the `all` variant,
+are both desynced at ordinal 207. **Next:** rebuild the encoder from the live runtime DataType tree
+(ARRAY fixed size at `+0x30`, element type at `+0x28`; FIXED_DICT field records at `+0x20`, 40 bytes each:
+`std::string` name, `DataType*`, 8 B misc), verify it on `dtsAppearancePackage` (must give 4 fields named
+`itemList/itemsList/layoutInfo/_packageCapacity`), then re-run `scratch/drive_login.py` and check that the
+`childBaseClientPropertyList` error is gone.
