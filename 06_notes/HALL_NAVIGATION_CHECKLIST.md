@@ -44,3 +44,18 @@ For each: does Back/X return to the hall? which traceback?
 - Top-bar currency now real (diamond slot shows freeYuanbao; coin slot needs `currencyList`) — see notes 20j.
 - New-player guide overlay (dimmed hall, yellow arrows on START) appears on some fresh logins.
 - "RushHour" banner + tank icon (btn_airship) still visible; profile "My Page" shows `ID: 0`.
+
+## Store (sidebar STORE) — user report 2026-09-20
+- Tabs **Suggested / Packs / Looks**: nothing displayed. **Fire(arms)**: items display but a skin cannot be bought. **Top-up**: prices show "USD" — should be peso (PHP).
+- Probable cause class: mall goods lists / prices are server-supplied (mall goods table sync + purchase base method + reply RPC); none implemented yet.
+
+## New-function guide overlay blocks the hall (found 2026-09-20 while testing Store)
+- On some fresh logins the hall is dimmed with yellow arrows on START; taps on STORE/other buttons are swallowed (Store did not open; it opened on
+  logins where the guide was absent). Overlay = `ui\UIMainNewFunctionGuide` (`IS_FORCE_GUIDE`), driven by `dts_new_function_guide_utils.checkCanDoNewFunctionGuide`
+  / `tryShowNewGuide` reading Athlete `newFunctionGuideRecord` (PYTHON, stream idx 825, currently None/default; `has_key`-style dict keyed by guide id).
+  Guide ids come from `NewFunctionGuideCfgDict` (data file, not yet located). Plan: find the id list and send a record marking every guide as done
+  (or the RPC that records completion: `recordNewFunctionGuide`), then re-test Store.
+- Store report status: Store opens and shows 999999 gold + 999999 diamond in its own header, but the tab panel is blank (no script error, no upstream request
+  seen in the server log in that login). Suggested/Packs/Looks tabs empty, Fire tab lists items but purchase does not work, top-up shows "USD".
+  Next: with the guide out of the way, capture the exact upstream message on tab open / on buy and find the reply RPC via `tools/script_query.py ui/TreasureMall...`.
+- Environment note: after the emulator VM was restarted the iptables NAT rules were empty; reapply the 5 DNAT rules (tcp 80/443/8443, udp 25000/20013 -> 172.16.1.2 same port).
