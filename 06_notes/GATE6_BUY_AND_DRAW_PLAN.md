@@ -158,3 +158,10 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
 - LIVE: STAR / LOOKS / VEHICLE / FIREARMS still render; the "Previous" panel now lists many old events (VEHICLE: Classic Wedding Car, Hovering Car, Summer Bicycle, Fiery Hunting, Sparrow, Orca ...,
   scrollable) instead of two (`scratch/prev_open.png`). A page can show white for ~20-30 s while its 3D scene loads.
 - SUPREME (monthly) still blank: needs a "current month" by device clock (see previous section).
+
+## Draw prizes: containers no longer shown (2026-09-21)
+- User saw container items after FIREARMS/VEHICLE draws ("小红帽礼盒（打包）", "Classic Supply (2021.02.03)", "全载具随机"). Cause: the pool included consolation entries (currency, tickets, fragments, packed gift boxes).
+- Prop tables (assets.npk): `5081e268` chest props (RandomItem/GiftBag), `c656e064` general props (CurrencyPropType, Fragment, MultiUseProp, GiftBag, head/frame/nameplate...), `a2f095a2` clothes/body/decoration, `190f0c0a` weapon skins,
+  `b8749560` vehicle appearance (e.g. 142058), `8f4932f0` battleground prop appearance (103982). `mitm/local_baseapp_capture.py`: `_expand_prop` opens RandomItem (weighted) and GiftBag (all entries);
+  `ROS_DRAW_COSMETIC_ONLY=1` (default) rerolls (<=40x) any result containing CurrencyPropType/Fragment/MultiUseProp/BravaBook*/DtsHeroPropType/CrazyCarnivalPropType. `scratch/prize_audit.py`: 240 draws over boxes 1/15/105/9329
+  -> only appearance types (a few GiftBag/BigSpeaker for box 1). Live server log: FIREARMS 1x -> `[1112323]`, `charged 10 diamonds -> balance 999809`. (Screenshots of that run are invalid: blind taps hit the controls screen/daily popup.)

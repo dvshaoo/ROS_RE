@@ -918,32 +918,55 @@ def handle_upstream_calls(sock, addr, key, unpadded):
                 _reply()
 
 
-def _hall_prop_table():
-    """Client hall-prop table (assets.npk member 5081e268 'chest props'): container props are PROP_TYPE RandomItem with a weighted PROP_LIST."""
-    if 'props' not in _SUPPLEMENT_CACHE:
+_NON_COSMETIC = ('CurrencyPropType', 'Fragment', 'MultiUseProp', 'BravaBookExperience', 'BravaBookPass', 'DtsHeroPropType',
+                 'CrazyCarnivalPropType')
+
+
+def _prop_tables():
+    """Client prop tables (assets.npk): 5081e268 = chest props (RandomItem/GiftBag containers), c656e064 = general props
+    (currency/tickets/fragments/gift bags/head+frame+nameplate items), a2f095a2 = clothing/body/decoration appearance, 190f0c0a = weapon appearance."""
+    if 'ptabs' not in _SUPPLEMENT_CACHE:
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
         import load_table as LT
-        _SUPPLEMENT_CACHE['props'] = LT.parse_table(LT.read_member(0x5081e268).decode('utf-8'))
-    return _SUPPLEMENT_CACHE['props']
+        _SUPPLEMENT_CACHE['ptabs'] = {m: LT.parse_table(LT.read_member(m).decode('utf-8'))
+                                      for m in (0x5081e268, 0xc656e064, 0xa2f095a2, 0x190f0c0a)}
+    return _SUPPLEMENT_CACHE['ptabs']
+
+
+def _prop_type(pid):
+    for t in _prop_tables().values():
+        r = t.get(pid)
+        if r is not None:
+            return r.get('value', {}).get('PROP_TYPE') or {}
+    return None
 
 
 def _expand_prop(pid, depth=0):
-    """Weighted expansion of a container prop down to a real item id (what the real server rolls when a box is opened)."""
+    """Expand a prop id into the list of leaf item ids the real server would grant: RandomItem -> one weighted pick,
+    GiftBag -> every entry (each expanded). Leaves (clothes, weapon skins, vehicles, currency, tickets...) are returned as is."""
     import random
-    rec = _hall_prop_table().get(pid)
-    if rec is None or depth > 6:
-        return pid
-    pt = rec.get('value', {}).get('PROP_TYPE') or {}
-    if pt.get('type') != 'RandomItem':
-        return pid
-    lst = pt.get('value', {}).get('PROP_LIST') or []
-    if not lst:
-        return pid
-    weights = [max(int(x.get('PROBABILITY', 1)), 0) for x in lst]
-    if sum(weights) <= 0:
-        weights = [1] * len(lst)
-    pick = random.choices(lst, weights=weights, k=1)[0]
-    return _expand_prop(int(pick['PROP_ID']), depth + 1)
+    pt = _prop_type(pid)
+    if pt is None or depth > 8:
+        return [pid]
+    kind, val = pt.get('type'), pt.get('value', {})
+    if kind in ('RandomItem', 'RandomItemSkipAlreadyHasProp'):
+        lst = val.get('PROP_LIST') or []
+        if not lst:
+            return [pid]
+        w = [max(int(x.get('PROBABILITY', 1)), 0) for x in lst]
+        pick = random.choices(lst, weights=w if sum(w) > 0 else None, k=1)[0]
+        return _expand_prop(int(pick['PROP_ID']), depth + 1)
+    if kind == 'GiftBag':
+        out = []
+        for x in val.get('PROP_LIST') or []:
+            out += _expand_prop(int(x['PROP_ID'] if isinstance(x, dict) else x), depth + 1)
+        return out or [pid]
+    return [pid]
+
+
+def _is_cosmetic(pid):
+    pt = _prop_type(pid)
+    return not (pt and pt.get('type') in _NON_COSMETIC)
 
 
 def supplement_pick_prizes(sid, count):
@@ -968,7 +991,15 @@ def supplement_pick_prizes(sid, count):
             pool.append(int(it['PROP_ID']))
     if not pool:
         pool = [361154]
-    return [_expand_prop(random.choice(pool)) for _ in range(count)]
+    only_cos = os.environ.get('ROS_DRAW_COSMETIC_ONLY', '1') == '1'
+    out = []
+    for _ in range(count):
+        for _try in range(40):
+            got = [i for i in _expand_prop(random.choice(pool))]
+            if not only_cos or all(_is_cosmetic(i) for i in got):
+                break
+        out += got
+    return out[:max(count, 1)] if len(out) > count else out
 
 
 def supplement_cost(sid, currency_id, times):
