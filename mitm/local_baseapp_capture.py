@@ -825,9 +825,13 @@ def supplement_avail_payload(per_kind=2, now=None):
         if not (on <= now <= off) or not v.get('IS_IN_SALE', True):
             continue
         kind = v['KIND']
-        if per_kind and count.get(kind, 0) >= per_kind:
+        # every CURRENT box (IS_PREVIOUS_BOX unset) of a kind is always sent (the tabs show only those as selectable boxes);
+        # "previous" boxes are limited to per_kind per KIND to keep the single method message under 65,535 bytes.
+        is_prev = bool(rec['value'].get('IS_PREVIOUS_BOX'))
+        if is_prev and per_kind and count.get(kind, 0) >= per_kind:
             continue
-        count[kind] = count.get(kind, 0) + 1
+        if is_prev:
+            count[kind] = count.get(kind, 0) + 1
         if os.environ.get('ROS_SUPPLEMENT_SLIM', '1') == '1':
             # a single method message is limited to 65,535 bytes (2-byte length), so keep only small scalar keys
             v = {k: x for k, x in v.items() if isinstance(x, (int, float, bool, str, tuple)) or x is None
