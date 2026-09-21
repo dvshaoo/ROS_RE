@@ -150,3 +150,11 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   (b) serve a patched `data_month_supplement_param` through the client's patch/resource path; (c) accept as a time-limited event.
 - Also seen: a running emulator can go black and vanish from adb (LDPlayer VM dies); the user restarts it; then re-apply the 5 iptables DNAT rules.
 - Still TODO for draws: currency deduction (`onYBUpdated` 203), inventory grant, free draw (0xdb), guarantee counters, real drop weights, retransmitted duplicate calls (client sent the same draw 3x).
+
+## Supply: ALL events (incl. ended) now shown — 2026-09-21
+- `supplement_avail_payload` now sends ALL 248 records of `data_supplement` (no online/offline/in-sale filter, no per-kind cap; `ROS_SUPPLEMENT_ALL=0` restores the old filtered mode) using only the 11 fields the UIs read from the server dict
+  (NAME, CURRENCY_ID, BUY_TIMES_PRICE, NEXT_BUY_TIMES_PRICE, BUY_MULTIPLE_TIMES_PRICE, CURRENT_DISCOUNT, KIND, IS_PREVIOUS_BOX, SORT_KEY, PURCHASE_LIMIT_NUM, CONTINUE_LOTTERY_TIMES): 39,368 B, under the 65,535 B method limit
+  (one message; fragmented over ~27 packets).
+- LIVE: STAR / LOOKS / VEHICLE / FIREARMS still render; the "Previous" panel now lists many old events (VEHICLE: Classic Wedding Car, Hovering Car, Summer Bicycle, Fiery Hunting, Sparrow, Orca ...,
+  scrollable) instead of two (`scratch/prev_open.png`). A page can show white for ~20-30 s while its 3D scene loads.
+- SUPREME (monthly) still blank: needs a "current month" by device clock (see previous section).

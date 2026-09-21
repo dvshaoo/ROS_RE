@@ -817,26 +817,29 @@ def supplement_avail_payload(per_kind=2, now=None):
     text = LT.read_member(0x9e1c8652).decode('utf-8')
     data = LT.parse_table(text)
     picked, count = {}, {}
+    send_all = os.environ.get('ROS_SUPPLEMENT_ALL', '1') == '1'
+    # Fields the Supply UIs read from the server dict (everything static comes from the client's own tables):
+    # verified from decrypted UISupplyPackage / iSupplement code (NAME, CURRENCY_ID, BUY_TIMES_PRICE, NEXT_BUY_TIMES_PRICE,
+    # BUY_MULTIPLE_TIMES_PRICE, CURRENT_DISCOUNT, ...). 248 records in this form are ~39 KB, under the 65,535-byte method limit.
+    keep = ('NAME', 'CURRENCY_ID', 'BUY_TIMES_PRICE', 'NEXT_BUY_TIMES_PRICE', 'BUY_MULTIPLE_TIMES_PRICE', 'CURRENT_DISCOUNT',
+            'KIND', 'IS_PREVIOUS_BOX', 'SORT_KEY', 'PURCHASE_LIMIT_NUM', 'CONTINUE_LOTTERY_TIMES')
     for sid in sorted(data):
         rec = data[sid]
         v = _supplement_runtime_record(rec)
-        on = str(v.get('ONLINE_TIME', '')).replace('-', '.')
-        off = str(v.get('OFFLINE_TIME', '')).replace('-', '.')
-        if not (on <= now <= off) or not v.get('IS_IN_SALE', True):
-            continue
-        kind = v['KIND']
-        # every CURRENT box (IS_PREVIOUS_BOX unset) of a kind is always sent (the tabs show only those as selectable boxes);
-        # "previous" boxes are limited to per_kind per KIND to keep the single method message under 65,535 bytes.
-        is_prev = bool(rec['value'].get('IS_PREVIOUS_BOX'))
-        if is_prev and per_kind and count.get(kind, 0) >= per_kind:
-            continue
-        if is_prev:
-            count[kind] = count.get(kind, 0) + 1
-        if os.environ.get('ROS_SUPPLEMENT_SLIM', '1') == '1':
-            # a single method message is limited to 65,535 bytes (2-byte length), so keep only small scalar keys
-            v = {k: x for k, x in v.items() if isinstance(x, (int, float, bool, str, tuple)) or x is None
-                 or (k in ('CURRENCY_OPTION',) and len(repr(x)) < 400)}
-        picked[sid] = v
+        if not send_all:
+            on = str(v.get('ONLINE_TIME', '')).replace('-', '.')
+            off = str(v.get('OFFLINE_TIME', '')).replace('-', '.')
+            if not (on <= now <= off) or not v.get('IS_IN_SALE', True):
+                continue
+            kind = v['KIND']
+            is_prev = bool(rec['value'].get('IS_PREVIOUS_BOX'))
+            if is_prev and per_kind and count.get(kind, 0) >= per_kind:
+                continue
+            if is_prev:
+                count[kind] = count.get(kind, 0) + 1
+        else:
+            count[v['KIND']] = count.get(v['KIND'], 0) + 1
+        picked[sid] = {k: v[k] for k in keep if k in v}
     payload = pickle.dumps(picked, protocol=0)
     if len(payload) > 65000:
         log('SUPPLEMENT: WARNING payload %d B exceeds the 2-byte method length; lower ROS_SUPPLEMENT_PER_KIND' % len(payload))
