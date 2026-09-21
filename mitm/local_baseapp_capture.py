@@ -1681,9 +1681,14 @@ def run_baseapp_stage_machine(sock, addr, key):
         athlete_eid = int(os.environ.get('ROS_ATHLETE_EID', '1'))
         athlete_type = int(os.environ.get('ROS_ATHLETE_TYPE', '51'))
 
-        # Empty stream by default
+        # The verified lobby build requires the runtime-typed Athlete stream.
+        # An empty stream leaves BASE_AND_CLIENT values unset, which makes the
+        # client fall back to the placeholder profile/currencies and can abort
+        # UIMain initialization (duplicate promo cards, Leave Team, no avatar).
+        # Keep an explicit `=0` escape hatch for isolated protocol probes, but
+        # make a plain server launch run the working lobby configuration.
         athlete_stream = b''
-        if os.environ.get('ROS_ATHLETE_USE_STREAM_FILE') == '1':
+        if os.environ.get('ROS_ATHLETE_USE_STREAM_FILE', '1') == '1':
             stream_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'athlete_mobile_stream.bin')
             if os.path.isfile(stream_path):
                 try:

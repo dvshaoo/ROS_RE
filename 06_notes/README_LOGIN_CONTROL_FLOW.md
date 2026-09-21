@@ -33,6 +33,34 @@ A controlled fresh launch produced one BaseApp session, one Select Controls page
 popup; it did not create a second BaseApp session or return to Select Controls. The Stage-4 RPC order was
 not changed.
 
+### Launch guard added 2026-09-21
+
+The verified runtime-typed Athlete stream is now enabled by default in
+`mitm/local_baseapp_capture.py`. A plain `python -u mitm/local_baseapp_capture.py`
+launch therefore uses `data/athlete_mobile_stream.bin`; set
+`ROS_ATHLETE_USE_STREAM_FILE=0` only for a deliberate empty-stream protocol probe.
+Without the stream, the client can fall back to the `283283` currency placeholders,
+blank portrait/avatar, `Leave Team`, and duplicate hall cards even when the Stage-4
+RPC order itself is unchanged.
+
+### Regression reproduction and verification — 2026-09-21
+
+The broken hall screenshot (placeholder `283283` balances, blank portrait/model,
+`Leave Team`, and duplicated promotion panels) was reproduced after a plain
+server restart whose process environment did not set
+`ROS_ATHLETE_USE_STREAM_FILE=1`.  This is a player-property-stream failure,
+not a Store exposed-method routing failure: the Store work only handles
+post-hall Athlete calls 310/312 and cannot alter the Stage-3 entity stream.
+
+After the default-stream guard, a force-stop/relaunch test reached one Select
+Controls confirmation, then a clean hall.  The server logged a 3,845-byte
+Stage-3 Athlete stream and the final screenshot showed `Dev | Raysoo`, two
+`999999` header balances, a loaded portrait/model/outfit, and no duplicate
+cards or `Leave Team`.  `logcat` returned no `SCRIPT ERROR` / traceback match
+for that test.  The displayed female avatar is the currently persisted
+`data/player_state.json` value (`gender: 2`); it is not a fallback caused by
+the stream guard.
+
 ## When it is a real bug
 
 Treat the flow as broken only when one of these occurs:
