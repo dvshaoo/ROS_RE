@@ -36,3 +36,10 @@ scratch/ghidra_project/
 scratch/ghidra_*.log
 scratch/run_ghidra_*.bat
 mitm/captures/BASEAPP_LOGIN_CAPTURE.txt
+
+# Large generated index (121 MB - exceeds GitHub 100 MB limit)
+scratch/script_index.txt
+
+# Transient server output logs (regenerable each run)
+scratch/store_server.*
+scratch/vendor_neox_tools/
