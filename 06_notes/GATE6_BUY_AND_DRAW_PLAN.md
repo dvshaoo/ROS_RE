@@ -179,3 +179,7 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   delaying it, so each retransmission re-ran the draw, re-charged diamonds and re-granted items.
 - Fix (`mitm/local_baseapp_capture.py`): dedupe by `(addr, seq)` (`_handled_seq`, seq = last 4 bytes when flag 0x0040) and run `handle_upstream_calls` in a daemon thread so the ACK is sent at once.
 - LIVE: FIREARMS 1x -> 1 draw, `charged 10`; VEHICLE 10x -> 1 draw, `charged 270`; `duplicate retransmission ... ignored` logged once. Note: earlier inventory JSON contained multiplied grants (each tap counted several times).
+
+## Female character — WORKS (2026-09-21)
+- `updateBaseCharacter(10005)` (also `onRoleCreateSuc(10005)`) makes the hall show the female avatar (red hair; profile portrait is female). Verified live (`scratch/fem1_hall3.png`), no new script error.
+- Default changed: `ROS_BASE_CHAR_TYPE` now defaults to **10005** (female); set `ROS_BASE_CHAR_TYPE=10002` for male. Clothes are gendered ("(M)"/"(F)"): draws grant both; equip flow still TODO.

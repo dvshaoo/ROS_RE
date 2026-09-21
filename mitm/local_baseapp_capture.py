@@ -1212,7 +1212,7 @@ def send_create_cell_player(sock, dest, key, space_id=1, vehicle_id=0, pos=(0.0,
 def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_type=None, nick=None):
     """Sends the authoritative response sequence for character creation / lobby entry."""
     if char_type is None:
-        char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10002'))
+        char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10005'))
     if nick is None:
         nick = os.environ.get('ROS_BASE_NICKNAME', 'Dev | Raysoo').encode('utf-8')
     elif isinstance(nick, str):
