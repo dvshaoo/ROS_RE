@@ -897,6 +897,12 @@ def handle_upstream_calls(sock, addr, key, unpadded):
                 ridx = 389      # onMultiOpenSupplyBox(INT32 id, PYTHON appearanceIDs)
             send_entity_method(sock, addr, key, 1, ridx, reply, flags=0x0008, num_methods=1131)
             log('BASEAPP: %s(id=%d cur=%d) -> prizes=%s (client idx %d)' % (name, sid, cur, prizes, ridx))
+            price = supplement_cost(sid, cur, n)
+            if cur == 2 and price and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
+                # diamonds (YUANBAO) are freeYuanbao+payYuanbao: charge freeYuanbao and tell the client via onYBUpdated(INT64 free, INT64 pay, INT32 src) idx 203
+                _dev_yb['free'] = max(_dev_yb['free'] - price, 0)
+                send_entity_method(sock, addr, key, 1, 203, struct.pack('<qqi', _dev_yb['free'], 0, 0), flags=0x0008, num_methods=1131)
+                log('BASEAPP: charged %d diamonds -> balance %d (onYBUpdated idx 203)' % (price, _dev_yb['free']))
             continue
         if name == 'queryAvailableSupplement':
             sup = supplement_avail_payload(int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2')))
@@ -912,14 +918,45 @@ def handle_upstream_calls(sock, addr, key, unpadded):
                 _reply()
 
 
+def _hall_prop_table():
+    """Client hall-prop table (assets.npk member 5081e268 'chest props'): container props are PROP_TYPE RandomItem with a weighted PROP_LIST."""
+    if 'props' not in _SUPPLEMENT_CACHE:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+        import load_table as LT
+        _SUPPLEMENT_CACHE['props'] = LT.parse_table(LT.read_member(0x5081e268).decode('utf-8'))
+    return _SUPPLEMENT_CACHE['props']
+
+
+def _expand_prop(pid, depth=0):
+    """Weighted expansion of a container prop down to a real item id (what the real server rolls when a box is opened)."""
+    import random
+    rec = _hall_prop_table().get(pid)
+    if rec is None or depth > 6:
+        return pid
+    pt = rec.get('value', {}).get('PROP_TYPE') or {}
+    if pt.get('type') != 'RandomItem':
+        return pid
+    lst = pt.get('value', {}).get('PROP_LIST') or []
+    if not lst:
+        return pid
+    weights = [max(int(x.get('PROBABILITY', 1)), 0) for x in lst]
+    if sum(weights) <= 0:
+        weights = [1] * len(lst)
+    pick = random.choices(lst, weights=weights, k=1)[0]
+    return _expand_prop(int(pick['PROP_ID']), depth + 1)
+
+
 def supplement_pick_prizes(sid, count):
-    """Prize hall-prop ids for a draw: the box's own guarantee targets and SUPPLEMENT_LIST prop ids (client table data_supplement).
-    First slice: uniform choice from those legitimate prizes (real weights/drop tables live in the prop-group tables, not yet decoded)."""
+    """Prize hall-prop ids for a draw. Pool = the box's own guarantee targets + SUPPLEMENT_LIST prop ids (client table data_supplement);
+    every pick is expanded through the weighted RandomItem containers of the hall-prop table so the client shows real items.
+    Guarantee counters and the real weights between pool entries are not modelled yet (uniform over the pool)."""
     import random
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
     import load_table as LT
-    data = LT.parse_table(LT.read_member(0x9e1c8652).decode('utf-8')) if 'data' not in _SUPPLEMENT_CACHE else _SUPPLEMENT_CACHE['data']
-    _SUPPLEMENT_CACHE['data'] = data
+    data = _SUPPLEMENT_CACHE.get('data')
+    if data is None:
+        data = LT.parse_table(LT.read_member(0x9e1c8652).decode('utf-8'))
+        _SUPPLEMENT_CACHE['data'] = data
     v = data.get(sid, {}).get('value', {})
     pool = []
     for g in v.get('GUARANTEE_LIST') or []:
@@ -931,7 +968,19 @@ def supplement_pick_prizes(sid, count):
             pool.append(int(it['PROP_ID']))
     if not pool:
         pool = [361154]
-    return [random.choice(pool) for _ in range(count)]
+    return [_expand_prop(random.choice(pool)) for _ in range(count)]
+
+
+def supplement_cost(sid, currency_id, times):
+    """Price of `times` draws in `currency_id` from the box's CURRENCY_OPTION (single price for 1x, MULTIPLE_BUY_PRICE for 10x)."""
+    data = _SUPPLEMENT_CACHE.get('data')
+    opt = ((data or {}).get(sid, {}).get('value', {}).get('CURRENCY_OPTION') or {}).get('value', {})
+    if 'CURRENCY_TYPE' in opt:
+        return opt.get('MULTIPLE_BUY_PRICE' if times > 1 else 'PRICE', 0) if opt['CURRENCY_TYPE'] == currency_id else 0
+    for i in ('1', '2'):
+        if opt.get('CURRENCY_TYPE' + i) == currency_id:
+            return opt.get(('MULTIPLE_BUY_PRICE' if times > 1 else 'PRICE') + i, opt.get('PRICE' + i, 0) * times) or 0
+    return 0
 
 
 def _packed_int(n):
