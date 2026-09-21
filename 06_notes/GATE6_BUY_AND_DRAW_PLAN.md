@@ -173,3 +173,9 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   Decrypted client body requires `changedItemList[0].info['ex_tm']`.
 - LIVE (dw4 run): draws persisted 9 item ids, stream regenerated each time (no server error), and no client script error / datatype error in logcat after the draws. NOT yet verified: that the items really show in Depot / can be equipped
   (the run's screenshots are invalid — blind taps landed on the daily-login popup). Next: open Depot > Looks after a draw and after re-login.
+
+## Draw fired 3-8x per tap — FIXED (2026-09-21, user report "parang 4x-5x tumutunog")
+- Cause: the client RETRANSMITS an unACKed reliable packet (same seq, ~every 0.45 s; log showed seq=30/31 repeated). The draw handler (prize roll + inventory JSON + `gen_stream_v3.py` subprocess) ran BEFORE the channel ACK,
+  delaying it, so each retransmission re-ran the draw, re-charged diamonds and re-granted items.
+- Fix (`mitm/local_baseapp_capture.py`): dedupe by `(addr, seq)` (`_handled_seq`, seq = last 4 bytes when flag 0x0040) and run `handle_upstream_calls` in a daemon thread so the ACK is sent at once.
+- LIVE: FIREARMS 1x -> 1 draw, `charged 10`; VEHICLE 10x -> 1 draw, `charged 270`; `duplicate retransmission ... ignored` logged once. Note: earlier inventory JSON contained multiplied grants (each tap counted several times).

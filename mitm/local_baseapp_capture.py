@@ -856,6 +856,7 @@ EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb
 # wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
 _dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
 _seen_exposed = set()
+_handled_seq = {}     # addr -> set of client packet seq numbers already handled (retransmission guard)
 _inventory_lock = threading.Lock()
 _inventory_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_inventory.json')
 
@@ -1601,10 +1602,25 @@ def serve_baseapp_udp_capture():
                         log('  DECRYPTED (%d bytes): %s' % (len(dec), dec.hex()))
 
             if unpadded is not None:
-                try:
-                    handle_upstream_calls(s, addr, _key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX, unpadded)
-                except Exception as _e:
-                    log('UPSTREAM CALL handler error: %r' % (_e,))
+                # The client RETRANSMITS a reliable packet (same seq) until it is ACKed; a slow handler (draw + inventory + stream regeneration)
+                # delayed the ACK, so one tap ran the draw 3-8 times (and charged/granted each time). Handle each (addr, seq) once, off-thread,
+                # so the ACK below goes out immediately.
+                _uflags = struct.unpack('<H', unpadded[0:2])[0] if len(unpadded) >= 2 else 0
+                _useq = struct.unpack('<I', unpadded[-4:])[0] if (_uflags & 0x0040 and len(unpadded) >= 8) else None
+                _dup = False
+                if _useq is not None:
+                    _seen = _handled_seq.setdefault(addr, set())
+                    _dup = _useq in _seen
+                    _seen.add(_useq)
+                if _dup:
+                    log('UPSTREAM CALL: duplicate retransmission seq=%d ignored' % _useq)
+                else:
+                    def _run_upstream(_addr=addr, _key=(_key_cache.get(addr) or _early_key_by_host.get(addr[0]) or _BFKEY_HEX), _pkt=unpadded):
+                        try:
+                            handle_upstream_calls(s, _addr, _key, _pkt)
+                        except Exception as _e:
+                            log('UPSTREAM CALL handler error: %r' % (_e,))
+                    threading.Thread(target=_run_upstream, daemon=True).start()
 
             # 3. Channel ACK responder
             if os.environ.get('ATTEMPT_CHANNEL_ACK', '1') == '1' and unpadded is not None and len(unpadded) >= 6:
