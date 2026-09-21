@@ -13,7 +13,7 @@ $A logcat -c
 $A shell input tap 70 380; sleep 8
 for t in 280 385 485 590 695; do
   $A shell input tap 85 $t; sleep 18; $A shell screencap -p /sdcard/c.png; $A pull /sdcard/c.png scratch/${L}_tab$t.png >/dev/null
-  if [ $t = 590 ]; then $A shell input tap 1680 990; sleep 8; $A shell screencap -p /sdcard/c.png; $A pull /sdcard/c.png scratch/${L}_tab590skip.png >/dev/null; fi
+  # NOTE: the "Skip" button on VEHICLE/FIREARMS pages is at the same place as DRAW 10x -> never tap it blindly
 done
 timeout 30 $A logcat -d | grep -a -A25 "SCRIPT ERROR" | grep -aE 'File "(ui|entities|common)|Error' | sed -E 's/^.*<SCRIPT> : *//' | cut -c1-150 | tail -8
 grep -a "SUPPLEMENT:" scratch/server_redpoints.out | tail -1 | cut -c1-160

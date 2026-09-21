@@ -139,3 +139,14 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
 - LIVE (`scratch/dr1_after1.png`): the result screen renders with real names/models (Dark Hood, Red Hood, Flyswatter - Dark Scissors, Bacpack - Bloody Hand Lv.3, plus two placeholder Chinese box names) and "Buy Another 95".
   The client re-sent the call (3 replies for 1 tap) — retransmission handling not yet checked. NOT done: currency deduction, inventory grant, free draw (0xdb), stats/guarantee counters.
 - Remaining Supply tabs: SUPREME (black), LOOKS (white), VEHICLE (needs "Skip" intro tap) — next.
+
+## Supply tabs status (2026-09-21, live, `scratch/tab_test.sh`, screens `scratch/tb2_tab*.png`, `scratch/clean_*.png`)
+- WORKING: **STAR** (kinds 1/2: STAR + ELITE boxes), **LOOKS** (Aurora, DRAW 300/2880), **VEHICLE** (Angel of Darkness, DRAW 30/270), **FIREARMS** (Red Hood, DRAW 10/95). DRAW 1x/10x replies render real result screens
+  (names/models from the client's own tables). VEHICLE needed the CURRENT (non-previous) boxes: the server now always sends every `IS_PREVIOUS_BOX`-unset record of each KIND and only `ROS_SUPPLEMENT_PER_KIND` previous ones.
+- The "Skip" button seen on VEHICLE/FIREARMS pages is the same screen position as DRAW 10x: tapping it blindly performs a 10x draw. Do not tap it in automated tests (tab_test.sh no longer does).
+- NOT WORKING: **SUPREME** = `UIMonthlySupplyPackage` (KIND 7 monthly supply). It is blank/black because `supplement_utils.getCurrentMonthSupplementID()` uses the DEVICE clock against
+  `data_month_supplement_param` (`assets.npk` members `5c64e12a`, `462e4a27`), whose latest END_TIME is 2021.12.30 (id 9765) — no month is "current" in 2026. Not fixable from the server RPCs.
+  Options (none done): (a) set the emulator clock to <= 2021-12 (breaks TLS: our server cert `mitm/srv.crt` and CA V3 are valid only from 2026-09-12; would need a re-issued CA/cert valid back to 2018 and re-installing the CA on the device);
+  (b) serve a patched `data_month_supplement_param` through the client's patch/resource path; (c) accept as a time-limited event.
+- Also seen: a running emulator can go black and vanish from adb (LDPlayer VM dies); the user restarts it; then re-apply the 5 iptables DNAT rules.
+- Still TODO for draws: currency deduction (`onYBUpdated` 203), inventory grant, free draw (0xdb), guarantee counters, real drop weights, retransmitted duplicate calls (client sent the same draw 3x).
