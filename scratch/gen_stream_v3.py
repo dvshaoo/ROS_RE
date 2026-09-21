@@ -69,6 +69,11 @@ for _item_id, _item in sorted(_inventory.items(), key=lambda kv: int(kv[0])):
         print('WARNING: ignoring malformed inventory item', _item_id)
 
 PROPERTY_OVERRIDES = {
+    # This is read during Athlete.onBecomePlayer, before the later Stage-4
+    # updateBaseNickname RPC.  Leaving it empty makes the client take the
+    # no-role bootstrap path (control-selection UI followed by a new BaseApp
+    # connection) even though this LAN profile already exists.
+    'baseNickname': os.environ.get('ROS_BASE_NICKNAME', 'Dev | Raysoo').encode('utf-8'),
     'weekendPushRewardsHaveGotten': [],
     # Athlete.onBecomePlayer passes this to extconfigs.getServiceAccessPoint(ap), which indexes
     # ap[0], ap[1] (and ap[2] for published iOS). Point all services at the LAN gateway only.
