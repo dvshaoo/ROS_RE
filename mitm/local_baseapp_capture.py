@@ -855,7 +855,7 @@ def supplement_avail_payload(per_kind=2, now=None):
 EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb: 'openSupplyBoxFree', 0xdc: 'openMultipleSupplyBox'}
 # wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
 _dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
-_dev_currencies = {1: 999999, 3: 5000, 213: 999999}
+_dev_currencies = {1: 999999, 3: 5000, 9: 999999, 213: 999999}
 _mall_buy_times = {}
 _seen_exposed = set()
 _handled_seq = {}     # addr -> set of client packet seq numbers already handled (retransmission guard)
@@ -865,10 +865,27 @@ _inventory_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
 # These indices are from the live Athlete exposed-method vector.  They are
 # distinct from the full base-method table and decode the Store requests sent
 # in the 0xfa..0xfd client packet bundles.
+#
+# Live evidence from store_live.out (2026-09-21):
+#   exposed_idx=312  payload=1 byte (no args)  -> queryAvailableMallGoods
+#   exposed_idx=310  payload=5 bytes (UINT32)   -> queryAvailableMallGoodsByType
+# The SysEnableOptMall switch selects 310 with a type arg; otherwise 312 fires.
 _STORE_EXPOSED = {
-    306: 'buyMallGood', 307: 'buyMultipleMallGood', 308: 'buySuitMallGood',
-    309: 'buyMallGoodUseHallProp', 313: 'buyMallGoodInAppearanceMall',
-    314: 'queryAvailableMallGoods', 315: 'queryAvailableMallGoodsByType',
+    # --- buy/gift methods ---
+    306: 'buyMallGood',
+    307: 'buyMultipleMallGood',
+    308: 'buySuitMallGood',
+    309: 'buyMallGoodUseHallProp',
+    310: 'queryAvailableMallGoodsByType',    # live-verified: 5-byte UINT32 type arg
+    311: 'queryAvailableMallGoodsForAppearanceMall',
+    312: 'queryAvailableMallGoods',           # live-verified: no args (1-byte payload)
+    313: 'buyMallGoodInAppearanceMall',
+    # --- gift ---
+    317: 'giftMallGood',
+    318: 'giftMallSuitGood',
+    # --- older-build fallbacks (pre-SysEnableOptMall) ---
+    314: 'queryAvailableMallGoods',
+    315: 'queryAvailableMallGoodsByType',
     316: 'queryAvailableMallGoodsForAppearanceMall',
 }
 _DEPOT_EXPOSED = {
@@ -974,23 +991,51 @@ def _int_array(items):
 
 
 def _mall_tables():
-    """Merge the authoritative client Store tables by goods id."""
+    """Merge the authoritative client Store tables by goods id.
+
+    assets.npk member signatures:
+      0x832995b1 = data_mall.2  (Suggested / Packs / Sundry)
+      0x878e57c9 = data_mall.1  (Looks / Cloth)
+      0x55977219 = data_mall_goods_gun (Firearms)
+      0x9fb2d5d5 = data_mall_suit (Suit Mall)
+    """
     if 'mall_tables' not in _SUPPLEMENT_CACHE:
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
         import load_table as LT
         merged = {}
-        # main Suggested/Packs, Looks, and Firearms respectively
-        for sig in (0x832995b1, 0x878e57c9, 0x55977219):
-            merged.update(LT.parse_table(LT.read_member(sig).decode('utf-8')))
+        for sig in (0x832995b1, 0x878e57c9, 0x55977219, 0x9fb2d5d5):
+            try:
+                merged.update(LT.parse_table(LT.read_member(sig).decode('utf-8')))
+            except Exception as e:
+                log('STORE: warning - could not load mall table 0x%08x: %s' % (sig, e))
         _SUPPLEMENT_CACHE['mall_tables'] = merged
+        log('STORE: loaded %d mall goods from %d tables' % (len(merged), 4))
     return _SUPPLEMENT_CACHE['mall_tables']
 
 
 def _mall_runtime_goods():
-    """Dynamic server state consumed by UIMall; names/models stay client-side."""
-    flags = ('IS_DISPLAY_IN_MALL', 'IS_DISPLAY_IN_CLOTH_MALL',
-             'IS_DISPLAY_IN_MALL_WEAPON', 'IS_DISPLAY_IN_WEAPON_MALL',
-             'IS_DISPLAY_IN_SUIT_MALL', 'IS_DISPLAY_IN_TIME_APPEARANCE')
+    """Dynamic server state consumed by UIMall; names/models stay client-side.
+
+    IS_DISPLAY_IN_MALL           -> Suggested / Packs tab
+    IS_DISPLAY_IN_CLOTH_MALL     -> Looks tab
+    IS_DISPLAY_IN_MALL_WEAPON    -> Firearms tab (new gun mall flag)
+    IS_DISPLAY_IN_WEAPON_MALL    -> Firearms tab (old gun mall flag)
+    IS_DISPLAY_IN_SUIT_MALL      -> Suit bundles
+    IS_DISPLAY_IN_TIME_APPEARANCE-> Featured / Appearance tab
+    IS_DISPLAY_IN_SUNDRY_MALL    -> Others / Sundry tab
+    IS_DISPLAY_IN_TIME_LIMIT_SUB -> Time-limited sub-mall
+    """
+    flags = (
+        'IS_DISPLAY_IN_MALL',
+        'IS_DISPLAY_IN_CLOTH_MALL',
+        'IS_DISPLAY_IN_MALL_WEAPON',
+        'IS_DISPLAY_IN_WEAPON_MALL',
+        'IS_DISPLAY_IN_SUIT_MALL',
+        'IS_DISPLAY_IN_TIME_APPEARANCE',
+        'IS_DISPLAY_IN_SUNDRY_MALL',
+        'IS_DISPLAY_IN_TIME_LIMIT_SUB',
+        'IS_DISPLAY_IN_TIME_LIMIT_ACTIVITY',
+    )
     goods = {}
     for good_id, rec in _mall_tables().items():
         value = rec.get('value', {})
@@ -1168,13 +1213,19 @@ def handle_upstream_calls(sock, addr, key, unpadded):
         if name == 'queryAvailableMallGoods':
             _send_mall_query_reply(sock, addr, key)
             continue
-        if name == 'queryAvailableMallGoodsByType' and len(payload) >= 5:
-            _send_mall_query_reply(sock, addr, key, query_type=struct.unpack_from('<I', payload, 1)[0])
+        if name == 'queryAvailableMallGoodsByType':
+            # payload[1:5] = UINT32 MallLocationType (0=all when SysEnableOptMall is off)
+            qt = struct.unpack_from('<I', payload, 1)[0] if len(payload) >= 5 else 0
+            _send_mall_query_reply(sock, addr, key, query_type=qt)
             continue
         if name == 'queryAvailableMallGoodsForAppearanceMall':
             _send_mall_query_reply(sock, addr, key, appearance=True)
             continue
         if name in ('buyMallGood', 'buyMallGoodInAppearanceMall'):
+            _handle_buy_mall_good(sock, addr, key, payload)
+            continue
+        if name in ('giftMallGood', 'giftMallSuitGood'):
+            # treat gifts as a simple buy for now (award item to self)
             _handle_buy_mall_good(sock, addr, key, payload)
             continue
         if name in ('setDtsAppearanceGender', 'equipAppearance', 'unloadAppearance', 'tryOffAppearance'):
@@ -1195,11 +1246,11 @@ def handle_upstream_calls(sock, addr, key, unpadded):
             log('BASEAPP: %s(id=%d cur=%d) -> prizes=%s (client idx %d)' % (name, sid, cur, prizes, ridx))
             grant_appearance_prizes(sock, addr, key, prizes)
             price = supplement_cost(sid, cur, n)
-            if cur == 2 and price and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
-                # diamonds (YUANBAO) are freeYuanbao+payYuanbao: charge freeYuanbao and tell the client via onYBUpdated(INT64 free, INT64 pay, INT32 src) idx 203
-                _dev_yb['free'] = max(_dev_yb['free'] - price, 0)
-                send_entity_method(sock, addr, key, 1, 203, struct.pack('<qqi', _dev_yb['free'], 0, 0), flags=0x0008, num_methods=1131)
-                log('BASEAPP: charged %d diamonds -> balance %d (onYBUpdated idx 203)' % (price, _dev_yb['free']))
+            if price and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
+                # YUANBAO (2) uses onYBUpdated; other supply currencies, including
+                # LOOKS colour diamond (9), use onCurrencyUpdated.
+                balance = _charge_store_currency(sock, addr, key, cur, price)
+                log('BASEAPP: charged %d currency id=%d -> balance %d' % (price, cur, balance))
             continue
         if name == 'queryAvailableSupplement':
             sup = supplement_avail_payload(int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2')))
@@ -1536,6 +1587,12 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
          pickle.dumps({}, protocol=0) + struct.pack('<i', 0),
          'Athlete.onPersonalRecommendStateUpdated(0,0,{},0)'),
     ]
+    # LOOKS colour-diamond sync is experimental.  Sending it during the
+    # verified hall bootstrap can regress older clients, so keep it opt-in
+    # until a fresh-login trace proves the method is safe here.
+    if os.environ.get('ROS_SEND_COLOR_CURRENCY', '0') == '1':
+        hall_state_rpcs.insert(0, (204, struct.pack('<iqi', 9, _dev_currencies[9], 0),
+                                   'Athlete.onCurrencyUpdated(id=9, %d)' % _dev_currencies[9]))
     # onQueryAvailableSupplement(PYTHON availSupplementDict) idx 392 (live table). Without it the Supply page is empty and DRAW sends nothing.
     _sup_n = int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2'))
     if _sup_n >= 0 and os.environ.get('ROS_SUPPLEMENT', '1') == '1':

@@ -1,7 +1,7 @@
 # GEMINI.md — Rules of Survival (ROS) Private Server Emulation & RE Master Guide
 
 > **Author**: Gemini / Antigravity Agent  
-> **Last Updated**: 2026-09-19 (Checkpoint 18: iWeekendPush TypeError proved as single root cause of both missing attributes & Level Destroy)  
+> **Last Updated**: 2026-09-21 (Checkpoint 19: Store tabs blank fix — correct exposed-idx mapping & Suit Mall table added)  
 > **Client Version**: Rules of Survival Mobile (Android `com.netease.chiji`, v1.610377.506841, vCode 1117219, arm64-v8a)  
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)
 
@@ -16,8 +16,10 @@
 | **Gate 2** | LoginApp UDP Handshake | Mercury UDP :25000 | **PASS** | Solved 4-byte LE ReplyID correlation @ wire offset 5. Blowfish `pc_variant` encrypted `LoginReplyRecord` pointing client to BaseApp `172.16.1.2:25010`. |
 | **Gate 3** | BaseApp Channel & Handshake | Mercury UDP :25010 | **PASS** | `createBasePlayer(Account, type 38, eid 1)` accepted; client reached `status==LOGGED_ON`. Client packet #0 decrypted; reliable ACK protocol reversed; client sent 864-byte `Account.handshake`; `accountOnBecomePlayer` and `onChannelLogin(code=0)` fired! |
 | **Gate 4** | Character Select / Lobby | Mercury RPC / DEF | **PASS (READY FOR LIVE TEST)** | Wire formula verified live by Claude (`onCreateCharacter` ret=1). `updateBaseNickname` verified in telemetry (`"user_name": "Survivor"`). `_realEnterHall` crash resolved: was caused by missing `HALL_BASE_SCENE` preload. Fixed `showSelectCharacter` (idx 1083) `ARRAY` wire format to use 4-byte uint32 LE count (`struct.pack('<I', 0)`). Stage 4 loads scene then transitions to Character Creation / Lobby! |
+| **Gate 5** | Store / Mall UI | Mercury RPC | **FIX APPLIED (pending live verify)** | Blank tabs root cause: `_STORE_EXPOSED` had 312→ByType but live log proves 312→NoArgs and 310→ByType. Suit Mall (0x9fb2d5d5) was missing from `_mall_tables()`. `IS_DISPLAY_IN_SUNDRY_MALL` not in flags (Others tab). All three fixed in `local_baseapp_capture.py`. 670 visible goods now served. |
 
 ---
+
 
 ## 2. Definitive Entity Types (Live Process Memory Citation)
 
