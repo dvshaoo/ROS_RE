@@ -28,3 +28,9 @@ do NOT use the client hotfix channel (`iProxy.sendHotfix`); one adb `C:\LDPlayer
 - Server: `ROS_ATHLETE_USE_STREAM_FILE=1 ROS_AUTO_ENTER_HALL=1 ADB_PATH=C:\LDPlayer\LDPlayer9\adb.exe python -u mitm\local_baseapp_capture.py > scratch\server_redpoints.out` (force-stop the game before restarting the server).
 - Tests: `scratch/tab_test.sh <label>` (all tabs), `scratch/draw_test2.sh <label>` (STAR + LOOKS 10x draws). The "Skip" button on VEHICLE/FIREARMS pages is at the position of DRAW 10x — never tap it blindly. Pages can be white for 20-30 s while 3D scenes load.
 - Decrypt/inspect client scripts: `PYTHONIOENCODING=utf-8 python tools/script_disas.py '<path>' <func>`; names/consts via `tools/script_query.py`, `scratch/dump_code_consts.py`, `scratch/find_callers.py`; tables: `tools/load_table.py`.
+
+## Gender/equip persistence correction (2026-09-21)
+
+- The prior reset left two conflicting sources of truth: `data/player_state.json` selected male (`gender: 1`), but `send_character_creation_response_chain` still defaulted to `ROS_BASE_CHAR_TYPE=10005` (female). The fresh hall therefore ignored the Depot selection. The stream also carried inventory but did not carry the saved wearable/body lists.
+- Corrected: `player_state.json` is now the sole state for fresh-login character type, `dtsAppearanceGender`, `baseCharacterType`, and all four wearable/body appearance properties. The restored Depot exposed handlers persist gender/equip/unequip, send client callbacks 344/345/355/356/357/359/360, and regenerate the stream.
+- Live fresh-login verification: saved male state produced the male profile portrait and a dressed male hall model (`scratch/gender_hall_result.png`). The logcat check after the resulting hall contained no new `SCRIPT ERROR`. Do not reintroduce a hard-coded `ROS_BASE_CHAR_TYPE` default; use an explicit override only for a deliberate migration/test.

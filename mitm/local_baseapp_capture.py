@@ -855,10 +855,209 @@ def supplement_avail_payload(per_kind=2, now=None):
 EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb: 'openSupplyBoxFree', 0xdc: 'openMultipleSupplyBox'}
 # wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
 _dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
+_dev_currencies = {1: 999999, 3: 5000, 213: 999999}
+_mall_buy_times = {}
 _seen_exposed = set()
 _handled_seq = {}     # addr -> set of client packet seq numbers already handled (retransmission guard)
 _inventory_lock = threading.Lock()
 _inventory_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_inventory.json')
+
+# These indices are from the live Athlete exposed-method vector.  They are
+# distinct from the full base-method table and decode the Store requests sent
+# in the 0xfa..0xfd client packet bundles.
+_STORE_EXPOSED = {
+    306: 'buyMallGood', 307: 'buyMultipleMallGood', 308: 'buySuitMallGood',
+    309: 'buyMallGoodUseHallProp', 313: 'buyMallGoodInAppearanceMall',
+    314: 'queryAvailableMallGoods', 315: 'queryAvailableMallGoodsByType',
+    316: 'queryAvailableMallGoodsForAppearanceMall',
+}
+_DEPOT_EXPOSED = {
+    257: 'equipAppearance', 260: 'unloadAppearance',
+    261: 'setDtsAppearanceGender', 263: 'tryOffAppearance',
+}
+
+_player_state_lock = threading.Lock()
+_player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
+
+
+def _load_player_state():
+    try:
+        with open(_player_state_path, encoding='utf-8') as f:
+            state = json.load(f)
+        if isinstance(state, dict):
+            return state
+    except (OSError, ValueError):
+        pass
+    return {'gender': 1, 'lists': {'1': {'wear': [], 'body': []}, '2': {'wear': [], 'body': []}}}
+
+
+def _save_player_state(state):
+    os.makedirs(os.path.dirname(_player_state_path), exist_ok=True)
+    temp = _player_state_path + '.tmp'
+    with open(temp, 'w', encoding='utf-8') as f:
+        json.dump(state, f, indent=2, sort_keys=True)
+        f.write('\n')
+    os.replace(temp, _player_state_path)
+
+
+def _rebuild_stream_bg():
+    root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    generator = os.path.join(root, 'scratch', 'gen_stream_v3.py')
+    def run():
+        result = subprocess.run([sys.executable, generator], cwd=root, capture_output=True, text=True)
+        if result.returncode:
+            log('STREAM: state regeneration failed: %s' % result.stderr[-500:])
+        else:
+            log('STREAM: regenerated from player_state')
+    threading.Thread(target=run, daemon=True).start()
+
+
+def handle_depot_call(sock, addr, key, name, payload):
+    """Persist Depot gender/equip actions and mirror the verified UI callbacks."""
+    if len(payload) < 5:
+        log('DEPOT: short %s payload (%d B)' % (name, len(payload)))
+        return
+    value = struct.unpack_from('<i', payload, 1)[0]
+    if name == 'setDtsAppearanceGender':
+        if value not in (1, 2):
+            log('DEPOT: rejected invalid gender %d' % value)
+            return
+        with _player_state_lock:
+            state = _load_player_state()
+            state['gender'] = value
+            lists = state.setdefault('lists', {})
+            current = lists.setdefault(str(value), {'wear': [], 'body': []})
+            _save_player_state(state)
+        char_type = 10002 if value == 1 else 10005
+        send_entity_method(sock, addr, key, 1, 1087, struct.pack('<i', char_type), flags=0x0008, num_methods=1131)
+        send_entity_method(sock, addr, key, 1, 355, struct.pack('<i', value), flags=0x0008, num_methods=1131)
+        for method_index, values in ((344, current.get('wear', [])), (345, current.get('body', [])),
+                                     (359, current.get('wear', [])), (360, current.get('body', []))):
+            send_entity_method(sock, addr, key, 1, method_index, _int_array(values), flags=0x0008, num_methods=1131)
+        log('DEPOT: gender=%d charType=%d wear=%s' % (value, char_type, current.get('wear', [])))
+        _rebuild_stream_bg()
+        return
+
+    with _player_state_lock:
+        state = _load_player_state()
+        gender = int(state.get('gender', 1))
+        current = state.setdefault('lists', {}).setdefault(str(gender), {'wear': [], 'body': []})
+        table = _prop_tables().get(0xa2f095a2, {})
+        prop_type = table.get(value, {}).get('value', {}).get('PROP_TYPE', {})
+        kind = prop_type.get('type')
+        category = prop_type.get('value', {}).get('CATEGORY')
+        target = current.setdefault('body' if kind == 'BodyApperanceType' else 'wear', [])
+        if name == 'equipAppearance':
+            if category is not None:
+                for old in target[:]:
+                    old_category = table.get(old, {}).get('value', {}).get('PROP_TYPE', {}).get('value', {}).get('CATEGORY')
+                    if old_category == category:
+                        target.remove(old)
+            if value not in target:
+                target.append(value)
+            reply = 356  # onNotifyEquipedAppearance
+        else:
+            if value in target:
+                target.remove(value)
+            reply = 357  # onNotifyUnloadAppearance
+        _save_player_state(state)
+        wear, body = current.get('wear', []), current.get('body', [])
+    send_entity_method(sock, addr, key, 1, reply, struct.pack('<i', value), flags=0x0008, num_methods=1131)
+    for method_index, values in ((344, wear), (345, body), (359, wear), (360, body)):
+        send_entity_method(sock, addr, key, 1, method_index, _int_array(values), flags=0x0008, num_methods=1131)
+    log('DEPOT: %s item=%d gender=%d wear=%s body=%s' % (name, value, gender, wear, body))
+    _rebuild_stream_bg()
+
+
+def _int_array(items):
+    return struct.pack('<I', len(items)) + b''.join(struct.pack('<i', int(x)) for x in items)
+
+
+def _mall_tables():
+    """Merge the authoritative client Store tables by goods id."""
+    if 'mall_tables' not in _SUPPLEMENT_CACHE:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+        import load_table as LT
+        merged = {}
+        # main Suggested/Packs, Looks, and Firearms respectively
+        for sig in (0x832995b1, 0x878e57c9, 0x55977219):
+            merged.update(LT.parse_table(LT.read_member(sig).decode('utf-8')))
+        _SUPPLEMENT_CACHE['mall_tables'] = merged
+    return _SUPPLEMENT_CACHE['mall_tables']
+
+
+def _mall_runtime_goods():
+    """Dynamic server state consumed by UIMall; names/models stay client-side."""
+    flags = ('IS_DISPLAY_IN_MALL', 'IS_DISPLAY_IN_CLOTH_MALL',
+             'IS_DISPLAY_IN_MALL_WEAPON', 'IS_DISPLAY_IN_WEAPON_MALL',
+             'IS_DISPLAY_IN_SUIT_MALL', 'IS_DISPLAY_IN_TIME_APPEARANCE')
+    goods = {}
+    for good_id, rec in _mall_tables().items():
+        value = rec.get('value', {})
+        if any(value.get(flag) for flag in flags):
+            goods[int(good_id)] = {
+                'DISCOUNT': int(value.get('CURRENT_DISCOUNT', 100)),
+                'BUY_TIMES': int(_mall_buy_times.get(int(good_id), 0)),
+                'CURRENCY_ID': int(value.get('CURRENCY_ID', 2)),
+                'PRICE': int(value.get('PRICE', 0)),
+            }
+    return goods
+
+
+def _send_mall_query_reply(sock, addr, key, query_type=None, appearance=False):
+    goods = _mall_runtime_goods()
+    blob = pickle.dumps(goods, protocol=0)
+    py_arg = _packed_int(len(blob)) + blob
+    if query_type is not None:
+        args, reply_idx = struct.pack('<I', query_type) + py_arg, 449
+    else:
+        args, reply_idx = py_arg, (450 if appearance else 448)
+    send_entity_method(sock, addr, key, 1, reply_idx, args, flags=0x0008, num_methods=1131)
+    log('STORE: query reply idx=%d type=%s goods=%d pickle=%d B' %
+        (reply_idx, query_type, len(goods), len(blob)))
+
+
+def _charge_store_currency(sock, addr, key, currency_id, amount):
+    amount = max(int(amount), 0)
+    if currency_id == 2:
+        _dev_yb['free'] = max(_dev_yb['free'] - amount, 0)
+        send_entity_method(sock, addr, key, 1, 203, struct.pack('<qqi', _dev_yb['free'], 0, 0),
+                           flags=0x0008, num_methods=1131)
+        return _dev_yb['free']
+    balance = max(_dev_currencies.get(currency_id, 999999) - amount, 0)
+    _dev_currencies[currency_id] = balance
+    send_entity_method(sock, addr, key, 1, 204, struct.pack('<iqi', currency_id, balance, 0),
+                       flags=0x0008, num_methods=1131)
+    return balance
+
+
+def _handle_buy_mall_good(sock, addr, key, payload):
+    """Answer the verified common (good_id, quantity) buy request shape."""
+    if len(payload) < 9:
+        log('STORE: short buy payload (%d B)' % len(payload))
+        return
+    good_id, quantity = struct.unpack_from('<ii', payload, 1)
+    quantity = max(1, min(int(quantity), 99))
+    rec = _mall_tables().get(good_id)
+    if rec is None:
+        log('STORE: unknown good id=%d quantity=%d' % (good_id, quantity))
+        return
+    value = rec.get('value', {})
+    prop_id, currency_id = int(value.get('HALL_PROP_ID', 0)), int(value.get('CURRENCY_ID', 2))
+    unit_price, discount = int(value.get('PRICE', 0)), int(value.get('CURRENT_DISCOUNT', 100))
+    awarded = []
+    for _ in range(quantity):
+        awarded.extend(_expand_prop(prop_id) if prop_id else [])
+    _mall_buy_times[good_id] = _mall_buy_times.get(good_id, 0) + quantity
+    # onBuyMallGood(ARRAY<INT32>) is client idx 441.
+    send_entity_method(sock, addr, key, 1, 441, _int_array(awarded), flags=0x0008, num_methods=1131)
+    total = max((unit_price * discount * quantity) // 100, 0)
+    balance = _charge_store_currency(sock, addr, key, currency_id, total)
+    cosmetic = [pid for pid in awarded if _prop_type(pid) is not None and _is_cosmetic(pid)]
+    if cosmetic:
+        grant_appearance_prizes(sock, addr, key, cosmetic)
+    log('STORE: bought good=%d qty=%d props=%s currency=%d charged=%d balance=%d' %
+        (good_id, quantity, awarded, currency_id, total, balance))
 
 
 def _load_inventory():
@@ -955,12 +1154,32 @@ def handle_upstream_calls(sock, addr, key, unpadded):
         if not payload:
             continue
         method = payload[0]
-        name = EXPOSED_METHODS.get(method)
+        # Extended client bundle ids carry the high portion of the exposed
+        # vector index.  The +58 base is verified from the live Supply call:
+        # 0xfa/0xdd decodes to index 279 (queryAvailableSupplement).
+        exposed_idx = (mid - 0xfa) * 256 + method + 58 if mid >= 0xfa else method
+        name = (_STORE_EXPOSED.get(exposed_idx) or _DEPOT_EXPOSED.get(exposed_idx)
+                or EXPOSED_METHODS.get(method))
         sig = (method, len(payload))
         if sig not in _seen_exposed:
             _seen_exposed.add(sig)
-            log('UPSTREAM CALL: msg=0x%02x method=0x%02x (%d) %s args=%s' % (
-                mid, method, method, name or '?', payload[1:1 + 24].hex()))
+            log('UPSTREAM CALL: msg=0x%02x method=0x%02x (%d) exposed_idx=%d %s args=%s' % (
+                mid, method, method, exposed_idx, name or '?', payload[1:1 + 24].hex()))
+        if name == 'queryAvailableMallGoods':
+            _send_mall_query_reply(sock, addr, key)
+            continue
+        if name == 'queryAvailableMallGoodsByType' and len(payload) >= 5:
+            _send_mall_query_reply(sock, addr, key, query_type=struct.unpack_from('<I', payload, 1)[0])
+            continue
+        if name == 'queryAvailableMallGoodsForAppearanceMall':
+            _send_mall_query_reply(sock, addr, key, appearance=True)
+            continue
+        if name in ('buyMallGood', 'buyMallGoodInAppearanceMall'):
+            _handle_buy_mall_good(sock, addr, key, payload)
+            continue
+        if name in ('setDtsAppearanceGender', 'equipAppearance', 'unloadAppearance', 'tryOffAppearance'):
+            handle_depot_call(sock, addr, key, name, payload)
+            continue
         if name in ('openSupplyBox', 'openMultipleSupplyBox') and len(payload) >= 9:
             sid, cur = struct.unpack_from('<ii', payload, 1)
             n = 10 if name == 'openMultipleSupplyBox' else 1
@@ -1211,8 +1430,11 @@ def send_create_cell_player(sock, dest, key, space_id=1, vehicle_id=0, pos=(0.0,
 
 def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_type=None, nick=None):
     """Sends the authoritative response sequence for character creation / lobby entry."""
+    # Depot and a fresh hall must share one persisted gender/equip state.
+    state = _load_player_state()
+    state_gender = int(state.get('gender', 1))
     if char_type is None:
-        char_type = int(os.environ.get('ROS_BASE_CHAR_TYPE', '10005'))
+        char_type = 10002 if state_gender == 1 else 10005
     if nick is None:
         nick = os.environ.get('ROS_BASE_NICKNAME', 'Dev | Raysoo').encode('utf-8')
     elif isinstance(nick, str):
@@ -1287,7 +1509,15 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
             'luckyRoundByRecommend': False,
     }
     lucky_carnival_pickle = pickle.dumps(lucky_carnival, protocol=0)
+    gender_lists = state.get('lists', {}).get(str(state_gender), {'wear': [], 'body': []})
+    init_wear = gender_lists.get('wear', [])
+    init_body = gender_lists.get('body', [])
     hall_state_rpcs = [
+        (355, struct.pack('<i', state_gender), 'Athlete.onSetDtsAppearanceGender(%d)' % state_gender),
+        (344, _int_array(init_wear), 'Athlete.onUpdateDtsWearableAppearanceList'),
+        (345, _int_array(init_body), 'Athlete.onUpdateDtsBodyAppearanceList'),
+        (359, _int_array(init_wear), 'Athlete.onUpdateDtsShowWearableAppearanceList'),
+        (360, _int_array(init_body), 'Athlete.onUpdateDtsShowBodyAppearanceList'),
         # gmsyncRedPoints(ARRAY<RED_POINT>): UIMain.displayAll passes Globals.redPoints
         # directly to showRedPoint(), so the server must initialize it even when empty.
         (1099, struct.pack('<I', 0), 'Athlete.gmsyncRedPoints([])'),

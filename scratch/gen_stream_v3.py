@@ -44,6 +44,18 @@ try:
 except (OSError, ValueError, AttributeError):
     _inventory = {}
 
+# Gender and equipped appearance are persisted separately from inventory.
+# The same file is written by Depot and read here for the next fresh hall
+# build, preventing a hard-coded creation gender from overriding Depot.
+_state_path = os.path.join(ROOT, 'data', 'player_state.json')
+try:
+    with open(_state_path, encoding='utf-8') as _f:
+        _player_state = json.load(_f)
+except Exception:
+    _player_state = {'gender': 1, 'lists': {}}
+_gender = int(_player_state.get('gender', 1))
+_gender_lists = _player_state.get('lists', {}).get(str(_gender), {'wear': [], 'body': []})
+
 _appearance_items = []
 for _item_id, _item in sorted(_inventory.items(), key=lambda kv: int(kv[0])):
     try:
@@ -75,6 +87,12 @@ PROPERTY_OVERRIDES = {
         'layoutInfo': {},
         '_packageCapacity': len(_appearance_items),
     },
+    'dtsAppearanceGender': _gender,
+    'baseCharacterType': 10002 if _gender == 1 else 10005,
+    'dtsWearableAppearanceList': _gender_lists.get('wear', []),
+    'dtsBodyAppearanceList': _gender_lists.get('body', []),
+    'dtsShowWearableAppearanceList': _gender_lists.get('wear', []),
+    'dtsShowBodyAppearanceList': _gender_lists.get('body', []),
 }
 
 
