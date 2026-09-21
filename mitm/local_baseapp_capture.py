@@ -17,6 +17,7 @@
 # and /etc/hosts turned out to be unwritable (dm-verity / read-only rootfs).
 import os
 import sys
+import json
 import socket
 import struct
 import subprocess
@@ -855,6 +856,81 @@ EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb
 # wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
 _dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
 _seen_exposed = set()
+_inventory_lock = threading.Lock()
+_inventory_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_inventory.json')
+
+
+def _load_inventory():
+    try:
+        with open(_inventory_path, encoding='utf-8') as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) and isinstance(data.get('items'), dict) else {'items': {}}
+    except (OSError, ValueError):
+        return {'items': {}}
+
+
+def _save_inventory(data):
+    os.makedirs(os.path.dirname(_inventory_path), exist_ok=True)
+    tmp = _inventory_path + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, sort_keys=True)
+        f.write('\n')
+    os.replace(tmp, _inventory_path)
+
+
+def _item_data_convert(uuid_bytes, number, info=None, layout=0):
+    """ITEM_DATA_CONVERT wire order from entities_types_0x32DEC.xml.
+
+    uuid:BLOB, number:INT32, info:PY_DICT, layout:INT32. The decrypted client
+    onAddDtsAppearanceItem body indexes info['ex_tm'], so it must always exist.
+    """
+    info_blob = pickle.dumps(info or {'ex_tm': 0}, protocol=0)
+    return (_packed_int(len(uuid_bytes)) + uuid_bytes + struct.pack('<i', number) +
+            _packed_int(len(info_blob)) + info_blob + struct.pack('<i', layout))
+
+
+def grant_appearance_prizes(sock, addr, key, prizes):
+    """Persist draw cosmetics and notify the live Athlete package (client idx 335)."""
+    counts = {}
+    for prop_id in prizes:
+        counts[int(prop_id)] = counts.get(int(prop_id), 0) + 1
+    with _inventory_lock:
+        inventory = _load_inventory()
+        items = inventory['items']
+        changed = []
+        for item_id, delta in sorted(counts.items()):
+            rec = items.get(str(item_id))
+            if not isinstance(rec, dict):
+                rec = {'uuid': os.urandom(16).hex(), 'number': 0, 'info': {'ex_tm': 0}, 'layout': 0}
+            rec['number'] = int(rec.get('number', 0)) + delta
+            rec['info'] = dict(rec.get('info') or {'ex_tm': 0})
+            rec['info'].setdefault('ex_tm', 0)
+            rec['layout'] = int(rec.get('layout', 0))
+            items[str(item_id)] = rec
+            changed.append((item_id, delta, rec))
+        _save_inventory(inventory)
+
+    for item_id, delta, rec in changed:
+        uuid_bytes = bytes.fromhex(rec['uuid'])
+        converted = _item_data_convert(uuid_bytes, rec['number'], rec['info'], rec['layout'])
+        # onAddDtsAppearanceItem(ITEM_ID, ARRAY<ITEM_DATA_CONVERT>, itemSrc, number)
+        args = (struct.pack('<iI', item_id, 1) + converted + struct.pack('<ii', 0, delta))
+        send_entity_method(sock, addr, key, 1, 335, args, flags=0x0008, num_methods=1131)
+    recent = [int(x) for x in list(items.keys())[-20:]]
+    send_entity_method(sock, addr, key, 1, 340,
+                       struct.pack('<I', len(recent)) + b''.join(struct.pack('<i', x) for x in recent),
+                       flags=0x0008, num_methods=1131)
+
+    # Rebuild the verified runtime-typed createBasePlayer stream. The current
+    # client was updated above; the regenerated stream makes the same JSON
+    # inventory survive the next login without inventing another RPC shape.
+    root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    gen = os.path.join(root, 'scratch', 'gen_stream_v3.py')
+    result = subprocess.run([sys.executable, gen], cwd=root, capture_output=True, text=True)
+    if result.returncode:
+        log('INVENTORY: stream regeneration failed rc=%d: %s' % (result.returncode, result.stderr[-500:]))
+    else:
+        log('INVENTORY: granted %s; persisted %d item ids and regenerated stream' % (counts, len(items)))
 
 
 def parse_upstream_messages(unpadded):
@@ -897,6 +973,7 @@ def handle_upstream_calls(sock, addr, key, unpadded):
                 ridx = 389      # onMultiOpenSupplyBox(INT32 id, PYTHON appearanceIDs)
             send_entity_method(sock, addr, key, 1, ridx, reply, flags=0x0008, num_methods=1131)
             log('BASEAPP: %s(id=%d cur=%d) -> prizes=%s (client idx %d)' % (name, sid, cur, prizes, ridx))
+            grant_appearance_prizes(sock, addr, key, prizes)
             price = supplement_cost(sid, cur, n)
             if cur == 2 and price and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
                 # diamonds (YUANBAO) are freeYuanbao+payYuanbao: charge freeYuanbao and tell the client via onYBUpdated(INT64 free, INT64 pay, INT32 src) idx 203

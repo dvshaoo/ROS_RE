@@ -165,3 +165,11 @@ User goal: buying in the Store and every draw/gacha feature must work. Status: R
   `b8749560` vehicle appearance (e.g. 142058), `8f4932f0` battleground prop appearance (103982). `mitm/local_baseapp_capture.py`: `_expand_prop` opens RandomItem (weighted) and GiftBag (all entries);
   `ROS_DRAW_COSMETIC_ONLY=1` (default) rerolls (<=40x) any result containing CurrencyPropType/Fragment/MultiUseProp/BravaBook*/DtsHeroPropType/CrazyCarnivalPropType. `scratch/prize_audit.py`: 240 draws over boxes 1/15/105/9329
   -> only appearance types (a few GiftBag/BigSpeaker for box 1). Live server log: FIREARMS 1x -> `[1112323]`, `charged 10 diamonds -> balance 999809`. (Screenshots of that run are invalid: blind taps hit the controls screen/daily popup.)
+
+## Inventory grant, first slice (ChatGPT implemented, Claude live-verified server side) — 2026-09-21
+- `grant_appearance_prizes` (mitm/local_baseapp_capture.py): after each draw, persist prizes in `data/player_inventory.json` (uuid/number/info{'ex_tm':0}/layout per item id), send
+  `onAddDtsAppearanceItem(ITEM_ID, ARRAY<ITEM_DATA_CONVERT{uuid BLOB, number INT32, info PY_DICT, layout INT32}>, INT32 itemSrc, INT32 number)` (client idx 335) and `onUpdateRecentGotPropIDList` (340),
+  then regenerate the createBasePlayer stream (`scratch/gen_stream_v3.py` now encodes `dtsAppearancePackage.itemList` = ITEM_DATA3{uuid, itemID, number, info}) so the inventory survives re-login.
+  Decrypted client body requires `changedItemList[0].info['ex_tm']`.
+- LIVE (dw4 run): draws persisted 9 item ids, stream regenerated each time (no server error), and no client script error / datatype error in logcat after the draws. NOT yet verified: that the items really show in Depot / can be equipped
+  (the run's screenshots are invalid — blind taps landed on the daily-login popup). Next: open Depot > Looks after a draw and after re-login.

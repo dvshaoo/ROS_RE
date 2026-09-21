@@ -12,7 +12,7 @@ Env:
      xml : every property honours its declared <Default> literal from the entity XML. (An earlier claim that this is
            REQUIRED for a clean Lobby was retracted: the same stream rendered both clean and messy -- see notes 20d.)
 """
-import os, sys, struct
+import json, os, sys, struct
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import runtime_encoder as RE
 import xmltypes as X
@@ -37,6 +37,25 @@ XML_ONLY = {n for n in os.environ.get('ROS_XML_ONLY', '').split(',') if n}
 # Values that the private BaseApp must provide instead of the XML/default encoder's None.
 # Keep these semantic server values in one table: every entry is encoded through the property's
 # live runtime DataType, so adding an override does not bypass the verified v3 wire layout.
+_inventory_path = os.path.join(ROOT, 'data', 'player_inventory.json')
+try:
+    with open(_inventory_path, encoding='utf-8') as _f:
+        _inventory = json.load(_f).get('items', {})
+except (OSError, ValueError, AttributeError):
+    _inventory = {}
+
+_appearance_items = []
+for _item_id, _item in sorted(_inventory.items(), key=lambda kv: int(kv[0])):
+    try:
+        _appearance_items.append({
+            'uuid': bytes.fromhex(_item['uuid']),
+            'itemID': int(_item_id),
+            'number': int(_item['number']),
+            'info': dict(_item.get('info') or {'ex_tm': 0}),
+        })
+    except (KeyError, TypeError, ValueError):
+        print('WARNING: ignoring malformed inventory item', _item_id)
+
 PROPERTY_OVERRIDES = {
     'weekendPushRewardsHaveGotten': [],
     # Athlete.onBecomePlayer passes this to extconfigs.getServiceAccessPoint(ap), which indexes
@@ -47,6 +66,15 @@ PROPERTY_OVERRIDES = {
     # (first three only; later ids not verified). id 213 is the top-bar coin slot (UIMain.curExchangeCoin), live-verified by probe. Override with ROS_CURRENCY_LIST='1:100000,3:5000' ('-' = empty).
     'currencyList': [{'id': int(kv.split(':')[0]), 'num': int(kv.split(':')[1])}
                      for kv in os.environ.get('ROS_CURRENCY_LIST', '1:999999,3:5000,213:999999').split(',') if ':' in kv],
+    # DTS_APPEARANCE_PACKAGE3 is a FIXED_DICT. Its itemList records are ITEM_DATA3
+    # (uuid BLOB, itemID INT32, number INT32, info PY_DICT), verified from the live
+    # runtime DataType tree and entity_0464 DEF. The JSON is updated after each draw.
+    'dtsAppearancePackage': {
+        'itemList': _appearance_items,
+        'itemsList': [],
+        'layoutInfo': {},
+        '_packageCapacity': len(_appearance_items),
+    },
 }
 
 
