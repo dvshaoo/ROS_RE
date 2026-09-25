@@ -160,3 +160,56 @@ Response handler `0x3cca14`:
 ## Remaining Unknowns
 
 * BigWorld `loginapp` public key (`loginapp.pubkey`) and packet framing for the post-login handshake on port 25000 (Gate 1 -> Gate 2 transition).
+
+## 2026-09-22 Regression Check — Age Dialog Before Title
+
+- Live fresh launches still open `MpayActivity` and the **User Age Setting** page before the title screen, even when the local guest response sends `minor_status=102` and `age_status=1` and the normal `/api/games/config` response is served.
+- Re-testing `birth_stage` enabled and disabled produced the same page. Restoring each available encrypted MPay SharedPreferences backup produced the same page. Therefore neither configuration flag nor the tested saved-state copies is sufficient evidence of a fix.
+- Two temporary signed APK experiments that forced MPay `isFirstLogin` / `has_minor` false were installed and live-tested; both still displayed the page. They were removed by reinstalling the saved pre-test APK `scratch/currently_installed_backup.apk` immediately afterward.
+- The decompiled pre-test APK already contains a non-original `"PATCHED: Age check bypassed, proceeding to login"` replacement in `e/b/d.smali`. Do not treat it as a verified fix. Trace the `MpayActivity` launch caller and its success callback before any next static patch.
+
+## 2026-09-22 Emulator / Vivo Character-Creation Parity
+
+- The Vivo path remained on `showSelectCharacter([])` and waited for the client `createCharacter` call; the emulator default immediately ran `onCreateCharacter -> onRoleCreateSuc -> updateBaseCharacter -> updateBaseNickname -> enterHall` after 2.5 seconds.
+- That automatic entry races the first-time controller tutorial and accounts for the observed two Select Controls pages before the hall.
+- The first manual-mode experiment used `ROS_AUTO_ENTER_HALL=0` and waited for exposed method 921 (`createCharacter`). The server received `showSelectCharacter([])` successfully, but the emulator stayed on the title layer and never sent a `createCharacter` RPC. This was reproduced with the current 8,169-byte stream, the 8,080-byte Vivo-captured stream, and a generated 8,157-byte stream with a blank `baseNickname`.
+- Therefore the manual name editor is **not fixed** and must not be the default login mode. Its real client activation prerequisite remains unknown. `ROS_AUTO_ENTER_HALL` defaults back to `1`, preserving the previously live-proven automatic `Dev | Raysoo` hall path. `ROS_AUTO_ENTER_HALL=0` remains only an explicit research mode.
+- Recovery verification: after restoring the original 8,169-byte player stream and automatic mode, a fresh emulator launch completed `PLAY -> one Select Controls confirmation -> hall`. The final hall rendered the persisted female outfit, 999999 diamond/coin balances, and `Dev | Raysoo`; the captured post-hall logcat contained no `SCRIPT ERROR`, `Traceback`, or `TypeError`.
+
+## 2026-09-22 Current LAN Login Handoff
+
+- The intended local profile remains automatic: `Dev | Raysoo`; manual nickname creation is still research-only and must not be re-enabled by default.
+- Current successful control path is `PLAY -> Loading -> Select Controls -> Confirm -> Loading -> Daily Claim -> click START -> Lobby`. The control page is required only when the client has no stored controller choice. A second page after a completed confirmation remains a regression, not expected behavior.
+- After Daily Claim, a full-screen **"click START"** overlay appears over the hall. It must be tapped once to dismiss it; until then hall navigation (Depot, Supply, etc.) is blocked behind the overlay. This is expected client behavior, not a soft-lock.
+- **Known unresolved pre-title issue:** a fresh launch can open the MPay **User Age Setting** dialog before the title screen, despite the LAN guest/config responses. Closing the dialog with its X reaches the title screen; do not enter an age merely to work around it. This is separate from the BaseApp hall/control flow and must be traced through the MPay launch/success callback before it is called fixed.
+- The latest clean-state work also guards persistent equipped appearance lists: IDs without a client prop definition must not be written into `wear`/`body`, because `character_scene.getPartsStyles` aborts hall construction with `AttributeError: 'NoneType' object has no attribute 'APPEAR'`. This is a hall-state integrity guard, not a Lobby Theme selector implementation.
+
+## 2026-09-22 Supply / Hall-Theme List Delay & Flicker (observed live, root-caused)
+
+- **Supreme Supply:** content takes visibly long to appear; the left tab list briefly disappears, then reappears and navigation works. Server log shows each `queryAvailableSupplement` gets a **39,368 B** `onQueryAvailableSupplement` reply (248 records, ~27 fragmented datagrams), re-sent on every client query (~15 replies in 23 s while the Supply UI was open). The client rebuilds the tab list on each reply, which accounts for the vanish/reappear flicker and the slow first paint.
+- **Depot > Lobby Theme:** theme cards also populate with a delay. Root cause found server-side: `_hall_theme_runtime_goods()` filters the merged mall dict by truthy `HALL_PROP_ID`, but that field is truthy on **every** row of the normal mall tables (`0x832995b1`: 270, `0x878e57c9`: 345, `0x55977219`: 31 — e.g. good 1024 has `HALL_PROP_ID=400076`). Result: **660 goods** sent via idx 448 instead of the real **14** hall-theme goods in table `0x0687b507` (good ids 10000, 10002-10004, 19001-19010, whose `HALL_PROP_ID` values are real theme IDs like 279009). Live log: `HALL THEME: UI entry received; sent 660 Hall-theme goods via idx=448`.
+- **Proposed fix:** source `_hall_theme_runtime_goods()` only from table `0x0687b507` instead of filtering the merged dict. Supplement payload size/frequency to be addressed separately.
+
+## 2026-09-22 Select Controls Regression Retest
+
+- Fresh emulator retest: close the pre-title Age dialog, tap **PLAY**, leave **Classic Mode** selected, and tap **Confirm** once after it becomes available. The client went directly to Daily Claim / hall without a second Select Controls page.
+- Server evidence for that run: exactly one `Athlete.showSelectCharacter([])` and one automatic creation chain were emitted for BaseApp port `53735`; no second BaseApp channel or second scene-init call was observed.
+- Logcat captured after arrival contained no `SCRIPT ERROR`. A temporary channel-handoff suppression experiment was removed because this successful trace did not exercise it; it must not be treated as the cause of the fix.
+
+## 2026-09-25 Select Controls Double-Loop — User-Identified Trigger (Confirm-Before-Timer Race)
+
+- Reproduced live: pressing **Confirm** on the Select Controls page immediately, before its on-screen countdown has visibly started ticking down, sends the client back through a full second `Loading -> Select Controls` cycle. Waiting until the countdown has counted down a few seconds (observed safe around the 8-9s mark from a ~10s start) before pressing Confirm avoids the loop every time.
+- Server-side log correlation for the looping run (PID unchanged, same emulator session, ports differ only because each cycle opens a fresh BaseApp UDP channel):
+  ```
+  08:10:30 STAGE 1 createBasePlayer(Account) -> ('127.0.0.1', 65503)
+  08:10:36 STAGE 5 HOLDING for 65503                      (first cycle completes)
+  08:11:23 STAGE 1 createBasePlayer(Account) -> ('127.0.0.1', 59095)   (second cycle starts ~47s later)
+  08:11:27 STAGE 5 HOLDING for 59095
+  ```
+  vs. the clean single-pass run after waiting for the timer:
+  ```
+  08:16:41 STAGE 1 createBasePlayer(Account) -> ('127.0.0.1', 56604)
+  08:16:45 STAGE 5 HOLDING for 56604                      (only cycle; no repeat)
+  ```
+- No `SCRIPT ERROR`/Python traceback was found in logcat around either looping cycle, keepalive `setGameTime` cadence stayed a steady 5.0s throughout (no channel timeout), and the Android process PID was identical across both cycles (engine-level session reset, not an app crash/restart). One `Level Destroy (-1)` line appeared 6s after the second STAGE 5 with no accompanying traceback — not yet explained, likely unrelated teardown noise.
+- This is a client-side timing/UI-state race (confirming before the countdown widget has initialized), not a server protocol bug — no server-side fix identified or attempted. Workaround: wait for the visible countdown to start ticking before tapping Confirm.
