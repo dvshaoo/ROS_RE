@@ -347,3 +347,24 @@ needs dedicated session."
 dead at the native touch-dispatch level (see the 2026-09-25 entry near the top of this file) -- that
 one was never explained by wear-list state and needs the Frida touch-hook investigation described
 there.
+
+## 2026-09-25 RETRACTED: duplicate wear-list entries were NOT the root cause
+
+The correction two sections above ("root cause was duplicate wear-list entries") is itself wrong.
+Counter-example: a fresh relaunch with a verified-clean `data/player_state.json` (exactly one id per
+appearance category: mask 105688, helmet 110689, top 111017 "Fists of Fury", bottom 1112324 -- no
+duplicates, confirmed by checking each id's PROP_TYPE/CATEGORY) still reproduced the full symptom set
+-- currency stuck at `283283`, the "SUPPORT DROID / HUMAN" overlay, garbled hall text, and the
+equipped outfit not rendering on the character (default tank-top/khakis shown instead). The earlier
+"it's fixed" observation was most likely coincidental timing, not caused by the wear-list cleanup.
+
+**Back to the leading theory that actually fits an intermittent bug:** `UIMain` is built ~60-90s after
+`enterHall` per the client's own timing (already documented), and the server's `late_rpcs` (currency,
+etc.) only retry at fixed 45/90/150s marks (`ROS_HALL_LATE_DELAYS`). If device/emulator load pushes
+`UIMain`'s actual construction past 150s on a given launch, every retry lands before the widget
+exists and the currency/avatar-dependent UI never gets set that session -- explaining why the exact
+same clean state sometimes works and sometimes doesn't, with no code or data difference at all.
+
+**Not yet done:** extend `ROS_HALL_LATE_DELAYS` with later retries (e.g. add 210/300s) to widen the
+window and see if that reduces the failure rate. This is still a guess, not a proven fix -- flagging
+it as the next thing to try rather than declaring it solved again.
