@@ -290,3 +290,22 @@ Not yet granted (pending user confirmation this is the right find) — see the r
 `_CARNIVAL_PREMIUM_HALL_PROPS` mechanism for exactly how to wire a one-time inventory grant safely
 (direct grant only, never inject into the Carnival wheel — that breaks the wheel's `on_enter`, see
 the 2026-09-25 revert entry above).
+
+## 2026-09-25 "Fists of Fury" CONFIRMED CORRECT AND GRANTED — with fire effects live
+
+Granted 111017 (top) + 112017 (pants) to inventory via a minimal one-time `grant_appearance_prizes`
+call in `send_character_creation_response_chain` (guarded by inventory presence). After clearing
+every other conflicting item out of `data/player_state.json`'s male wear list (leaving only these
+two ids), the live character render matches the user's reference screenshot exactly: bare chest with
+the "Hot Wheels" tattoo, black strapped pants, and genuine fire particle effects burning from both
+fists. Confirms 111017/112017 are the correct "Fists of Fury" ids beyond doubt.
+
+Root cause of the earlier "nothing shows" / messy multi-item look: unrelated pre-existing items
+(105688, 1110326, 1110324, 1110291, 110689, etc., some from the bulk pre-existing catalog, some from
+the user's own Depot browsing) were sitting in the same wear list alongside 111017/112017. Multiple
+items in the same CATEGORY slot don't blend -- whichever the client picks last effectively hides
+the others, producing the "no skin" or "wrong skin" appearance. This is not a server bug: keep only
+one id per category (head/hair/top/bottom/shoes/glasses/etc.) in `lists.<gender>.wear`/`body`, which
+is exactly what the real Depot equip flow already enforces (see `_get_appearance_slot` de-dup logic
+in `handle_depot_call`) -- the mess only happens when ids are added directly to the JSON without
+going through that de-dup path.
