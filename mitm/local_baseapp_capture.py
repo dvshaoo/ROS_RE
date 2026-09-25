@@ -933,15 +933,18 @@ def _get_appearance_slot(table, item_id):
 def _sanitize_saved_appearance_lists(state):
     """Drop appearance IDs that are not wearable/body clothes.
 
-    VehicleAppearanceType has no PROP_ITEM_ID, so a vehicle id in wear
-    crashes UIMain.on_enter / wearableItemList / onLoadDressModel.
+    VehicleAppearanceType and DecorationAppearanceType have no PROP_ITEM_ID, so an
+    id of either kind in wear/body crashes entities/iDtsEquipAppearanceAthlete.py:83
+    wearableItemList (confirmed live via logcat: AttributeError repeating on a
+    Timer, common/Timer.py:17 cb2 -> refreshHallCharacterDressInfo). Only
+    WearableApperanceType/BobyAppearanceType are safe in these two lists.
     """
     try:
         table = _prop_tables().get(0xa2f095a2, {})
     except Exception as e:
         log('DEPOT: skipped appearance-list validation: %r' % (e,))
         return False
-    allowed = ('WearableApperanceType', 'BobyAppearanceType', 'DecorationAppearanceType')
+    allowed = ('WearableApperanceType', 'BobyAppearanceType')
     changed = False
     for lists in (state.get('lists') or {}).values():
         if not isinstance(lists, dict):
@@ -1047,8 +1050,14 @@ def handle_depot_call(sock, addr, key, name, payload):
             log('DEPOT: ignored %s for undefined appearance item=%d' % (name, value))
             return
         kind = prop_type.get('type')
-        if kind not in ('WearableApperanceType', 'BobyAppearanceType', 'DecorationAppearanceType'):
-            log('DEPOT: ignored %s for non-wearable item=%d type=%s' % (name, value, kind))
+        if kind not in ('WearableApperanceType', 'BobyAppearanceType'):
+            # DecorationAppearanceType (masks/deco) crashes the client: entities/
+            # iDtsEquipAppearanceAthlete.py:83 wearableItemList reads .PROP_ITEM_ID
+            # off every id in the wear list, which DecorationAppearanceType objects
+            # don't have -- AttributeError repeating on a Timer, confirmed live via
+            # logcat SCRIPT ERROR. Until the correct separate transport for
+            # decorations is found, refuse to persist them here at all.
+            log('DEPOT: ignored %s for unsupported item=%d type=%s' % (name, value, kind))
             return
         category = prop_type.get('value', {}).get('CATEGORY')
         target = current.setdefault('body' if kind == 'BobyAppearanceType' else 'wear', [])
