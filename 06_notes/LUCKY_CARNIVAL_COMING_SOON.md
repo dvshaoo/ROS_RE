@@ -368,3 +368,32 @@ same clean state sometimes works and sometimes doesn't, with no code or data dif
 **Not yet done:** extend `ROS_HALL_LATE_DELAYS` with later retries (e.g. add 210/300s) to widen the
 window and see if that reduces the failure rate. This is still a guess, not a proven fix -- flagging
 it as the next thing to try rather than declaring it solved again.
+
+## 2026-09-25 REAL unifying pattern found: rapid multi-relogin causes the currency/UI/avatar cluster
+
+Cross-checked every server log from today's launches against what the user reported on screen. The
+correlation is consistent and clean once actually compared side by side:
+
+- **Single STAGE1->STAGE5 cycle (no relogin loop that launch)** -> hall renders correctly: real
+  currency values, no SUPPORT DROID/HUMAN overlay, clean text, equipped outfit visible.
+- **2-3 rapid STAGE1->STAGE5 cycles within under a minute (the "network timeout -> Select Controls"
+  relogin loop)** -> the broken cluster every time: currency stuck at `283283`, the stray overlay,
+  garbled hall text, default/no outfit rendering regardless of what is actually equipped.
+
+This held on the latest test (3 relogins in 46s: STAGE5 at 14:23:54, 14:23:58, 14:24:38 for three
+different ports) immediately after restoring the equip-dedup fix on a freshly auto-sanitized
+`player_state.json` -- ruling out both wear-list corruption and the earlier code-revert theory as the
+actual cause. **The relogin loop itself is very likely the root cause of the currency/UI/avatar
+cluster, not a separate issue.** Something about the client rapidly tearing down and rebuilding the
+BaseApp session multiple times in quick succession appears to leave `UIMain`/the currency
+bar/avatar-display partially wired to stale state from an earlier attempt, even though the final
+session completes its own STAGE1-5 cleanly server-side.
+
+This reframes the priority: the select-controls network-timeout relogin loop (still uncaused --
+see the "untested mitigation" entry above, the deferred Supply-catalog send helped in a few trials
+but clearly does not fully prevent it) is not just a login annoyance, it is very likely THE cause of
+every other hall symptom chased today. Fixing the relogin loop itself -- or making the client
+resilient to it, or preventing rapid repeated relogins server-side (e.g. detecting a very recent
+prior session for the same source IP and delaying/rejecting a new one for a couple of seconds) --
+should be the actual next priority, rather than continuing to treat currency/UI/avatar as separate
+bugs.
