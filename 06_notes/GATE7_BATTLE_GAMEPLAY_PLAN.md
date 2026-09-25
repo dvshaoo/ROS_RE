@@ -482,3 +482,88 @@ LUCKY_CARNIVAL_COMING_SOON.md`, 2026-09-25 "Still open" entry).
   a different/older release and capturing a tombstone for the segfault (per the "What would actually
   work" list further up this file) is the concrete unblock, not further server-side payload changes.
 
+## 2026-09-25: actual strace evidence pulled and read directly (correcting the "ISA mismatch" narrative)
+
+Per explicit instruction to verify live rather than trust prior `.md` write-ups: pulled the two strace
+captures already sitting on device from earlier today (`/data/local/tmp/frida_strace.txt` --
+16.2.1 ARM64 attach attempt against PID 12330/1601; `/data/local/tmp/frida17_strace.txt` -- 17.16.4
+ARM64 attach attempt) and read the raw syscall trace around each failure directly, instead of
+re-reading the summary already written above. **The two versions fail for two different, specific
+reasons -- neither matches the "ARM64 tracer can't resolve x86_64 linker64 symbols" story further
+up this file, which does not appear anywhere in the actual trace:**
+
+- **16.2.1**: `ptrace(PTRACE_SEIZE, 12330, ...) = 0` and `ptrace(PTRACE_INTERRUPT, 12330) = 0` **both
+  succeed** -- attaching to an x86_64 process from this ARM64-under-Houdini binary is not inherently
+  blocked at the ptrace layer, contradicting the earlier "kernel receives incompatible ISA" theory.
+  Immediately after, it does `ptrace(PTRACE_PEEKDATA, 12330, 0x83be3e8, ...)` **four times in a row**,
+  every time getting back `[NULL]` (successful peek, zero value) -- then calls `exit_group(-1)`
+  unconditionally, with no signal involved. `0x83be3e8` is the exact same hardcoded address probed on
+  every single attach attempt in the trace (including an earlier, unrelated PID 1601 = `system_server`,
+  where the same address returns `EIO` because it's unmapped there). This reads as frida-server's ARM64
+  remote-bootstrap code expecting a live pointer at a fixed address in the target's memory layout (most
+  likely a saved injector/stub location from its own prior life or a fixed scratch address convention)
+  and treating "mapped but NULL" as a hard abort condition -- a deliberate self-exit, not a segfault.
+- **17.16.4**: this one *is* a real `SIGSEGV` (`code 1 SEGV_MAPERR, fault addr 0x0`), but it happens
+  while frida-server is enumerating **its own** modules by parsing **its own** `/proc/self/maps` (visible
+  in the trace: sequential reads returning lines for `/system/lib64/arm64/libdl.so`,
+  `/system/lib64/arm64/liblog.so`, then anonymous entries like `[anon:linker_alloc_vector]` and a
+  `r--s ... 00:0f` shared/ashmem-style mapping) -- not while touching the target app at all. Right
+  after the last `read()` on that maps fd returns 0 (EOF) and the fd is closed, it does two
+  mmap/munmap scratch cycles and then null-derefs with no intervening syscall. This is consistent with
+  a known class of Frida bug: its `/proc/pid/maps` line parser assumes a map-entry shape that doesn't
+  hold for every line Houdini's mixed x86_64/arm64 memory layout produces, and dereferences an
+  unpopulated field when building the `Module` object for one of those unusual lines.
+- **Why this matters**: both failures are specific, plausibly-patched-in-other-releases bugs in
+  frida-server's own ARM64 bootstrap/enumeration code reacting badly to Houdini's memory layout --
+  not proof that an ARM64 tracer fundamentally cannot operate against an x86_64-hosted, Houdini-JITed
+  process. The concrete next step is trying additional ARM64 frida-server point releases (both older,
+  e.g. 15.x/14.x, and newer than 17.16.4) looking for one where either (a) the fixed-address peek at
+  `0x83be3e8` isn't part of the bootstrap path, or (b) the maps-line parser tolerates Houdini's output --
+  not attempting to patch frida-server from source, which is out of scope for this project.
+
+## 2026-09-25: four ARM64 frida-server versions live-tested; real root cause found; recommended path changes
+
+Downloaded and live-tested three additional official ARM64 `frida-server` builds directly from
+`github.com/frida/frida/releases` against the current running `com.netease.chiji` PID, on top of the
+16.2.1 and 17.16.4 already covered above (all pushed to `/data/local/tmp/fs-<version>`, run via
+`nohup ... -l 0.0.0.0:<port> &`, matched against an identical-version `pip install frida==<version>`
+on the host):
+
+| Version | Result |
+|---|---|
+| 16.2.1 | Attaches (`PTRACE_SEIZE`/`PTRACE_INTERRUPT` succeed), then `exit_group(-1)` on a null fixed-address peek (`0x83be3e8`). No crash. |
+| 17.16.4 | Real `SIGSEGV` while parsing its own `/proc/self/maps`, before touching the target at all. |
+| **17.18.0** | Same `SIGSEGV` class as 17.16.4, but even earlier -- crashes ~380ms after launch, right after reading `/system/lib64/arm64/cpuinfo`, before opening its listen port at all. Confirmed via `adb logcat`: `Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0`. |
+| **16.4.10** | Starts cleanly, opens its port, accepts a Python `frida.attach()` connection -- then the process **vanishes with zero crash log** a moment later (`the connection is closed` on the Python side). No tombstone, no `Fatal signal` line at all. |
+| **15.2.2** | Starts cleanly, accepts the connection, and **`attach()` returns a real, specific, non-crashing error**: `unable to inject library into process without libc`. |
+
+**Root cause of the 15.2.2 error, found by reading `/proc/<pid>/maps` directly**: this app's process is
+launched by `/system/bin/app_process64` as a genuine **x86_64** process (confirmed: `ro.product.cpu.abi`
+is `x86_64`, and LDPlayer 9's whole userland is native x86_64) -- Houdini only binary-translates the
+*code* inside it, it never turns the process itself into an ARM64 one. Consequently `/proc/<pid>/maps`
+contains **both** a native x86_64 `libc.so` mapping and an ARM64 one for the translated game code, but
+the ARM64 libc lives at the non-standard path `/system/lib64/arm64/nb/libc.so` (Houdini's own "native
+bridge" library directory), not the conventional `/system/lib64/libc.so` an ARM64 frida-server's
+injector logic expects to find and use as its remote-code anchor point.
+
+**This changes the recommended path.** Chasing more ARM64 frida-server point releases is very unlikely
+to fix this: the problem is not a transient bug fixed in some release, it is that **the process is not
+architecturally an ARM64 process at all**, so an ARM64 tracer's injector will keep hitting some version
+of "which libc do I anchor to" confusion no matter which release is tried (16.2.1 and 17.16.4/17.18.0
+happen to fail earlier/uglier; 15.2.2 just reaches the point where this is stated plainly). The
+already-attempted **x64 frida-server is actually the architecturally correct tool** for this process
+(it matches the real, outer process architecture) -- its own limitation, established earlier this
+session, is narrower than previously framed: `Process.enumerateModules()` doesn't list `libclient.so`
+because its module scanner filters for `EM_X86_64` ELF headers, but `Process.findRangeByAddress()`
+**already proved it can read raw bytes from `libclient.so` successfully** (58MB mapping at `0x032e8000`,
+valid `\x7fELF` header confirmed live), and a live hook on `libandroid.so`'s `AInputQueue_getEvent` via
+x64 frida-server **already proved DOWN/UP touch events are dispatched cleanly with no drag/cancel**.
+**Recommended next step**: stop trying to get `Module.findExportByName`/`enumerateModules` to see
+`libclient.so` (it structurally cannot, on this Frida build), and instead hook the touch dispatcher
+directly by **manually constructing a `NativePointer` from the already-known `libclient.so` base
+(`0x032e8000`) plus a static offset read from Ghidra** (e.g. the `WidgetTouchesBinder` touch-event
+entry point, already statically located per the "START button internals verified" entry above), then
+`Interceptor.attach()` that raw pointer with the x64 frida-server. This sidesteps the module-visibility
+limitation entirely rather than requiring an ARM64 frida-server that this environment's architecture
+makes fundamentally awkward to use.
+
