@@ -1050,12 +1050,22 @@ _carnival = {
 # copy of table 0x237dd2bb -- an id with no row there returns None and aborts
 # on_enter entirely (see "Advance path" note further down this file). The wheel can
 # only ever show ids that already exist as rows in the client's own table; the
-# server cannot invent new ones. The "拳王"/Boxing King ("Fists of Fury") set has no
-# row there (it's an Exchange Shop item, EXCHANGE_SERIE 500013), so it cannot be
-# shown on this wheel at all -- granted directly to the account instead, see
-# _CARNIVAL_PREMIUM_HALL_PROPS usage at hall bootstrap (grant_appearance_prizes),
-# not through the Carnival RPCs.
-_CARNIVAL_PREMIUM_HALL_PROPS = [101111, 102119, 105037, 110007, 111020, 112020]
+# server cannot invent new ones. This set has no row there (it's an Exchange Shop
+# item), so it cannot be shown on this wheel at all -- granted directly to the
+# account instead, see _CARNIVAL_PREMIUM_HALL_PROPS usage at hall bootstrap
+# (grant_appearance_prizes), not through the Carnival RPCs.
+#
+# CORRECTED 2026-09-25: the first identification (拳王 "Boxing King", plain gear,
+# no flame effects) was wrong -- the user confirmed the real "Fists of Fury" has
+# fire/flame visuals. Re-searched assets.npk for icon paths combining a fist theme
+# with fire and found "火拳" ("Fire Fist"): hair 102127 (QUALITY 5), body/leg pairs
+# 111017+112017 (QUALITY 5, base tier, EXCHANGE_SERIE 500004) and 111135+112135
+# (QUALITY 4, the tier PartModel table 0x207bb152 explicitly labels "火拳有特效"
+# i.e. "Fire Fist WITH special effect", ids 4178/5165, vs the plain "_nofx" tier at
+# 4176 -- this is the one that actually looks on fire). Granting both tiers since
+# it's unclear which one the client shows by default; harmless to have both in
+# inventory.
+_CARNIVAL_PREMIUM_HALL_PROPS = [102127, 111017, 112017, 111135, 112135]
 
 
 def _carnival_daily_pool(day_ordinal):
@@ -2052,15 +2062,6 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
                            payload, flags=0x0008, num_methods=1131)
         log('BASEAPP: sent %s idx=%d to eid=%d %s' %
             (label, method_index, athlete_eid, dest))
-    # One-time grant of the "拳王"/Boxing King set (the user's "Fists of Fury" ask).
-    # It has no LuckyCarnivalRoundReward row, so it cannot be put on the Lucky
-    # Carnival wheel (see the block comment on _CARNIVAL_PREMIUM_HALL_PROPS) --
-    # granted straight to inventory instead, via the same verified path
-    # Supply/Store prizes already use. Depot > equip makes it wearable.
-    _inv = _load_inventory()
-    if not all(str(pid) in _inv.get('items', {}) for pid in _CARNIVAL_PREMIUM_HALL_PROPS):
-        grant_appearance_prizes(sock, dest, key, _CARNIVAL_PREMIUM_HALL_PROPS)
-        log('HALL: granted Fists of Fury (Boxing King) set %s' % _CARNIVAL_PREMIUM_HALL_PROPS)
 
     # Optional post-hall leave team reassert -- same known-ineffective workaround, see above.
     if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '0') == '1':
