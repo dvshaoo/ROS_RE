@@ -314,3 +314,27 @@ captured live if the client never sends it. Before continuing any Gate 5/7 work,
 touch-dispatch investigation flagged for the Carnival Draw button (see
 `06_notes/LUCKY_CARNIVAL_COMING_SOON.md`, "needs a native Frida hook on the touch dispatcher") should
 be done first, since it now blocks two unrelated features rather than one.
+
+### 2026-09-25 Update: Frida attach working, touch pipeline & START button internals verified
+- **Frida attach unblocked**:
+  - The suspected NetEase anti-tampering was **refuted**. The attach failures and PID churn were caused by running an ARM64 `frida-server` binary on LDPlayer 9's `x86_64` guest under Houdini translation, causing user-space `Segmentation fault`s during ptrace initialization.
+  - Using `/data/local/tmp/frida-server-x64` (16.2.1) + host `scratch/fridaenv16` (16.2.1) attaches cleanly to `com.netease.chiji` with a stable, persistent session and working Java bridge.
+- **START button handler disassembled (`ui/UIMainBattleGroundTeam.py` `onGoEvent`)**:
+  - The button path in `BattleGroundTeamLayer.csb` is `anchor-bottom-right/go` bound to `onGoEvent`.
+  - Disassembly reveals:
+    ```python
+    def onGoEvent(self, args, members):
+        if args.touch.phase != TouchPhase.Ended:
+            return
+        self._hide_operations()
+        if not self.all_ready:
+            members = '、'.join(self.members_not_ready)
+            Globals.uiMgr.systemJumpTip(errtxt.I_HALLTEAM_MATCH_MEMBER_NOT_READY.format(members))
+            return
+        if self.player.hallTeamType == const.GameEnterType.TRAIN and not client_utils.supportTrain():
+            Globals.uiMgr.showTrainUpdatePanel()
+            return
+        self.player.base.matchBattleGround(self.auto_match)
+    ```
+  - `onGoEvent` has `touch_filter == 0`. Disassembly of `libclient.so`'s `WidgetTouchesBinder.____on_widget_touch_event__` confirms that bindings with `touchFilter == 0` bypass the `touchFilterMask` check and are not blocked by hall touch filters.
+  - Click audio is played on `TouchPhase.Began` by `WidgetTouchesBinder` at the engine level before `Ended` is processed, explaining why audio clicks with zero Python execution or upstream RPC.

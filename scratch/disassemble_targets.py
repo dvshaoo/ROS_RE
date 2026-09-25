@@ -118,7 +118,8 @@ def disas(co):
                 extra = 'pos=%d kw=%d' % (arg & 0xff, (arg >> 8) & 0xff)
             else:
                 extra = str(arg)
-            print('%4d  %-22s %d  (%s)' % (off, opn, arg, extra))
+            line_str = '%4d  %-22s %d  (%s)' % (off, opn, arg, extra)
+            print(line_str.encode(sys.stdout.encoding or 'utf-8', errors='backslashreplace').decode(sys.stdout.encoding or 'utf-8'))
 
 npk_path = r'c:\Users\Raysoo\Downloads\ROS_RE\04_obb\extracted\script.npk'
 

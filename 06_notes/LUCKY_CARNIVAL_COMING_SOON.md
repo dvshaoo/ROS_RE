@@ -469,3 +469,32 @@ symptom seen today far better than any of the earlier (wrong) theories:
   was never conclusively ruled out, since every relogin-loop session tested today also happened to
   have a mask in the saved wear list at the time. Worth re-testing in isolation if it recurs now that
   masks can no longer be saved.
+
+## 2026-09-25 DEAD-TOUCH & FRIDA ATTACH FINDINGS (Anti-tampering refuted, touch pipeline verified)
+
+### 1. Frida attach failure and PID churn root cause: SOLVED (100% verified live)
+- **Suspected anti-tampering theory REFUTED**:
+  - NetEase anti-tampering is **NOT** killing `frida-server`.
+  - LDPlayer 9's host kernel and OS architecture is `x86_64` (`uname -m` -> `x86_64`, `ro.product.cpu.abi` -> `x86_64`), running ARM64 apps via Intel Houdini Native Bridge (`/system/lib64/libhoudini.so`).
+  - The previously deployed `frida-server` binary at `/data/local/tmp/frida-server` was an ARM64 binary (`EM_AARCH64`, `0x00b7`).
+  - Executing an ARM64 `frida-server` on an x86_64 system under Houdini translation causes a `Segmentation fault` inside Houdini when frida-server initializes ptrace and SELinux policies in user space. No native crash tombstones were generated (`/data/tombstones/` has no entries from today). This crash loop explained the constantly changing PIDs observed previously.
+- **Working configuration**:
+  - Target server: `/data/local/tmp/frida-server-x64` (`EM_X86_64`, version `16.2.1`).
+  - Python host environment: `scratch/fridaenv16` (Python `frida==16.2.1`).
+  - Live test result: attaches cleanly to `com.netease.chiji` (`Session(pid=12330)`) with zero crash, zero disconnection, and `Java.available: true`.
+
+### 2. Native touch architecture & NeoX Claudia mechanics
+- **Native Activity & JNI surface**:
+  - The main game activity is `com.netease.neox.Client`, subclassing `android.app.NativeActivity`.
+  - Android touch events are consumed directly by the native NDK input queue (`AInputQueue_getEvent` / `AMotionEvent_getAction` in `libandroid.so`).
+  - The game engine library `libclient.so` is mapped as ARM64 `r--p` (code) and `rw-p` (data/bss) and executed through Houdini JIT blocks.
+- **Widget touch binding & filter pipeline (`libclaudia/Classes/WidgetTouchesBinder.py`)**:
+  - Buttons are registered via `ui/UIBase.py`'s `SetBinding(WidgetTouchBinding(widget, func, user_data, audio_type, touchFilter=...))`.
+  - Cython function `____on_widget_touch_event__` in `libclient.so` (disassembled at `0x141f540-0x141f930`) handles the widget hit events:
+    - If `touchFilter == 0` (which is the case for both Lucky Carnival Draw and the Hall START button), the binding **bypasses** the filter check completely and immediately routes the event to `self.SendMessage`.
+    - If `touchFilter != 0`, it checks whether `touchFilter in self.touchFilters` (managed by `Globals.setInHall` / `Globals.setHallSceneReady`).
+    - This conclusively proves that `touchFilterMask` is NOT what drops the Carnival Draw or START taps.
+  - Disassembly of `onLotteryBtnClicked` (`ui/UILuckyCarnival.py`) and `onGoEvent` (`ui/UIMainBattleGroundTeam.py`):
+    - Both handlers begin with `if args.touch.phase != TouchPhase.Ended: return`.
+    - Neither handler has any print/log output for normal clicks or early returns.
+    - Click audio is played on `TouchPhase.Began` by `WidgetTouchesBinder` at the engine level, explaining why button clicks produce sound even when no Python logic or upstream RPC runs.
