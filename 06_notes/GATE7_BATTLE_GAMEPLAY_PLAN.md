@@ -386,3 +386,18 @@ harder than either agent initially estimated. Recommend re-attempting an ARM64 f
 different/older frida-server release next, and root-causing its specific segfault (get a tombstone
 or logcat crash dump from that attempt, which was not captured before switching to the x64 approach)
 before declaring this path exhausted.
+
+## 2026-09-25 Evidence already in hand argues against Hypothesis B (drag/Canceled)
+
+Re-reading today's own prior test log for this exact bug (Draw button, `06_notes/
+LUCKY_CARNIVAL_COMING_SOON.md`): the dead-touch was reproduced identically via **both**
+`adb input tap` (a synthetic, zero-jitter, single-point down+up with no movement at all) **and** the
+human tester's own real finger, multiple times each, on both the Draw and START buttons. If
+Hypothesis B (the emulator/OS turning the tap into a micro-drag that the engine reclassifies as
+`TouchPhase.Canceled` instead of `Ended`) were the cause, a perfectly still synthetic `adb input tap`
+should not trigger it — there is no movement for the engine to misinterpret as a drag. Since the
+synthetic tap fails identically to the real finger tap, this is evidence (not proof) against
+Hypothesis B and in favor of Hypothesis A (something else — most likely an overlay node — consumes
+or intercepts the touch before `WidgetTouchesBinder` ever routes an `Ended` phase to this widget).
+This doesn't require Frida to reason about and should narrow where a future live hook (once one is
+possible) should look first.
