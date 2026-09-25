@@ -338,3 +338,51 @@ be done first, since it now blocks two unrelated features rather than one.
     ```
   - `onGoEvent` has `touch_filter == 0`. Disassembly of `libclient.so`'s `WidgetTouchesBinder.____on_widget_touch_event__` confirms that bindings with `touchFilter == 0` bypass the `touchFilterMask` check and are not blocked by hall touch filters.
   - Click audio is played on `TouchPhase.Began` by `WidgetTouchesBinder` at the engine level before `Ended` is processed, explaining why audio clicks with zero Python execution or upstream RPC.
+
+## 2026-09-25 Correction to Gemini's frida-server fix: x64 Frida cannot see libclient.so (Houdini-translated ARM64)
+
+Verified live (independent of Gemini's report, using the exact setup from commit `862e61fb`:
+`/data/local/tmp/frida-server-x64` v16.2.1 + host venv `scratch/fridaenv16` with matching
+`frida==16.2.1`): the attach itself **does** work now — confirmed `dev.attach(<pid>)` succeeds with a
+stable session and `Java.available` is `true`. This part of Gemini's report is correct and a real
+unblock over the earlier ARM64-frida-server-segfault problem.
+
+**However**: `Process.arch` inside this attached session reports `"x64"`, and
+`Process.enumerateModules()` lists ~208 modules that are **entirely native x86_64 Android system
+libraries plus `libhoudini.so` itself** — `libclient.so` (this build's one game-engine native
+library, see `scratch/HANDOFF_TO_GEMINI_TOUCH_DISPATCH.md` §4) does **not appear at all**, nor does
+any other ARM64 app library (`libAudioEngine.so`, `libntunisdk.so`, etc. — all absent).
+
+**Why**: `frida-server-x64` is a native x86_64 binary attaching via the normal ptrace/injection path,
+which only sees modules mapped through the standard ELF dynamic linker in the x86_64 process's own
+address space. LDPlayer's Houdini binary-translation layer runs the app's actual ARM64 code
+(`libclient.so` and friends) by JIT-translating it to x86_64 *inside* Houdini's own management,
+without registering those ARM64 libraries as ordinary loader-visible modules to a native x64 debugger
+attached to the outer process. This is a known category of limitation for ARM-on-x86 Android
+emulation layers, not specific to this app.
+
+**Consequence**: the `WidgetTouchesBinder`/`onGoEvent`/`onLotteryBtnClicked` findings in the entry
+above this one were derived from **static disassembly only** (Ghidra/offline analysis of the
+extracted `.so`), not from a live hook — despite Frida now successfully attaching, it still cannot
+place a live hook on any address inside `libclient.so`, because that code is invisible to this
+Frida setup entirely. The touch-phase question (does `TouchPhase.Ended` actually fire for these
+buttons, per Hypothesis A vs B in the handoff doc) remains **unanswered live** and cannot be answered
+with `frida-server-x64` no matter how correct the static disassembly is.
+
+**What would actually work** (not yet attempted, ordered by how much new tooling each needs):
+1. An **ARM64** `frida-server` that itself runs *inside* Houdini's translated environment (this is
+   the setup that was previously segfaulting per Gemini's report — that failure needs to be
+   root-caused and fixed, not routed around, since it's the only way to get a module list that
+   includes `libclient.so`). Worth retrying with an older/different ARM64 frida-server build in case
+   the specific segfault was version-specific rather than a fundamental Houdini incompatibility.
+2. A Houdini-aware injection approach if one exists for this LDPlayer/Houdini version (unresearched).
+3. Fall back to **logcat-only** live differential testing (no Frida at all): add temporary print
+   statements is not possible without re-signing the client, so this option is likely a dead end
+   too unless a non-Frida code-injection method is found.
+
+Given both the ARM64-frida-server path (segfaults) and the x64-frida-server path (can't see the
+target library) have now failed for different reasons, live-verifying the touch-phase hypothesis is
+harder than either agent initially estimated. Recommend re-attempting an ARM64 frida-server with a
+different/older frida-server release next, and root-causing its specific segfault (get a tombstone
+or logcat crash dump from that attempt, which was not captured before switching to the x64 approach)
+before declaring this path exhausted.
