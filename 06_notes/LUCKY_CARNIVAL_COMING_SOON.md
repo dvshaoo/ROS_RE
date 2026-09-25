@@ -218,3 +218,75 @@ helps or if it was a lucky run.
 - Top-bar currency (3 slots, all showing `283283`) never updates despite repeated correct-value RPCs to a stable session — the RPC/id mapping for these specific slots in this hall top-bar layout is not what `onGPUpdated`/`onSPUpdated`/`onYBUpdated` feed (per `06_notes/HALL_DEEP_DIVE_2026-09-24.md`, likely needs the generic `onCurrencyUpdated(id, val, src)` idx 204 with the correct currency ids for these particular slots, not yet identified).
 - Stray "SUPPORT DROID / HUMAN" selector above the character, overlapping "Share" buttons, garbled "Finish"/"check the..." text — matches the already-documented "hall UI non-deterministic" family of issues.
 - Daily Claim popup not appearing on a fresh login.
+
+## 2026-09-25 Item 111135 confirmed live: "Brawler - Blue" (not Fists of Fury)
+
+Tapped item id 111135 (one of the two "Fire Fist" pieces granted earlier) live in Depot > Clothes >
+Owned: its actual in-game name is **"Brawler - Blue"**, not "Fists of Fury" and not literally
+"Fire Fist" either — that Chinese/icon-path identification was directionally right (a boxer-themed
+top) but the retail EN name is different. This is now the second confirmed name in the "boxer" family
+found this session (the first being "Echo Valley Champ" / "Champ - Eye Patch" for a different,
+already-owned item). Neither matches "Fists of Fury". Likely there are sibling color variants
+("Brawler - Red/Gold/...", matching the yi01-04 tiers found in table 0xa2f095a2) — untested.
+
+At the user's request, 111135 and 112017 were removed from `data/player_state.json`'s equipped wear
+list (they had gotten equipped again during Depot browsing) to test whether having them equipped is
+linked to the top-bar-currency/SUPPORT-DROID-HUMAN/messy-UI symptoms. Given the 2026-09-25 isolation
+test already showed those symptoms with the granting code fully removed and even on the untouched
+backup, having a specific item equipped is not expected to be the cause either, but re-testing to be
+thorough.
+
+## 2026-09-25 "Fists of Fury" family confirmed: item 111135 = "Brawler - Blue"
+
+Re-tapped item 111135 live in Depot (Clothes > Owned unchecked, Male, scrolled to the boxer-tattoo
+row): its live name is **"Brawler - Blue"**. This is the exact bare-chest "Hot Wheels" tattoo torso
+from the user's reference screenshot (an ADV. Supply gacha promo: "CHANCE TO GET! FISTS OF FURY &
+HITGIRL 50% OFF"). Separately found in `common/international_data/translate_properties/
+translate_properties_en.py` (a real, literal EN string table inside script.npk — NOT hash
+placeholders, a first for this project): the exact strings **"Fists of Fury"**, **"Fists of Fury -
+Black"**, **"Fists of Fury - Black(30d)"**, **"Fists of Fury - Black(3d)"**, and **"Exchange for the
+'Fists of Fury' outfit"** all exist verbatim. Conclusion: "Brawler" and "Fists of Fury" are the same
+tattoo/character asset family (script codename `huoquan`/"Fire Fist"); 111135 ("Brawler - Blue") is
+one recolor, while the promo's exact item is most likely a separate "- Black" id sold as a 3-day/
+30-day rental via the Exchange Shop. The "- Black" variant's numeric id has not been found yet; the
+next step is disassembling `translate_properties_en.py`'s module consts to pair each string with its
+`_g89na_trans` md5 hash key, then grep every hall-prop table for that hash to get the real id (this
+file is a genuine string source, unlike every appearance-item table, so this approach can now also
+resolve other previously-hash-locked item names on request).
+
+Also confirmed live and clarified for the user: unchecking Depot's "Owned" filter shows the game's
+entire static item catalog (locked padlock icons for everything not owned) — this is client-side
+data baked into the game and has no connection to the server or to anything granted this session;
+seeing "Brawler"/other locked items in that browse list is normal and not evidence of a leftover
+grant or a cause of any of the hall bugs.
+
+## 2026-09-25 "Fists of Fury" DEFINITIVELY IDENTIFIED: items 111017 + 112017
+
+Resolved via literal string match, not guesswork. `translate_properties_en.py` (script.npk) is a real
+EN string table with actual `{md5_hash: "English string"}` dict literals in its bytecode — confirmed
+by disassembling its `<module>` code object and reading the `LOAD_CONST <string>; LOAD_CONST <hash>;
+STORE_MAP` triples around every "Fists of Fury" occurrence. This gave two hashes for the string
+**"Fists of Fury - Black"**: `19e3e55245c514afd7402ee98dbad2d4` and `2df86269012c129913d8425267dab6f7`.
+Grepping every assets.npk table for those exact hashes as a `NAME` value found them in table
+`0x502032c7` on:
+
+| Piece | Hall-prop id | Icon |
+|---|---|---|
+| Top | **111017** | `body/img_huoquan_yi01.png` |
+| Pants | **112017** | `leg/img_huoquan_ku01.png` |
+
+These are the QUALITY-5 "01" tier from the earlier `huoquan` ("Fire Fist") family sweep — the ones
+originally granted in the very first attempt today, before being second-guessed in favor of 111135/
+112135 ("Brawler - Blue", a different color variant, confirmed separately by live Depot tap). Also
+found related strings for the same family: `"Fists of Fury"` (idx 45107, likely the base/default
+color), `"Fists of Fury (7d)"` (rental variant), `"Exchange for the 'Fists of Fury' outfit"`, and
+per-piece descriptions `"Use the 'Fists of Fury Top'..."` / `"Use 'Fists of Fury Pants'..."` — all
+consistent with 111017/112017 being the real target. Both already resolve cleanly through the
+existing `_prop_tables()` (table `0x502032c7` is not currently in the scanned list — **note**: it
+would need adding, or these should be looked up via `0xa2f095a2`'s copies if present there under the
+same ids, which needs a quick check before granting).
+
+Not yet granted (pending user confirmation this is the right find) — see the removed
+`_CARNIVAL_PREMIUM_HALL_PROPS` mechanism for exactly how to wire a one-time inventory grant safely
+(direct grant only, never inject into the Carnival wheel — that breaks the wheel's `on_enter`, see
+the 2026-09-25 revert entry above).
