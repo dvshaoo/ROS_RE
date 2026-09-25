@@ -4,9 +4,10 @@
 # Everything else: log-only 404. Logs -> captures/SERVE_B.txt
 import os, re, ssl, threading, time, json, base64, hashlib, socket, select
 try:
-    from http.server import BaseHTTPRequestHandler, HTTPServer
+    from http.server import BaseHTTPRequestHandler, HTTPServer, ThreadingHTTPServer
 except Exception:
     from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+    ThreadingHTTPServer = HTTPServer
 
 import session_store
 
@@ -44,6 +45,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 NOTES = r'C:\Users\Raysoo\Downloads\ROS_RE\06_notes'
 LOG = os.path.join(HERE, 'captures', 'SERVE_B.txt')
 _lock = threading.Lock()
+# Keep one persistent handle instead of open()/close() on every single log line.
+# Under ThreadingHTTPServer, every request thread serializes on _lock to log --
+# with a fresh open()+close() (each a real syscall, slower still under Windows AV
+# scanning) on every line, a burst of concurrent requests during the client's
+# loading phase can stack up enough latency on this shared lock to look like a
+# slow server response even though request handling itself is fast, plausibly
+# contributing to the "Slow connection" dialog seen mid-loading.
+_log_fh = open(LOG, 'a', encoding='utf-8', errors='replace')
 
 def w(m):
     with _lock:
@@ -51,9 +60,8 @@ def w(m):
         try:
             now = time.time()
             ts = '%s.%03d' % (time.strftime('%H:%M:%S', time.localtime(now)), int((now % 1) * 1000))
-            f = open(LOG, 'a', encoding='utf-8', errors='replace')
-            f.write('%s %s\n' % (ts, m))
-            f.close()
+            _log_fh.write('%s %s\n' % (ts, m))
+            _log_fh.flush()
         except Exception:
             pass
 

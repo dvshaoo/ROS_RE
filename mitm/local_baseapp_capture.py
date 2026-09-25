@@ -521,6 +521,11 @@ BASEAPP_PORT = 25010          # our fake BaseApp capture port
 LOGINAPP_PORT = 25000
 
 _lock = threading.Lock()
+os.makedirs(os.path.dirname(CAPTURE_LOG), exist_ok=True)
+# Persistent handle instead of open()/close() per log line -- this fires on every
+# UDP packet (HEX/ASCII/DECRYPTED breakdown), so per-call open/close overhead adds
+# up fast under load. See the matching fix in mitm_serve.py's w() for the HTTP side.
+_capture_log_fh = open(CAPTURE_LOG, 'a', encoding='utf-8', errors='replace')
 
 # Attempt J (2026-09-15, post-E2E-001 regression): per source-address "sticky"
 # first-seen counter cache. E2E-001 found Attempt H's per-retry echoed counter
@@ -542,8 +547,8 @@ def log(msg):
         line = '%s %s' % (ts, msg)
         print(line, flush=True)
         try:
-            with open(CAPTURE_LOG, 'a', encoding='utf-8', errors='replace') as f:
-                f.write(line + '\n')
+            _capture_log_fh.write(line + '\n')
+            _capture_log_fh.flush()
         except Exception:
             pass
 
@@ -2333,13 +2338,18 @@ def serve_baseapp_udp_capture():
 
 def serve_http_plain(port):
     log('=== HTTP plain :%d ===' % port)
-    base.HTTPServer(('0.0.0.0', port), base.H).serve_forever()
+    # ThreadingHTTPServer, not plain HTTPServer: the client fires several parallel
+    # manifest/file_list HTTPS requests during loading, and a single-threaded server
+    # queues them, sometimes past the client's own request timeout, producing the
+    # "Slow connection" dialog even though every request eventually gets answered
+    # (see 06_notes/GHIDRA_PACKET_PARSER_TRACE.md, 2026-09-18 entries).
+    base.ThreadingHTTPServer(('0.0.0.0', port), base.H).serve_forever()
 
 
 def serve_http_tls(port):
     import ssl
     log('=== HTTP TLS :%d ===' % port)
-    srv = base.HTTPServer(('0.0.0.0', port), base.H)
+    srv = base.ThreadingHTTPServer(('0.0.0.0', port), base.H)
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ctx.load_cert_chain(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'srv.crt'),
                          os.path.join(os.path.dirname(os.path.abspath(__file__)), 'srv.key'))
