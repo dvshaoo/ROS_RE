@@ -567,3 +567,56 @@ entry point, already statically located per the "START button internals verified
 limitation entirely rather than requiring an ARM64 frida-server that this environment's architecture
 makes fundamentally awkward to use.
 
+## 2026-09-25: x64 Frida raw-pointer hook attempt (read-only) -- both blocked, and a real regression found along the way
+
+Ran the manual-`NativePointer` hook experiment above, strictly read-only (no patches):
+- `runtime libclient.so base` = `0x032e8000` (confirmed live via `Process.findRangeByAddress`).
+- `Ghidra target VA` = `0x141f540` (`____on_widget_touch_event__`).
+- `Ghidra image base` used = `0x0` (this project's own convention is `libclient.so:base + 0xNNN`
+  everywhere else, e.g. CLAUDE.md section 3/5 -- no Ghidra import script in this repo records any
+  other base, so the VA is used directly as the RVA).
+- `runtime_target` = `0x32e8000 + 0x141f540 = 0x4707540`.
+- Mapped range: yes, inside the confirmed `libclient.so` segment, but **protection is `r--`, not
+  executable**, confirmed both via Frida's `range.protection` and directly in `/proc/<pid>/maps`
+  (`032e8000-06aa4000 r--p ... libclient.so`) -- there is **no `r-x` mapping of `libclient.so`
+  anywhere** in this process. A 65MB anonymous `rwxp` region (`0d45c000-112ec000`,
+  `[anon:Mem_0x20000000]`) exists instead -- almost certainly Houdini's own JIT translation cache,
+  where the real executing x86_64-translated code lives.
+- Byte comparison: bytes read live at `0x4707540` matched the `.so` file's own bytes at the same
+  offset exactly (`49 07 40 f9 75 91 01 d0 ...`) -- the address computation itself is correct.
+- `Interceptor.attach(0x4707540)` result: **failed outright** --
+  `Error: unable to intercept function at 0x4707540; please file a bug`. Frida's x64 Gum engine
+  couldn't install the hook, consistent with two compounding problems: the page isn't executable,
+  and even if it were, the bytes at that address are ARM64 opcodes while this x64 frida-server's
+  inline-hook engine operates on x86_64 machine code.
+- Follow-up: found the touch-processing thread (TID confirmed via `AInputQueue_getEvent`, only
+  thread that ever calls it, firing every ~50ms even at idle; `AMotionEvent_getAction/getX/getY`
+  never fire at all, so the client likely reads the raw event struct directly). Confirmed via
+  Frida Stalker that the RWX translation-cache region **does execute** even at idle (two small
+  repeating blocks). Attempting to Stalker-trace that thread through an actual tap **crashed the
+  game** (`Fatal signal 11, fault addr 0x0`, same TID) -- Stalker's own instrumentation apparently
+  conflicts with Houdini's JIT modifying the same code cache. This blocks the idle-vs-touch diff
+  approach as a safe technique here; a real fix would need either a working ARM64 tracer (still
+  blocked, see entries above) or reverse-engineering Houdini's block-dispatch table directly,
+  neither of which is a small next step.
+- **Unrelated but important side effect caught during this investigation**: while diagnosing a
+  *different*, freshly-reported "loops back to Select Control twice" regression (same symptom
+  class as the historical `hallTeamData`/Checkpoint 18 bug), traced the BaseApp log and found the
+  divergence point precisely: the full `showSelectCharacter -> onCreateCharacter -> onRoleCreateSuc
+  -> updateBaseCharacter -> updateBaseNickname -> enterHall` chain completed identically and cleanly
+  on every cycle (no exception, no missing property, no truncation) -- the client only tore itself
+  down (`athleteOnBecomeNonPlayer` telemetry beacon, then a full fresh LoginApp handshake) roughly
+  **44 seconds after** `enterHall`/STAGE 5, well outside that chain. This pointed at the
+  `updateHallTeamLeaderGID(0)` RPC added earlier the same session (previous entry above) -- it
+  touches the same `iHallTeam` interface family implicated in the original Checkpoint 18 crash
+  chain. **Reverted** that RPC plus its now-unused `_HALLTEAM_EXPOSED`/`matchBattleGround` dispatch
+  wiring entirely (it never fixed the dead START button anyway -- zero live effect, see previous
+  entry -- so nothing functional is lost). Live-tested after reverting: fresh relogin reached
+  STAGE 5 and stayed stable past the 44s mark with no repeat `athleteOnBecomeNonPlayer` / no new
+  STAGE 1, confirmed by the user's own live observation ("yun, di na ata nag loop"). The exact
+  Python-side exception text for *why* `updateHallTeamLeaderGID` triggered this was not recovered --
+  `adb logcat`'s `chatty` de-duplication had already collapsed the repeating error lines before the
+  buffer could be read (`NeoXMain expire N lines`), a known logcat limitation, not something fixable
+  after the fact. A live streaming `logcat` capture bracketing the exact moment would be needed to
+  get the real traceback if this is revisited.
+
