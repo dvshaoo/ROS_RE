@@ -905,6 +905,11 @@ _CARNIVAL_EXPOSED = {
     902: 'tryGetLuckyCarnivalRoundTempGift',
     908: 'queryCurrenyLuckyCarnivalData',
 }
+# iHallTeam exposed base method for the hall START button (entity_0335.xml BaseMethods;
+# 06_notes/GATE7_BATTLE_GAMEPLAY_PLAN.md, athlete_base_methods_table.txt:99 -> idx 96).
+_HALLTEAM_EXPOSED = {
+    96: 'matchBattleGround',   # BOOL autoMatch
+}
 
 _player_state_lock = threading.Lock()
 _player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
@@ -1557,7 +1562,8 @@ def handle_upstream_calls(sock, addr, key, unpadded):
         # 0xfa/0xdd decodes to index 279 (queryAvailableSupplement).
         exposed_idx = (mid - 0xfa) * 256 + method + 58 if mid >= 0xfa else method
         name = (_STORE_EXPOSED.get(exposed_idx) or _DEPOT_EXPOSED.get(exposed_idx)
-                or _CARNIVAL_EXPOSED.get(exposed_idx) or EXPOSED_METHODS.get(method))
+                or _CARNIVAL_EXPOSED.get(exposed_idx) or _HALLTEAM_EXPOSED.get(exposed_idx)
+                or EXPOSED_METHODS.get(method))
         sig = (method, len(payload))
         if sig not in _seen_exposed:
             _seen_exposed.add(sig)
@@ -1590,6 +1596,18 @@ def handle_upstream_calls(sock, addr, key, unpadded):
         if name in ('onOpenLuckyCarnival', 'queryCurrenyLuckyCarnivalData'):
             # Re-open / query: push the current round so the panel re-inits cleanly.
             _send_carnival(sock, addr, key, _carnival_payload(0), name)
+            continue
+        if name == 'matchBattleGround':
+            # First live confirmation that the START button's touch actually reaches the
+            # server at all (see 06_notes/GATE7_BATTLE_GAMEPLAY_PLAN.md 2026-09-25 entries).
+            # No island transfer implemented yet -- just ack with syncMatchState(idx 66) so
+            # UIMainBattleGroundTeam.onMatching shows the searching UI instead of nothing.
+            auto_match = bool(payload[1]) if len(payload) >= 2 else False
+            log('HALLTEAM: matchBattleGround(auto=%s) RECEIVED from client -- touch reached server!' % auto_match)
+            sync_extra = pickle.dumps({}, protocol=0)
+            sync_args = struct.pack('<hqB', 1, int(time.time()), int(auto_match)) + _packed_int(len(sync_extra)) + sync_extra
+            send_entity_method(sock, addr, key, 1, 66, sync_args, flags=0x0008, num_methods=1131)
+            log('BASEAPP: sent Athlete.syncMatchState(state=1, auto=%s) idx=66' % auto_match)
             continue
         if name in ('openSupplyBox', 'openMultipleSupplyBox') and len(payload) >= 9:
             sid, cur = struct.unpack_from('<ii', payload, 1)
@@ -1927,6 +1945,17 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         # gmsyncRedPoints(ARRAY<RED_POINT>): UIMain.displayAll passes Globals.redPoints
         # directly to showRedPoint(), so the server must initialize it even when empty.
         (1099, struct.pack('<I', 0), 'Athlete.gmsyncRedPoints([])'),
+        # updateHallTeamLeaderGID(GID: INT64), entity_0335.xml iHallTeam idx 65 (live table,
+        # scratch/athlete_methods_full.txt). hallTeamLeaderGID has BASE_AND_CLIENT flags but,
+        # like hallTeamData before it (Checkpoint 18), is NOT part of our runtime-generated
+        # property stream (not in scratch/athlete_stream_layout.txt), so it stays at whatever
+        # the client script's own onCreate default is -- never equal to our stream's `gid`
+        # property (0, see athlete_stream_layout.txt ordinal 9). UIMainBattleGroundTeam.is_leader
+        # == (hallTeamLeaderGID == player.gid); when False, START (`b_go`) is hidden/replaced by
+        # `b_ready`, which live-tested as a dead button (see 06_notes/GATE7_BATTLE_GAMEPLAY_PLAN.md,
+        # 2026-09-25 "Definitive Resolution"). Send 0 here to match our stream's gid=0 exactly,
+        # rather than an arbitrary GID that would still mismatch.
+        (65, struct.pack('<q', 0), 'Athlete.updateHallTeamLeaderGID(0)'),
         (745, _packed_int(len(lucky_carnival_pickle)) + lucky_carnival_pickle,
          'Athlete.onUpdateLuckyCarnivalData'),
         # These two attributes are BASE-only, so the property stream cannot carry them, yet UIMain reads them on

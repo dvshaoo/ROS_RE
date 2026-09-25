@@ -444,3 +444,41 @@ possible) should look first.
     `<matchBattleGround> <Exposed/> <Arg> BOOL </Arg> </matchBattleGround>`.
   - When the server receives `matchBattleGround`, it replies with `syncMatchState` (idx 66), initiates team match state, and then sends `transferToBattleServer` or scene transition to load the battle island map!
 
+## 2026-09-25: `updateHallTeamLeaderGID` fix implemented and live-tested -- does NOT unblock START
+
+Implemented Gemini's `is_leader` theory above exactly as specified, to independently verify it before
+trusting it (the same day's Carnival Draw investigation had already found a parallel "it's just a
+visibility flag" theory to be **wrong** once actually tested -- see `06_notes/
+LUCKY_CARNIVAL_COMING_SOON.md`, 2026-09-25 "Still open" entry).
+
+- Checked our own runtime property stream (`scratch/athlete_stream_layout.txt`): `gid` is ordinal 9 /
+  idx 13, INT64, and the live stream (`data/athlete_mobile_stream.bin`) has it set to **0**.
+  `hallTeamLeaderGID` does not appear in that layout at all (same gap pattern as the earlier
+  `hallTeamData` bug from Checkpoint 18), so it stays at the client script's own unset default,
+  never equal to our `gid=0` -- `is_leader` should plausibly be `False`, matching the theory.
+- **Fix applied** (`mitm/local_baseapp_capture.py`, hall_state_rpcs list, right after `enterHall`):
+  send `Athlete.updateHallTeamLeaderGID(0)` (idx 65) to match our stream's `gid=0` exactly. Also added
+  `_HALLTEAM_EXPOSED = {96: 'matchBattleGround'}` dispatch wiring plus a handler that logs the call and
+  acks with `syncMatchState` (idx 66), so any successful tap would be immediately visible in the
+  server log.
+- **Live test** (fresh relogin, clean STAGE 1-5, confirmed `updateHallTeamLeaderGID(0)` sent at
+  `18:20:07.181`, hall loaded cleanly with the Daily Claim popup and no relogin loop): tapped START
+  across **8 different coordinates** spanning the button's visible bounds
+  (`1700,990` / `1650,950` / `1750,970` / `1800,1000` / `1600,1010` / `1700,1020` and 2 more). **Zero**
+  `matchBattleGround` calls reached the server -- not one, across every coordinate.
+- **Conclusion**: the `is_leader`/`hallTeamLeaderGID` mismatch theory, while plausible and worth
+  fixing on its own merits (it's still a real gap and the fix is kept), is **not** what makes START
+  dead. This directly parallels the Carnival Draw button: `luckyRoundState=1` made the button visible
+  but tapping it still produced zero `onDoLuckyLottery` calls. Two independently-implemented
+  "make the client-side gate pass" fixes, on two different buttons, both failed to produce any
+  upstream RPC. This is strong evidence *against* Gemini's "Definitive Resolution" framing (both
+  Carnival Draw and START root-caused as simple visibility/state bugs) and *for* the original,
+  harder hypothesis: a systemic native touch-dispatch problem (most likely an invisible overlay
+  node sitting on top of these specific widgets, per Hypothesis A in
+  `scratch/HANDOFF_TO_GEMINI_TOUCH_DISPATCH.md`) that no server-side payload fix can work around.
+- **Next step**: this now needs the actual live Frida hook on `libclient.so`'s touch dispatcher that
+  every prior attempt this session failed to get (ARM64 frida-server segfaults under Houdini; x64
+  frida-server attaches but cannot see the ARM64 library at all). Retrying an ARM64 frida-server with
+  a different/older release and capturing a tombstone for the segfault (per the "What would actually
+  work" list further up this file) is the concrete unblock, not further server-side payload changes.
+
