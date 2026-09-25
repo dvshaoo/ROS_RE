@@ -397,3 +397,75 @@ resilient to it, or preventing rapid repeated relogins server-side (e.g. detecti
 prior session for the same source IP and delaying/rejecting a new one for a couple of seconds) --
 should be the actual next priority, rather than continuing to treat currency/UI/avatar as separate
 bugs.
+
+## 2026-09-25 FINAL ROOT CAUSE CONFIRMED AND FIXED: DecorationAppearanceType (masks) crash the hall
+
+**Fix verified live: currency, hall UI, and Daily Claim all correct again after this specific fix.**
+
+### The actual bug, in plain terms
+
+Equipping any mask/decoration item (`DecorationAppearanceType`, e.g. the Joker mask, item 105688) and
+saving it into the same `wear`/`body` list as real clothing crashes the client, repeatedly, forever
+(until that id is removed from the list):
+
+```
+SCRIPT ERROR
+Traceback (most recent call last):
+  File "common\Timer.py", line 17, in cb2
+  File "common\decorators.py", line 43, in _callback
+  File "entities\iDtsEquipAppearanceAthlete.py", line 92, in refreshHallCharacterDressInfo
+  File "entities\iDtsEquipAppearanceAthlete.py", line 83, in wearableItemList
+  File "common\shared\lib\gametoolslib\properties\_types.py", line 454, in __getattr__
+AttributeError: 'DecorationAppearanceType' object has no attribute 'PROP_ITEM_ID'
+```
+
+`wearableItemList` (client script `entities/iDtsEquipAppearanceAthlete.py:83`) loops over every id in
+the player's wear list and reads `.PROP_ITEM_ID` off each one's `PROP_TYPE` object. Real clothing
+(`WearableApperanceType`, `BobyAppearanceType`) has that field; `DecorationAppearanceType` (masks,
+goggles, decorations) does not, so the very first mask in the list throws. This call is wired to a
+**repeating Timer** (`refreshHallCharacterDressInfo`), so once a mask is saved into wear/body, the
+client throws this same exception over and over, every time the timer fires, for as long as the
+session lasts — captured live as 4 identical tracebacks roughly 40 seconds apart in one session.
+
+### Why this explained basically everything chased today
+
+A script exception firing repeatedly inside a core hall-refresh timer is exactly the kind of thing
+that leaves `UIMain` (and everything that depends on its state — the top-bar currency binding, the
+Daily Claim popup, the avatar model, the "SUPPORT DROID / HUMAN" mode selector rendering correctly)
+partially or inconsistently initialized, without ever fully crashing the process. That fits every
+symptom seen today far better than any of the earlier (wrong) theories:
+- top-bar currency stuck at the `283283` CSB placeholder despite correct RPCs
+- the stray "SUPPORT DROID / HUMAN" selector and garbled overlapping hall text
+- the equipped outfit not rendering (`wearableItemList` is literally the function that builds the
+  render list — of course the visible outfit breaks if this throws before it returns)
+- Daily Claim popup not appearing
+- the apparent (but wrongly attributed) correlation with rapid relogins: relogging doesn't cause the
+  crash, but a session that had a mask equipped earlier that day carries the broken wear list into
+  the new session's `player_state.json`, so any login after a mask was ever equipped will crash the
+  same way regardless of relogin count
+
+### The fix (mitm/local_baseapp_capture.py)
+
+- `handle_depot_call`: `equipAppearance`/`unloadAppearance` now only accept
+  `WearableApperanceType`/`BobyAppearanceType`; a `DecorationAppearanceType` id is rejected and logged
+  (`DEPOT: ignored ... for unsupported item=... type=DecorationAppearanceType`), never written to
+  `wear`/`body`.
+- `_sanitize_saved_appearance_lists` (runs on every `_load_player_state()`, i.e. every login): the
+  `allowed` set dropped `DecorationAppearanceType`, so any mask/deco id already sitting in a saved
+  `wear`/`body` list from before this fix gets stripped automatically, self-healing old saves without
+  a manual data edit.
+
+### What's still not solved
+
+- Masks/decorations are not equippable through this server at all right now — they're refused rather
+  than crashing. If a matching correct transport exists (the client may expect deco ids in a
+  different property entirely, not `wear`), it hasn't been identified; this is a real feature gap,
+  not just a safety refusal, and would need its own investigation (start from
+  `entities/iDtsEquipAppearanceAthlete.py` around `wearableItemList`/`refreshHallCharacterDressInfo`
+  to find where decorations are actually supposed to be read from).
+- The Lucky Carnival Draw button dead-touch bug (documented near the top of this file) is unrelated
+  to this fix and remains open.
+- Whether rapid relogins can *also* independently cause instability (separate from the mask crash)
+  was never conclusively ruled out, since every relogin-loop session tested today also happened to
+  have a mask in the saved wear list at the time. Worth re-testing in isolation if it recurs now that
+  masks can no longer be saved.
