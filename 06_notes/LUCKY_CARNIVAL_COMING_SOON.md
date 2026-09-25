@@ -134,3 +134,39 @@ helper instead of the old fixed `_CARNIVAL_GIFT = range(1,17)` constant.
 Live-tested 2026-09-25: relogged in, server log shows `CARNIVAL: rotated daily pool day=... gift=...`
 on first Carnival-panel-triggering activity after restart, wheel renders 16 icons from the new pool.
 The Draw-button bug above is unaffected either way (pool content isn't the blocker).
+
+## 2026-09-25 "Fists of Fury" identified — the 拳王 (Boxing King) 6-piece set
+
+User's actual ask was "Fists of Fury" (not "Fits of Fury" as first misheard). Re-searched assets.npk
+for the corrected name and its likely Chinese equivalents; still no literal EN string anywhere (see
+above — item names are untranslated `_g89na_trans(md5)` placeholders in every table), but "拳王"
+("Boxing King") and "拳霸" ("Boxing Tyrant") hit repeatedly, and their icon paths confirm a themed
+boxer/fist costume set — the most plausible source for whatever localized EN name the user saw:
+
+| Piece | Hall-prop id | Table | PROP_TYPE | Icon |
+|---|---|---|---|---|
+| Head | 101111 | `0xa2f095a2` | BobyAppearanceType (PART 1111) | `head/male_head_quanwang.png` |
+| Hair | 102119 | `0xa2f095a2` | BobyAppearanceType (PART 2119, CATEGORY 2) | `hair/img_quanwang_hair.png` |
+| Goggles | 105037 | `0xa2f095a2` | DecorationAppearanceType (PART 8102, CATEGORY 12) | `deco/img_quanwang_yanzhao.png` |
+| Headband | 110007 | `0xa2f095a2` | WearableApperanceType | `helmet/img_quanwang_fadai.png` |
+| Top | 111020 | `0xa2f095a2` | WearableApperanceType (CATEGORY 2) | `body/img_quanwang_yi.png` |
+| Pants | 112020 | `0xa2f095a2` | WearableApperanceType (CATEGORY 3) | `leg/img_quanwang_ku.png` |
+
+All 6 are QUALITY 4-5 and already resolve cleanly through the existing `_prop_tables()` /
+`_get_appearance_slot()` machinery (table `0xa2f095a2` was already in the scanned list) — no prop-
+resolution code change was needed, only wiring them into a reward path. Found via
+`0x207bb152` (raw `PartModel` geometry table, parts 1111/2119/3019/3119/4045/4145/5034/5134/8002)
+cross-referenced against every table containing a `'PART': <id>` back-reference (see session
+transcript for the exact regex sweep) to find the sellable `Prop`-wrapped ids.
+
+**Caveat:** all 6 pieces carry `EXCHANGE_SERIE: 500013`, meaning in the live game they belong to a
+token/coupon **Exchange Shop** (client RPCs `[524] onQueryAvailableExchangeItem` /
+`[525] onExchangeItem`, `entities/iItemExchange.py`, `ui/UIItemExchange.py` — listed as unimplemented
+in `06_notes/HALL_DEEP_DIVE_2026-09-24.md` §6), not the Lucky Carnival wheel's native reward table
+(0x237dd2bb has no row for any of these 6 ids). Rather than build the whole Exchange Shop feature to
+deliver them, they were injected directly into the wheel as a private-server shortcut: added
+`_CARNIVAL_PREMIUM_HALL_PROPS` in `mitm/local_baseapp_capture.py`, and `_carnival_daily_pool()` now
+reserves 1 of the 16 daily slots for one piece of this set (cycling through all 6 by day, same
+`day_ordinal % 6` cadence as the rest of the rotation), represented as `-hall_prop_id` (negative) so
+`_grant_carnival_prize()` can tell "grant this hall-prop id directly" apart from a normal
+LuckyCarnivalRoundReward row id, without needing a fake row in that table.

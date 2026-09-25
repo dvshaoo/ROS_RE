@@ -1041,9 +1041,27 @@ _carnival = {
 }
 
 
+# Hand-picked cosmetic set for the wheel's daily "premium" slot: the full 6-piece
+# "拳王" (Boxing King) outfit -- head 101111, hair 102119, goggles 105037, headband
+# 110007, top 111020, pants 112020 -- all confirmed live in assets.npk table
+# 0xa2f095a2 (WearableApperanceType/BobyAppearanceType/DecorationAppearanceType,
+# QUALITY 4-5, already in _prop_tables() so _expand_prop/_grant_appearance_prizes
+# resolve them with no other code changes). This is the set the user knows as
+# "Fists of Fury" -- that exact English name is not present anywhere in this
+# build's extracted assets.npk (only the untranslated Chinese name and icon
+# paths are), so treat "Fists of Fury" as this set's likely EN localization, not
+# a verified string. These 6 ids have no row in LuckyCarnivalRoundReward
+# (0x237dd2bb) -- the real game sells them through the (currently unimplemented)
+# token Exchange Shop, EXCHANGE_SERIE 500013, not the lucky wheel -- so they are
+# injected directly as hall-prop ids rather than reward-table row ids; see the
+# negative-id convention in _grant_carnival_prize.
+_CARNIVAL_PREMIUM_HALL_PROPS = [101111, 102119, 105037, 110007, 111020, 112020]
+
+
 def _carnival_daily_pool(day_ordinal):
-    """Pick 16 LuckyCarnivalRoundReward row ids (table 0x237dd2bb) for the wheel,
-    reshuffled once per calendar day so the display doesn't stay static.
+    """Pick 16 wheel slots for the day: 15 LuckyCarnivalRoundReward row ids (table
+    0x237dd2bb) plus one rotating slot for _CARNIVAL_PREMIUM_HALL_PROPS, reshuffled
+    once per calendar day so the display doesn't stay static.
 
     Not from decompiled ground truth: the real client renders whatever 16 ids the
     server sends, so this is a private-server QoL choice, not a verified official
@@ -1062,10 +1080,14 @@ def _carnival_daily_pool(day_ordinal):
     rng = random.Random(day_ordinal)
     for tier in tiers.values():
         rng.shuffle(tier)
-    picks = tiers.get(3, [])[:3] + tiers.get(2, [])[:8] + tiers.get(1, [])[:5]
-    picks = picks[:16]
+    picks = tiers.get(3, [])[:2] + tiers.get(2, [])[:8] + tiers.get(1, [])[:5]
+    picks = picks[:15]
+    # Negative id = "grant this hall-prop id directly" (see _grant_carnival_prize),
+    # cycling one piece of the premium set into the wheel per day.
+    premium_id = -_CARNIVAL_PREMIUM_HALL_PROPS[day_ordinal % len(_CARNIVAL_PREMIUM_HALL_PROPS)]
+    picks.append(premium_id)
     rng.shuffle(picks)
-    values = [int(table[rid]['value'].get('ITEM_VALUE', 1)) for rid in picks]
+    values = [3 if rid < 0 else int(table[rid]['value'].get('ITEM_VALUE', 1)) for rid in picks]
     return picks, values
 
 
@@ -1162,9 +1184,18 @@ def _credit_currency(sock, addr, key, currency_id, amount):
 
 
 def _grant_carnival_prize(sock, addr, key, reward_id):
-    """Map LuckyCarnivalRoundReward id -> HALL_PROP_ID, expand containers, grant."""
-    rec = _carnival_reward_table().get(int(reward_id), {}).get('value', {})
-    hall_id = int(rec.get('HALL_PROP_ID') or 0)
+    """Map LuckyCarnivalRoundReward id -> HALL_PROP_ID, expand containers, grant.
+
+    A negative reward_id is the _CARNIVAL_PREMIUM_HALL_PROPS convention: it IS the
+    hall-prop id already negated, bypassing the 0x237dd2bb table lookup for pieces
+    that have no LuckyCarnivalRoundReward row.
+    """
+    reward_id = int(reward_id)
+    if reward_id < 0:
+        hall_id = -reward_id
+    else:
+        rec = _carnival_reward_table().get(reward_id, {}).get('value', {})
+        hall_id = int(rec.get('HALL_PROP_ID') or 0)
     if not hall_id:
         log('CARNIVAL: reward %s has no HALL_PROP_ID' % reward_id)
         return []
