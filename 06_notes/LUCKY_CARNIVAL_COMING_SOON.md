@@ -163,10 +163,25 @@ transcript for the exact regex sweep) to find the sellable `Prop`-wrapped ids.
 token/coupon **Exchange Shop** (client RPCs `[524] onQueryAvailableExchangeItem` /
 `[525] onExchangeItem`, `entities/iItemExchange.py`, `ui/UIItemExchange.py` — listed as unimplemented
 in `06_notes/HALL_DEEP_DIVE_2026-09-24.md` §6), not the Lucky Carnival wheel's native reward table
-(0x237dd2bb has no row for any of these 6 ids). Rather than build the whole Exchange Shop feature to
-deliver them, they were injected directly into the wheel as a private-server shortcut: added
-`_CARNIVAL_PREMIUM_HALL_PROPS` in `mitm/local_baseapp_capture.py`, and `_carnival_daily_pool()` now
-reserves 1 of the 16 daily slots for one piece of this set (cycling through all 6 by day, same
-`day_ordinal % 6` cadence as the rest of the rotation), represented as `-hall_prop_id` (negative) so
-`_grant_carnival_prize()` can tell "grant this hall-prop id directly" apart from a normal
-LuckyCarnivalRoundReward row id, without needing a fake row in that table.
+(0x237dd2bb has no row for any of these 6 ids).
+
+**REVERTED same day — breaks the wheel live.** The first attempt injected these ids directly into
+the wheel's `luckyRoundGift` list as `-hall_prop_id` (a "grant this hall-prop id directly, skip the
+reward-table lookup" convention). Live-tested by the user (both via `adb input tap` and their own
+finger, in the real Carnival panel, not the unrelated Store "LUCKY CLUB" top-up page which looks
+similar and was briefly confused for it): the panel froze on the CSB default "Claimed" placeholder,
+the countdown stopped ticking, and even **BACK stopped responding** — a hard hang, not a cosmetic
+glitch. This is exactly the failure this same file already warned about further up: the client's
+`initPanelLotteryItem` calls `getLuckyCarnivalRoundRewardData(id).HALL_PROP_ID` against the
+**client's own bundled copy** of table `0x237dd2bb` — an id with no row there returns `None` and
+aborts `on_enter` entirely, taking the countdown/Back/cleanup wiring down with it. The server cannot
+invent new rows in a table the client already has baked into its APK; every id sent to the wheel
+must already exist as a row there. Removed the negative-id branch from `_carnival_daily_pool()`; the
+wheel is back to 16 real reward-table ids only (verified fix, server restarted, see commit history).
+
+**Where "Fists of Fury" actually went instead:** since it can never legitimately appear on this
+wheel, it's granted straight to the account at hall bootstrap (`run_baseapp_stage_machine()`, right
+after `hall_state_rpcs`), one time only (guarded by checking `data/player_inventory.json` for the 6
+ids first), via `grant_appearance_prizes()` — the same already-verified RPC 335
+(`onAddDtsAppearanceItem`) path Supply/Store prizes use. It lands in inventory; equip it from
+**Depot**. `_CARNIVAL_PREMIUM_HALL_PROPS` is kept as the single source of the 6 ids for this grant.

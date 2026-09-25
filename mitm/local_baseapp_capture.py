@@ -1041,34 +1041,35 @@ _carnival = {
 }
 
 
-# Hand-picked cosmetic set for the wheel's daily "premium" slot: the full 6-piece
-# "拳王" (Boxing King) outfit -- head 101111, hair 102119, goggles 105037, headband
-# 110007, top 111020, pants 112020 -- all confirmed live in assets.npk table
-# 0xa2f095a2 (WearableApperanceType/BobyAppearanceType/DecorationAppearanceType,
-# QUALITY 4-5, already in _prop_tables() so _expand_prop/_grant_appearance_prizes
-# resolve them with no other code changes). This is the set the user knows as
-# "Fists of Fury" -- that exact English name is not present anywhere in this
-# build's extracted assets.npk (only the untranslated Chinese name and icon
-# paths are), so treat "Fists of Fury" as this set's likely EN localization, not
-# a verified string. These 6 ids have no row in LuckyCarnivalRoundReward
-# (0x237dd2bb) -- the real game sells them through the (currently unimplemented)
-# token Exchange Shop, EXCHANGE_SERIE 500013, not the lucky wheel -- so they are
-# injected directly as hall-prop ids rather than reward-table row ids; see the
-# negative-id convention in _grant_carnival_prize.
+# REVERTED 2026-09-25: injecting a hall-prop id directly (no LuckyCarnivalRoundReward
+# row) broke the wheel live -- confirmed by the user, both via adb and their own
+# finger: the panel froze on the CSB default "Claimed" placeholder, countdown/back
+# stopped responding. This matches the exact failure this file's own older notes
+# already warned about: `initPanelLotteryItem` calls
+# `getLuckyCarnivalRoundRewardData(id).HALL_PROP_ID` against the CLIENT's own bundled
+# copy of table 0x237dd2bb -- an id with no row there returns None and aborts
+# on_enter entirely (see "Advance path" note further down this file). The wheel can
+# only ever show ids that already exist as rows in the client's own table; the
+# server cannot invent new ones. The "拳王"/Boxing King ("Fists of Fury") set has no
+# row there (it's an Exchange Shop item, EXCHANGE_SERIE 500013), so it cannot be
+# shown on this wheel at all -- granted directly to the account instead, see
+# _CARNIVAL_PREMIUM_HALL_PROPS usage at hall bootstrap (grant_appearance_prizes),
+# not through the Carnival RPCs.
 _CARNIVAL_PREMIUM_HALL_PROPS = [101111, 102119, 105037, 110007, 111020, 112020]
 
 
 def _carnival_daily_pool(day_ordinal):
-    """Pick 16 wheel slots for the day: 15 LuckyCarnivalRoundReward row ids (table
-    0x237dd2bb) plus one rotating slot for _CARNIVAL_PREMIUM_HALL_PROPS, reshuffled
-    once per calendar day so the display doesn't stay static.
+    """Pick 16 LuckyCarnivalRoundReward row ids (table 0x237dd2bb) for the wheel,
+    reshuffled once per calendar day so the display doesn't stay static.
 
     Not from decompiled ground truth: the real client renders whatever 16 ids the
     server sends, so this is a private-server QoL choice, not a verified official
     rotation rule. Source pool is restricted to TURNTABLE_TYPE==(0,) (the normal
     Lucky Carnival wheel; 988 of 1977 rows) and ITEM_ENABLE True, biased by the
     table's own ITEM_VALUE rarity tag (1=common/2=uncommon/3=rare) so the mix looks
-    like the live wheel (mostly common/uncommon with a couple of rare slots).
+    like the live wheel (mostly common/uncommon with a couple of rare slots). Every
+    id here MUST already exist as a row in this table -- see the block comment
+    above for what happens otherwise.
     """
     table = _carnival_reward_table()
     tiers = {1: [], 2: [], 3: []}
@@ -1080,14 +1081,10 @@ def _carnival_daily_pool(day_ordinal):
     rng = random.Random(day_ordinal)
     for tier in tiers.values():
         rng.shuffle(tier)
-    picks = tiers.get(3, [])[:2] + tiers.get(2, [])[:8] + tiers.get(1, [])[:5]
-    picks = picks[:15]
-    # Negative id = "grant this hall-prop id directly" (see _grant_carnival_prize),
-    # cycling one piece of the premium set into the wheel per day.
-    premium_id = -_CARNIVAL_PREMIUM_HALL_PROPS[day_ordinal % len(_CARNIVAL_PREMIUM_HALL_PROPS)]
-    picks.append(premium_id)
+    picks = tiers.get(3, [])[:3] + tiers.get(2, [])[:8] + tiers.get(1, [])[:5]
+    picks = picks[:16]
     rng.shuffle(picks)
-    values = [3 if rid < 0 else int(table[rid]['value'].get('ITEM_VALUE', 1)) for rid in picks]
+    values = [int(table[rid]['value'].get('ITEM_VALUE', 1)) for rid in picks]
     return picks, values
 
 
@@ -2055,6 +2052,15 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
                            payload, flags=0x0008, num_methods=1131)
         log('BASEAPP: sent %s idx=%d to eid=%d %s' %
             (label, method_index, athlete_eid, dest))
+    # One-time grant of the "拳王"/Boxing King set (the user's "Fists of Fury" ask).
+    # It has no LuckyCarnivalRoundReward row, so it cannot be put on the Lucky
+    # Carnival wheel (see the block comment on _CARNIVAL_PREMIUM_HALL_PROPS) --
+    # granted straight to inventory instead, via the same verified path
+    # Supply/Store prizes already use. Depot > equip makes it wearable.
+    _inv = _load_inventory()
+    if not all(str(pid) in _inv.get('items', {}) for pid in _CARNIVAL_PREMIUM_HALL_PROPS):
+        grant_appearance_prizes(sock, dest, key, _CARNIVAL_PREMIUM_HALL_PROPS)
+        log('HALL: granted Fists of Fury (Boxing King) set %s' % _CARNIVAL_PREMIUM_HALL_PROPS)
 
     # Optional post-hall leave team reassert -- same known-ineffective workaround, see above.
     if os.environ.get('ROS_SEND_LEAVE_TEAM_POST', '0') == '1':
