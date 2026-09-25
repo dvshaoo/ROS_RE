@@ -5,7 +5,27 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-18 (Checkpoint 15: Gate 4 Wire Encoding Solved, Ground Truth Lobby Entry Implemented)
+> **Last Updated**: 2026-09-25 (Checkpoint 21: "Invalid login" MPay Popup Auto-Dismissed, Root Cause of Prior Bad Fix Reverted)
+
+---
+
+## 0. Environment Setup After Every LDPlayer Restart (READ THIS FIRST if traffic isn't reaching the server)
+
+LDPlayer wipes both of the following on every VM reboot/restart. If you see "Failed to retrieve
+patches", "Slow connection", or the game stuck on a blank screen right after a restart, run
+**`scratch/reapply_env_setup.sh`** before debugging anything else:
+1. iptables DNAT (tcp 80/443/8443, udp 25000/20013 -> `172.16.1.2`) — without this, no traffic
+   reaches `mitm_serve.py`/`local_baseapp_capture.py` at all.
+2. `srv.crt` installed as a system-trusted CA (tmpfs overlay on `/system/etc/security/cacerts/`)
+   — without this, any subsystem using standard Android TLS validation (the `mpay_oversea` login
+   SDK, bundled 3rd-party SDKs) rejects our self-signed cert with a `certificate_unknown` TLS
+   alert. The game's own NeoX HTTP client trusts everything unconditionally, so most traffic
+   works even without this — but mpay's login/config-fetch calls don't, which is what causes the
+   "Slow connection" dialog and a broken age-gate response (2026-09-25, see
+   `06_notes/GATE7_BATTLE_GAMEPLAY_PLAN.md`).
+
+After running the script, restart `local_baseapp_capture.py`, `adb shell pm clear com.netease.chiji`
+(fresh app state after a cert change), then force-stop + relaunch the game.
 
 ---
 
