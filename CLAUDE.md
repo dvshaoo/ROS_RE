@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-25 (Checkpoint 21: "Invalid login" MPay Popup Auto-Dismissed, Root Cause of Prior Bad Fix Reverted)
+> **Last Updated**: 2026-09-26 (Checkpoint 23: "Invalid login" RESOLVED — was stale/corrupted local session state from patch-testing cycles, not a client code bug; separately found and worked around a stuck-`MpayActivity`-overlay issue)
 
 ---
 
@@ -26,6 +26,195 @@ patches", "Slow connection", or the game stuck on a blank screen right after a r
 
 After running the script, restart `local_baseapp_capture.py`, `adb shell pm clear com.netease.chiji`
 (fresh app state after a cert change), then force-stop + relaunch the game.
+
+---
+
+## 0.1 CRITICAL: Never Uninstall/Reinstall the APK Without Re-Pushing the OBB Files First
+
+**2026-09-26 incident**: patching/repackaging the APK requires `adb uninstall` + `adb install` (a
+re-signed APK cannot upgrade-install over the old signature). This wipes
+`/storage/emulated/0/Android/obb/com.netease.chiji/` on this LDPlayer image, even though normal
+`pm clear` does NOT touch it. Without those files, the game is not just missing the login-popup
+fix target — it **hard-crashes on every launch** (`NullPointerException` in
+`Launcher$CopyFile.copyAssetFromObb`, `Launcher.java:1117`, because
+`ZipResourceFile.getInputStream()` is called on a null object once the OBB is gone), bouncing
+straight back to the LDPlayer home screen after the "Downloading game data requires Device storage
+Permissions" prompt. This looks unrelated to whatever you were patching and is easy to mistake for
+a new regression in your own change.
+
+- Required files: `main.1117219.com.netease.chiji.obb` (~1.98 GB) and
+  `patch.1117219.com.netease.chiji.obb` (~1.52 GB).
+- Known-good local copies exist at `04_obb/main.1117219.com.netease.chiji.obb` and
+  `04_obb/patch.1117219.com.netease.chiji.obb` in this repo (also duplicated under
+  `ros_offline_server_backup/` and `ROS_VIVO_LAN/` — any of these is fine as a source).
+- **Before** any `adb uninstall com.netease.chiji` / repackage-and-reinstall workflow, back up
+  whatever's currently on the device at `/sdcard/Android/obb/com.netease.chiji/` (or just confirm
+  the two files above are still available from the `04_obb/` copies).
+- **After** every fresh install, restore them:
+  ```
+  adb shell mkdir -p /sdcard/Android/obb/com.netease.chiji
+  adb push 04_obb/main.1117219.com.netease.chiji.obb  /sdcard/Android/obb/com.netease.chiji/main.1117219.com.netease.chiji.obb
+  adb push 04_obb/patch.1117219.com.netease.chiji.obb /sdcard/Android/obb/com.netease.chiji/patch.1117219.com.netease.chiji.obb
+  ```
+  (~3.5 GB combined; expect a couple of minutes over adb.) Also re-push
+  `ros_offline_server_backup/patchVersion` to
+  `/sdcard/Android/data/com.netease.chiji/files/netease/h45na/patchVersion` — a fresh install wipes
+  that too, and its absence separately reproduces the old "stuck/slow patch screen" symptom
+  described in section 0.
+
+---
+
+## 0.2 "Invalid login. Please log in again." — RESOLVED (2026-09-26, Checkpoint 23)
+
+**Root cause found and fixed**: the dialog was **not** caused by a bug in the client's login-decision
+code (that theory, extensively traced in the Checkpoint 22 log kept below for history, was a dead
+end). It was caused by **stale/corrupted local session state left over from this project's own
+patch-testing cycles** (repeated `adb uninstall`/`install` with different signatures across the
+v1-v4 APK patch attempts, interrupted logins mid-test, etc.). That corrupted state made
+`j/d/d.g()` (the saved-session loader) return a `LoginInfo` whose account-type field decoded to
+`UNKNOWN` (see the `j/a/g.a(int)` decoder below — any unrecognized/missing type-code integer
+silently falls back to the `UNKNOWN` sentinel with no error), which `HandlerFactory.b()` then
+forwarded unchanged into the enum-based dispatcher, hitting `l$c.aOrig()`'s dedicated
+`if (type == UNKNOWN)` branch that unconditionally shows `login_expired`.
+
+**Fix**: a full `adb shell pm clear com.netease.chiji` (clears app-private data, including the
+corrupted session cache) followed by restoring the OBB files and `patchVersion` per §0.1 (pm clear
+wipes `patchVersion` too, since it lives under the app's own external files dir — but does **not**
+touch `/sdcard/Android/obb/...`, so the OBBs themselves survive a `pm clear`). After that, a
+completely fresh login was traced live end-to-end with Frida and confirmed correct:
+- First launch: `POST /api/users/login/guest` succeeds, `raw_msg` in the client's own log shows
+  `loginType=1` (the correct GUEST code) — the corrupted-cache scenario doesn't even arise on a
+  clean session.
+- Relaunch (silent re-login): `j.d.d.g()` loads a valid non-null session, `l.<init>` is constructed
+  with `type=TOKEN` (the always-allowed sentinel), `channelLoginSuc` fires server-side with
+  `code=0`. No `UNKNOWN` decode, no `login_expired` dialog, at any point.
+- Verified visually all the way through: Guest badge shows correctly on the title screen, PLAY
+  works, "Please select controls" screen appears cleanly with no dialog in front of or behind it.
+
+**Separate bug found along the way (real, but not the dialog): `MpayActivity` doesn't always call
+`finish()` after a successful silent relogin.** On both the fresh-install and the relaunch test,
+after the TOKEN silent relogin succeeded server-side (`channelLoginSuc code=0`), `MpayActivity`
+stayed as `mResumedActivity` — a full-screen, otherwise-invisible native Android activity showing
+only its own `netease_mpay_oversea__loading` spinner — sitting on top of and **capturing all touch
+input** meant for the actual game underneath (which was already fully rendered and interactive:
+title screen, Agreement dialog, Events panel all visibly present but untouchable). Tapping
+anywhere in the visible UI did nothing because the touches were going to the invisible activity on
+top, not the game. **Workaround: press the device/emulator BACK button once** — this finishes the
+stuck `MpayActivity` and immediately hands focus back to `com.netease.neox.Client` (the real game
+activity), after which the game responds normally to touches (confirmed: Agreement-accept,
+Link-Account-dismiss, PLAY, and Select-Controls-confirm all worked immediately after one BACK
+press). This is a real, not-yet-root-caused SDK-side bug (likely: the login success callback path
+that should call `Activity.finish()` isn't reached, or the callback itself isn't wired for the
+same TOKEN-relogin path that `ui/o.smali`'s success case takes — no `finish()` call was found
+anywhere in `ui/o.smali` itself, so it must depend on inherited/base-class behavior that isn't
+firing). **Not investigated further given time already spent — if it recurs, BACK button is the
+known, safe, one-tap fix; do not build an auto-tap workaround for this without first trying to find
+why `finish()` isn't reached, since that's a small, well-scoped remaining question** (start by
+checking what calls `Activity.finish()` in the base `ui/l.smali`/`ui/a.smali` success path and
+whether `ui/o`'s success callback actually reaches it).
+
+**Do not re-run `pm clear` casually** — it wipes `patchVersion` (see §0.1) and, if there ever is a
+real corrupted-session recurrence, this is the fix, but it also throws away any legitimately-saved
+guest account on the device. Only use it to recover from a suspected corrupted-session-state
+`login_expired` loop, and always restore OBB + `patchVersion` immediately after per §0.1.
+
+---
+
+## 0.2a Investigation Log Leading to the Above (2026-09-26, Checkpoint 22, kept for history)
+
+This dialog (string `netease_mpay_oversea__login_expired`, shown by
+`com.netease.mpay.oversea.MpayActivity` via `widget.a$b.a`) appears both automatically pre-title
+and on every PLAY tap. **Root cause is not fully found yet** — two earlier theories in this
+checkpoint were each disproven by the next layer down. Recorded in order so nobody re-walks the
+same disproven paths:
+
+**Theory 1 (disproven): GameConfig-cache timing race.** A Frida hook
+(`scratch/frida_mpay_login_expired.py`, logs `scratch/frida_run_auto.log`/`frida_run_retry.log`)
+first suggested `g/e.a(type)` fails because `g/e`'s cached `GameConfig` field is still null when
+the check runs, and would populate ~1-3s later on its own. Built and live-tested an APK patch
+(decompile -> insert a non-blocking `Handler.postDelayed` retry loop in `ui/l$c.a()`, wait up to
+25s for the cache -> rebuild -> resign -> reinstall). **Still failed after the full wait**, proving
+this wasn't actually a timing race.
+
+**Theory 2 (disproven): missing `persistence` field.** Reading `c/a/c.smali`/`c/a/b.smali` directly
+found `g/e`'s cache-readiness flag (`c/a/c.q`, checked by `c/a/c.a()`) is populated from
+`/api/games/config`'s `game_config.persistence` JSON field (default `1` if absent; needs `2` to be
+"ready"). Added `"persistence":2` to `mitm_serve.py`'s response (harmless and correct to keep —
+it's a real field the official protocol sends). **Still failed** — because `g/e.a(type)` (the
+actual method the login flow calls) doesn't consult `q`/`d()` at all in the failing path; that was
+a misreading of the method carried over from the first Frida pass. `d()`/`q` gate a *different*
+accessor, unused by the login-attempt check.
+
+**Theory 3 (confirmed mechanism, root cause of the mechanism still open):** `g/e.a(type)`
+(`smali/com/netease/mpay/oversea/g/e.smali`) actually does:
+```
+if type in {UNKNOWN(a), TOKEN(q), MORE(p)}: return true   # always-allowed sentinels
+else: return (g/e.d != null) && (g/e.d.n != null) && g/e.d.n.get(type) != null && that_entry.enable
+```
+`g/e.d.n` is a `HashMap<j/a/g, c/a/c$d>` built in `c/a/b.smali` by iterating **literal** JSON key
+names under `game_config.account_type` (`"guest"`->`GUEST`, `"google"`->`GOOGLE`, etc. — verified
+line-by-line; our `"guest"` key + `"enable":true` maps correctly to `GUEST` and *would* pass this
+check). The Frida trace's `l$c.a() ENTRY outer l.a = [null]` means the actual `type` used for the
+failing call is a **literal Java `null`**, not `GUEST` — and `null` is not one of the three
+sentinels and can never be a HashMap key match, so this branch is mathematically guaranteed to
+return `false` regardless of anything the server sends or how long the client waits.
+`com.netease.mpay.oversea.ui.l;->a` (the type field) is `protected final`, set exactly once in
+`l`'s constructor from a caller-supplied argument — **not reassignable, not a race**. Confirmed
+call sites: `ui/j.smali` always passes `GUEST`, `ui/h.smali` always passes `GOOGLE`, `ui/o.smali`
+always passes `TOKEN` (silent-relogin, always-allowed sentinel anyway) — none of these three ever
+pass null. `ui/w.smali` and `ui/k.smali` pass through a caller-supplied type verbatim, so one of
+*those* two is almost certainly what's instantiated for the automatic pre-title attempt (and
+possibly the first PLAY tap), with its caller passing `null` for a reason not yet traced.
+
+**Update (same day, continued investigation):** live Frida hooks (not more static reading) on
+`g/e.a(type)`, `widget.a$b.a` (the login_expired dialog shower), and `l`'s constructor gave a
+corrected picture: the actual type reaching the failing check on a fresh install is **`UNKNOWN`**,
+not literal `null` (the very first Frida pass's `l.a = [null]` log line was imprecise/misread).
+`UNKNOWN` doesn't go through the `g/e.a(type)` HashMap-lookup branch at all — `l$c.aOrig()` has an
+earlier, separate check (`if (type == UNKNOWN) -> unconditionally build+show login_expired`) that
+fires first. Traced the call chain that produces `UNKNOWN` all the way up through 7 layers of
+`HandlerFactory`'s heavily-overloaded static dispatch methods
+(`a(Activity,int,Wrapper)` -> `a(Activity,int,LoginData)` -> `b(Activity,LoginData)` ->
+`a(Activity,j/a/g,LoginData)`) using live stack traces (`scratch/frida_final_trace.py`) — confirmed
+`HandlerFactory.b()` is the direct caller passing `UNKNOWN`, but its own smali (read multiple times,
+carefully) never references the `UNKNOWN` constant at all, only `GUEST`/`GOOGLE`/`TOKEN` — a
+static-vs-live contradiction not resolved (checked and ruled out: decompiled tree does exactly
+match the live installed APK by MD5). Likely explanation: `b()`'s "new account login" branch
+(reached when `j/d/d.g()` returns null, i.e. no saved session — our exact test condition) should
+resolve to `GUEST` per its own smali, but something upstream of it (not yet found) is instead
+constructing the whole login attempt with `UNKNOWN` before `b()` even runs, and ordinary
+static reading of `b()` in isolation doesn't show it because the decision was already made by an
+even earlier caller.
+
+**Tried and reverted: patching `l$c.aOrig()`'s `UNKNOWN` branch to behave like `GUEST`** (redirect
+`if (type==UNKNOWN) goto login_expired` to instead run the same code as `if (type==GUEST)`, which
+is `l.i()`). This measurably changed behavior — the login_expired dialog stopped appearing — but
+uncovered the next layer of the same underlying problem: `l.i()` calls a method on instance field
+`l.g` (a third-party-SDK-check interface), and **that field is never initialized, including by the
+genuine dedicated `ui/j` GUEST subclass's own constructor** (confirmed by reading `j.smali`'s
+`<init>` in full — it only calls `super(activity, GUEST, loginData, g)` and returns, never touches
+`g`). So `l$c.aOrig()`'s `type==GUEST -> l.i()` branch is not actually the normal/primary path a
+real, successful guest login takes either — it's some other edge-case handler, and calling it
+directly just hangs the client on an unresolved loading spinner instead of showing the dialog
+(confirmed live: no crash, no new logcat FATAL, just an indefinitely-spinning loading icon on the
+title screen). This patch was reverted; the original untouched APK is what should currently be
+installed (see `scratch/apk_backup/base_original_20260925_233735.apk`, md5 `cf15a74f075bb3d9c3d00f55f0c33854`).
+
+**Where this stands:** the actual, successful guest-login call chain (the one that works when the
+official/production servers are used, or empirically when this project's own docs describe reaching
+the Lobby) does **not** go through `l$c.aOrig()`'s `GUEST`/`l.i()` branch at either the type-check
+or the third-party-interface-init step. That real chain has not been found yet. The `UNKNOWN`
+type's true origin (which caller upstream of `HandlerFactory.b()` decides on it) also has not been
+found. Both are needed before another patch attempt. Live Frida infra for this remains set up and
+working (`frida-server-x64-1621` running on device, port-forwarded; see
+`scratch/frida_final_trace.py`, `scratch/frida_dialog_trace.py`, `scratch/frida_enum_convert_trace.py`
+for reusable hook patterns) — prefer extending these over more static smali reading, which has
+repeatedly produced incomplete or contradicted-by-runtime conclusions in this investigation.
+
+**Do not re-attempt:** the auto-tap/dismiss-script workaround (works, but was explicitly rejected
+by the user as "not a real fix"), the GameConfig-timing-race theory, the missing-`persistence`-field
+theory, or naively redirecting `l$c.aOrig()`'s `UNKNOWN` branch to `GUEST`'s `l.i()` call — all
+tried and disproven/incomplete as of 2026-09-26.
 
 ---
 
