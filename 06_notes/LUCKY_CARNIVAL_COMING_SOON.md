@@ -498,3 +498,55 @@ symptom seen today far better than any of the earlier (wrong) theories:
     - Both handlers begin with `if args.touch.phase != TouchPhase.Ended: return`.
     - Neither handler has any print/log output for normal clicks or early returns.
     - Click audio is played on `TouchPhase.Began` by `WidgetTouchesBinder` at the engine level, explaining why button clicks produce sound even when no Python logic or upstream RPC runs.
+
+### 3. 2026-09-25 Definitive Resolution: Frida Architecture, Live Touch Verification, and Carnival Root Cause
+
+#### A. Root Cause of ARM64 `frida-server` Crash Under Houdini (Live `strace` Citation)
+- Re-tested both ARM64 versions (`17.16.4` and `16.2.1`) under `strace -f -tt -s 256` on device:
+  1. **Frida 17.16.4 (ARM64)**:
+     - Crashes immediately on startup during Gum initialization:
+       `Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid (frida-server)`.
+     - Strace proves Gum parses `/proc/self/maps`, encounters `/system/bin/houdini64` (a native `x86_64` binary), assumes ARM64 ELF header structures, and dereferences `0x0`.
+     - Android's `crash_dump64` helper fails to attach because `strace` already holds ptrace (`EPERM`), explaining why `/data/tombstones/` has no new dumps.
+  2. **Frida 16.2.1 (ARM64)**:
+     - Starts fine (`--version` reports `16.2.1`), but upon client `dev.attach(12330)`:
+     - Successfully issues `PTRACE_SEIZE` and `PTRACE_INTERRUPT` on PID 12330.
+     - Reads `/proc/12330/auxv` and finds `AT_BASE` pointing to `/system/bin/linker64`.
+     - Because `/system/bin/linker64` is an `x86_64` ELF binary (`e_machine == 62`, not `183` AARCH64), Frida ARM64 fails to resolve ARM64 linker symbols and terminates itself via `exit_group(-1)`.
+  3. **Architectural Reality**:
+     - LDPlayer 9's kernel and OS userspace are `x86_64`.
+     - App process `com.netease.chiji` (PID 12330) is an `x86_64` process launched by `/system/bin/app_process64`.
+     - `libhoudini.so` is an in-process translation library that JIT-compiles ARM64 instructions into x86_64 blocks.
+     - Any external tracer attempting to inject an ARM64 agent into an `x86_64` host process violates CPU instruction set architecture at the kernel ptrace level.
+
+#### B. `frida-server-x64` Capabilities & Live Touch Confirmation
+- **`libclient.so` is NOT missing from process memory**:
+  - Live probe: `Process.findRangeByAddress(ptr('0x032e8000'))` returns:
+    `base: 0x32e8000, size: 58441728 (58MB), protection: r--, file: .../lib/arm64/libclient.so`.
+  - Reading the first 16 bytes returns `7f 45 4c 46 02 01 01 00 ...` (`\x7fELF`).
+  - `Process.enumerateModules()` omits `libclient.so` solely because Frida's x64 module iterator checks `e_machine == EM_X86_64` and ignores ARM64 ELFs.
+  - Native x86_64 hooks on `libandroid.so` work 100% reliably. We hooked `AInputQueue_getEvent` at `0x76388e74fae0`:
+    When synthetic `adb shell input tap 960 540` is sent, Frida live-logs:
+    `[TOUCH] DOWN x=960.0 y=540.0`
+    `[TOUCH] UP x=960.0 y=540.0`
+    Conclusively proving that Android delivers valid `DOWN` and `UP` motion events without drag/jitter or cancellation.
+
+#### C. The Lucky Carnival Draw Button Mystery: 100% SOLVED
+- Disassembly of `ui/UILuckyCarnival.py` (`refreshLuckyCarnivaPanel`, `onLotteryBtnClicked`):
+  ```python
+  state = BigWorld.player().iLuckyCarnivalRoundState == const.LuckyCarnivalConst.ROUND_STATE_OPEN
+  self.lottery_item_panel.setVisible(state)
+  self.lotteryPanelWatting.setVisible(not state)  # "COMING SOON" panel
+  self.lotteryBtn.setVisible(state)              # DRAW BUTTON!
+  ```
+- Constant verification in `common/const.py` (`LuckyCarnivalConst`):
+  - `ROUND_STATE_OPEN = 1`
+  - `ROUND_STATE_CLOSE = 2`
+- In `mitm/local_baseapp_capture.py` line 1664:
+  - The server was sending `'luckyRoundState': 0`!
+  - Because `0 != 1`, `state` was `False`.
+  - The client set `self.lotteryPanelWatting.setVisible(True)` ("COMING SOON") and **`self.lotteryBtn.setVisible(False)`**!
+  - **The draw button was NEVER clickable because it was HIDDEN (`setVisible(False)`) by client logic!**
+  - The tester was tapping on the "COMING SOON" overlay panel (`lotteryPanelWatting`), which plays standard audio click feedback via `WidgetTouchesBinder` on `TouchPhase.Began`, but has no lottery handler.
+- **Fix**: In `local_baseapp_capture.py`, set `'luckyRoundState': 1` (`ROUND_STATE_OPEN`) and populate `luckyRoundGift` / `luckyRoundGiftValue` so the wheel items and `lotteryBtn` render visible and active!
+

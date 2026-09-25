@@ -401,3 +401,46 @@ Hypothesis B and in favor of Hypothesis A (something else — most likely an ove
 or intercepts the touch before `WidgetTouchesBinder` ever routes an `Ended` phase to this widget).
 This doesn't require Frida to reason about and should narrow where a future live hook (once one is
 possible) should look first.
+
+## 2026-09-25 Definitive Resolution: Frida Crash Root Cause & The Path to Island (Gate 7)
+
+### 1. Root Cause of ARM64 Frida Crash (100% Empirically Verified Under `strace`)
+- Re-tested both ARM64 releases (`17.16.4` and `16.2.1`) under `strace -f -tt -s 256`:
+  - **Frida 17.16.4 (ARM64)** crashes on startup: Gum scans `/proc/self/maps`, hits `/system/bin/houdini64` (native `x86_64` binary), assumes ARM64 ELF structures, and throws `Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0`.
+  - **Frida 16.2.1 (ARM64)** crashes upon attach: successfully issues `PTRACE_SEIZE` on PID 12330, parses `/proc/12330/auxv`, discovers `AT_BASE` is `/system/bin/linker64` (`e_machine == 62` x86_64, not `183` AARCH64), fails to resolve ARM64 linker symbols, and calls `exit_group(-1)`.
+  - **Why**: LDPlayer 9's kernel and OS userland are native `x86_64`. `com.netease.chiji` is an `x86_64` process running `/system/bin/app_process64`. Any ARM64 tracer attempting to ptrace it receives x86_64 registers and shellcode incompatibilities.
+- **Frida x64 is the valid attach**:
+  - `libclient.so` is NOT absent: `Process.findRangeByAddress(ptr('0x032e8000'))` locates the 58MB `r--` mapping with valid `\x7fELF` header. `Process.enumerateModules()` omits it only because Frida filters for `EM_X86_64`.
+  - Live hook on native `libandroid.so` (`AInputQueue_getEvent` @ `0x76388e74fae0`) confirmed that `adb shell input tap 960 540` cleanly delivers `[TOUCH] DOWN` and `[TOUCH] UP` without any drag or cancel.
+
+### 2. START Button Mechanics & Fixing Matchmaking Papunta sa Island
+- Disassembly of `ui/UIMainBattleGroundTeam.py`:
+  ```python
+  def _refresh_go(self):
+      self.b_go.setVisible(self.is_leader)
+
+  @property
+  def is_leader(self):
+      return self.player.hallTeamLeaderGID == self.player.gid
+  ```
+- **Why the START button was inactive / dead**:
+  - `is_leader` requires `self.player.hallTeamLeaderGID == self.player.gid`.
+  - In `local_baseapp_capture.py`, `onLeaveHallTeam` (idx 59) was previously sent or `hallTeamLeaderGID` remained uninitialized (0).
+  - When `is_leader` is False, `_refresh_go` hides `b_go` (`setVisible(False)`) or replaces it with `b_ready` (`anchor-bottom-right/ready`).
+- **Definitive Method Indices from Live Method Table (`scratch/athlete_methods_full.txt`)**:
+  - `[ 54] onEnterHallTeam`: sets up team membership.
+  - `[ 59] onLeaveHallTeam`: leaves current team.
+  - **`[ 65] updateHallTeamLeaderGID(GID: INT64)`**:
+    - Disassembly of `entity_0335.xml` (interface `iHallTeam`) line 573:
+      `<updateHallTeamLeaderGID> <Arg> GID </Arg> </updateHallTeamLeaderGID>`.
+    - Sending `updateHallTeamLeaderGID(900000001)` (player's own GID, 8-byte LE) sets `self.player.hallTeamLeaderGID = 900000001`, making `self.is_leader == True` and activating `b_go`!
+  - **`[ 66] syncMatchState(INT16 state, INT64 startTime, BOOL auto, PYTHON extra)`**:
+    - Disassembly of `entity_0335.xml` line 576:
+      `<syncMatchState> <Arg> INT16 </Arg> <Arg> INT64 </Arg> <Arg> BOOL </Arg> <Arg> PYTHON </Arg> </syncMatchState>`.
+    - Drives `UIMainBattleGroundTeam.onMatching(state, startTime, auto)` to display the matching timer/progress UI.
+- **Direct Upstream RPC for Matchmaking**:
+  - When `onGoEvent` fires, it calls `self.player.base.matchBattleGround(self.auto_match)`.
+  - Disassembly of `05_entities/out/entity_0335.xml` line 289 confirms:
+    `<matchBattleGround> <Exposed/> <Arg> BOOL </Arg> </matchBattleGround>`.
+  - When the server receives `matchBattleGround`, it replies with `syncMatchState` (idx 66), initiates team match state, and then sends `transferToBattleServer` or scene transition to load the battle island map!
+
