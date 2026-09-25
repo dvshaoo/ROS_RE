@@ -1481,6 +1481,14 @@ def send_create_cell_player(sock, dest, key, space_id=1, vehicle_id=0, pos=(0.0,
 
 def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_type=None, nick=None):
     """Sends the authoritative response sequence for character creation / lobby entry."""
+    # One-time notify for "Fists of Fury" (111017 top, 112017 pants) -- confirmed via
+    # translate_properties_en.py literal strings, see 06_notes/LUCKY_CARNIVAL_COMING_SOON.md.
+    # Only sends the client-notify RPC 335; does not touch equip state. Guarded so it never
+    # re-fires once both ids are in inventory.
+    _fof_inv = _load_inventory()
+    _fof_ids = (111017, 112017)
+    if not all(str(pid) in _fof_inv.get('items', {}) for pid in _fof_ids):
+        grant_appearance_prizes(sock, dest, key, list(_fof_ids))
     # Depot and a fresh hall must share one persisted gender/equip state.
     state = _load_player_state()
     state_gender = int(state.get('gender', 1))
