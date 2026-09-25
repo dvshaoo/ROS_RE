@@ -309,3 +309,41 @@ one id per category (head/hair/top/bottom/shoes/glasses/etc.) in `lists.<gender>
 is exactly what the real Depot equip flow already enforces (see `_get_appearance_slot` de-dup logic
 in `handle_depot_call`) -- the mess only happens when ids are added directly to the JSON without
 going through that de-dup path.
+
+## 2026-09-25 CORRECTION: root cause of the currency/UI/no-Daily-Claim cluster was duplicate wear-list entries, not a separate pre-existing bug
+
+**This corrects the "confirmed pre-existing, needs its own session" conclusion two sections above.**
+That conclusion was based on the bug reproducing on the untouched `ros_offline_server_backup` and
+with all Carnival code removed -- both true, but the actual variable that mattered was never
+isolated: `data/player_state.json` had accumulated **multiple items in the same appearance category**
+(e.g. 4 different helmets in the female wear list at once, a stray top alongside Fists of Fury's top
+in the male list) from many hours of manual and scripted Depot testing across the whole day,
+including on the backup copy tested separately. Removing the Carnival code never touched that file,
+so the isolation test's "still broken" result reproduced the wear-list corruption, not a code-level
+regression -- a false negative for "is the code clean" that was misread as "this bug predates
+Carnival work."
+
+**Fix:** clean every gender's `wear`/`body` list in `data/player_state.json` down to exactly one id
+per appearance category (head, top, bottom, shoes, hair, face, mask, glasses -- see the slot table
+`_get_appearance_slot` already encodes in `mitm/local_baseapp_capture.py`). After doing this for both
+genders (male: 111017 top + 112017 pants only; female: one matching helmet+top pair only), a fresh
+login showed: the top-bar currency correctly at the real 999999/999999 values (not stuck at the
+`283283` placeholder), no stray "SUPPORT DROID / HUMAN" overlay, no garbled overlapping hall text,
+and the "LOG IN DAILY TO CLAIM GIFTS!" Daily Claim popup appeared for the first time all day.
+
+**Likely mechanism (still not proven from disassembly, but now the leading theory):** UIMain's avatar
+construction likely iterates each wear-list category expecting at most one entry; a duplicate
+probably raises or short-circuits partway through `displayAll`/avatar refresh, aborting the rest of
+`UIMain.on_enter` the same way the already-documented BASE-only-attribute `AttributeError`s do (see
+`06_notes/HALL_DEEP_DIVE_2026-09-24.md`'s P0 avatar note) -- currency binding, the Daily Claim popup,
+and other post-avatar UI wiring never run as a result. This would mean `_get_appearance_slot`'s
+de-dup logic (already used by the real Depot equip flow in `handle_depot_call`) needs to be applied
+defensively wherever `data/player_state.json` can be edited outside that flow (a one-time repair
+pass on server load, or refusing to grant/equip anything that would create a same-slot duplicate) --
+not yet implemented, but now the concrete, well-evidenced next step instead of a vague "pre-existing,
+needs dedicated session."
+
+**Still genuinely unresolved (independent of the above):** the Lucky Carnival Draw button remains
+dead at the native touch-dispatch level (see the 2026-09-25 entry near the top of this file) -- that
+one was never explained by wear-list state and needs the Frida touch-hook investigation described
+there.
