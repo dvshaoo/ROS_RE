@@ -1999,10 +1999,23 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         hall_state_rpcs.insert(0, (204, struct.pack('<iqi', 9, _dev_currencies[9], 0),
                                    'Athlete.onCurrencyUpdated(id=9, %d)' % _dev_currencies[9]))
     # onQueryAvailableSupplement(PYTHON availSupplementDict) idx 392 (live table). Without it the Supply page is empty and DRAW sends nothing.
+    # Deferred by ROS_SUPPLEMENT_DELAY seconds (not sent inline in hall_state_rpcs): this payload is tens of
+    # KB and needs ~27-29 fragmented UDP datagrams; sending that burst immediately lands right on top of the
+    # client's Select-Controls scene transition, one of several suspected (unconfirmed) contributors to the
+    # intermittent "network timeout -> back to Select Controls" relogin loop. The Supply page doesn't need
+    # this data in the first couple of seconds, so pushing it a few seconds later costs nothing and may
+    # reduce how often the burst collides with that fragile window. NOT proven -- needs a live A/B trace.
     _sup_n = int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2'))
     if _sup_n >= 0 and os.environ.get('ROS_SUPPLEMENT', '1') == '1':
         _sup = supplement_avail_payload(_sup_n)
-        hall_state_rpcs.append((392, _packed_int(len(_sup)) + _sup, 'Athlete.onQueryAvailableSupplement(%d B)' % len(_sup)))
+        _sup_payload = _packed_int(len(_sup)) + _sup
+        _sup_delay = float(os.environ.get('ROS_SUPPLEMENT_DELAY', '4'))
+
+        def _send_supplement_once():
+            send_entity_method(sock, dest, key, athlete_eid, 392, _sup_payload, flags=0x0008, num_methods=1131)
+            log('BASEAPP: (deferred %.0fs) sent Athlete.onQueryAvailableSupplement(%d B) idx=392 to eid=%d %s' %
+                (_sup_delay, len(_sup), athlete_eid, dest))
+        threading.Timer(_sup_delay, _send_supplement_once).start()
     # ---- RPCs that only take visible effect once UIMain exists (sent again at ROS_HALL_LATE_DELAYS seconds) ----
     # UIMain is built roughly 60-90 s after enterHall (depends on when "Please select controls" is confirmed); an
     # earlier call finds no widget to update. All of these are idempotent, so they are simply resent.

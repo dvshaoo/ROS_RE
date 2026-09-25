@@ -185,3 +185,36 @@ after `hall_state_rpcs`), one time only (guarded by checking `data/player_invent
 ids first), via `grant_appearance_prizes()` — the same already-verified RPC 335
 (`onAddDtsAppearanceItem`) path Supply/Store prizes use. It lands in inventory; equip it from
 **Depot**. `_CARNIVAL_PREMIUM_HALL_PROPS` is kept as the single source of the 6 ids for this grant.
+
+## 2026-09-25 Select-controls relogin loop — untested mitigation, and proof it predates today
+
+While re-testing the Carnival fix, the "network timeout -> back to Select Controls -> Loading ->
+Lobby (no Daily Claim)" loop from earlier in the day (see LOGIN_FLOW_TRACE.md 2026-09-25) recurred
+repeatedly, along with a top-bar currency stuck at the `283283` CSB placeholder (even after 3
+`onGPUpdated`/`onSPUpdated`/`onYBUpdated(999999)` retries to a confirmed-alive session over 150s+)
+and a stray "SUPPORT DROID / HUMAN" selector floating above the character in the hall.
+
+**Isolation proof these are pre-existing, not caused by today's Carnival/grant work:** at the user's
+request, removed the Fists-of-Fury grant/equip code entirely and reset `data/player_state.json`,
+then separately ran the **untouched** `ros_offline_server_backup` copy (synced this morning, before
+any of today's changes) unmodified. Both reproduced the identical currency/UI symptoms; the backup
+run additionally surfaced what looked like real (non-local) account/team data (a Chinese nickname,
+a live team roster with "Haven't Paid" tags) — stopped immediately out of caution per the
+Local/LAN-only rule, most likely stale cached client state rather than a live leak, but not verified
+either way. Conclusion: none of this is a regression from today's session.
+
+**Mitigation attempted (unverified, one clean run only):** `Athlete.onQueryAvailableSupplement`
+(idx 392) is a ~39KB payload needing ~27-29 fragmented UDP datagrams. It used to fire inline in
+`hall_state_rpcs`, i.e. immediately after `showSelectCharacter`/`enterHall`, landing right on top of
+the client's Select-Controls scene transition. Deferred it by `ROS_SUPPLEMENT_DELAY` seconds
+(default 4) via a one-shot `threading.Timer` instead of sending it inline
+(`mitm/local_baseapp_capture.py`, `send_character_creation_response_chain`). One fresh relaunch after
+this change completed in a single STAGE1-5 cycle with no relogin — better than the two back-to-back
+loops seen immediately before it — but one clean run does not prove the fix; the loop was already
+intermittent before today. Needs several more repeated cold-launch trials to know if this actually
+helps or if it was a lucky run.
+
+**Still unresolved, confirmed pre-existing, needs its own session:**
+- Top-bar currency (3 slots, all showing `283283`) never updates despite repeated correct-value RPCs to a stable session — the RPC/id mapping for these specific slots in this hall top-bar layout is not what `onGPUpdated`/`onSPUpdated`/`onYBUpdated` feed (per `06_notes/HALL_DEEP_DIVE_2026-09-24.md`, likely needs the generic `onCurrencyUpdated(id, val, src)` idx 204 with the correct currency ids for these particular slots, not yet identified).
+- Stray "SUPPORT DROID / HUMAN" selector above the character, overlapping "Share" buttons, garbled "Finish"/"check the..." text — matches the already-documented "hall UI non-deterministic" family of issues.
+- Daily Claim popup not appearing on a fresh login.
