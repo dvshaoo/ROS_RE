@@ -897,11 +897,93 @@ _player_state_lock = threading.Lock()
 _player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
 
 
+def _get_appearance_slot(table, item_id):
+    rec = table.get(item_id, {}).get('value', {})
+    prop_type = rec.get('PROP_TYPE', {})
+    kind = prop_type.get('type')
+    category = prop_type.get('value', {}).get('CATEGORY')
+
+    if kind == 'WearableApperanceType':
+        if category in (None, 1):
+            return 'head'
+        elif category in (2, 5, 6):
+            return 'top'
+        elif category in (3, 7, 8):
+            return 'bottom'
+        elif category == 4:
+            return 'shoes'
+        return 'wearable_%s' % category
+    elif kind == 'BobyAppearanceType':
+        if category in (None, 1):
+            return 'face'
+        elif category == 2:
+            return 'hair'
+        elif category == 3:
+            return 'gender'
+        return 'body_%s' % category
+    elif kind == 'DecorationAppearanceType':
+        if category in (None, 11):
+            return 'mask'
+        elif category == 12:
+            return 'glasses'
+        return 'decoration_%s' % category
+    return None
+
+
+def _sanitize_saved_appearance_lists(state):
+    """Drop appearance IDs that are not wearable/body clothes.
+
+    VehicleAppearanceType has no PROP_ITEM_ID, so a vehicle id in wear
+    crashes UIMain.on_enter / wearableItemList / onLoadDressModel.
+    """
+    try:
+        table = _prop_tables().get(0xa2f095a2, {})
+    except Exception as e:
+        log('DEPOT: skipped appearance-list validation: %r' % (e,))
+        return False
+    allowed = ('WearableApperanceType', 'BobyAppearanceType', 'DecorationAppearanceType')
+    changed = False
+    for lists in (state.get('lists') or {}).values():
+        if not isinstance(lists, dict):
+            continue
+        for key in ('wear', 'body'):
+            original = lists.get(key, [])
+            if not isinstance(original, list):
+                lists[key] = []
+                changed = True
+                continue
+            valid = []
+            for item in original:
+                if not isinstance(item, int):
+                    continue
+                kind = (table.get(item, {}).get('value', {}) or {}).get('PROP_TYPE', {}).get('type')
+                if kind in allowed:
+                    valid.append(item)
+            seen_slots = set()
+            deduped = []
+            for item in reversed(valid):
+                slot = _get_appearance_slot(table, item)
+                if slot is not None:
+                    if slot in seen_slots:
+                        continue
+                    seen_slots.add(slot)
+                deduped.append(item)
+            deduped.reverse()
+            if deduped != original:
+                rejected = [item for item in original if item not in deduped]
+                log('DEPOT: removed invalid/duplicate item(s) %s from %s' % (rejected, key))
+                lists[key] = deduped
+                changed = True
+    return changed
+
+
 def _load_player_state():
     try:
         with open(_player_state_path, encoding='utf-8') as f:
             state = json.load(f)
         if isinstance(state, dict):
+            if _sanitize_saved_appearance_lists(state):
+                _save_player_state(state)
             return state
     except (OSError, ValueError):
         pass
@@ -961,11 +1043,27 @@ def handle_depot_call(sock, addr, key, name, payload):
         current = state.setdefault('lists', {}).setdefault(str(gender), {'wear': [], 'body': []})
         table = _prop_tables().get(0xa2f095a2, {})
         prop_type = table.get(value, {}).get('value', {}).get('PROP_TYPE', {})
+        if not prop_type:
+            log('DEPOT: ignored %s for undefined appearance item=%d' % (name, value))
+            return
         kind = prop_type.get('type')
+        if kind not in ('WearableApperanceType', 'BobyAppearanceType', 'DecorationAppearanceType'):
+            log('DEPOT: ignored %s for non-wearable item=%d type=%s' % (name, value, kind))
+            return
         category = prop_type.get('value', {}).get('CATEGORY')
-        target = current.setdefault('body' if kind == 'BodyApperanceType' else 'wear', [])
+        target = current.setdefault('body' if kind == 'BobyAppearanceType' else 'wear', [])
         if name == 'equipAppearance':
-            if category is not None:
+            slot = _get_appearance_slot(table, value)
+            wear_list = current.setdefault('wear', [])
+            body_list = current.setdefault('body', [])
+            if slot is not None:
+                for old in wear_list[:]:
+                    if _get_appearance_slot(table, old) == slot:
+                        wear_list.remove(old)
+                for old in body_list[:]:
+                    if _get_appearance_slot(table, old) == slot:
+                        body_list.remove(old)
+            if category is not None and kind == 'WearableApperanceType':
                 for old in target[:]:
                     old_category = table.get(old, {}).get('value', {}).get('PROP_TYPE', {}).get('value', {}).get('CATEGORY')
                     if old_category == category:
