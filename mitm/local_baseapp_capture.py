@@ -18,14 +18,12 @@
 import os
 import sys
 import json
-import random
 import socket
 import struct
 import subprocess
 import threading
 import time
 import pickle
-import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mitm_serve as base  # reuse H, generate_whoami_payload, PLIST, etc.
@@ -894,100 +892,9 @@ _DEPOT_EXPOSED = {
     257: 'equipAppearance', 260: 'unloadAppearance',
     261: 'setDtsAppearanceGender', 263: 'tryOffAppearance',
 }
-# Athlete exposed base methods for Lucky Carnival (entity_0058 BaseMethods; live table
-# scratch/athlete_base_methods_table.txt). Wire: mid=0xfd, method=0x47 -> idx 897.
-_CARNIVAL_EXPOSED = {
-    897: 'onDoLuckyLottery',                 # INT64 roundNo
-    898: 'onOpenLuckyCarnival',              # INT64 roundNo
-    899: 'onGetLuckySeasonGift',             # INT64 seasonNo, INT8 giftId
-    900: 'tryGetCurrentLuckyCarnivalDiamond',
-    901: 'tryGetLuckyCarnivalDiamondPrizeRecord',
-    902: 'tryGetLuckyCarnivalRoundTempGift',
-    908: 'queryCurrenyLuckyCarnivalData',
-}
 
 _player_state_lock = threading.Lock()
 _player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
-
-
-def _get_appearance_slot(table, item_id):
-    rec = table.get(item_id, {}).get('value', {})
-    prop_type = rec.get('PROP_TYPE', {})
-    kind = prop_type.get('type')
-    category = prop_type.get('value', {}).get('CATEGORY')
-
-    if kind == 'WearableApperanceType':
-        if category in (None, 1):
-            return 'head'
-        elif category in (2, 5, 6):
-            return 'top'
-        elif category in (3, 7, 8):
-            return 'bottom'
-        elif category == 4:
-            return 'shoes'
-        return 'wearable_%s' % category
-    elif kind == 'BobyAppearanceType':
-        if category in (None, 1):
-            return 'face'
-        elif category == 2:
-            return 'hair'
-        elif category == 3:
-            return 'gender'
-        return 'body_%s' % category
-    elif kind == 'DecorationAppearanceType':
-        if category in (None, 11):
-            return 'mask'
-        elif category == 12:
-            return 'glasses'
-        return 'decoration_%s' % category
-    return None
-
-
-def _sanitize_saved_appearance_lists(state):
-    """Drop appearance IDs that are not wearable/body clothes.
-
-    VehicleAppearanceType has no PROP_ITEM_ID, so a vehicle id in wear
-    crashes UIMain.on_enter / wearableItemList / onLoadDressModel.
-    """
-    try:
-        table = _prop_tables().get(0xa2f095a2, {})
-    except Exception as e:
-        log('DEPOT: skipped appearance-list validation: %r' % (e,))
-        return False
-    allowed = ('WearableApperanceType', 'BobyAppearanceType', 'DecorationAppearanceType')
-    changed = False
-    for lists in (state.get('lists') or {}).values():
-        if not isinstance(lists, dict):
-            continue
-        for key in ('wear', 'body'):
-            original = lists.get(key, [])
-            if not isinstance(original, list):
-                lists[key] = []
-                changed = True
-                continue
-            valid = []
-            for item in original:
-                if not isinstance(item, int):
-                    continue
-                kind = (table.get(item, {}).get('value', {}) or {}).get('PROP_TYPE', {}).get('type')
-                if kind in allowed:
-                    valid.append(item)
-            seen_slots = set()
-            deduped = []
-            for item in reversed(valid):
-                slot = _get_appearance_slot(table, item)
-                if slot is not None:
-                    if slot in seen_slots:
-                        continue
-                    seen_slots.add(slot)
-                deduped.append(item)
-            deduped.reverse()
-            if deduped != original:
-                rejected = [item for item in original if item not in deduped]
-                log('DEPOT: removed invalid/duplicate item(s) %s from %s' % (rejected, key))
-                lists[key] = deduped
-                changed = True
-    return changed
 
 
 def _load_player_state():
@@ -995,8 +902,6 @@ def _load_player_state():
         with open(_player_state_path, encoding='utf-8') as f:
             state = json.load(f)
         if isinstance(state, dict):
-            if _sanitize_saved_appearance_lists(state):
-                _save_player_state(state)
             return state
     except (OSError, ValueError):
         pass
@@ -1022,258 +927,6 @@ def _rebuild_stream_bg():
         else:
             log('STREAM: regenerated from player_state')
     threading.Thread(target=run, daemon=True).start()
-
-
-# ---- Lucky Carnival runtime (shared by hall bootstrap + onDoLuckyLottery reply) ----
-# gift entries are LuckyCarnivalRoundReward keys (0x237dd2bb), NOT hall-prop ids.
-# got_index is a list of 0-based wheel slots (refreshLotteryItems / onGetLotteryResult).
-_carnival_lock = threading.Lock()
-_carnival = {
-    'got_index': [],
-    'draws': 0,
-    'season_charge': 0,
-    'round_no': 1,
-    'season_no': 1,
-    'buff': 0,
-    'pool_day': None,
-    'pool_gift': [],
-    'pool_value': [],
-}
-
-
-# REVERTED 2026-09-25: injecting a hall-prop id directly (no LuckyCarnivalRoundReward
-# row) broke the wheel live -- confirmed by the user, both via adb and their own
-# finger: the panel froze on the CSB default "Claimed" placeholder, countdown/back
-# stopped responding. This matches the exact failure this file's own older notes
-# already warned about: `initPanelLotteryItem` calls
-# `getLuckyCarnivalRoundRewardData(id).HALL_PROP_ID` against the CLIENT's own bundled
-# copy of table 0x237dd2bb -- an id with no row there returns None and aborts
-# on_enter entirely (see "Advance path" note further down this file). The wheel can
-# only ever show ids that already exist as rows in the client's own table; the
-# server cannot invent new ones. This set has no row there (it's an Exchange Shop
-# item), so it cannot be shown on this wheel at all -- granted directly to the
-# account instead, see _CARNIVAL_PREMIUM_HALL_PROPS usage at hall bootstrap
-# (grant_appearance_prizes), not through the Carnival RPCs.
-#
-# CORRECTED 2026-09-25: the first identification (拳王 "Boxing King", plain gear,
-# no flame effects) was wrong -- the user confirmed the real "Fists of Fury" has
-# fire/flame visuals. Re-searched assets.npk for icon paths combining a fist theme
-# with fire and found "火拳" ("Fire Fist"): hair 102127 (QUALITY 5), body/leg pairs
-# 111017+112017 (QUALITY 5, base tier, EXCHANGE_SERIE 500004) and 111135+112135
-# (QUALITY 4, the tier PartModel table 0x207bb152 explicitly labels "火拳有特效"
-# i.e. "Fire Fist WITH special effect", ids 4178/5165, vs the plain "_nofx" tier at
-# 4176 -- this is the one that actually looks on fire). Granting both tiers since
-# it's unclear which one the client shows by default; harmless to have both in
-# inventory.
-_CARNIVAL_PREMIUM_HALL_PROPS = [102127, 111017, 112017, 111135, 112135]
-
-
-def _carnival_daily_pool(day_ordinal):
-    """Pick 16 LuckyCarnivalRoundReward row ids (table 0x237dd2bb) for the wheel,
-    reshuffled once per calendar day so the display doesn't stay static.
-
-    Not from decompiled ground truth: the real client renders whatever 16 ids the
-    server sends, so this is a private-server QoL choice, not a verified official
-    rotation rule. Source pool is restricted to TURNTABLE_TYPE==(0,) (the normal
-    Lucky Carnival wheel; 988 of 1977 rows) and ITEM_ENABLE True, biased by the
-    table's own ITEM_VALUE rarity tag (1=common/2=uncommon/3=rare) so the mix looks
-    like the live wheel (mostly common/uncommon with a couple of rare slots). Every
-    id here MUST already exist as a row in this table -- see the block comment
-    above for what happens otherwise.
-    """
-    table = _carnival_reward_table()
-    tiers = {1: [], 2: [], 3: []}
-    for rid, rec in table.items():
-        val = rec.get('value', {})
-        if not val.get('ITEM_ENABLE') or tuple(val.get('TURNTABLE_TYPE', ())) != (0,):
-            continue
-        tiers.setdefault(val.get('ITEM_VALUE', 1), []).append(rid)
-    rng = random.Random(day_ordinal)
-    for tier in tiers.values():
-        rng.shuffle(tier)
-    picks = tiers.get(3, [])[:3] + tiers.get(2, [])[:8] + tiers.get(1, [])[:5]
-    picks = picks[:16]
-    rng.shuffle(picks)
-    values = [int(table[rid]['value'].get('ITEM_VALUE', 1)) for rid in picks]
-    return picks, values
-
-
-def _carnival_gift_and_values():
-    """Return (gift_ids, gift_values) for today's wheel, rotating the pool and
-    resetting this round's progress when the calendar day changes."""
-    today = datetime.date.today().toordinal()
-    with _carnival_lock:
-        if _carnival['pool_day'] != today:
-            gift, values = _carnival_daily_pool(today)
-            _carnival['pool_day'] = today
-            _carnival['pool_gift'] = gift
-            _carnival['pool_value'] = values
-            _carnival['got_index'] = []
-            _carnival['draws'] = 0
-            _carnival['round_no'] = int(_carnival['round_no']) + 1
-            log('CARNIVAL: rotated daily pool day=%d gift=%s' % (today, gift))
-        return list(_carnival['pool_gift']), list(_carnival['pool_value'])
-
-
-def _carnival_reward_table():
-    if 'carnival_rewards' not in _SUPPLEMENT_CACHE:
-        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
-        import load_table as LT
-        _SUPPLEMENT_CACHE['carnival_rewards'] = LT.parse_table(LT.read_member(0x237dd2bb).decode('utf-8'))
-    return _SUPPLEMENT_CACHE['carnival_rewards']
-
-
-def _carnival_draw_cost_table():
-    if 'carnival_costs' not in _SUPPLEMENT_CACHE:
-        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
-        import load_table as LT
-        _SUPPLEMENT_CACHE['carnival_costs'] = LT.parse_table(LT.read_member(0xe713c0e0).decode('utf-8'))
-    return _SUPPLEMENT_CACHE['carnival_costs']
-
-
-def _carnival_payload(operation=0, temp_gift_box=None):
-    """Full onUpdateLuckyCarnivalData dict. operation=0 -> full refresh path;
-    10003 (OP_ALL_DO_LOTTERY_SUCCES) -> onGetLotteryResult + refresh."""
-    now_ts = int(time.time())
-    gift, gift_value = _carnival_gift_and_values()
-    with _carnival_lock:
-        st = dict(_carnival)
-        got = list(st['got_index'])
-        draws = int(st['draws'])
-    return {
-        'operation': int(operation),
-        'luckySeasonDraws': draws,
-        'luckyRoundCloseTime': now_ts + 172800,
-        'luckySeasonNo': int(st['season_no']),
-        'luckyRoundBuff': int(st['buff']),
-        'luckyRoundState': 1,
-        'luckySeasonEndTime': now_ts + 30 * 86400,
-        'luckySeasonGiftGotState': [],
-        'luckyRoundGotIndex': got,
-        'luckyRoundGift': gift,
-        'luckyRoundDraws': draws,
-        'luckyRoundNo': int(st['round_no']),
-        'luckySeasonCharge': int(st['season_charge']),
-        'luckyRoundGiftValue': gift_value,
-        'luckyRoundRefreshTime': now_ts + 21600,
-        'luckyRoundIsSuper': False,
-        'luckyRoundByRecommend': False,
-        # onGetLotteryResult reads this (cursor targets); omitted only on full refresh.
-        'luckyRoundTempGiftBox': list(temp_gift_box or []),
-    }
-
-
-def _send_carnival(sock, addr, key, data, tag):
-    blob = pickle.dumps(data, protocol=0)
-    send_entity_method(sock, addr, key, 1, 745, _packed_int(len(blob)) + blob,
-                       flags=0x0008, num_methods=1131)
-    log('CARNIVAL: %s op=%s draws=%s got=%s temp=%s' % (
-        tag, data.get('operation'), data.get('luckyRoundDraws'),
-        data.get('luckyRoundGotIndex'), data.get('luckyRoundTempGiftBox')))
-
-
-def _credit_currency(sock, addr, key, currency_id, amount):
-    amount = max(int(amount), 0)
-    if not amount:
-        return 0
-    if currency_id == 2:
-        _dev_yb['free'] += amount
-        send_entity_method(sock, addr, key, 1, 203,
-                           struct.pack('<qqi', _dev_yb['free'], 0, 0),
-                           flags=0x0008, num_methods=1131)
-        return _dev_yb['free']
-    balance = _dev_currencies.get(currency_id, 0) + amount
-    _dev_currencies[currency_id] = balance
-    send_entity_method(sock, addr, key, 1, 204,
-                       struct.pack('<iqi', currency_id, balance, 0),
-                       flags=0x0008, num_methods=1131)
-    return balance
-
-
-def _grant_carnival_prize(sock, addr, key, reward_id):
-    """Map LuckyCarnivalRoundReward id -> HALL_PROP_ID, expand containers, grant.
-
-    A negative reward_id is the _CARNIVAL_PREMIUM_HALL_PROPS convention: it IS the
-    hall-prop id already negated, bypassing the 0x237dd2bb table lookup for pieces
-    that have no LuckyCarnivalRoundReward row.
-    """
-    reward_id = int(reward_id)
-    if reward_id < 0:
-        hall_id = -reward_id
-    else:
-        rec = _carnival_reward_table().get(reward_id, {}).get('value', {})
-        hall_id = int(rec.get('HALL_PROP_ID') or 0)
-    if not hall_id:
-        log('CARNIVAL: reward %s has no HALL_PROP_ID' % reward_id)
-        return []
-    expanded = _expand_prop(hall_id)
-    cosmetics = []
-    for pid in expanded:
-        pt = _prop_type(pid)
-        if pt and pt.get('type') == 'CurrencyPropType':
-            val = pt.get('value') or {}
-            _credit_currency(sock, addr, key, int(val.get('CURRENCY_ID', 0)),
-                             int(val.get('NUM', 0)))
-        else:
-            cosmetics.append(pid)
-    if cosmetics:
-        grant_appearance_prizes(sock, addr, key, cosmetics)
-    log('CARNIVAL: rewarded reward_id=%s hall_prop=%s expanded=%s cosmetics=%s' % (
-        reward_id, hall_id, expanded, cosmetics))
-    return expanded
-
-
-def _handle_do_lucky_lottery(sock, addr, key, payload):
-    """onDoLuckyLottery(INT64 roundNo) -> onUpdateLuckyCarnivalData op=10003.
-
-    First draw (draws==0) is free (client skips the yuanbao check). Later draws
-    charge COST from draw-cost table 0xe713c0e0 where DRAW == draws+1.
-    """
-    if len(payload) < 9:
-        log('CARNIVAL: short onDoLuckyLottery payload (%d B)' % len(payload))
-        return
-    round_no = struct.unpack_from('<q', payload, 1)[0]
-    gift, _gift_value = _carnival_gift_and_values()
-    with _carnival_lock:
-        got = list(_carnival['got_index'])
-        draws = int(_carnival['draws'])
-        if len(got) >= len(gift):
-            free_slot = None
-        else:
-            remaining = [i for i in range(len(gift)) if i not in got]
-            free_slot = random.choice(remaining)
-            got.append(free_slot)
-            draws += 1
-            _carnival['got_index'] = sorted(got)
-            _carnival['draws'] = draws
-            if draws > 1:
-                # Client genNeedYB: DRAW == luckyRoundDraws+1 (the NEXT draw).
-                # After this increment, draws is the count including this one,
-                # so the row just completed is DRAW==draws.
-                cost_row = (_carnival_draw_cost_table().get(draws) or {}).get('value') or {}
-                cost = int(cost_row.get('COST', 0))
-                cur = int(cost_row.get('CURRENCY_ID', 2))
-            else:
-                cost, cur = 0, 2
-            if cost and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
-                _carnival['season_charge'] = int(_carnival['season_charge']) + cost
-            else:
-                cost = 0
-        season_charge = int(_carnival['season_charge'])
-    if free_slot is None:
-        log('CARNIVAL: onDoLuckyLottery but all %d slots claimed (roundNo=%d)' % (
-            len(gift), round_no))
-        _send_carnival(sock, addr, key, _carnival_payload(0), 'all-claimed')
-        return
-    reward_id = gift[free_slot]
-    if cost and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
-        balance = _charge_store_currency(sock, addr, key, cur, cost)
-        log('CARNIVAL: charged %d currency id=%d -> balance %d' % (cost, cur, balance))
-    _grant_carnival_prize(sock, addr, key, reward_id)
-    data = _carnival_payload(10003, temp_gift_box=[free_slot])
-    data['luckySeasonCharge'] = season_charge
-    _send_carnival(sock, addr, key, data, 'draw roundNo=%d slot=%d reward=%s' % (
-        round_no, free_slot, reward_id))
 
 
 def handle_depot_call(sock, addr, key, name, payload):
@@ -1308,27 +961,11 @@ def handle_depot_call(sock, addr, key, name, payload):
         current = state.setdefault('lists', {}).setdefault(str(gender), {'wear': [], 'body': []})
         table = _prop_tables().get(0xa2f095a2, {})
         prop_type = table.get(value, {}).get('value', {}).get('PROP_TYPE', {})
-        if not prop_type:
-            log('DEPOT: ignored %s for undefined appearance item=%d' % (name, value))
-            return
         kind = prop_type.get('type')
-        if kind not in ('WearableApperanceType', 'BobyAppearanceType', 'DecorationAppearanceType'):
-            log('DEPOT: ignored %s for non-wearable item=%d type=%s' % (name, value, kind))
-            return
         category = prop_type.get('value', {}).get('CATEGORY')
-        target = current.setdefault('body' if kind == 'BobyAppearanceType' else 'wear', [])
+        target = current.setdefault('body' if kind == 'BodyApperanceType' else 'wear', [])
         if name == 'equipAppearance':
-            slot = _get_appearance_slot(table, value)
-            wear_list = current.setdefault('wear', [])
-            body_list = current.setdefault('body', [])
-            if slot is not None:
-                for old in wear_list[:]:
-                    if _get_appearance_slot(table, old) == slot:
-                        wear_list.remove(old)
-                for old in body_list[:]:
-                    if _get_appearance_slot(table, old) == slot:
-                        body_list.remove(old)
-            if category is not None and kind == 'WearableApperanceType':
+            if category is not None:
                 for old in target[:]:
                     old_category = table.get(old, {}).get('value', {}).get('PROP_TYPE', {}).get('value', {}).get('CATEGORY')
                     if old_category == category:
@@ -1379,23 +1016,14 @@ def _mall_tables():
 def _mall_runtime_goods():
     """Dynamic server state consumed by UIMall; names/models stay client-side.
 
-    The client filters tabs from the REPLY records themselves
-    (common/mall_utils.py serverFilter + UIMall.fillGoods + getMallGoodSecondaryDisplayType),
-    so every display/filter field must be passed through -- a slim
-    {DISCOUNT,BUY_TIMES,CURRENCY_ID,PRICE} dict makes Suggested/Packs/Looks/Others
-    render empty (live-verified 2026-09-24: only Firearms showed).
-
     IS_DISPLAY_IN_MALL           -> Suggested / Packs tab
     IS_DISPLAY_IN_CLOTH_MALL     -> Looks tab
     IS_DISPLAY_IN_MALL_WEAPON    -> Firearms tab (new gun mall flag)
     IS_DISPLAY_IN_WEAPON_MALL    -> Firearms tab (old gun mall flag)
     IS_DISPLAY_IN_SUIT_MALL      -> Suit bundles
-    IS_DISPLAY_IN_TIME_APPEARANCE-> Featured / Appearance tab (Suggested needs
-                                    SECONDARY_DISPLAY_TYPE_ENUM 1=New / 2=Hot)
+    IS_DISPLAY_IN_TIME_APPEARANCE-> Featured / Appearance tab
     IS_DISPLAY_IN_SUNDRY_MALL    -> Others / Sundry tab
     IS_DISPLAY_IN_TIME_LIMIT_SUB -> Time-limited sub-mall
-    NOTE: no IS_DISPLAY_IN_SHARE_MALL flag exists in the 4 known tables
-    (807 goods) -- Token Mall needs a 5th table still to be located.
     """
     flags = (
         'IS_DISPLAY_IN_MALL',
@@ -1407,49 +1035,23 @@ def _mall_runtime_goods():
         'IS_DISPLAY_IN_SUNDRY_MALL',
         'IS_DISPLAY_IN_TIME_LIMIT_SUB',
         'IS_DISPLAY_IN_TIME_LIMIT_ACTIVITY',
-        'IS_DISPLAY_IN_SHARE_MALL',
-    )
-    scalar_passthrough = (
-        'SECONDARY_DISPLAY_TYPE_ENUM',
-        'ONLINE_TIME',
-        'OFFLINE_TIME',
-        'HALL_PROP_ID',
-        'MAX_BUY_LIMIT',
-        'PURCHASE_LIMIT_NUM',
-        'PURCHASE_LIMIT_PERIOD',
-        'IS_PURCHASE_LIMIT',
-        'SORT_KEY',
-        'TIME_LIMIT_SORT_KEY',
-        'CAN_GIFT_FRIEND',
     )
     goods = {}
     for good_id, rec in _mall_tables().items():
         value = rec.get('value', {})
         if any(value.get(flag) for flag in flags):
-            entry = {
+            goods[int(good_id)] = {
                 'DISCOUNT': int(value.get('CURRENT_DISCOUNT', 100)),
                 'BUY_TIMES': int(_mall_buy_times.get(int(good_id), 0)),
                 'CURRENCY_ID': int(value.get('CURRENCY_ID', 2)),
                 'PRICE': int(value.get('PRICE', 0)),
             }
-            for flag in flags:
-                if value.get(flag):
-                    entry[flag] = True
-            for field in scalar_passthrough:
-                v = value.get(field)
-                if isinstance(v, (bool, int, float, str)) and v != '':
-                    entry[field] = v
-            goods[int(good_id)] = entry
     return goods
 
 
 def _send_mall_query_reply(sock, addr, key, query_type=None, appearance=False):
-    # protocol=0 of the full flag-bearing goods dict is ~73 KB and blows the
-    # 2-byte Mercury method length field (ValueError, reply never sent ->
-    # empty Suggested/Packs/Looks). protocol=2 is ~41 KB, Python-2 compatible,
-    # and fits (payload must stay <= 65535 before fragmentation kicks in).
     goods = _mall_runtime_goods()
-    blob = pickle.dumps(goods, protocol=2)
+    blob = pickle.dumps(goods, protocol=0)
     py_arg = _packed_int(len(blob)) + blob
     if query_type is not None:
         args, reply_idx = struct.pack('<I', query_type) + py_arg, 449
@@ -1458,16 +1060,6 @@ def _send_mall_query_reply(sock, addr, key, query_type=None, appearance=False):
     send_entity_method(sock, addr, key, 1, reply_idx, args, flags=0x0008, num_methods=1131)
     log('STORE: query reply idx=%d type=%s goods=%d pickle=%d B' %
         (reply_idx, query_type, len(goods), len(blob)))
-    # Suggested (UIDtsAppearanceMall) only listens to 450; general tabs only
-    # listen to 448/449. A single upstream query must therefore push both
-    # shapes so opening Store fills every tab without a second round-trip.
-    if query_type is None and not appearance:
-        args450 = py_arg
-        send_entity_method(sock, addr, key, 1, 450, args450, flags=0x0008, num_methods=1131)
-        log('STORE: also pushed idx=450 (Suggested/UIDtsAppearanceMall)')
-    elif appearance:
-        send_entity_method(sock, addr, key, 1, 448, py_arg, flags=0x0008, num_methods=1131)
-        log('STORE: also pushed idx=448 (general mall tabs)')
 
 
 def _charge_store_currency(sock, addr, key, currency_id, amount):
@@ -1574,7 +1166,16 @@ def grant_appearance_prizes(sock, addr, key, prizes):
                        struct.pack('<I', len(recent)) + b''.join(struct.pack('<i', x) for x in recent),
                        flags=0x0008, num_methods=1131)
 
-    log('INVENTORY: granted %s; persisted %d item ids' % (counts, len(items)))
+    # Rebuild the verified runtime-typed createBasePlayer stream. The current
+    # client was updated above; the regenerated stream makes the same JSON
+    # inventory survive the next login without inventing another RPC shape.
+    root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    gen = os.path.join(root, 'scratch', 'gen_stream_v3.py')
+    result = subprocess.run([sys.executable, gen], cwd=root, capture_output=True, text=True)
+    if result.returncode:
+        log('INVENTORY: stream regeneration failed rc=%d: %s' % (result.returncode, result.stderr[-500:]))
+    else:
+        log('INVENTORY: granted %s; persisted %d item ids and regenerated stream' % (counts, len(items)))
 
 
 def parse_upstream_messages(unpadded):
@@ -1603,7 +1204,7 @@ def handle_upstream_calls(sock, addr, key, unpadded):
         # 0xfa/0xdd decodes to index 279 (queryAvailableSupplement).
         exposed_idx = (mid - 0xfa) * 256 + method + 58 if mid >= 0xfa else method
         name = (_STORE_EXPOSED.get(exposed_idx) or _DEPOT_EXPOSED.get(exposed_idx)
-                or _CARNIVAL_EXPOSED.get(exposed_idx) or EXPOSED_METHODS.get(method))
+                or EXPOSED_METHODS.get(method))
         sig = (method, len(payload))
         if sig not in _seen_exposed:
             _seen_exposed.add(sig)
@@ -1629,13 +1230,6 @@ def handle_upstream_calls(sock, addr, key, unpadded):
             continue
         if name in ('setDtsAppearanceGender', 'equipAppearance', 'unloadAppearance', 'tryOffAppearance'):
             handle_depot_call(sock, addr, key, name, payload)
-            continue
-        if name == 'onDoLuckyLottery':
-            _handle_do_lucky_lottery(sock, addr, key, payload)
-            continue
-        if name in ('onOpenLuckyCarnival', 'queryCurrenyLuckyCarnivalData'):
-            # Re-open / query: push the current round so the panel re-inits cleanly.
-            _send_carnival(sock, addr, key, _carnival_payload(0), name)
             continue
         if name in ('openSupplyBox', 'openMultipleSupplyBox') and len(payload) >= 9:
             sid, cur = struct.unpack_from('<ii', payload, 1)
@@ -1946,24 +1540,25 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     # verified character/lobby RPC order above intact; these initializers run only afterwards,
     # while the hall scene is still loading.  Method 745 was verified from the live 1,131-entry
     # Athlete client-method table (neighbors 749..751 are sync/onShowOld/onShowNewCarnivalBg).
-    #
-    # Lucky Carnival active-round record (2026-09-24).  UILuckyCarnival.refreshLuckyCarnivaPanel
-    # gates the wheel on iLuckyCarnivalRoundState == const.LuckyCarnivalConst.ROUND_STATE_OPEN (1);
-    # the previous all-zero placeholder left state=0 and the center art stuck on COMING SOON.
-    # refreshLuckyCarnivalData maps these keys 1:1, then buildGiftValueMap walks gift[1:].
-    # refreshLotteryItems returns early unless len(gift) >= 7 and feeds gift[index+1] into
-    # initPanelLotteryItem -> getDtsHallPropData(id).NAME, so every wheel id must exist in
-    # hall prop table 0xc656e064 (verified).  operation=0 falls through onUpdateLuckyCarnivalData
-    # to the full refresh path (ops 10001+ are special-cased).
-    # Advance path: gift entries are keys into LuckyCarnivalRoundReward
-    # (assets.npk 0x237dd2bb), NOT hall-prop IDs.  initPanelLotteryItem does
-    # getLuckyCarnivalRoundRewardData(id).HALL_PROP_ID — a hall-prop id returns
-    # None and aborts on_enter (countdown/Back/cleanup never run, widgets stay
-    # at CSB default "Claimed").  IDs 1..16 are TURNTABLE_TYPE=[0], ITEM_ENABLE,
-    # and their HALL_PROP_ID resolves in the hall-prop tables (verified).
-    # ITEM_VALUE from the same rows feeds luckyRoundGiftValue (quality 1/2/3).
-    # Shared builder: same dict shape for bootstrap and onDoLuckyLottery replies.
-    lucky_carnival = _carnival_payload(0)
+    lucky_carnival = {
+            'operation': 0,
+            'luckySeasonDraws': 0,
+            'luckyRoundCloseTime': 0,
+            'luckySeasonNo': 0,
+            'luckyRoundBuff': 0,
+            'luckyRoundState': 0,
+            'luckySeasonEndTime': 0,
+            'luckySeasonGiftGotState': [],
+            'luckyRoundGotIndex': [],
+            'luckyRoundGift': [],
+            'luckyRoundDraws': 0,
+            'luckyRoundNo': 0,
+            'luckySeasonCharge': 0,
+            'luckyRoundGiftValue': [],
+            'luckyRoundRefreshTime': 0,
+            'luckyRoundIsSuper': False,
+            'luckyRoundByRecommend': False,
+    }
     lucky_carnival_pickle = pickle.dumps(lucky_carnival, protocol=0)
     gender_lists = state.get('lists', {}).get(str(state_gender), {'wear': [], 'body': []})
     init_wear = gender_lists.get('wear', [])
@@ -1999,23 +1594,10 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
         hall_state_rpcs.insert(0, (204, struct.pack('<iqi', 9, _dev_currencies[9], 0),
                                    'Athlete.onCurrencyUpdated(id=9, %d)' % _dev_currencies[9]))
     # onQueryAvailableSupplement(PYTHON availSupplementDict) idx 392 (live table). Without it the Supply page is empty and DRAW sends nothing.
-    # Deferred by ROS_SUPPLEMENT_DELAY seconds (not sent inline in hall_state_rpcs): this payload is tens of
-    # KB and needs ~27-29 fragmented UDP datagrams; sending that burst immediately lands right on top of the
-    # client's Select-Controls scene transition, one of several suspected (unconfirmed) contributors to the
-    # intermittent "network timeout -> back to Select Controls" relogin loop. The Supply page doesn't need
-    # this data in the first couple of seconds, so pushing it a few seconds later costs nothing and may
-    # reduce how often the burst collides with that fragile window. NOT proven -- needs a live A/B trace.
     _sup_n = int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2'))
     if _sup_n >= 0 and os.environ.get('ROS_SUPPLEMENT', '1') == '1':
         _sup = supplement_avail_payload(_sup_n)
-        _sup_payload = _packed_int(len(_sup)) + _sup
-        _sup_delay = float(os.environ.get('ROS_SUPPLEMENT_DELAY', '4'))
-
-        def _send_supplement_once():
-            send_entity_method(sock, dest, key, athlete_eid, 392, _sup_payload, flags=0x0008, num_methods=1131)
-            log('BASEAPP: (deferred %.0fs) sent Athlete.onQueryAvailableSupplement(%d B) idx=392 to eid=%d %s' %
-                (_sup_delay, len(_sup), athlete_eid, dest))
-        threading.Timer(_sup_delay, _send_supplement_once).start()
+        hall_state_rpcs.append((392, _packed_int(len(_sup)) + _sup, 'Athlete.onQueryAvailableSupplement(%d B)' % len(_sup)))
     # ---- RPCs that only take visible effect once UIMain exists (sent again at ROS_HALL_LATE_DELAYS seconds) ----
     # UIMain is built roughly 60-90 s after enterHall (depends on when "Please select controls" is confirmed); an
     # earlier call finds no widget to update. All of these are idempotent, so they are simply resent.
