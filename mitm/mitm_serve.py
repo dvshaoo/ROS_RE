@@ -10,6 +10,11 @@ except Exception:
 
 import session_store
 
+# LDPlayer's current guest network is 172.16.1.0/24; the host-side
+# endpoint reachable from the guest is 172.16.1.2 (not the old emulator
+# alias 10.0.2.2 used by earlier captures).
+MITM_HOST = os.environ.get('ROS_MITM_HOST', '172.16.1.2')
+
 def generate_whoami_payload():
     payload_dict = {
         "ip": "172.16.1.15",
@@ -98,10 +103,7 @@ PLIST = (
     b'  "min_patch_client_version": 0,\n'
     b'  "min_patch_engine_version": 0,\n'
     b'  "use_dlc_clothes": false,\n'
-    b'  "file_list": ["dummy.npk"],\n'
-    b'  "dummy.npk_updated": 0,\n'
-    b'  "dummy.npk_size": 1,\n'
-    b'  "dummy.npk_md5": "00000000000000000000000000000000",\n'
+    b'  "file_list": [],\n'
     b'  "patch.1117219.com.netease.chiji.obb_updated": 0,\n'
     b'  "patch.1117219.com.netease.chiji.obb_size": 1,\n'
     b'  "patch.1117219.com.netease.chiji.obb_md5": "00000000000000000000000000000000"\n'
@@ -110,19 +112,19 @@ PLIST = (
 w('T14-complete plist: %d bytes' % len(PLIST))
 
 import zlib, pickle
-TOTAL_LIST_PAYLOAD = zlib.compress(pickle.dumps({
-    'dummy.npk_updated': 0,
-    'dummy.npk_size': 1,
-    'dummy.npk_md5': '00000000000000000000000000000000',
-}, 2))
+# ResourcePatcher contract: empty file_list in PLIST and empty dict in total_list.
+# Validated by tools/test_patch_contract.py.
+TOTAL_LIST_PAYLOAD = zlib.compress(pickle.dumps({}, 2))
 
 # T18: server-list 1-line payload (cited: ui/UILogin.py:197-237 positional
 # space-delimited schema; single spaces only — split(' ') shifts on doubles).
 # 10.0.2.2 = emulator->host route (no adb reverse needed for the later login
 # connect); port 25000 is our future fake-loginapp port (nothing there yet).
+_server_host = os.environ.get('ROS_LOGINAPP_HOST', MITM_HOST).encode('ascii')
 SERVER_LIST_PAYLOAD = (
-    b'North_America 1 1 1 North_America North_America '
-    b'172.16.1.2:25000 172.16.1.2:25000 172.16.1.2:25000 10001 172.16.1.2:25000\n'
+    b'North_America 1 1 1 North_America North_America ' +
+    _server_host + b':25000 ' + _server_host + b':25000 ' +
+    _server_host + b':25000 10001 ' + _server_host + b':25000\n'
 )
 w('T18 server_list_ad.txt: %d bytes' % len(SERVER_LIST_PAYLOAD))
 NOTICE_PAYLOAD = b"Welcome to Rules of Survival!\n"
@@ -165,7 +167,11 @@ class H(BaseHTTPRequestHandler):
             except Exception:
                 pass
             return
-        if '/1117219/total_list' in self.path:
+        # The current client uses a versioned absolute URI such as
+        # /220330002853_android/total_list; older captures used /1117219.
+        # Match the endpoint suffix so both forms receive the compressed
+        # pickle payload instead of falling through to the generic JSON.
+        if self.path.endswith('/total_list'):
             w('  -> SERVE total_list (%d bytes)' % len(TOTAL_LIST_PAYLOAD))
             self.send_response(200)
             self.send_header('Content-Type', 'application/octet-stream')
@@ -175,6 +181,18 @@ class H(BaseHTTPRequestHandler):
                 self.wfile.write(TOTAL_LIST_PAYLOAD)
             except Exception:
                 pass
+            return
+        if '/file_list_' in self.path:
+            # File lists use the same compressed-pickle envelope as
+            # total_list; return an empty mapping, not JSON or a zero-byte
+            # body, so the updater can complete its comparison.
+            w('  -> SERVE empty file list')
+            payload = zlib.compress(pickle.dumps({}, 2))
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/octet-stream')
+            self.send_header('Content-Length', str(len(payload)))
+            self.end_headers()
+            self.wfile.write(payload)
             return
         if self.path == '/server_list_ad.txt':
             w('  -> SERVE server_list_ad.txt (%d bytes)' % len(SERVER_LIST_PAYLOAD))
@@ -216,9 +234,9 @@ class H(BaseHTTPRequestHandler):
                     domain = self.path.split('domain=')[1].split('&')[0]
                 except Exception:
                     pass
-            w('  -> SERVE HTTPDNS (host=%s) domain=%s -> 10.0.2.2' % (host, domain))
+            w('  -> SERVE HTTPDNS (host=%s) domain=%s -> %s' % (host, domain, MITM_HOST))
             # NeoX pharos HttpdnsDomain2IpParams expects: {"domain":"...","addrs":["IP"],"ttl":600}
-            res = '{"domain":"%s","addrs":["10.0.2.2"],"ttl":600}' % domain
+            res = '{"domain":"%s","addrs":["%s"],"ttl":600}' % (domain, MITM_HOST)
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Content-Length', str(len(res)))
@@ -276,14 +294,14 @@ class H(BaseHTTPRequestHandler):
                 pass
             return
         if 'resolve' in self.path.lower() or 'dns_query' in self.path.lower():
-            w('  -> SERVE HTTPDNS resolve -> 10.0.2.2 (our MITM host)')
+            w('  -> SERVE HTTPDNS resolve -> %s (our MITM host)' % MITM_HOST)
             domain = 'g61.gph.easebar.com'
             if 'domain=' in self.path:
                 try:
                     domain = self.path.split('domain=')[1].split('&')[0]
                 except Exception:
                     pass
-            res = '{"domain":"%s","addrs":["10.0.2.2"],"ttl":600}' % domain
+            res = '{"domain":"%s","addrs":["%s"],"ttl":600}' % (domain, MITM_HOST)
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Content-Length', str(len(res)))

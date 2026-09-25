@@ -550,3 +550,50 @@ symptom seen today far better than any of the earlier (wrong) theories:
   - The tester was tapping on the "COMING SOON" overlay panel (`lotteryPanelWatting`), which plays standard audio click feedback via `WidgetTouchesBinder` on `TouchPhase.Began`, but has no lottery handler.
 - **Fix**: In `local_baseapp_capture.py`, set `'luckyRoundState': 1` (`ROUND_STATE_OPEN`) and populate `luckyRoundGift` / `luckyRoundGiftValue` so the wheel items and `lotteryBtn` render visible and active!
 
+## 2026-09-25: restoration after an over-broad revert, a new regression, and its fix
+
+An earlier full `git checkout <old-sha> -- mitm/local_baseapp_capture.py` (done to rule out Carnival
+code as the cause of an unrelated hall-instability bug that turned out to be the
+`DecorationAppearanceType` crash) went back further than intended and silently deleted the entire
+Carnival RPC system described above, reintroducing the `luckyRoundState: 0` placeholder. Restored
+verbatim from the last known-good commit (`b5c4b33a`), minus the wheel-breaking negative-id
+injection that commit had already reverted for an unrelated reason (see the file's
+`_CARNIVAL_PREMIUM_HALL_PROPS` comment).
+
+**Live-confirmed after restoration** (`scratch/carnival_button_visible_check.png`): daily pool
+rotation fires (`CARNIVAL: rotated daily pool day=739884 gift=[...]`), the hall renders clean
+(999999/999999 currency, Fists of Fury visible, no garbled overlay), and the Carnival panel now
+shows the real wheel with a visible, non-"COMING SOON" **10-diamond Draw button** at the bottom
+right — `luckyRoundState=1` is working as intended.
+
+**New regression found and fixed the same session**: moving the `lucky_carnival` payload from a
+static dict literal to `_carnival_payload(0)` at the hall-bootstrap call site made
+`send_character_creation_response_chain()` synchronously parse the 1977-row
+`LuckyCarnivalRoundReward` NPK table (`0x237dd2bb`) on the *first* login after server start. Measured
+live: `Athlete.enterHall` sent at `18:02:49.808`, first `CARNIVAL: rotated daily pool` log at
+`18:02:50.020` — a **212ms stall** inside the hall-bootstrap RPC chain that did not exist before
+(the old dict was instant). This lines up with the previously-documented relogin/"select control"
+loop symptom class (client racing a confirm/scene-ready timer during this exact window). User
+reported it live: "may issue ako napansin twice bumabalik sa select control noong binalik mo yang
+carnival na hindi na coming soon."
+
+**Fix**: pre-warm `_carnival_reward_table()` and `_carnival_draw_cost_table()` once at process
+start (`local_baseapp_capture.py`, right before the listener threads start), so the NPK parse cost
+is paid at server boot, never inside a login's RPC chain. Verified live on the next fresh relogin
+(PID after force-stop+monkey relaunch): `enterHall` at `18:14:18.482`, `CARNIVAL: rotated daily
+pool` at `18:14:18.484` — gap down to **2ms**. Single clean STAGE 1→5 cycle, no repeat, hall stable.
+User confirmed live: "yun naayus na."
+
+**Still open — Carnival Draw button dead-touch (separate from the visibility bug above)**: with the
+button now visible and correctly positioned, tapping it (tried 6 coordinates across the "10 Draw"
+button's visible bounds, e.g. `1650,1000` / `1700,1010` / `1750,1020` / `1800,1030`) produced **zero**
+`onDoLuckyLottery` calls in the server log — only background keepalive traffic, no RPC at all. A tap
+on the panel's **BACK** button (`90,45`) *did* work (returned cleanly to the hall). This means the
+Draw dead-touch is **not** fully explained by the `luckyRoundState` visibility bug as Gemini's
+2026-09-25 "Definitive Resolution" entry (further down / in `GATE7_BATTLE_GAMEPLAY_PLAN.md`)
+concluded — it is the same class of native touch-dispatch dead zone already seen on the hall's
+START button, isolated to specific widgets rather than a global input failure. Not yet
+root-caused; `scratch/HANDOFF_TO_GEMINI_TOUCH_DISPATCH.md` and the Gate 7 plan doc are the next
+places to extend this investigation, now scoped to "why do BACK and other buttons register touches
+but Draw/START do not, on the same panel, with the same input pipeline."
+

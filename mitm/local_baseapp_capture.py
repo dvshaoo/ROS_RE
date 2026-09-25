@@ -18,12 +18,14 @@
 import os
 import sys
 import json
+import random
 import socket
 import struct
 import subprocess
 import threading
 import time
 import pickle
+import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mitm_serve as base  # reuse H, generate_whoami_payload, PLIST, etc.
@@ -892,6 +894,17 @@ _DEPOT_EXPOSED = {
     257: 'equipAppearance', 260: 'unloadAppearance',
     261: 'setDtsAppearanceGender', 263: 'tryOffAppearance',
 }
+# Athlete exposed base methods for Lucky Carnival (entity_0058 BaseMethods; live table
+# scratch/athlete_base_methods_table.txt). Wire: mid=0xfd, method=0x47 -> idx 897.
+_CARNIVAL_EXPOSED = {
+    897: 'onDoLuckyLottery',                 # INT64 roundNo
+    898: 'onOpenLuckyCarnival',              # INT64 roundNo
+    899: 'onGetLuckySeasonGift',             # INT64 seasonNo, INT8 giftId
+    900: 'tryGetCurrentLuckyCarnivalDiamond',
+    901: 'tryGetLuckyCarnivalDiamondPrizeRecord',
+    902: 'tryGetLuckyCarnivalRoundTempGift',
+    908: 'queryCurrenyLuckyCarnivalData',
+}
 
 _player_state_lock = threading.Lock()
 _player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
@@ -1285,6 +1298,239 @@ def grant_appearance_prizes(sock, addr, key, prizes):
         log('INVENTORY: granted %s; persisted %d item ids and regenerated stream' % (counts, len(items)))
 
 
+# ---- Lucky Carnival runtime (shared by hall bootstrap + onDoLuckyLottery reply) ----
+# gift entries are LuckyCarnivalRoundReward keys (0x237dd2bb), NOT hall-prop ids.
+# got_index is a list of 0-based wheel slots (refreshLotteryItems / onGetLotteryResult).
+#
+# RESTORED 2026-09-25: this whole block (and luckyRoundState=1 at the hall-bootstrap
+# call site) was lost when a "revert all Carnival changes" checkout went back further
+# than intended and silently reintroduced the pre-fix all-zero placeholder
+# (luckyRoundState=0), which hides lotteryBtn client-side
+# (ui/UILuckyCarnival.py:refreshLuckyCarnivaPanel gates lotteryBtn.setVisible on
+# iLuckyCarnivalRoundState==ROUND_STATE_OPEN). That, not a native touch-dispatch
+# mystery, is why the Draw button looked "dead" all day -- confirmed live by Gemini
+# via a working ARM64 frida-server setup (see 06_notes/GATE7_BATTLE_GAMEPLAY_PLAN.md
+# and 06_notes/LUCKY_CARNIVAL_COMING_SOON.md, 2026-09-25 "Definitive Resolution"
+# entries). Re-applied from the last known-good commit (b5c4b33a) verbatim, MINUS the
+# wheel-breaking negative-id injection that commit had already reverted for a
+# different reason (see the block comment on _CARNIVAL_PREMIUM_HALL_PROPS further up
+# this file): every id here is a real LuckyCarnivalRoundReward row, never a raw
+# hall-prop id, which is what froze the panel the first time this was tried.
+_carnival_lock = threading.Lock()
+_carnival = {
+    'got_index': [],
+    'draws': 0,
+    'season_charge': 0,
+    'round_no': 1,
+    'season_no': 1,
+    'buff': 0,
+    'pool_day': None,
+    'pool_gift': [],
+    'pool_value': [],
+}
+
+
+def _carnival_daily_pool(day_ordinal):
+    """Pick 16 LuckyCarnivalRoundReward row ids (table 0x237dd2bb) for the wheel,
+    reshuffled once per calendar day so the display doesn't stay static.
+
+    Not from decompiled ground truth: the real client renders whatever 16 ids the
+    server sends, so this is a private-server QoL choice, not a verified official
+    rotation rule. Source pool is restricted to TURNTABLE_TYPE==(0,) (the normal
+    Lucky Carnival wheel; 988 of 1977 rows) and ITEM_ENABLE True, biased by the
+    table's own ITEM_VALUE rarity tag (1=common/2=uncommon/3=rare) so the mix looks
+    like the live wheel (mostly common/uncommon with a couple of rare slots). Every
+    id here MUST already exist as a row in this table -- an id with no row there
+    returns None from the client's own getLuckyCarnivalRoundRewardData and aborts
+    the panel's on_enter entirely (freezes Back/countdown too).
+    """
+    table = _carnival_reward_table()
+    tiers = {1: [], 2: [], 3: []}
+    for rid, rec in table.items():
+        val = rec.get('value', {})
+        if not val.get('ITEM_ENABLE') or tuple(val.get('TURNTABLE_TYPE', ())) != (0,):
+            continue
+        tiers.setdefault(val.get('ITEM_VALUE', 1), []).append(rid)
+    rng = random.Random(day_ordinal)
+    for tier in tiers.values():
+        rng.shuffle(tier)
+    picks = tiers.get(3, [])[:3] + tiers.get(2, [])[:8] + tiers.get(1, [])[:5]
+    picks = picks[:16]
+    rng.shuffle(picks)
+    values = [int(table[rid]['value'].get('ITEM_VALUE', 1)) for rid in picks]
+    return picks, values
+
+
+def _carnival_gift_and_values():
+    """Return (gift_ids, gift_values) for today's wheel, rotating the pool and
+    resetting this round's progress when the calendar day changes."""
+    today = datetime.date.today().toordinal()
+    with _carnival_lock:
+        if _carnival['pool_day'] != today:
+            gift, values = _carnival_daily_pool(today)
+            _carnival['pool_day'] = today
+            _carnival['pool_gift'] = gift
+            _carnival['pool_value'] = values
+            _carnival['got_index'] = []
+            _carnival['draws'] = 0
+            _carnival['round_no'] = int(_carnival['round_no']) + 1
+            log('CARNIVAL: rotated daily pool day=%d gift=%s' % (today, gift))
+        return list(_carnival['pool_gift']), list(_carnival['pool_value'])
+
+
+def _carnival_reward_table():
+    if 'carnival_rewards' not in _SUPPLEMENT_CACHE:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+        import load_table as LT
+        _SUPPLEMENT_CACHE['carnival_rewards'] = LT.parse_table(LT.read_member(0x237dd2bb).decode('utf-8'))
+    return _SUPPLEMENT_CACHE['carnival_rewards']
+
+
+def _carnival_draw_cost_table():
+    if 'carnival_costs' not in _SUPPLEMENT_CACHE:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+        import load_table as LT
+        _SUPPLEMENT_CACHE['carnival_costs'] = LT.parse_table(LT.read_member(0xe713c0e0).decode('utf-8'))
+    return _SUPPLEMENT_CACHE['carnival_costs']
+
+
+def _carnival_payload(operation=0, temp_gift_box=None):
+    """Full onUpdateLuckyCarnivalData dict. operation=0 -> full refresh path;
+    10003 (OP_ALL_DO_LOTTERY_SUCCES) -> onGetLotteryResult + refresh."""
+    now_ts = int(time.time())
+    gift, gift_value = _carnival_gift_and_values()
+    with _carnival_lock:
+        st = dict(_carnival)
+        got = list(st['got_index'])
+        draws = int(st['draws'])
+    return {
+        'operation': int(operation),
+        'luckySeasonDraws': draws,
+        'luckyRoundCloseTime': now_ts + 172800,
+        'luckySeasonNo': int(st['season_no']),
+        'luckyRoundBuff': int(st['buff']),
+        'luckyRoundState': 1,
+        'luckySeasonEndTime': now_ts + 30 * 86400,
+        'luckySeasonGiftGotState': [],
+        'luckyRoundGotIndex': got,
+        'luckyRoundGift': gift,
+        'luckyRoundDraws': draws,
+        'luckyRoundNo': int(st['round_no']),
+        'luckySeasonCharge': int(st['season_charge']),
+        'luckyRoundGiftValue': gift_value,
+        'luckyRoundRefreshTime': now_ts + 21600,
+        'luckyRoundIsSuper': False,
+        'luckyRoundByRecommend': False,
+        # onGetLotteryResult reads this (cursor targets); omitted only on full refresh.
+        'luckyRoundTempGiftBox': list(temp_gift_box or []),
+    }
+
+
+def _send_carnival(sock, addr, key, data, tag):
+    blob = pickle.dumps(data, protocol=0)
+    send_entity_method(sock, addr, key, 1, 745, _packed_int(len(blob)) + blob,
+                       flags=0x0008, num_methods=1131)
+    log('CARNIVAL: %s op=%s draws=%s got=%s temp=%s' % (
+        tag, data.get('operation'), data.get('luckyRoundDraws'),
+        data.get('luckyRoundGotIndex'), data.get('luckyRoundTempGiftBox')))
+
+
+def _credit_currency(sock, addr, key, currency_id, amount):
+    amount = max(int(amount), 0)
+    if not amount:
+        return 0
+    if currency_id == 2:
+        _dev_yb['free'] += amount
+        send_entity_method(sock, addr, key, 1, 203,
+                           struct.pack('<qqi', _dev_yb['free'], 0, 0),
+                           flags=0x0008, num_methods=1131)
+        return _dev_yb['free']
+    balance = _dev_currencies.get(currency_id, 0) + amount
+    _dev_currencies[currency_id] = balance
+    send_entity_method(sock, addr, key, 1, 204,
+                       struct.pack('<iqi', currency_id, balance, 0),
+                       flags=0x0008, num_methods=1131)
+    return balance
+
+
+def _grant_carnival_prize(sock, addr, key, reward_id):
+    """Map LuckyCarnivalRoundReward id -> HALL_PROP_ID, expand containers, grant."""
+    reward_id = int(reward_id)
+    rec = _carnival_reward_table().get(reward_id, {}).get('value', {})
+    hall_id = int(rec.get('HALL_PROP_ID') or 0)
+    if not hall_id:
+        log('CARNIVAL: reward %s has no HALL_PROP_ID' % reward_id)
+        return []
+    expanded = _expand_prop(hall_id)
+    cosmetics = []
+    for pid in expanded:
+        pt = _prop_type(pid)
+        if pt and pt.get('type') == 'CurrencyPropType':
+            val = pt.get('value') or {}
+            _credit_currency(sock, addr, key, int(val.get('CURRENCY_ID', 0)),
+                             int(val.get('NUM', 0)))
+        else:
+            cosmetics.append(pid)
+    if cosmetics:
+        grant_appearance_prizes(sock, addr, key, cosmetics)
+    log('CARNIVAL: rewarded reward_id=%s hall_prop=%s expanded=%s cosmetics=%s' % (
+        reward_id, hall_id, expanded, cosmetics))
+    return expanded
+
+
+def _handle_do_lucky_lottery(sock, addr, key, payload):
+    """onDoLuckyLottery(INT64 roundNo) -> onUpdateLuckyCarnivalData op=10003.
+
+    First draw (draws==0) is free (client skips the yuanbao check). Later draws
+    charge COST from draw-cost table 0xe713c0e0 where DRAW == draws+1.
+    """
+    if len(payload) < 9:
+        log('CARNIVAL: short onDoLuckyLottery payload (%d B)' % len(payload))
+        return
+    round_no = struct.unpack_from('<q', payload, 1)[0]
+    gift, _gift_value = _carnival_gift_and_values()
+    with _carnival_lock:
+        got = list(_carnival['got_index'])
+        draws = int(_carnival['draws'])
+        if len(got) >= len(gift):
+            free_slot = None
+        else:
+            remaining = [i for i in range(len(gift)) if i not in got]
+            free_slot = random.choice(remaining)
+            got.append(free_slot)
+            draws += 1
+            _carnival['got_index'] = sorted(got)
+            _carnival['draws'] = draws
+            if draws > 1:
+                # Client genNeedYB: DRAW == luckyRoundDraws+1 (the NEXT draw).
+                # After this increment, draws is the count including this one,
+                # so the row just completed is DRAW==draws.
+                cost_row = (_carnival_draw_cost_table().get(draws) or {}).get('value') or {}
+                cost = int(cost_row.get('COST', 0))
+                cur = int(cost_row.get('CURRENCY_ID', 2))
+            else:
+                cost, cur = 0, 2
+            if cost and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
+                _carnival['season_charge'] = int(_carnival['season_charge']) + cost
+            else:
+                cost = 0
+        season_charge = int(_carnival['season_charge'])
+    if free_slot is None:
+        log('CARNIVAL: onDoLuckyLottery but all %d slots claimed (roundNo=%d)' % (
+            len(gift), round_no))
+        _send_carnival(sock, addr, key, _carnival_payload(0), 'all-claimed')
+        return
+    reward_id = gift[free_slot]
+    if cost and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
+        balance = _charge_store_currency(sock, addr, key, cur, cost)
+        log('CARNIVAL: charged %d currency id=%d -> balance %d' % (cost, cur, balance))
+    _grant_carnival_prize(sock, addr, key, reward_id)
+    data = _carnival_payload(10003, temp_gift_box=[free_slot])
+    data['luckySeasonCharge'] = season_charge
+    _send_carnival(sock, addr, key, data, 'draw roundNo=%d slot=%d reward=%s' % (
+        round_no, free_slot, reward_id))
+
+
 def parse_upstream_messages(unpadded):
     """Yield (msg_id, payload) for the [id][len16][payload] messages of a decrypted client packet (flags 0x0040 = 4-byte seq footer)."""
     if len(unpadded) < 8:
@@ -1311,7 +1557,7 @@ def handle_upstream_calls(sock, addr, key, unpadded):
         # 0xfa/0xdd decodes to index 279 (queryAvailableSupplement).
         exposed_idx = (mid - 0xfa) * 256 + method + 58 if mid >= 0xfa else method
         name = (_STORE_EXPOSED.get(exposed_idx) or _DEPOT_EXPOSED.get(exposed_idx)
-                or EXPOSED_METHODS.get(method))
+                or _CARNIVAL_EXPOSED.get(exposed_idx) or EXPOSED_METHODS.get(method))
         sig = (method, len(payload))
         if sig not in _seen_exposed:
             _seen_exposed.add(sig)
@@ -1337,6 +1583,13 @@ def handle_upstream_calls(sock, addr, key, unpadded):
             continue
         if name in ('setDtsAppearanceGender', 'equipAppearance', 'unloadAppearance', 'tryOffAppearance'):
             handle_depot_call(sock, addr, key, name, payload)
+            continue
+        if name == 'onDoLuckyLottery':
+            _handle_do_lucky_lottery(sock, addr, key, payload)
+            continue
+        if name in ('onOpenLuckyCarnival', 'queryCurrenyLuckyCarnivalData'):
+            # Re-open / query: push the current round so the panel re-inits cleanly.
+            _send_carnival(sock, addr, key, _carnival_payload(0), name)
             continue
         if name in ('openSupplyBox', 'openMultipleSupplyBox') and len(payload) >= 9:
             sid, cur = struct.unpack_from('<ii', payload, 1)
@@ -1655,25 +1908,12 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
     # verified character/lobby RPC order above intact; these initializers run only afterwards,
     # while the hall scene is still loading.  Method 745 was verified from the live 1,131-entry
     # Athlete client-method table (neighbors 749..751 are sync/onShowOld/onShowNewCarnivalBg).
-    lucky_carnival = {
-            'operation': 0,
-            'luckySeasonDraws': 0,
-            'luckyRoundCloseTime': 0,
-            'luckySeasonNo': 0,
-            'luckyRoundBuff': 0,
-            'luckyRoundState': 0,
-            'luckySeasonEndTime': 0,
-            'luckySeasonGiftGotState': [],
-            'luckyRoundGotIndex': [],
-            'luckyRoundGift': [],
-            'luckyRoundDraws': 0,
-            'luckyRoundNo': 0,
-            'luckySeasonCharge': 0,
-            'luckyRoundGiftValue': [],
-            'luckyRoundRefreshTime': 0,
-            'luckyRoundIsSuper': False,
-            'luckyRoundByRecommend': False,
-    }
+    #
+    # luckyRoundState=1 (ROUND_STATE_OPEN) + a real gift pool, not the old all-zero
+    # placeholder: refreshLuckyCarnivaPanel gates lotteryBtn.setVisible on this exact
+    # property, so state=0 hides the Draw button entirely (client-confirmed root
+    # cause of the "dead" Draw button, see 06_notes/LUCKY_CARNIVAL_COMING_SOON.md).
+    lucky_carnival = _carnival_payload(0)
     lucky_carnival_pickle = pickle.dumps(lucky_carnival, protocol=0)
     gender_lists = state.get('lists', {}).get(str(state_gender), {'wear': [], 'body': []})
     init_wear = gender_lists.get('wear', [])
@@ -2110,6 +2350,19 @@ def serve_http_tls(port):
 if __name__ == '__main__':
     os.makedirs(os.path.dirname(CAPTURE_LOG), exist_ok=True)
     log('=== local_baseapp_capture START ===')
+    # Pre-warm the Carnival NPK tables here, at process start, so the first real
+    # login never blocks send_character_creation_response_chain() on a cold
+    # parse of the 1977-row LuckyCarnivalRoundReward table. That parse measured
+    # ~212ms live (enterHall @18:02:49.808 -> first CARNIVAL rotate log
+    # @18:02:50.020) sitting inside the hall-bootstrap RPC chain, right where the
+    # client is racing a Select-Controls confirm timer -- the same symptom class
+    # already diagnosed as the relogin/"select control" loop earlier this project.
+    try:
+        _carnival_reward_table()
+        _carnival_draw_cost_table()
+        log('CARNIVAL: pre-warmed reward/cost tables')
+    except Exception as e:
+        log('CARNIVAL: pre-warm failed: %s' % e)
     threads = [
         threading.Thread(target=serve_http_plain, args=(80,), daemon=True),
         threading.Thread(target=serve_http_tls, args=(443,), daemon=True),
