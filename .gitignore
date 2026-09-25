@@ -43,3 +43,72 @@ scratch/script_index.txt
 # Transient server output logs (regenerable each run)
 scratch/store_server.*
 scratch/vendor_neox_tools/
+
+# Compiled/decompiled build artifacts (multi-GB, regenerable from the APK/OBB,
+# not source) -- build/ alone is 7.5GB, the scratch/*apk*|*dex*|*build*
+# directories below add another ~1.3GB.
+build/
+vivo_build/
+scratch/agegate_assetdex/
+scratch/agegate_autoclose_src/
+scratch/agegate_original_dex/
+scratch/installed_dex_extract/
+scratch/vivo_apk_new/
+scratch/tester_build_src/
+scratch/tester_pyinstaller_work/
+
+# Personal knowledge-management tool state (Obsidian/Logseq) -- not project
+# source; these vaults are local workflow tools, not documentation to ship.
+.obsidian/
+pages/
+MEMORY_MAP.md
+ROS_3D_MEMORY_MAP.html
+ROS_MEMORY_MAP.canvas
+ROS_RE_CYBER_STUDIO.html
+make_shortcut.vbs
+open_logseq.bat
+open_obsidian.bat
+
+# Runtime state / backups (regenerated each run, not source)
+mitm/session_store.json
+data/*.bak
+data/player_inventory_backup_full_*.json
+
+# Large secondary asset dumps and certs used only for one-off live probing
+scratch/assets_supreme_2026.npk
+scratch/emulator_ca_*.pem
+
+# Transient per-run server logs, logcat captures, and screenshots dumped to
+# scratch/ during live testing -- regenerable by re-running the test, not
+# source. (scratch/*.png already covered above.)
+scratch/server_*.out
+scratch/server_*.err
+scratch/server_*.log
+scratch/*_logcat*.txt
+scratch/logcat_*.txt
+scratch/live_logcat*.txt
+scratch/*.jpg
+scratch/*_window.xml
+scratch/gender_state_live.*
+scratch/hall_stream_guard.*
+scratch/nickname_stream_live.*
+scratch/backup_test.*
+scratch/verify_obp*.err
+scratch/verify_obp*.out
+scratch/store_live*.err
+scratch/store_live*.out
+scratch/store_burst_live.*
+scratch/store_routing_probe.*
+scratch/relogin_root_cause_logcat.txt
+scratch/deco_fix_logcat.txt
+scratch/start_tap_logcat.txt
+scratch/carnival_full_live.txt
+scratch/carnival_script_tag_live.txt
+scratch/carnival_clean_tap.txt
+scratch/logcat_obp2.*
+
+# One-off test stream binaries (not the live data/athlete_mobile_stream.bin)
+scratch/athlete_stream_before_*.bin
+scratch/athlete_vivo_stream.bin
+scratch/known_good_*.bin
+scratch/stream_*.bin

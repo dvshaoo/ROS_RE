@@ -1,0 +1,38 @@
+﻿--- showSelectCharacter (file=entities\Athlete.py, argc=2) ---
+VARNAMES: ['self', 'usedNames']
+NAMES:    ['Checkpoints', 'onCheckpoint', 'False', 'Globals', 'enterSelectModeFinished', 'Application', 'LoadLevelAtFinish', 'SALogging', 'drpfLogging']
+   0  LOAD_GLOBAL            0  (Checkpoints)
+   3  LOAD_ATTR              1  (onCheckpoint)
+   6  LOAD_CONST             1  ('PlayerAthlete.showSelectCharacter')
+   9  CALL_FUNCTION          1  (pos=1 kw=0)
+  12  POP_TOP
+  13  LOAD_GLOBAL            2  (False)
+  16  LOAD_GLOBAL            3  (Globals)
+  19  JUMP_FORWARD           4  (4)
+  22  LOAD_GLOBAL            5  (Application)
+  25  LOAD_ATTR              6  (LoadLevelAtFinish)
+  28  LOAD_CONST             2  (-1)
+  31  BUILD_MAP              2  (2)
+  34  LOAD_CONST             3  ('')
+  37  LOAD_CONST             4  ('scnPath')
+  40  STORE_MAP
+  41  LOAD_CONST             3  ('')
+  44  LOAD_CONST             5  ('navPath')
+  47  STORE_MAP
+  48  ??neox=120 arg=1
+  51  BUILD_TUPLE            1  (1)
+  54  LOAD_CONST             6  (<code <lambda>>)
+  57  ??neox=172 arg=0
+  60  CALL_FUNCTION          3  (pos=3 kw=0)
+  63  POP_TOP
+  64  LOAD_GLOBAL            7  (SALogging)
+  67  LOAD_ATTR              8  (drpfLogging)
+  70  LOAD_CONST             7  ('ShowSelectCharacter')
+  73  CALL_FUNCTION          1  (pos=1 kw=0)
+  76  POP_TOP
+  77  ??neox=120 arg=0
+  80  BUILD_TUPLE            1  (1)
+  83  LOAD_CONST             8  (<code _loadDefaultScene>)
+  86  ??neox=172 arg=0
+  89  ??neox=100 arg=1
+  92  RETURN_CONST           0  (None)

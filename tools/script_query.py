@@ -7,4 +7,4 @@ for line in open(r'C:\Users\Raysoo\Downloads\ROS_RE\scratch\script_index.txt', e
     if sub in f.lower() and (rx is None or rx.search(n)):
         d[f].append(n)
 for f, ns in d.items():
-    print('==', f, len(ns)); print('  ' + ' | '.join(ns)[:3000])
+    print('==', f, len(ns)); print(('  ' + ' | '.join(ns)[:3000]).encode('ascii', 'replace').decode('ascii'))

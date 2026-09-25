@@ -1,0 +1,1131 @@
+[   0] updateDailyPay
+[   1] onReqLotteryFirstPay
+[   2] onReqlostLottery
+[   3] getTenDayGift
+[   4] setDailyPayEndTime
+[   5] dailyPayFinalAward
+[   6] onSetSwitches
+[   7] onSetConst
+[   8] onAddForbiddenID
+[   9] onDelForbiddenID
+[  10] sendHotfixMD5
+[  11] sendHotfix
+[  12] syncGameMode
+[  13] syncServerTime
+[  14] syncServerTimeZone
+[  15] onTimeProxy
+[  16] onTimeOrigin
+[  17] onGetFriendList
+[  18] onGetRencentTeammates
+[  19] onRequestSuggestFriends
+[  20] onSearchPlayerByName
+[  21] onGetRequest
+[  22] onUpdateFriend
+[  23] onRemoveFriend
+[  24] onUpdateFriendInfo
+[  25] onRemoveRequest
+[  26] onRequestFriendOnlineStatus
+[  27] onUpdateStranger
+[  28] onRemoveStranger
+[  29] onUpdateNearByFriend
+[  30] onRemoveNearByFriend
+[  31] onGetLBSTokenFromServer
+[  32] onGetLBSUrlFromServer
+[  33] onSearchPlayerByGidList
+[  34] onRequestFriendAck
+[  35] onUpdateSignature
+[  36] onCheckVoiceSuccess
+[  37] onMailUpdate
+[  38] onLoadMailDetail
+[  39] onLoadMailDetailFailed
+[  40] onGetAwardFromMail
+[  41] syncMobileAccountState
+[  42] onRequestIdentifyCodeResult
+[  43] onRequestBindPhoneResult
+[  44] onVerifyEncNumberResult
+[  45] onRequestBindPhoneAwardResult
+[  46] onUnbindPhoneResult
+[  47] onResetBindPhoneResult
+[  48] onQueryPhoneResult
+[  49] onVerifyConnectionDead
+[  50] onUpdateTelInviteInfo
+[  51] sendBindEmailCodeCallback
+[  52] verifyBindEmailCodeCallback
+[  53] cancelBindEmailCallback
+[  54] onEnterHallTeam
+[  55] syncHallTeamMatchingRandom
+[  56] onInvitedToHallTeam
+[  57] addHallTeamMember
+[  58] delHallTeamMember
+[  59] onLeaveHallTeam
+[  60] onSetMatchBigMap
+[  61] onSetMatchFPSMode
+[  62] onSetMatchNextGen
+[  63] setHeroCandidate
+[  64] onSetMatchOccupation
+[  65] updateHallTeamLeaderGID
+[  66] syncMatchState
+[  67] syncHallTeamModeSetting
+[  68] syncReadyState
+[  69] syncBattleState
+[  70] syncHallTeamMemberNickname
+[  71] syncMatchingProgress
+[  72] syncHallTeamMemberIdentifyTagID
+[  73] syncHallTeamMemberDtsNameplateAppearance
+[  74] syncHallTeamMemberSupportSeason
+[  75] syncYuanbaoMatchingProgress
+[  76] onGetMatchedTeamInfo
+[  77] onMatchGameTypesUpdate
+[  78] onGameTypeGoingToStartUpdate
+[  79] requestJoinTeamAck
+[  80] onReceiveJoinTeamRequest
+[  81] onTeammateUpdateGender
+[  82] onTeammateUpdateBodyAppearance
+[  83] onTeammateUpdateWearableAppearance
+[  84] onTeammateUpdateEmoji
+[  85] onTeammateUpdateBattlegroundPropAppearance
+[  86] onTeammateUpdateFlyingAccessory
+[  87] onTeammateUpdateVehicleAppearance
+[  88] onTeammateUpdatePendantAppearance
+[  89] syncHallTeamMemberThemeID
+[  90] syncCanMatchNextGen
+[  91] onEnableGrassChange
+[  92] notifyNoGrass
+[  93] onUpdateMatchTargetTime
+[  94] onGetRandomOnlinePlayers
+[  95] onTeammateUpdateIntimacyDegree
+[  96] onTeammateUpdateIntimateRelationship
+[  97] syncHallTeamAnimation
+[  98] syncHallTeamMemberOutGameBag
+[  99] onRequestJoinTeamAck
+[ 100] onGetOpenMaintenanceFightTipFlag
+[ 101] syncHallTeamIntimateRelationship
+[ 102] syncHallTeamMemberOutGameWeapon
+[ 103] syncHallTeamMemberHallVehicleAppearanceList
+[ 104] startHeroSelect
+[ 105] onMatchedPlayerInfoChange
+[ 106] onAllHeroSelected
+[ 107] onRefreshCandidateHero
+[ 108] onSyncCreditScore
+[ 109] showGuideModeMinScoreSign
+[ 110] hideGuideModeMinScoreSign
+[ 111] showGuideModePanel
+[ 112] hideGuideModePanel
+[ 113] unavailableForMatchTrain
+[ 114] showBestWeaponHolderSign
+[ 115] hideBestWeaponHolderSign
+[ 116] gmDeleteChat
+[ 117] onChat
+[ 118] onNotice
+[ 119] onChatPrivate
+[ 120] chatPrivateCallback
+[ 121] onAnnounceChat
+[ 122] onAnnounceChatInHall
+[ 123] setMuzzled
+[ 124] unsetMuzzled
+[ 125] showSystemMsg
+[ 126] onRequirePayOrder
+[ 127] onConfirmPayOrder
+[ 128] onHistoryPayedYuanbaoUpdated
+[ 129] onAddHistoryPayGoodsIDs
+[ 130] onRequestRealNameAuthenCheckBeforeRequsetingPayGoods
+[ 131] onFirstPayStateUpdated
+[ 132] onQueryAvailblePayRebateAwards
+[ 133] onGetPayRebateAward
+[ 134] onUpdatePayRebateAwardInfo
+[ 135] onGetPayRebateAwardFailed
+[ 136] onQueryAvailbleMonthPayRebateAwards
+[ 137] onGetMonthPayRebateAward
+[ 138] onUpdateMonthPayRebateAwardInfo
+[ 139] onGetMonthPayRebateAwardFailed
+[ 140] onQuerySumCash
+[ 141] onCheckPurchaseLimitAndTime
+[ 142] onCheckPurchaseLimitAndTimeFaild
+[ 143] onPayExtDayFirstFlags
+[ 144] onGetGMTable
+[ 145] feedbackCommand
+[ 146] forwardTraceback
+[ 147] showStateList
+[ 148] gmSnapShot
+[ 149] gmSnapShotAllScreen
+[ 150] onClientHeartbeat
+[ 151] onHeartbeatUpdate
+[ 152] onRequestS3PresignURL
+[ 153] onDebugLog
+[ 154] checkCodeByList
+[ 155] checkCodeByAddress
+[ 156] checkCodeByOffset
+[ 157] onRequestGetCodeHash
+[ 158] onRequestGetMemBytesString
+[ 159] onSyncCheckCodeList
+[ 160] checkPackageUUID
+[ 161] onRequestPackageUUID
+[ 162] uploadUserClientLogs
+[ 163] uploadUserCCLogs
+[ 164] doShowGmSdkRedPoint
+[ 165] syncClosedRankList
+[ 166] onGetPlayerRank
+[ 167] onGetPlayerBattleGroundRank
+[ 168] onGetWeaponProficiencyRank
+[ 169] onGetPlayerHotValRankInfo
+[ 170] onRankValueUpdate
+[ 171] onRequireBattleGroundForceRankList
+[ 172] onRequireBattleGroundWinningRankList
+[ 173] onRequireBattleGroundKillingRankList
+[ 174] onRequireGoldBattleRankList
+[ 175] onRequireYuanbaoBattleRankList
+[ 176] onRequireRosMatchTeamRankList
+[ 177] onGetMyRosMatchTeamRankInfo
+[ 178] onRequireCampWarHumanRankList
+[ 179] onRequireCampWarInfectRankList
+[ 180] onRequireCampWarOverallRankList
+[ 181] onRequireHotValRankList
+[ 182] onRequireLastHotValRankList
+[ 183] onRequireWeaponProficiencyRankList
+[ 184] updateDtsRankValue
+[ 185] updateMaxDtsRankValue
+[ 186] onGetPlayerRankFromMS
+[ 187] onGetWeaponRankFromMS
+[ 188] onGetNewSeasonReward
+[ 189] updateInfoCenter
+[ 190] updateFriendRank
+[ 191] updateFriendGoldBattleRank
+[ 192] updateLBSRank
+[ 193] onGetLBSRank
+[ 194] onUpdatePlayerLBSData
+[ 195] updateRankBadge
+[ 196] updateFriendYuanbaoBattleRank
+[ 197] saveLevelUpTime
+[ 198] sendSeasonLevelUpAward
+[ 199] sendEnterKingListAward
+[ 200] onReachKingSection
+[ 201] onSPUpdated
+[ 202] onGPUpdated
+[ 203] onYBUpdated
+[ 204] onCurrencyUpdated
+[ 205] onCurrencyUpdatedTips
+[ 206] onFreezeYuanbao
+[ 207] onFreezeCurrency
+[ 208] onGetNewVersionGP
+[ 209] onGetNewVersionGPFailed
+[ 210] onGetRCAward
+[ 211] onGetRCAwardFailed
+[ 212] onExchanged
+[ 213] onUpdateNomorePromptForCurrencyExchange
+[ 214] syncGetRCRewards
+[ 215] onUpdateEveryDayShare
+[ 216] showDecomposeChips
+[ 217] onItemComposed
+[ 218] onConvertUniversalFragment
+[ 219] onGetActivityInfoXmas2017
+[ 220] onGetTaskRewardXmas2017
+[ 221] onGetActivityLTInfo
+[ 222] onGetActivityLTTaskReward
+[ 223] onGetRetAct527PayExtraReward
+[ 224] onQueryHunterCouple2017Sign
+[ 225] onQuery2018BlackFridayDiscount
+[ 226] onSyncXmas2018LuckyVal
+[ 227] onSyncXmas2018LotteryTimes
+[ 228] onSyncXmas2018CollectProps
+[ 229] onSyncXmas2018CollectAwards
+[ 230] onSyncXmas2019Gifts
+[ 231] onPopupXmas2019OldUserGift
+[ 232] onGetXmas2019OldUserGift
+[ 233] onBuyXmas2019Gift
+[ 234] onGiveXmas2019Gift
+[ 235] onGetXmas2019Gift
+[ 236] onGetXmas2019GiftByCardID
+[ 237] onGetXmas2019GiftsShowWindow
+[ 238] onGetXmas2019WindowPartGifts
+[ 239] onGetXmas2019GiftsRankList
+[ 240] onGetXmas2019GiftsRankListByFriendGIDs
+[ 241] onGetXmas2019GiftsMain
+[ 242] onGetXmas2019GiftPartCards
+[ 243] onGetXmas2019GenerousReward
+[ 244] onSyncKofSupply
+[ 245] onUseBlackFriday2019CarnivalChance
+[ 246] onSyncBlackFriday2019AccumYB
+[ 247] onGetBlackFriday2019ReturnYB
+[ 248] onShowBlackFriday2019UI
+[ 249] onChangeBlackFriday2019CarnivalFlag
+[ 250] onQueryBlackFriday2019LeftTime
+[ 251] onSelectUnitedBattleValentineCamp
+[ 252] onGetCommonHolidaySignInReward
+[ 253] onGenerateDtsLTBaseTable
+[ 254] onDtsLTDoLottery
+[ 255] onGetRetAct527WelcomeReward
+[ 256] onBindRetAct527User
+[ 257] onOpenRetAct527InviteMain
+[ 258] onGetRetAct527InviteReward
+[ 259] onOpenRetAct527TaskMain
+[ 260] onGetRetAct527TaskReward
+[ 261] onGetRetAct527RoadPointReward
+[ 262] onGetRetAct527FinalAppearanceReward
+[ 263] onGetRetAct527TmpFinalAppearanceReward
+[ 264] onShowRetAct527HallEntrance
+[ 265] onPopupRetAct527AdvUI
+[ 266] onOpenRetAct527PayMain
+[ 267] onSyncRetAct527PayCnt
+[ 268] onGetLTLotteryPartFinalRewardReward
+[ 269] onGetLTLotteryFinalReward
+[ 270] onSyncBlackFridayInfo
+[ 271] onSyncBlackFridaySupplementDiscounts
+[ 272] onGetBlackFridayNextSupplementDiscountTs
+[ 273] onGetCommonDailyClickReward
+[ 274] onGetLoveLetter2018
+[ 275] onWriteLoveLetter2018
+[ 276] onGetActInfoVal2018
+[ 277] onGetRewardVal2018
+[ 278] onLikeLoveLetterVal2018
+[ 279] onShowNewMonthcardRedDot
+[ 280] onOpenNewMonthcardFirst
+[ 281] onOpenNewMonthcardMain
+[ 282] onGetNewMonthcardLuckyCoin
+[ 283] onBuyNewMonthcardResignChance
+[ 284] onTryNewMonthcardBet
+[ 285] onGetNewMonthcardCurYB
+[ 286] onShowNewMonthcardShopMainEntrance
+[ 287] onOpenNewMonthcardShopMain
+[ 288] onBuyNewMonthcardShopGoods
+[ 289] onCheckNewMonthcardActive
+[ 290] onComplaintResult
+[ 291] onGetComplaintedCnt
+[ 292] suspectNotFound
+[ 293] requireRecordData
+[ 294] onGetRecordData
+[ 295] requireBaseInfo
+[ 296] onGetBaseInfo
+[ 297] onGetHistoricMaxRankInfo
+[ 298] onGetRoomList
+[ 299] onGetFollowList
+[ 300] onGetRecommendList
+[ 301] onGetRank
+[ 302] onFollowSuccess
+[ 303] onRequestShowFollow
+[ 304] onFollowFailed
+[ 305] onUnfollowSuccess
+[ 306] onUnfollowFailed
+[ 307] onCCNotifyAnchors
+[ 308] onQuitCustomRoom
+[ 309] onGmChangeRoomCreateAuthority
+[ 310] onRequestRoomListInfo
+[ 311] onRequestCustomRoomScoreConfigID
+[ 312] onCreateDtsCustomGame
+[ 313] onJoinDtsCustomGame
+[ 314] onHideOBRoomTips
+[ 315] onHideNormalRoomTips
+[ 316] onBroadCastRoomNameChange
+[ 317] onBroadCastCustomGameCountdownFive
+[ 318] onBroadCastJoinInfo
+[ 319] onRequestRoomCountInfo
+[ 320] onBroadCastFreeToPrepare
+[ 321] onBroadCastWatchToPrepare
+[ 322] onBroadcastPreapreToFree
+[ 323] onBroadcastRemovePlayerFromRoomInPrepare
+[ 324] onBroadcastRemovePlayerFromRoomInFree
+[ 325] onBroadCastLockMoveChange
+[ 326] onBroadcastPreapreToWatch
+[ 327] onBroadcastFreeToWatch
+[ 328] onBroadcastRemovePlayerFromRoomInWatch
+[ 329] onBroadCastWatchItemToFree
+[ 330] onRequestRoomPassWord
+[ 331] syncRoomCardExpireTime
+[ 332] onRequestCheckPlayerExist
+[ 333] gmRequestSetInviteAuthority
+[ 334] onCheckPlayerHasDownloadedMap
+[ 335] onAddDtsAppearanceItem
+[ 336] onDelDtsAppearanceItem
+[ 337] onDelDtsAppearanceFoldedItem
+[ 338] onCheckItem
+[ 339] onUpdateDtsAppearanceItemNumber
+[ 340] onUpdateRecentGotPropIDList
+[ 341] onGetCollectPropAwards
+[ 342] onLoadOtherServerItemList
+[ 343] onRedoLoadOtherServerItemList
+[ 344] onUpdateDtsWearableAppearanceList
+[ 345] onUpdateDtsBodyAppearanceList
+[ 346] onUpdateDtsEmojiList
+[ 347] onUpdateDtsEmojiID
+[ 348] onUpdateDtsFlyingAccessoryList
+[ 349] onUpdateDtsDyeingAppearanceList
+[ 350] onUpdateBattlegroundPropAppearanceList
+[ 351] onUpdateDtsWeaponAppearanceList
+[ 352] onUpdateVehicleAppearanceList
+[ 353] onUpdatePetAppearance
+[ 354] onUpdateDtsTagAppearanceList
+[ 355] onSetDtsAppearanceGender
+[ 356] onNotifyEquipedAppearance
+[ 357] onNotifyUnloadAppearance
+[ 358] onNotifyEquipAppearanceFailed
+[ 359] onUpdateDtsShowWearableAppearanceList
+[ 360] onUpdateDtsShowBodyAppearanceList
+[ 361] onUpdateDtsShowFlyingAccessoryList
+[ 362] onUpdateDtsShowDyeingAppearanceList
+[ 363] onUpdateDtsShowBattlegroundPropAppearanceList
+[ 364] onUpdateDtsShowWeaponAppearanceList
+[ 365] onUpdateDtsShowVehicleAppearanceList
+[ 366] onUpdateDtsShowTagAppearanceList
+[ 367] onUpdateDtsHallThemeID
+[ 368] onUpdateDtsPaintAppearanceIDs
+[ 369] onUpdateDtsJetWingsAppearanceID
+[ 370] onUpdateVehiclePlateNumberAppearanceID
+[ 371] onUpdateDtsShowAircraftAppearanceID
+[ 372] updateDtsShowAircraftAppearanceID
+[ 373] updateDtsShowNameplateAppearance
+[ 374] onUpdatePlayerSfxAppearance
+[ 375] onUpdateAppearanceSuitList
+[ 376] onUpdateOutGameBag
+[ 377] onUpdateSuitWeaponDanceChargeData
+[ 378] onBuySuitWeaponDanceChargeCntSuccess
+[ 379] onBuySuitWeaponDanceChargeCntFailed
+[ 380] onUpdateOutGameWeapon
+[ 381] onUpdateHallVehicleAppearanceList
+[ 382] onQueryOthersAppearanceDict
+[ 383] onUpdateDtsPendantList
+[ 384] onUpdateDtsShowPendantList
+[ 385] onSaveCustomPlaneText
+[ 386] onSetCustomPlaneDefaultPlanIdx
+[ 387] onOpenSupplyBox
+[ 388] onOpenFreeSupplyBox
+[ 389] onMultiOpenSupplyBox
+[ 390] onOpenSupplyBoxFailed
+[ 391] onMultiOpenSupplyBoxFailed
+[ 392] onQueryAvailableSupplement
+[ 393] onGetExtraGiftProp
+[ 394] onUpdateFreeLotteryTimeStampDict
+[ 395] onUpdateAlreadyShowSupplyID
+[ 396] onUpdateMultipleOpenTimes
+[ 397] onUpdateBuySupplementCntDict
+[ 398] onGetSupplementWeekendAccumulateAwardSucc
+[ 399] onWatchAdSupplyDataUpdate
+[ 400] onWatchAdSupplyDataRefresh
+[ 401] onShowThirdAnniversarySupplyArrow
+[ 402] onRequestAdToken
+[ 403] onQueryAvailableAdvertisement
+[ 404] onQueryAvailableActivity
+[ 405] onUpdateActivityRedPointInfo
+[ 406] onQueryAssistantRedPoint
+[ 407] onSelectAssistant
+[ 408] openWebViewWithoutToken
+[ 409] openKHCUPVoteLink
+[ 410] onGetCurrentEvents
+[ 411] onShareResult
+[ 412] onOpenDailyBox
+[ 413] syncShareState
+[ 414] syncRewardState
+[ 415] syncHasAvailableReward
+[ 416] syncPeriodShareData
+[ 417] syncStartTimings
+[ 418] onOpenFreeTreasureChest
+[ 419] syncNumFreeChestOpenedToday
+[ 420] onGetActivityReward
+[ 421] syncDailyActivity
+[ 422] syncWeeklyActivity
+[ 423] syncActivityState
+[ 424] syncSingleActivityState
+[ 425] syncActivityProgress
+[ 426] syncSingleActivityProgress
+[ 427] syncDailyActivityRewardState
+[ 428] syncSingleDailyActivityRewardState
+[ 429] syncWeeklyActivityRewardState
+[ 430] syncSingleWeeklyActivityRewardState
+[ 431] onShowSignedPanel
+[ 432] onShowSignSuccess
+[ 433] onShowSignFailed
+[ 434] onSetSigned
+[ 435] _SyncCustomControlSchemeDictsToClient
+[ 436] _SyncUISettingModeToClient
+[ 437] syncCCMiniChannel
+[ 438] onJoinCCMiniStreamFail
+[ 439] onChangeShowSurveyState
+[ 440] onCloseSurveyRedPoint
+[ 441] onBuyMallGood
+[ 442] onGetGift
+[ 443] showGiftInfo
+[ 444] showSuitGiftInfo
+[ 445] respondGiftSendRecord
+[ 446] respondGiftReceiveRecord
+[ 447] onBuyMallGoodFailed
+[ 448] onQueryAvailableMallGoods
+[ 449] onQueryAvailableMallGoodsByType
+[ 450] onQueryAvailableMallGoodsForAppearanceMall
+[ 451] onUpdateClothMallSortInfo
+[ 452] onGetPropFromFriend
+[ 453] onGetMallDefaultUIInfo
+[ 454] onUpdateHallPropBuyTimes
+[ 455] onUpdateWeaponAppearanceSortInfo
+[ 456] onBuyDtsMallHero
+[ 457] onAddShareCurrency
+[ 458] onRequestShareAddtionShow
+[ 459] onExchangeShareProp
+[ 460] onRequestShareCurrencyLimit
+[ 461] onRequestShareLimit
+[ 462] onRequestShareLimitNoChange
+[ 463] onResetShareMallPropCntLimit
+[ 464] onQueryAvailableWelfare
+[ 465] onReceiveWelfare
+[ 466] onReceiveWelfareFailed
+[ 467] onUpdatePurchasedWelfareInfo
+[ 468] onBoughtWelfare
+[ 469] syncWelfareCardFirstBuyInfo
+[ 470] forceKillGame
+[ 471] onRequestFileList
+[ 472] onRequestBLFileList
+[ 473] onSyncMachineFingerprint
+[ 474] onSyncBanRelatedInfo
+[ 475] updateNationalityInfo
+[ 476] onSyncDayTaskProgress
+[ 477] onSyncDayTaskTotalScore
+[ 478] onSyncDayTaskTotalScoreRewards
+[ 479] onSyncDayTaskTimeParams
+[ 480] onGetAwardsDayTask
+[ 481] onSyncSpecTrainExp
+[ 482] onSyncSpecTrainGroupOpenInfo
+[ 483] onSyncSpecTrainRewardMain
+[ 484] onSyncSpecTrainRewards
+[ 485] lotteryBetCallback
+[ 486] nationSerialGuessBetCallback
+[ 487] updateLotteryMatchList
+[ 488] getLotteryBetRecordCallback
+[ 489] getLotteryBetRewardCallback
+[ 490] getSerialGuessRewardCallback
+[ 491] getSerialGuessBetRecordCallback
+[ 492] onGetCurSerialGuess
+[ 493] getNationSerialGuessWinPlayerListCallback
+[ 494] onCheckLotteryAvailReward
+[ 495] onGetAbstractData
+[ 496] onGetFavoriteAbstractData
+[ 497] onGetCombatData
+[ 498] onAddFavoriteResult
+[ 499] onDelFavoriteResult
+[ 500] onGetBlackMarketAward
+[ 501] onUpdateBlackMarketInfo
+[ 502] onQueryAvailableLimitPackage
+[ 503] onUpdateLimitPackageBuyTimes
+[ 504] onBoughtLimitPackage
+[ 505] onBuyLimitPackageFailed
+[ 506] onQueryAvailableHalfMonthPackage
+[ 507] onUpdateHalfMonthPackageBuyTimes
+[ 508] onBoughtHalfMonthPackage
+[ 509] onBuyHalfMonthPackageFailed
+[ 510] onNationalRefundUpdate
+[ 511] onEnterChongdingState
+[ 512] updateQuizRebornCard
+[ 513] onGetQuizRebornCardByGID
+[ 514] onGetOnlineChongdingNum
+[ 515] updateChongDingAward
+[ 516] onGetCash
+[ 517] onGetExchange
+[ 518] onRequestClothDLCAward
+[ 519] onRequestClothDLCAwardFailed
+[ 520] onRequestFirstDownloadDLC
+[ 521] onRequestPauseDownloadingDLC
+[ 522] onRequestResumeDownloadDLC
+[ 523] onSetCurGameEnterMapType
+[ 524] onQueryAvailableExchangeItem
+[ 525] onExchangeItem
+[ 526] onExchangeItemFailed
+[ 527] onQueryAvailableOpenSupplyGift
+[ 528] onUpdateOpenSupplyGiftInfo
+[ 529] onGetOpenSupplyGift
+[ 530] onGetOpenSupplyGiftFailed
+[ 531] updateGoldBattleInfo
+[ 532] buyGoldBattleChanceCallback
+[ 533] syncMemberGoldBattleInfo
+[ 534] onSyncEnableGoldGame
+[ 535] updateYuanbaoBattleInfo
+[ 536] onSyncEnableYuanbaoGame
+[ 537] syncMemberYuanbaoBattleInfo
+[ 538] onSyncYuanbaoBattleCurMatchID
+[ 539] buyYuanbaoBattleChanceCallback
+[ 540] onGetYuanbaoBattleRecentGameList
+[ 541] onGetYuanbaoBattleGameRankList
+[ 542] notifyExchangeResult
+[ 543] onConfirmExchange
+[ 544] onDiscardExchange
+[ 545] syncVideoAdvertisementInfo
+[ 546] syncVideoAddExtraRewardResult
+[ 547] onGetNewAdOrderCallback
+[ 548] updateSpringGameOpenNum
+[ 549] updateSpringGameShareUrl
+[ 550] updateSpringGameShareInfo
+[ 551] updateSpringGameInviteAwardList
+[ 552] onGetSpringGameAward
+[ 553] onAppearanceCultivateCompound
+[ 554] onAppearanceCultivateCompoundFailed
+[ 555] onSyncVnCheckInfo
+[ 556] onSyncFacebookFrdGidList
+[ 557] updateFacebookFriendAccountIDListCallback
+[ 558] requireFacebookShortAccessToken
+[ 559] syncFacebookStreamReward
+[ 560] getSteamAwardClothesCallback
+[ 561] getSteamAwardMonthcardCallback
+[ 562] onRosMatchSignCallback
+[ 563] onGetRosMatchSignResultList
+[ 564] onSyncRosMatchAdminConf
+[ 565] onGetRosSubMatchStatusList
+[ 566] onRosMatchCancelSignByMemberCallback
+[ 567] onCreateRosMatchTeamCallback
+[ 568] onModifyRosMatchTeamBasicInfoCallback
+[ 569] onModifyRosMatchTeamLogoCallback
+[ 570] onApplyRosMatchTeamCallback
+[ 571] onRosMatchTeamLeaderOperationCallback
+[ 572] onQuitRosMatchTeamCallback
+[ 573] onGetMyRosMatchTeamInfoCallback
+[ 574] onGetRosMatchTeamDataCallback
+[ 575] onGetRosMatchTeamPlayerListCallback
+[ 576] onGetRosMatchTeamPlayer
+[ 577] onGetRosMatchTeamApplyListCallback
+[ 578] onGetRosMatchTeamEventListCallback
+[ 579] onSearchRosMatchTeam
+[ 580] onGetRosMatchTeamListCallback
+[ 581] onGiveFreeModifyRosMatchTeamLogoChance
+[ 582] onGetRosMatchQualifierScoreRankList
+[ 583] onRosMatchTeamSignIn
+[ 584] onFinishRosMatchTeamTask
+[ 585] onRosMatchTeamTaskMain
+[ 586] onRosMatchTeamShopMain
+[ 587] onGetRosMatchTeamWeekActReward
+[ 588] onBuyRosMatchTeamMallGoods
+[ 589] onSyncRosMatchTeamConf
+[ 590] onGetRosMatchTeamLvRewardProps
+[ 591] onGetAthleteRosMatchTeamLogo
+[ 592] onGetAthleteRosMatchTeamBriefData
+[ 593] onCheckRosMatchTeamWeekRank1Player
+[ 594] onCheckCreateRosMatchTeamInfoValidation
+[ 595] onGetRosMatchTeamRankListDetail
+[ 596] onGetWeekRank1Team
+[ 597] onShowRosMatchTeamRedDot
+[ 598] onGetPrizeMatchScoreRankList
+[ 599] onGetPrizeMatchCashRecord
+[ 600] onGetPrizeMatchInfo
+[ 601] onChangePrizeMatchCashStatus
+[ 602] onGetPrizeMatchDayScoreInfo
+[ 603] onRequestPrizeMatchCash
+[ 604] onSyncFrozenPrizeMatchCoin
+[ 605] onOpenMasterPrizeMatchMain
+[ 606] onOpenMasterPrizeMatchFreeBetMain
+[ 607] onOpenMasterPrizeMatchYuanbaoBetMain
+[ 608] onGetMasterPrizeMatchTopList
+[ 609] onPopupMasterPrizeMatchRemind
+[ 610] signUpMasterPrizeMatchCallback
+[ 611] cancelSignUpMasterPrizeMatchCallback
+[ 612] onSyncMasterPrizeMatchData
+[ 613] masterPrizeMatchFreeBetCallback
+[ 614] masterPrizeMatchYuanbaoBetCallback
+[ 615] masterPrizeMatchComplaintCallback
+[ 616] onGetMasterPrizeMatchAccumAnnalRewards
+[ 617] onUpdateMasterPrizeMatchAccumAnnalTime
+[ 618] onNotifyCancelSignMasterPrizeMatch
+[ 619] onHorseBet
+[ 620] onGetHorseBetList
+[ 621] onGetHorseLastEndedMatch
+[ 622] onGetCurMatchTopWins
+[ 623] onGetHorseMatchWinInfo
+[ 624] onGetHorseEndMatchList
+[ 625] onHorseComment
+[ 626] onHorseBulletScreen
+[ 627] onHorseLike
+[ 628] onGetTopWinToday
+[ 629] onGetHorseTopCommentList
+[ 630] onGetHorseTopWinBetList
+[ 631] onHorseLikeAthlete
+[ 632] onGetCurHorseRacingMatch
+[ 633] onGetNextHorseRacingMatch
+[ 634] onHorseBid
+[ 635] onCancelHorseBid
+[ 636] onOpenHorseRacingShopMain
+[ 637] onBuyHorseRacingShopGoods
+[ 638] onUpdateRookieResult
+[ 639] setIdentifyTagID
+[ 640] onUpdateHeadFrameTag
+[ 641] onUpdateChatBubbleTag
+[ 642] onUpdateDtsNameplateAppearance
+[ 643] updateBigSpeakerNum
+[ 644] onGetRecallerInfo
+[ 645] syncIsFirstHuiliuMainShow
+[ 646] onSyncRecallHuiliuerNumAward
+[ 647] onGetRecalledHuiliuListInfo
+[ 648] onSetReturnState
+[ 649] onSetLoginAwardLevel
+[ 650] onSetReturnStateStartTime
+[ 651] onRequestOldPlayerReturnLoginAward
+[ 652] onRequestGetRecallHuilierNumAward
+[ 653] onSetLoginAwardGetTime
+[ 654] onResetProgressAwardInfo
+[ 655] onRequestGetTaskChainAward
+[ 656] onResetOldPlayerTaskInfo
+[ 657] onResetRecallerList
+[ 658] onUpdateOldPlayerTaskData
+[ 659] onRequestGetTaskProgress
+[ 660] onRequestBindRecallHuiliuer
+[ 661] onRequestBindHuiliuRecaller
+[ 662] onGmHuiliuTask
+[ 663] onSyncProgressAwardInfo
+[ 664] onHuiliuRebateUpdated
+[ 665] onSyncRecallPlayerData
+[ 666] onSyncBackState
+[ 667] onSyncBindRecaller
+[ 668] onSyncBackTaskFinishState
+[ 669] onSyncRecallRewardGetState
+[ 670] onSyncRecallProgress
+[ 671] onRecallPlayerGetFriends
+[ 672] onNewRecallPlayerGetFriends
+[ 673] onQueryAvailableShareGift
+[ 674] onUpdateShareGiftInfo
+[ 675] onGetShareGift
+[ 676] onGetShareGiftFailed
+[ 677] onQueryAvailableBattleGift
+[ 678] onUpdateBattleGiftInfo
+[ 679] onGetBattleGift
+[ 680] onGetBattleGiftFailed
+[ 681] queryTimeLimitMatchTeamInfo
+[ 682] onGetTimeLimitMatchTeamReward
+[ 683] syncBattleGiftPlayerHuiliuState
+[ 684] onQueryAvailableRedPacketGift
+[ 685] onUpdateRedPacketGiftInfo
+[ 686] onGetRedPacketGift
+[ 687] onGetRedPacketGiftFailed
+[ 688] onQueryAvailableWatchLiveGift
+[ 689] onUpdateWatchLiveGiftInfo
+[ 690] onGetWatchLiveGift
+[ 691] onGetWatchLiveGiftFailed
+[ 692] onAddItemIntoRepertoryPackage
+[ 693] onDelItemFromRepertoryPackage
+[ 694] onDelFoldedItemFromRepertoryPackage
+[ 695] onUpdateRepertoryPackageItemNumber
+[ 696] onOperatePropFailed
+[ 697] onOperatePropSellSucc
+[ 698] onOperatePropTimeLimitUseSucc
+[ 699] onOperatePropPermanentUseSucc
+[ 700] onOperatePropOpenURL
+[ 701] onTimerUsePropUpdate
+[ 702] onGetTimerUseProp
+[ 703] onGetChallengeCupTeamsData
+[ 704] onChallengeCupBattleStart
+[ 705] onRefreshChallengeCupTeamsData
+[ 706] onChallengeCupBattleEnd
+[ 707] onRequestChallengeCupSignUpInfo
+[ 708] onRequestChallengeCupAvailableTimes
+[ 709] onRequestChallengeCupSignUpTopPlayers
+[ 710] onRequestChallengeCupSignUpTopWildcardFlags
+[ 711] onSignUpForChallengeCup
+[ 712] onCancelSignUpForChallengeCup
+[ 713] onGetChallengeCupSeasonNo
+[ 714] onGetChallengeCupSchedule
+[ 715] onGetChallengeCupMatchSeeds
+[ 716] onGetChallengeCupFlagRanklist
+[ 717] onGetChallengeCupPlayerRanklist
+[ 718] onGetChallengeCupSeasonHistory
+[ 719] onQueryAvailableConvertItem
+[ 720] onUpdateConvertTimes
+[ 721] onConvertItem
+[ 722] onConvertItemFailed
+[ 723] onUpdateItemConvertRemind
+[ 724] onUpdateCommanderChance
+[ 725] _OnBraveBookLevelUpgraded
+[ 726] _OnBraveBookExperienceChanged
+[ 727] _OnBraveBookDataChanged
+[ 728] _OnBraveBookDataListChanged
+[ 729] _OnRequestBraveBookAllAvailableRewardsBySeasonIDFinished
+[ 730] _OnBraveBookPassStateChanged
+[ 731] _OnBraveBookTaskDataChanged
+[ 732] _OnRequestBraveBookTaskRewardFinished
+[ 733] _OnRequestRefreshingBraveBookTaskFinished
+[ 734] _OnRequestBuyingBraveBookPassFinished
+[ 735] _OnRequestBraveBookAllAvailableRewardsBySeasonIDListFinished
+[ 736] onPayedPartnerOrdersEnd
+[ 737] onGetRandomPayedPartners
+[ 738] onGetRandomPayedPartnersJson
+[ 739] onUpdateLicense
+[ 740] onGetPayedPartnerRel
+[ 741] onCheckSpecialAwardState
+[ 742] onAddDtsExp
+[ 743] onRequestDtsLevelAward
+[ 744] onUpdateLuckyCarnivalDiamondPrize
+[ 745] onUpdateLuckyCarnivalData
+[ 746] onGetLuckyCarnivalDiamondPrizeRecord
+[ 747] onGetLuckyCarnivalTempGift
+[ 748] onGetLuckyCelebrationPrize
+[ 749] syncTurnTableStatus
+[ 750] onShowOldCarnivalBg
+[ 751] onShowNewCarnivalBg
+[ 752] syncTimeRangePayAwardInfo
+[ 753] syncTimeRangePayAwardStatus
+[ 754] onPersonalRecommendStateUpdated
+[ 755] onSetSignAwardTime
+[ 756] onRequestDtsSignInAward
+[ 757] onSetSignAwardLevel
+[ 758] onRequestComplementSignFail
+[ 759] onRequestComplementSign
+[ 760] onSetKofSignAwardTime
+[ 761] onSetKofSignAwardLevel
+[ 762] onRequestDtsKofSignInAward
+[ 763] onAccumulateChargeUpdate
+[ 764] onReceiveAccumulateChargeDailyGift
+[ 765] onCheckOpenAccumulateChargeUIByVersion
+[ 766] onSyncAccumulateChargeV4Data
+[ 767] onGetAccumulateChargeRewardV4
+[ 768] syncMonthPayRebateSpecialAwardInfo
+[ 769] syncMonthPayRebateSpecialAwardStatus
+[ 770] syncSpecialBuffAwardInfo
+[ 771] onSyncMonthPayRebateUpgradeExp
+[ 772] onGetMonthPayRebateUpgradePropsCallback
+[ 773] onVidFontChange
+[ 774] onAddVidFont
+[ 775] onAppendHistoryVidPrice
+[ 776] onVidRefreshed
+[ 777] onGetVidMall
+[ 778] onVidChanceChanged
+[ 779] updateVidToClient
+[ 780] updateCosmicSupplyBaseInfo
+[ 781] updateCosmicSupplyOpenNum
+[ 782] updateCosmicSupplyShareUrl
+[ 783] updateCosmicSupplyShareInfo
+[ 784] updateCosmicSupplyInviteAwardList
+[ 785] onGetCosmicSupplyAward
+[ 786] updateCosmicSupplyRankListInfo
+[ 787] onInputRecallInviteCode
+[ 788] onRequireRecallReward
+[ 789] onQueryRecallStatus
+[ 790] onGetRecalledPlayer
+[ 791] onGetNewRecallReward
+[ 792] onSetLastSupportTime
+[ 793] onRequestDoubleSevenSupport
+[ 794] onSetCheckTotaySupport
+[ 795] onRequestSupportValue
+[ 796] syncTelkomseGoodsInfo
+[ 797] syncTelkomseOpenStatus
+[ 798] onRequestIntimacyTasks
+[ 799] onGetIntimacyTaskAwards
+[ 800] onSharedIntimacyTaskFeedback
+[ 801] onUpdateIntimateRelationship
+[ 802] onGetIntimacyShareInfo
+[ 803] onQueryExtraBattleAwardsInfo
+[ 804] onGetOthersIntimateRelationshipInfo
+[ 805] onIntimateVisibleByOthersValUpdated
+[ 806] onIsIntimateRelationshipVisibleInTeamValUpdated
+[ 807] onGetDoubleSevenFriendInfo
+[ 808] onGetDoubleSevenSendList
+[ 809] onGetSingleCat
+[ 810] onAddTask
+[ 811] onDelTask
+[ 812] loadCreateTasks
+[ 813] onDtsActivityTaskContentUpdate
+[ 814] onGetCPMatchTaskReward
+[ 815] onTaskDoneSuc
+[ 816] onResetDailyTasks
+[ 817] onUpdateCurrentTaskList
+[ 818] onUpdateDoneTaskList
+[ 819] onUpdateRewardTaskList
+[ 820] onUpdatePreCreatedTaskList
+[ 821] onUpdateDailyTaskList
+[ 822] onSchoolSeasonReward
+[ 823] onDtsActivityTaskReward
+[ 824] updateWeekendPushWindowOpen
+[ 825] updateWeekendPushRecordScore
+[ 826] updateWeekendPushGetReward
+[ 827] onGetWeekendPushRankData
+[ 828] onGetWeekendPushData
+[ 829] onGetWeekendPushReward
+[ 830] onRequireBattleGroundWeekendPushRankList
+[ 831] syncVipInfo
+[ 832] onGetVipReward
+[ 833] onGetAllVipReward
+[ 834] onClientGetRedPacketList
+[ 835] onClientGetRedPacket
+[ 836] onClientGetReleaseAndGotRedPackageList
+[ 837] updateRedPackageChance
+[ 838] getRedPackageFailed
+[ 839] refreshNTESVIPMall
+[ 840] onUseCoupon
+[ 841] openNTESVipBuyUrl
+[ 842] onSetWishTargetSuccess
+[ 843] updateWishPoolState
+[ 844] onGetWishPoolAward
+[ 845] onGetAnchorGiftAward
+[ 846] syncDtsInGameActionAppearanceIDs
+[ 847] syncDtsInGameActionSuitAppearanceIDs
+[ 848] updateAnniversaryBaseInfo
+[ 849] updateAnniversaryMissionInfo
+[ 850] updateAnniversaryMissionRewardState
+[ 851] updateAnniversaryTimeLimitApperanceInfo
+[ 852] updateAnniversaryServerAssistShowNum
+[ 853] onGetAnniversaryAward
+[ 854] updateAnniversaryH5GameShareUrl
+[ 855] onAnniversary2019SignInMain
+[ 856] onSyncAnniversary2019PayRebate
+[ 857] onAnniversaryCoinUpdated
+[ 858] reqAnniversaryCoinActionCB
+[ 859] onGetPuzzlePiece
+[ 860] onDonatePuzzlePiece
+[ 861] onGetCollectPuzzlePieceReward
+[ 862] onPickPuzzlePieceInPool
+[ 863] onOpenPuzzleActivityMain
+[ 864] onOpenPuzzlePiecePool
+[ 865] onSyncAnniversary2020PayRebate
+[ 866] onGetSignAnniversary2020Reward
+[ 867] onGetAnniversaryCurrPhotoSignCnt
+[ 868] onGetAnniversaryPhotoSignReward
+[ 869] onUpdate3rdAnniversaryInviteCode
+[ 870] onUpdate3rdAnniversaryBindInviteCode
+[ 871] onUpdateAnniversary3rdBindRecallPlayer
+[ 872] onGet3rdAnniversaryRecallPlayerReward
+[ 873] onGetAnniversaryAirShipRank
+[ 874] update3rdAnniversaryLotterySignState
+[ 875] update3rdAnniversaryLotteryTaskData
+[ 876] onQueryAnniversary3rdLotteryInfo
+[ 877] loadNewPlayerTasks
+[ 878] onUpdateDoneNewPlayerTaskList
+[ 879] onUpdateFinishedTaskInGame
+[ 880] onUpdateAwardedNewPlayerTaskList
+[ 881] onNewPlayerTaskDoneSuc
+[ 882] onLevelUpNewPlayerTaskSuc
+[ 883] onGetNewPlayerTaskAward
+[ 884] onGetNewPlayerTaskScoreAward
+[ 885] onGetNewPlayerStepAward
+[ 886] cSyncSettingDataToClient
+[ 887] onUpdateDoubleTwelveInfo
+[ 888] onGetDoubleTwelveHot
+[ 889] checkUseDoubleTwelveTicket
+[ 890] onReceiveChristmasBonus
+[ 891] onReceiveChristmasBonusFail
+[ 892] onGenerateChristmasBonus
+[ 893] onUpdateXmasBallCnt
+[ 894] onSetXmasTreeBright
+[ 895] onSetXmasTreeButtonBright
+[ 896] onSetXmasWishEnable
+[ 897] onSetXmasRemainTimeToday
+[ 898] onShowXmasTreeReward
+[ 899] onPutBallOntoXmasTree
+[ 900] onUpdateBallCntOnXmasTree
+[ 901] onMakeWishSuccess
+[ 902] onShareGiftResult
+[ 903] onReceiveGiftFromFriend
+[ 904] onUpdateXmasActivity2020SpCurrency
+[ 905] setShowActivity2020GuideFinsih
+[ 906] onsetShowActivity2020GuideFinsih
+[ 907] onXmasActivity2020RookieLotteryResult
+[ 908] onXmasActivity2020NormalLotteryResult
+[ 909] onXmasActivity2020AdvanceLotteryResult
+[ 910] onXmasActivity2020FinishLotteryResult
+[ 911] onGetXmasActivity2020FinalReward
+[ 912] onUpdateXmasActivity2020ShowTips
+[ 913] onUpdateXmasActivity2020SnowmanRewardTips
+[ 914] onUpdatePayRebateScore
+[ 915] onExchangePayRebateScoreBoxSucceed
+[ 916] onExchangePayRebateScoreBoxFailed
+[ 917] onPayNewYearGoalTaskSuc
+[ 918] onPayNewYearGoalTaskFailed
+[ 919] onUpdateNewYearGoalInfo
+[ 920] onGetNewYearGoalReward
+[ 921] onGetLuckyTurnPropReward
+[ 922] onUpdateLuckyTurnTaskProgress
+[ 923] onShowRealNameAuthenWebView
+[ 924] forceLogout
+[ 925] realnameAuthenAgain
+[ 926] onUpdateNewYearWordInfo
+[ 927] onGetNewYearWordReward
+[ 928] onSendNewYearWordSuc
+[ 929] onGetNewYearWord
+[ 930] onDragonDanceResult
+[ 931] onOpenTreasureMall
+[ 932] onTreasureIndexUpdate
+[ 933] updateStarDiamondCanUseHalfYuanbao
+[ 934] onUpdateValentineWeaponMarkNum
+[ 935] onGetValentineWeaponMarkByLogin
+[ 936] onShowGetValentineWeapon
+[ 937] onSetValentineWeaponRedPoint
+[ 938] onUpdateHideMaterialAmount
+[ 939] onUpdateGirlsDayInfo
+[ 940] onGetGirlsDayAward
+[ 941] onCrazyCarnivalExchangeGift
+[ 942] updateCrazyCarnivalYBCostRewardInfo
+[ 943] onGetCrazyCarnivalYBCostReward
+[ 944] onGetDtsCrazyCarnivalTaskReward
+[ 945] updateDtsCrazyCarnivalInfo
+[ 946] onDtsCrazyCarnivalTaskContentUpdate
+[ 947] syncOneCustomizedSuit
+[ 948] syncAllCustomizedSuit
+[ 949] onSetCustomizedSuitName
+[ 950] onSetCustomizedSuitOneCloth
+[ 951] onUnlockCustomizedSuit
+[ 952] onEquipedCustomizedSuit
+[ 953] onUpdateCustomizedSuit
+[ 954] asOnUpdateActivities
+[ 955] asOnUpdateTasks
+[ 956] asOnUpdateAwards
+[ 957] asOnGetAwards
+[ 958] asOnUpdateCustomData
+[ 959] asShowItemDisplay
+[ 960] asUpdateAsyncTaskRecords
+[ 961] asOnBraveBookSeasonStateChange
+[ 962] onResetBraveBookActivity
+[ 963] asShowChangeBraveBookSeasonPanel
+[ 964] onUpdateTrueLoveInfoToClient
+[ 965] onGetOtherPlayerMarryshipInfo
+[ 966] broadcastDeclared
+[ 967] playAddIntimacyAnimation
+[ 968] onUpdateMarriageUsedProps
+[ 969] onSendProposalRequest
+[ 970] onRecvProposalRequest
+[ 971] onProposalFeedback
+[ 972] onCancelEngagement
+[ 973] onStartWedding
+[ 974] onUpdateEnteredUIMarriage
+[ 975] onGetOthersMarriageInfo
+[ 976] onLeaveMessageCallback
+[ 977] onDeleteMessageCallback
+[ 978] onModifyMessageCallback
+[ 979] onRequestMessageCallback
+[ 980] onGetMarriageExtraAwards
+[ 981] onUpdateGetMarriageExtraAwards
+[ 982] onCheckCanDoProposal
+[ 983] notifyCustomLayoutData
+[ 984] onOpenDtsAprilFoolBox
+[ 985] updateDtsAprilFoolSurpriseStamp
+[ 986] updateDtsAprilFoolLuckyValue
+[ 987] updateDtsAprilFoolGetPropList
+[ 988] onGetDtsAprilFoolDailyGameReward
+[ 989] onResetDtsAprilFoolDailyGameTimes
+[ 990] onGenerateDtsAprilFoolBaseTable
+[ 991] onDtsAprilFoolDoLottery
+[ 992] updateDtsBasketballQuizTicketInfo
+[ 993] onGetBasketballExchangeGift
+[ 994] updateDtsBasketballActivityTaskDoneInfo
+[ 995] updateDtsBasketballActivityRewardInfo
+[ 996] onGetDtsBasketballAcvitiyTaskReward
+[ 997] updateDtsBasketballActivityDays
+[ 998] onDtsBasketballActivityTaskContentUpdate
+[ 999] onSetBasketballActivityRedPoint
+[1000] onGetAwardSplashMode
+[1001] onSyncWaterCoin
+[1002] onSyncSplashModeTaskProgress
+[1003] onSongkranFestivalGiftGot
+[1004] onSetSongkranRedPoint
+[1005] onOpenSplashModeBox
+[1006] onUpdateActivityDrawBoxMaterialAmount
+[1007] onDrawHalloween2019Box
+[1008] onUpdateHalloween2019Info
+[1009] onSyncWatchAdData
+[1010] onGetWatchAdProps
+[1011] onGetHeroLevelReward
+[1012] onGetHeroExp
+[1013] onUpdateHeroLevelData
+[1014] onUpdateHeroLevelRewardRecord
+[1015] commitAirwarItemVoteCB
+[1016] syncAirwarItemVoteStatus
+[1017] commitAirwarItemCommentCB
+[1018] querySoloAirwarItemCommentCB
+[1019] queryAirwarItemCommentCB
+[1020] commitAirwarCommentLikeCB
+[1021] getAirwarVoteChosenRewardCB
+[1022] setPersonSpaceVisited
+[1023] onUpdatePersonSpaceRedDot
+[1024] getSpaceRedDotShow
+[1025] commitSpaceCommentCB
+[1026] commitPersonalSpaceCommentModifyCB
+[1027] queryPersonalSpaceCommentCB
+[1028] postPersonalSpaceReadCB
+[1029] queryPersonalInfoCB
+[1030] queryPersonalAppearanceCB
+[1031] postPersonalSpaceLikeCB
+[1032] queryPersonalSpaceLikeCntCB
+[1033] judgePersonalSpaceLikeCB
+[1034] judgeSpacePartnerShowCB
+[1035] postSpacePartnerShowCB
+[1036] queryCreditStatusCB
+[1037] queryCreditScoreCB
+[1038] requireCreditRewardCB
+[1039] syncCreditStatus
+[1040] queryOtherCreditScoreCB
+[1041] inviteToJoinFreeParadise
+[1042] onGetHistorySeasonTopData
+[1043] onGetMyHistorySeasonRecord
+[1044] onClaimBeyondHistorySectionReward
+[1045] onGetKingSectionRankList
+[1046] onGetMyKingSectionRank
+[1047] sendSeasonLevelUpAward
+[1048] updateHistoryScoreDict
+[1049] onGetLuckyTurnPropRewardNA
+[1050] onUpdateLuckyTurnTaskProgressNA
+[1051] onGetMyMemoryInfo
+[1052] memoryRequestFriendSucceed
+[1053] onClaimPCShareMemoryReward
+[1054] updateDtsLandDroneTechPoint
+[1055] onUnlockLandDroneSlot
+[1056] onUnlockLandDroneCompsLevel
+[1057] onQueryDtsFestivalTeamTaskList
+[1058] onQueryDtsFestivalPersonalTaskList
+[1059] onGetDtsFestivalRoundTaskList
+[1060] onGetDtsFestivalTaskResult
+[1061] onKickDtsFestivalTaskTeamMember
+[1062] onInvitedToJoinDtsFestivalTaskTeam
+[1063] onGetAllDtsFestivalTaskTeamApplyList
+[1064] onGetDtsFestivalTaskReward
+[1065] onUpdateFestivalPointReward
+[1066] onGetDtsFestivalTaskPoint
+[1067] onGetDtsFestivalPointReward
+[1068] onGetDtsFestivalDiscountProp
+[1069] onCheckDtsFestivalTaskInviteReply
+[1070] onUpdateDtsFestivalTeamJoinSetReply
+[1071] onUpdateWeaponProficiency
+[1072] onRequestRankDataCallback
+[1073] commitWeaponCommentCB
+[1074] queryWeaponCommentCB
+[1075] querySoloWeaponCommentCB
+[1076] commitWeaponReviewLikeCB
+[1077] updateHighestProficiencyWeapons
+[1078] getHighestProficiencyWeaponsCB
+[1079] changeBestWeaponTitleCB
+[1080] showSelectFreshmanState
+[1081] onRefreshMSToken
+[1082] onKickOff
+[1083] showSelectCharacter
+[1084] onCreateCharacter
+[1085] onRoleCreateSuc
+[1086] onChangeNickname
+[1087] updateBaseCharacter
+[1088] updateBaseNickname
+[1089] preloadMap
+[1090] cancelPreloadMap
+[1091] enterHall
+[1092] onGetGMToken
+[1093] transferToBattleServer
+[1094] systemMsg
+[1095] systemJumpTip
+[1096] systemJumpPanel
+[1097] gmKickLowVersion
+[1098] gmsyncForbidLiveChannel
+[1099] gmsyncRedPoints
+[1100] onGetPlayerTip
+[1101] requestClientProcList
+[1102] requestClientSpeedUp
+[1103] onLogin
+[1104] onUpdateRedBadgeInfo
+[1105] onQueryQuiz201701Sign
+[1106] onQueryGirlActivitySign
+[1107] pushGMRedHintMsg
+[1108] onRequestFilePickerToken
+[1109] onRequestFilePickerDelToken
+[1110] onRequestFilePickerVoiceToken
+[1111] onRequestFilePickerVoiceDelToken
+[1112] updateReadGMRedhintMsg
+[1113] updateExtraCommonInfo
+[1114] updateTantanSex
+[1115] updateTantanPicCount
+[1116] onSetPortrait
+[1117] onSyncSwitches
+[1118] onZhongqiuSkinKillNumberUpdate
+[1119] announceValentineTShirtReward
+[1120] onGetGMSupportToken
+[1121] onBaseLevelUpdate
+[1122] onGetDtsAppearance
+[1123] onSyncGotAwards
+[1124] updateShouldCreatePetInBattle
+[1125] onBuyBraveBookExperience
+[1126] syncUseOwnAppearOverHeroAppear
+[1127] onGmClearNewFunctionGuide
+[1128] resetHasShowSpecialPanel
+[1129] syncAccountInOtherServer
+[1130] syncFreeHeroRefreshWeekIdx

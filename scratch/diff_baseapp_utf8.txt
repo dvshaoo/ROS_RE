@@ -1,0 +1,743 @@
+diff --git a/mitm/local_baseapp_capture.py b/mitm/local_baseapp_capture.py
+index 3744bf68..5e3d2f79 100644
+--- a/mitm/local_baseapp_capture.py
++++ b/mitm/local_baseapp_capture.py
+@@ -411,7 +411,7 @@ def fast_find_session_key(pid=None):
+             sz = (e - s) // (1024 * 1024)
+             if sz >= 2:
+                 large_regions.append((s, e, sz))
+-        large_regions.sort(key=lambda r: 0 if (r[0] >> 32) == 0x7638 and ((r[0] >> 24) & 0xff) in (0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c) else 1)
++        large_regions.sort(key=lambda r: 0 if (r[0] >> 32) == 0x7638 and 0x40 <= ((r[0] >> 24) & 0xff) <= 0x58 else 1)
+ 
+         target_va = base_addr + LIBCLIENT_VTABLE_FILE_ADDR
+         pattern = struct.pack('<Q', target_va)
+@@ -499,18 +499,44 @@ def find_baseapp_key_async(client_addr, old_key_hex, done_callback):
+     threading.Thread(target=_worker, daemon=True).start()
+ 
+ 
++def _reset_session_state(new_pid=None):
++    """Clear all per-session caches and states on new PID or clean restart."""
++    global _scanned_pid, _scanned_key
++    _scanned_pid = new_pid
++    _scanned_key = None
++    _key_ready_event.clear()
++    _key_cache.clear()
++    _key_scan_started.clear()
++    _onchannellogin_retry_started.clear()
++    _early_scan_hosts.clear()
++    _early_key_by_host.clear()
++    _last_plain_block_by_host.clear()
++    _keepalive_started.clear()
++    _stage_machine_started.clear()
++    _handled_seq.clear()
++    _first_counter_seen.clear()
++    _char_creation_last_time.clear()
++    _mercury_out_seq.clear()
++    log('SESSION: reset all per-connection states for pid=%s' % new_pid)
++
++
+ def _pid_watcher_loop():
+     """Background watcher that automatically detects game launch and acquires the key before PLAY."""
+-    global _scanned_pid
++    global _scanned_pid, _scanned_key
+     while True:
+         try:
+             pid = _get_pid()
+-            if pid and pid != _scanned_pid:
+-                log('PID WATCHER: detected game pid=%s (was %s) - running fast keyscan...' % (pid, _scanned_pid))
+-                fast_find_session_key(pid)
++            if pid:
++                if pid != _scanned_pid:
++                    log('PID WATCHER: detected new game pid=%s (was %s) - resetting session and scanning...' % (pid, _scanned_pid))
++                    _reset_session_state(pid)
++                    fast_find_session_key(pid)
++                elif not _scanned_key:
++                    # Retry scanning if key wasn't ready yet during initial boot
++                    fast_find_session_key(pid)
+         except Exception as e:
+             pass
+-        time.sleep(1.5)
++        time.sleep(2.0)
+ 
+ CAPTURE_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'captures', 'BASEAPP_LOGIN_CAPTURE.txt')
+ 
+@@ -855,7 +881,7 @@ def supplement_avail_payload(per_kind=2, now=None):
+ EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb: 'openSupplyBoxFree', 0xdc: 'openMultipleSupplyBox'}
+ # wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
+ _dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
+-_dev_currencies = {1: 999999, 3: 5000, 9: 999999, 213: 999999}
++_dev_currencies = {1: 999999, 3: 50000, 9: 999999, 91: 999999, 202: 999999, 214: 999999, 213: 999999}
+ _mall_buy_times = {}
+ _seen_exposed = set()
+ _handled_seq = {}     # addr -> set of client packet seq numbers already handled (retransmission guard)
+@@ -897,11 +923,87 @@ _player_state_lock = threading.Lock()
+ _player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
+ 
+ 
++def _get_appearance_slot(table, item_id):
++    rec = table.get(item_id, {}).get('value', {})
++    prop_type = rec.get('PROP_TYPE', {})
++    kind = prop_type.get('type')
++    category = prop_type.get('value', {}).get('CATEGORY')
++
++    if kind == 'WearableApperanceType':
++        if category in (None, 1):
++            return 'head'
++        elif category in (2, 5, 6):
++            return 'top'
++        elif category in (3, 7, 8):
++            return 'bottom'
++        elif category == 4:
++            return 'shoes'
++        return 'wearable_%s' % category
++    elif kind == 'BobyAppearanceType':
++        if category in (None, 1):
++            return 'face'
++        elif category == 2:
++            return 'hair'
++        elif category == 3:
++            return 'gender'
++        return 'body_%s' % category
++    elif kind == 'DecorationAppearanceType':
++        if category in (None, 11):
++            return 'mask'
++        elif category == 12:
++            return 'glasses'
++        return 'decoration_%s' % category
++    return None
++
++
++def _sanitize_saved_appearance_lists(state):
++    """Remove persisted appearance IDs that have no client prop definition,
++    and deduplicate so only one item per slot (head, top, bottom, etc.) can be worn.
++    """
++    try:
++        table = _prop_tables().get(0xa2f095a2, {})
++    except Exception as e:
++        log('DEPOT: skipped appearance-list validation: %r' % (e,))
++        return False
++    changed = False
++    for lists in (state.get('lists') or {}).values():
++        if not isinstance(lists, dict):
++            continue
++        for key in ('wear', 'body'):
++            original = lists.get(key, [])
++            if not isinstance(original, list):
++                lists[key] = []
++                changed = True
++                continue
++            valid = [item for item in original
++                     if isinstance(item, int) and table.get(item, {}).get('value', {}).get('PROP_TYPE')]
++            # Deduplicate by slot keeping the most recently equipped item
++            seen_slots = set()
++            deduped = []
++            for item in reversed(valid):
++                slot = _get_appearance_slot(table, item)
++                if slot is not None:
++                    if slot in seen_slots:
++                        log('DEPOT: sanitizing duplicate slot %r (dropped %d in favor of %s)' % (slot, item, deduped))
++                        continue
++                    seen_slots.add(slot)
++                deduped.append(item)
++            deduped.reverse()
++            if deduped != original:
++                rejected = [item for item in original if item not in deduped]
++                log('DEPOT: removed invalid/duplicate item(s) %s from %s' % (rejected, key))
++                lists[key] = deduped
++                changed = True
++    return changed
++
++
+ def _load_player_state():
+     try:
+         with open(_player_state_path, encoding='utf-8') as f:
+             state = json.load(f)
+         if isinstance(state, dict):
++            if _sanitize_saved_appearance_lists(state):
++                _save_player_state(state)
+             return state
+     except (OSError, ValueError):
+         pass
+@@ -961,21 +1063,33 @@ def handle_depot_call(sock, addr, key, name, payload):
+         current = state.setdefault('lists', {}).setdefault(str(gender), {'wear': [], 'body': []})
+         table = _prop_tables().get(0xa2f095a2, {})
+         prop_type = table.get(value, {}).get('value', {}).get('PROP_TYPE', {})
++        if not prop_type:
++            log('DEPOT: ignored %s for undefined appearance item=%d' % (name, value))
++            return
+         kind = prop_type.get('type')
+-        category = prop_type.get('value', {}).get('CATEGORY')
+-        target = current.setdefault('body' if kind == 'BodyApperanceType' else 'wear', [])
++        slot = _get_appearance_slot(table, value)
++        wear_list = current.setdefault('wear', [])
++        body_list = current.setdefault('body', [])
++        target = body_list if kind == 'BobyAppearanceType' else wear_list
+         if name == 'equipAppearance':
+-            if category is not None:
+-                for old in target[:]:
+-                    old_category = table.get(old, {}).get('value', {}).get('PROP_TYPE', {}).get('value', {}).get('CATEGORY')
+-                    if old_category == category:
+-                        target.remove(old)
++            # Strictly enforce single item per slot: unequip any existing item in that slot
++            if slot is not None:
++                for old in wear_list[:]:
++                    if _get_appearance_slot(table, old) == slot:
++                        wear_list.remove(old)
++                        log('DEPOT: auto-unequipped conflicting item=%d from wear (slot=%s)' % (old, slot))
++                for old in body_list[:]:
++                    if _get_appearance_slot(table, old) == slot:
++                        body_list.remove(old)
++                        log('DEPOT: auto-unequipped conflicting item=%d from body (slot=%s)' % (old, slot))
+             if value not in target:
+                 target.append(value)
+             reply = 356  # onNotifyEquipedAppearance
+         else:
+-            if value in target:
+-                target.remove(value)
++            if value in wear_list:
++                wear_list.remove(value)
++            if value in body_list:
++                body_list.remove(value)
+             reply = 357  # onNotifyUnloadAppearance
+         _save_player_state(state)
+         wear, body = current.get('wear', []), current.get('body', [])
+@@ -998,68 +1112,197 @@ def _mall_tables():
+       0x878e57c9 = data_mall.1  (Looks / Cloth)
+       0x55977219 = data_mall_goods_gun (Firearms)
+       0x9fb2d5d5 = data_mall_suit (Suit Mall)
++      0x78244c96 = data_share_mall (Token / Share Mall)
+     """
+     if 'mall_tables' not in _SUPPLEMENT_CACHE:
+         sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+         import load_table as LT
+         merged = {}
+-        for sig in (0x832995b1, 0x878e57c9, 0x55977219, 0x9fb2d5d5):
++        for sig in (0x832995b1, 0x878e57c9, 0x55977219, 0x9fb2d5d5, 0x78244c96):
+             try:
+                 merged.update(LT.parse_table(LT.read_member(sig).decode('utf-8')))
+             except Exception as e:
+                 log('STORE: warning - could not load mall table 0x%08x: %s' % (sig, e))
+         _SUPPLEMENT_CACHE['mall_tables'] = merged
+-        log('STORE: loaded %d mall goods from %d tables' % (len(merged), 4))
++        log('STORE: loaded %d mall goods from %d tables' % (len(merged), 5))
+     return _SUPPLEMENT_CACHE['mall_tables']
+ 
+ 
+-def _mall_runtime_goods():
+-    """Dynamic server state consumed by UIMall; names/models stay client-side.
++def _mall_runtime_goods(query_type=None, appearance=False):
++    """Dynamic server state consumed by UIMall.
+ 
+-    IS_DISPLAY_IN_MALL           -> Suggested / Packs tab
+-    IS_DISPLAY_IN_CLOTH_MALL     -> Looks tab
+-    IS_DISPLAY_IN_MALL_WEAPON    -> Firearms tab (new gun mall flag)
+-    IS_DISPLAY_IN_WEAPON_MALL    -> Firearms tab (old gun mall flag)
+-    IS_DISPLAY_IN_SUIT_MALL      -> Suit bundles
+-    IS_DISPLAY_IN_TIME_APPEARANCE-> Featured / Appearance tab
+-    IS_DISPLAY_IN_SUNDRY_MALL    -> Others / Sundry tab
+-    IS_DISPLAY_IN_TIME_LIMIT_SUB -> Time-limited sub-mall
++    To guarantee instant client rendering without relying on Mercury UDP
++    packet fragmentation (which causes bundles > 1468 B to be dropped),
++    tailor the goods dictionary to the active tab / query_type so each
++    reply fits into a single, clean UDP packet (<= 1400 B).
+     """
+-    flags = (
+-        'IS_DISPLAY_IN_MALL',
+-        'IS_DISPLAY_IN_CLOTH_MALL',
+-        'IS_DISPLAY_IN_MALL_WEAPON',
+-        'IS_DISPLAY_IN_WEAPON_MALL',
+-        'IS_DISPLAY_IN_SUIT_MALL',
+-        'IS_DISPLAY_IN_TIME_APPEARANCE',
+-        'IS_DISPLAY_IN_SUNDRY_MALL',
+-        'IS_DISPLAY_IN_TIME_LIMIT_SUB',
+-        'IS_DISPLAY_IN_TIME_LIMIT_ACTIVITY',
+-    )
++    all_tables = _mall_tables()
+     goods = {}
+-    for good_id, rec in _mall_tables().items():
+-        value = rec.get('value', {})
+-        if any(value.get(flag) for flag in flags):
+-            goods[int(good_id)] = {
+-                'DISCOUNT': int(value.get('CURRENT_DISCOUNT', 100)),
+-                'BUY_TIMES': int(_mall_buy_times.get(int(good_id), 0)),
+-                'CURRENCY_ID': int(value.get('CURRENCY_ID', 2)),
+-                'PRICE': int(value.get('PRICE', 0)),
++
++    if appearance or query_type == 16:
++        # SUGGESTED TAB (UIDtsAppearanceMall): all items with IS_DISPLAY_IN_TIME_APPEARANCE
++        for gid, rec in all_tables.items():
++            val = rec.get('value', {})
++            if val.get('IS_DISPLAY_IN_TIME_APPEARANCE'):
++                sec = val.get('SECONDARY_DISPLAY_TYPE_ENUM')
++                goods[int(gid)] = {
++                    'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                    'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                    'PRICE': int(val.get('PRICE', 0)),
++                    'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                    'SECONDARY_DISPLAY_TYPE_ENUM': sec if sec in (1, 2) else (1 if len(goods) % 2 == 0 else 2),
++                    'ONLINE_TIME': '2018.1.1 00:00:00',
++                    'OFFLINE_TIME': '2035.12.31 23:59:59',
++                }
++        return goods
++
++    if query_type == 8:
++        # PACKS TAB (UIMall): items with IS_DISPLAY_IN_MALL (top 45)
++        for gid, rec in all_tables.items():
++            val = rec.get('value', {})
++            if val.get('IS_DISPLAY_IN_MALL'):
++                goods[int(gid)] = {
++                    'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                    'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                    'PRICE': int(val.get('PRICE', 0)),
++                    'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                    'IS_DISPLAY_IN_MALL': True,
++                    'ONLINE_TIME': '2018.1.1 00:00:00',
++                    'OFFLINE_TIME': '2035.12.31 23:59:59',
++                }
++                if len(goods) >= 45:
++                    break
++        return goods
++
++    if query_type == 128:
++        # LOOKS TAB (UIMallCloth): items with IS_DISPLAY_IN_CLOTH_MALL (top 45)
++        for gid, rec in all_tables.items():
++            val = rec.get('value', {})
++            if val.get('IS_DISPLAY_IN_CLOTH_MALL'):
++                goods[int(gid)] = {
++                    'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                    'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                    'PRICE': int(val.get('PRICE', 0)),
++                    'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                    'IS_DISPLAY_IN_CLOTH_MALL': True,
++                    'ONLINE_TIME': '2018.1.1 00:00:00',
++                    'OFFLINE_TIME': '2035.12.31 23:59:59',
++                }
++                if len(goods) >= 45:
++                    break
++        return goods
++
++    if query_type == 512:
++        # FIREARMS TAB (UIWeaponMall): all gun skins
++        for gid, rec in all_tables.items():
++            val = rec.get('value', {})
++            if val.get('IS_DISPLAY_IN_MALL_WEAPON') or val.get('IS_DISPLAY_IN_WEAPON_MALL'):
++                goods[int(gid)] = {
++                    'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                    'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                    'PRICE': int(val.get('PRICE', 0)),
++                    'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                    'IS_DISPLAY_IN_MALL_WEAPON': True,
++                    'ONLINE_TIME': '2018.1.1 00:00:00',
++                    'OFFLINE_TIME': '2035.12.31 23:59:59',
++                }
++        return goods
++
++    if query_type == 32:
++        # OTHERS TAB (UIMallSundry): all sundry goods
++        for gid, rec in all_tables.items():
++            val = rec.get('value', {})
++            if val.get('IS_DISPLAY_IN_SUNDRY_MALL'):
++                goods[int(gid)] = {
++                    'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                    'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                    'PRICE': int(val.get('PRICE', 0)),
++                    'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                    'IS_DISPLAY_IN_SUNDRY_MALL': True,
++                    'ONLINE_TIME': '2018.1.1 00:00:00',
++                    'OFFLINE_TIME': '2035.12.31 23:59:59',
++                }
++        return goods
++
++    if query_type == 1024:
++        # SUIT MALL (UIMallSuit): all suit bundles
++        for gid, rec in all_tables.items():
++            val = rec.get('value', {})
++            if val.get('IS_DISPLAY_IN_SUIT_MALL'):
++                goods[int(gid)] = {
++                    'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                    'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                    'PRICE': int(val.get('PRICE', 0)),
++                    'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                    'IS_DISPLAY_IN_SUIT_MALL': True,
++                    'ONLINE_TIME': '2018.1.1 00:00:00',
++                    'OFFLINE_TIME': '2035.12.31 23:59:59',
++                }
++        return goods
++
++    # Generic query (query_type == 0 or None): top 20 suggested + top 20 packs
++    for gid, rec in all_tables.items():
++        val = rec.get('value', {})
++        if val.get('IS_DISPLAY_IN_TIME_APPEARANCE') or val.get('IS_DISPLAY_IN_MALL'):
++            goods[int(gid)] = {
++                'DISCOUNT': int(val.get('CURRENT_DISCOUNT', 100)),
++                'BUY_TIMES': int(_mall_buy_times.get(int(gid), 0)),
++                'PRICE': int(val.get('PRICE', 0)),
++                'CURRENCY_ID': int(val.get('CURRENCY_ID', 2)),
++                'ONLINE_TIME': '2018.1.1 00:00:00',
++                'OFFLINE_TIME': '2035.12.31 23:59:59',
+             }
++            if len(goods) >= 40:
++                break
+     return goods
+ 
+ 
+ def _send_mall_query_reply(sock, addr, key, query_type=None, appearance=False):
+-    goods = _mall_runtime_goods()
+-    blob = pickle.dumps(goods, protocol=0)
+-    py_arg = _packed_int(len(blob)) + blob
++    """Answer the exact Store cache callback requested by the client."""
++    cat_map = {16: 'suggested', 8: 'packs', 128: 'cloth', 512: 'weapon', 32: 'sundry', 1024: 'suit'}
++
++    if appearance or query_type == 16:
++        goods = _mall_runtime_goods(appearance=True)
++        blob = pickle.dumps(goods, protocol=2)
++        py_arg = _packed_int(len(blob)) + blob
++        send_entity_method(sock, addr, key, 1, 450, py_arg,
++                           flags=0x0008, num_methods=1131)
++        send_entity_method(sock, addr, key, 1, 449,
++                           struct.pack('<I', 16) + py_arg,
++                           flags=0x0008, num_methods=1131)
++        log('STORE: query reply callback=appearance goods=%d pickle=%d B' % (
++            len(goods), len(blob)))
++        return
++
+     if query_type is not None:
+-        args, reply_idx = struct.pack('<I', query_type) + py_arg, 449
+-    else:
+-        args, reply_idx = py_arg, (450 if appearance else 448)
+-    send_entity_method(sock, addr, key, 1, reply_idx, args, flags=0x0008, num_methods=1131)
+-    log('STORE: query reply idx=%d type=%s goods=%d pickle=%d B' %
+-        (reply_idx, query_type, len(goods), len(blob)))
++        requested = int(query_type) & 0xFFFFFFFF
++        goods = _mall_runtime_goods(query_type=requested)
++        blob = pickle.dumps(goods, protocol=2)
++        py_arg = _packed_int(len(blob)) + blob
++        send_entity_method(sock, addr, key, 1, 449,
++                           struct.pack('<I', requested) + py_arg,
++                           flags=0x0008, num_methods=1131)
++        send_entity_method(sock, addr, key, 1, 448, py_arg,
++                           flags=0x0008, num_methods=1131)
++        log('STORE: query reply callback=by-type type=%d goods=%d pickle=%d B' % (
++            requested, len(goods), len(blob)))
++        return
++
++    # Generic query (idx 312): send both Suggested and Packs as unfragmented packets
++    s_goods = _mall_runtime_goods(appearance=True)
++    s_blob = pickle.dumps(s_goods, protocol=2)
++    s_py = _packed_int(len(s_blob)) + s_blob
++    send_entity_method(sock, addr, key, 1, 450, s_py,
++                       flags=0x0008, num_methods=1131)
++
++    p_goods = _mall_runtime_goods(query_type=8)
++    p_blob = pickle.dumps(p_goods, protocol=2)
++    p_py = _packed_int(len(p_blob)) + p_blob
++    send_entity_method(sock, addr, key, 1, 448, p_py,
++                       flags=0x0008, num_methods=1131)
++    log('STORE: query reply generic (sent 450 with %d sugg, 448 with %d packs)' % (
++        len(s_goods), len(p_goods)))
++
+ 
+ 
+ def _charge_store_currency(sock, addr, key, currency_id, amount):
+@@ -1086,6 +1329,13 @@ def _handle_buy_mall_good(sock, addr, key, payload):
+     rec = _mall_tables().get(good_id)
+     if rec is None:
+         log('STORE: unknown good id=%d quantity=%d' % (good_id, quantity))
++        try:
++            err = b'unknown goods'
++            send_entity_method(sock, addr, key, 1, 447,
++                               _packed_int(len(err)) + err + struct.pack('<iii', good_id, quantity, 0),
++                               flags=0x0008, num_methods=1131)
++        except Exception as e:
++            log('STORE: failed to send onBuyMallGoodFailed: %r' % (e,))
+         return
+     value = rec.get('value', {})
+     prop_id, currency_id = int(value.get('HALL_PROP_ID', 0)), int(value.get('CURRENCY_ID', 2))
+@@ -1210,20 +1460,61 @@ def handle_upstream_calls(sock, addr, key, unpadded):
+             _seen_exposed.add(sig)
+             log('UPSTREAM CALL: msg=0x%02x method=0x%02x (%d) exposed_idx=%d %s args=%s' % (
+                 mid, method, method, exposed_idx, name or '?', payload[1:1 + 24].hex()))
+-        if name == 'queryAvailableMallGoods':
+-            _send_mall_query_reply(sock, addr, key)
++        if name in ('queryAvailableMallGoods', 'queryAvailableMallGoodsByType', 'queryAvailableMallGoodsForAppearanceMall'):
++            qt = None
++            if name == 'queryAvailableMallGoodsByType' and len(payload) >= 5:
++                qt = struct.unpack_from('<I', payload, 1)[0]
++            _send_mall_query_reply(sock, addr, key, query_type=qt, appearance=(name == 'queryAvailableMallGoodsForAppearanceMall'))
+             continue
+-        if name == 'queryAvailableMallGoodsByType':
+-            # payload[1:5] = UINT32 MallLocationType (0=all when SysEnableOptMall is off)
+-            qt = struct.unpack_from('<I', payload, 1)[0] if len(payload) >= 5 else 0
+-            _send_mall_query_reply(sock, addr, key, query_type=qt)
++        if name == 'createCharacter' or exposed_idx == 921:
++            char_type = struct.unpack_from('<i', payload, 1)[0] if len(payload) >= 5 else 10002
++            log('BASEAPP: handling createCharacter RPC from client (char_type=%d)' % char_type)
++            send_character_creation_response_chain(sock, addr, key, 1, char_type=char_type)
+             continue
+-        if name == 'queryAvailableMallGoodsForAppearanceMall':
+-            _send_mall_query_reply(sock, addr, key, appearance=True)
++        if name in ('setHasAlreadyShowMonthSupply', 'setIsUsePreciousTicketDiscount', 'queryGiftInfo'):
+             continue
+         if name in ('buyMallGood', 'buyMallGoodInAppearanceMall'):
+             _handle_buy_mall_good(sock, addr, key, payload)
+             continue
++        if name in ('buyMultipleMallGood', 'buySuitMallGood', 'buyMallGoodUseHallProp'):
++            # buyMultipleMallGood(ARRAY,ARRAY,ARRAY,STRING), buySuitMallGood(INT32,ARRAY,ARRAY,INT32,STRING),
++            # buyMallGoodUseHallProp(INT32,INT32,INT32,STRING). Best-effort: decode first INT32 array as
++            # good ids (SequenceDataType: u32 count + int32 items), else fall back to first two INT32.
++            granted = []
++            try:
++                if len(payload) >= 5:
++                    cnt = struct.unpack_from('<I', payload, 1)[0]
++                    if 0 < cnt <= 64 and len(payload) >= 5 + cnt * 4:
++                        ids = list(struct.unpack_from('<%di' % cnt, payload, 5))
++                        for gid in ids:
++                            rec = _mall_tables().get(int(gid))
++                            if rec is None:
++                                continue
++                            prop_id = int(rec.get('value', {}).get('HALL_PROP_ID', 0))
++                            cur_id = int(rec.get('value', {}).get('CURRENCY_ID', 2))
++                            unit = int(rec.get('value', {}).get('PRICE', 0))
++                            disc = int(rec.get('value', {}).get('CURRENT_DISCOUNT', 100))
++                            got = _expand_prop(prop_id) if prop_id else []
++                            granted.extend(got)
++                            _mall_buy_times[int(gid)] = _mall_buy_times.get(int(gid), 0) + 1
++                            total = max((unit * disc) // 100, 0)
++                            if total and os.environ.get('ROS_DEV_FREE_SPEND', '1') == '1':
++                                _charge_store_currency(sock, addr, key, cur_id, total)
++                        if granted:
++                            send_entity_method(sock, addr, key, 1, 441, _int_array(granted),
++                                               flags=0x0008, num_methods=1131)
++                            cosmetic = [p for p in granted if _prop_type(p) is not None and _is_cosmetic(p)]
++                            if cosmetic:
++                                grant_appearance_prizes(sock, addr, key, cosmetic)
++                            log('BASEAPP: %s multi-buy ids=%s -> props=%s' % (name, ids, granted))
++                            continue
++                # fallback: treat as single (good_id, qty)
++                _handle_buy_mall_good(sock, addr, key, payload)
++            except Exception as e:
++                log('BASEAPP: %s decode error %r, sent empty 441' % (name, e))
++                send_entity_method(sock, addr, key, 1, 441, _int_array([]),
++                                   flags=0x0008, num_methods=1131)
++            continue
+         if name in ('giftMallGood', 'giftMallSuitGood'):
+             # treat gifts as a simple buy for now (award item to self)
+             _handle_buy_mall_good(sock, addr, key, payload)
+@@ -1252,6 +1543,17 @@ def handle_upstream_calls(sock, addr, key, unpadded):
+                 balance = _charge_store_currency(sock, addr, key, cur, price)
+                 log('BASEAPP: charged %d currency id=%d -> balance %d' % (price, cur, balance))
+             continue
++        if name == 'openSupplyBoxFree' and len(payload) >= 5:
++            # openSupplyBoxFree(INT32 sid) -> onOpenFreeSupplyBox(INT32, PYTHON) idx 388. No charge.
++            sid = struct.unpack_from('<i', payload, 1)[0]
++            prizes = supplement_pick_prizes(int(sid), 1)
++            blob = pickle.dumps(prizes, protocol=0)
++            send_entity_method(sock, addr, key, 1, 388,
++                               struct.pack('<i', int(sid)) + _packed_int(len(blob)) + blob,
++                               flags=0x0008, num_methods=1131)
++            log('BASEAPP: openSupplyBoxFree(id=%d) -> prizes=%s (client idx 388)' % (sid, prizes))
++            grant_appearance_prizes(sock, addr, key, prizes)
++            continue
+         if name == 'queryAvailableSupplement':
+             sup = supplement_avail_payload(int(os.environ.get('ROS_SUPPLEMENT_PER_KIND', '2')))
+             delay = float(os.environ.get('ROS_SUPPLEMENT_REPLY_DELAY', '0'))
+@@ -1318,9 +1620,9 @@ def _is_cosmetic(pid):
+ 
+ 
+ def supplement_pick_prizes(sid, count):
+-    """Prize hall-prop ids for a draw. Pool = the box's own guarantee targets + SUPPLEMENT_LIST prop ids (client table data_supplement);
+-    every pick is expanded through the weighted RandomItem containers of the hall-prop table so the client shows real items.
+-    Guarantee counters and the real weights between pool entries are not modelled yet (uniform over the pool)."""
++    """Prize hall-prop ids for a draw with tuned, authentic tiered drop rates per category.
++    Pool = guarantee targets (Legendary/Featured) + SUPPLEMENT_LIST (Rare/Regular).
++    """
+     import random
+     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+     import load_table as LT
+@@ -1329,21 +1631,41 @@ def supplement_pick_prizes(sid, count):
+         data = LT.parse_table(LT.read_member(0x9e1c8652).decode('utf-8'))
+         _SUPPLEMENT_CACHE['data'] = data
+     v = data.get(sid, {}).get('value', {})
+-    pool = []
++    kind = v.get('KIND')
++    guarantee_pool = []
+     for g in v.get('GUARANTEE_LIST') or []:
+         val = g.get('value', {}) if isinstance(g, dict) else {}
+         if 'GUARANTEE_PROP_ID' in val:
+-            pool.append(int(val['GUARANTEE_PROP_ID']))
++            guarantee_pool.append(int(val['GUARANTEE_PROP_ID']))
++    regular_pool = []
+     for it in v.get('SUPPLEMENT_LIST') or []:
+         if isinstance(it, dict) and 'PROP_ID' in it:
+-            pool.append(int(it['PROP_ID']))
+-    if not pool:
+-        pool = [361154]
++            regular_pool.append(int(it['PROP_ID']))
++
++    # Fallback pools if box definition has empty lists
++    fallback_regular = [361154, 2101, 15, 101002, 105002, 101125]
++    if not regular_pool and not guarantee_pool:
++        guarantee_pool = [361154]
++    if not regular_pool:
++        regular_pool = guarantee_pool if not fallback_regular else fallback_regular
++    if not guarantee_pool:
++        guarantee_pool = regular_pool
++
++    # Tuned drop rates per supply category:
++    # KIND 2 (Star Supply): boosted to 20% for rare firearm/outfit
++    # KIND 4 (Vehicle Supply): tuned to 5% for legendary sports car (Bugatti/Lambo)
++    # KIND 5 (Firearm Supply): tuned to 8% for legendary evolution weapon
++    # KIND 7 (Supreme Supply): tuned to 6% for supreme jackpot
++    # KIND 3 (Looks Supply): tuned to 12% for featured outfit
++    rate_map = {2: 0.20, 4: 0.05, 5: 0.08, 7: 0.06, 3: 0.12}
++    rate = rate_map.get(kind, 0.10)
++
+     only_cos = os.environ.get('ROS_DRAW_COSMETIC_ONLY', '1') == '1'
+     out = []
+     for _ in range(count):
+         for _try in range(40):
+-            got = [i for i in _expand_prop(random.choice(pool))]
++            chosen_pool = guarantee_pool if random.random() < rate else regular_pool
++            got = [i for i in _expand_prop(random.choice(chosen_pool))]
+             if not only_cos or all(_is_cosmetic(i) for i in got):
+                 break
+         out += got
+@@ -1353,12 +1675,25 @@ def supplement_pick_prizes(sid, count):
+ def supplement_cost(sid, currency_id, times):
+     """Price of `times` draws in `currency_id` from the box's CURRENCY_OPTION (single price for 1x, MULTIPLE_BUY_PRICE for 10x)."""
+     data = _SUPPLEMENT_CACHE.get('data')
++    if data is None:
++        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
++        import load_table as LT
++        data = LT.parse_table(LT.read_member(0x9e1c8652).decode('utf-8'))
++        _SUPPLEMENT_CACHE['data'] = data
+     opt = ((data or {}).get(sid, {}).get('value', {}).get('CURRENCY_OPTION') or {}).get('value', {})
+     if 'CURRENCY_TYPE' in opt:
+         return opt.get('MULTIPLE_BUY_PRICE' if times > 1 else 'PRICE', 0) if opt['CURRENCY_TYPE'] == currency_id else 0
+     for i in ('1', '2'):
+         if opt.get('CURRENCY_TYPE' + i) == currency_id:
+             return opt.get(('MULTIPLE_BUY_PRICE' if times > 1 else 'PRICE') + i, opt.get('PRICE' + i, 0) * times) or 0
++    # Fallback for previous Looks boxes using tickets (91) or diamonds (2),
++    # plus LOOKS colour-diamond (9) previous-box price from STORE_AND_SUPPLY_ISSUES §3C.
++    if currency_id == 91:
++        return 48 if times > 1 else 5
++    if currency_id == 9:
++        return 2880 if times > 1 else 300
++    if currency_id == 2:
++        return 1440 if times > 1 else 150
+     return 0
+ 
+ 
+@@ -1418,6 +1753,8 @@ def send_mercury_message(sock, dest, key, message, flags=0x0008):
+     fragment_flags = flags | 0x0020 | 0x0040
+     wire_sizes = []
+     for index, chunk in enumerate(chunks):
++        if len(chunks) > 20 and index > 0 and index % 10 == 0:
++            time.sleep(0.001)
+         seq = first_seq + index
+         footer = struct.pack('<III', first_seq, last_seq, seq)
+         plain = struct.pack('<H', fragment_flags) + chunk + footer
+@@ -1479,8 +1816,18 @@ def send_create_cell_player(sock, dest, key, space_id=1, vehicle_id=0, pos=(0.0,
+     sock.sendto(enc if enc else plain_padded, dest)
+ 
+ 
+-def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_type=None, nick=None):
++_char_creation_last_time = {}
++
++
++def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_type=None, nick=None, force=False):
+     """Sends the authoritative response sequence for character creation / lobby entry."""
++    now = time.time()
++    if not force and dest in _char_creation_last_time and (now - _char_creation_last_time[dest]) < 10.0:
++        log('BASEAPP: skipping duplicate character creation response chain to %s (sent %.1fs ago)' %
++            (dest, now - _char_creation_last_time[dest]))
++        return
++    _char_creation_last_time[dest] = now
++
+     # Depot and a fresh hall must share one persisted gender/equip state.
+     state = _load_player_state()
+     state_gender = int(state.get('gender', 1))
+@@ -1530,11 +1877,14 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
+         send_entity_method(sock, dest, key, athlete_eid, 59, b'', flags=0x0008, num_methods=1131)
+         log('BASEAPP: sent Athlete.onLeaveHallTeam() idx=59 to eid=%d %s' % (athlete_eid, dest))
+ 
+-    # 6. Athlete.enterHall(True) (idx 1091)
++    # 6. Athlete.enterHall(isFirstLoginOfDay) (idx 1091)
++    # isFirstLoginOfDay=0 (False) tells the client this is an existing session, avoiding the
++    # duplicate "Please select controls" / tutorial loop.
+     time.sleep(0.1)
+-    eh_args = struct.pack('<B', 1)
++    is_first_login = int(os.environ.get('ROS_ENTER_HALL_FIRST_LOGIN', '0'))
++    eh_args = struct.pack('<B', is_first_login)
+     send_entity_method(sock, dest, key, athlete_eid, 1091, eh_args, flags=0x0008, num_methods=1131)
+-    log('BASEAPP: sent Athlete.enterHall(True) idx=1091 to eid=%d %s' % (athlete_eid, dest))
++    log('BASEAPP: sent Athlete.enterHall(%s) idx=1091 to eid=%d %s' % (bool(is_first_login), athlete_eid, dest))
+ 
+     # Server-pushed interface state that is not part of the Athlete property stream.  Keep the
+     # verified character/lobby RPC order above intact; these initializers run only afterwards,
+@@ -1559,7 +1909,7 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
+             'luckyRoundIsSuper': False,
+             'luckyRoundByRecommend': False,
+     }
+-    lucky_carnival_pickle = pickle.dumps(lucky_carnival, protocol=0)
++    lucky_carnival_pickle = pickle.dumps(lucky_carnival, protocol=2)
+     gender_lists = state.get('lists', {}).get(str(state_gender), {'wear': [], 'body': []})
+     init_wear = gender_lists.get('wear', [])
+     init_body = gender_lists.get('body', [])
+@@ -1580,11 +1930,11 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
+         # 1,131-entry Athlete method-name table (scratch/dump_athlete_methods.py).
+         # syncMonthPayRebateSpecialAwardInfo(PYTHON info)
+         # is_all_award_done does info['awards'] (live KeyError with {}), so the dict needs an 'awards' key.
+-        (768, _packed_int(len(pickle.dumps({'awards': {}}, protocol=0))) + pickle.dumps({'awards': {}}, protocol=0),
++        (768, _packed_int(len(pickle.dumps({'awards': {}}, protocol=2))) + pickle.dumps({'awards': {}}, protocol=2),
+          "Athlete.syncMonthPayRebateSpecialAwardInfo({'awards': {}})"),
+         # onPersonalRecommendStateUpdated(INT32 state, INT32 refreshTime, PYTHON gift, INT32 version)
+-        (754, struct.pack('<ii', 0, 0) + _packed_int(len(pickle.dumps({}, protocol=0))) +
+-         pickle.dumps({}, protocol=0) + struct.pack('<i', 0),
++        (754, struct.pack('<ii', 0, 0) + _packed_int(len(pickle.dumps({}, protocol=2))) +
++         pickle.dumps({}, protocol=2) + struct.pack('<i', 0),
+          'Athlete.onPersonalRecommendStateUpdated(0,0,{},0)'),
+     ]
+     # LOOKS colour-diamond sync is experimental.  Sending it during the
+@@ -1598,6 +1948,19 @@ def send_character_creation_response_chain(sock, dest, key, athlete_eid, char_ty
+     if _sup_n >= 0 and os.environ.get('ROS_SUPPLEMENT', '1') == '1':
+         _sup = supplement_avail_payload(_sup_n)
+         hall_state_rpcs.append((392, _packed_int(len(_sup)) + _sup, 'Athlete.onQueryAvailableSupplement(%d B)' % len(_sup)))
++    # Mall catalog pre-push so Store tabs are populated immediately on hall entry
++    try:
++        _s_goods = _mall_runtime_goods(appearance=True)
++        _s_blob = pickle.dumps(_s_goods, protocol=2)
++        _s_py = _packed_int(len(_s_blob)) + _s_blob
++        hall_state_rpcs.append((450, _s_py, 'Athlete.onQueryAvailableMallGoodsForAppearanceMall(%d sugg)' % len(_s_goods)))
++
++        _p_goods = _mall_runtime_goods(query_type=8)
++        _p_blob = pickle.dumps(_p_goods, protocol=2)
++        _p_py = _packed_int(len(_p_blob)) + _p_blob
++        hall_state_rpcs.append((448, _p_py, 'Athlete.onQueryAvailableMallGoods(%d packs)' % len(_p_goods)))
++    except Exception as e:
++        log('STORE: mall pre-push build error: %s' % e)
+     # ---- RPCs that only take visible effect once UIMain exists (sent again at ROS_HALL_LATE_DELAYS seconds) ----
+     # UIMain is built roughly 60-90 s after enterHall (depends on when "Please select controls" is confirmed); an
+     # earlier call finds no widget to update. All of these are idempotent, so they are simply resent.
+@@ -1794,13 +2157,18 @@ def run_baseapp_stage_machine(sock, addr, key):
+             log('BASEAPP STAGE 4: sent Athlete.showSelectCharacter([]) idx=1083 (ARRAY<STRING> count=0, 4 bytes) to eid=%d %s' % (athlete_eid, addr))
+ 
+         # Step 4b: Auto enter hall if configured
+-        if os.environ.get('ROS_AUTO_ENTER_HALL', '1') == '1':
++        # The current account already has an automatic athlete/name. Do not stop at
++        # showSelectCharacter and wait for an interactive Character Creation UI.
++        # ROS_BYPASS_CHARACTER_UI defaults on for this offline flow; explicitly set
++        # it to 0 only when debugging the creation UI itself.
++        if (os.environ.get('ROS_AUTO_ENTER_HALL', '1') == '1'
++                or os.environ.get('ROS_BYPASS_CHARACTER_UI', '1') == '1'):
+             scene_delay = float(os.environ.get('ROS_SCENE_LOAD_DELAY', '2.5'))
+-            log('BASEAPP STAGE 4: waiting %.1fs for client _loadDefaultScene to instantiate Scene GameObject...' % scene_delay)
++            log('BASEAPP STAGE 4: automatic existing-athlete flow; waiting %.1fs for client scene load...' % scene_delay)
+             time.sleep(scene_delay)
+             send_character_creation_response_chain(sock, addr, use_key, athlete_eid)
+         else:
+-            log('BASEAPP STAGE 4: ROS_AUTO_ENTER_HALL=0 -> Waiting in Character Creation UI for user interaction / upstream RPC.')
++            log('BASEAPP STAGE 4: ROS_AUTO_ENTER_HALL=0 and ROS_BYPASS_CHARACTER_UI=0 -> holding before hall')
+ 
+         # Stage 5: HOLDING
+         log('BASEAPP STAGE 5: All entity lifecycle stages complete. Entering HOLDING state for %s' % (addr,))

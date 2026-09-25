@@ -1,0 +1,170 @@
+
+# Client -> server exposed base-method indices (first payload byte of a 0xfa..0xfd message in a decrypted bundle), derived from live
+# captures: the Supply page sends `fa 01 00 dd` (no args) each time it opens, and UIAdvanceSupplyPackage.on_enter calls
+# base.queryAvailableSupplement() (base table idx 470). Everything else is logged so the mapping can be extended.
+EXPOSED_METHODS = {0xdd: 'queryAvailableSupplement', 0xda: 'openSupplyBox', 0xdb: 'openSupplyBoxFree', 0xdc: 'openMultipleSupplyBox'}
+# wire method index = base-method table index - 249 in this region (openSupplyBox 467 -> 0xda, queryAvailableSupplement 470 -> 0xdd; both live-verified).
+_dev_yb = {'free': int(os.environ.get('ROS_DEV_FREE_YB_BALANCE', '999999'))}
+_dev_currencies = {1: 999999, 3: 5000, 213: 999999}
+_mall_buy_times = {}
+_seen_exposed = set()
+_handled_seq = {}     # addr -> set of client packet seq numbers already handled (retransmission guard)
+_inventory_lock = threading.Lock()
+_inventory_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_inventory.json')
+
+_EXPOSED_JSON_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'athlete_exposed_methods.json')
+try:
+    with open(_EXPOSED_JSON_PATH, encoding='utf-8') as _f:
+        _EXPOSED_MAP = {int(k): v for k, v in json.load(_f).items()}
+except Exception:
+    _EXPOSED_MAP = {}
+
+# Indices in the Athlete exposed-method vector (not the full base-method
+# table).  The vector was dumped from the live Android arm64 client; keeping
+# the Store entries here makes Store handling independent of the optional
+# generated JSON discovery file.
+_STORE_EXPOSED = {
+    306: 'buyMallGood',
+    307: 'buyMultipleMallGood',
+    308: 'buySuitMallGood',
+    309: 'buyMallGoodUseHallProp',
+    313: 'buyMallGoodInAppearanceMall',
+    314: 'queryAvailableMallGoods',
+    315: 'queryAvailableMallGoodsByType',
+    316: 'queryAvailableMallGoodsForAppearanceMall',
+}
+
+
+def _mall_tables():
+    """Return the client's three authoritative Store tables, merged by id.
+
+    assets.npk members: 832995b1=data_mall.2 (main/Suggested/Packs),
+    878e57c9=data_mall.1 (Looks), 55977219=data_mall_goods (Firearms).
+    Static descriptions/models remain client-side; the server only sends
+    live availability, discount and purchase-count state.
+    """
+    if 'mall_tables' not in _SUPPLEMENT_CACHE:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+        import load_table as LT
+        merged = {}
+        for sig in (0x832995b1, 0x878e57c9, 0x55977219):
+            merged.update(LT.parse_table(LT.read_member(sig).decode('utf-8')))
+        _SUPPLEMENT_CACHE['mall_tables'] = merged
+    return _SUPPLEMENT_CACHE['mall_tables']
+
+
+def _mall_runtime_goods():
+    """Build the exact dynamic fields read by UIMall.fillGoods."""
+    display_flags = (
+        'IS_DISPLAY_IN_MALL', 'IS_DISPLAY_IN_CLOTH_MALL',
+        'IS_DISPLAY_IN_MALL_WEAPON', 'IS_DISPLAY_IN_WEAPON_MALL',
+        'IS_DISPLAY_IN_SUIT_MALL', 'IS_DISPLAY_IN_TIME_APPEARANCE',
+    )
+    goods = {}
+    for good_id, rec in _mall_tables().items():
+        value = rec.get('value', {})
+        if not any(value.get(flag) for flag in display_flags):
+            continue
+        goods[int(good_id)] = {
+            'DISCOUNT': int(value.get('CURRENT_DISCOUNT', 100)),
+            'BUY_TIMES': int(_mall_buy_times.get(int(good_id), 0)),
+            'CURRENCY_ID': int(value.get('CURRENCY_ID', 2)),
+            'PRICE': int(value.get('PRICE', 0)),
+        }
+    return goods
+
+
+def _send_mall_query_reply(sock, addr, key, query_type=None, appearance=False):
+    goods = _mall_runtime_goods()
+    blob = pickle.dumps(goods, protocol=0)
+    py_arg = _packed_int(len(blob)) + blob
+    if query_type is not None:
+        # onQueryAvailableMallGoodsByType(UINT32, PYTHON), client idx 449
+        args = struct.pack('<I', query_type) + py_arg
+        reply_idx = 449
+    else:
+        args = py_arg
+        # Appearance Mall has its own callback; ordinary Store uses idx 448.
+        reply_idx = 450 if appearance else 448
+    send_entity_method(sock, addr, key, 1, reply_idx, args, flags=0x0008, num_methods=1131)
+    log('STORE: query reply idx=%d type=%s goods=%d pickle=%d B' % (
+        reply_idx, query_type, len(goods), len(blob)))
+
+
+def _charge_store_currency(sock, addr, key, currency_id, amount):
+    amount = max(int(amount), 0)
+    if currency_id == 2:
+        _dev_yb['free'] = max(_dev_yb['free'] - amount, 0)
+        send_entity_method(sock, addr, key, 1, 203,
+                           struct.pack('<qqi', _dev_yb['free'], 0, 0),
+                           flags=0x0008, num_methods=1131)
+        return _dev_yb['free']
+    balance = max(_dev_currencies.get(currency_id, 999999) - amount, 0)
+    _dev_currencies[currency_id] = balance
+    # onCurrencyUpdated(INT32 id, INT64 val, INT32 src), client idx 204
+    send_entity_method(sock, addr, key, 1, 204,
+                       struct.pack('<iqi', currency_id, balance, 0),
+                       flags=0x0008, num_methods=1131)
+    return balance
+
+
+def _handle_buy_mall_good(sock, addr, key, payload):
+    """Handle buyMallGood / buyMallGoodInAppearanceMall common wire shape."""
+    if len(payload) < 9:
+        log('STORE: short buyMallGood payload (%d B)' % len(payload))
+        return
+    good_id, quantity = struct.unpack_from('<ii', payload, 1)
+    quantity = max(1, min(int(quantity), 99))
+    rec = _mall_tables().get(good_id)
+    if rec is None:
+        log('STORE: unknown mall good id=%d qty=%d' % (good_id, quantity))
+        return
+    value = rec.get('value', {})
+    prop_id = int(value.get('HALL_PROP_ID', 0))
+    currency_id = int(value.get('CURRENCY_ID', 2))
+    unit_price = int(value.get('PRICE', 0))
+    discount = int(value.get('CURRENT_DISCOUNT', 100))
+    total = max((unit_price * discount * quantity) // 100, 0)
+    awarded = []
+    for _ in range(quantity):
+        awarded.extend(_expand_prop(prop_id) if prop_id else [])
+    _mall_buy_times[good_id] = _mall_buy_times.get(good_id, 0) + quantity
+
+    # onBuyMallGood(ARRAY<INT32>), client idx 441. UIMall._showMallResult
+    # displays these exact prop ids and then re-queries availability.
+    send_entity_method(sock, addr, key, 1, 441, _int_array(awarded),
+                       flags=0x0008, num_methods=1131)
+    balance = _charge_store_currency(sock, addr, key, currency_id, total)
+
+    cosmetic = [pid for pid in awarded if _prop_type(pid) is not None and _is_cosmetic(pid)]
+    if cosmetic:
+        grant_appearance_prizes(sock, addr, key, cosmetic)
+    log('STORE: bought good=%d qty=%d prop=%d awarded=%s currency=%d charge=%d balance=%d cosmetics=%s' % (
+        good_id, quantity, prop_id, awarded, currency_id, total, balance, cosmetic))
+
+_player_state_lock = threading.Lock()
+_player_state_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'player_state.json')
+
+
+def _load_player_state():
+    try:
+        with open(_player_state_path, encoding='utf-8') as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            return data
+    except Exception:
+        pass
+    return {'gender': 2, 'lists': {'1': {'wear': [1111326, 1110326], 'body': []}, '2': {'wear': [1111322, 1112322, 1110322], 'body': []}}}
+
+
+def _save_player_state(data):
+    os.makedirs(os.path.dirname(_player_state_path), exist_ok=True)
+    tmp = _player_state_path + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, sort_keys=True)
+        f.write('\n')
+    os.replace(tmp, _player_state_path)
+
+
+def _int_array(items):
+    return struct.pack('<I', len(items)) + b''.join(struct.pack('<i', int(x)) for x in items)

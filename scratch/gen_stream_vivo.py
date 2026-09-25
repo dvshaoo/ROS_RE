@@ -18,7 +18,7 @@ import runtime_encoder as RE
 import xmltypes as X
 
 ROOT = RE.ROOT
-OUTBIN = os.path.join(ROOT, 'data', 'athlete_mobile_stream.bin')
+OUTBIN = os.path.join(ROOT, 'scratch', 'athlete_vivo_stream.bin')
 LAYOUT = os.path.join(ROOT, 'scratch', 'athlete_stream_layout.txt')
 MODE = os.environ.get('ROS_STREAM_DEFAULTS', 'xml')
 # Bisection aid: with ROS_XML_ONLY=name1,name2 only those properties honour their XML default and every
@@ -77,12 +77,12 @@ PROPERTY_OVERRIDES = {
     'weekendPushRewardsHaveGotten': [],
     # Athlete.onBecomePlayer passes this to extconfigs.getServiceAccessPoint(ap), which indexes
     # ap[0], ap[1] (and ap[2] for published iOS). Point all services at the LAN gateway only.
-    'msHttpAP': ['172.16.1.2', 80, 443],
+    'msHttpAP': [os.environ.get('ROS_VIVO_HOST', '192.168.100.8'), 80, 443],
     # currencyList = ARRAY<CURRENCY_ITEM{id INT32, num INT64}> (dynamic array). iCurrency.getCurrencyAmount(id) reads it for every
     # currency except YUANBAO (that one is freeYuanbao+payYuanbao). ids are MallCurrencyType consts: GP=1, YUANBAO=2, SP=3
     # (first three only; later ids not verified). id 213 is the top-bar coin slot (UIMain.curExchangeCoin), live-verified by probe. Override with ROS_CURRENCY_LIST='1:100000,3:5000' ('-' = empty).
     'currencyList': [{'id': int(kv.split(':')[0]), 'num': int(kv.split(':')[1])}
-                     for kv in os.environ.get('ROS_CURRENCY_LIST', '1:999999,3:50000,9:999999,91:999999,202:999999,214:999999,213:999999').split(',') if ':' in kv],
+                     for kv in os.environ.get('ROS_CURRENCY_LIST', '1:999999,3:5000,213:999999').split(',') if ':' in kv],
     # DTS_APPEARANCE_PACKAGE3 is a FIXED_DICT. Its itemList records are ITEM_DATA3
     # (uuid BLOB, itemID INT32, number INT32, info PY_DICT), verified from the live
     # runtime DataType tree and entity_0464 DEF. The JSON is updated after each draw.

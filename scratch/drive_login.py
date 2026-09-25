@@ -9,7 +9,8 @@ Usage: python scratch/drive_login.py [logcat_out_path]
 """
 import subprocess, sys, time, os, re
 
-ADB = [os.environ.get('ADB_PATH', r'C:\Users\Raysoo\AppData\Local\Android\Sdk\platform-tools\adb.exe'), '-s', 'emulator-5554']
+ADB = [os.environ.get('ADB_PATH', r'C:\Users\Raysoo\AppData\Local\Android\Sdk\platform-tools\adb.exe'),
+       '-s', os.environ.get('DEVICE_SERIAL', 'emulator-5554')]
 ROOT = r'C:\Users\Raysoo\Downloads\ROS_RE'
 SERVER_LOG = os.environ.get('ROS_SERVER_LOG', os.path.join(ROOT, 'scratch', 'server_cell_stream_test.out'))
 LOGCAT_OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'scratch', 'live_logcat_stream1585.txt')

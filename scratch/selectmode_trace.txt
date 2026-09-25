@@ -1,0 +1,490 @@
+--- Searching in UISelectCharacter (0x32d7c278) ---
+
+--- Searching in Athlete (0xc7ef2b17) ---
+
+[MATCH] <module> -> PlayerAthlete -> showSelectCharacter mentions SelectMode!
+   names: ['Checkpoints', 'onCheckpoint', 'False', 'Globals', 'enterSelectModeFinished', 'Application', 'LoadLevelAtFinish', 'SALogging', 'drpfLogging']
+   consts: [None, b'PlayerAthlete.showSelectCharacter', -1, b'', b'scnPath', b'navPath', b'ShowSelectCharacter']
+--- showSelectCharacter (file=entities\Athlete.py, argc=2) ---
+VARNAMES: ['self', 'usedNames']
+NAMES:    ['Checkpoints', 'onCheckpoint', 'False', 'Globals', 'enterSelectModeFinished', 'Application', 'LoadLevelAtFinish', 'SALogging', 'drpfLogging']
+   0  LOAD_GLOBAL            0  (Checkpoints)
+   3  LOAD_ATTR              1  (onCheckpoint)
+   6  LOAD_CONST             1  ('PlayerAthlete.showSelectCharacter')
+   9  CALL_FUNCTION          1  (pos=1 kw=0)
+  12  POP_TOP
+  13  LOAD_GLOBAL            2  (False)
+  16  LOAD_GLOBAL            3  (Globals)
+  19  JUMP_FORWARD           4  (4)
+  22  LOAD_GLOBAL            5  (Application)
+  25  LOAD_ATTR              6  (LoadLevelAtFinish)
+  28  LOAD_CONST             2  (-1)
+  31  BUILD_MAP              2  (2)
+  34  LOAD_CONST             3  ('')
+  37  LOAD_CONST             4  ('scnPath')
+  40  STORE_MAP
+  41  LOAD_CONST             3  ('')
+  44  LOAD_CONST             5  ('navPath')
+  47  STORE_MAP
+  48  ??neox=120 arg=1
+  51  BUILD_TUPLE            1  (1)
+  54  LOAD_CONST             6  (<code <lambda>>)
+  57  ??neox=172 arg=0
+  60  CALL_FUNCTION          3  (pos=3 kw=0)
+  63  POP_TOP
+  64  LOAD_GLOBAL            7  (SALogging)
+  67  LOAD_ATTR              8  (drpfLogging)
+  70  LOAD_CONST             7  ('ShowSelectCharacter')
+  73  CALL_FUNCTION          1  (pos=1 kw=0)
+  76  POP_TOP
+  77  ??neox=120 arg=0
+  80  BUILD_TUPLE            1  (1)
+  83  LOAD_CONST             8  (<code _loadDefaultScene>)
+  86  ??neox=172 arg=0
+  89  ??neox=100 arg=1
+  92  RETURN_CONST           0  (None)
+
+============================================================
+
+[MATCH] <module> -> PlayerAthlete -> enterHall mentions SelectMode!
+   names: ['safesuper', 'PlayerAthlete', 'enterHall', 'Globals', 'channel', 'game_login_success', 'player.appearance.PlayerAnimationTreeManager', 'PlayerAnimNames', 'Clear', 'enterSelectModeFinished', 'switches', 'PCEnableMode', 'True', 'enterFirstFlag', 'uiMgr', 'leave_ui', 'clearAllUI', 'enter_ui', 'ui.chat', 'friendshipRedpoint', 'friendNoticeSub', 'reset', 'False', 'getValentineTShirt']
+   consts: [None, -1, [b'PlayerAnimNames'], b'UILoading', b'UISelectMode', b'callback', [b'friendshipRedpoint']]
+--- enterHall (file=entities\Athlete.py, argc=5) ---
+VARNAMES: ['self', 'firstLoginToday', 'PlayerAnimNames', '_realEnterHall', 'friendshipRedpoint']
+NAMES:    ['safesuper', 'PlayerAthlete', 'enterHall', 'Globals', 'channel', 'game_login_success', 'player.appearance.PlayerAnimationTreeManager', 'PlayerAnimNames', 'Clear', 'enterSelectModeFinished', 'switches', 'PCEnableMode', 'True', 'enterFirstFlag', 'uiMgr', 'leave_ui', 'clearAllUI', 'enter_ui', 'ui.chat', 'friendshipRedpoint', 'friendNoticeSub', 'reset', 'False', 'getValentineTShirt']
+   0  LOAD_GLOBAL            0  (safesuper)
+   3  LOAD_GLOBAL            1  (PlayerAthlete)
+   6  ??neox=129 arg=0
+   9  CALL_FUNCTION          2  (pos=2 kw=0)
+  12  LOAD_ATTR              2  (enterHall)
+  15  CALL_FUNCTION          0  (pos=0 kw=0)
+  18  POP_TOP
+  19  LOAD_GLOBAL            3  (Globals)
+  22  LOAD_ATTR              4  (channel)
+  25  POP_JUMP_IF_FALSE      44  (44)
+  28  LOAD_GLOBAL            3  (Globals)
+  31  LOAD_ATTR              4  (channel)
+  34  LOAD_ATTR              5  (game_login_success)
+  37  CALL_FUNCTION          0  (pos=0 kw=0)
+  40  POP_TOP
+  41  JUMP_FORWARD           0  (0)
+  44  LOAD_CONST             1  (-1)
+  47  LOAD_CONST             2  ([b'PlayerAnimNames'])
+  50  ??neox=134 arg=6
+  53  ??neox=116 arg=7
+  56  STORE_FAST             2  (PlayerAnimNames)
+  59  POP_TOP
+  60  LOAD_FAST_ATTR         520  (PlayerAnimNames.Clear)
+  63  CALL_FUNCTION          0  (pos=0 kw=0)
+  66  POP_TOP
+  67  ??neox=120 arg=0
+  70  ??neox=120 arg=1
+  73  BUILD_TUPLE            2  (2)
+  76  LOAD_CONST             3  (<code _realEnterHall>)
+  79  ??neox=172 arg=0
+  82  STORE_FAST             3  (_realEnterHall)
+  85  LOAD_GLOBAL            3  (Globals)
+  88  LOAD_ATTR              9  (enterSelectModeFinished)
+  91  POP_JUMP_IF_TRUE       103  (103)
+  94  LOAD_GLOBAL            10  (switches)
+  97  LOAD_ATTR              11  (PCEnableMode)
+ 100  POP_JUMP_IF_FALSE      113  (113)
+ 103  LOAD_FAST              3  (_realEnterHall)
+ 106  CALL_FUNCTION          0  (pos=0 kw=0)
+ 109  POP_TOP
+ 110  JUMP_FORWARD           64  (64)
+ 113  LOAD_GLOBAL            12  (True)
+ 116  LOAD_GLOBAL            3  (Globals)
+ 119  JUMP_FORWARD           13  (13)
+ 122  LOAD_GLOBAL            3  (Globals)
+ 125  LOAD_ATTR              14  (uiMgr)
+ 128  LOAD_ATTR              15  (leave_ui)
+ 131  LOAD_CONST             4  ('UILoading')
+ 134  CALL_FUNCTION          1  (pos=1 kw=0)
+ 137  POP_TOP
+ 138  LOAD_GLOBAL            3  (Globals)
+ 141  LOAD_ATTR              14  (uiMgr)
+ 144  LOAD_ATTR              16  (clearAllUI)
+ 147  CALL_FUNCTION          0  (pos=0 kw=0)
+ 150  POP_TOP
+ 151  LOAD_GLOBAL            3  (Globals)
+ 154  LOAD_ATTR              14  (uiMgr)
+ 157  LOAD_ATTR              17  (enter_ui)
+ 160  LOAD_CONST             5  ('UISelectMode')
+ 163  BUILD_MAP              1  (1)
+ 166  LOAD_FAST              3  (_realEnterHall)
+ 169  LOAD_CONST             6  ('callback')
+ 172  STORE_MAP
+ 173  CALL_FUNCTION          2  (pos=2 kw=0)
+ 176  POP_TOP
+ 177  LOAD_CONST             1  (-1)
+ 180  LOAD_CONST             7  ([b'friendshipRedpoint'])
+ 183  ??neox=134 arg=18
+ 186  ??neox=116 arg=19
+ 189  STORE_FAST             4  (friendshipRedpoint)
+ 192  POP_TOP
+ 193  LOAD_FAST_ATTR         1044  (friendshipRedpoint.friendNoticeSub)
+ 196  LOAD_ATTR              21  (reset)
+ 199  CALL_FUNCTION          0  (pos=0 kw=0)
+ 202  POP_TOP
+ 203  LOAD_GLOBAL            22  (False)
+ 206  ??neox=129 arg=0
+ 209  JUMP_FORWARD           23  (23)
+ 212  RETURN_CONST           0  (None)
+
+============================================================
+
+[MATCH] <module> -> PlayerAthlete -> enterHall -> _realEnterHall mentions SelectMode!
+   names: ['Globals', 'enterSelectModeFinished', 'True', 'rookieEnterHall', 'player.appearance.PlayerAnimationTreeManager', 'PlayerAnimNames', 'Clear', 'updateReadGMRedhintMsg', 'readGMRedhintMsg', 'settings', 'isColorAdjust', 'helpers', 'GameSDK', 'setCurrentSceneId', 'GAME_MAIN_UI', 'switches', 'URGENT_SWITCH_ENABLE_FORCE_UPGRADE', 'isWin32', 'isMac', 'elkLogging', 'getEngineVersion', 'const', 'EngineVersion', 'RC3', 'errtxt', 'I_PHONE_NO_GRASS', 'None', 'uiMgr', 'enter_ui', 'preloadDtsHallProp', 'tryPhaseDeepLinkActions', 'SALogging', 'usKeyPoint', 'FIRST_LOAD', 'False', 'drpfLogging', 'int', 'time', 'FIRST_LOAD_TIME', 'I_FORCE_LOW_ENGINE_VERSION', 'tryUploadRCVersion', 'getattr', 'doRealnameAuthenAgain', 'loadCompFinished', 'GameInit', 'updateInactivityTimeout', 'forceLogout', 'needKickOut', 'needRealName', 'GameObject', 'Find', 'GetComponent', 'loadHallScene', 'hasLogonServer', 'ChannelHelper', 'uploadUserInfo', 'ChannelUploadStageEnum', 'ENTER_SERVER', 'patchNpkCheckResult', 'base', 'uploadPatchCheckData', 'Checkpoints', 'onCheckpoint', 'client_utils', 'setBWNetworkParams', 'timerRefreshMSToken', 'Timer', 'addRepeatTimer', 'refreshMSToken']
+   consts: [None, -1, [b'PlayerAnimNames'], [b'GameSDK'], b'des', b'confirmCB', b'cancelCB', b'defaultCB', 10, b'loadingBarTime', b'UIDialog', b'load_hall_end', b'Load', b'load_time_long', b'hall']
+--- _realEnterHall (file=entities\Athlete.py, argc=7) ---
+VARNAMES: ['PlayerAnimNames', 'onHallSceneReady', 'GameSDK', 'confirmCB', 'cancelCB', 'args', 'GameInit']
+NAMES:    ['Globals', 'enterSelectModeFinished', 'True', 'rookieEnterHall', 'player.appearance.PlayerAnimationTreeManager', 'PlayerAnimNames', 'Clear', 'updateReadGMRedhintMsg', 'readGMRedhintMsg', 'settings', 'isColorAdjust', 'helpers', 'GameSDK', 'setCurrentSceneId', 'GAME_MAIN_UI', 'switches', 'URGENT_SWITCH_ENABLE_FORCE_UPGRADE', 'isWin32', 'isMac', 'elkLogging', 'getEngineVersion', 'const', 'EngineVersion', 'RC3', 'errtxt', 'I_PHONE_NO_GRASS', 'None', 'uiMgr', 'enter_ui', 'preloadDtsHallProp', 'tryPhaseDeepLinkActions', 'SALogging', 'usKeyPoint', 'FIRST_LOAD', 'False', 'drpfLogging', 'int', 'time', 'FIRST_LOAD_TIME', 'I_FORCE_LOW_ENGINE_VERSION', 'tryUploadRCVersion', 'getattr', 'doRealnameAuthenAgain', 'loadCompFinished', 'GameInit', 'updateInactivityTimeout', 'forceLogout', 'needKickOut', 'needRealName', 'GameObject', 'Find', 'GetComponent', 'loadHallScene', 'hasLogonServer', 'ChannelHelper', 'uploadUserInfo', 'ChannelUploadStageEnum', 'ENTER_SERVER', 'patchNpkCheckResult', 'base', 'uploadPatchCheckData', 'Checkpoints', 'onCheckpoint', 'client_utils', 'setBWNetworkParams', 'timerRefreshMSToken', 'Timer', 'addRepeatTimer', 'refreshMSToken']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (enterSelectModeFinished)
+   6  POP_JUMP_IF_TRUE       21  (21)
+   9  LOAD_GLOBAL            2  (True)
+  12  LOAD_GLOBAL            0  (Globals)
+  15  JUMP_FORWARD           3  (3)
+  18  JUMP_FORWARD           0  (0)
+  21  LOAD_GLOBAL            2  (True)
+  24  LOAD_GLOBAL            0  (Globals)
+  27  JUMP_FORWARD           1  (1)
+  30  LOAD_CONST             1  (-1)
+  33  LOAD_CONST             2  ([b'PlayerAnimNames'])
+  36  ??neox=134 arg=4
+  39  ??neox=116 arg=5
+  42  STORE_FAST             0  (PlayerAnimNames)
+  45  POP_TOP
+  46  LOAD_FAST_ATTR         6  (PlayerAnimNames.Clear)
+  49  CALL_FUNCTION          0  (pos=0 kw=0)
+  52  POP_TOP
+  53  ??neox=120 arg=0
+  56  ??neox=120 arg=1
+  59  BUILD_TUPLE            2  (2)
+  62  LOAD_CONST             3  (<code onHallSceneReady>)
+  65  ??neox=172 arg=0
+  68  STORE_FAST             1  (onHallSceneReady)
+  71  ??neox=129 arg=0
+  74  LOAD_ATTR              7  (updateReadGMRedhintMsg)
+  77  ??neox=129 arg=0
+  80  LOAD_ATTR              8  (readGMRedhintMsg)
+  83  CALL_FUNCTION          1  (pos=1 kw=0)
+  86  POP_TOP
+  87  LOAD_GLOBAL            0  (Globals)
+  90  LOAD_ATTR              9  (settings)
+  93  LOAD_ATTR              10  (isColorAdjust)
+  96  LOAD_GLOBAL            0  (Globals)
+  99  LOAD_ATTR              9  (settings)
+ 102  JUMP_FORWARD           10  (10)
+ 105  LOAD_CONST             1  (-1)
+ 108  LOAD_CONST             4  ([b'GameSDK'])
+ 111  ??neox=134 arg=11
+ 114  ??neox=116 arg=12
+ 117  STORE_FAST             2  (GameSDK)
+ 120  POP_TOP
+ 121  LOAD_FAST_ATTR         525  (GameSDK.setCurrentSceneId)
+ 124  LOAD_FAST_ATTR         526  (GameSDK.GAME_MAIN_UI)
+ 127  CALL_FUNCTION          1  (pos=1 kw=0)
+ 130  POP_TOP
+ 131  LOAD_GLOBAL            15  (switches)
+ 134  LOAD_ATTR              16  (URGENT_SWITCH_ENABLE_FORCE_UPGRADE)
+ 137  POP_JUMP_IF_FALSE      749  (749)
+ 140  LOAD_GLOBAL            0  (Globals)
+ 143  LOAD_ATTR              17  (isWin32)
+ 146  UNARY_NOT
+ 147  POP_JUMP_IF_FALSE      268  (268)
+ 150  LOAD_GLOBAL            0  (Globals)
+ 153  LOAD_ATTR              18  (isMac)
+ 156  UNARY_NOT
+ 157  POP_JUMP_IF_FALSE      268  (268)
+ 160  LOAD_GLOBAL            19  (elkLogging)
+ 163  LOAD_ATTR              20  (getEngineVersion)
+ 166  CALL_FUNCTION          0  (pos=0 kw=0)
+ 169  LOAD_GLOBAL            21  (const)
+ 172  LOAD_ATTR              22  (EngineVersion)
+ 175  LOAD_ATTR              23  (RC3)
+ 178  COMPARE_OP             0  (<)
+ 181  POP_JUMP_IF_FALSE      268  (268)
+ 184  LOAD_CONST             5  (<code confirmCB>)
+ 187  MAKE_FUNCTION          0  (0)
+ 190  STORE_FAST             3  (confirmCB)
+ 193  LOAD_CONST             6  (<code cancelCB>)
+ 196  MAKE_FUNCTION          0  (0)
+ 199  STORE_FAST             4  (cancelCB)
+ 202  BUILD_MAP              5  (5)
+ 205  LOAD_GLOBAL            24  (errtxt)
+ 208  LOAD_ATTR              25  (I_PHONE_NO_GRASS)
+ 211  LOAD_CONST             7  ('des')
+ 214  STORE_MAP
+ 215  LOAD_CONST             0  (None)
+ 218  LOAD_CONST             8  ('confirmCB')
+ 221  STORE_MAP
+ 222  LOAD_CONST             0  (None)
+ 225  LOAD_CONST             9  ('cancelCB')
+ 228  STORE_MAP
+ 229  LOAD_CONST             0  (None)
+ 232  LOAD_CONST             10  ('defaultCB')
+ 235  STORE_MAP
+ 236  LOAD_CONST             11  (10)
+ 239  LOAD_CONST             12  ('loadingBarTime')
+ 242  STORE_MAP
+ 243  STORE_FAST             5  (args)
+ 246  LOAD_GLOBAL            0  (Globals)
+ 249  LOAD_ATTR              27  (uiMgr)
+ 252  LOAD_ATTR              28  (enter_ui)
+ 255  LOAD_CONST             13  ('UIDialog')
+ 258  LOAD_FAST              5  (args)
+ 261  CALL_FUNCTION          2  (pos=2 kw=0)
+ 264  POP_TOP
+ 265  JUMP_FORWARD           0  (0)
+ 268  ??neox=129 arg=0
+ 271  LOAD_ATTR              29  (preloadDtsHallProp)
+ 274  CALL_FUNCTION          0  (pos=0 kw=0)
+ 277  POP_TOP
+ 278  ??neox=129 arg=0
+ 281  LOAD_ATTR              30  (tryPhaseDeepLinkActions)
+ 284  CALL_FUNCTION          0  (pos=0 kw=0)
+ 287  POP_TOP
+ 288  ??neox=129 arg=0
+ 291  LOAD_ATTR              7  (updateReadGMRedhintMsg)
+ 294  ??neox=129 arg=0
+ 297  LOAD_ATTR              8  (readGMRedhintMsg)
+ 300  CALL_FUNCTION          1  (pos=1 kw=0)
+ 303  POP_TOP
+ 304  LOAD_GLOBAL            0  (Globals)
+ 307  LOAD_ATTR              9  (settings)
+ 310  LOAD_ATTR              10  (isColorAdjust)
+ 313  LOAD_GLOBAL            0  (Globals)
+ 316  LOAD_ATTR              9  (settings)
+ 319  JUMP_FORWARD           10  (10)
+ 322  LOAD_CONST             1  (-1)
+ 325  LOAD_CONST             4  ([b'GameSDK'])
+ 328  ??neox=134 arg=11
+ 331  ??neox=116 arg=12
+ 334  STORE_FAST             2  (GameSDK)
+ 337  POP_TOP
+ 338  LOAD_FAST_ATTR         525  (GameSDK.setCurrentSceneId)
+ 341  LOAD_FAST_ATTR         526  (GameSDK.GAME_MAIN_UI)
+ 344  CALL_FUNCTION          1  (pos=1 kw=0)
+ 347  POP_TOP
+ 348  LOAD_GLOBAL            31  (SALogging)
+ 351  LOAD_ATTR              32  (usKeyPoint)
+ 354  LOAD_CONST             14  ('load_hall_end')
+ 357  CALL_FUNCTION          1  (pos=1 kw=0)
+ 360  POP_TOP
+ 361  LOAD_GLOBAL            0  (Globals)
+ 364  LOAD_ATTR              33  (FIRST_LOAD)
+ 367  POP_JUMP_IF_FALSE      431  (431)
+ 370  LOAD_GLOBAL            34  (False)
+ 373  LOAD_GLOBAL            0  (Globals)
+ 376  JUMP_FORWARD           33  (33)
+ 379  LOAD_GLOBAL            31  (SALogging)
+ 382  LOAD_ATTR              35  (drpfLogging)
+ 385  LOAD_CONST             15  ('Load')
+ 388  BUILD_MAP              2  (2)
+ 391  LOAD_GLOBAL            36  (int)
+ 394  LOAD_GLOBAL            37  (time)
+ 397  LOAD_ATTR              37  (time)
+ 400  CALL_FUNCTION          0  (pos=0 kw=0)
+ 403  LOAD_GLOBAL            0  (Globals)
+ 406  LOAD_ATTR              38  (FIRST_LOAD_TIME)
+ 409  BINARY_SUBTRACT
+ 410  CALL_FUNCTION          1  (pos=1 kw=0)
+ 413  LOAD_CONST             16  ('load_time_long')
+ 416  STORE_MAP
+ 417  LOAD_CONST             17  ('hall')
+ 420  LOAD_CONST             18  ('type')
+ 423  STORE_MAP
+ 424  CALL_FUNCTION          2  (pos=2 kw=0)
+ 427  POP_TOP
+ 428  JUMP_FORWARD           0  (0)
+ 431  LOAD_GLOBAL            15  (switches)
+ 434  LOAD_ATTR              16  (URGENT_SWITCH_ENABLE_FORCE_UPGRADE)
+ 437  POP_JUMP_IF_FALSE      547  (547)
+ 440  LOAD_GLOBAL            0  (Globals)
+ 443  LOAD_ATTR              17  (isWin32)
+ 446  UNARY_NOT
+ 447  POP_JUMP_IF_FALSE      547  (547)
+ 450  LOAD_GLOBAL            19  (elkLogging)
+ 453  LOAD_ATTR              20  (getEngineVersion)
+ 456  CALL_FUNCTION          0  (pos=0 kw=0)
+ 459  LOAD_GLOBAL            21  (const)
+ 462  LOAD_ATTR              22  (EngineVersion)
+ 465  LOAD_ATTR              23  (RC3)
+ 468  COMPARE_OP             0  (<)
+ 471  POP_JUMP_IF_FALSE      547  (547)
+ 474  LOAD_CONST             19  (<code confirmCB>)
+ 477  MAKE_FUNCTION          0  (0)
+ 480  STORE_FAST             3  (confirmCB)
+ 483  LOAD_CONST             20  (<code cancelCB>)
+ 486  MAKE_FUNCTION          0  (0)
+ 489  STORE_FAST             4  (cancelCB)
+ 492  BUILD_MAP              3  (3)
+ 495  LOAD_GLOBAL            24  (errtxt)
+ 498  LOAD_ATTR              39  (I_FORCE_LOW_ENGINE_VERSION)
+ 501  LOAD_CONST             7  ('des')
+ 504  STORE_MAP
+ 505  LOAD_FAST              3  (confirmCB)
+ 508  LOAD_CONST             8  ('confirmCB')
+ 511  STORE_MAP
+ 512  LOAD_FAST              4  (cancelCB)
+ 515  LOAD_CONST             9  ('cancelCB')
+ 518  STORE_MAP
+ 519  STORE_FAST             5  (args)
+ 522  LOAD_GLOBAL            0  (Globals)
+ 525  LOAD_ATTR              27  (uiMgr)
+ 528  LOAD_ATTR              28  (enter_ui)
+ 531  LOAD_CONST             13  ('UIDialog')
+ 534  LOAD_FAST              5  (args)
+ 537  CALL_FUNCTION          2  (pos=2 kw=0)
+ 540  POP_TOP
+ 541  JUMP_ABSOLUTE          547  (547)
+ 544  JUMP_FORWARD           0  (0)
+ 547  ??neox=129 arg=0
+ 550  LOAD_ATTR              40  (tryUploadRCVersion)
+ 553  CALL_FUNCTION          0  (pos=0 kw=0)
+ 556  POP_TOP
+ 557  LOAD_GLOBAL            41  (getattr)
+ 560  ??neox=129 arg=0
+ 563  LOAD_CONST             21  ('realnameAuthenAgainFlag')
+ 566  LOAD_GLOBAL            34  (False)
+ 569  CALL_FUNCTION          3  (pos=3 kw=0)
+ 572  POP_JUMP_IF_FALSE      588  (588)
+ 575  ??neox=129 arg=0
+ 578  LOAD_ATTR              42  (doRealnameAuthenAgain)
+ 581  CALL_FUNCTION          0  (pos=0 kw=0)
+ 584  POP_TOP
+ 585  JUMP_FORWARD           0  (0)
+ 588  LOAD_GLOBAL            2  (True)
+ 591  ??neox=129 arg=0
+ 594  JUMP_FORWARD           43  (43)
+ 597  LOAD_CONST             1  (-1)
+ 600  LOAD_CONST             0  (None)
+ 603  ??neox=134 arg=44
+ 606  STORE_FAST             6  (GameInit)
+ 609  LOAD_FAST_ATTR         1581  (GameInit.updateInactivityTimeout)
+ 612  CALL_FUNCTION          0  (pos=0 kw=0)
+ 615  POP_TOP
+ 616  LOAD_GLOBAL            41  (getattr)
+ 619  ??neox=129 arg=0
+ 622  LOAD_CONST             22  ('needKickOut')
+ 625  LOAD_CONST             0  (None)
+ 628  CALL_FUNCTION          3  (pos=3 kw=0)
+ 631  POP_JUMP_IF_FALSE      668  (668)
+ 634  ??neox=129 arg=0
+ 637  LOAD_ATTR              46  (forceLogout)
+ 640  ??neox=129 arg=0
+ 643  LOAD_ATTR              47  (needKickOut)
+ 646  ??neox=129 arg=0
+ 649  LOAD_ATTR              48  (needRealName)
+ 652  CALL_FUNCTION          2  (pos=2 kw=0)
+ 655  POP_TOP
+ 656  LOAD_CONST             0  (None)
+ 659  ??neox=129 arg=0
+ 662  JUMP_FORWARD           47  (47)
+ 665  JUMP_FORWARD           0  (0)
+ 668  LOAD_GLOBAL            0  (Globals)
+ 671  LOAD_ATTR              33  (FIRST_LOAD)
+ 674  POP_JUMP_IF_FALSE      749  (749)
+ 677  LOAD_GLOBAL            37  (time)
+ 680  LOAD_ATTR              37  (time)
+ 683  CALL_FUNCTION          0  (pos=0 kw=0)
+ 686  LOAD_GLOBAL            0  (Globals)
+ 689  JUMP_FORWARD           38  (38)
+ 692  LOAD_GLOBAL            34  (False)
+ 695  LOAD_GLOBAL            0  (Globals)
+ 698  JUMP_FORWARD           33  (33)
+ 701  LOAD_GLOBAL            31  (SALogging)
+ 704  LOAD_ATTR              35  (drpfLogging)
+ 707  LOAD_CONST             15  ('Load')
+ 710  BUILD_MAP              1  (1)
+ 713  LOAD_GLOBAL            36  (int)
+ 716  LOAD_GLOBAL            37  (time)
+ 719  LOAD_ATTR              37  (time)
+ 722  CALL_FUNCTION          0  (pos=0 kw=0)
+ 725  LOAD_GLOBAL            0  (Globals)
+ 728  LOAD_ATTR              38  (FIRST_LOAD_TIME)
+ 731  BINARY_SUBTRACT
+ 732  CALL_FUNCTION          1  (pos=1 kw=0)
+ 735  LOAD_CONST             16  ('load_time_long')
+ 738  STORE_MAP
+ 739  CALL_FUNCTION          2  (pos=2 kw=0)
+ 742  POP_TOP
+ 743  JUMP_ABSOLUTE          749  (749)
+ 746  JUMP_FORWARD           0  (0)
+ 749  LOAD_GLOBAL            49  (GameObject)
+ 752  LOAD_ATTR              50  (Find)
+ 755  LOAD_CONST             23  ('Scene')
+ 758  CALL_FUNCTION          1  (pos=1 kw=0)
+ 761  LOAD_ATTR              51  (GetComponent)
+ 764  LOAD_CONST             24  ('SceneSystem')
+ 767  CALL_FUNCTION          1  (pos=1 kw=0)
+ 770  LOAD_ATTR              52  (loadHallScene)
+ 773  LOAD_FAST              1  (onHallSceneReady)
+ 776  CALL_FUNCTION          1  (pos=1 kw=0)
+ 779  POP_TOP
+ 780  LOAD_GLOBAL            31  (SALogging)
+ 783  LOAD_ATTR              32  (usKeyPoint)
+ 786  LOAD_CONST             25  ('load_hall_begin')
+ 789  CALL_FUNCTION          1  (pos=1 kw=0)
+ 792  POP_TOP
+ 793  LOAD_GLOBAL            0  (Globals)
+ 796  LOAD_ATTR              33  (FIRST_LOAD)
+ 799  POP_JUMP_IF_FALSE      820  (820)
+ 802  LOAD_GLOBAL            37  (time)
+ 805  LOAD_ATTR              37  (time)
+ 808  CALL_FUNCTION          0  (pos=0 kw=0)
+ 811  LOAD_GLOBAL            0  (Globals)
+ 814  JUMP_FORWARD           38  (38)
+ 817  JUMP_FORWARD           0  (0)
+ 820  LOAD_GLOBAL            0  (Globals)
+ 823  LOAD_ATTR              53  (hasLogonServer)
+ 826  POP_JUMP_IF_TRUE       888  (888)
+ 829  LOAD_GLOBAL            2  (True)
+ 832  LOAD_GLOBAL            0  (Globals)
+ 835  JUMP_FORWARD           53  (53)
+ 838  LOAD_GLOBAL            54  (ChannelHelper)
+ 841  LOAD_ATTR              55  (uploadUserInfo)
+ 844  LOAD_GLOBAL            56  (ChannelUploadStageEnum)
+ 847  LOAD_ATTR              57  (ENTER_SERVER)
+ 850  CALL_FUNCTION          1  (pos=1 kw=0)
+ 853  POP_TOP
+ 854  LOAD_GLOBAL            0  (Globals)
+ 857  LOAD_ATTR              58  (patchNpkCheckResult)
+ 860  POP_JUMP_IF_FALSE      888  (888)
+ 863  ??neox=129 arg=0
+ 866  LOAD_ATTR              59  (base)
+ 869  LOAD_ATTR              60  (uploadPatchCheckData)
+ 872  LOAD_GLOBAL            0  (Globals)
+ 875  LOAD_ATTR              58  (patchNpkCheckResult)
+ 878  CALL_FUNCTION          1  (pos=1 kw=0)
+ 881  POP_TOP
+ 882  JUMP_ABSOLUTE          888  (888)
+ 885  JUMP_FORWARD           0  (0)
+ 888  LOAD_GLOBAL            61  (Checkpoints)
+ 891  LOAD_ATTR              62  (onCheckpoint)
+ 894  LOAD_CONST             26  ('PlayerAthlete.enterHall')
+ 897  CALL_FUNCTION          1  (pos=1 kw=0)
+ 900  POP_TOP
+ 901  LOAD_GLOBAL            63  (client_utils)
+ 904  LOAD_ATTR              64  (setBWNetworkParams)
+ 907  CALL_FUNCTION          0  (pos=0 kw=0)
+ 910  POP_TOP
+ 911  ??neox=129 arg=0
+ 914  LOAD_ATTR              65  (timerRefreshMSToken)
+ 917  LOAD_CONST             27  (0)
+ 920  COMPARE_OP             2  (==)
+ 923  POP_JUMP_IF_FALSE      953  (953)
+ 926  LOAD_GLOBAL            66  (Timer)
+ 929  LOAD_ATTR              67  (addRepeatTimer)
+ 932  LOAD_CONST             30  (1800)
+ 935  ??neox=129 arg=0
+ 938  LOAD_ATTR              68  (refreshMSToken)
+ 941  CALL_FUNCTION          2  (pos=2 kw=0)
+ 944  ??neox=129 arg=0
+ 947  JUMP_FORWARD           65  (65)
+ 950  JUMP_FORWARD           0  (0)
+ 953  RETURN_CONST           0  (None)
+
+============================================================
