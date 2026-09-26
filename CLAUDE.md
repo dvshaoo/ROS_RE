@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 24: `launch_game.bat` now auto-recovers from the stuck-`MpayActivity`-overlay issue with a single timed BACK press, confirmed live to cut the hang from 90+s to ~10s)
+> **Last Updated**: 2026-09-26 (Checkpoint 26: fixed "account login failed" dialog -- root cause was `EmailAuthActivity` saving the session before `GameConfig.q()`/appId was populated, writing to the wrong SharedPreferences file; see §0.3 Checkpoint 26 below)
 
 ---
 
@@ -230,6 +230,237 @@ repeatedly produced incomplete or contradicted-by-runtime conclusions in this in
 by the user as "not a real fix"), the GameConfig-timing-race theory, the missing-`persistence`-field
 theory, or naively redirecting `l$c.aOrig()`'s `UNKNOWN` branch to `GUEST`'s `l.i()` call — all
 tried and disproven/incomplete as of 2026-09-26.
+
+---
+
+## 0.3 Checkpoint 25 (2026-09-26): Guest Login Replaced with Real Supabase Email+Password Auth
+
+**Goal**: replace the shared, hardcoded guest identity with real per-person accounts, gated by
+a native "Sign in" screen inside the APK, checked against the project's Supabase project.
+
+### Architecture
+
+- **New native Activity `com.netease.chiji.EmailAuthActivity`** is now the app's `LAUNCHER`
+  activity (moved the `<intent-filter>` off `com.netease.neox.Launcher`, which is otherwise
+  unchanged). It shows a plain `AlertDialog` (title/message/EditText-email/EditText-password,
+  built entirely in code, no new layout XML) before anything else loads.
+- On submit, it POSTs JSON `{email, password}` to a new server endpoint, **`/custom/auth/login`**
+  (`mitm/mitm_serve.py`, added near the existing `/api/users/login/guest` block, same
+  send_response/json.dumps style). That endpoint calls `mitm/supabase_db.py`'s new
+  `authenticate(email, password)`:
+  1. Checks `pre_registrations` table (the allowlist — a marketing/early-access signup list,
+     email only, no password) via the existing REST pattern.
+  2. Tries `create_auth_account` (Supabase Auth `/auth/v1/signup`) first; if the account already
+     exists, falls back to `verify_auth_login` (`/auth/v1/token?grant_type=password`).
+  3. Returns `{"ok": true, "uid", "token", "nickname"}` or `{"ok": false, "reason"}`.
+  - **Known Supabase-side caveat**: if "Confirm email" is enabled under Authentication →
+    Providers → Email, a fresh signup can't log in again until the confirmation link is
+    clicked — impossible on this offline setup. Turn it OFF for this project to work.
+- On success, `EmailAuthActivity.onLoginSuccess` hands off to the MPay SDK's own,
+  already-proven session-save chain **via reflection** — `j.a.f$a` (Builder) → `.a()` → `j.b`
+  → `j.d.d.a(j.a.f)` — instead of re-implementing the SDK's file format. This guarantees
+  byte-for-byte compatibility since it's the SDK's real code being called, not a guess.
+  - **Important:** the `uid` written into this session is hardcoded to
+    `GAME_ACCOUNT_UID = "guest_11178811c6a412d9"` (the device-id-shaped identity the deep
+    BaseApp/Mercury binary protocol in `local_baseapp_capture.py` is built entirely around) --
+    **not** the real Supabase uid. Swapping in a differently-shaped uid there broke the BaseApp
+    handshake (`account login failed` client-side error, no `createBasePlayer` ever logged).
+    The real per-person Supabase identity is tracked at the `/custom/auth/login` layer only
+    (session_store + Supabase), not threaded through to the wire protocol. **Follow-up not yet
+    done**: `local_baseapp_capture.py`'s player-state load/save (`_load_player_state`,
+    `supabase_db.get_player()`) still always uses the one hardcoded uid/local files -- it does
+    not yet look up "who most recently authenticated" to load their own stats/inventory. A
+    server-side "active account" mapping (set by `/custom/auth/login`, read by the state
+    load/save functions) is the planned way to do this without ever touching the uid on the
+    wire.
+- New **`com.netease.chiji.MpayWatcherService`** (`AccessibilityService`) watches for
+  `MpayActivity` becoming the foreground window and staying there 10s+ with no further window
+  changes, then calls `performGlobalAction(GLOBAL_ACTION_BACK)` once. This is the automated,
+  in-APK version of the manual BACK-press workaround from Checkpoint 24, and it works: log
+  proof `performGlobalAction(BACK) -> true` reliably released the stuck activity in live tests.
+
+### Toolchain notes for anyone adding another native class this way
+
+- Building blocks used: `javac` (any JDK; `-source 8 -target 8` to match this app's old
+  bytecode style) against `android.jar` (`…\Sdk\platforms\android-34\android.jar`) → `d8.bat`
+  (`…\Sdk\build-tools\34.0.0\d8.bat`) → **baksmali, invoked programmatically** (a tiny driver
+  class calling `com.android.tools.smali.baksmali.Baksmali.disassembleDexFile(...)`, since
+  apktool.jar bundles baksmali but its CLI `Main` isn't a runnable entry point on its own — see
+  `scratch/email_auth_build/BaksmaliDriver.java`) → copy the resulting `.smali` files into a
+  **new `smali_classesN` folder** in the decompiled tree (apktool auto-compiles each
+  `smali_classesN` into its own `classesN.dex` on `apktool b`, so this never touches the
+  existing `classes.dex`/`2`/`3`). Whole workflow is scripted informally in
+  `scratch/email_auth_build/` — recompile with the same javac/d8/baksmali three-liner, copy over
+  the `smali_classes4/com/netease/chiji/*.smali` files, `apktool b`, zipalign, apksigner, `adb
+  install -r` (same debug keystore across every rebuild this checkpoint = no uninstall needed,
+  so **OBB survives** — only fall back to full uninstall+reinstall, with the full OBB-restore
+  dance from §0.1, when actually changing the signing key or doing a from-scratch test).
+- **d8 in this toolchain (build-tools 34.0.0) is a broken dev snapshot that crashes with a
+  `NullPointerException` while dexing ANY class carrying an implicit outer-class reference**
+  (`this$0`) — i.e. any non-static inner class, anonymous class, or local class, regardless of
+  whether it's actually used. Confirmed with a minimal repro outside the app entirely. Fix:
+  write every helper class as a **named `static` nested class**, passing the outer
+  instance/activity in explicitly through its constructor instead of relying on an implicit
+  outer reference. Every class in `EmailAuthActivity.java`/`MpayWatcherService.java` follows
+  this pattern.
+- Calls into private SDK classes (`com.netease.mpay.oversea.j.a.f$a`, `j.b`, `j.d.d`, `g.c`)
+  are all done via `java.lang.reflect` so the new class compiles standalone against
+  `android.jar` alone — no need to extract/stub the app's own classes for the build.
+
+### Environment/process gotchas hit along the way (all resolved, keep in mind for next time)
+
+- **AccessibilityServices get silently disabled by Android whenever their owning app is
+  force-stopped** (`adb shell am force-stop` — which every relaunch cycle in this project's
+  testing does). `dumpsys accessibility` will show `services:{}` after a force-stop even though
+  nothing changed on disk. Re-running `adb shell settings put secure
+  enabled_accessibility_services com.netease.chiji/com.netease.chiji.MpayWatcherService` +
+  `settings put secure accessibility_enabled 1` **after the app process has actually
+  (re)started** (not right after force-stop, before the app runs again — that write doesn't
+  stick) re-binds it. `launch_game.bat` should run these two commands after every launch if this
+  service needs to survive normal test cycles; this was not yet wired in as of this checkpoint.
+- **The mitm server's own `BASEAPP KEYSCAN` background watcher (which extracts the live session
+  encryption key from the game process's memory by finding `libclient.so`'s base address) can be
+  silently starved by unrelated heavy adb traffic** — its own internal `adb shell pidof
+  com.netease.chiji` polling call has a 20s timeout, and if enough *other* adb commands are
+  queued on the same adb server at the same time (large `adb push`, `dumpsys` calls run back to
+  back, etc.), it can time out repeatedly and **give up entirely** after a fixed number of
+  retries, without any further retry on subsequent app launches. Symptom: the client's actual
+  LoginApp/BaseApp UDP packets never get a reply (`account login failed` client-side error), yet
+  every log line only ever shows harmless, unrelated `hello ros` 9-byte probe packets from
+  `127.0.0.1` — **check `grep 'KEYSCAN' scratch/server_stdout.log` for whether the most recent
+  entry is `SUCCESS` or a long run of `adb call failed`/`could not find libclient.so base`
+  before assuming a login/network bug** whenever real BaseApp traffic seems to vanish. Fix:
+  restart `mitm/local_baseapp_capture.py` and avoid running other heavy/overlapping adb commands
+  for the few seconds right after a fresh game launch, letting its own PID watcher get a clear
+  shot at the keyscan.
+- Large sequential `adb push` operations (the ~3.5GB combined OBB files) can destabilize the
+  LDPlayer instance's adb bridge if overlapped with other adb traffic (observed: emulator went
+  fully `offline`, requiring `ldconsole.exe reboot --index 0` to recover, plus a full
+  `scratch/reapply_env_setup.sh` re-run afterward since the reboot wipes the CA-trust/DNAT setup
+  from §0 again). Push OBB files **one at a time, sequentially**, not overlapped with anything
+  else.
+- A `HttpURLConnection` from newly-added app code must use `https://`, not `http://` — this
+  app's `targetSdkVersion` (29) blocks cleartext HTTP by default with no network-security-config
+  override present, even though the game's own bundled traffic mostly already uses HTTPS to the
+  same mitm server. Also: use one of the mitm TLS cert's actual `subjectAltName` hostnames (e.g.
+  `sdk-os.mpsdk.easebar.com`) rather than the raw DNAT target IP (`172.16.1.2`) as the URL host —
+  the cert has no SAN entry for that literal IP, so hostname verification fails even though the
+  certificate chain itself is trusted; the DNAT rule (matches by destination *port*, not host)
+  redirects it to the same server regardless of which allowed hostname is used.
+
+### Checkpoint 26 (2026-09-26): "account login failed" dialog root-caused and fixed
+
+**Root cause found via live Frida introspection (static smali reading alone gave the
+wrong answer here — see below).** `EmailAuthActivity.onLoginSuccess()` built the correct
+`j.a.f` (LoginInfo) object via reflection (`f$a` builder) with `type=GUEST` and the real
+token every time -- confirmed live: `f$a.a()`'s build result and every step of the
+`j.d.d.b(f)` -> `a(f)` -> `c(f)` save-method call chain showed the object intact. The bug
+was earlier in the pipeline: `com.netease.mpay.oversea.g.c;->b().q()` (`GameConfig.q()`,
+the SDK's `appId`, which the SharedPreferences filename is keyed on as
+`com.netease.mpay.<md5(appId)>.xml`) **returns an empty string `""`while
+`EmailAuthActivity` is on screen**, because `appId` is a hardcoded literal (`"123"`,
+confirmed live) that gets set inside `com.netease.neox.Launcher`'s own `onCreate` --
+code that, since Checkpoint 25 moved the `LAUNCHER` intent-filter onto
+`EmailAuthActivity`, simply hadn't run yet at the point `onLoginSuccess` used to do its
+reflection save. So the save silently wrote to the *wrong* prefs file
+(`com.netease.mpay.d41d8cd98f00b204e9800998ecf8427e.xml`, `md5("")`), while the real
+silent-relogin later (once `Launcher` actually started and set `appId="123"`) read from
+`com.netease.mpay.202cb962ac59075b964b07152d234b70.xml` (`md5("123")`) -- which still had
+stale, corrupted `type=UNKNOWN`/`token=null` data left over from pre-Checkpoint-25 guest
+testing. That `UNKNOWN` type is exactly what hits `ui/l.smali`'s `dealApiLoginFailed` ->
+`login_connect_retry` dialog path (the "account login failed. Try again? (#uid--code)"
+popup, string `netease_mpay_oversea__login_connect_retry`).
+
+**Verified live with Frida** (`Java.choose('com.netease.chiji.EmailAuthActivity', ...)`
++ calling `onLoginSuccess()` directly with test uid/token, bypassing the network call):
+hooking `com.netease.mpay.oversea.g.c;->b().q()` while `neox.Launcher` is running (real
+init path, launched via `am start -n .../com.netease.neox.Launcher`) showed `appId="123"`
+already present at t=0s (not a network-fetched value, so no need to wait/poll for a
+server round-trip -- just needs `Launcher.onCreate` to have run at all). Hooking the same
+call from `EmailAuthActivity` (launched directly, `LAUNCHER`'s real entry point) showed
+`appId=""`. Hooking `j.d.d.g()` (the session loader) immediately after a save done with
+the empty appId returned **`null`** -- proving the old code's save was truly going
+nowhere useful, not just to a stale file.
+
+**Fix** (`scratch/email_auth_build/src/EmailAuthActivity.java`, `onLoginSuccess`):
+reordered to `startActivity(Launcher)` **first** (same process; this Activity and its
+`Handler` keep running even after `Launcher` is pushed on top), then poll
+`GameConfig.q()` every 200ms (up to an 8s timeout, though in practice it resolves
+same-tick since it's a hardcoded literal, not a fetch) via a `Handler.postDelayed` loop
+(`trySaveSession`/`SessionSaveRunnable`, both required to be **static nested classes** --
+same d8-NPE-on-inner-class constraint as every other class in this file, see the
+toolchain notes below), and only performs the `j.b`/`f$a` reflection save once `appId` is
+non-empty. `finish()` moved to fire after the save completes (or times out), not
+immediately after starting `Launcher`.
+
+**Verified end-to-end live** (Frida-driven fake login, bypassing the Supabase network
+call to isolate the session-save/reload path): after the fix, `j.d.d.g()` inside the
+now-running `Launcher` process reloaded the exact object just saved
+(`type=GUEST`, `token` intact) -- then, a few polls later, the SDK's own real GUEST login
+flow kicked in on its own (as designed, since type is now correctly `GUEST` and not
+`UNKNOWN`) and replaced the token with a real server-issued session token
+(`sess_...`, from `mitm_serve.py`'s `/api/users/login/guest`). Screenshot confirms: app
+reaches the title screen cleanly, `Guest` badge top-right, Events panel and "Link
+Account" prompt visible, **no `login_connect_retry` dialog at any point**. Rebuilt via
+the existing `scratch/email_auth_build/build.py` -> `scratch/rebuild_and_install_apk.py`
+pipeline (same debug keystore, `adb install -r`, OBB untouched, no `pm clear` needed --
+the old corrupted `md5("123")` session file gets correctly overwritten by the new code's
+first real save instead of needing to be manually cleared).
+
+**Frida debugging notes for next time (things that cost real time here):**
+- `frida.get_usb_device().attach("com.netease.chiji")` by package name fails
+  (`ProcessNotFoundError`) even though `adb shell pidof` sees it fine -- attach by numeric
+  pid (`device.attach(<pid>)`) instead.
+- `device.spawn(["com.netease.chiji"])` launches via the package's registered `LAUNCHER`
+  (now `EmailAuthActivity`, not `neox.Launcher`) -- to test the SDK's real
+  `neox.Launcher` init path in isolation, `adb shell am start -n
+  com.netease.chiji/com.netease.neox.Launcher` (or `/.EmailAuthActivity`) to pick the
+  activity directly, then `frida.attach(pid)` (not spawn) once it's already running.
+- **Do not trust field names/order from the decompiled smali tree without confirming
+  against a live `getClass().getDeclaredFields()`/`getDeclaredConstructors()` dump
+  first** -- in this checkpoint, `j.a.f`/`j.a.f$a`'s field layout in
+  `scratch/vivo_apk_new` happened to match the live installed APK exactly (verified), but
+  the earlier investigation's stale-vs-live contradictions (Checkpoint 22's `HandlerFactory.b()`
+  mismatch) show this isn't guaranteed across APK variants/builds. Cheap to check first
+  with a small `Java.use(cls).class.getDeclaredFields()` dump.
+- Python `print()` to a file redirect from inside a background-launched process needs
+  `python -u` (or explicit `flush=True`) -- otherwise stdout buffering means the log file
+  stays empty for the whole run even though the script is working correctly.
+- `adb shell su -c '...'` needs the ENTIRE remote command as one quoted string passed to
+  `-c` (e.g. `shell "su -c 'ls /some/path'"`) -- passing it as separate shell args (even
+  via a PowerShell variable) makes `su` swallow the first word after `-c` as a target
+  *user id* instead, failing with a confusing `Unknown id: ...` error.
+
+### Checkpoint 25 follow-up (2026-09-26, NEW, OPEN): full observed flow is slow, not broken
+
+With the new `EmailAuthActivity` + `MpayWatcherService` build and the KEYSCAN fix above, the user
+walked the entire flow end to end and reported it back exactly as this sequence -- recorded
+verbatim/step-by-step here before any further fix attempt, per this project's standing rule of
+documenting an issue before working on it:
+
+1. Open app -> first splash image.
+2. Patched-part splash image loads up to ~50%, then shows the small centered loading spinner with
+   a dimmed overlay (the `MpayActivity` stuck-overlay pattern from Checkpoint 24, now confirmed to
+   also occur at this *pre-title* point, not only after PLAY) -- this persists until the title page
+   appears.
+3. Title page -> PLAY.
+4. "Please select controls" screen -> its confirm button has a countdown; must wait for the full
+   countdown before tapping Confirm (tapping early causes the already-documented loop-back, see
+   the note above this one).
+5. **Loading after Confirm is very slow ("sobrang bagal").**
+6. Loops back to "Please select controls" **once**.
+7. **Loading again is very slow ("sobrang bagal").**
+8. Reaches Daily Claim.
+9. Hall/Lobby starts.
+
+**Open question, not yet investigated**: whether steps 5 and 7's slowness is (a) inherent to this
+LDPlayer/emulator + mitm-server setup and was always this slow (plausible -- this project's own
+Gate 4 notes already describe the hall UI as sometimes non-deterministic/slow to settle), (b) a
+new side effect of today's changes (e.g. the accessibility service's `postDelayed` polling, or the
+extra `su` shell-out added to `EmailAuthActivity.onCreate`, adding overhead), or (c) related to the
+still-not-fully-diagnosed BaseApp/KEYSCAN timing sensitivity from the section above. Needs a timed,
+controlled comparison (same account, same device, stopwatch on each loading segment) against the
+pre-Checkpoint-25 guest-only flow before concluding which.
 
 ---
 
