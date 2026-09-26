@@ -1296,6 +1296,64 @@ No patches applied this checkpoint either -- read-only log analysis only, per in
 
 ---
 
+## 0.10 New symptom found during Phase 10 forensic audit + control run (2026-09-26): a stuck WebView panel after every Confirm tap
+
+Before the timing control run itself, a full read-only forensic audit confirmed the environment is
+clean: the installed APK is byte-identical to the frozen `candidate_B_known_good.apk`
+(SHA256 `27bebace...`), no EmailAuthActivity/Supabase/MpayWatcherService/Playit residue exists in
+the APK, on-device preferences, or the active packet path (LDPlayer's DNAT sends everything
+straight to `172.16.1.2` -> `local_baseapp_capture.py`; Playit, though running on the Windows host,
+has no listener on any ROS port and is proven not to be in the traffic path). Full matrix and
+per-question answers are in the session log; the short version is **CONFIRMED clean environment,
+safe to run the control test**.
+
+### The new finding, during the control run itself
+
+On the very next clean launch (Run 1 of the planned 3-run Phase 10 control test), a previously
+undocumented UI element appeared: a **full-width white panel with a dark left sidebar, an X close
+button top-left, and an indefinite spinning loader centered in the white area** -- visually
+distinct from the known "Invalid login" `AlertDialog` (screenshot:
+`scratch/phase10_run1/shots/` around 21:40 local). `dumpsys activity activities` confirmed
+`mResumedActivity` stayed on `com.netease.neox.Client` the entire time this panel was visible --
+**this is an in-game overlay/WebView panel rendered inside the Client activity, not a separate
+Android Activity or MpayActivity instance.**
+
+Per the project owner's own real-time observation, confirmed reproducible:
+- **This panel appears immediately after every Confirm tap** on the "Invalid login. Please log in
+  again." dialog -- both the first occurrence (during patch-loading) and later occurrences
+  (post-PLAY, post-title).
+- Most of the time it **resolves quickly on its own** (matches what was seen during patch-loading).
+- At least once this run, it **did not resolve** and stayed on screen indefinitely with the spinner
+  never completing, while logcat showed `MpayActivity` continuing to cycle in the background
+  (`ActivityManager: START ... MpayActivity` firing repeatedly every few seconds during this exact
+  window).
+
+**HYPOTHESIS, not yet confirmed**: this panel is a strong candidate for the actual mechanism behind
+the previously-observed "Invalid login repeats when interaction is slow/fast is inconsistent"
+finding from §0.8/§0.9 -- rather than dismiss-timing being the variable, the real gate may be
+**whether this WebView panel's own content load succeeds or hangs**. If its content fetch hangs
+(e.g. a GM webview panel, ad-network webview, or a web-based notice fetch that depends on an HTTP
+endpoint this local server doesn't fully emulate), that could itself be what's re-triggering
+MpayActivity/the Invalid Login retry cycle, not raw human reaction time. This reframes the entire
+Invalid-Login-repeat investigation from §0.8's "Phase 1" and is a **stronger, more specific lead
+than the earlier fast/slow-dismiss framing**, which was never fully consistent across runs.
+
+NOT YET TESTED: identifying which Activity/View class renders this panel (candidates from the
+manifest audit in §Phase-2: `GMWebviewActivity`, `GMWebviewActivityEx`, or an ad-network webview
+like `AudienceNetworkActivity`/`AdActivity`/`GoogleApiActivity` -- though those are separate
+Activities per the manifest, which would show up as a different `mResumedActivity`; since
+`mResumedActivity` never left `Client`, this is more likely a `Cocos2d`/NeoX-internal in-engine
+WebView widget, not one of the manifest's declared Activities). Capturing `dumpsys window windows`
+and a full logcat grep for `WebView`/`chromium`/network-request tags while this panel is stuck is
+the natural next diagnostic step, deferred here since the project owner asked to document first.
+
+This finding does not change any conclusion from §0.7/§0.8/§0.9 -- it adds a new, more specific
+candidate mechanism for the already-known Invalid-Login-repeat behavior. No patch applied; this
+is still read-only observation, and Phase 10's timing control run (R0-R10, 3 runs) is still in
+progress/incomplete as of this commit.
+
+---
+
 ## 1. Standing Rules (Strict Constraints)
 - **Local/LAN Only**: Never interact with real production NetEase servers.
 - **Zero Guesswork**: Every packet format, entity type, and method index must be verified by live memory inspection or Ghidra decompilation.
