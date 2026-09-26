@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 29 continued, §0.7: ran a clean-slate A/B isolation test off a fresh decompile of the last known-good baseline (not the shared churned worktree). **Candidate B (baseline + `ui/g.smali` finish() patch ONLY, no `MpayWatcherService`) reaches the full Hall/Lobby reliably** -- the finish() patch in isolation is NOT the cause of the permanent stuck-loading regression. Regression boundary now narrowed to `MpayWatcherService` alone (Candidate C, not yet built/tested) or the interaction between the two patches when stacked (= current combined build D). See §0.7 for full results and §0.6 for the original regression writeup/protocol. Previous entry: Checkpoint 28 reverted EmailAuthActivity/Supabase per project-owner decision -- see §0.5.)
+> **Last Updated**: 2026-09-26 (§0.8: timeline-instrumented Phase 0 run on frozen Candidate B (SHA256 `27bebace...`, see `scratch/candidates/`) found the **CONFIRMED root cause of the "duplicate loading" symptom**: the client itself re-initiates a brand-new LoginApp/BaseApp handshake from a new ephemeral port exactly ~90s after the first one succeeds, driving a full second `createBasePlayer`/`showSelectCharacter`/`enterHall` cycle server-side (proven via direct server-log timestamp correlation, not inference). This second cycle can also surface client-side as a brand-new Character Creation prompt (Tap to Enter NAME + CREATE) whose CREATE button was observed unresponsive once -- root cause of that part still a hypothesis. See §0.8 for the full CONFIRMED/HYPOTHESIS/NOT-YET-TESTED table. Previous entry (§0.7): Candidate B (baseline + `ui/g.smali` finish() patch ONLY, no `MpayWatcherService`) reaches the full Hall/Lobby reliably, ruling out that patch alone as the Checkpoint 29 stuck-loading cause.)
 
 ---
 
@@ -1069,6 +1069,135 @@ clean-slate single-launch protocol, and compare. If C alone also reaches Hall cl
 regression is specifically in the B+C interaction, not either patch alone -- narrowing the next
 investigation to the timing/ordering between the accessibility service's BACK dispatch and the
 smali patch's finish() call on a shared `MpayActivity` instance.
+
+---
+
+## 0.8 Phase 0 timeline instrumentation on Candidate B (2026-09-26): CONFIRMED root cause of duplicate loading + a new CREATE-stuck symptom
+
+Per the project owner's request, `scratch/candidates/candidate_B_known_good.apk` (SHA256
+`27bebaceb9f1e97759aa184849af14b7d51bbdcccb860e83162158ce8f7cc590`) was frozen as the immutable
+baseline before any further experiments (git HEAD at freeze time: `f9f63dd2`). Logs from that
+freeze are preserved under `scratch/candidates/logs_candB_baseline/`.
+
+A timeline-instrumentation harness was built and run clean (continuous full `adb logcat`
++ a 1s-interval PowerShell screenshot loop, both armed **before** launch, per the project owner's
+explicit pre-run checklist) against this frozen Candidate B build. Two runs were done
+(`scratch/timeline_run1/`, `scratch/timeline_run2/`) -- the second is the clean, gap-free one
+referenced below.
+
+### A. Invalid Login timing (Phase 1) -- refined, not fully resolved
+
+- T4 (first "Invalid login. Please log in again." dialog) appears within ~1s of the first
+  `MpayActivity START` in every observed case -- it is tied to an MpayActivity (re)launch event,
+  not a fixed delay after the patch-loading splash.
+- **Every fresh MpayActivity cycle can (but does not always) redisplay the dialog** -- this
+  includes cycles triggered by tapping **PLAY**, not only the automatic pre-title one. This is a
+  more precise trigger correlation than the earlier "fast vs slow dismiss" framing.
+- Two controlled tests this run: one Confirm tap deliberately delayed ~47s (T5 far later than
+  instructed) resulted in **no further repeat** on title; a later PLAY-tap cycle with a **~16s**
+  delay before Confirm **did** trigger further MpayActivity retries. A fast, immediate Confirm tap
+  (project owner tapping directly, sub-second) still triggered **8 rapid MpayActivity retry
+  cycles in ~8 seconds** (21:08:58.812 -> 21:09:26.908, ~1-1.5s apart) before finally breaking
+  through to a successful `createBasePlayer`. **This contradicts a simple "fast dismiss avoids the
+  loop" rule** -- fast dismissal this run still produced the longest retry burst observed all
+  session. HYPOTHESIS, not confirmed: the real variable may be *how many* MpayActivity cycles have
+  already fired this session (retry-count-based backoff/give-up), not raw human reaction time.
+  NOT YET TESTED: instrumenting the actual retry-count/condition inside `ui/l.smali`'s retry path.
+
+### B. CONFIRMED ROOT CAUSE -- the "duplicate loading" / second Select-Controls-adjacent cycle (Phase 4)
+
+Directly observed in `mitm/local_baseapp_capture.py`'s own server log
+(`scratch/timeline_run1/server.log`), not inferred:
+
+```
+21:09:27.536  LOGINAPP UDP RECV 273 bytes from 127.0.0.1:51169      <- 1st LoginApp handshake
+21:09:27.651  BASEAPP KEYSCAN: using NEW key for ('127.0.0.1', 51170)
+21:09:27.654  BASEAPP STAGE 1: createBasePlayer(Account type=38, eid=1)
+21:09:27.957  BASEAPP STAGE 3: createBasePlayer(Athlete type=51, eid=1, stream=5771 B)
+21:09:28.058  BASEAPP STAGE 4: Athlete.showSelectCharacter([])          <- 1st "Select Controls"
+21:09:33.153  Athlete.onCreateCharacter(ret=1)
+21:09:33.204  Athlete.onRoleCreateSuc(10002)
+21:09:33.255  Athlete.updateBaseCharacter(10002)
+21:09:33.306  Athlete.updateBaseNickname(b'Dev | Raysoo')
+21:09:33.407  Athlete.enterHall(True)                                   <- 1st cycle "complete"
+
+21:10:57.554  LOGINAPP UDP RECV 273 bytes from 127.0.0.1:58828      <- 2nd LoginApp handshake,
+                                                                          NEW ephemeral port
+21:10:57.682  BASEAPP KEYSCAN: using NEW key for ('127.0.0.1', 58829)
+21:10:57.693  BASEAPP STAGE 1: createBasePlayer(Account type=38, eid=1)     <- full repeat
+21:10:57.992  BASEAPP STAGE 3: createBasePlayer(Athlete type=51, eid=1, stream=5771 B)
+21:10:58.093  BASEAPP STAGE 4: Athlete.showSelectCharacter([])          <- 2nd cycle
+21:11:00.595  Athlete.onCreateCharacter(ret=1)
+21:11:00.646  Athlete.onRoleCreateSuc(10002)
+21:11:00.696  Athlete.updateBaseCharacter(10002)
+21:11:00.747  Athlete.updateBaseNickname(b'Dev | Raysoo')
+21:11:00.848  Athlete.enterHall(True)
+```
+
+**The client itself re-initiates a brand-new LoginApp/BaseApp handshake from a new local ephemeral
+port, exactly 90.018 seconds after the first handshake** (21:09:27.536 -> 21:10:57.554). This is
+not a server bug and not a UI redraw glitch -- `local_baseapp_capture.py` is simply answering a
+second, genuine "new player" session the client itself opened. This matches option **D** from the
+project owner's Phase 4 hypothesis list ("LoginApp/BaseApp reconnect") -- **CONFIRMED**, not
+hypothesis, via direct timestamp correlation in the server's own log.
+
+**Live client-side observation during this exact window (project owner, real-time)**: the
+user-visible symptom of this second cycle was **not** the "Select Controls" panel reappearing --
+it was the **loading/tips screen returning a second time** (the panel itself was only seen once;
+the loading screen was what repeated). This refines/corrects the earlier informal description in
+§0.7's verbatim flow ("balik select control") -- the more precise description, confirmed by
+directly watching this run, is a **second loading period**, not a second Select-Controls UI panel,
+that corresponds to the second `createBasePlayer` cycle above.
+
+**HYPOTHESIS, not yet confirmed**: why does the client reconnect at ~90s? The round number and
+consistency (single data point so far, needs repeat runs to confirm it's fixed-interval and not
+coincidental) suggests a client-side session/heartbeat timeout constant, not a random race. NOT
+YET TESTED: whether a server-side keepalive/ack sent within that 90s window would suppress the
+reconnect entirely (would directly prove the timeout theory and give a one-line server-side
+mitigation if true) -- this is the strongest next investigation target for Phase 4, and does not
+require any client-side patch.
+
+### C. NEW SYMPTOM this run, not previously documented: a full Character Creation prompt, with a possibly-unresponsive CREATE button
+
+In this specific run, the second (~90s-later) cycle surfaced client-side not as a loading screen
+that resolves on its own, but as a **full "Tap to Enter NAME" / CREATE character-creation screen**
+-- confirmed by the project owner as **the first time this exact screen has been observed** in
+this project's testing history. Screenshots: `scratch/timeline_run2/shots/211202_752.png` onward.
+
+While on this screen, the project owner reported **tapping CREATE appears to have no effect**.
+Cross-checked against the server log for the same window (`scratch/timeline_run1/server.log`,
+~21:13:29-21:13:31): the only traffic present is a repeating, unrelated `versionPointIdentity`
+push/ack exchange (`checkpoint_id=20`, same 24-byte payload, every ~0.5s) -- **no
+character-creation-related client request was observed reaching the server while CREATE was being
+tapped**. HYPOTHESIS, not confirmed: the two overlapping sessions (the original from 21:09:27 and
+the reconnect from 21:10:57) may be leaving the client's UI bound to a stale/wrong session
+context, so CREATE taps either target the wrong (already-resolved) session or never get dispatched
+into a network call at all. NOT YET TESTED: whether force-stop + relaunch recovers cleanly, whether
+this repros on a from-scratch launch (not just after the ~90s reconnect), and whether the
+`versionPointIdentity`/`checkpoint_id=20` repeating exchange is related at all or just unrelated
+background noise (it also appears in earlier, non-stuck runs, e.g. `scratch/timeline_run1/server.log`
+lines 3026+ from run1 at 21:09:12, well before any stuck state -- weak evidence it's unrelated).
+
+### D. Summary table (CONFIRMED vs HYPOTHESIS vs NOT YET TESTED, per the project owner's labeling requirement)
+
+| # | Finding | Status |
+|---|---|---|
+| 1 | CMD 20 ("Show Virtual Keyboard") occurs on both healthy and stuck runs, not causal | CONFIRMED (Checkpoint 29/§0.7) |
+| 2 | `ui/g.smali` finish() patch alone does not cause permanent stuck-loading | CONFIRMED (§0.7, Candidate B reaches Hall) |
+| 3 | Invalid Login dialog is tied to MpayActivity (re)launch events, including PLAY-triggered ones | CONFIRMED (this run) |
+| 4 | "Fast dismiss avoids the repeat loop" | NOT CONFIRMED -- contradicted by the 8-cycle fast-tap burst this run |
+| 5 | Client re-initiates a full new LoginApp/BaseApp session ~90s after the first | CONFIRMED (timestamp correlation, this run) |
+| 6 | This reconnect is what drives the second `createBasePlayer`/loading cycle | CONFIRMED (same server log) |
+| 7 | Second cycle manifests as a repeated loading screen, not a repeated Select-Controls panel | CONFIRMED (live observation, this run) |
+| 8 | Second cycle can also manifest as a full Character Creation prompt | CONFIRMED observed once; frequency/trigger conditions NOT YET TESTED |
+| 9 | CREATE button is unresponsive in this state | CONFIRMED observed once (no server-side RPC seen); root cause HYPOTHESIS only |
+| 10 | Why the client reconnects at ~90s (fixed timeout vs coincidence) | HYPOTHESIS -- single data point, needs repeat runs |
+| 11 | Server-side keepalive could suppress the reconnect | HYPOTHESIS -- not yet tested, no client patch required to test it |
+
+**No patches applied.** Per explicit instruction, this checkpoint is read-only investigation only.
+Candidate B's frozen APK/SHA256 in §0.7/above is untouched. Raw artifacts for this checkpoint:
+`scratch/timeline_run1/server.log`, `scratch/timeline_run1/logcat_full.txt`,
+`scratch/timeline_run2/logcat_full.txt`, `scratch/timeline_run2/shots/*.png`.
 
 ---
 
