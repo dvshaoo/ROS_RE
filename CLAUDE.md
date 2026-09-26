@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 29, OPEN/UNRESOLVED: a new stuck-on-pre-title-loading state appeared after re-adding `MpayWatcherService` on top of a separate agent's live `ui/g.smali` patch for the Checkpoint 24 `MpayActivity` finish() bug. The smali patch is verified real and firing (logcat proof below), but the game now sometimes never leaves the plain "Loading..." splash at all -- no dimming/spinner overlay (that's a different, already-understood symptom), just a flat hang before `MpayActivity` even becomes relevant. Not yet root-caused; likely confounded by heavy same-session churn (many reinstalls, two agents editing the same decompiled build tree, repeated OBB pushes/cert resets). See §0.6 Checkpoint 29 below for the full log and a clean-slate test protocol for whoever picks this up next. Previous entry: Checkpoint 28 reverted EmailAuthActivity/Supabase per project-owner decision -- see §0.5.)
+> **Last Updated**: 2026-09-26 (Checkpoint 29 continued, §0.7: ran a clean-slate A/B isolation test off a fresh decompile of the last known-good baseline (not the shared churned worktree). **Candidate B (baseline + `ui/g.smali` finish() patch ONLY, no `MpayWatcherService`) reaches the full Hall/Lobby reliably** -- the finish() patch in isolation is NOT the cause of the permanent stuck-loading regression. Regression boundary now narrowed to `MpayWatcherService` alone (Candidate C, not yet built/tested) or the interaction between the two patches when stacked (= current combined build D). See §0.7 for full results and §0.6 for the original regression writeup/protocol. Previous entry: Checkpoint 28 reverted EmailAuthActivity/Supabase per project-owner decision -- see §0.5.)
 
 ---
 
@@ -954,6 +954,121 @@ test**, not more debugging inside this same churned session state:
 
 That protocol has not yet been run end-to-end this checkpoint -- do that before adding any new
 theory or patch.
+
+---
+
+## 0.7 Checkpoint 29 continued (2026-09-26): A/B isolation test — B (finish-patch alone) reaches Hall cleanly; regression is not in the patch itself
+
+Ran the clean-slate single-variable protocol from §0.6.D, same server process, same OBB/patchVersion,
+same DNAT/cert setup, continuous logcat throughout, one clean launch per candidate.
+
+### Candidate A — last known-good baseline (`base_original_20260925_233735.apk`, md5 `cf15a74f...`)
+
+No `g.smali` finish patch, no `MpayWatcherService`. Full CMD sequence captured
+(`scratch/candA_logcat.txt`): two separate `MpayActivity START`s, CMD 11 appeared (never seen in
+D's captured stuck run), CMD 20 ("Show Virtual Keyboard") fired normally and was **not** followed
+by a stall. After dismissing the pre-existing, already-documented (§0.2/§0.2a) dismissible
+"Invalid login. Please log in again." dialog, **reached the title screen cleanly** -- `NeoXMain`
+settled to idle (`S` state, ~4% CPU), not spinning. This confirms CMD 20 is not causal (it fires on
+both healthy and stuck runs) and gives a concrete healthy-run CMD sequence to diff against.
+
+### Candidate B — A + `ui/g.smali` finish() patch ONLY, no `MpayWatcherService`
+
+Built fresh this checkpoint: `apktool d` on candidate A's own APK (not the shared, churned
+`decompiled2` worktree) into `scratch/apk_work/decompiledB`, patched only
+`ui/g.smali`'s `a(Lcom/netease/mpay/oversea/ui/g$e;)V` method, rebuilt/aligned/signed via the
+standard apktool -> zipalign -> apksigner pipeline, installed clean (uninstall -> install -> OBB
++ patchVersion restore, same as A/D's protocol).
+
+**Important nuance found while building B**: that method slot in candidate A is not a vanilla
+stock method -- it already contained a *different*, pre-existing single-purpose patch, logged as
+`"PATCHED: Age dialog bypassed"` (presumably from the Sept 22 age-gate testing, see the
+`build/apk_agegate_test/` artifacts). The Checkpoint 29 `g.smali` fix (credited to the "Gemini"
+agent session) did not add a new method -- it **replaced that existing method's body** with the
+finish()-calling version (confirmed via `diff` against the pristine decompile: `.locals 1`->`2`,
+log string renamed, one `invoke-virtual` line added calling `g;->a(g$a)V`, i.e. the real finish()
+path documented in §0.6.A). Candidate B's patch reproduces exactly this diff, nothing more.
+
+**Result: Candidate B reached the full Hall/Lobby successfully**, end to end. Full observed
+sequence, precise step-by-step per the project owner's own walkthrough (more granular than the
+first pass recorded above -- this is the authoritative version):
+
+1. Launch -> white screen -> NetEase logo -> image splash "checking for updates".
+2. "Loading patch" -- the dismissible "Invalid login. Please log in again." dialog (§0.2/§0.2a)
+   appears here, and again once more on the title page after it's reached.
+3. **Timing-sensitive branch, newly observed this checkpoint**: on the *first* tap of Confirm,
+   if the player is slow to tap Confirm again / interact further, the "Invalid login" dialog
+   **keeps reappearing repeatedly**. If instead the player dismisses it and taps through
+   **quickly**, it does **not** loop -- it proceeds straight into "Please select controls" with no
+   further repeats. This is a real timing/race characteristic of the dialog-retry path, not
+   previously documented -- it implies whatever silent-relogin retry loop drives this dialog is
+   itself timing-sensitive (plausibly a short-lived token/session window that a fast tap sequence
+   stays inside, and a slow one falls outside of, re-triggering the retry). Not yet root-caused at
+   the code level -- flagged here as a concrete lead for later, not yet traced into `ui/l.smali`'s
+   retry logic.
+4. "Please select controls" -> Confirm (after its countdown) -> loading image (fast this time) ->
+   back to "Please select controls" (fast) -> loading again (**this one slow**) -> Daily Claim
+   panel -> Hall/Lobby.
+5. **New detail**: on first entering the Hall, there is still a residual overlay/transition state
+   present -- it only fully clears once the player taps **START**, after which the Hall is clean
+   with no overlay (avatar rendered, motorcycle prop, 999999/999999 dev currency, START button,
+   side menu all present and interactive).
+
+Verbatim, as reported by the project owner (kept alongside the structured breakdown above so no
+wording/nuance is lost to paraphrasing):
+
+> launch white screen > netease logo > image splash checking for updates > loading patch with
+> invalid login > title page nagpapakita invalid login > first tap show again invalid login kapag
+> matagal kang pumindot is magpapakita paulit ulit yung invalid login kapag binilisan mo mag load
+> sya sa select control > loading image > loading image mabilis sya > balik select control mabilis
+> > loading ulit matagal and then > daily claim > start sa hall para mawala overlay click start >
+> hall lobby na wala ng overlay ganyan flow ngayon at issue
+
+**This overall shape (slow-load / loop-back / slow-load / Daily Claim / Hall) matches the
+already-documented Checkpoint 25 follow-up note** (see §0.3), but the timing-sensitivity of the
+"Invalid login" repeat (step 3) and the START-click-clears-overlay detail (step 5) are new,
+more precise observations from this checkpoint that were not previously on record. Neither is the
+Checkpoint 29 permanent stuck-loading regression -- CPU stayed idle throughout (`NeoXMain` never
+exceeded single-digit % during any of the "slow loading" segments observed), and the flow always
+eventually completed to a fully interactive Hall.
+
+One more real-but-separate wrinkle observed during B's run: the pre-existing dismissible "Invalid
+login" dialog (§0.2/§0.2a) recurred **on repeated PLAY taps** during manual testing/spamming, each
+time correlating with a fresh `MpayActivity` START + CMD 6/CMD 11 in logcat -- consistent with
+Checkpoint 22's original description ("appears both automatically pre-title and on every PLAY
+tap"). During one of these cycles `MpayActivity` became `mResumedActivity` and stayed there
+(the classic Checkpoint 24 touch-capturing overlay state) -- CPU stayed idle/low the whole time
+(not the CMD-20-adjacent busy-spin from D), and a single manual `KEYCODE_BACK` press immediately
+released it back to `com.netease.neox.Client`, exactly per the original Checkpoint 24 workaround.
+This is expected: Candidate B intentionally has no `MpayWatcherService`, so this particular
+resumed-overlay path (one that apparently doesn't route through the patched `g$1$1`/`g$2` bridge
+call sites -- see §0.6.A) has no automatic safety net in this build. Not evidence of a new bug --
+it's the pre-existing, already-understood behavior this project has documented since Checkpoint 24.
+
+### What this settles
+
+**The `ui/g.smali` finish() patch, in isolation, does not cause the Checkpoint 29 permanent
+stuck-loading regression.** Candidate B completes the entire login-to-Hall flow reliably using
+only this patch. This directly weighs against the hypothesis that automatic/earlier `finish()`
+timing (vs. the old manual-BACK workflow) is itself the source of a lifecycle/focus/IME race --
+B *is* that automatic-finish() timing, alone, and it does not reproduce D's hang.
+
+**This shifts the regression boundary to Candidate C (`MpayWatcherService` alone) or to the
+interaction between B and C when stacked together (= Candidate D, the current combined build).**
+Plausible mechanism, not yet verified: the accessibility service's auto-`GLOBAL_ACTION_BACK` and
+the smali patch's `finish()` call could both be racing to close the *same* `MpayActivity` instance
+at nearly the same time (watcher fires after its 10s-resumed threshold; patch fires immediately on
+its specific success callback) -- a double-close, or a BACK dispatched into an activity mid-
+transition from `finish()`, could plausibly desync whatever state the post-login loading sequence
+depends on. This is a hypothesis for the next step (building and testing Candidate C in isolation,
+then D again with fresh logcat), not yet confirmed.
+
+**Next step**: build Candidate C (A + `MpayWatcherService` only, no `g.smali` patch) the same way
+B was built (fresh `apktool d` off candidate A, not the shared churned worktree), run the same
+clean-slate single-launch protocol, and compare. If C alone also reaches Hall cleanly, the
+regression is specifically in the B+C interaction, not either patch alone -- narrowing the next
+investigation to the timing/ordering between the accessibility service's BACK dispatch and the
+smali patch's finish() call on a shared `MpayActivity` instance.
 
 ---
 
