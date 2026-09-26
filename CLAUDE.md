@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 26: fixed "account login failed" dialog -- root cause was `EmailAuthActivity` saving the session before `GameConfig.q()`/appId was populated, writing to the wrong SharedPreferences file; see §0.3 Checkpoint 26 below)
+> **Last Updated**: 2026-09-26 (Checkpoint 26: fixed "account login failed" dialog -- root cause was `EmailAuthActivity` saving the session before `GameConfig.q()`/appId was populated, writing to the wrong SharedPreferences file; see §0.3 Checkpoint 26 below. Open follow-up: a "Link Account" nag popup still appears every login -- session ended mid-investigation and handed off, see `scratch/HANDOFF_PROMPT_CLINE_2026-09-26.md` for the full writeup, including a confirmed new finding that `Globals.channel` is a native C++ object in `libclient_arm64.so`, not a script.npk class)
 
 ---
 
