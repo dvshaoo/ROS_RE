@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 27: root-caused the "Link Account" nag popup's trigger chain from decrypted scripts + on-device state -- it is `UILogin.showGuestAccountRemind`, called only from `ChannelHelper.onLoginSucceed`, gated by `channel.name=='netease_global' and get_auth_type()==2 and need_remind`, where `need_remind` is a 24 h window off `market_record_point_<uuid>.txt` state that is **never persisted** in this environment, so the nag re-arms on every launch. See §0.4 below. Previous entry: Checkpoint 26 fixed the "account login failed" dialog -- `EmailAuthActivity` saved the session before `GameConfig.q()`/appId was populated, writing to the wrong SharedPreferences file; see §0.3 Checkpoint 26)
+> **Last Updated**: 2026-09-26 (Checkpoint 28: **EmailAuthActivity/Supabase custom auth REVERTED and REMOVED** after live isolation testing proved the "Link Account" nag popup and the stuck-loading-spinner overlay both reproduce identically on a from-scratch pristine baseline -- old pre-Checkpoint-25 guest-only APK, a from-scratch fully-local server with no Supabase/Playit.gg involved at all. Both symptoms are therefore 100% inherent to this game/guest-account combination (confirmed root cause: Checkpoint 27's `get_uuid()` persistence bug for the popup; the stuck overlay is the pre-existing, already-partially-understood Checkpoint 24 `MpayActivity` missing-`finish()` bug -- one manual BACK press reliably clears it), not caused by anything built in Checkpoints 25-27. Project owner's decision: keep the project purely local/offline going forward -- `com.netease.neox.Launcher` is LAUNCHER again, `EmailAuthActivity`/`MpayWatcherService` removed from the manifest and smali, `/custom/auth/login` and the `supabase_db` import removed from `mitm_serve.py`, `mitm/supabase_db.py` deleted. See §0.5 Checkpoint 28 below.)
 
 ---
 
@@ -743,6 +743,78 @@ module-load stack — useful to confirm which modules are really loaded and in w
   hard-coded against `C:\Users\Raysoo\Downloads\ROS_RE` (the main checkout, where `04_obb/` and
   `scratch/script_module_sigs.json` live) — the new scripts import from there by absolute path, so
   they work from a git worktree too.
+
+---
+
+## 0.5 Checkpoint 28 (2026-09-26): EmailAuthActivity/Supabase reverted -- project owner decision, isolation-tested
+
+**Context**: after Checkpoint 27 root-caused the "Link Account" popup's trigger chain but left one
+open question (which of `get_uuid()`'s two preconditions actually fails), a live attempt to patch
+the popup out of existence at the `script.npk` bytecode level (see the now-obsolete write-side
+pipeline described below) was followed by a stuck-loading/spinner-overlay symptom on the very next
+test launch. The project owner's judgment call, independent of whatever caused that specific stuck
+launch, was to stop layering more changes on top of the Checkpoint 25-27 custom-auth work and
+**revert it entirely**, returning the project to a purely local, guest-only baseline with no
+Supabase or Playit.gg dependency at all.
+
+**Before reverting, an isolation test was run to separate "caused by today's changes" from
+"pre-existing"**: a from-scratch guest-only APK (confirmed via string search to predate
+`EmailAuthActivity` entirely -- see `scratch/verify_current.apk`) was installed fresh (full
+`adb uninstall`/`install` + OBB restore per §0.1), paired with `ros_offline_server_backup`'s
+snapshot server (no Supabase, no Playit.gg, nothing from Checkpoints 25-27). On this pristine
+baseline, **both symptoms reproduced identically**:
+- The stuck-loading spinner overlay (dimmed background, small centered spinner, all touches
+  swallowed) appeared during both the pre-title loading segment and on the first-launch
+  91-page User Agreement dialog. A single `KEYCODE_BACK` reliably cleared it each time -- this
+  is the same not-fully-root-caused `MpayActivity` missing-`finish()` bug documented back in
+  Checkpoint 24, not something introduced by any of today's work.
+- The "Link Account" nag popup (`UIGuestAccountRemind`) appeared on this pristine baseline too,
+  confirming Checkpoint 27's conclusion stands on its own: it is unconditional for any
+  guest-type account on the `netease_global` channel, given this environment's `get_uuid()`
+  persistence bug. Nothing built in Checkpoints 25-27 caused or worsened it.
+
+**Conclusion**: neither symptom was caused by `EmailAuthActivity`, the Supabase integration, or the
+script.npk patch attempt. The revert was a scope decision by the project owner (keep the project
+purely local going forward), not a bug-driven rollback -- record this distinction so a future
+session doesn't waste time re-diagnosing "what did Checkpoint 25-27 break" when the honest answer,
+tested live, is "nothing, but we're not using it anymore."
+
+**What was reverted**, all in the main checkout (not the Cline worktree, which is untouched):
+- `AndroidManifest.xml` (in the apktool-decompiled tree used for rebuilds -- see Checkpoint 25's
+  toolchain notes for its path): the `LAUNCHER` intent-filter moved back onto
+  `com.netease.neox.Launcher`; the `EmailAuthActivity` `<activity>` and `MpayWatcherService`
+  `<service>` entries removed entirely (they no longer exist in the manifest at all, not merely
+  unreferenced).
+- `smali_classes4/` (the dex slot Checkpoint 25's toolchain used exclusively for these two new
+  classes) deleted outright -- confirmed the tree still rebuilds cleanly via `apktool b` with it
+  gone (`smali`/`smali_classes2`/`smali_classes3`, the original app's own dex slots, are
+  untouched).
+- `res/xml/mpay_watcher_service_config.xml` (the now-orphaned accessibility-service config)
+  deleted.
+- `mitm/mitm_serve.py`: the `import supabase_db` block and the entire `/custom/auth/login`
+  endpoint handler removed.
+- `mitm/supabase_db.py` deleted.
+- `mitm/local_baseapp_capture.py`'s several `if supabase_db:`-guarded optional save/load calls
+  (player state, inventory) were **left in place** -- they were already written to degrade
+  gracefully when the module import fails (`supabase_db = None` in a `try`/`except` at import
+  time, confirmed still present and correct), so with the module gone they're simply permanent
+  dead branches, functionally equivalent to removal without the risk of hand-editing a
+  2000+ line file for no behavioral difference.
+- The currently-installed, currently-running device state matches this reverted source exactly:
+  guest-only APK (`scratch/verify_current.apk`, predates `EmailAuthActivity`), OBB restored,
+  `mitm/local_baseapp_capture.py` running standalone (no `supabase_db`, confirmed by its own
+  startup log no longer printing the old `[Supabase] import failed` line at all).
+- **Left untouched, on purpose**: `scratch/email_auth_build/` (the EmailAuthActivity/
+  MpayWatcherService Java source and its javac/d8/baksmali build pipeline) and this file's own
+  Checkpoint 25-27 history above are kept as historical/reference material, not deleted --
+  they're inert (nothing in the active manifest or server references them anymore) and cost
+  nothing to keep in case a future session revisits per-person auth.
+- The `scratch/npk_*.py` script-patching pipeline (rotor encrypt/decrypt, byte-offset-tracking
+  parser, OBB zip in-place patcher) built during this same checkpoint **works correctly** and
+  is **not the cause** of the stuck-launch that prompted the revert (that repro'd on the
+  pristine baseline too, per above) -- it's left in `scratch/` as reusable, verified tooling for
+  any future script.npk patch, should the project ever want one again. Do not assume it's broken
+  just because of the timing of this revert.
 
 ---
 

@@ -111,13 +111,13 @@ PLIST = (
     b'  "min_patch_client_version": 0,\n'
     b'  "min_patch_engine_version": 0,\n'
     b'  "use_dlc_clothes": false,\n'
-    b'  "file_list": [],\n'
+    b'  "file_list": ["patch.1117219.com.netease.chiji.obb"],\n'
     b'  "patch.1117219.com.netease.chiji.obb_updated": 0,\n'
     b'  "patch.1117219.com.netease.chiji.obb_size": 1,\n'
     b'  "patch.1117219.com.netease.chiji.obb_md5": "00000000000000000000000000000000"\n'
     b'}\n'
 )
-w('T14-complete plist: %d bytes' % len(PLIST))
+w('T15-complete plist: %d bytes' % len(PLIST))
 
 import zlib, pickle
 # ResourcePatcher contract: empty file_list in PLIST and empty dict in total_list.
@@ -362,11 +362,25 @@ class H(BaseHTTPRequestHandler):
             return
         if self.path.startswith('/api/games/config'):
             w('  -> SERVE /api/games/config')
+            # "persistence" (-> c/a/c.q, read by c/a/c.a()/g/e.d()) is a real field the
+            # official protocol sends; harmless and correct to include. NOTE (2026-09-26):
+            # this field is NOT the fix for netease_mpay_oversea__login_expired -- traced
+            # that dialog instead to g/e.a(type) being called with a literal null `type`
+            # (com/netease/mpay/oversea/ui/l;->a, `final`, set once at construction) on
+            # the automatic pre-title login attempt. A null type isn't one of g/e.a()'s
+            # three always-true sentinels (UNKNOWN/TOKEN/MORE) and isn't a key any
+            # account_type entry can ever be registered under (HashMap keyed by the
+            # j/a/g enum, populated via literal JSON keys like "guest"->GUEST -- verified
+            # that mapping IS correct and would succeed if type were actually GUEST).
+            # Open question: which caller constructs the login flow with type=null for
+            # the automatic attempt, and why (see CLAUDE.md checkpoint 22 for the full
+            # trace); not yet root-caused to a fix.
             res = (
                 b'{"code":0,"msg":"","bound_account_types":[],"game_config":{'
                 b'"account_type":{"guest":{"api_type":"guest","enable":true,"priority":1,"login_priority":1,"text":"Guest","color":"#ffffff"}},'
-                b'"text":{},"server_list":{"enable":true},"quick_login":{"enable":false},'
-                b'"security_email":{"enable":false},"login_style":1,"login_page_style":1,"debug_mode":0,'
+                b'"text":{},"server_list":{"enable":true},"quick_login":{"enable":true},'
+                b'"security_email":{"enable":false},"login_style":0,"login_page_style":0,"debug_mode":0,'
+                b'"persistence":2,'
                 b'"minor":{"enable":false},"birth_stage":{"enable":true,"status":1}}}'
             )
             self.send_response(200)
@@ -384,6 +398,16 @@ class H(BaseHTTPRequestHandler):
             sid = rec['session_id']
             w('  -> SERVE /api/users/login/guest (minor_status=102 adult verified, session=%s...)'
               % session_store._short(sid))
+            # com/netease/mpay/oversea/d/a/a/e.smali's response parser reads
+            # bound_account_types/bound_account_ids/notify_guest_bind/unknown_bind_guide/
+            # minor_status/age_status/security_email from the NESTED "user" object, not
+            # the response root (only "confirm_message" is read from the root). Previously
+            # these were sent at the root only, so that parser's optInt() defaults kicked in
+            # (minor_status=0, age_status=2) regardless of what we sent, which is what
+            # actually triggers the "User Age Setting" dialog before the title screen --
+            # confirmed by reading the smali directly (2026-09-25). Fix: send them in BOTH
+            # places (additive, not moved) -- nested for this parser, and still at the root
+            # in case another response consumer reads them there; extra JSON keys are free.
             res = json.dumps({
                 'code': 0, 'msg': '', 'alert_type': 0, 'bound_account_types': [],
                 'bound_account_ids': {}, 'confirm_message': '', 'notify_guest_bind': 0,
@@ -393,6 +417,9 @@ class H(BaseHTTPRequestHandler):
                     'id': player_id, 'account': 'Guest_11178811c6a412d9',
                     'login_token': sid, 'token': sid,
                     'quick_login_enable': True,
+                    'bound_account_types': [], 'bound_account_ids': {},
+                    'notify_guest_bind': 0, 'unknown_bind_guide': 0,
+                    'minor_status': 102, 'age_status': 1, 'security_email': '',
                 },
             }).encode('utf-8')
             self.send_response(200)
@@ -410,13 +437,26 @@ class H(BaseHTTPRequestHandler):
             sid = rec['session_id']
             w('  -> SERVE /api/users/login/v2/sdk_token (top-level user_id & sdk_token, '
               'minor_status=102, session=%s...)' % session_store._short(sid))
+            # Same fix as /api/users/login/guest: com/netease/mpay/oversea/d/a/a/e.smali's
+            # shared login-response parser (used by every provider in the j/a/g enum,
+            # sdk_token included) reads minor_status/age_status from the NESTED "user"
+            # object, not the response root. This is the silent-relogin path taken on the
+            # 2nd+ app launch (fresh installs go through /api/users/login/guest instead),
+            # so leaving only the root-level copy here let the age gate reappear on every
+            # relaunch after the first (2026-09-25, confirmed live). Fix is additive (both
+            # root and nested), same reasoning as the guest handler above.
             res = json.dumps({
                 'code': 0, 'msg': '', 'user_id': player_id, 'sdk_token': sid,
-                'alert_type': 0, 'minor_status': 102, 'age_status': 1, 'security_email': '',
+                'alert_type': 0, 'bound_account_types': [], 'bound_account_ids': {},
+                'notify_guest_bind': 0, 'unknown_bind_guide': 0,
+                'minor_status': 102, 'age_status': 1, 'security_email': '',
                 'user': {
                     'id': player_id, 'account': 'Guest_11178811c6a412d9',
                     'login_token': sid, 'token': sid,
                     'quick_login_enable': True,
+                    'bound_account_types': [], 'bound_account_ids': {},
+                    'notify_guest_bind': 0, 'unknown_bind_guide': 0,
+                    'minor_status': 102, 'age_status': 1, 'security_email': '',
                 },
             }).encode('utf-8')
             self.send_response(200)
@@ -430,13 +470,17 @@ class H(BaseHTTPRequestHandler):
             return
         if self.path.startswith('/api/users/login'):
             w('  -> SERVE /api/users/login (generic minor_status=102 adult verified)')
+            # Same nested-"user" fix as /api/users/login/guest and .../v2/sdk_token above,
+            # additive (both root and nested).
             res = (
-                b'{"code":0,"msg":"","alert_type":0,"bound_account_types":[],"bound_account_ids":{},'
-                b'"confirm_message":"","notify_guest_bind":0,"unknown_bind_guide":0,"minor_status":102,'
-                b'"age_status":1,"security_email":"",'
+                b'{"code":0,"msg":"","alert_type":0,"bound_account_types":[],'
+                b'"bound_account_ids":{},"confirm_message":"","notify_guest_bind":0,'
+                b'"unknown_bind_guide":0,"minor_status":102,"age_status":1,"security_email":"",'
                 b'"user":{"id":"guest_11178811c6a412d9","account":"Guest_11178811c6a412d9",'
                 b'"login_token":"guest_token_fake_ros_2026","token":"guest_token_fake_ros_2026",'
-                b'"quick_login_enable":true}}'
+                b'"quick_login_enable":true,"bound_account_types":[],"bound_account_ids":{},'
+                b'"notify_guest_bind":0,"unknown_bind_guide":0,"minor_status":102,'
+                b'"age_status":1,"security_email":""}}'
             )
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
@@ -502,6 +546,37 @@ class H(BaseHTTPRequestHandler):
             except Exception:
                 pass
             return
+        if self.path.startswith('/feature/') and self.path.endswith('.json.md5'):
+            # unisdk.update.netease.com feature-flag manifest MD5 check (fetched right
+            # after StartPatch/JumpVersionStage, before JumpBirthStage). Previously fell
+            # through to the generic {"code":0,"msg":"ok"} catch-all, which isn't a valid
+            # MD5 hex digest -- the client's integrity check on the paired .json fetch
+            # then fails, producing "Failed to retrieve patches." Return the real MD5 of
+            # the empty-object body served for the .json path so the check passes clean.
+            w('  -> SERVE /feature/*.json.md5 (md5 of empty feature json)')
+            body = b'{}'
+            res = hashlib.md5(body).hexdigest().encode('ascii')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/plain')
+            self.send_header('Content-Length', str(len(res)))
+            self.end_headers()
+            try:
+                self.wfile.write(res)
+            except Exception:
+                pass
+            return
+        if self.path.startswith('/feature/') and self.path.endswith('.json'):
+            w('  -> SERVE /feature/*.json (empty feature flags)')
+            res = b'{}'
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Length', str(len(res)))
+            self.end_headers()
+            try:
+                self.wfile.write(res)
+            except Exception:
+                pass
+            return
         if self.path.startswith('/pl/') or 'plist' in self.path.lower() or 'npk_version' in self.path.lower():
             w('  -> SERVE catch-all plist (empty file_list)')
             res = PLIST
@@ -529,12 +604,29 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         self._handle()
     def do_HEAD(self):
+        # Force Content-Length: 0 on the headers we actually send. Previously only
+        # wfile.write() was stubbed, so _handle()'s normal GET-sized Content-Length
+        # (e.g. from the "/" root catch-all) still went out on the wire with zero
+        # body bytes following it. A strict HTTP client that reads exactly
+        # Content-Length bytes after headers (rather than special-casing HEAD per
+        # RFC 7231 4.3.2) then hangs waiting for bytes that never arrive, until its
+        # own timeout -- a plausible cause of the connectivity-probe HEAD requests
+        # (www.sogou.com/hao.360.cn/m.baidu.com, all routed to us via DNAT) always
+        # reporting failed/negative timing and contributing to "PrePatchStage.FAIL"
+        # (2026-09-25 investigation).
         orig_write = self.wfile.write
+        orig_send_header = self.send_header
         self.wfile.write = lambda *args, **kwargs: None
+        def patched_send_header(keyword, value):
+            if keyword.lower() == 'content-length':
+                value = '0'
+            orig_send_header(keyword, value)
+        self.send_header = patched_send_header
         try:
             self._handle()
         finally:
             self.wfile.write = orig_write
+            self.send_header = orig_send_header
     def do_CONNECT(self):
         # Forward CONNECT requests directly to local TLS port 8443
         w('CONNECT %s' % self.path)
