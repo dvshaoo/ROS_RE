@@ -1,80 +1,97 @@
 @echo off
-REM Launch ROS and auto-dismiss the "Invalid login. Please log in again." popup.
+REM Launch ROS.
 REM
-REM Root cause (2026-09-25, scratch/HANDOFF_PROMPT_CLAUDE.md): the MPay SDK's
-REM shouldAutoLogin() check fails on every cold start (no/expired saved session),
-REM which shows this dialog via com.netease.mpay.oversea.ui.l$c ~50% into the
-REM patch-check loading bar. Tapping "Confirm" switches to a fresh guest/channel
-REM login and the game proceeds cleanly -- our server handles that login fine.
+REM HISTORY (2026-09-26, Checkpoint 23): the "Invalid login. Please log in again."
+REM dialog this script used to spam-dismiss is RESOLVED -- it was stale/corrupted
+REM local session state left over from patch-testing, not a client code bug or a
+REM timing race. See CLAUDE.md section 0.2. It no longer appears on a clean
+REM device, so this script no longer looks for it.
+REM
+REM REMAINING KNOWN ISSUE (still open, separate bug): after login succeeds,
+REM MpayActivity sometimes does not call finish() and is left as the resumed
+REM activity showing only its own loading spinner -- a blank, button-less
+REM overlay that swallows all touches meant for the game underneath, which is
+REM already fully loaded and rendering behind it. This is NOT a dialog asking
+REM for a decision; there is nothing to read or agree to, nothing a real
+REM interactive tap would ever land on. Pressing the Android BACK button once
+REM finishes the stuck activity and hands control straight back to the game
+REM (confirmed live, works every time). This script automates exactly that one
+REM BACK press, and only after MpayActivity has been the resumed activity for
+REM longer than any real login round-trip should take -- it does not touch,
+REM confirm, or dismiss anything inside an actual dialog.
 REM
 REM IMPORTANT: do NOT delete com.netease.mpay.*.xml shared_prefs to "fix" this --
-REM that guarantees the dialog fires every launch instead (see reapply_env_setup.sh).
+REM that is an unrelated, separate bug that guarantees a different cold-start
+REM dialog (see reapply_env_setup.sh comment). Do NOT run `pm clear` as part of
+REM normal launching either -- it wipes patchVersion (see CLAUDE.md 0.1) and
+REM should only be used deliberately to recover from a suspected corrupted
+REM session state, with OBB + patchVersion restored immediately after.
 
 setlocal enabledelayedexpansion
 set "ADB=C:\LDPlayer\LDPlayer9\adb.exe"
 set SER=-s emulator-5554
 
-echo [1/5] Force-stopping any running instance...
+REM Tap coordinates below are in the CURRENT (rotated, landscape) input space,
+REM i.e. the same 1920x1080 space screencap/screenshots show -- NOT the portrait
+REM "Physical size" that `wm size` reports for this device.
+set CONTROLS_CONFIRM_X=960
+set CONTROLS_CONFIRM_Y=955
+
+echo [1/4] Force-stopping any running instance...
 %ADB% %SER% shell am force-stop com.netease.chiji
 timeout /t 1 /nobreak >nul
 
-echo [2/5] Detecting screen resolution...
-set WIDTH=1080
-set HEIGHT=1920
-for /f "tokens=3 delims=: " %%A in ('%ADB% %SER% shell wm size ^| find "Physical size"') do set RES=%%A
-if defined RES (
-    for /f "tokens=1,2 delims=x" %%A in ("%RES%") do (
-        set WIDTH=%%A
-        set HEIGHT=%%B
+echo [2/4] Launching ROS...
+%ADB% %SER% shell am start -n com.netease.chiji/com.netease.neox.Launcher
+
+echo [3/4] Watching for a stuck MpayActivity overlay (up to 60s)...
+REM MpayActivity legitimately appears for a few seconds during real login
+REM traffic -- only treat it as "stuck" once it has been resumed continuously
+REM for MPAY_STUCK_THRESHOLD seconds, then send exactly one BACK press.
+set ELAPSED=0
+set MPAY_STREAK=0
+set MPAY_STUCK_THRESHOLD=10
+set BACK_SENT=0
+
+:WAIT_LOOP
+%ADB% %SER% shell "dumpsys activity activities 2>/dev/null | grep mResumedActivity" > "%TEMP%\ros_resumed.txt" 2>nul
+findstr /c:"MpayActivity" "%TEMP%\ros_resumed.txt" >nul
+if %ERRORLEVEL%==0 (
+    set /a MPAY_STREAK+=2
+    if !MPAY_STREAK! GEQ %MPAY_STUCK_THRESHOLD% (
+        if "!BACK_SENT!"=="0" (
+            echo       MpayActivity stuck for ~!MPAY_STREAK!s with no dialog visible -- sending one BACK press...
+            %ADB% %SER% shell input keyevent KEYCODE_BACK
+            set BACK_SENT=1
+            timeout /t 2 /nobreak >nul
+        )
+    )
+) else (
+    set MPAY_STREAK=0
+    findstr /c:"neox.Client" "%TEMP%\ros_resumed.txt" >nul
+    if !ERRORLEVEL!==0 (
+        echo       Game activity resumed -- login flow clear.
+        goto :TITLE_REACHED
     )
 )
-echo       Resolution: %WIDTH%x%HEIGHT%
-
-REM Confirm button bounds measured at 1080x1920: [780,646][1125,757] -> center (952, 701).
-REM Scale that reference point to whatever resolution wm size reports.
-set /a TAP_X=(%WIDTH% * 952) / 1080
-set /a TAP_Y=(%HEIGHT% * 701) / 1920
-echo       Confirm button tap point: (%TAP_X%, %TAP_Y%)
-
-echo [3/5] Launching ROS...
-%ADB% %SER% shell am start -n com.netease.chiji/com.netease.neox.Launcher
-echo       Waiting for the "Invalid login" dialog (MpayActivity)...
-
-REM Poll for MpayActivity; it typically appears ~15-25s after launch (~50% into
-REM the patch-check progress bar), well before the 3D intro video / title screen.
-set ATTEMPTS=0
-:WAIT_MPAY
 timeout /t 2 /nobreak >nul
-set /a ATTEMPTS+=1
-if %ATTEMPTS% GTR 30 (
-    echo [!] Timed out waiting for MpayActivity after 60s. It may not have appeared this run.
-    goto :DONE
-)
-%ADB% %SER% shell "dumpsys activity activities 2>/dev/null | grep -c MpayActivity" > "%TEMP%\ros_mpay_check.txt" 2>nul
-set /p MPAY_COUNT=<"%TEMP%\ros_mpay_check.txt"
-if "%MPAY_COUNT%"=="" set MPAY_COUNT=0
-if "%MPAY_COUNT%"=="0" (
-    echo       ... waiting (%ATTEMPTS%/30)
-    goto :WAIT_MPAY
-)
+set /a ELAPSED+=2
+if %ELAPSED% LSS 60 goto :WAIT_LOOP
 
-echo [4/5] MpayActivity detected! Auto-tapping Confirm at (%TAP_X%, %TAP_Y%)...
-%ADB% %SER% shell input tap %TAP_X% %TAP_Y%
+echo       Timed out waiting -- continuing anyway, check screen manually.
 
-echo [5/5] Verifying dismissal...
-timeout /t 2 /nobreak >nul
-%ADB% %SER% shell "dumpsys activity activities 2>/dev/null | grep -c MpayActivity" > "%TEMP%\ros_mpay_check.txt" 2>nul
-set /p MPAY_COUNT2=<"%TEMP%\ros_mpay_check.txt"
-if "%MPAY_COUNT2%"=="0" (
-    echo [OK] MpayActivity dismissed! Game proceeding to title screen...
-) else (
-    echo [!] MpayActivity still active. Retrying tap...
-    %ADB% %SER% shell input tap %TAP_X% %TAP_Y%
-    timeout /t 2 /nobreak >nul
-)
+:TITLE_REACHED
+echo [4/4] Waiting for "Please select controls" confirm countdown, then confirming...
+timeout /t 17 /nobreak >nul
+%ADB% %SER% shell input tap %CONTROLS_CONFIRM_X% %CONTROLS_CONFIRM_Y%
+
+timeout /t 5 /nobreak >nul
+echo Final state:
+%ADB% %SER% shell dumpsys activity activities 2>nul | find "mResumedActivity"
 
 echo.
-echo Done! Game should reach the title screen / PLAY button cleanly.
+echo Done.
+goto :DONE
 
 :DONE
 pause

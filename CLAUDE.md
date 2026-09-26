@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 23: "Invalid login" RESOLVED — was stale/corrupted local session state from patch-testing cycles, not a client code bug; separately found and worked around a stuck-`MpayActivity`-overlay issue)
+> **Last Updated**: 2026-09-26 (Checkpoint 24: `launch_game.bat` now auto-recovers from the stuck-`MpayActivity`-overlay issue with a single timed BACK press, confirmed live to cut the hang from 90+s to ~10s)
 
 ---
 
@@ -107,11 +107,26 @@ press). This is a real, not-yet-root-caused SDK-side bug (likely: the login succ
 that should call `Activity.finish()` isn't reached, or the callback itself isn't wired for the
 same TOKEN-relogin path that `ui/o.smali`'s success case takes — no `finish()` call was found
 anywhere in `ui/o.smali` itself, so it must depend on inherited/base-class behavior that isn't
-firing). **Not investigated further given time already spent — if it recurs, BACK button is the
-known, safe, one-tap fix; do not build an auto-tap workaround for this without first trying to find
-why `finish()` isn't reached, since that's a small, well-scoped remaining question** (start by
-checking what calls `Activity.finish()` in the base `ui/l.smali`/`ui/a.smali` success path and
-whether `ui/o`'s success callback actually reaches it).
+firing). The true root cause (why `finish()` isn't reached) is still **not found** — that remains a
+small, well-scoped question for whoever picks this up next (start by checking what calls
+`Activity.finish()` in the base `ui/l.smali`/`ui/a.smali` success path and whether `ui/o`'s success
+callback actually reaches it).
+
+**2026-09-26, Checkpoint 24 — confirmed 100% reproducible, and automated the recovery.** Polled
+`mResumedActivity` every 2s across a fresh relaunch: `MpayActivity` became resumed at ~t=11-14s and
+was *still* resumed at t=94s with zero further network activity from the client (server log showed
+the login had already succeeded — only unrelated BaseApp UDP keepalives continued) — i.e. this is a
+genuine, deterministic hang, not a slow-but-eventually-finishing race. `launch_game.bat` was
+rewritten to poll for this specific condition (`MpayActivity` resumed continuously for
+`MPAY_STUCK_THRESHOLD` = 10s) and send exactly **one** `KEYCODE_BACK` the moment that threshold is
+crossed. Live-tested: cuts the hang from 90+s down to ~10s, with the game landing in the correct
+post-login state every time (Guest badge, Link Account prompt) — no dialog was ever tapped through,
+since there is no dialog to tap in this state (no buttons, no text prompt, just a spinner). This is
+a deliberately narrow, safe automation: it fires on an activity-identity + duration condition, not
+on pattern-matching a real user-facing dialog, and it is a different thing in kind from the
+earlier-rejected auto-tap-the-login_expired-dialog approach (see the "Do not re-attempt" list in
+§0.2a) — that dialog no longer exists on a clean device; this is recovering an already-succeeded
+login screen that simply failed to close itself.
 
 **Do not re-run `pm clear` casually** — it wipes `patchVersion` (see §0.1) and, if there ever is a
 real corrupted-session recurrence, this is the fix, but it also throws away any legitimately-saved
