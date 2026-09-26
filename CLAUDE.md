@@ -624,6 +624,35 @@ is written **only in memory**. Every process restart throws that away, so the 24
 never survives a restart — the nag re-arms and re-fires on every launch. That is the whole of the
 "it shows up every single time" symptom; nothing else is needed to explain it.
 
+**Two corollaries that close the loop without any instrumentation:**
+
+1. **`get_uuid()` really does fail at the login-time call site.** The branch that *arms* the gate
+   (the `227` block) is also the branch that calls `Globals.market_record_points.saveMarketRecordPoint()`,
+   and arming is the only way the gate ever opens later. Since the panel does appear, that branch has
+   run, so the save has been attempted, so a resolvable `get_uuid()` would have created
+   `market_record_point_<uuid>.txt`. No such file exists ⇒ **`get_uuid()` returns `''` at
+   `ChannelHelper.onLoginSucceed` time** (i.e. `BigWorld.player()` is falsy there, and/or the login-host
+   record has no group id yet). That is inherent to calling this at *channel*-login time, and no
+   server-side change can alter it.
+2. **Even a working file would not have suppressed the panel.** `showGuestAccountRemind` only ever
+   *saves*; it never loads. `loadMarketRecordPoint()` — the only thing that refreshes
+   `Globals.market_record_points.cur_market_record_point` from disk — is referenced **only inside
+   `helpers/market_record_points.py` itself** (i.e. only from `hasDoneSomething()`/`doSomething()`;
+   `script_index.txt` shows no external caller), and those are only called from in-world events that
+   are rare or unreachable here: `ui/UIMain.py::_on_match_succeed` (match won **and**
+   `player.hallTeamSize >= 2`), `entities/Avatar.py` (`first_on_plane`),
+   `entities/iFriend.py` (`first_friend_added`), `entities/iBattleGround.py` (`first_game_done`).
+   Nothing calls it at login, on entering the hall, or from `UIMain`'s normal hall path. So for a whole
+   session the record stays the pristine `INIT_MARKET_RECORD_POINT` copy:
+   `first_download_login_game` starts `True`, the first `showGuestAccountRemind` call of the session
+   arms it, and the next one reminds with `last_remind_time == 0` ⇒ `need_remind == True`.
+
+⇒ **Conclusion: this panel is unavoidable by design for a `netease_global` client whose MPay auth
+type is GUEST, and it fires once per launch regardless of what our private server does.** The
+"state never persists" finding is real and worth documenting (it silently disables the whole `af_*`
+market-record-point feature), but it is *not* what makes the nag repeat — fixing persistence alone
+would not stop it.
+
 Also note `user_info.txt` carries `"remindGuestBindTimestamp": 0`: `UILogin.readUserInfo/writeUserInfo`
 round-trip that field but **no code path ever sets it non-zero, and `showGuestAccountRemind` does not
 read it** — it is dead state, not the gate. Do not chase it.
@@ -642,32 +671,17 @@ Ruled out by the above (do not re-attempt these framings):
   popup can never appear then; it always appears on a later call in a *fresh* state. Any patch that
   only touches the first call does nothing.
 
-What is actually required, in order of decreasing fidelity:
+Which brings the options down to a short, honest list, because D's corollaries bound them:
 
-1. **Persistence must survive process restarts** for the 24 h window to work at all. That needs
-   `MarketRecordPoints.get_uuid()` to stop returning `''`. Of its three preconditions, (2) and (3)
-   look satisfied (group id `10001` is present in `user_info.txt` and is passed by
-   `UILogin.startLogin` → `setLoginHostInfo`), which leaves **(1) `BigWorld.player()` being falsy at
-   `ChannelHelper.onLoginSucceed` time** as the leading cause — i.e. the state is read/written before
-   any player entity exists. If that is confirmed, the 24 h suppression is broken *inside the shipped
-   client*, for any guest on a `netease_global` channel, and the nag is effectively **once per
-   launch, by design, in production too** — not something our private server can influence.
-
-   Two things keep this from being fully settled offline: (a) `get_uuid()` needs
-   `BigWorld.player()`, which is almost certainly `None` at the `onLoginSucceed` call site (before any
-   world connection), so a *login-time* call can never persist regardless of what the server does;
-   and (b) `doSomething`/`hasDoneSomething` are also called from **in-world** code where `player()`
-   does exist — `entities/Avatar.py` → `doSomething('first_on_plane')`,
-   `entities/iBattleGround.py` → `doSomething('first_game_done')`,
-   `entities/iFriend.py` → `doSomething('first_friend_added')`,
-   `ui/UIMain.py` → `hasDoneSomething('first_match_successed')` — and
-   `loadMarketRecordPoint()` **creates the file as a side effect** of the first such call (because
-   `self.loaded` is `False` on a fresh process). So the file's absence additionally means either
-   "none of those in-world events ever fired in the sessions so far", or "`get_uuid()` fails in-world
-   too, i.e. `loginHostRecord` is empty / has no `groupid`". **Distinguishing those two decides
-   whether our private server can fix this at all**, and is the one measurement still outstanding.
-2. If that is what the evidence says, then for this project the popup is *authentic client behaviour
-   for the exact situation we force ourselves into*: MPay auth type is pinned to GUEST (required for
+1. **"Fix the persistence" is a real defect worth fixing, but it is not this fix.** `get_uuid()`
+   returning `''` silently no-ops the entire market-record-point feature (`af_first_match`,
+   `af_thirty_min`, `first_friend_added`, `first_game_done`, `first_on_plane`, `first_match_successed`)
+   — that is a genuine bug to repair on its own merits. It cannot stop the nag, though: D.2 shows the
+   panel's decision never consults the file, and D.1 shows the save cannot succeed at this call site.
+   **No server-side change can reach any of this** — the gate consumes only `Globals.channel` (already
+   truthy), the in-process market-record container, and a 24 h clock.
+2. So for this project the popup is *authentic client behaviour for the exact situation we force
+   ourselves into*: MPay auth type is pinned to GUEST (required for
    the BaseApp/Mercury uid shape — see Checkpoint 25) **and** the client is the `netease_global`
    build, and the popup's own guard is `name == 'netease_global' and get_auth_type() == 2`.
    The only levers that make it *never* fire are therefore client-side, not server-side: making the
@@ -678,18 +692,18 @@ What is actually required, in order of decreasing fidelity:
 3. The auto-dismiss route remains explicitly rejected by the project owner (see the handoff and this
    file's history). Do not offer it as the deliverable.
 
-**Remaining single verification item** (the only thing not yet nailed): *which* of the three
-`get_uuid()` preconditions fails. Cheapest ways, in order:
-   a. The new `<SCRIPT>` logcat channel (see F) — watch for an exception from
-      `market_record_points.get_uuid` / `loadMarketRecordPoint` during a launch.
-   b. A Frida hook that only logs `get_uuid()`'s return value plus
+**Diagnostic follow-up (no longer blocking):** *which* of `get_uuid()`'s three preconditions fails is
+still unmeasured, and is now only of interest for fixing the persistence defect itself:
+   a. A Frida hook that only logs `get_uuid()`'s return value plus
       `ConnectMonitor.getInstance().loginHostRecord` — the native-hook crash from handoff §4 has to be
-      fixed first (spawn+resume instead of attach-after-start, entry-only hook body with no memory
+      fixed first (spawn+resume instead of attach-after-start, an entry-only hook body with no memory
       reads, and check `scratch/ghidra_scripts/AntiTamperSearch.java` output).
+   b. The `<SCRIPT>` logcat channel (see F) — watch for an exception out of
+      `market_record_points.get_uuid` / `loadMarketRecordPoint` during a launch.
    c. Static: the `setLoginHostInfo`/`connectLoginHost` call graph in `helpers/ConnectMonitor.py`
-      (`scratch/disas_connectmonitor.txt`, already dumped) — the weakest option, because that
-      listing desyncs around `connectLoginHost` (a `??neox` opcode in that region is being sized
-      wrong, which shifts every following offset).
+      (`scratch/disas_connectmonitor.txt`, already dumped) — the weakest option, because that listing
+      desyncs around `connectLoginHost` (a `??neox` opcode in that region is being sized wrong, which
+      shifts every following offset).
 
 ### F. New, reusable: script-side Python tracebacks are in logcat
 
