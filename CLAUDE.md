@@ -1354,6 +1354,91 @@ progress/incomplete as of this commit.
 
 ---
 
+## 0.11 Correction + major finding (2026-09-26): the WebView panel is not causal; the real gate is almost entirely upstream of the network layer
+
+The project owner corrected the framing in §0.10: the white WebView-like panel appears during
+**both** failing/retrying login cycles and the eventually-successful one -- it is not itself the
+root cause, just a secondary UI element present throughout. The real open question is what state
+change lets the client finally resolve a valid account and proceed. This was investigated
+read-only, using `scratch/phase10_run1/logcat.txt` and `scratch/phase10_run1/server.log` from the
+same live run already in progress (no new patches, no client instrumentation added).
+
+### A. "Dev | Raysoo" is not a login-resolution signal -- CONFIRMED, DISPROVEN as special
+
+`grep` for every `ROS_BASE_NICKNAME`/`updateBaseNickname` reference in
+`mitm/local_baseapp_capture.py` shows it is **entirely a server-side, unconditional value** (our
+own `ROS_BASE_NICKNAME` env var, default `'Dev | Raysoo'`), sent as the 4th of 5 fixed RPCs in the
+`createBasePlayer` chain:
+
+```
+createBasePlayer(Account) -> createBasePlayer(Athlete) -> showSelectCharacter([]) ->
+onCreateCharacter/onRoleCreateSuc/updateBaseCharacter -> updateBaseNickname('Dev | Raysoo') ->
+enterHall(True)
+```
+
+It appeared identically in **both** cycles captured this run (first success at 21:46:59.678, and
+the ~90s-later reconnect cycle at 21:48:24.340) -- proving it carries no information about
+*whether* login succeeded differently between cycles, only that BaseApp's fixed chain reached step
+4. **DISPROVEN**: "Dev | Raysoo becoming visible" is not itself a distinguishing state -- by the
+time it's visible, BaseApp's `createBasePlayer` has already unconditionally committed to finishing
+its whole chain regardless of anything upstream.
+
+### B. THE key finding: ~22 of 24 client-side MpayActivity cycles never reach the network at all
+
+Every `MpayActivity (has extras)` START in `scratch/phase10_run1/logcat.txt` was extracted and
+compared against every genuine (273-byte) `LOGINAPP UDP RECV` in
+`scratch/phase10_run1/server.log`:
+
+- **24 MpayActivity START cycles** occurred between 21:38:19.948 and 21:46:26.372 (~8 minutes).
+- **Only 1 real LoginApp handshake packet arrived at the server in that entire window**, at
+  21:46:53.197 -- immediately after the *last* MpayActivity cycle in the burst
+  (21:46:25.412/21:46:26.372).
+- **The other ~22 MpayActivity cycles produced zero server-visible network traffic.** They never
+  sent a LoginApp packet at all.
+
+**CONFIRMED**: the repeated "Invalid login" cycle is overwhelmingly an **MPay-SDK-internal /
+client-local phenomenon** -- most retry cycles are the client re-checking something in its own
+local/cached session state and failing before ever attempting a real network login, not a series
+of genuine failed network round-trips. Whatever ultimately flips the client from "retry locally"
+to "actually attempt network LoginApp" is the true root cause of the delay, not server response
+timing, not WebView loading, and not raw human tap speed (which was already weakly correlated at
+best per §0.8).
+
+### C. The ~90s reconnect interval is now independently reproduced a second time
+
+Following the same run's successful cycle at 21:46:53.197, a second full LoginApp/BaseApp
+handshake-and-`createBasePlayer` cycle fired again at **21:48:21.172** -- an interval of
+**87.975s**, closely matching §0.8/§0.9's earlier-measured **90.018s** from a completely separate
+launch. **CONFIRMED, reproducible across 2 independent runs** (~88-90s, ~2s variance) -- this is no
+longer a single data point. The full second-cycle chain (`createBasePlayer` ->
+`updateBaseNickname` -> `enterHall`) completed identically to the first, again in a few seconds,
+consistent with §0.9's finding that the server side of this exchange is never the bottleneck.
+
+### D. Report, in the requested format
+
+- **CONFIRMED**: `updateBaseNickname`/"Dev | Raysoo" is a fixed, unconditional step in the
+  server's `createBasePlayer` chain -- not a login-resolution indicator, appears identically in
+  both cycles observed.
+- **DISPROVEN**: treating "Dev | Raysoo becomes visible" as revealing a distinct client-side state
+  transition. It reveals only that BaseApp's chain (which itself only starts after a real LoginApp
+  handshake already succeeded) has reached its 4th step.
+- **CONFIRMED**: the "Invalid login" retry loop is predominantly client-local/MPay-SDK-internal --
+  ~22 of 24 observed MpayActivity cycles this run produced no server-visible network traffic
+  whatsoever; the network layer is not where most of the retrying happens.
+- **CONFIRMED (now reproduced twice)**: the ~90s reconnect interval after a successful BaseApp
+  session (87.975s this run vs. 90.018s previously).
+- **HYPOTHESIS, NOT YET TESTED**: what specific internal condition (retry counter, cache-expiry
+  timer, or a callback tied to the WebView panel's own load completion) causes the client to
+  finally attempt a real network LoginApp handshake after so many silent local cycles. Determining
+  this requires live MPay-SDK-internal state introspection (Frida), reusing the hook patterns
+  already built and proven in Checkpoints 22/23/26 (`scratch/frida_*` scripts) -- not re-run this
+  pass, since the project owner asked to document first.
+
+No patch applied. Phase 10's full 3-run R0-R10 timing protocol is still incomplete; this finding
+was extracted from Run 1's already-in-progress data, not a dedicated fresh run.
+
+---
+
 ## 1. Standing Rules (Strict Constraints)
 - **Local/LAN Only**: Never interact with real production NetEase servers.
 - **Zero Guesswork**: Every packet format, entity type, and method index must be verified by live memory inspection or Ghidra decompilation.
