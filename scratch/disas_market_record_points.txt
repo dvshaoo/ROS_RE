@@ -1,0 +1,430 @@
+==== module helpers/market_record_points.py  sig=0x8cf52378 ====
+
+-------- <module-body> (nlocals=None stack=None)
+--- <module> (file=helpers\market_record_points.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['copy', 'os', 'json', 'libclaudia', 'Application', 'Timer', 'Globals', 'BigWorld', 'object', 'MarketRecordPoints']
+   0  LOAD_CONST             0  (-1)
+   3  LOAD_CONST             1  (None)
+   6  ??neox=134 arg=0
+   9  ??neox=157 arg=0
+  12  LOAD_CONST             0  (-1)
+  15  LOAD_CONST             1  (None)
+  18  ??neox=134 arg=1
+  21  ??neox=157 arg=1
+  24  LOAD_CONST             0  (-1)
+  27  LOAD_CONST             1  (None)
+  30  ??neox=134 arg=2
+  33  ??neox=157 arg=2
+  36  LOAD_CONST             0  (-1)
+  39  LOAD_CONST             2  ([b'Application'])
+  42  ??neox=134 arg=3
+  45  ??neox=116 arg=4
+  48  ??neox=157 arg=4
+  51  POP_TOP
+  52  LOAD_CONST             0  (-1)
+  55  LOAD_CONST             1  (None)
+  58  ??neox=134 arg=5
+  61  ??neox=157 arg=5
+  64  LOAD_CONST             0  (-1)
+  67  LOAD_CONST             1  (None)
+  70  ??neox=134 arg=6
+  73  ??neox=157 arg=6
+  76  LOAD_CONST             0  (-1)
+  79  LOAD_CONST             1  (None)
+  82  ??neox=134 arg=7
+  85  ??neox=157 arg=7
+  88  LOAD_CONST             3  ('MarketRecordPoints')
+  91  ??neox=153 arg=8
+  94  BUILD_TUPLE            1  (1)
+  97  LOAD_CONST             4  (<code MarketRecordPoints>)
+ 100  MAKE_FUNCTION          0  (0)
+ 103  CALL_FUNCTION          0  (pos=0 kw=0)
+ 106  ??neox=54 arg=2461
+ 109  ??neox=0 arg=350
+ 112  ??neox=0
+
+--------   MarketRecordPoints (nlocals=None stack=None)
+--- MarketRecordPoints (file=helpers\market_record_points.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['__name__', '__module__', 'True', 'INIT_MARKET_RECORD_POINT', '__init__', 'get_uuid', 'hasDoneSomething', 'doSomething', 'thirty_min_done', 'loadMarketRecordPoint', 'saveMarketRecordPoint']
+   0  ??neox=153 arg=0
+   3  ??neox=157 arg=1
+   6  BUILD_MAP              6  (6)
+   9  BUILD_MAP              0  (0)
+  12  LOAD_CONST             0  ('first_game_done')
+  15  STORE_MAP
+  16  BUILD_MAP              0  (0)
+  19  LOAD_CONST             1  ('first_friend_added')
+  22  STORE_MAP
+  23  BUILD_MAP              0  (0)
+  26  LOAD_CONST             2  ('first_match_successed')
+  29  STORE_MAP
+  30  ??neox=153 arg=2
+  33  LOAD_CONST             3  ('first_download_login_game')
+  36  STORE_MAP
+  37  LOAD_CONST             4  (0)
+  40  LOAD_CONST             5  ('last_remind_time')
+  43  STORE_MAP
+  44  BUILD_MAP              0  (0)
+  47  LOAD_CONST             6  ('first_on_plane')
+  50  STORE_MAP
+  51  ??neox=157 arg=3
+  54  LOAD_CONST             7  (<code __init__>)
+  57  MAKE_FUNCTION          0  (0)
+  60  ??neox=157 arg=4
+  63  LOAD_CONST             8  (<code get_uuid>)
+  66  MAKE_FUNCTION          0  (0)
+  69  ??neox=157 arg=5
+  72  LOAD_CONST             9  (<code hasDoneSomething>)
+  75  MAKE_FUNCTION          0  (0)
+  78  ??neox=157 arg=6
+  81  LOAD_CONST             10  (<code doSomething>)
+  84  MAKE_FUNCTION          0  (0)
+  87  ??neox=157 arg=7
+  90  LOAD_CONST             11  (<code thirty_min_done>)
+  93  MAKE_FUNCTION          0  (0)
+  96  ??neox=157 arg=8
+  99  LOAD_CONST             12  (<code loadMarketRecordPoint>)
+ 102  MAKE_FUNCTION          0  (0)
+ 105  ??neox=157 arg=9
+ 108  LOAD_CONST             13  (<code saveMarketRecordPoint>)
+ 111  MAKE_FUNCTION          0  (0)
+ 114  ??neox=157 arg=10
+ 117  ??neox=82
+ 118  RETURN_VALUE
+
+--------     __init__ (nlocals=None stack=None)
+--- __init__ (file=helpers\market_record_points.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['copy', 'deepcopy', 'INIT_MARKET_RECORD_POINT', 'cur_market_record_point', 'Timer', 'addTimer', 'False', 'loaded']
+   0  LOAD_GLOBAL            0  (copy)
+   3  LOAD_ATTR              1  (deepcopy)
+   6  ??neox=129 arg=0
+   9  LOAD_ATTR              2  (INIT_MARKET_RECORD_POINT)
+  12  CALL_FUNCTION          1  (pos=1 kw=0)
+  15  ??neox=129 arg=0
+  18  JUMP_FORWARD           3  (3)
+  21  LOAD_GLOBAL            4  (Timer)
+  24  LOAD_ATTR              5  (addTimer)
+  27  LOAD_CONST             4  (1800)
+  30  ??neox=120 arg=0
+  33  BUILD_TUPLE            1  (1)
+  36  LOAD_CONST             3  (<code <lambda>>)
+  39  ??neox=172 arg=0
+  42  CALL_FUNCTION          2  (pos=2 kw=0)
+  45  POP_TOP
+  46  LOAD_GLOBAL            6  (False)
+  49  ??neox=129 arg=0
+  52  JUMP_FORWARD           7  (7)
+  55  RETURN_CONST           0  (None)
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\market_record_points.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['thirty_min_done']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (thirty_min_done)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  RETURN_VALUE
+
+--------     get_uuid (nlocals=None stack=None)
+--- get_uuid (file=helpers\market_record_points.py, argc=5) ---
+VARNAMES: ['self', 'gid', 'ConnectMonitor', 'loginHostRecord', 'serverGroupId']
+NAMES:    ['BigWorld', 'player', 'gid', 'helpers.ConnectMonitor', 'ConnectMonitor', 'getInstance', 'loginHostRecord', 'get', 'str']
+   0  LOAD_GLOBAL            0  (BigWorld)
+   3  LOAD_ATTR              1  (player)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  POP_JUMP_IF_TRUE       18  (18)
+  12  RETURN_CONST           1  ('')
+  15  JUMP_FORWARD           0  (0)
+  18  LOAD_GLOBAL            0  (BigWorld)
+  21  LOAD_ATTR              1  (player)
+  24  CALL_FUNCTION          0  (pos=0 kw=0)
+  27  LOAD_ATTR              2  (gid)
+  30  STORE_FAST             1  (gid)
+  33  LOAD_CONST             2  (-1)
+  36  LOAD_CONST             3  ([b'ConnectMonitor'])
+  39  ??neox=134 arg=3
+  42  ??neox=116 arg=4
+  45  STORE_FAST             2  (ConnectMonitor)
+  48  POP_TOP
+  49  LOAD_FAST_ATTR         517  (ConnectMonitor.getInstance)
+  52  CALL_FUNCTION          0  (pos=0 kw=0)
+  55  LOAD_ATTR              6  (loginHostRecord)
+  58  STORE_FAST             3  (loginHostRecord)
+  61  LOAD_FAST              3  (loginHostRecord)
+  64  POP_JUMP_IF_TRUE       73  (73)
+  67  RETURN_CONST           1  ('')
+  70  JUMP_FORWARD           0  (0)
+  73  LOAD_FAST_ATTR         775  (loginHostRecord.get)
+  76  LOAD_CONST             4  ('groupid')
+  79  LOAD_CONST             1  ('')
+  82  CALL_FUNCTION          2  (pos=2 kw=0)
+  85  STORE_FAST             4  (serverGroupId)
+  88  LOAD_FAST              4  (serverGroupId)
+  91  POP_JUMP_IF_TRUE       100  (100)
+  94  RETURN_CONST           1  ('')
+  97  JUMP_FORWARD           0  (0)
+ 100  LOAD_GLOBAL            8  (str)
+ 103  LOAD_FAST              1  (gid)
+ 106  CALL_FUNCTION          1  (pos=1 kw=0)
+ 109  LOAD_CONST             5  ('_')
+ 112  BINARY_ADD
+ 113  LOAD_GLOBAL            8  (str)
+ 116  LOAD_FAST              4  (serverGroupId)
+ 119  CALL_FUNCTION          1  (pos=1 kw=0)
+ 122  BINARY_ADD
+ 123  RETURN_VALUE
+
+--------     hasDoneSomething (nlocals=None stack=None)
+--- hasDoneSomething (file=helpers\market_record_points.py, argc=4) ---
+VARNAMES: ['self', 'k', 'uuid', 'm']
+NAMES:    ['loaded', 'loadMarketRecordPoint', 'get_uuid', 'False', 'cur_market_record_point', 'get']
+   0  LOAD_FAST_ATTR         0  (self.loaded)
+   3  POP_JUMP_IF_TRUE       16  (16)
+   6  LOAD_FAST_ATTR         1  (self.loadMarketRecordPoint)
+   9  CALL_FUNCTION          0  (pos=0 kw=0)
+  12  POP_TOP
+  13  JUMP_FORWARD           0  (0)
+  16  LOAD_FAST_ATTR         2  (self.get_uuid)
+  19  CALL_FUNCTION          0  (pos=0 kw=0)
+  22  STORE_FAST             2  (uuid)
+  25  LOAD_FAST              2  (uuid)
+  28  LOAD_CONST             1  ('')
+  31  COMPARE_OP             2  (==)
+  34  POP_JUMP_IF_FALSE      41  (41)
+  37  LOAD_GLOBAL            3  (False)
+  40  RETURN_VALUE
+  41  LOAD_FAST_ATTR         4  (self.cur_market_record_point)
+  44  LOAD_ATTR              5  (get)
+  47  LOAD_FAST              1  (k)
+  50  BUILD_MAP              0  (0)
+  53  CALL_FUNCTION          2  (pos=2 kw=0)
+  56  STORE_FAST             3  (m)
+  59  LOAD_FAST_ATTR         773  (m.get)
+  62  LOAD_FAST              2  (uuid)
+  65  LOAD_GLOBAL            3  (False)
+  68  CALL_FUNCTION          2  (pos=2 kw=0)
+  71  RETURN_VALUE
+
+--------     doSomething (nlocals=None stack=None)
+--- doSomething (file=helpers\market_record_points.py, argc=4) ---
+VARNAMES: ['self', 'k', 'uuid', 'm']
+NAMES:    ['loaded', 'loadMarketRecordPoint', 'get_uuid', 'False', 'cur_market_record_point', 'setdefault', 'True', 'saveMarketRecordPoint']
+   0  LOAD_FAST_ATTR         0  (self.loaded)
+   3  POP_JUMP_IF_TRUE       16  (16)
+   6  LOAD_FAST_ATTR         1  (self.loadMarketRecordPoint)
+   9  CALL_FUNCTION          0  (pos=0 kw=0)
+  12  POP_TOP
+  13  JUMP_FORWARD           0  (0)
+  16  LOAD_FAST_ATTR         2  (self.get_uuid)
+  19  CALL_FUNCTION          0  (pos=0 kw=0)
+  22  STORE_FAST             2  (uuid)
+  25  LOAD_FAST              2  (uuid)
+  28  LOAD_CONST             1  ('')
+  31  COMPARE_OP             2  (==)
+  34  POP_JUMP_IF_FALSE      41  (41)
+  37  LOAD_GLOBAL            3  (False)
+  40  RETURN_VALUE
+  41  LOAD_FAST_ATTR         4  (self.cur_market_record_point)
+  44  LOAD_ATTR              5  (setdefault)
+  47  LOAD_FAST              1  (k)
+  50  BUILD_MAP              0  (0)
+  53  CALL_FUNCTION          2  (pos=2 kw=0)
+  56  STORE_FAST             3  (m)
+  59  LOAD_GLOBAL            6  (True)
+  62  LOAD_FAST              3  (m)
+  65  LOAD_FAST              2  (uuid)
+  68  STORE_SUBSCR
+  69  LOAD_FAST_ATTR         7  (self.saveMarketRecordPoint)
+  72  CALL_FUNCTION          0  (pos=0 kw=0)
+  75  POP_TOP
+  76  RETURN_CONST           0  (None)
+
+--------     thirty_min_done (nlocals=None stack=None)
+--- thirty_min_done (file=helpers\market_record_points.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['Globals', 'channel', 'ad_track_event']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (channel)
+   6  POP_JUMP_IF_FALSE      31  (31)
+   9  LOAD_GLOBAL            0  (Globals)
+  12  LOAD_ATTR              1  (channel)
+  15  LOAD_ATTR              2  (ad_track_event)
+  18  LOAD_CONST             1  ('af_thirty_min')
+  21  LOAD_CONST             2  ('{"appsflyer": {}}')
+  24  CALL_FUNCTION          2  (pos=2 kw=0)
+  27  POP_TOP
+  28  JUMP_FORWARD           0  (0)
+  31  RETURN_CONST           0  (None)
+
+--------     loadMarketRecordPoint (nlocals=None stack=None)
+--- loadMarketRecordPoint (file=helpers\market_record_points.py, argc=8) ---
+VARNAMES: ['self', 'uuid', 'recordPath', 'oldRecordPath', 'fpOld', 'oldRecord', 'k', 'fp']
+NAMES:    ['get_uuid', 'os', 'path', 'join', 'Application', 'persistentDataPath', 'exists', 'open', 'json', 'loads', 'read', 'strip', 'True', 'cur_market_record_point', 'saveMarketRecordPoint', 'close', 'loaded']
+   0  ??neox=128 arg=283
+   3  LOAD_FAST_ATTR         0  (self.get_uuid)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  STORE_FAST             1  (uuid)
+  12  LOAD_FAST              1  (uuid)
+  15  LOAD_CONST             1  ('')
+  18  COMPARE_OP             2  (==)
+  21  POP_JUMP_IF_FALSE      30  (30)
+  24  RETURN_CONST           0  (None)
+  27  JUMP_FORWARD           0  (0)
+  30  LOAD_GLOBAL            1  (os)
+  33  LOAD_ATTR              2  (path)
+  36  LOAD_ATTR              3  (join)
+  39  LOAD_GLOBAL            4  (Application)
+  42  LOAD_ATTR              5  (persistentDataPath)
+  45  LOAD_CONST             2  ('market_record_point_%s.txt')
+  48  LOAD_FAST              1  (uuid)
+  51  BINARY_MODULO
+  52  CALL_FUNCTION          2  (pos=2 kw=0)
+  55  STORE_FAST             2  (recordPath)
+  58  LOAD_GLOBAL            1  (os)
+  61  LOAD_ATTR              2  (path)
+  64  LOAD_ATTR              6  (exists)
+  67  LOAD_FAST              2  (recordPath)
+  70  CALL_FUNCTION          1  (pos=1 kw=0)
+  73  POP_JUMP_IF_TRUE       230  (230)
+  76  LOAD_GLOBAL            1  (os)
+  79  LOAD_ATTR              2  (path)
+  82  LOAD_ATTR              3  (join)
+  85  LOAD_GLOBAL            4  (Application)
+  88  LOAD_ATTR              5  (persistentDataPath)
+  91  LOAD_CONST             3  ('market_record_point.txt')
+  94  CALL_FUNCTION          2  (pos=2 kw=0)
+  97  STORE_FAST             3  (oldRecordPath)
+ 100  LOAD_GLOBAL            1  (os)
+ 103  LOAD_ATTR              2  (path)
+ 106  LOAD_ATTR              6  (exists)
+ 109  LOAD_FAST              3  (oldRecordPath)
+ 112  CALL_FUNCTION          1  (pos=1 kw=0)
+ 115  POP_JUMP_IF_FALSE      220  (220)
+ 118  LOAD_GLOBAL            7  (open)
+ 121  LOAD_FAST              3  (oldRecordPath)
+ 124  LOAD_CONST             4  ('r')
+ 127  CALL_FUNCTION          2  (pos=2 kw=0)
+ 130  STORE_FAST             4  (fpOld)
+ 133  LOAD_GLOBAL            8  (json)
+ 136  LOAD_ATTR              9  (loads)
+ 139  LOAD_FAST_ATTR         1034  (fpOld.read)
+ 142  CALL_FUNCTION          0  (pos=0 kw=0)
+ 145  LOAD_ATTR              11  (strip)
+ 148  CALL_FUNCTION          0  (pos=0 kw=0)
+ 151  CALL_FUNCTION          1  (pos=1 kw=0)
+ 154  STORE_FAST             5  (oldRecord)
+ 157  SETUP_LOOP             50  (50)
+ 160  LOAD_CONST             5  ('first_game_done')
+ 163  LOAD_CONST             6  ('first_friend_added')
+ 166  LOAD_CONST             7  ('first_match_successed')
+ 169  ??neox=99 arg=3
+ 172  GET_ITER
+ 173  FOR_ITER               33  (33)
+ 176  STORE_FAST             6  (k)
+ 179  LOAD_FAST              5  (oldRecord)
+ 182  LOAD_FAST              6  (k)
+ 185  BINARY_SUBSCR
+ 186  POP_JUMP_IF_FALSE      173  (173)
+ 189  LOAD_GLOBAL            12  (True)
+ 192  LOAD_FAST_ATTR         13  (self.cur_market_record_point)
+ 195  LOAD_FAST              6  (k)
+ 198  BINARY_SUBSCR
+ 199  LOAD_FAST              1  (uuid)
+ 202  STORE_SUBSCR
+ 203  JUMP_ABSOLUTE          173  (173)
+ 206  JUMP_ABSOLUTE          173  (173)
+ 209  POP_BLOCK
+ 210  LOAD_FAST_ATTR         14  (self.saveMarketRecordPoint)
+ 213  CALL_FUNCTION          0  (pos=0 kw=0)
+ 216  POP_TOP
+ 217  JUMP_ABSOLUTE          230  (230)
+ 220  LOAD_FAST_ATTR         14  (self.saveMarketRecordPoint)
+ 223  CALL_FUNCTION          0  (pos=0 kw=0)
+ 226  POP_TOP
+ 227  JUMP_FORWARD           0  (0)
+ 230  LOAD_GLOBAL            7  (open)
+ 233  LOAD_FAST              2  (recordPath)
+ 236  LOAD_CONST             4  ('r')
+ 239  CALL_FUNCTION          2  (pos=2 kw=0)
+ 242  STORE_FAST             7  (fp)
+ 245  LOAD_GLOBAL            8  (json)
+ 248  LOAD_ATTR              9  (loads)
+ 251  LOAD_FAST_ATTR         1802  (fp.read)
+ 254  CALL_FUNCTION          0  (pos=0 kw=0)
+ 257  LOAD_ATTR              11  (strip)
+ 260  CALL_FUNCTION          0  (pos=0 kw=0)
+ 263  CALL_FUNCTION          1  (pos=1 kw=0)
+ 266  STORE_ATTR             13  (cur_market_record_point)
+ 269  LOAD_FAST_ATTR         1807  (fp.close)
+ 272  CALL_FUNCTION          0  (pos=0 kw=0)
+ 275  POP_TOP
+ 276  LOAD_GLOBAL            12  (True)
+ 279  STORE_ATTR             16  (loaded)
+ 282  POP_BLOCK
+ 283  JUMP_FORWARD           14  (14)
+ 286  POP_TOP
+ 287  POP_TOP
+ 288  POP_TOP
+ 289  LOAD_FAST_ATTR         14  (self.saveMarketRecordPoint)
+ 292  CALL_FUNCTION          0  (pos=0 kw=0)
+ 295  POP_TOP
+ 296  JUMP_FORWARD           1  (1)
+ 299  ??neox=48 arg=94
+ 302  ??neox=0
+
+--------     saveMarketRecordPoint (nlocals=None stack=None)
+--- saveMarketRecordPoint (file=helpers\market_record_points.py, argc=4) ---
+VARNAMES: ['self', 'uuid', 'recordPath', 'fp']
+NAMES:    ['get_uuid', 'os', 'path', 'join', 'Application', 'persistentDataPath', 'open', 'write', 'json', 'dumps', 'cur_market_record_point', 'True', 'close']
+   0  ??neox=128 arg=118
+   3  LOAD_FAST_ATTR         0  (self.get_uuid)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  STORE_FAST             1  (uuid)
+  12  LOAD_FAST              1  (uuid)
+  15  LOAD_CONST             1  ('')
+  18  COMPARE_OP             2  (==)
+  21  POP_JUMP_IF_FALSE      30  (30)
+  24  RETURN_CONST           0  (None)
+  27  JUMP_FORWARD           0  (0)
+  30  LOAD_GLOBAL            1  (os)
+  33  LOAD_ATTR              2  (path)
+  36  LOAD_ATTR              3  (join)
+  39  LOAD_GLOBAL            4  (Application)
+  42  LOAD_ATTR              5  (persistentDataPath)
+  45  LOAD_CONST             2  ('market_record_point_%s.txt')
+  48  LOAD_FAST              1  (uuid)
+  51  BINARY_MODULO
+  52  CALL_FUNCTION          2  (pos=2 kw=0)
+  55  STORE_FAST             2  (recordPath)
+  58  LOAD_GLOBAL            6  (open)
+  61  LOAD_FAST              2  (recordPath)
+  64  LOAD_CONST             3  ('w')
+  67  CALL_FUNCTION          2  (pos=2 kw=0)
+  70  STORE_FAST             3  (fp)
+  73  LOAD_FAST_ATTR         775  (fp.write)
+  76  LOAD_GLOBAL            8  (json)
+  79  LOAD_ATTR              9  (dumps)
+  82  LOAD_FAST_ATTR         10  (self.cur_market_record_point)
+  85  LOAD_CONST             4  ('sort_keys')
+  88  LOAD_GLOBAL            11  (True)
+  91  LOAD_CONST             5  ('indent')
+  94  LOAD_CONST             6  (4)
+  97  LOAD_CONST             7  ('separators')
+ 100  LOAD_CONST             10  ([b',', b' : '])
+ 103  CALL_FUNCTION          769  (pos=1 kw=3)
+ 106  CALL_FUNCTION          1  (pos=1 kw=0)
+ 109  POP_TOP
+ 110  LOAD_FAST_ATTR         780  (fp.close)
+ 113  CALL_FUNCTION          0  (pos=0 kw=0)
+ 116  POP_TOP
+ 117  POP_BLOCK
+ 118  JUMP_FORWARD           7  (7)
+ 121  POP_TOP
+ 122  POP_TOP
+ 123  POP_TOP
+ 124  JUMP_FORWARD           1  (1)
+ 127  ??neox=48 arg=94
+ 130  ??neox=0

@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 26: fixed "account login failed" dialog -- root cause was `EmailAuthActivity` saving the session before `GameConfig.q()`/appId was populated, writing to the wrong SharedPreferences file; see §0.3 Checkpoint 26 below. Open follow-up: a "Link Account" nag popup still appears every login -- session ended mid-investigation and handed off, see `scratch/HANDOFF_PROMPT_CLINE_2026-09-26.md` for the full writeup, including a confirmed new finding that `Globals.channel` is a native C++ object in `libclient_arm64.so`, not a script.npk class)
+> **Last Updated**: 2026-09-26 (Checkpoint 27: root-caused the "Link Account" nag popup's trigger chain from decrypted scripts + on-device state -- it is `UILogin.showGuestAccountRemind`, called only from `ChannelHelper.onLoginSucceed`, gated by `channel.name=='netease_global' and get_auth_type()==2 and need_remind`, where `need_remind` is a 24 h window off `market_record_point_<uuid>.txt` state that is **never persisted** in this environment, so the nag re-arms on every launch. See §0.4 below. Previous entry: Checkpoint 26 fixed the "account login failed" dialog -- `EmailAuthActivity` saved the session before `GameConfig.q()`/appId was populated, writing to the wrong SharedPreferences file; see §0.3 Checkpoint 26)
 
 ---
 
@@ -461,6 +461,274 @@ extra `su` shell-out added to `EmailAuthActivity.onCreate`, adding overhead), or
 still-not-fully-diagnosed BaseApp/KEYSCAN timing sensitivity from the section above. Needs a timed,
 controlled comparison (same account, same device, stopwatch on each loading segment) against the
 pre-Checkpoint-25 guest-only flow before concluding which.
+
+---
+
+## 0.4 Checkpoint 27 (2026-09-26): "Link Account" nag popup — trigger chain found; state persistence is dead
+
+Continued from `scratch/HANDOFF_PROMPT_CLINE_2026-09-26.md`. The investigation that was assumed to
+need Frida/Ghidra turned out to be answerable from the **decrypted scripts + on-device state files
+alone**, and it now has a bytecode-verified chain from the popup back to its gate. Everything below
+is read out of the real `script.npk` (via `tools/script_disas.py` / the new
+`scratch/dump_module_funcs.py`, `scratch/dump_module_consts.py`) or off the device.
+
+### A. The popup's one and only entry point (authoritative — string-level proof)
+
+`ui/UIGuestAccountRemind.py` is the "Link Account" / `guest_attention` panel
+(`ui/g89na/ui_guest_account/guest_account.csb`, buttons `btn_bindnow` / `btn_later` / `btn_guanbi`,
+handlers `onBindNowBtnClicked` → native `Globals.channel.guest_bind`, `onLaterBtnClicked`,
+`onCloseBtnClicked`).
+
+The string `'UIGuestAccountRemind'` appears in exactly **one** script in the whole bundle:
+`ui/UILogin.py`, inside `UILogin.showGuestAccountRemind` → `Globals.uiMgr.enter_ui('UIGuestAccountRemind')`.
+There is therefore no second code path that can open this panel.
+
+That method is **not called from UILogin itself**. The name appears in `helpers/channel/channel_helper.py`
+as a *string constant* at bytecode offset 797 of `ChannelHelper.onLoginSucceed`:
+
+```
+Globals.uiMgr.UILogin.extractNeteaseWinSauthInfo()
+...
+Globals.uiMgr.UILogin.exceptionHandleFunc('showGuestAccountRemind')      <-- the only trigger
+Globals.uiMgr.UILogin.checkQiyu()
+Globals.uiMgr.UILogin.setDefaultServerNickname()
+```
+
+So the trigger is **`ChannelHelper.onLoginSucceed` → `Globals.uiMgr.UILogin.exceptionHandleFunc('showGuestAccountRemind')`**
+(a name-string dispatch, which is why `showGuestAccountRemind` never shows up as a `LOAD_ATTR`
+anywhere). Timing matches what is observed: the panel appears right after a successful channel
+(= MPay) login, i.e. on the log-in/title screen.
+
+### B. The gate logic, verified instruction-by-instruction
+
+`ui/UILogin.py :: showGuestAccountRemind` (3 locals, `VARNAMES=['self','last_remind_time','need_remind']`,
+`NAMES=['Globals','channel','market_record_points','cur_market_record_point','get','True','time','False','name','get_auth_type','uiMgr','enter_ui','saveMarketRecordPoint']`):
+
+```python
+def showGuestAccountRemind(self):
+    if (Globals.channel and Globals.market_record_points
+            and not Globals.market_record_points.cur_market_record_point.get(
+                    'first_download_login_game', True)):
+        last_remind_time = Globals.market_record_points.cur_market_record_point.get('last_remind_time', 0)
+        if last_remind_time != 0:
+            need_remind = time.time() - last_remind_time > 86400
+        else:
+            need_remind = True
+        if (Globals.channel.name == 'netease_global'
+                and Globals.channel.get_auth_type() == 2        # 2 == GUEST (verified earlier)
+                and need_remind):
+            Globals.uiMgr.enter_ui('UIGuestAccountRemind')
+            Globals.market_record_points.cur_market_record_point['last_remind_time'] = time.time()
+            Globals.market_record_points.saveMarketRecordPoint()
+            return
+    # single shared "else" block, reached from ANY of the three failed guard tests above
+    Globals.market_record_points.cur_market_record_point['first_download_login_game'] = False
+    Globals.market_record_points.saveMarketRecordPoint()
+```
+
+(All three guard tests `POP_JUMP_IF_FALSE 227` into the same block; the `need_remind`/name/auth
+tests `POP_JUMP_IF_FALSE 256` = plain return. Offsets 0..256 verified.)
+
+Consequences worth internalising:
+1. The popup is gated by `channel.name == 'netease_global'` **and** `get_auth_type() == 2` **and**
+   `need_remind`. Our emulation is *permanently* `auth_type == 2` (the hardcoded guest identity the
+   BaseApp/Mercury protocol is built around — **do not change**), so that half of the condition is a
+   constant in our environment.
+2. `need_remind` is the only schedule control, and it is computed **only** from
+   `cur_market_record_point['last_remind_time']` — a 24 h re-nag, not a one-shot.
+3. `first_download_login_game` is written **only** in two places in the whole script set:
+   `INIT_MARKET_RECORD_POINT[...] = True` (see C below), and this function, which sets it to
+   **False** on the "gate was closed" path. Nothing ever calls
+   `doSomething('first_download_login_game')`; that string occurs in only
+   `helpers/market_record_points.py` and `ui/UILogin.py`. **So once `showGuestAccountRemind` runs
+   successfully, the flag is False for good and the panel is purely `last_remind_time`-gated.**
+
+### C. `INIT_MARKET_RECORD_POINT`, bytecode-reconstructed (the piece the handoff was missing)
+
+`helpers/market_record_points.py` builds it in the **class body** — which is why `__init__` reads it
+as `self.INIT_MARKET_RECORD_POINT` (the `??neox=129 arg=0` before that `LOAD_ATTR` is `LOAD_FAST self`,
+not a global load). Class-body listing (offsets 6..51), with `157 = STORE_NAME` and
+`153 = LOAD_NAME/LOAD_GLOBAL` (both indexed by `co_names` — the indices line up exactly, e.g.
+`??neox=157 arg=3` → `STORE_NAME co_names[3] = 'INIT_MARKET_RECORD_POINT'`, and
+`??neox=157 arg=4..10` → `__init__`, `get_uuid`, `hasDoneSomething`, `doSomething`,
+`thirty_min_done`, `loadMarketRecordPoint`, `saveMarketRecordPoint` in order):
+
+```
+ 6 BUILD_MAP 6
+ 9..29  {} 'first_game_done' | {} 'first_friend_added' | {} 'first_match_successed'
+30 LOAD_NAME 'True'                (co_names[2] == 'True')
+33..36 'first_download_login_game'
+37..43 0 'last_remind_time'
+44..50 {} 'first_on_plane'
+51 STORE_NAME INIT_MARKET_RECORD_POINT
+```
+
+⇒
+
+```python
+INIT_MARKET_RECORD_POINT = {
+    'first_game_done': {}, 'first_friend_added': {}, 'first_match_successed': {},
+    'first_download_login_game': True,          # <-- gate is CLOSED on a virgin state
+    'last_remind_time': 0,
+    'first_on_plane': {},
+}
+```
+
+So on virgin state the gate is closed and the function only *arms* it (writes `False`). The panel
+can never appear on the first evaluation of a fresh state; it appears on the **second** evaluation
+in the life of that state, and then whenever `last_remind_time` is over 24 h old. That is the
+signature of a "state that is expected to survive across launches" — which is exactly what is
+broken here.
+
+### D. Why it re-fires on *every* launch: the market-record-point persistence is dead
+
+`helpers/market_record_points.py` (fully decompiled — see `scratch/disas_market_record_points.txt`,
+`scratch/consts_market_record_points.txt`):
+
+* `loadMarketRecordPoint()` → builds `recordPath = os.path.join(Application.persistentDataPath,
+  'market_record_point_%s.txt' % uuid)`; if it does not exist it calls **`self.saveMarketRecordPoint()`**
+  (and migrates the legacy `market_record_point.txt`), otherwise it `json.loads`s the file into
+  `self.cur_market_record_point`.
+* `saveMarketRecordPoint()` → `json.dumps(self.cur_market_record_point, sort_keys=True, indent=4,
+  separators=(',', ' : '))` into that same path.
+* `hasDoneSomething(k)` / `doSomething(k)` (the AppsFlyer-style "record points") also early-return.
+* **All four start with `uuid = self.get_uuid(); if uuid == '': return`.**
+
+`get_uuid()` returns `''` unless *all* of these hold, and otherwise returns `str(gid) + '_' + str(serverGroupId)`:
+1. `BigWorld.player()` is truthy (`gid = BigWorld.player().gid`),
+2. `helpers.ConnectMonitor.ConnectMonitor.getInstance().loginHostRecord` is truthy,
+3. `loginHostRecord.get('groupid', '')` is non-empty.
+
+(`loginHostRecord` is set by `UILogin.startLogin` → `ConnectMonitor.getInstance().setLoginHostInfo(
+username, defaultServerName, defaultServerIP, defaultServerPort, defaultGroupId)` →
+`loginHostRecord = {..., 'groupid': groupid}`; `user_info.txt` shows `defaultGroupId: "10001"`, so
+condition 3 is satisfied in practice. `BigWorld.player()` is the suspect: `showGuestAccountRemind`
+runs from `onLoginSucceed`, i.e. before any world/player entity exists.)
+
+**Device-level proof that this path is dead** (2026-09-26, `emulator-5554`):
+* `Application.persistentDataPath` is confirmed to be
+  `/sdcard/Android/data/com.netease.chiji/files/netease/h45na/Documents` (the only `user_info.txt`
+  on the device lives there, and `UILogin.readUserInfo`/`writeUserInfo` join exactly
+  `persistentDataPath + 'user_info.txt'`).
+* That directory is writable and full of runtime-written state (`user_info.txt`,
+  `basic_settings.txt`, `character_info.txt`, `notice_once_config.txt`, `patchVersion`, …).
+* **Neither `market_record_point_<uuid>.txt` nor the legacy `market_record_point.txt` exists
+  anywhere on the device** (`find /sdcard` + `su -c find /data`, and `selinux`/`ls` checks).
+  Because `loadMarketRecordPoint()` *creates the file* the moment `get_uuid()` can resolve, the
+  file's total absence means **`get_uuid()` has returned `''` at every single call, ever**.
+
+⇒ The in-memory `cur_market_record_point` is therefore always the pristine
+`copy.deepcopy(self.INIT_MARKET_RECORD_POINT)`: `first_download_login_game` starts `True`, gets
+flipped to `False` by the first `showGuestAccountRemind` call of the session, and `last_remind_time`
+is written **only in memory**. Every process restart throws that away, so the 24 h suppression window
+never survives a restart — the nag re-arms and re-fires on every launch. That is the whole of the
+"it shows up every single time" symptom; nothing else is needed to explain it.
+
+Also note `user_info.txt` carries `"remindGuestBindTimestamp": 0`: `UILogin.readUserInfo/writeUserInfo`
+round-trip that field but **no code path ever sets it non-zero, and `showGuestAccountRemind` does not
+read it** — it is dead state, not the gate. Do not chase it.
+
+### E. What this settles, and what the remaining options actually are
+
+Ruled out by the above (do not re-attempt these framings):
+* **"native `Globals.channel` isn't ready yet"** — irrelevant. `channel.name`/`get_auth_type()` are
+  evaluated only *after* the gate has already opened; the gate itself only touches `Globals.channel`
+  for truthiness and `Globals.market_record_points`. The handoff's §4 native `get_auth_type`
+  decompile is correct but not on the critical path.
+* **EmailAuthActivity / session-save ordering / main-thread contention** (Checkpoint 26 work) — those
+  explain a different dialog; the nag's chain never involves them.
+* **`remindGuestBindTimestamp`** — dead field (see above).
+* **"just make the first call skip the popup"** — the 24 h clock starts at the *first* call, so the
+  popup can never appear then; it always appears on a later call in a *fresh* state. Any patch that
+  only touches the first call does nothing.
+
+What is actually required, in order of decreasing fidelity:
+
+1. **Persistence must survive process restarts** for the 24 h window to work at all. That needs
+   `MarketRecordPoints.get_uuid()` to stop returning `''`. Of its three preconditions, (2) and (3)
+   look satisfied (group id `10001` is present in `user_info.txt` and is passed by
+   `UILogin.startLogin` → `setLoginHostInfo`), which leaves **(1) `BigWorld.player()` being falsy at
+   `ChannelHelper.onLoginSucceed` time** as the leading cause — i.e. the state is read/written before
+   any player entity exists. If that is confirmed, the 24 h suppression is broken *inside the shipped
+   client*, for any guest on a `netease_global` channel, and the nag is effectively **once per
+   launch, by design, in production too** — not something our private server can influence.
+
+   Two things keep this from being fully settled offline: (a) `get_uuid()` needs
+   `BigWorld.player()`, which is almost certainly `None` at the `onLoginSucceed` call site (before any
+   world connection), so a *login-time* call can never persist regardless of what the server does;
+   and (b) `doSomething`/`hasDoneSomething` are also called from **in-world** code where `player()`
+   does exist — `entities/Avatar.py` → `doSomething('first_on_plane')`,
+   `entities/iBattleGround.py` → `doSomething('first_game_done')`,
+   `entities/iFriend.py` → `doSomething('first_friend_added')`,
+   `ui/UIMain.py` → `hasDoneSomething('first_match_successed')` — and
+   `loadMarketRecordPoint()` **creates the file as a side effect** of the first such call (because
+   `self.loaded` is `False` on a fresh process). So the file's absence additionally means either
+   "none of those in-world events ever fired in the sessions so far", or "`get_uuid()` fails in-world
+   too, i.e. `loginHostRecord` is empty / has no `groupid`". **Distinguishing those two decides
+   whether our private server can fix this at all**, and is the one measurement still outstanding.
+2. If that is what the evidence says, then for this project the popup is *authentic client behaviour
+   for the exact situation we force ourselves into*: MPay auth type is pinned to GUEST (required for
+   the BaseApp/Mercury uid shape — see Checkpoint 25) **and** the client is the `netease_global`
+   build, and the popup's own guard is `name == 'netease_global' and get_auth_type() == 2`.
+   The only levers that make it *never* fire are therefore client-side, not server-side: making the
+   channel stop reporting `netease_global` (it comes from the native side via
+   `social.get_channel()` in `helpers/channel/channel_init.py::initAppChannel`), or making
+   `get_auth_type()` != 2 (forbidden). Note that making `Globals.market_record_points` falsy would
+   make the function raise instead of showing the panel — an error path, not a fix.
+3. The auto-dismiss route remains explicitly rejected by the project owner (see the handoff and this
+   file's history). Do not offer it as the deliverable.
+
+**Remaining single verification item** (the only thing not yet nailed): *which* of the three
+`get_uuid()` preconditions fails. Cheapest ways, in order:
+   a. The new `<SCRIPT>` logcat channel (see F) — watch for an exception from
+      `market_record_points.get_uuid` / `loadMarketRecordPoint` during a launch.
+   b. A Frida hook that only logs `get_uuid()`'s return value plus
+      `ConnectMonitor.getInstance().loginHostRecord` — the native-hook crash from handoff §4 has to be
+      fixed first (spawn+resume instead of attach-after-start, entry-only hook body with no memory
+      reads, and check `scratch/ghidra_scripts/AntiTamperSearch.java` output).
+   c. Static: the `setLoginHostInfo`/`connectLoginHost` call graph in `helpers/ConnectMonitor.py`
+      (`scratch/disas_connectmonitor.txt`, already dumped) — the weakest option, because that
+      listing desyncs around `connectLoginHost` (a `??neox` opcode in that region is being sized
+      wrong, which shifts every following offset).
+
+### F. New, reusable: script-side Python tracebacks are in logcat
+
+The engine's `libclaudia` writes full Python tracebacks (with script file + line number) to logcat
+under the tag `<SCRIPT>`:
+
+```
+adb logcat -d | grep -F '<SCRIPT>'
+I/[15:44:12.135] M   <SCRIPT> : Traceback (most recent call last):
+I/[15:44:12.135] M   <SCRIPT> :   File "ui\UIMonthlySupplyPackage.py", line 44, in Awake
+I/[15:44:12.140] M   <SCRIPT> :   File "common\decorators.py", line 304, in FuncParamInTracebackInnerFunc
+I/[15:44:12.142] M   <SCRIPT> : AttributeError: 'NoneType' object has no attribute 'ExtraGiftParam' ((None,) {})
+```
+
+This is the cheapest script-side observability this project has (no Frida, no native hook), and it
+also proves the decrypted script's line numbers are the same ones the live client reports.
+`pytrace.log` in the NeoX root
+(`/sdcard/Android/data/com.netease.chiji/files/netease/h45na/pytrace.log`) additionally logs the
+module-load stack — useful to confirm which modules are really loaded and in what order.
+
+### G. Tooling added this checkpoint (reusable)
+
+* `scratch/dump_module_funcs.py <script-file> [name-regex]` — resolves a module through
+  `scratch/script_module_sigs.json` (falling back to one full `script.npk` scan, which it then caches)
+  and disassembles **every** code object with names/consts annotations. Much faster than
+  `tools/script_disas.py`, which re-decrypts all modules whenever the sig cache misses.
+* `scratch/dump_module_consts.py <script-file> [name-regex]` — prints `varnames`/`names`/`consts` for
+  every nested code object; this is what makes listings with many `??neox=N` opcodes reconstructible
+  (see C).
+* Both are read-only readers over `04_obb/extracted/script.npk`; **no patching capability was added**
+  and the write-side pipeline described in handoff §5 still does not exist.
+* Local outputs used for this checkpoint: `scratch/disas_market_record_points.txt`,
+  `scratch/consts_market_record_points.txt`, `scratch/disas_uilogin_full.txt`,
+  `scratch/disas_channel_helper.txt`, `scratch/disas_connectmonitor.txt`,
+  `scratch/disas_channel_init.txt`.
+* Note for anyone re-running these: the tooling in `tools/` and `scratch/disassemble_targets.py` is
+  hard-coded against `C:\Users\Raysoo\Downloads\ROS_RE` (the main checkout, where `04_obb/` and
+  `scratch/script_module_sigs.json` live) — the new scripts import from there by absolute path, so
+  they work from a git worktree too.
 
 ---
 

@@ -1,5 +1,17 @@
 # Handoff to Cline — "Link Account" Nag Popup / Native Channel Timing (Checkpoint 26 follow-up)
 
+> **STATUS (2026-09-26, continued by Cline → Checkpoint 27):** the trigger chain is found and
+> documented in `CLAUDE.md` §0.4. In short: the popup is `UILogin.showGuestAccountRemind`, invoked
+> only from `ChannelHelper.onLoginSucceed` via
+> `Globals.uiMgr.UILogin.exceptionHandleFunc('showGuestAccountRemind')`; the gate needs
+> `Globals.market_record_points.cur_market_record_point['first_download_login_game']` to be falsy, and
+> the 24 h suppression window lives in `market_record_point_<uuid>.txt` — a file that is **never
+> written in this environment** (`MarketRecordPoints.get_uuid()` returns `''`, and all four record
+> functions early-return on that), so the nag re-arms on every launch. §3's Hypothesis A had the right
+> function but the wrong "live" condition, and §4's native-channel angle is not on the critical path.
+> §6 item 1 (fix the Frida native hook) is only needed for the one remaining measurement, described at
+> the end of §0.4 E.
+
 ## Summary for Cline
 
 You are taking over from Claude Code on the Rules of Survival (ROS Android `com.netease.chiji`,

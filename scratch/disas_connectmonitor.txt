@@ -1,0 +1,1871 @@
+==== module helpers/ConnectMonitor.py  sig=0xe28ade2f ====
+
+-------- <module-body> (nlocals=None stack=None)
+--- <module> (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['Globals', 'const', 'Timer', 'libclaudia', 'Application', 'time', 'Object', 'helpers.MapLoader', 'MapLoader', 'BigWorld', 'f4logging', 'shared', 'switches', 'helpers', 'Checkpoints', 'DCTool', 'elkLogging', 'elkLog', 'SALogging', 'free_flow_sdk', 'login_acc_sdk', '_g89na_trans', 'logonStatus', 'forceUpdateStatus', 'LOGIN_REJECTED_NO_SUCH_USER', 'LOGON_STATUS_OK', 'LOGON_STATUS_CANCELLED', 'LOGON_STATUS_DISCONNECTING', 'object', 'DisconnectReason', 'HostType', 'TIPS_INFO', 'showConnectMonitorTips', 'hideConnectMonitorTips', 'ConnectMonitor']
+   0  LOAD_CONST             0  (-1)
+   3  LOAD_CONST             1  (None)
+   6  ??neox=134 arg=0
+   9  ??neox=157 arg=0
+  12  LOAD_CONST             0  (-1)
+  15  LOAD_CONST             1  (None)
+  18  ??neox=134 arg=1
+  21  ??neox=157 arg=1
+  24  LOAD_CONST             0  (-1)
+  27  LOAD_CONST             1  (None)
+  30  ??neox=134 arg=2
+  33  ??neox=157 arg=2
+  36  LOAD_CONST             0  (-1)
+  39  LOAD_CONST             2  ([b'Application'])
+  42  ??neox=134 arg=3
+  45  ??neox=116 arg=4
+  48  ??neox=157 arg=4
+  51  POP_TOP
+  52  LOAD_CONST             0  (-1)
+  55  LOAD_CONST             1  (None)
+  58  ??neox=134 arg=5
+  61  ??neox=157 arg=5
+  64  LOAD_CONST             0  (-1)
+  67  LOAD_CONST             3  ([b'Application', b'Object'])
+  70  ??neox=134 arg=3
+  73  ??neox=116 arg=4
+  76  ??neox=157 arg=4
+  79  ??neox=116 arg=6
+  82  ??neox=157 arg=6
+  85  POP_TOP
+  86  LOAD_CONST             0  (-1)
+  89  LOAD_CONST             4  ([b'MapLoader'])
+  92  ??neox=134 arg=7
+  95  ??neox=116 arg=8
+  98  ??neox=157 arg=8
+ 101  POP_TOP
+ 102  LOAD_CONST             0  (-1)
+ 105  LOAD_CONST             1  (None)
+ 108  ??neox=134 arg=9
+ 111  ??neox=157 arg=9
+ 114  LOAD_CONST             0  (-1)
+ 117  LOAD_CONST             1  (None)
+ 120  ??neox=134 arg=10
+ 123  ??neox=157 arg=10
+ 126  LOAD_CONST             0  (-1)
+ 129  LOAD_CONST             5  ([b'switches'])
+ 132  ??neox=134 arg=11
+ 135  ??neox=116 arg=12
+ 138  ??neox=157 arg=12
+ 141  POP_TOP
+ 142  LOAD_CONST             0  (-1)
+ 145  LOAD_CONST             6  ([b'Checkpoints', b'DCTool'])
+ 148  ??neox=134 arg=13
+ 151  ??neox=116 arg=14
+ 154  ??neox=157 arg=14
+ 157  ??neox=116 arg=15
+ 160  ??neox=157 arg=15
+ 163  POP_TOP
+ 164  LOAD_CONST             0  (-1)
+ 167  LOAD_CONST             1  (None)
+ 170  ??neox=134 arg=5
+ 173  ??neox=157 arg=5
+ 176  LOAD_CONST             0  (-1)
+ 179  LOAD_CONST             7  ([b'elkLog'])
+ 182  ??neox=134 arg=16
+ 185  ??neox=116 arg=17
+ 188  ??neox=157 arg=17
+ 191  POP_TOP
+ 192  LOAD_CONST             0  (-1)
+ 195  LOAD_CONST             1  (None)
+ 198  ??neox=134 arg=18
+ 201  ??neox=157 arg=18
+ 204  LOAD_CONST             0  (-1)
+ 207  LOAD_CONST             8  ([b'free_flow_sdk'])
+ 210  ??neox=134 arg=13
+ 213  ??neox=116 arg=19
+ 216  ??neox=157 arg=19
+ 219  POP_TOP
+ 220  LOAD_CONST             0  (-1)
+ 223  LOAD_CONST             9  ([b'login_acc_sdk'])
+ 226  ??neox=134 arg=13
+ 229  ??neox=116 arg=20
+ 232  ??neox=157 arg=20
+ 235  POP_TOP
+ 236  BUILD_MAP              31  (31)
+ 239  LOAD_CONST             10  ('NOT_SET')
+ 242  LOAD_CONST             11  (0)
+ 245  STORE_MAP
+ 246  LOAD_CONST             12  ('LOGGED_ON')
+ 249  LOAD_CONST             13  (1)
+ 252  STORE_MAP
+ 253  ??neox=153 arg=21
+ 256  LOAD_CONST             14  ('d09a4dc6cc72ffde9fd96d1034716270')
+ 259  CALL_FUNCTION          1  (pos=1 kw=0)
+ 262  LOAD_CONST             15  (2)
+ 265  STORE_MAP
+ 266  ??neox=153 arg=21
+ 269  LOAD_CONST             16  ('5c85cd83ad90a0a87d35ef7db5c35ce8')
+ 272  CALL_FUNCTION          1  (pos=1 kw=0)
+ 275  LOAD_CONST             17  (3)
+ 278  STORE_MAP
+ 279  ??neox=153 arg=21
+ 282  LOAD_CONST             18  ('cf353c204cfe3fde0dcd444106848bf8')
+ 285  CALL_FUNCTION          1  (pos=1 kw=0)
+ 288  LOAD_CONST             19  (4)
+ 291  STORE_MAP
+ 292  ??neox=153 arg=21
+ 295  LOAD_CONST             20  ('604f51d263b19d20fa5af559e7aae525')
+ 298  CALL_FUNCTION          1  (pos=1 kw=0)
+ 301  LOAD_CONST             21  (5)
+ 304  STORE_MAP
+ 305  ??neox=153 arg=21
+ 308  LOAD_CONST             22  ('59cec82ab28b941d804d71ceae2fae33')
+ 311  CALL_FUNCTION          1  (pos=1 kw=0)
+ 314  LOAD_CONST             23  (6)
+ 317  STORE_MAP
+ 318  ??neox=153 arg=21
+ 321  LOAD_CONST             24  ('ec03c2b97a8f472468d8905e59eabf19')
+ 324  CALL_FUNCTION          1  (pos=1 kw=0)
+ 327  LOAD_CONST             25  (7)
+ 330  STORE_MAP
+ 331  ??neox=153 arg=21
+ 334  LOAD_CONST             22  ('59cec82ab28b941d804d71ceae2fae33')
+ 337  CALL_FUNCTION          1  (pos=1 kw=0)
+ 340  LOAD_CONST             26  (8)
+ 343  STORE_MAP
+ 344  ??neox=153 arg=21
+ 347  LOAD_CONST             27  ('f927fff4e8da6cb7cb8452f57ad9054f')
+ 350  CALL_FUNCTION          1  (pos=1 kw=0)
+ 353  LOAD_CONST             28  (63)
+ 356  STORE_MAP
+ 357  ??neox=153 arg=21
+ 360  LOAD_CONST             29  ('19e56bd0d4e4120d3bb3201293e8464d')
+ 363  CALL_FUNCTION          1  (pos=1 kw=0)
+ 366  LOAD_CONST             30  (64)
+ 369  STORE_MAP
+ 370  ??neox=153 arg=21
+ 373  LOAD_CONST             31  ('53c242e835108e2970bcc400dfa039e0')
+ 376  CALL_FUNCTION          1  (pos=1 kw=0)
+ 379  LOAD_CONST             32  (65)
+ 382  STORE_MAP
+ 383  ??neox=153 arg=21
+ 386  LOAD_CONST             33  ('3faa7d3379365a7c43d95473d70ff130')
+ 389  CALL_FUNCTION          1  (pos=1 kw=0)
+ 392  LOAD_CONST             34  (66)
+ 395  STORE_MAP
+ 396  ??neox=153 arg=21
+ 399  LOAD_CONST             35  ('29f9385b241a8287444814a055c6dadb')
+ 402  CALL_FUNCTION          1  (pos=1 kw=0)
+ 405  LOAD_CONST             36  (67)
+ 408  STORE_MAP
+ 409  ??neox=153 arg=21
+ 412  LOAD_CONST             37  ('826cc6b721aefcc6803ecf7e0a2703b9')
+ 415  CALL_FUNCTION          1  (pos=1 kw=0)
+ 418  LOAD_CONST             38  (68)
+ 421  STORE_MAP
+ 422  ??neox=153 arg=21
+ 425  LOAD_CONST             31  ('53c242e835108e2970bcc400dfa039e0')
+ 428  CALL_FUNCTION          1  (pos=1 kw=0)
+ 431  LOAD_CONST             39  (69)
+ 434  STORE_MAP
+ 435  ??neox=153 arg=21
+ 438  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 441  CALL_FUNCTION          1  (pos=1 kw=0)
+ 444  LOAD_CONST             41  (70)
+ 447  STORE_MAP
+ 448  ??neox=153 arg=21
+ 451  LOAD_CONST             42  ('947d14dbc4021736a8103da45d2bacf0')
+ 454  CALL_FUNCTION          1  (pos=1 kw=0)
+ 457  LOAD_CONST             43  (71)
+ 460  STORE_MAP
+ 461  ??neox=153 arg=21
+ 464  LOAD_CONST             44  ('c930b79cc02c2fec94aba6bcfd0baee9')
+ 467  CALL_FUNCTION          1  (pos=1 kw=0)
+ 470  LOAD_CONST             45  (72)
+ 473  STORE_MAP
+ 474  ??neox=153 arg=21
+ 477  LOAD_CONST             42  ('947d14dbc4021736a8103da45d2bacf0')
+ 480  CALL_FUNCTION          1  (pos=1 kw=0)
+ 483  LOAD_CONST             46  (73)
+ 486  STORE_MAP
+ 487  ??neox=153 arg=21
+ 490  LOAD_CONST             42  ('947d14dbc4021736a8103da45d2bacf0')
+ 493  CALL_FUNCTION          1  (pos=1 kw=0)
+ 496  LOAD_CONST             47  (74)
+ 499  STORE_MAP
+ 500  ??neox=153 arg=21
+ 503  LOAD_CONST             42  ('947d14dbc4021736a8103da45d2bacf0')
+ 506  CALL_FUNCTION          1  (pos=1 kw=0)
+ 509  LOAD_CONST             48  (75)
+ 512  STORE_MAP
+ 513  ??neox=153 arg=21
+ 516  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 519  CALL_FUNCTION          1  (pos=1 kw=0)
+ 522  LOAD_CONST             49  (76)
+ 525  STORE_MAP
+ 526  ??neox=153 arg=21
+ 529  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 532  CALL_FUNCTION          1  (pos=1 kw=0)
+ 535  LOAD_CONST             50  (77)
+ 538  STORE_MAP
+ 539  ??neox=153 arg=21
+ 542  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 545  CALL_FUNCTION          1  (pos=1 kw=0)
+ 548  LOAD_CONST             51  (78)
+ 551  STORE_MAP
+ 552  ??neox=153 arg=21
+ 555  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 558  CALL_FUNCTION          1  (pos=1 kw=0)
+ 561  LOAD_CONST             52  (79)
+ 564  STORE_MAP
+ 565  ??neox=153 arg=21
+ 568  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 571  CALL_FUNCTION          1  (pos=1 kw=0)
+ 574  LOAD_CONST             53  (80)
+ 577  STORE_MAP
+ 578  ??neox=153 arg=21
+ 581  LOAD_CONST             42  ('947d14dbc4021736a8103da45d2bacf0')
+ 584  CALL_FUNCTION          1  (pos=1 kw=0)
+ 587  LOAD_CONST             54  (81)
+ 590  STORE_MAP
+ 591  ??neox=153 arg=21
+ 594  LOAD_CONST             40  ('a68020d709ecb93a328d3b5c66254189')
+ 597  CALL_FUNCTION          1  (pos=1 kw=0)
+ 600  LOAD_CONST             55  (82)
+ 603  STORE_MAP
+ 604  LOAD_CONST             56  ('LOGIN_CUSTOM_DEFINED_ERROR')
+ 607  LOAD_CONST             57  (254)
+ 610  STORE_MAP
+ 611  LOAD_CONST             58  ('LAST_SERVER_SIDE_VALUE')
+ 614  LOAD_CONST             59  (255)
+ 617  STORE_MAP
+ 618  ??neox=157 arg=22
+ 621  LOAD_CONST             39  (69)
+ 624  ??neox=99 arg=1
+ 627  ??neox=157 arg=23
+ 630  LOAD_CONST             34  (66)
+ 633  ??neox=157 arg=24
+ 636  LOAD_CONST             13  (1)
+ 639  ??neox=157 arg=25
+ 642  LOAD_CONST             21  (5)
+ 645  ??neox=157 arg=26
+ 648  LOAD_CONST             26  (8)
+ 651  ??neox=157 arg=27
+ 654  LOAD_CONST             60  ('DisconnectReason')
+ 657  ??neox=153 arg=28
+ 660  BUILD_TUPLE            1  (1)
+ 663  LOAD_CONST             61  (<code DisconnectReason>)
+ 666  MAKE_FUNCTION          0  (0)
+ 669  CALL_FUNCTION          0  (pos=0 kw=0)
+ 672  ??neox=54 arg=7581
+ 675  ??neox=0 arg=15973
+ 678  ??neox=0 arg=19045
+ 681  ??neox=0 arg=16229
+ 684  ??neox=0 arg=136
+ 687  ??neox=0 arg=131
+ 690  ??neox=0 arg=40246
+ 693  ??neox=30 arg=29184
+ 696  ??neox=2 arg=25856
+ 699  ??neox=64 arg=25856
+ 702  ??neox=21 arg=39168
+ 705  ??neox=21 arg=25856
+ 708  ??neox=65 arg=33536
+ 711  ??neox=1 arg=25344
+ 714  ??neox=3 arg=25856
+ 717  BINARY_MODULO
+ 718  ??neox=0 arg=25933
+ 721  ??neox=64 arg=25856
+ 724  ??neox=21 arg=39168
+ 727  ??neox=21 arg=25856
+ 730  BINARY_ADD
+ 731  ??neox=0 arg=387
+ 734  ??neox=0 arg=867
+ 737  ??neox=0 arg=17509
+ 740  ??neox=0 arg=40269
+ 743  ??neox=31 arg=25856
+ 746  ??neox=15 arg=25856
+ 749  ??neox=69 arg=34816
+ 752  ??neox=1 arg=40192
+ 755  ROT_TWO
+ 756  ??neox=0 arg=18021
+ 759  ??neox=0 arg=18277
+ 762  ??neox=0 arg=392
+ 765  ??neox=0 arg=8605
+ 768  ??neox=0 arg=18533
+ 771  ??neox=0 arg=7321
+ 774  ??neox=0 arg=391
+ 777  ??neox=0 arg=18789
+ 780  ??neox=0 arg=136
+ 783  ??neox=0 arg=131
+ 786  ??neox=0 arg=40246
+ 789  ??neox=34 arg=24064
+ 792  ??neox=1
+ 793  ??neox=0
+
+--------   DisconnectReason (nlocals=None stack=None)
+--- DisconnectReason (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['__name__', '__module__', 'DISCONNECT_BY_CLIENT', 'DISCONNECT_BY_SERVER', 'DISCONNECT_SEND_WINDOW_OVERFLOW', 'DISCONNECT_INACTIVIT', 'DISCONNECT_RESTORE_BASEAPP']
+   0  ??neox=153 arg=0
+   3  ??neox=157 arg=1
+   6  LOAD_CONST             0  (1)
+   9  ??neox=157 arg=2
+  12  LOAD_CONST             1  (2)
+  15  ??neox=157 arg=3
+  18  LOAD_CONST             2  (-6)
+  21  ??neox=157 arg=4
+  24  LOAD_CONST             3  (-7)
+  27  ??neox=157 arg=5
+  30  LOAD_CONST             4  (-20)
+  33  ??neox=157 arg=6
+  36  ??neox=82
+  37  RETURN_VALUE
+
+--------   HostType (nlocals=None stack=None)
+--- HostType (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['__name__', '__module__', 'NONE', 'LOGIN', 'BATTLE']
+   0  ??neox=153 arg=0
+   3  ??neox=157 arg=1
+   6  LOAD_CONST             0  (0)
+   9  ??neox=157 arg=2
+  12  LOAD_CONST             1  (1)
+  15  ??neox=157 arg=3
+  18  LOAD_CONST             2  (2)
+  21  ??neox=157 arg=4
+  24  ??neox=82
+  25  RETURN_VALUE
+
+--------   showConnectMonitorTips (nlocals=None stack=None)
+--- showConnectMonitorTips (file=helpers\ConnectMonitor.py, argc=4) ---
+VARNAMES: ['type', 'duration', 'info', 'now']
+NAMES:    ['TIPS_INFO', 'time', 'Globals', 'uiMgr', 'showGlobalTip']
+   0  LOAD_GLOBAL            0  (TIPS_INFO)
+   3  LOAD_FAST              0  (type)
+   6  BINARY_SUBSCR
+   7  STORE_FAST             2  (info)
+  10  LOAD_GLOBAL            1  (time)
+  13  LOAD_ATTR              1  (time)
+  16  CALL_FUNCTION          0  (pos=0 kw=0)
+  19  STORE_FAST             3  (now)
+  22  LOAD_FAST              3  (now)
+  25  LOAD_FAST              2  (info)
+  28  LOAD_CONST             1  (0)
+  31  BINARY_SUBSCR
+  32  BINARY_SUBTRACT
+  33  LOAD_FAST              2  (info)
+  36  LOAD_CONST             2  (1)
+  39  BINARY_SUBSCR
+  40  COMPARE_OP             4  (>)
+  43  POP_JUMP_IF_FALSE      82  (82)
+  46  LOAD_FAST              3  (now)
+  49  LOAD_FAST              2  (info)
+  52  LOAD_CONST             1  (0)
+  55  STORE_SUBSCR
+  56  LOAD_GLOBAL            2  (Globals)
+  59  LOAD_ATTR              3  (uiMgr)
+  62  LOAD_ATTR              4  (showGlobalTip)
+  65  LOAD_FAST              2  (info)
+  68  LOAD_CONST             3  (2)
+  71  BINARY_SUBSCR
+  72  LOAD_FAST              1  (duration)
+  75  CALL_FUNCTION          2  (pos=2 kw=0)
+  78  POP_TOP
+  79  JUMP_FORWARD           0  (0)
+  82  RETURN_CONST           0  (None)
+
+--------   hideConnectMonitorTips (nlocals=None stack=None)
+--- hideConnectMonitorTips (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['type']
+NAMES:    ['Globals', 'uiMgr', 'closeGlobalTip']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (uiMgr)
+   6  LOAD_ATTR              2  (closeGlobalTip)
+   9  CALL_FUNCTION          0  (pos=0 kw=0)
+  12  POP_TOP
+  13  RETURN_CONST           0  (None)
+
+--------   ConnectMonitor (nlocals=None stack=None)
+--- ConnectMonitor (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['__name__', '__module__', 'None', '_ConnectMonitor__instance', 'classmethod', 'getInstance', '__init__', 'property', 'username', 'servername', 'groupid', 'ip', 'port', 'setLoginHostInfo', 'setLoginHostBackPort', 'elkLog', 'False', 'connectLoginHost', 'doConnectLoginHost', 'setBattleHostInfo', 'connectBattleHost', 'doConnectBattleHost', 'connectLoginHostCallback', 'connectBattleHostCallback', 'transferToLoginServer', 'transferToBattleServer', 'delayTransfer', 'doTransfer', 'delayConnect', 'doConnect', 'on_connected', 'on_disconnected', 'backToLogin', 'logoutAudio', 'showLogOffUI', 'tryReconnect', 'reconnect', 'cancelAutoReconnect', 'reset']
+   0  ??neox=153 arg=0
+   3  ??neox=157 arg=1
+   6  LOAD_CONST             37  (None)
+   9  ??neox=157 arg=3
+  12  ??neox=153 arg=4
+  15  LOAD_CONST             0  (<code getInstance>)
+  18  MAKE_FUNCTION          0  (0)
+  21  CALL_FUNCTION          1  (pos=1 kw=0)
+  24  ??neox=157 arg=5
+  27  LOAD_CONST             1  (<code __init__>)
+  30  MAKE_FUNCTION          0  (0)
+  33  ??neox=157 arg=6
+  36  ??neox=153 arg=7
+  39  LOAD_CONST             2  (<code username>)
+  42  MAKE_FUNCTION          0  (0)
+  45  CALL_FUNCTION          1  (pos=1 kw=0)
+  48  ??neox=157 arg=8
+  51  ??neox=153 arg=7
+  54  LOAD_CONST             3  (<code servername>)
+  57  MAKE_FUNCTION          0  (0)
+  60  CALL_FUNCTION          1  (pos=1 kw=0)
+  63  ??neox=157 arg=9
+  66  ??neox=153 arg=7
+  69  LOAD_CONST             4  (<code groupid>)
+  72  MAKE_FUNCTION          0  (0)
+  75  CALL_FUNCTION          1  (pos=1 kw=0)
+  78  ??neox=157 arg=10
+  81  ??neox=153 arg=7
+  84  LOAD_CONST             5  (<code ip>)
+  87  MAKE_FUNCTION          0  (0)
+  90  CALL_FUNCTION          1  (pos=1 kw=0)
+  93  ??neox=157 arg=11
+  96  ??neox=153 arg=7
+  99  LOAD_CONST             6  (<code port>)
+ 102  MAKE_FUNCTION          0  (0)
+ 105  CALL_FUNCTION          1  (pos=1 kw=0)
+ 108  ??neox=157 arg=12
+ 111  LOAD_CONST             7  (<code setLoginHostInfo>)
+ 114  MAKE_FUNCTION          0  (0)
+ 117  ??neox=157 arg=13
+ 120  LOAD_CONST             8  (<code setLoginHostBackPort>)
+ 123  MAKE_FUNCTION          0  (0)
+ 126  ??neox=157 arg=14
+ 129  ??neox=153 arg=15
+ 132  LOAD_CONST             9  ('kpConnectLoginHost')
+ 135  CALL_FUNCTION          1  (pos=1 kw=0)
+ 138  ??neox=153 arg=16
+ 141  ??neox=153 arg=16
+ 144  LOAD_CONST             10  (<code connectLoginHost>)
+ 147  MAKE_FUNCTION          2  (2)
+ 150  CALL_FUNCTION          1  (pos=1 kw=0)
+ 153  ??neox=157 arg=17
+ 156  LOAD_CONST             11  (<code doConnectLoginHost>)
+ 159  MAKE_FUNCTION          0  (0)
+ 162  ??neox=157 arg=18
+ 165  LOAD_CONST             12  (<code setBattleHostInfo>)
+ 168  MAKE_FUNCTION          0  (0)
+ 171  ??neox=157 arg=19
+ 174  ??neox=153 arg=15
+ 177  LOAD_CONST             13  ('kpConnectBattleHost')
+ 180  CALL_FUNCTION          1  (pos=1 kw=0)
+ 183  ??neox=153 arg=16
+ 186  LOAD_CONST             14  (<code connectBattleHost>)
+ 189  MAKE_FUNCTION          1  (1)
+ 192  CALL_FUNCTION          1  (pos=1 kw=0)
+ 195  ??neox=157 arg=20
+ 198  LOAD_CONST             15  (<code doConnectBattleHost>)
+ 201  MAKE_FUNCTION          0  (0)
+ 204  ??neox=157 arg=21
+ 207  ??neox=153 arg=15
+ 210  LOAD_CONST             16  ('kpConnectLoginHostCallback')
+ 213  CALL_FUNCTION          1  (pos=1 kw=0)
+ 216  LOAD_CONST             17  (<code connectLoginHostCallback>)
+ 219  MAKE_FUNCTION          0  (0)
+ 222  CALL_FUNCTION          1  (pos=1 kw=0)
+ 225  ??neox=157 arg=22
+ 228  ??neox=153 arg=15
+ 231  LOAD_CONST             18  ('kpConnectBattleHostCallback')
+ 234  CALL_FUNCTION          1  (pos=1 kw=0)
+ 237  LOAD_CONST             19  (<code connectBattleHostCallback>)
+ 240  MAKE_FUNCTION          0  (0)
+ 243  CALL_FUNCTION          1  (pos=1 kw=0)
+ 246  ??neox=157 arg=23
+ 249  LOAD_CONST             20  (<code transferToLoginServer>)
+ 252  MAKE_FUNCTION          0  (0)
+ 255  ??neox=157 arg=24
+ 258  LOAD_CONST             21  (<code transferToBattleServer>)
+ 261  MAKE_FUNCTION          0  (0)
+ 264  ??neox=157 arg=25
+ 267  LOAD_CONST             22  (0.0)
+ 270  LOAD_CONST             23  (<code delayTransfer>)
+ 273  MAKE_FUNCTION          1  (1)
+ 276  ??neox=157 arg=26
+ 279  LOAD_CONST             24  (<code doTransfer>)
+ 282  MAKE_FUNCTION          0  (0)
+ 285  ??neox=157 arg=27
+ 288  LOAD_CONST             25  (0.0)
+ 291  LOAD_CONST             26  (<code delayConnect>)
+ 294  MAKE_FUNCTION          1  (1)
+ 297  ??neox=157 arg=28
+ 300  LOAD_CONST             27  (<code doConnect>)
+ 303  MAKE_FUNCTION          0  (0)
+ 306  ??neox=157 arg=29
+ 309  LOAD_CONST             28  (<code on_connected>)
+ 312  MAKE_FUNCTION          0  (0)
+ 315  ??neox=157 arg=30
+ 318  LOAD_CONST             29  (<code on_disconnected>)
+ 321  MAKE_FUNCTION          0  (0)
+ 324  ??neox=157 arg=31
+ 327  LOAD_CONST             30  (<code backToLogin>)
+ 330  MAKE_FUNCTION          0  (0)
+ 333  ??neox=157 arg=32
+ 336  LOAD_CONST             31  (<code logoutAudio>)
+ 339  MAKE_FUNCTION          0  (0)
+ 342  ??neox=157 arg=33
+ 345  LOAD_CONST             32  (<code showLogOffUI>)
+ 348  MAKE_FUNCTION          0  (0)
+ 351  ??neox=157 arg=34
+ 354  LOAD_CONST             33  (<code tryReconnect>)
+ 357  MAKE_FUNCTION          0  (0)
+ 360  ??neox=157 arg=35
+ 363  LOAD_CONST             34  (<code reconnect>)
+ 366  MAKE_FUNCTION          0  (0)
+ 369  ??neox=157 arg=36
+ 372  LOAD_CONST             35  (<code cancelAutoReconnect>)
+ 375  MAKE_FUNCTION          0  (0)
+ 378  ??neox=157 arg=37
+ 381  LOAD_CONST             36  (<code reset>)
+ 384  MAKE_FUNCTION          0  (0)
+ 387  ??neox=157 arg=38
+ 390  ??neox=82
+ 391  RETURN_VALUE
+
+--------     getInstance (nlocals=None stack=None)
+--- getInstance (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['cls']
+NAMES:    ['_ConnectMonitor__instance', 'None']
+   0  LOAD_FAST_ATTR         0  (cls._ConnectMonitor__instance)
+   3  LOAD_CONST             0  (None)
+   6  COMPARE_OP             8  (is)
+   9  POP_JUMP_IF_FALSE      24  (24)
+  12  LOAD_FAST              0  (cls)
+  15  CALL_FUNCTION          0  (pos=0 kw=0)
+  18  STORE_ATTR             0  (_ConnectMonitor__instance)
+  21  JUMP_FORWARD           0  (0)
+  24  LOAD_FAST_ATTR         0  (cls._ConnectMonitor__instance)
+  27  RETURN_VALUE
+
+--------     __init__ (nlocals=None stack=None)
+--- __init__ (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['super', 'ConnectMonitor', '__init__', 'retry_limit', 'retry_time', 'retry_interval', 'reconnect_timer', 'False', 'isOnline', 'isConnecting', 'HostType', 'NONE', 'curHostType', 'None', 'loginHostRecord', 'battleHostRecord', 'battleHostFailure', 'transfering', 'startt']
+   0  LOAD_GLOBAL            0  (super)
+   3  LOAD_GLOBAL            1  (ConnectMonitor)
+   6  LOAD_FAST              0  (self)
+   9  CALL_FUNCTION          2  (pos=2 kw=0)
+  12  LOAD_ATTR              2  (__init__)
+  15  CALL_FUNCTION          0  (pos=0 kw=0)
+  18  POP_TOP
+  19  LOAD_CONST             1  (5)
+  22  STORE_ATTR             3  (retry_limit)
+  25  LOAD_CONST             2  (0)
+  28  STORE_ATTR             4  (retry_time)
+  31  LOAD_CONST             3  (2)
+  34  STORE_ATTR             5  (retry_interval)
+  37  LOAD_CONST             2  (0)
+  40  STORE_ATTR             6  (reconnect_timer)
+  43  LOAD_GLOBAL            7  (False)
+  46  STORE_ATTR             8  (isOnline)
+  49  LOAD_GLOBAL            7  (False)
+  52  STORE_ATTR             9  (isConnecting)
+  55  LOAD_GLOBAL            10  (HostType)
+  58  LOAD_ATTR              11  (NONE)
+  61  STORE_ATTR             12  (curHostType)
+  64  LOAD_CONST             0  (None)
+  67  STORE_ATTR             14  (loginHostRecord)
+  70  LOAD_CONST             0  (None)
+  73  STORE_ATTR             15  (battleHostRecord)
+  76  LOAD_GLOBAL            7  (False)
+  79  STORE_ATTR             16  (battleHostFailure)
+  82  LOAD_GLOBAL            7  (False)
+  85  STORE_ATTR             17  (transfering)
+  88  LOAD_CONST             2  (0)
+  91  STORE_ATTR             18  (startt)
+  94  RETURN_CONST           0  (None)
+
+--------     username (nlocals=None stack=None)
+--- username (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['loginHostRecord']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  POP_JUMP_IF_FALSE      14  (14)
+   6  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   9  LOAD_CONST             1  ('username')
+  12  BINARY_SUBSCR
+  13  RETURN_VALUE
+  14  LOAD_CONST             2  ('')
+  17  RETURN_VALUE
+
+--------     servername (nlocals=None stack=None)
+--- servername (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['loginHostRecord']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  POP_JUMP_IF_FALSE      14  (14)
+   6  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   9  LOAD_CONST             1  ('servername')
+  12  BINARY_SUBSCR
+  13  RETURN_VALUE
+  14  LOAD_CONST             2  ('')
+  17  RETURN_VALUE
+
+--------     groupid (nlocals=None stack=None)
+--- groupid (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['loginHostRecord']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  POP_JUMP_IF_FALSE      14  (14)
+   6  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   9  LOAD_CONST             1  ('groupid')
+  12  BINARY_SUBSCR
+  13  RETURN_VALUE
+  14  LOAD_CONST             2  ('')
+  17  RETURN_VALUE
+
+--------     ip (nlocals=None stack=None)
+--- ip (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['loginHostRecord']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  POP_JUMP_IF_FALSE      14  (14)
+   6  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   9  LOAD_CONST             1  ('ip')
+  12  BINARY_SUBSCR
+  13  RETURN_VALUE
+  14  LOAD_CONST             2  ('')
+  17  RETURN_VALUE
+
+--------     port (nlocals=None stack=None)
+--- port (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['loginHostRecord']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  POP_JUMP_IF_FALSE      14  (14)
+   6  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   9  LOAD_CONST             1  ('port')
+  12  BINARY_SUBSCR
+  13  RETURN_VALUE
+  14  LOAD_CONST             2  ('')
+  17  RETURN_VALUE
+
+--------     setLoginHostInfo (nlocals=None stack=None)
+--- setLoginHostInfo (file=helpers\ConnectMonitor.py, argc=6) ---
+VARNAMES: ['self', 'username', 'servername', 'ip', 'port', 'groupid']
+NAMES:    ['int', 'loginHostRecord']
+   0  BUILD_MAP              6  (6)
+   3  LOAD_FAST              1  (username)
+   6  LOAD_CONST             1  ('username')
+   9  STORE_MAP
+  10  LOAD_CONST             2  ('')
+  13  LOAD_CONST             3  ('pwd')
+  16  STORE_MAP
+  17  LOAD_FAST              2  (servername)
+  20  LOAD_CONST             4  ('servername')
+  23  STORE_MAP
+  24  LOAD_FAST              3  (ip)
+  27  LOAD_CONST             5  ('ip')
+  30  STORE_MAP
+  31  LOAD_GLOBAL            0  (int)
+  34  LOAD_FAST              4  (port)
+  37  CALL_FUNCTION          1  (pos=1 kw=0)
+  40  LOAD_CONST             6  ('port')
+  43  STORE_MAP
+  44  LOAD_FAST              5  (groupid)
+  47  LOAD_CONST             7  ('groupid')
+  50  STORE_MAP
+  51  STORE_ATTR             1  (loginHostRecord)
+  54  RETURN_CONST           0  (None)
+
+--------     setLoginHostBackPort (nlocals=None stack=None)
+--- setLoginHostBackPort (file=helpers\ConnectMonitor.py, argc=2) ---
+VARNAMES: ['self', 'port']
+NAMES:    ['hasattr', 'loginHostRecord', 'update']
+   0  LOAD_GLOBAL            0  (hasattr)
+   3  ??neox=123 arg=1
+   6  CALL_FUNCTION          2  (pos=2 kw=0)
+   9  POP_JUMP_IF_FALSE      41  (41)
+  12  LOAD_FAST_ATTR         1  (self.loginHostRecord)
+  15  POP_JUMP_IF_FALSE      41  (41)
+  18  LOAD_FAST_ATTR         1  (self.loginHostRecord)
+  21  LOAD_ATTR              2  (update)
+  24  BUILD_MAP              1  (1)
+  27  LOAD_FAST              1  (port)
+  30  LOAD_CONST             2  ('port')
+  33  STORE_MAP
+  34  CALL_FUNCTION          1  (pos=1 kw=0)
+  37  POP_TOP
+  38  JUMP_FORWARD           0  (0)
+  41  RETURN_CONST           0  (None)
+
+--------     connectLoginHost (nlocals=None stack=None)
+--- connectLoginHost (file=helpers\ConnectMonitor.py, argc=4) ---
+VARNAMES: ['self', 'isReconnect', 'isTransfer', 'rawIPconfig']
+NAMES:    ['loginHostRecord', 'doConnectLoginHost']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  LOAD_CONST             1  ('ip')
+   6  BINARY_SUBSCR
+   7  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+  10  LOAD_CONST             2  ('port')
+  13  BINARY_SUBSCR
+  14  BUILD_TUPLE            2  (2)
+  17  STORE_FAST             3  (rawIPconfig)
+  20  LOAD_FAST_ATTR         1  (self.doConnectLoginHost)
+  23  LOAD_FAST              3  (rawIPconfig)
+  26  LOAD_FAST              1  (isReconnect)
+  29  LOAD_FAST              2  (isTransfer)
+  32  CALL_FUNCTION          3  (pos=3 kw=0)
+  35  POP_TOP
+  36  RETURN_CONST           0  (None)
+
+--------     doConnectLoginHost (nlocals=None stack=None)
+--- doConnectLoginHost (file=helpers\ConnectMonitor.py, argc=7) ---
+VARNAMES: ['self', 'addr', 'isReconnect', 'isTransfer', 'cb', 'ip', 'port']
+NAMES:    ['isConnecting', 'Globals', 'uiMgr', 'UILogin', 'False', '_loginStarted', 'Checkpoints', 'onCheckpoint', 'servername', 'ip', 'port', 'loginHostRecord', 'True', 'HostType', 'LOGIN', 'curHostType', 'time', 'startt', 'BigWorld', 'logOn']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (isConnecting)
+   6  POP_JUMP_IF_FALSE      45  (45)
+   9  LOAD_GLOBAL            1  (Globals)
+  12  LOAD_ATTR              2  (uiMgr)
+  15  LOAD_ATTR              3  (UILogin)
+  18  POP_JUMP_IF_FALSE      39  (39)
+  21  LOAD_GLOBAL            4  (False)
+  24  LOAD_GLOBAL            1  (Globals)
+  27  LOAD_ATTR              2  (uiMgr)
+  30  LOAD_ATTR              3  (UILogin)
+  33  JUMP_FORWARD           5  (5)
+  36  JUMP_FORWARD           0  (0)
+  39  RETURN_CONST           0  (None)
+  42  JUMP_FORWARD           0  (0)
+  45  LOAD_GLOBAL            6  (Checkpoints)
+  48  LOAD_ATTR              7  (onCheckpoint)
+  51  LOAD_CONST             1  ('ConnectMonitor.connectLoginHost %s|%s|%d')
+  54  ??neox=129 arg=0
+  57  LOAD_ATTR              8  (servername)
+  60  ??neox=129 arg=0
+  63  LOAD_ATTR              9  (ip)
+  66  ??neox=129 arg=0
+  69  LOAD_ATTR              10  (port)
+  72  BUILD_TUPLE            3  (3)
+  75  BINARY_MODULO
+  76  CALL_FUNCTION          1  (pos=1 kw=0)
+  79  POP_TOP
+  80  ??neox=129 arg=0
+  83  LOAD_ATTR              11  (loginHostRecord)
+  86  LOAD_CONST             2  ('servername')
+  89  BINARY_SUBSCR
+  90  LOAD_GLOBAL            1  (Globals)
+  93  JUMP_FORWARD           8  (8)
+  96  LOAD_GLOBAL            12  (True)
+  99  ??neox=129 arg=0
+ 102  JUMP_FORWARD           0  (0)
+ 105  LOAD_GLOBAL            13  (HostType)
+ 108  LOAD_ATTR              14  (LOGIN)
+ 111  ??neox=129 arg=0
+ 114  JUMP_FORWARD           15  (15)
+ 117  LOAD_GLOBAL            16  (time)
+ 120  LOAD_ATTR              16  (time)
+ 123  CALL_FUNCTION          0  (pos=0 kw=0)
+ 126  ??neox=129 arg=0
+ 129  JUMP_FORWARD           17  (17)
+ 132  LOAD_FAST              2  (isReconnect)
+ 135  LOAD_FAST              3  (isTransfer)
+ 138  ??neox=120 arg=0
+ 141  BUILD_TUPLE            1  (1)
+ 144  LOAD_CONST             3  (<code <lambda>>)
+ 147  ??neox=172 arg=2
+ 150  STORE_FAST             4  (cb)
+ 153  LOAD_FAST              1  (addr)
+ 156  UNPACK_SEQUENCE        2  (2)
+ 159  STORE_FAST             5  (ip)
+ 162  STORE_FAST             6  (port)
+ 165  LOAD_GLOBAL            18  (BigWorld)
+ 168  LOAD_ATTR              19  (logOn)
+ 171  LOAD_FAST              5  (ip)
+ 174  ??neox=129 arg=0
+ 177  LOAD_ATTR              11  (loginHostRecord)
+ 180  LOAD_CONST             4  ('username')
+ 183  BINARY_SUBSCR
+ 184  LOAD_CONST             5  ('')
+ 187  LOAD_FAST              6  (port)
+ 190  LOAD_FAST              4  (cb)
+ 193  CALL_FUNCTION          5  (pos=5 kw=0)
+ 196  POP_TOP
+ 197  RETURN_CONST           0  (None)
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\ConnectMonitor.py, argc=3) ---
+VARNAMES: ['st', 'reconnect', 'transfer']
+NAMES:    ['connectLoginHostCallback', 'startt']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (connectLoginHostCallback)
+   6  LOAD_FAST              0  (st)
+   9  LOAD_FAST              1  (reconnect)
+  12  LOAD_FAST              2  (transfer)
+  15  ??neox=129 arg=0
+  18  LOAD_ATTR              1  (startt)
+  21  CALL_FUNCTION          4  (pos=4 kw=0)
+  24  RETURN_VALUE
+
+--------     setBattleHostInfo (nlocals=None stack=None)
+--- setBattleHostInfo (file=helpers\ConnectMonitor.py, argc=5) ---
+VARNAMES: ['self', 'username', 'pwd', 'ip', 'port']
+NAMES:    ['int', 'battleHostRecord']
+   0  BUILD_MAP              5  (5)
+   3  LOAD_FAST              1  (username)
+   6  LOAD_CONST             1  ('username')
+   9  STORE_MAP
+  10  LOAD_FAST              2  (pwd)
+  13  LOAD_CONST             2  ('pwd')
+  16  STORE_MAP
+  17  LOAD_CONST             3  ('')
+  20  LOAD_CONST             4  ('servername')
+  23  STORE_MAP
+  24  LOAD_FAST              3  (ip)
+  27  LOAD_CONST             5  ('ip')
+  30  STORE_MAP
+  31  LOAD_GLOBAL            0  (int)
+  34  LOAD_FAST              4  (port)
+  37  CALL_FUNCTION          1  (pos=1 kw=0)
+  40  LOAD_CONST             6  ('port')
+  43  STORE_MAP
+  44  STORE_ATTR             1  (battleHostRecord)
+  47  RETURN_CONST           0  (None)
+
+--------     connectBattleHost (nlocals=None stack=None)
+--- connectBattleHost (file=helpers\ConnectMonitor.py, argc=4) ---
+VARNAMES: ['self', 'isReconnect', 'e', 'rawIPconfig']
+NAMES:    ['login_acc_sdk', 'requestLightenAccIPCofing', 'Globals', 'playerUID', 'battleHostRecord', 'Exception', 'doConnectBattleHost']
+   0  ??neox=128 arg=55
+   3  LOAD_GLOBAL            0  (login_acc_sdk)
+   6  LOAD_ATTR              1  (requestLightenAccIPCofing)
+   9  LOAD_GLOBAL            2  (Globals)
+  12  LOAD_ATTR              3  (playerUID)
+  15  ??neox=129 arg=0
+  18  LOAD_ATTR              4  (battleHostRecord)
+  21  LOAD_CONST             1  ('ip')
+  24  BINARY_SUBSCR
+  25  ??neox=129 arg=0
+  28  LOAD_ATTR              4  (battleHostRecord)
+  31  LOAD_CONST             2  ('port')
+  34  BINARY_SUBSCR
+  35  LOAD_FAST              1  (isReconnect)
+  38  ??neox=120 arg=0
+  41  BUILD_TUPLE            1  (1)
+  44  LOAD_CONST             3  (<code <lambda>>)
+  47  ??neox=172 arg=1
+  50  CALL_FUNCTION          4  (pos=4 kw=0)
+  53  POP_TOP
+  54  POP_BLOCK
+  55  JUMP_FORWARD           61  (61)
+  58  ??neox=46 arg=1435
+  61  ??neox=0 arg=2711
+  64  ??neox=0 arg=30356
+  67  ??neox=0 arg=26681
+  70  ??neox=2 arg=14592
+  73  ??neox=129 arg=0
+  76  LOAD_ATTR              4  (battleHostRecord)
+  79  LOAD_CONST             1  ('ip')
+  82  BINARY_SUBSCR
+  83  ??neox=129 arg=0
+  86  LOAD_ATTR              4  (battleHostRecord)
+  89  LOAD_CONST             2  ('port')
+  92  BINARY_SUBSCR
+  93  BUILD_TUPLE            2  (2)
+  96  STORE_FAST             3  (rawIPconfig)
+  99  ??neox=129 arg=0
+ 102  LOAD_ATTR              6  (doConnectBattleHost)
+ 105  LOAD_FAST              3  (rawIPconfig)
+ 108  LOAD_FAST              1  (isReconnect)
+ 111  CALL_FUNCTION          2  (pos=2 kw=0)
+ 114  POP_TOP
+ 115  JUMP_FORWARD           1  (1)
+ 118  ??neox=48 arg=94
+ 121  ??neox=0
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\ConnectMonitor.py, argc=2) ---
+VARNAMES: ['addr', 'isReconnect']
+NAMES:    ['doConnectBattleHost']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (doConnectBattleHost)
+   6  LOAD_FAST              0  (addr)
+   9  LOAD_FAST              1  (isReconnect)
+  12  CALL_FUNCTION          2  (pos=2 kw=0)
+  15  RETURN_VALUE
+
+--------     doConnectBattleHost (nlocals=None stack=None)
+--- doConnectBattleHost (file=helpers\ConnectMonitor.py, argc=6) ---
+VARNAMES: ['self', 'addr', 'isReconnect', 'ip', 'port', 'cb']
+NAMES:    ['isConnecting', 'battleHostRecord', 'Checkpoints', 'onCheckpoint', 'port', 'True', 'HostType', 'BATTLE', 'curHostType', 'False', 'battleHostFailure', 'time', 'startt', 'BigWorld', 'logOn']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (isConnecting)
+   6  POP_JUMP_IF_FALSE      15  (15)
+   9  RETURN_CONST           0  (None)
+  12  JUMP_FORWARD           0  (0)
+  15  LOAD_FAST              1  (addr)
+  18  UNPACK_SEQUENCE        2  (2)
+  21  STORE_FAST             3  (ip)
+  24  STORE_FAST             4  (port)
+  27  LOAD_FAST              3  (ip)
+  30  ??neox=129 arg=0
+  33  LOAD_ATTR              1  (battleHostRecord)
+  36  LOAD_CONST             1  ('ip')
+  39  BINARY_SUBSCR
+  40  COMPARE_OP             3  (!=)
+  43  POP_JUMP_IF_FALSE      75  (75)
+  46  LOAD_FAST              3  (ip)
+  49  ??neox=129 arg=0
+  52  LOAD_ATTR              1  (battleHostRecord)
+  55  LOAD_CONST             2  ('new_ip')
+  58  STORE_SUBSCR
+  59  LOAD_FAST              4  (port)
+  62  ??neox=129 arg=0
+  65  LOAD_ATTR              1  (battleHostRecord)
+  68  LOAD_CONST             3  ('new_port')
+  71  STORE_SUBSCR
+  72  JUMP_FORWARD           0  (0)
+  75  LOAD_GLOBAL            2  (Checkpoints)
+  78  LOAD_ATTR              3  (onCheckpoint)
+  81  LOAD_CONST             4  ('ConnectMonitor.connectBattleHost %s|%s|%d')
+  84  ??neox=129 arg=0
+  87  LOAD_ATTR              1  (battleHostRecord)
+  90  LOAD_CONST             5  ('servername')
+  93  BINARY_SUBSCR
+  94  LOAD_FAST              3  (ip)
+  97  ??neox=129 arg=0
+ 100  LOAD_ATTR              4  (port)
+ 103  BUILD_TUPLE            3  (3)
+ 106  BINARY_MODULO
+ 107  CALL_FUNCTION          1  (pos=1 kw=0)
+ 110  POP_TOP
+ 111  LOAD_GLOBAL            5  (True)
+ 114  ??neox=129 arg=0
+ 117  JUMP_FORWARD           0  (0)
+ 120  LOAD_GLOBAL            6  (HostType)
+ 123  LOAD_ATTR              7  (BATTLE)
+ 126  ??neox=129 arg=0
+ 129  JUMP_FORWARD           8  (8)
+ 132  LOAD_GLOBAL            9  (False)
+ 135  ??neox=129 arg=0
+ 138  JUMP_FORWARD           10  (10)
+ 141  LOAD_GLOBAL            11  (time)
+ 144  LOAD_ATTR              11  (time)
+ 147  CALL_FUNCTION          0  (pos=0 kw=0)
+ 150  ??neox=129 arg=0
+ 153  JUMP_FORWARD           12  (12)
+ 156  LOAD_FAST              2  (isReconnect)
+ 159  ??neox=120 arg=0
+ 162  BUILD_TUPLE            1  (1)
+ 165  LOAD_CONST             6  (<code cb>)
+ 168  ??neox=172 arg=1
+ 171  STORE_FAST             5  (cb)
+ 174  LOAD_GLOBAL            13  (BigWorld)
+ 177  LOAD_ATTR              14  (logOn)
+ 180  LOAD_FAST              3  (ip)
+ 183  ??neox=129 arg=0
+ 186  LOAD_ATTR              1  (battleHostRecord)
+ 189  LOAD_CONST             7  ('username')
+ 192  BINARY_SUBSCR
+ 193  LOAD_CONST             8  ('entities/loginapp.pubkey')
+ 196  LOAD_FAST              4  (port)
+ 199  LOAD_FAST              5  (cb)
+ 202  ??neox=129 arg=0
+ 205  LOAD_ATTR              1  (battleHostRecord)
+ 208  LOAD_CONST             9  ('pwd')
+ 211  BINARY_SUBSCR
+ 212  CALL_FUNCTION          6  (pos=6 kw=0)
+ 215  POP_TOP
+ 216  RETURN_CONST           0  (None)
+
+--------       cb (nlocals=None stack=None)
+--- cb (file=helpers\ConnectMonitor.py, argc=2) ---
+VARNAMES: ['st', 'reconnect']
+NAMES:    ['connectBattleHostCallback']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (connectBattleHostCallback)
+   6  LOAD_FAST              0  (st)
+   9  LOAD_FAST              1  (reconnect)
+  12  CALL_FUNCTION          2  (pos=2 kw=0)
+  15  RETURN_VALUE
+
+--------     connectLoginHostCallback (nlocals=None stack=None)
+--- connectLoginHostCallback (file=helpers\ConnectMonitor.py, argc=7) ---
+VARNAMES: ['self', 'status', 'isReconnect', 'isTransfer', 't', 'time_cost', 'res']
+NAMES:    ['False', 'isConnecting', 'Checkpoints', 'onCheckpoint', 'str', 'int', 'time', 'startt', 'LOGON_STATUS_OK', 'DCTool', 'startDCTool', 'CONNECT_LOGIN_SERVER_FAL', 'loginHostRecord', 'Globals', 'uiMgr', 'UILogin', '_loginStarted', 'switches', 'ENABLE_CHECK_CLIENT_FORCE_UPDATE', 'forceUpdateStatus', 'showForceUpdatePanel', 'tryReconnect', 'exceptionHandleFunc', 'logonStatus', 'LOGON_STATUS_DISCONNECTING', 'LOGON_STATUS_CANCELLED', 'delayConnect', 'None', 'HostType', 'NONE', 'curHostType', 'backToLogin', 'URGENT_NATProbe', 'natAgent', 'dict', 'battleHostRecord', 'update', 'restart', 'Exception', 'CONNECT_LOGIN_SERVER_SUC', 'on_connected', 'SALogging', 'usKeyPoint', 'startProfiling']
+   0  LOAD_GLOBAL            0  (False)
+   3  STORE_ATTR             1  (isConnecting)
+   6  LOAD_GLOBAL            2  (Checkpoints)
+   9  LOAD_ATTR              3  (onCheckpoint)
+  12  LOAD_CONST             1  ('ConnectLoginHostCallback %s')
+  15  LOAD_GLOBAL            4  (str)
+  18  LOAD_FAST              1  (status)
+  21  CALL_FUNCTION          1  (pos=1 kw=0)
+  24  BINARY_MODULO
+  25  CALL_FUNCTION          1  (pos=1 kw=0)
+  28  POP_TOP
+  29  LOAD_GLOBAL            4  (str)
+  32  LOAD_GLOBAL            5  (int)
+  35  LOAD_GLOBAL            6  (time)
+  38  LOAD_ATTR              6  (time)
+  41  CALL_FUNCTION          0  (pos=0 kw=0)
+  44  LOAD_FAST_ATTR         7  (self.startt)
+  47  BINARY_SUBTRACT
+  48  CALL_FUNCTION          1  (pos=1 kw=0)
+  51  LOAD_CONST             2  (1000)
+  54  BINARY_MULTIPLY
+  55  CALL_FUNCTION          1  (pos=1 kw=0)
+  58  STORE_FAST             5  (time_cost)
+  61  LOAD_FAST              1  (status)
+  64  LOAD_GLOBAL            8  (LOGON_STATUS_OK)
+  67  COMPARE_OP             3  (!=)
+  70  POP_JUMP_IF_FALSE      474  (474)
+  73  LOAD_GLOBAL            9  (DCTool)
+  76  LOAD_ATTR              10  (startDCTool)
+  79  LOAD_GLOBAL            9  (DCTool)
+  82  LOAD_ATTR              11  (CONNECT_LOGIN_SERVER_FAL)
+  85  LOAD_CONST             3  ('time_cost')
+  88  LOAD_GLOBAL            6  (time)
+  91  LOAD_ATTR              6  (time)
+  94  CALL_FUNCTION          0  (pos=0 kw=0)
+  97  LOAD_FAST              4  (t)
+ 100  BINARY_SUBTRACT
+ 101  LOAD_CONST             4  ('group_id')
+ 104  LOAD_FAST_ATTR         12  (self.loginHostRecord)
+ 107  LOAD_CONST             5  ('groupid')
+ 110  BINARY_SUBSCR
+ 111  LOAD_CONST             6  ('server_name')
+ 114  LOAD_FAST_ATTR         12  (self.loginHostRecord)
+ 117  LOAD_CONST             7  ('servername')
+ 120  BINARY_SUBSCR
+ 121  LOAD_CONST             8  ('server_ip')
+ 124  LOAD_FAST_ATTR         12  (self.loginHostRecord)
+ 127  LOAD_CONST             9  ('ip')
+ 130  BINARY_SUBSCR
+ 131  LOAD_CONST             10  ('server_port')
+ 134  LOAD_FAST_ATTR         12  (self.loginHostRecord)
+ 137  LOAD_CONST             11  ('port')
+ 140  BINARY_SUBSCR
+ 141  CALL_FUNCTION          1281  (pos=1 kw=5)
+ 144  POP_TOP
+ 145  LOAD_GLOBAL            13  (Globals)
+ 148  LOAD_ATTR              14  (uiMgr)
+ 151  LOAD_ATTR              15  (UILogin)
+ 154  POP_JUMP_IF_FALSE      175  (175)
+ 157  LOAD_GLOBAL            0  (False)
+ 160  LOAD_GLOBAL            13  (Globals)
+ 163  LOAD_ATTR              14  (uiMgr)
+ 166  LOAD_ATTR              15  (UILogin)
+ 169  JUMP_FORWARD           16  (16)
+ 172  JUMP_FORWARD           0  (0)
+ 175  LOAD_GLOBAL            17  (switches)
+ 178  LOAD_ATTR              18  (ENABLE_CHECK_CLIENT_FORCE_UPDATE)
+ 181  POP_JUMP_IF_FALSE      215  (215)
+ 184  LOAD_FAST              1  (status)
+ 187  LOAD_GLOBAL            19  (forceUpdateStatus)
+ 190  COMPARE_OP             6  (in)
+ 193  POP_JUMP_IF_FALSE      215  (215)
+ 196  LOAD_GLOBAL            13  (Globals)
+ 199  LOAD_ATTR              14  (uiMgr)
+ 202  LOAD_ATTR              20  (showForceUpdatePanel)
+ 205  CALL_FUNCTION          0  (pos=0 kw=0)
+ 208  POP_TOP
+ 209  RETURN_CONST           0  (None)
+ 212  JUMP_FORWARD           0  (0)
+ 215  LOAD_FAST              2  (isReconnect)
+ 218  POP_JUMP_IF_FALSE      272  (272)
+ 221  LOAD_FAST_ATTR         21  (self.tryReconnect)
+ 224  CALL_FUNCTION          0  (pos=0 kw=0)
+ 227  POP_TOP
+ 228  LOAD_GLOBAL            13  (Globals)
+ 231  LOAD_ATTR              14  (uiMgr)
+ 234  LOAD_ATTR              15  (UILogin)
+ 237  POP_JUMP_IF_FALSE      372  (372)
+ 240  LOAD_GLOBAL            13  (Globals)
+ 243  LOAD_ATTR              14  (uiMgr)
+ 246  LOAD_ATTR              15  (UILogin)
+ 249  LOAD_ATTR              22  (exceptionHandleFunc)
+ 252  LOAD_CONST             12  ('showServerSt')
+ 255  LOAD_GLOBAL            23  (logonStatus)
+ 258  LOAD_FAST              1  (status)
+ 261  BINARY_SUBSCR
+ 262  CALL_FUNCTION          2  (pos=2 kw=0)
+ 265  POP_TOP
+ 266  JUMP_ABSOLUTE          372  (372)
+ 269  JUMP_FORWARD           100  (100)
+ 272  LOAD_FAST              1  (status)
+ 275  LOAD_GLOBAL            24  (LOGON_STATUS_DISCONNECTING)
+ 278  LOAD_GLOBAL            25  (LOGON_STATUS_CANCELLED)
+ 281  BUILD_TUPLE            2  (2)
+ 284  COMPARE_OP             6  (in)
+ 287  POP_JUMP_IF_FALSE      300  (300)
+ 290  LOAD_FAST_ATTR         26  (self.delayConnect)
+ 293  CALL_FUNCTION          0  (pos=0 kw=0)
+ 296  POP_TOP
+ 297  JUMP_FORWARD           72  (72)
+ 300  LOAD_CONST             0  (None)
+ 303  STORE_ATTR             12  (loginHostRecord)
+ 306  LOAD_GLOBAL            28  (HostType)
+ 309  LOAD_ATTR              29  (NONE)
+ 312  STORE_ATTR             30  (curHostType)
+ 315  LOAD_FAST              3  (isTransfer)
+ 318  POP_JUMP_IF_FALSE      331  (331)
+ 321  LOAD_FAST_ATTR         31  (self.backToLogin)
+ 324  CALL_FUNCTION          0  (pos=0 kw=0)
+ 327  POP_TOP
+ 328  JUMP_FORWARD           41  (41)
+ 331  LOAD_GLOBAL            13  (Globals)
+ 334  LOAD_ATTR              14  (uiMgr)
+ 337  LOAD_ATTR              15  (UILogin)
+ 340  POP_JUMP_IF_FALSE      372  (372)
+ 343  LOAD_GLOBAL            13  (Globals)
+ 346  LOAD_ATTR              14  (uiMgr)
+ 349  LOAD_ATTR              15  (UILogin)
+ 352  LOAD_ATTR              22  (exceptionHandleFunc)
+ 355  LOAD_CONST             12  ('showServerSt')
+ 358  LOAD_GLOBAL            23  (logonStatus)
+ 361  LOAD_FAST              1  (status)
+ 364  BINARY_SUBSCR
+ 365  CALL_FUNCTION          2  (pos=2 kw=0)
+ 368  POP_TOP
+ 369  JUMP_FORWARD           0  (0)
+ 372  ??neox=128 arg=79
+ 375  LOAD_GLOBAL            17  (switches)
+ 378  LOAD_ATTR              32  (URGENT_NATProbe)
+ 381  POP_JUMP_IF_FALSE      450  (450)
+ 384  LOAD_GLOBAL            13  (Globals)
+ 387  LOAD_ATTR              33  (natAgent)
+ 390  POP_JUMP_IF_FALSE      450  (450)
+ 393  LOAD_GLOBAL            34  (dict)
+ 396  LOAD_FAST_ATTR         35  (self.battleHostRecord)
+ 399  ??neox=130 arg=405
+ 402  BUILD_MAP              0  (0)
+ 405  CALL_FUNCTION          1  (pos=1 kw=0)
+ 408  STORE_FAST             6  (res)
+ 411  LOAD_FAST_ATTR         1572  (res.update)
+ 414  BUILD_MAP              1  (1)
+ 417  LOAD_FAST              1  (status)
+ 420  LOAD_CONST             13  ('reason')
+ 423  STORE_MAP
+ 424  CALL_FUNCTION          1  (pos=1 kw=0)
+ 427  POP_TOP
+ 428  LOAD_GLOBAL            13  (Globals)
+ 431  LOAD_ATTR              33  (natAgent)
+ 434  LOAD_ATTR              37  (restart)
+ 437  LOAD_CONST             14  ('connect_login_fail')
+ 440  LOAD_FAST              6  (res)
+ 443  CALL_FUNCTION          2  (pos=2 kw=0)
+ 446  POP_TOP
+ 447  JUMP_FORWARD           0  (0)
+ 450  POP_BLOCK
+ 451  JUMP_ABSOLUTE          576  (576)
+ 454  ??neox=46 arg=9883
+ 457  ??neox=0 arg=2711
+ 460  ??neox=0 arg=54932
+ 463  ??neox=1 arg=14649
+ 466  POP_TOP
+ 467  JUMP_ABSOLUTE          576  (576)
+ 470  ??neox=48 arg=26244
+ 473  ??neox=0 arg=2459
+ 476  ??neox=0 arg=2656
+ 479  ??neox=0 arg=2459
+ 482  ??neox=0 arg=10080
+ 485  ??neox=0 arg=869
+ 488  ??neox=0 arg=1691
+ 491  ??neox=0 arg=1632
+ 494  ??neox=0 arg=131
+ 497  ??neox=0 arg=1117
+ 500  ??neox=0 arg=25919
+ 503  ??neox=4 arg=40960
+ 506  UNARY_NOT
+ 507  ??neox=0 arg=1381
+ 510  ??neox=0 arg=25879
+ 513  ??neox=6 arg=40960
+ 516  UNARY_NOT
+ 517  ??neox=0 arg=1893
+ 520  ??neox=0 arg=25879
+ 523  ??neox=8 arg=40960
+ 526  UNARY_NOT
+ 527  ??neox=0 arg=2405
+ 530  ??neox=0 arg=25879
+ 533  BINARY_DIVIDE
+ 534  ??neox=0 arg=3232
+ 537  ??neox=0 arg=2917
+ 540  ??neox=0 arg=33559
+ 543  ??neox=1 arg=14597
+ 546  LOAD_FAST_ATTR         40  (self.on_connected)
+ 549  CALL_FUNCTION          0  (pos=0 kw=0)
+ 552  POP_TOP
+ 553  LOAD_GLOBAL            41  (SALogging)
+ 556  LOAD_ATTR              42  (usKeyPoint)
+ 559  LOAD_CONST             15  ('server_login_success')
+ 562  CALL_FUNCTION          1  (pos=1 kw=0)
+ 565  POP_TOP
+ 566  LOAD_GLOBAL            9  (DCTool)
+ 569  LOAD_ATTR              43  (startProfiling)
+ 572  CALL_FUNCTION          0  (pos=0 kw=0)
+ 575  POP_TOP
+ 576  RETURN_CONST           0  (None)
+
+--------     connectBattleHostCallback (nlocals=None stack=None)
+--- connectBattleHostCallback (file=helpers\ConnectMonitor.py, argc=5) ---
+VARNAMES: ['self', 'status', 'isReconnect', 'time_cost', 'res']
+NAMES:    ['Checkpoints', 'onCheckpoint', 'str', 'False', 'isConnecting', 'int', 'time', 'startt', 'LOGON_STATUS_OK', 'LOGIN_REJECTED_NO_SUCH_USER', 'None', 'battleHostRecord', 'True', 'battleHostFailure', 'loginHostRecord', 'delayTransfer', 'backToLogin', 'tryReconnect', 'Globals', 'uiMgr', 'UILogin', 'exceptionHandleFunc', 'logonStatus', 'LOGON_STATUS_DISCONNECTING', 'LOGON_STATUS_CANCELLED', 'delayConnect', 'switches', 'URGENT_NATProbe', 'natAgent', 'dict', 'update', 'restart', 'Exception', 'on_connected']
+   0  LOAD_GLOBAL            0  (Checkpoints)
+   3  LOAD_ATTR              1  (onCheckpoint)
+   6  LOAD_CONST             1  ('ConnectBattleHostCallback %s')
+   9  LOAD_GLOBAL            2  (str)
+  12  LOAD_FAST              1  (status)
+  15  CALL_FUNCTION          1  (pos=1 kw=0)
+  18  BINARY_MODULO
+  19  CALL_FUNCTION          1  (pos=1 kw=0)
+  22  POP_TOP
+  23  LOAD_GLOBAL            3  (False)
+  26  STORE_ATTR             4  (isConnecting)
+  29  LOAD_GLOBAL            2  (str)
+  32  LOAD_GLOBAL            5  (int)
+  35  LOAD_GLOBAL            6  (time)
+  38  LOAD_ATTR              6  (time)
+  41  CALL_FUNCTION          0  (pos=0 kw=0)
+  44  LOAD_FAST_ATTR         7  (self.startt)
+  47  BINARY_SUBTRACT
+  48  CALL_FUNCTION          1  (pos=1 kw=0)
+  51  LOAD_CONST             2  (1000)
+  54  BINARY_MULTIPLY
+  55  CALL_FUNCTION          1  (pos=1 kw=0)
+  58  STORE_FAST             3  (time_cost)
+  61  LOAD_FAST              1  (status)
+  64  LOAD_GLOBAL            8  (LOGON_STATUS_OK)
+  67  COMPARE_OP             3  (!=)
+  70  POP_JUMP_IF_FALSE      345  (345)
+  73  LOAD_FAST              2  (isReconnect)
+  76  POP_JUMP_IF_FALSE      180  (180)
+  79  LOAD_FAST              1  (status)
+  82  LOAD_GLOBAL            9  (LOGIN_REJECTED_NO_SUCH_USER)
+  85  COMPARE_OP             2  (==)
+  88  POP_JUMP_IF_FALSE      129  (129)
+  91  LOAD_CONST             0  (None)
+  94  STORE_ATTR             11  (battleHostRecord)
+  97  LOAD_GLOBAL            12  (True)
+ 100  STORE_ATTR             13  (battleHostFailure)
+ 103  LOAD_FAST_ATTR         14  (self.loginHostRecord)
+ 106  POP_JUMP_IF_FALSE      119  (119)
+ 109  LOAD_FAST_ATTR         15  (self.delayTransfer)
+ 112  CALL_FUNCTION          0  (pos=0 kw=0)
+ 115  POP_TOP
+ 116  JUMP_ABSOLUTE          177  (177)
+ 119  LOAD_FAST_ATTR         16  (self.backToLogin)
+ 122  CALL_FUNCTION          0  (pos=0 kw=0)
+ 125  POP_TOP
+ 126  JUMP_ABSOLUTE          243  (243)
+ 129  LOAD_FAST_ATTR         17  (self.tryReconnect)
+ 132  CALL_FUNCTION          0  (pos=0 kw=0)
+ 135  POP_TOP
+ 136  LOAD_GLOBAL            18  (Globals)
+ 139  LOAD_ATTR              19  (uiMgr)
+ 142  LOAD_ATTR              20  (UILogin)
+ 145  POP_JUMP_IF_FALSE      243  (243)
+ 148  LOAD_GLOBAL            18  (Globals)
+ 151  LOAD_ATTR              19  (uiMgr)
+ 154  LOAD_ATTR              20  (UILogin)
+ 157  LOAD_ATTR              21  (exceptionHandleFunc)
+ 160  LOAD_CONST             3  ('showServerSt')
+ 163  LOAD_GLOBAL            22  (logonStatus)
+ 166  LOAD_FAST              1  (status)
+ 169  BINARY_SUBSCR
+ 170  CALL_FUNCTION          2  (pos=2 kw=0)
+ 173  POP_TOP
+ 174  JUMP_ABSOLUTE          243  (243)
+ 177  JUMP_FORWARD           63  (63)
+ 180  LOAD_FAST              1  (status)
+ 183  LOAD_GLOBAL            23  (LOGON_STATUS_DISCONNECTING)
+ 186  LOAD_GLOBAL            24  (LOGON_STATUS_CANCELLED)
+ 189  BUILD_TUPLE            2  (2)
+ 192  COMPARE_OP             6  (in)
+ 195  POP_JUMP_IF_FALSE      208  (208)
+ 198  LOAD_FAST_ATTR         25  (self.delayConnect)
+ 201  CALL_FUNCTION          0  (pos=0 kw=0)
+ 204  POP_TOP
+ 205  JUMP_FORWARD           35  (35)
+ 208  LOAD_CONST             0  (None)
+ 211  STORE_ATTR             11  (battleHostRecord)
+ 214  LOAD_GLOBAL            12  (True)
+ 217  STORE_ATTR             13  (battleHostFailure)
+ 220  LOAD_FAST_ATTR         14  (self.loginHostRecord)
+ 223  POP_JUMP_IF_FALSE      236  (236)
+ 226  LOAD_FAST_ATTR         15  (self.delayTransfer)
+ 229  CALL_FUNCTION          0  (pos=0 kw=0)
+ 232  POP_TOP
+ 233  JUMP_FORWARD           7  (7)
+ 236  LOAD_FAST_ATTR         16  (self.backToLogin)
+ 239  CALL_FUNCTION          0  (pos=0 kw=0)
+ 242  POP_TOP
+ 243  ??neox=128 arg=79
+ 246  LOAD_GLOBAL            26  (switches)
+ 249  LOAD_ATTR              27  (URGENT_NATProbe)
+ 252  POP_JUMP_IF_FALSE      321  (321)
+ 255  LOAD_GLOBAL            18  (Globals)
+ 258  LOAD_ATTR              28  (natAgent)
+ 261  POP_JUMP_IF_FALSE      321  (321)
+ 264  LOAD_GLOBAL            29  (dict)
+ 267  LOAD_FAST_ATTR         11  (self.battleHostRecord)
+ 270  ??neox=130 arg=276
+ 273  BUILD_MAP              0  (0)
+ 276  CALL_FUNCTION          1  (pos=1 kw=0)
+ 279  STORE_FAST             4  (res)
+ 282  LOAD_FAST_ATTR         1054  (res.update)
+ 285  BUILD_MAP              1  (1)
+ 288  LOAD_FAST              1  (status)
+ 291  LOAD_CONST             4  ('reason')
+ 294  STORE_MAP
+ 295  CALL_FUNCTION          1  (pos=1 kw=0)
+ 298  POP_TOP
+ 299  LOAD_GLOBAL            18  (Globals)
+ 302  LOAD_ATTR              28  (natAgent)
+ 305  LOAD_ATTR              31  (restart)
+ 308  LOAD_CONST             5  ('connect_battle_fail')
+ 311  LOAD_FAST              4  (res)
+ 314  CALL_FUNCTION          2  (pos=2 kw=0)
+ 317  POP_TOP
+ 318  JUMP_FORWARD           0  (0)
+ 321  POP_BLOCK
+ 322  JUMP_ABSOLUTE          352  (352)
+ 325  ??neox=46 arg=8347
+ 328  ??neox=0 arg=2711
+ 331  ??neox=0 arg=21908
+ 334  ??neox=1 arg=14649
+ 337  POP_TOP
+ 338  JUMP_ABSOLUTE          352  (352)
+ 341  ??neox=48 arg=1924
+ 344  ??neox=0 arg=8608
+ 347  ??neox=0 arg=131
+ 350  ??neox=0 arg=24121
+ 353  ??neox=0
+ 354  ??neox=0
+
+--------     transferToLoginServer (nlocals=None stack=None)
+--- transferToLoginServer (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['loginHostRecord', 'BigWorld', 'logOff', 'delayTransfer']
+   0  LOAD_FAST_ATTR         0  (self.loginHostRecord)
+   3  POP_JUMP_IF_FALSE      26  (26)
+   6  LOAD_GLOBAL            1  (BigWorld)
+   9  LOAD_ATTR              2  (logOff)
+  12  CALL_FUNCTION          0  (pos=0 kw=0)
+  15  POP_TOP
+  16  LOAD_FAST_ATTR         3  (self.delayTransfer)
+  19  CALL_FUNCTION          0  (pos=0 kw=0)
+  22  POP_TOP
+  23  JUMP_FORWARD           0  (0)
+  26  RETURN_CONST           0  (None)
+
+--------     transferToBattleServer (nlocals=None stack=None)
+--- transferToBattleServer (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['battleHostRecord', 'BigWorld', 'logOff', 'delayTransfer']
+   0  LOAD_FAST_ATTR         0  (self.battleHostRecord)
+   3  POP_JUMP_IF_FALSE      26  (26)
+   6  LOAD_GLOBAL            1  (BigWorld)
+   9  LOAD_ATTR              2  (logOff)
+  12  CALL_FUNCTION          0  (pos=0 kw=0)
+  15  POP_TOP
+  16  LOAD_FAST_ATTR         3  (self.delayTransfer)
+  19  CALL_FUNCTION          0  (pos=0 kw=0)
+  22  POP_TOP
+  23  JUMP_FORWARD           0  (0)
+  26  RETURN_CONST           0  (None)
+
+--------     delayTransfer (nlocals=None stack=None)
+--- delayTransfer (file=helpers\ConnectMonitor.py, argc=2) ---
+VARNAMES: ['self', 'delay']
+NAMES:    ['True', 'transfering', 'Timer', 'addTimer', 'doTransfer']
+   0  LOAD_GLOBAL            0  (True)
+   3  STORE_ATTR             1  (transfering)
+   6  LOAD_GLOBAL            2  (Timer)
+   9  LOAD_ATTR              3  (addTimer)
+  12  LOAD_FAST              1  (delay)
+  15  LOAD_FAST_ATTR         4  (self.doTransfer)
+  18  CALL_FUNCTION          2  (pos=2 kw=0)
+  21  POP_TOP
+  22  RETURN_CONST           0  (None)
+
+--------     doTransfer (nlocals=None stack=None)
+--- doTransfer (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['False', 'transfering', 'curHostType', 'HostType', 'LOGIN', 'battleHostRecord', 'None', 'connectBattleHost', 'BATTLE', 'loginHostRecord', 'connectLoginHost', 'True', 'backToLogin']
+   0  LOAD_GLOBAL            0  (False)
+   3  STORE_ATTR             1  (transfering)
+   6  LOAD_FAST_ATTR         2  (self.curHostType)
+   9  LOAD_GLOBAL            3  (HostType)
+  12  LOAD_ATTR              4  (LOGIN)
+  15  COMPARE_OP             2  (==)
+  18  POP_JUMP_IF_FALSE      43  (43)
+  21  LOAD_FAST_ATTR         5  (self.battleHostRecord)
+  24  LOAD_CONST             0  (None)
+  27  COMPARE_OP             9  (is not)
+  30  POP_JUMP_IF_FALSE      43  (43)
+  33  LOAD_FAST_ATTR         7  (self.connectBattleHost)
+  36  CALL_FUNCTION          0  (pos=0 kw=0)
+  39  POP_TOP
+  40  JUMP_FORWARD           50  (50)
+  43  LOAD_FAST_ATTR         2  (self.curHostType)
+  46  LOAD_GLOBAL            3  (HostType)
+  49  LOAD_ATTR              8  (BATTLE)
+  52  COMPARE_OP             2  (==)
+  55  POP_JUMP_IF_FALSE      86  (86)
+  58  LOAD_FAST_ATTR         9  (self.loginHostRecord)
+  61  LOAD_CONST             0  (None)
+  64  COMPARE_OP             9  (is not)
+  67  POP_JUMP_IF_FALSE      86  (86)
+  70  LOAD_FAST_ATTR         10  (self.connectLoginHost)
+  73  LOAD_GLOBAL            0  (False)
+  76  LOAD_GLOBAL            11  (True)
+  79  CALL_FUNCTION          2  (pos=2 kw=0)
+  82  POP_TOP
+  83  JUMP_FORWARD           7  (7)
+  86  LOAD_FAST_ATTR         12  (self.backToLogin)
+  89  CALL_FUNCTION          0  (pos=0 kw=0)
+  92  POP_TOP
+  93  RETURN_CONST           0  (None)
+
+--------     delayConnect (nlocals=None stack=None)
+--- delayConnect (file=helpers\ConnectMonitor.py, argc=2) ---
+VARNAMES: ['self', 'delay']
+NAMES:    ['True', 'transfering', 'Timer', 'addTimer', 'doConnect']
+   0  LOAD_GLOBAL            0  (True)
+   3  STORE_ATTR             1  (transfering)
+   6  LOAD_GLOBAL            2  (Timer)
+   9  LOAD_ATTR              3  (addTimer)
+  12  LOAD_FAST              1  (delay)
+  15  LOAD_FAST_ATTR         4  (self.doConnect)
+  18  CALL_FUNCTION          2  (pos=2 kw=0)
+  21  POP_TOP
+  22  RETURN_CONST           0  (None)
+
+--------     doConnect (nlocals=None stack=None)
+--- doConnect (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['False', 'transfering', 'curHostType', 'HostType', 'BATTLE', 'battleHostRecord', 'None', 'connectBattleHost', 'LOGIN', 'loginHostRecord', 'connectLoginHost', 'backToLogin']
+   0  LOAD_GLOBAL            0  (False)
+   3  STORE_ATTR             1  (transfering)
+   6  LOAD_FAST_ATTR         2  (self.curHostType)
+   9  LOAD_GLOBAL            3  (HostType)
+  12  LOAD_ATTR              4  (BATTLE)
+  15  COMPARE_OP             2  (==)
+  18  POP_JUMP_IF_FALSE      43  (43)
+  21  LOAD_FAST_ATTR         5  (self.battleHostRecord)
+  24  LOAD_CONST             0  (None)
+  27  COMPARE_OP             9  (is not)
+  30  POP_JUMP_IF_FALSE      43  (43)
+  33  LOAD_FAST_ATTR         7  (self.connectBattleHost)
+  36  CALL_FUNCTION          0  (pos=0 kw=0)
+  39  POP_TOP
+  40  JUMP_FORWARD           44  (44)
+  43  LOAD_FAST_ATTR         2  (self.curHostType)
+  46  LOAD_GLOBAL            3  (HostType)
+  49  LOAD_ATTR              8  (LOGIN)
+  52  COMPARE_OP             2  (==)
+  55  POP_JUMP_IF_FALSE      80  (80)
+  58  LOAD_FAST_ATTR         9  (self.loginHostRecord)
+  61  LOAD_CONST             0  (None)
+  64  COMPARE_OP             9  (is not)
+  67  POP_JUMP_IF_FALSE      80  (80)
+  70  LOAD_FAST_ATTR         10  (self.connectLoginHost)
+  73  CALL_FUNCTION          0  (pos=0 kw=0)
+  76  POP_TOP
+  77  JUMP_FORWARD           7  (7)
+  80  LOAD_FAST_ATTR         11  (self.backToLogin)
+  83  CALL_FUNCTION          0  (pos=0 kw=0)
+  86  POP_TOP
+  87  RETURN_CONST           0  (None)
+
+--------     on_connected (nlocals=None stack=None)
+--- on_connected (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['Globals', 'uiMgr', 'onConnected', 'isReconnecting', 'showConnectMonitorTips', 'hideConnectMonitorTips', 'True', 'isOnline', 'False', 'isKickedByServer', 'reset', 'UIMain', 'SendMessage']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (uiMgr)
+   6  LOAD_ATTR              2  (onConnected)
+   9  CALL_FUNCTION          0  (pos=0 kw=0)
+  12  POP_TOP
+  13  LOAD_GLOBAL            0  (Globals)
+  16  LOAD_ATTR              3  (isReconnecting)
+  19  POP_JUMP_IF_FALSE      35  (35)
+  22  LOAD_GLOBAL            4  (showConnectMonitorTips)
+  25  LOAD_CONST             1  ('reconnected')
+  28  CALL_FUNCTION          1  (pos=1 kw=0)
+  31  POP_TOP
+  32  JUMP_FORWARD           7  (7)
+  35  LOAD_GLOBAL            5  (hideConnectMonitorTips)
+  38  CALL_FUNCTION          0  (pos=0 kw=0)
+  41  POP_TOP
+  42  LOAD_GLOBAL            6  (True)
+  45  STORE_ATTR             7  (isOnline)
+  48  LOAD_GLOBAL            8  (False)
+  51  LOAD_GLOBAL            0  (Globals)
+  54  JUMP_FORWARD           9  (9)
+  57  LOAD_FAST_ATTR         10  (self.reset)
+  60  CALL_FUNCTION          0  (pos=0 kw=0)
+  63  POP_TOP
+  64  LOAD_GLOBAL            0  (Globals)
+  67  LOAD_ATTR              1  (uiMgr)
+  70  POP_JUMP_IF_FALSE      126  (126)
+  73  LOAD_GLOBAL            0  (Globals)
+  76  LOAD_ATTR              1  (uiMgr)
+  79  LOAD_ATTR              11  (UIMain)
+  82  POP_JUMP_IF_FALSE      126  (126)
+  85  LOAD_GLOBAL            0  (Globals)
+  88  LOAD_ATTR              1  (uiMgr)
+  91  LOAD_ATTR              11  (UIMain)
+  94  LOAD_ATTR              12  (SendMessage)
+  97  LOAD_CONST             2  ('onCheckSocialAppInvitations')
+ 100  CALL_FUNCTION          1  (pos=1 kw=0)
+ 103  POP_TOP
+ 104  LOAD_GLOBAL            0  (Globals)
+ 107  LOAD_ATTR              1  (uiMgr)
+ 110  LOAD_ATTR              11  (UIMain)
+ 113  LOAD_ATTR              12  (SendMessage)
+ 116  LOAD_CONST             3  ('onCheckSocialAddFriend')
+ 119  CALL_FUNCTION          1  (pos=1 kw=0)
+ 122  POP_TOP
+ 123  JUMP_FORWARD           0  (0)
+ 126  RETURN_CONST           0  (None)
+
+--------     on_disconnected (nlocals=None stack=None)
+--- on_disconnected (file=helpers\ConnectMonitor.py, argc=2) ---
+VARNAMES: ['self', 'reason']
+NAMES:    ['DCTool', 'startDCTool', 'LOST_CONNECTION', 'loginHostRecord', 'Globals', 'uiMgr', 'onDisconnected', 'isOnline', 'False', 'transfering', 'isConnecting', 'DisconnectReason', 'DISCONNECT_BY_CLIENT', 'DISCONNECT_BY_SERVER', 'backToLogin', 'pause', 'str', 'Application', 'scene', 'None', 'isReconnecting', 'MapLoader', 'getInstance', 'tryReconnect']
+   0  LOAD_GLOBAL            0  (DCTool)
+   3  LOAD_ATTR              1  (startDCTool)
+   6  LOAD_GLOBAL            0  (DCTool)
+   9  LOAD_ATTR              2  (LOST_CONNECTION)
+  12  LOAD_CONST             1  ('error_log')
+  15  LOAD_CONST             2  ('on_disconnected reason=%d')
+  18  LOAD_FAST              1  (reason)
+  21  BINARY_MODULO
+  22  LOAD_CONST             3  ('group_id')
+  25  LOAD_FAST_ATTR         3  (self.loginHostRecord)
+  28  LOAD_CONST             4  ('groupid')
+  31  BINARY_SUBSCR
+  32  LOAD_CONST             5  ('server_name')
+  35  LOAD_FAST_ATTR         3  (self.loginHostRecord)
+  38  LOAD_CONST             6  ('servername')
+  41  BINARY_SUBSCR
+  42  LOAD_CONST             7  ('server_ip')
+  45  LOAD_FAST_ATTR         3  (self.loginHostRecord)
+  48  LOAD_CONST             8  ('ip')
+  51  BINARY_SUBSCR
+  52  LOAD_CONST             9  ('server_port')
+  55  LOAD_FAST_ATTR         3  (self.loginHostRecord)
+  58  LOAD_CONST             10  ('port')
+  61  BINARY_SUBSCR
+  62  CALL_FUNCTION          1281  (pos=1 kw=5)
+  65  POP_TOP
+  66  LOAD_GLOBAL            4  (Globals)
+  69  LOAD_ATTR              5  (uiMgr)
+  72  LOAD_ATTR              6  (onDisconnected)
+  75  CALL_FUNCTION          0  (pos=0 kw=0)
+  78  POP_TOP
+  79  LOAD_FAST_ATTR         7  (self.isOnline)
+  82  POP_JUMP_IF_TRUE       91  (91)
+  85  RETURN_CONST           0  (None)
+  88  JUMP_FORWARD           0  (0)
+  91  LOAD_GLOBAL            8  (False)
+  94  STORE_ATTR             7  (isOnline)
+  97  LOAD_FAST_ATTR         9  (self.transfering)
+ 100  POP_JUMP_IF_TRUE       236  (236)
+ 103  LOAD_FAST_ATTR         10  (self.isConnecting)
+ 106  POP_JUMP_IF_FALSE      112  (112)
+ 109  JUMP_FORWARD           124  (124)
+ 112  LOAD_FAST              1  (reason)
+ 115  LOAD_GLOBAL            11  (DisconnectReason)
+ 118  LOAD_ATTR              12  (DISCONNECT_BY_CLIENT)
+ 121  COMPARE_OP             2  (==)
+ 124  POP_JUMP_IF_FALSE      130  (130)
+ 127  JUMP_FORWARD           106  (106)
+ 130  LOAD_FAST              1  (reason)
+ 133  LOAD_GLOBAL            11  (DisconnectReason)
+ 136  LOAD_ATTR              13  (DISCONNECT_BY_SERVER)
+ 139  COMPARE_OP             2  (==)
+ 142  POP_JUMP_IF_FALSE      155  (155)
+ 145  LOAD_FAST_ATTR         14  (self.backToLogin)
+ 148  CALL_FUNCTION          0  (pos=0 kw=0)
+ 151  POP_TOP
+ 152  JUMP_FORWARD           81  (81)
+ 155  LOAD_GLOBAL            4  (Globals)
+ 158  LOAD_ATTR              15  (pause)
+ 161  POP_JUMP_IF_TRUE       195  (195)
+ 164  LOAD_GLOBAL            0  (DCTool)
+ 167  LOAD_ATTR              1  (startDCTool)
+ 170  LOAD_GLOBAL            0  (DCTool)
+ 173  LOAD_ATTR              2  (LOST_CONNECTION)
+ 176  LOAD_CONST             1  ('error_log')
+ 179  LOAD_GLOBAL            16  (str)
+ 182  LOAD_FAST              1  (reason)
+ 185  CALL_FUNCTION          1  (pos=1 kw=0)
+ 188  CALL_FUNCTION          257  (pos=1 kw=1)
+ 191  POP_TOP
+ 192  JUMP_FORWARD           0  (0)
+ 195  LOAD_GLOBAL            17  (Application)
+ 198  LOAD_ATTR              18  (scene)
+ 201  LOAD_CONST             0  (None)
+ 204  COMPARE_OP             9  (is not)
+ 207  LOAD_GLOBAL            4  (Globals)
+ 210  JUMP_FORWARD           20  (20)
+ 213  LOAD_GLOBAL            21  (MapLoader)
+ 216  LOAD_ATTR              22  (getInstance)
+ 219  CALL_FUNCTION          0  (pos=0 kw=0)
+ 222  LOAD_ATTR              6  (onDisconnected)
+ 225  CALL_FUNCTION          0  (pos=0 kw=0)
+ 228  POP_TOP
+ 229  LOAD_FAST_ATTR         23  (self.tryReconnect)
+ 232  CALL_FUNCTION          0  (pos=0 kw=0)
+ 235  POP_TOP
+ 236  RETURN_CONST           0  (None)
+
+--------     backToLogin (nlocals=None stack=None)
+--- backToLogin (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['False', 'Globals', 'isReconnecting', 'HostType', 'NONE', 'curHostType', 'None', 'loginHostRecord', 'battleHostRecord', 'battleHostFailure', 'transfering', 'clearLoadingState', 'player', 'Application', 'LoadLevelAtFinish', 'reset', 'Timer', 'addTimer']
+   0  LOAD_GLOBAL            0  (False)
+   3  LOAD_GLOBAL            1  (Globals)
+   6  JUMP_FORWARD           2  (2)
+   9  LOAD_GLOBAL            3  (HostType)
+  12  LOAD_ATTR              4  (NONE)
+  15  ??neox=129 arg=0
+  18  JUMP_FORWARD           5  (5)
+  21  LOAD_CONST             0  (None)
+  24  ??neox=129 arg=0
+  27  JUMP_FORWARD           7  (7)
+  30  LOAD_CONST             0  (None)
+  33  ??neox=129 arg=0
+  36  JUMP_FORWARD           8  (8)
+  39  LOAD_GLOBAL            0  (False)
+  42  ??neox=129 arg=0
+  45  JUMP_FORWARD           9  (9)
+  48  LOAD_GLOBAL            0  (False)
+  51  ??neox=129 arg=0
+  54  JUMP_FORWARD           10  (10)
+  57  LOAD_GLOBAL            1  (Globals)
+  60  LOAD_ATTR              11  (clearLoadingState)
+  63  CALL_FUNCTION          0  (pos=0 kw=0)
+  66  POP_TOP
+  67  LOAD_GLOBAL            1  (Globals)
+  70  LOAD_ATTR              12  (player)
+  73  LOAD_CONST             0  (None)
+  76  COMPARE_OP             9  (is not)
+  79  POP_JUMP_IF_FALSE      115  (115)
+  82  LOAD_GLOBAL            13  (Application)
+  85  LOAD_ATTR              14  (LoadLevelAtFinish)
+  88  LOAD_CONST             1  (-1)
+  91  BUILD_MAP              2  (2)
+  94  LOAD_CONST             2  ('')
+  97  LOAD_CONST             3  ('scnPath')
+ 100  STORE_MAP
+ 101  LOAD_CONST             2  ('')
+ 104  LOAD_CONST             4  ('navPath')
+ 107  STORE_MAP
+ 108  CALL_FUNCTION          2  (pos=2 kw=0)
+ 111  POP_TOP
+ 112  JUMP_FORWARD           0  (0)
+ 115  ??neox=129 arg=0
+ 118  LOAD_ATTR              15  (reset)
+ 121  CALL_FUNCTION          0  (pos=0 kw=0)
+ 124  POP_TOP
+ 125  LOAD_GLOBAL            16  (Timer)
+ 128  LOAD_ATTR              17  (addTimer)
+ 131  LOAD_CONST             5  (0)
+ 134  ??neox=120 arg=0
+ 137  BUILD_TUPLE            1  (1)
+ 140  LOAD_CONST             6  (<code <lambda>>)
+ 143  ??neox=172 arg=0
+ 146  CALL_FUNCTION          2  (pos=2 kw=0)
+ 149  POP_TOP
+ 150  LOAD_GLOBAL            16  (Timer)
+ 153  LOAD_ATTR              17  (addTimer)
+ 156  LOAD_CONST             5  (0)
+ 159  ??neox=120 arg=0
+ 162  BUILD_TUPLE            1  (1)
+ 165  LOAD_CONST             7  (<code <lambda>>)
+ 168  ??neox=172 arg=0
+ 171  CALL_FUNCTION          2  (pos=2 kw=0)
+ 174  POP_TOP
+ 175  RETURN_CONST           0  (None)
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['showLogOffUI']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (showLogOffUI)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  RETURN_VALUE
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['logoutAudio']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (logoutAudio)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  RETURN_VALUE
+
+--------     logoutAudio (nlocals=None stack=None)
+--- logoutAudio (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['Globals', 'ccdriver', 'ccminiInstance', 'LogoutSession', 'const', 'CCMINI_TEAM_CHANNEL', 'CCMINI_NEARBY_CHANNEL']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (ccdriver)
+   6  POP_JUMP_IF_FALSE      56  (56)
+   9  LOAD_GLOBAL            0  (Globals)
+  12  LOAD_ATTR              2  (ccminiInstance)
+  15  CALL_FUNCTION          0  (pos=0 kw=0)
+  18  LOAD_ATTR              3  (LogoutSession)
+  21  LOAD_GLOBAL            4  (const)
+  24  LOAD_ATTR              5  (CCMINI_TEAM_CHANNEL)
+  27  CALL_FUNCTION          1  (pos=1 kw=0)
+  30  POP_TOP
+  31  LOAD_GLOBAL            0  (Globals)
+  34  LOAD_ATTR              2  (ccminiInstance)
+  37  CALL_FUNCTION          0  (pos=0 kw=0)
+  40  LOAD_ATTR              3  (LogoutSession)
+  43  LOAD_GLOBAL            4  (const)
+  46  LOAD_ATTR              6  (CCMINI_NEARBY_CHANNEL)
+  49  CALL_FUNCTION          1  (pos=1 kw=0)
+  52  POP_TOP
+  53  JUMP_FORWARD           0  (0)
+  56  RETURN_CONST           0  (None)
+
+--------     showLogOffUI (nlocals=None stack=None)
+--- showLogOffUI (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['Globals', 'MAP_ID', 'uiMgr', 'UISelectCharacter', 'None', 'destroy_ui_obj', 'UILogin', 'enter_ui']
+   0  LOAD_CONST             1  (-1)
+   3  LOAD_GLOBAL            0  (Globals)
+   6  JUMP_FORWARD           1  (1)
+   9  LOAD_GLOBAL            0  (Globals)
+  12  LOAD_ATTR              2  (uiMgr)
+  15  LOAD_ATTR              3  (UISelectCharacter)
+  18  LOAD_CONST             0  (None)
+  21  COMPARE_OP             9  (is not)
+  24  POP_JUMP_IF_FALSE      46  (46)
+  27  LOAD_GLOBAL            0  (Globals)
+  30  LOAD_ATTR              2  (uiMgr)
+  33  LOAD_ATTR              5  (destroy_ui_obj)
+  36  LOAD_CONST             2  ('UISelectCharacter')
+  39  CALL_FUNCTION          1  (pos=1 kw=0)
+  42  POP_TOP
+  43  JUMP_FORWARD           0  (0)
+  46  LOAD_GLOBAL            0  (Globals)
+  49  LOAD_ATTR              2  (uiMgr)
+  52  LOAD_ATTR              6  (UILogin)
+  55  LOAD_CONST             0  (None)
+  58  COMPARE_OP             8  (is)
+  61  POP_JUMP_IF_FALSE      83  (83)
+  64  LOAD_GLOBAL            0  (Globals)
+  67  LOAD_ATTR              2  (uiMgr)
+  70  LOAD_ATTR              7  (enter_ui)
+  73  LOAD_CONST             3  ('UILogin')
+  76  CALL_FUNCTION          1  (pos=1 kw=0)
+  79  POP_TOP
+  80  JUMP_FORWARD           0  (0)
+  83  RETURN_CONST           0  (None)
+
+--------     tryReconnect (nlocals=None stack=None)
+--- tryReconnect (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['cancelAutoReconnect', 'retry_time', 'retry_limit', 'Timer', 'addTimer', 'retry_interval', 'reconnect_timer', 'backToLogin']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (cancelAutoReconnect)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  POP_TOP
+  10  ??neox=129 arg=0
+  13  LOAD_ATTR              1  (retry_time)
+  16  ??neox=129 arg=0
+  19  LOAD_ATTR              2  (retry_limit)
+  22  COMPARE_OP             0  (<)
+  25  POP_JUMP_IF_FALSE      64  (64)
+  28  LOAD_GLOBAL            3  (Timer)
+  31  LOAD_ATTR              4  (addTimer)
+  34  ??neox=129 arg=0
+  37  LOAD_ATTR              5  (retry_interval)
+  40  ??neox=120 arg=0
+  43  BUILD_TUPLE            1  (1)
+  46  LOAD_CONST             1  (<code <lambda>>)
+  49  ??neox=172 arg=0
+  52  CALL_FUNCTION          2  (pos=2 kw=0)
+  55  ??neox=129 arg=0
+  58  JUMP_FORWARD           6  (6)
+  61  JUMP_FORWARD           10  (10)
+  64  ??neox=129 arg=0
+  67  LOAD_ATTR              7  (backToLogin)
+  70  CALL_FUNCTION          0  (pos=0 kw=0)
+  73  POP_TOP
+  74  RETURN_CONST           0  (None)
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\ConnectMonitor.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['reconnect']
+   0  ??neox=129 arg=0
+   3  LOAD_ATTR              0  (reconnect)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  RETURN_VALUE
+
+--------     reconnect (nlocals=None stack=None)
+--- reconnect (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['reconnect_timer', 'retry_time', 'showConnectMonitorTips', 'curHostType', 'HostType', 'LOGIN', 'connectLoginHost', 'True', 'False', 'BATTLE', 'connectBattleHost']
+   0  LOAD_CONST             1  (0)
+   3  STORE_ATTR             0  (reconnect_timer)
+   6  LOAD_FAST              0  (self)
+   9  ??neox=46 arg=352
+  12  ??neox=0 arg=613
+  15  ??neox=0 arg=8214
+  18  JUMP_FORWARD           1  (1)
+  21  LOAD_FAST_ATTR         1  (self.retry_time)
+  24  LOAD_CONST             3  (2)
+  27  COMPARE_OP             5  (>=)
+  30  POP_JUMP_IF_FALSE      46  (46)
+  33  LOAD_GLOBAL            2  (showConnectMonitorTips)
+  36  LOAD_CONST             4  ('disconnect')
+  39  CALL_FUNCTION          1  (pos=1 kw=0)
+  42  POP_TOP
+  43  JUMP_FORWARD           0  (0)
+  46  LOAD_FAST_ATTR         3  (self.curHostType)
+  49  LOAD_GLOBAL            4  (HostType)
+  52  LOAD_ATTR              5  (LOGIN)
+  55  COMPARE_OP             2  (==)
+  58  POP_JUMP_IF_FALSE      77  (77)
+  61  LOAD_FAST_ATTR         6  (self.connectLoginHost)
+  64  LOAD_GLOBAL            7  (True)
+  67  LOAD_GLOBAL            8  (False)
+  70  CALL_FUNCTION          2  (pos=2 kw=0)
+  73  POP_TOP
+  74  JUMP_FORWARD           28  (28)
+  77  LOAD_FAST_ATTR         3  (self.curHostType)
+  80  LOAD_GLOBAL            4  (HostType)
+  83  LOAD_ATTR              9  (BATTLE)
+  86  COMPARE_OP             2  (==)
+  89  POP_JUMP_IF_FALSE      105  (105)
+  92  LOAD_FAST_ATTR         10  (self.connectBattleHost)
+  95  LOAD_GLOBAL            7  (True)
+  98  CALL_FUNCTION          1  (pos=1 kw=0)
+ 101  POP_TOP
+ 102  JUMP_FORWARD           0  (0)
+ 105  RETURN_CONST           0  (None)
+
+--------     cancelAutoReconnect (nlocals=None stack=None)
+--- cancelAutoReconnect (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['reconnect_timer', 'Timer', 'delTimer']
+   0  LOAD_FAST_ATTR         0  (self.reconnect_timer)
+   3  POP_JUMP_IF_FALSE      28  (28)
+   6  LOAD_GLOBAL            1  (Timer)
+   9  LOAD_ATTR              2  (delTimer)
+  12  LOAD_FAST_ATTR         0  (self.reconnect_timer)
+  15  CALL_FUNCTION          1  (pos=1 kw=0)
+  18  POP_TOP
+  19  LOAD_CONST             1  (0)
+  22  STORE_ATTR             0  (reconnect_timer)
+  25  JUMP_FORWARD           0  (0)
+  28  RETURN_CONST           0  (None)
+
+--------     reset (nlocals=None stack=None)
+--- reset (file=helpers\ConnectMonitor.py, argc=1) ---
+VARNAMES: ['self']
+NAMES:    ['cancelAutoReconnect', 'retry_time']
+   0  LOAD_FAST_ATTR         0  (self.cancelAutoReconnect)
+   3  CALL_FUNCTION          0  (pos=0 kw=0)
+   6  POP_TOP
+   7  LOAD_CONST             1  (0)
+  10  STORE_ATTR             1  (retry_time)
+  13  RETURN_CONST           0  (None)

@@ -1,0 +1,1609 @@
+==== module helpers/channel/channel_helper.py  sig=0xa8798720 ====
+
+-------- <module-body> (nlocals=None stack=None)
+--- <module> (file=helpers\channel\channel_helper.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['shared.shared_const', 'ChannelUploadStageEnum', 'ChannelLoginInfoEnum', 'ChannelLogoutRetEnum', 'BigWorld', 'Globals', 'f4logging', 'SALogging', 'shared', 'legacyProperties', 'properties', 'client_utils', 'extconfigs', 'helpers.HttpHelper', 'HttpHelper', 'helpers', 'DeepLinkUtils', 'QRCodeUtils', 'LBSUtils', 'ContactsUtils', 'LiveUtils', 'FBFriendUtils', 'game_live.game_live_mgr', 'game_live_mgr', 'json', 'utils', 'errtxt', 'Timer', 'const', 'switches', 'CHANNEL_NEED_FIELD', 'get_third_party_credentials_callback', 'get_axeso5_account', 'get_axeso5_account_callback', 'extendFuncCallback', 'update_live_info_callback', 'get_twitch_rtmp', 'extendFuncCallbackForScanQRCode', 'extendFuncCallbackForCreateQRCode', 'extendFuncCallbackForGetNearby', 'extendFuncCallbackForGetLocation', 'extendFuncCallbackForReadContacts', 'extendFuncCallbackForLiveRecordGotAudio', 'extendFuncCallbackForLiveRecordNoAudio', 'None', 'EXTEND_METHOD_TO_FUNC', 'extend_func_callback', 'ExtendMethodHandler', 'object', 'ChannelHelper']
+   0  LOAD_CONST             0  (-1)
+   3  LOAD_CONST             1  ([b'ChannelUploadStageEnum', b'ChannelLoginInfoEnum', b'ChannelLogoutRetEnum'])
+   6  ??neox=134 arg=0
+   9  ??neox=116 arg=1
+  12  ??neox=157 arg=1
+  15  ??neox=116 arg=2
+  18  ??neox=157 arg=2
+  21  ??neox=116 arg=3
+  24  ??neox=157 arg=3
+  27  POP_TOP
+  28  LOAD_CONST             0  (-1)
+  31  LOAD_CONST             2  (None)
+  34  ??neox=134 arg=4
+  37  ??neox=157 arg=4
+  40  LOAD_CONST             0  (-1)
+  43  LOAD_CONST             2  (None)
+  46  ??neox=134 arg=5
+  49  ??neox=157 arg=5
+  52  LOAD_CONST             0  (-1)
+  55  LOAD_CONST             2  (None)
+  58  ??neox=134 arg=6
+  61  ??neox=157 arg=6
+  64  LOAD_CONST             0  (-1)
+  67  LOAD_CONST             2  (None)
+  70  ??neox=134 arg=7
+  73  ??neox=157 arg=7
+  76  LOAD_CONST             0  (-1)
+  79  LOAD_CONST             3  ([b'legacyProperties'])
+  82  ??neox=134 arg=8
+  85  ??neox=116 arg=9
+  88  ??neox=157 arg=10
+  91  POP_TOP
+  92  LOAD_CONST             0  (-1)
+  95  LOAD_CONST             2  (None)
+  98  ??neox=134 arg=11
+ 101  ??neox=157 arg=11
+ 104  LOAD_CONST             0  (-1)
+ 107  LOAD_CONST             2  (None)
+ 110  ??neox=134 arg=12
+ 113  ??neox=157 arg=12
+ 116  LOAD_CONST             0  (-1)
+ 119  LOAD_CONST             4  ([b'HttpHelper'])
+ 122  ??neox=134 arg=13
+ 125  ??neox=116 arg=14
+ 128  ??neox=157 arg=14
+ 131  POP_TOP
+ 132  LOAD_CONST             0  (-1)
+ 135  LOAD_CONST             5  ([b'DeepLinkUtils', b'QRCodeUtils', b'LBSUtils', b'ContactsUtils', b'LiveUtils', b'FBFriendUtils'])
+ 138  ??neox=134 arg=15
+ 141  ??neox=116 arg=16
+ 144  ??neox=157 arg=16
+ 147  ??neox=116 arg=17
+ 150  ??neox=157 arg=17
+ 153  ??neox=116 arg=18
+ 156  ??neox=157 arg=18
+ 159  ??neox=116 arg=19
+ 162  ??neox=157 arg=19
+ 165  ??neox=116 arg=20
+ 168  ??neox=157 arg=20
+ 171  ??neox=116 arg=21
+ 174  ??neox=157 arg=21
+ 177  POP_TOP
+ 178  LOAD_CONST             0  (-1)
+ 181  LOAD_CONST             2  (None)
+ 184  ??neox=134 arg=22
+ 187  LOAD_ATTR              23  (game_live_mgr)
+ 190  ??neox=157 arg=23
+ 193  LOAD_CONST             0  (-1)
+ 196  LOAD_CONST             2  (None)
+ 199  ??neox=134 arg=24
+ 202  ??neox=157 arg=24
+ 205  LOAD_CONST             0  (-1)
+ 208  LOAD_CONST             2  (None)
+ 211  ??neox=134 arg=25
+ 214  ??neox=157 arg=25
+ 217  LOAD_CONST             0  (-1)
+ 220  LOAD_CONST             2  (None)
+ 223  ??neox=134 arg=26
+ 226  ??neox=157 arg=26
+ 229  LOAD_CONST             0  (-1)
+ 232  LOAD_CONST             2  (None)
+ 235  ??neox=134 arg=27
+ 238  ??neox=157 arg=27
+ 241  LOAD_CONST             0  (-1)
+ 244  LOAD_CONST             2  (None)
+ 247  ??neox=134 arg=28
+ 250  ??neox=157 arg=28
+ 253  LOAD_CONST             0  (-1)
+ 256  LOAD_CONST             6  ([b'switches'])
+ 259  ??neox=134 arg=8
+ 262  ??neox=116 arg=29
+ 265  ??neox=157 arg=29
+ 268  POP_TOP
+ 269  BUILD_MAP              19  (19)
+ 272  LOAD_CONST             64  ([b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_CAPABILITY', b'USERINFO_VIP', b'USERINFO_MENPAI_ID', b'USERINFO_MENPAI_NAME', b'USERINFO_GANG_ID', b'USERINFO_ORG'])
+ 275  LOAD_CONST             18  ('netease')
+ 278  STORE_MAP
+ 279  LOAD_CONST             65  ([b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_CAPABILITY', b'USERINFO_VIP', b'USERINFO_MENPAI_ID', b'USERINFO_MENPAI_NAME', b'USERINFO_GANG_ID', b'USERINFO_ORG'])
+ 282  LOAD_CONST             19  ('netease_global')
+ 285  STORE_MAP
+ 286  LOAD_CONST             66  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_ROLE_CTIME'])
+ 289  LOAD_CONST             22  ('uc_platform')
+ 292  STORE_MAP
+ 293  LOAD_CONST             67  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 296  LOAD_CONST             23  ('oppo')
+ 299  STORE_MAP
+ 300  LOAD_CONST             68  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 303  LOAD_CONST             24  ('iaround')
+ 306  STORE_MAP
+ 307  LOAD_CONST             69  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 310  LOAD_CONST             25  ('5253')
+ 313  STORE_MAP
+ 314  LOAD_CONST             70  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 317  LOAD_CONST             26  ('nearme_vivo')
+ 320  STORE_MAP
+ 321  LOAD_CONST             71  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 324  LOAD_CONST             27  ('360_assistant')
+ 327  STORE_MAP
+ 328  LOAD_CONST             72  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_ORG'])
+ 331  LOAD_CONST             28  ('huawei')
+ 334  STORE_MAP
+ 335  LOAD_CONST             73  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_BALANCE', b'USERINFO_VIP', b'USERINFO_ORG'])
+ 338  LOAD_CONST             30  ('xiaomi_app')
+ 341  STORE_MAP
+ 342  LOAD_CONST             74  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 345  LOAD_CONST             31  ('meizu_sdk')
+ 348  STORE_MAP
+ 349  LOAD_CONST             75  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 352  LOAD_CONST             32  ('meizu_37')
+ 355  STORE_MAP
+ 356  LOAD_CONST             76  ([b'USERINFO_HOSTID', b'USERINFO_HOSTNAME', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_ROLE_CTIME', b'USERINFO_GRADE', b'USERINFO_STAGE', b'USERINFO_ROLE_LEVELMTIME'])
+ 359  LOAD_CONST             34  ('dangle')
+ 362  STORE_MAP
+ 363  LOAD_CONST             77  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_HOSTNAME'])
+ 366  LOAD_CONST             35  ('bilibili_sdk')
+ 369  STORE_MAP
+ 370  LOAD_CONST             78  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_ROLE_CTIME', b'USERINFO_ROLE_LEVELMTIME'])
+ 373  LOAD_CONST             36  ('yykj')
+ 376  STORE_MAP
+ 377  LOAD_CONST             79  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_ROLE_CTIME', b'USERINFO_GRADE', b'USERINFO_ROLE_LEVELMTIME', b'USERINFO_HOSTID', b'USERINFO_HOSTNAME'])
+ 380  LOAD_CONST             37  ('yyxx')
+ 383  STORE_MAP
+ 384  LOAD_CONST             80  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 387  LOAD_CONST             38  ('ylwl')
+ 390  STORE_MAP
+ 391  LOAD_CONST             81  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID'])
+ 394  LOAD_CONST             39  ('douyutv')
+ 397  STORE_MAP
+ 398  LOAD_CONST             82  ([b'USERINFO_STAGE', b'USERINFO_UID', b'USERINFO_NAME', b'USERINFO_GRADE', b'USERINFO_HOSTNAME', b'USERINFO_HOSTID', b'USERINFO_BALANCE', b'USERINFO_VIP', b'USERINFO_GANG_ROLE_NAME'])
+ 401  LOAD_CONST             41  ('52tt')
+ 404  STORE_MAP
+ 405  ??neox=157 arg=30
+ 408  LOAD_CONST             42  (<code get_third_party_credentials_callback>)
+ 411  MAKE_FUNCTION          0  (0)
+ 414  ??neox=157 arg=31
+ 417  LOAD_CONST             43  (<code get_axeso5_account>)
+ 420  MAKE_FUNCTION          0  (0)
+ 423  ??neox=157 arg=32
+ 426  LOAD_CONST             44  (<code get_axeso5_account_callback>)
+ 429  MAKE_FUNCTION          0  (0)
+ 432  ??neox=157 arg=33
+ 435  BUILD_MAP              15  (15)
+ 438  ??neox=153 arg=16
+ 441  LOAD_ATTR              34  (extendFuncCallback)
+ 444  LOAD_CONST             45  ('fromDeepLink')
+ 447  STORE_MAP
+ 448  ??neox=153 arg=23
+ 451  LOAD_ATTR              35  (update_live_info_callback)
+ 454  LOAD_CONST             46  ('updateLiveInfo')
+ 457  STORE_MAP
+ 458  ??neox=153 arg=23
+ 461  LOAD_ATTR              36  (get_twitch_rtmp)
+ 464  LOAD_CONST             47  ('getTwitchRtmp')
+ 467  STORE_MAP
+ 468  ??neox=153 arg=17
+ 471  LOAD_ATTR              37  (extendFuncCallbackForScanQRCode)
+ 474  LOAD_CONST             48  ('scanQRCode')
+ 477  STORE_MAP
+ 478  ??neox=153 arg=17
+ 481  LOAD_ATTR              38  (extendFuncCallbackForCreateQRCode)
+ 484  LOAD_CONST             49  ('createQRCode')
+ 487  STORE_MAP
+ 488  ??neox=153 arg=18
+ 491  LOAD_ATTR              39  (extendFuncCallbackForGetNearby)
+ 494  LOAD_CONST             50  ('getNearby')
+ 497  STORE_MAP
+ 498  ??neox=153 arg=18
+ 501  LOAD_ATTR              40  (extendFuncCallbackForGetLocation)
+ 504  LOAD_CONST             51  ('getLocation')
+ 507  STORE_MAP
+ 508  ??neox=153 arg=19
+ 511  LOAD_ATTR              41  (extendFuncCallbackForReadContacts)
+ 514  LOAD_CONST             52  ('readContacts')
+ 517  STORE_MAP
+ 518  ??neox=153 arg=20
+ 521  LOAD_ATTR              42  (extendFuncCallbackForLiveRecordGotAudio)
+ 524  LOAD_CONST             53  ('liveRecordGotAudio')
+ 527  STORE_MAP
+ 528  ??neox=153 arg=20
+ 531  LOAD_ATTR              43  (extendFuncCallbackForLiveRecordNoAudio)
+ 534  LOAD_CONST             54  ('liveRecordNoAudio')
+ 537  STORE_MAP
+ 538  ??neox=153 arg=21
+ 541  LOAD_ATTR              34  (extendFuncCallback)
+ 544  LOAD_CONST             55  ('queryFriendList')
+ 547  STORE_MAP
+ 548  ??neox=153 arg=31
+ 551  LOAD_CONST             56  ('onGetThirdPartyCredentials')
+ 554  STORE_MAP
+ 555  LOAD_CONST             2  (None)
+ 558  LOAD_CONST             57  ('genToken')
+ 561  STORE_MAP
+ 562  LOAD_CONST             2  (None)
+ 565  LOAD_CONST             58  ('onWebClose')
+ 568  STORE_MAP
+ 569  ??neox=153 arg=33
+ 572  LOAD_CONST             59  ('getuserbalance')
+ 575  STORE_MAP
+ 576  ??neox=157 arg=45
+ 579  LOAD_CONST             60  (<code extend_func_callback>)
+ 582  MAKE_FUNCTION          0  (0)
+ 585  ??neox=157 arg=46
+ 588  LOAD_CONST             61  (<code ExtendMethodHandler>)
+ 591  MAKE_FUNCTION          0  (0)
+ 594  ??neox=157 arg=47
+ 597  LOAD_CONST             62  ('ChannelHelper')
+ 600  ??neox=153 arg=48
+ 603  BUILD_TUPLE            1  (1)
+ 606  LOAD_CONST             63  (<code ChannelHelper>)
+ 609  MAKE_FUNCTION          0  (0)
+ 612  CALL_FUNCTION          0  (pos=0 kw=0)
+ 615  ??neox=54 arg=12701
+ 618  ??neox=0 arg=606
+ 621  ??neox=0
+
+--------   get_third_party_credentials_callback (nlocals=None stack=None)
+--- get_third_party_credentials_callback (file=helpers\channel\channel_helper.py, argc=4) ---
+VARNAMES: ['jsonDict', 'BigWorld', 'Athlete', 'player']
+NAMES:    ['BigWorld', 'Athlete', 'player', 'isinstance', 'Globals', 'isWin32', 'channel', 'get_prop_str', 'isdigit', 'int', 'requireFacebookShortAccessTokenCallbackForWin32']
+   0  LOAD_CONST             1  (-1)
+   3  LOAD_CONST             0  (None)
+   6  ??neox=134 arg=0
+   9  STORE_FAST             1  (BigWorld)
+  12  LOAD_CONST             1  (-1)
+  15  LOAD_CONST             0  (None)
+  18  ??neox=134 arg=1
+  21  STORE_FAST             2  (Athlete)
+  24  LOAD_FAST_ATTR         258  (BigWorld.player)
+  27  CALL_FUNCTION          0  (pos=0 kw=0)
+  30  STORE_FAST             3  (player)
+  33  LOAD_GLOBAL            3  (isinstance)
+  36  LOAD_FAST              3  (player)
+  39  LOAD_FAST_ATTR         513  (Athlete.Athlete)
+  42  CALL_FUNCTION          2  (pos=2 kw=0)
+  45  POP_JUMP_IF_FALSE      124  (124)
+  48  LOAD_GLOBAL            4  (Globals)
+  51  LOAD_ATTR              5  (isWin32)
+  54  POP_JUMP_IF_FALSE      124  (124)
+  57  LOAD_GLOBAL            4  (Globals)
+  60  LOAD_ATTR              6  (channel)
+  63  LOAD_ATTR              7  (get_prop_str)
+  66  LOAD_CONST             2  ('loginMethod')
+  69  CALL_FUNCTION          1  (pos=1 kw=0)
+  72  LOAD_ATTR              8  (isdigit)
+  75  CALL_FUNCTION          0  (pos=0 kw=0)
+  78  POP_JUMP_IF_FALSE      124  (124)
+  81  LOAD_GLOBAL            9  (int)
+  84  LOAD_GLOBAL            4  (Globals)
+  87  LOAD_ATTR              6  (channel)
+  90  LOAD_ATTR              7  (get_prop_str)
+  93  LOAD_CONST             2  ('loginMethod')
+  96  CALL_FUNCTION          1  (pos=1 kw=0)
+  99  CALL_FUNCTION          1  (pos=1 kw=0)
+ 102  LOAD_CONST             3  (1)
+ 105  COMPARE_OP             2  (==)
+ 108  POP_JUMP_IF_FALSE      124  (124)
+ 111  LOAD_FAST_ATTR         778  (player.requireFacebookShortAccessTokenCallbackForWin32)
+ 114  LOAD_FAST              0  (jsonDict)
+ 117  CALL_FUNCTION          1  (pos=1 kw=0)
+ 120  POP_TOP
+ 121  JUMP_FORWARD           0  (0)
+ 124  RETURN_CONST           0  (None)
+
+--------   get_axeso5_account (nlocals=None stack=None)
+--- get_axeso5_account (file=helpers\channel\channel_helper.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['Globals', 'channel', 'extend_func', 'json', 'dumps']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (channel)
+   6  POP_JUMP_IF_FALSE      44  (44)
+   9  LOAD_GLOBAL            0  (Globals)
+  12  LOAD_ATTR              1  (channel)
+  15  LOAD_ATTR              2  (extend_func)
+  18  LOAD_GLOBAL            3  (json)
+  21  LOAD_ATTR              4  (dumps)
+  24  BUILD_MAP              1  (1)
+  27  LOAD_CONST             1  ('getuserbalance')
+  30  LOAD_CONST             2  ('methodId')
+  33  STORE_MAP
+  34  CALL_FUNCTION          1  (pos=1 kw=0)
+  37  CALL_FUNCTION          1  (pos=1 kw=0)
+  40  POP_TOP
+  41  JUMP_FORWARD           0  (0)
+  44  RETURN_CONST           0  (None)
+
+--------   get_axeso5_account_callback (nlocals=None stack=None)
+--- get_axeso5_account_callback (file=helpers\channel\channel_helper.py, argc=2) ---
+VARNAMES: ['jsonDict', 'balance']
+NAMES:    ['get', 'Globals', 'axeso5Balance', 'uiMgr', 'UIPayment', 'SendMessage', 'UIMain']
+   0  LOAD_FAST_ATTR         0  (jsonDict.get)
+   3  LOAD_CONST             1  ('code')
+   6  CALL_FUNCTION          1  (pos=1 kw=0)
+   9  LOAD_CONST             2  (1)
+  12  COMPARE_OP             2  (==)
+  15  POP_JUMP_IF_FALSE      36  (36)
+  18  LOAD_FAST_ATTR         0  (jsonDict.get)
+  21  LOAD_CONST             3  ('balance')
+  24  LOAD_CONST             4  ('0')
+  27  CALL_FUNCTION          2  (pos=2 kw=0)
+  30  STORE_FAST             1  (balance)
+  33  JUMP_FORWARD           6  (6)
+  36  LOAD_CONST             5  (-1)
+  39  STORE_FAST             1  (balance)
+  42  LOAD_FAST              1  (balance)
+  45  LOAD_CONST             5  (-1)
+  48  COMPARE_OP             3  (!=)
+  51  POP_JUMP_IF_FALSE      66  (66)
+  54  LOAD_FAST              1  (balance)
+  57  LOAD_GLOBAL            1  (Globals)
+  60  JUMP_FORWARD           2  (2)
+  63  JUMP_FORWARD           0  (0)
+  66  LOAD_GLOBAL            1  (Globals)
+  69  LOAD_ATTR              3  (uiMgr)
+  72  LOAD_ATTR              4  (UIPayment)
+  75  POP_JUMP_IF_FALSE      100  (100)
+  78  LOAD_GLOBAL            1  (Globals)
+  81  LOAD_ATTR              3  (uiMgr)
+  84  LOAD_ATTR              4  (UIPayment)
+  87  LOAD_ATTR              5  (SendMessage)
+  90  LOAD_CONST             6  ('onCurrencyChanged')
+  93  CALL_FUNCTION          1  (pos=1 kw=0)
+  96  POP_TOP
+  97  JUMP_FORWARD           0  (0)
+ 100  LOAD_GLOBAL            1  (Globals)
+ 103  LOAD_ATTR              3  (uiMgr)
+ 106  LOAD_ATTR              6  (UIMain)
+ 109  POP_JUMP_IF_FALSE      137  (137)
+ 112  LOAD_GLOBAL            1  (Globals)
+ 115  LOAD_ATTR              3  (uiMgr)
+ 118  LOAD_ATTR              6  (UIMain)
+ 121  LOAD_ATTR              5  (SendMessage)
+ 124  LOAD_CONST             7  ('refreshAxeso5ChannelBalance')
+ 127  LOAD_FAST              1  (balance)
+ 130  CALL_FUNCTION          2  (pos=2 kw=0)
+ 133  POP_TOP
+ 134  JUMP_FORWARD           0  (0)
+ 137  RETURN_CONST           0  (None)
+
+--------   extend_func_callback (nlocals=None stack=None)
+--- extend_func_callback (file=helpers\channel\channel_helper.py, argc=4) ---
+VARNAMES: ['jsonStr', 'jsonDict', 'methodId', 'func']
+NAMES:    ['json', 'loads', 'get', 'None', 'Globals', 'videoAdManager', 'OnChannelExtendFuncCallback', 'EXTEND_METHOD_TO_FUNC']
+   0  LOAD_GLOBAL            0  (json)
+   3  LOAD_ATTR              1  (loads)
+   6  LOAD_FAST              0  (jsonStr)
+   9  CALL_FUNCTION          1  (pos=1 kw=0)
+  12  STORE_FAST             1  (jsonDict)
+  15  LOAD_FAST_ATTR         258  (jsonDict.get)
+  18  LOAD_CONST             1  ('methodId')
+  21  LOAD_CONST             0  (None)
+  24  CALL_FUNCTION          2  (pos=2 kw=0)
+  27  STORE_FAST             2  (methodId)
+  30  LOAD_FAST              2  (methodId)
+  33  LOAD_CONST             0  (None)
+  36  COMPARE_OP             9  (is not)
+  39  POP_JUMP_IF_FALSE      107  (107)
+  42  LOAD_GLOBAL            4  (Globals)
+  45  LOAD_ATTR              5  (videoAdManager)
+  48  POP_JUMP_IF_FALSE      70  (70)
+  51  LOAD_GLOBAL            4  (Globals)
+  54  LOAD_ATTR              5  (videoAdManager)
+  57  LOAD_ATTR              6  (OnChannelExtendFuncCallback)
+  60  LOAD_FAST              1  (jsonDict)
+  63  CALL_FUNCTION          1  (pos=1 kw=0)
+  66  POP_TOP
+  67  JUMP_FORWARD           0  (0)
+  70  LOAD_GLOBAL            7  (EXTEND_METHOD_TO_FUNC)
+  73  LOAD_ATTR              2  (get)
+  76  LOAD_FAST              2  (methodId)
+  79  LOAD_CONST             0  (None)
+  82  CALL_FUNCTION          2  (pos=2 kw=0)
+  85  STORE_FAST             3  (func)
+  88  LOAD_FAST              3  (func)
+  91  ??neox=105 arg=103
+  94  LOAD_FAST              3  (func)
+  97  LOAD_FAST              1  (jsonDict)
+ 100  CALL_FUNCTION          1  (pos=1 kw=0)
+ 103  POP_TOP
+ 104  JUMP_FORWARD           0  (0)
+ 107  RETURN_CONST           0  (None)
+
+--------   ExtendMethodHandler (nlocals=None stack=None)
+--- ExtendMethodHandler (file=helpers\channel\channel_helper.py, argc=2) ---
+VARNAMES: ['methodID', 'wrap']
+NAMES:    []
+   0  ??neox=120 arg=0
+   3  BUILD_TUPLE            1  (1)
+   6  LOAD_CONST             1  (<code wrap>)
+   9  ??neox=172 arg=0
+  12  STORE_FAST             1  (wrap)
+  15  LOAD_FAST              1  (wrap)
+  18  RETURN_VALUE
+
+--------     wrap (nlocals=None stack=None)
+--- wrap (file=helpers\channel\channel_helper.py, argc=1) ---
+VARNAMES: ['func']
+NAMES:    ['EXTEND_METHOD_TO_FUNC', 'update']
+   0  LOAD_GLOBAL            0  (EXTEND_METHOD_TO_FUNC)
+   3  LOAD_ATTR              1  (update)
+   6  BUILD_MAP              1  (1)
+   9  LOAD_FAST              0  (func)
+  12  ??neox=129 arg=0
+  15  STORE_MAP
+  16  CALL_FUNCTION          1  (pos=1 kw=0)
+  19  POP_TOP
+  20  LOAD_FAST              0  (func)
+  23  RETURN_VALUE
+
+--------   ChannelHelper (nlocals=None stack=None)
+--- ChannelHelper (file=helpers\channel\channel_helper.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['__name__', '__module__', 'classmethod', 'onLoginSucceed', 'extractNeteaseWinSauthInfo', 'onCheckPlayerUID', 'onLoginFailed', 'onLogout', 'ChannelUploadStageEnum', 'ENTER_SERVER', 'uploadUserInfo', 'refreshDarenState', 'doOauth', 'getCurrencyType', 'getAuthJsonValue', 'isCurrencyVND']
+   0  ??neox=153 arg=0
+   3  ??neox=157 arg=1
+   6  ??neox=153 arg=2
+   9  LOAD_CONST             0  (<code onLoginSucceed>)
+  12  MAKE_FUNCTION          0  (0)
+  15  CALL_FUNCTION          1  (pos=1 kw=0)
+  18  ??neox=157 arg=3
+  21  ??neox=153 arg=2
+  24  LOAD_CONST             1  (<code extractNeteaseWinSauthInfo>)
+  27  MAKE_FUNCTION          0  (0)
+  30  CALL_FUNCTION          1  (pos=1 kw=0)
+  33  ??neox=157 arg=4
+  36  ??neox=153 arg=2
+  39  LOAD_CONST             2  (<code onCheckPlayerUID>)
+  42  MAKE_FUNCTION          0  (0)
+  45  CALL_FUNCTION          1  (pos=1 kw=0)
+  48  ??neox=157 arg=5
+  51  ??neox=153 arg=2
+  54  LOAD_CONST             3  (<code onLoginFailed>)
+  57  MAKE_FUNCTION          0  (0)
+  60  CALL_FUNCTION          1  (pos=1 kw=0)
+  63  ??neox=157 arg=6
+  66  ??neox=153 arg=2
+  69  LOAD_CONST             4  (<code onLogout>)
+  72  MAKE_FUNCTION          0  (0)
+  75  CALL_FUNCTION          1  (pos=1 kw=0)
+  78  ??neox=157 arg=7
+  81  ??neox=153 arg=2
+  84  ??neox=153 arg=8
+  87  LOAD_ATTR              9  (ENTER_SERVER)
+  90  LOAD_CONST             5  (<code uploadUserInfo>)
+  93  MAKE_FUNCTION          1  (1)
+  96  CALL_FUNCTION          1  (pos=1 kw=0)
+  99  ??neox=157 arg=10
+ 102  ??neox=153 arg=2
+ 105  LOAD_CONST             6  (<code refreshDarenState>)
+ 108  MAKE_FUNCTION          0  (0)
+ 111  CALL_FUNCTION          1  (pos=1 kw=0)
+ 114  ??neox=157 arg=11
+ 117  ??neox=153 arg=2
+ 120  LOAD_CONST             7  (<code doOauth>)
+ 123  MAKE_FUNCTION          0  (0)
+ 126  CALL_FUNCTION          1  (pos=1 kw=0)
+ 129  ??neox=157 arg=12
+ 132  ??neox=153 arg=2
+ 135  LOAD_CONST             8  (<code getCurrencyType>)
+ 138  MAKE_FUNCTION          0  (0)
+ 141  CALL_FUNCTION          1  (pos=1 kw=0)
+ 144  ??neox=157 arg=13
+ 147  ??neox=153 arg=2
+ 150  LOAD_CONST             9  (<code getAuthJsonValue>)
+ 153  MAKE_FUNCTION          0  (0)
+ 156  CALL_FUNCTION          1  (pos=1 kw=0)
+ 159  ??neox=157 arg=14
+ 162  ??neox=153 arg=2
+ 165  LOAD_CONST             10  (<code isCurrencyVND>)
+ 168  MAKE_FUNCTION          0  (0)
+ 171  CALL_FUNCTION          1  (pos=1 kw=0)
+ 174  ??neox=157 arg=15
+ 177  ??neox=82
+ 178  RETURN_VALUE
+
+--------     onLoginSucceed (nlocals=None stack=None)
+--- onLoginSucceed (file=helpers\channel\channel_helper.py, argc=6) ---
+VARNAMES: ['cls', 'timestamp', 'ext_info', 'isNewLogin', 'isNewAccount', 'GameSDK']
+NAMES:    ['Globals', 'channel', 'get_prop_str', 'ChannelLoginInfoEnum', 'UID', 'channelInfo', 'SESSION', 'DEVICE_ID', 'UDID', 'ORIGIN_GUEST_UID', 'APPID', 'CPID', 'SAUTH_JSON', 'LOGIN_TYPE', 'sdk_version', 'SDKVERSION', 'name', 'TIME_STAMP', 'playerUID', 'BigWorld', 'player', 'base', 'bindUrs', 'EXT_INFO', 'SALogging', 'drpfLogging', 'set_prop_int', 'bool', 'client_utils', 'isOauthChannel', 'True', 'loginConfirmed', 'doOauth', 'uiMgr', 'UILogin', 'refreshChannelLoginState', 'exceptionHandleFunc', 'refreshDarenState', 'playerUIDCheckTimer', 'playerUIDCheckCount', 'Timer', 'addRepeatTimer', 'onCheckPlayerUID', 'extractNeteaseWinSauthInfo', 'checkQiyu', 'setDefaultServerNickname', 'GAME_SDK_INIT', 'False', 'hasattr', 'huawei_register_game', 'SUPPORT_GAME_SDK', 'helpers', 'GameSDK', 'startGameSDK', 'ad_track_event', 'UIFollowonFacebook', 'check_guest']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (channel)
+   6  LOAD_ATTR              2  (get_prop_str)
+   9  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  12  LOAD_ATTR              4  (UID)
+  15  CALL_FUNCTION          1  (pos=1 kw=0)
+  18  LOAD_GLOBAL            0  (Globals)
+  21  LOAD_ATTR              5  (channelInfo)
+  24  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  27  LOAD_ATTR              4  (UID)
+  30  STORE_SUBSCR
+  31  LOAD_GLOBAL            0  (Globals)
+  34  LOAD_ATTR              1  (channel)
+  37  LOAD_ATTR              2  (get_prop_str)
+  40  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  43  LOAD_ATTR              6  (SESSION)
+  46  CALL_FUNCTION          1  (pos=1 kw=0)
+  49  LOAD_GLOBAL            0  (Globals)
+  52  LOAD_ATTR              5  (channelInfo)
+  55  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  58  LOAD_ATTR              6  (SESSION)
+  61  STORE_SUBSCR
+  62  LOAD_GLOBAL            0  (Globals)
+  65  LOAD_ATTR              1  (channel)
+  68  LOAD_ATTR              2  (get_prop_str)
+  71  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  74  LOAD_ATTR              7  (DEVICE_ID)
+  77  CALL_FUNCTION          1  (pos=1 kw=0)
+  80  LOAD_GLOBAL            0  (Globals)
+  83  LOAD_ATTR              5  (channelInfo)
+  86  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  89  LOAD_ATTR              7  (DEVICE_ID)
+  92  STORE_SUBSCR
+  93  LOAD_GLOBAL            0  (Globals)
+  96  LOAD_ATTR              1  (channel)
+  99  LOAD_ATTR              2  (get_prop_str)
+ 102  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 105  LOAD_ATTR              8  (UDID)
+ 108  CALL_FUNCTION          1  (pos=1 kw=0)
+ 111  LOAD_GLOBAL            0  (Globals)
+ 114  LOAD_ATTR              5  (channelInfo)
+ 117  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 120  LOAD_ATTR              8  (UDID)
+ 123  STORE_SUBSCR
+ 124  LOAD_GLOBAL            0  (Globals)
+ 127  LOAD_ATTR              1  (channel)
+ 130  LOAD_ATTR              2  (get_prop_str)
+ 133  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 136  LOAD_ATTR              9  (ORIGIN_GUEST_UID)
+ 139  CALL_FUNCTION          1  (pos=1 kw=0)
+ 142  LOAD_GLOBAL            0  (Globals)
+ 145  LOAD_ATTR              5  (channelInfo)
+ 148  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 151  LOAD_ATTR              9  (ORIGIN_GUEST_UID)
+ 154  STORE_SUBSCR
+ 155  LOAD_GLOBAL            0  (Globals)
+ 158  LOAD_ATTR              1  (channel)
+ 161  LOAD_ATTR              2  (get_prop_str)
+ 164  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 167  LOAD_ATTR              10  (APPID)
+ 170  CALL_FUNCTION          1  (pos=1 kw=0)
+ 173  LOAD_GLOBAL            0  (Globals)
+ 176  LOAD_ATTR              5  (channelInfo)
+ 179  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 182  LOAD_ATTR              10  (APPID)
+ 185  STORE_SUBSCR
+ 186  LOAD_GLOBAL            0  (Globals)
+ 189  LOAD_ATTR              1  (channel)
+ 192  LOAD_ATTR              2  (get_prop_str)
+ 195  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 198  LOAD_ATTR              11  (CPID)
+ 201  CALL_FUNCTION          1  (pos=1 kw=0)
+ 204  LOAD_GLOBAL            0  (Globals)
+ 207  LOAD_ATTR              5  (channelInfo)
+ 210  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 213  LOAD_ATTR              11  (CPID)
+ 216  STORE_SUBSCR
+ 217  LOAD_GLOBAL            0  (Globals)
+ 220  LOAD_ATTR              1  (channel)
+ 223  LOAD_ATTR              2  (get_prop_str)
+ 226  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 229  LOAD_ATTR              12  (SAUTH_JSON)
+ 232  CALL_FUNCTION          1  (pos=1 kw=0)
+ 235  LOAD_GLOBAL            0  (Globals)
+ 238  LOAD_ATTR              5  (channelInfo)
+ 241  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 244  LOAD_ATTR              12  (SAUTH_JSON)
+ 247  STORE_SUBSCR
+ 248  LOAD_GLOBAL            0  (Globals)
+ 251  LOAD_ATTR              1  (channel)
+ 254  LOAD_ATTR              2  (get_prop_str)
+ 257  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 260  LOAD_ATTR              13  (LOGIN_TYPE)
+ 263  CALL_FUNCTION          1  (pos=1 kw=0)
+ 266  LOAD_GLOBAL            0  (Globals)
+ 269  LOAD_ATTR              5  (channelInfo)
+ 272  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 275  LOAD_ATTR              13  (LOGIN_TYPE)
+ 278  STORE_SUBSCR
+ 279  LOAD_GLOBAL            0  (Globals)
+ 282  LOAD_ATTR              1  (channel)
+ 285  LOAD_ATTR              14  (sdk_version)
+ 288  LOAD_GLOBAL            0  (Globals)
+ 291  LOAD_ATTR              5  (channelInfo)
+ 294  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 297  LOAD_ATTR              15  (SDKVERSION)
+ 300  STORE_SUBSCR
+ 301  LOAD_GLOBAL            0  (Globals)
+ 304  LOAD_ATTR              1  (channel)
+ 307  LOAD_ATTR              16  (name)
+ 310  LOAD_CONST             1  ('huawei')
+ 313  COMPARE_OP             2  (==)
+ 316  POP_JUMP_IF_FALSE      340  (340)
+ 319  LOAD_GLOBAL            0  (Globals)
+ 322  LOAD_ATTR              1  (channel)
+ 325  LOAD_ATTR              2  (get_prop_str)
+ 328  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 331  LOAD_ATTR              17  (TIME_STAMP)
+ 334  CALL_FUNCTION          1  (pos=1 kw=0)
+ 337  JUMP_FORWARD           3  (3)
+ 340  LOAD_CONST             2  ('')
+ 343  STORE_FAST             1  (timestamp)
+ 346  LOAD_FAST              1  (timestamp)
+ 349  LOAD_GLOBAL            0  (Globals)
+ 352  LOAD_ATTR              5  (channelInfo)
+ 355  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 358  LOAD_ATTR              17  (TIME_STAMP)
+ 361  STORE_SUBSCR
+ 362  LOAD_GLOBAL            0  (Globals)
+ 365  LOAD_ATTR              5  (channelInfo)
+ 368  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 371  LOAD_ATTR              9  (ORIGIN_GUEST_UID)
+ 374  BINARY_SUBSCR
+ 375  LOAD_GLOBAL            0  (Globals)
+ 378  LOAD_ATTR              18  (playerUID)
+ 381  COMPARE_OP             2  (==)
+ 384  POP_JUMP_IF_FALSE      440  (440)
+ 387  LOAD_GLOBAL            19  (BigWorld)
+ 390  LOAD_ATTR              20  (player)
+ 393  CALL_FUNCTION          0  (pos=0 kw=0)
+ 396  POP_JUMP_IF_FALSE      440  (440)
+ 399  LOAD_GLOBAL            19  (BigWorld)
+ 402  LOAD_ATTR              20  (player)
+ 405  CALL_FUNCTION          0  (pos=0 kw=0)
+ 408  LOAD_ATTR              21  (base)
+ 411  LOAD_ATTR              22  (bindUrs)
+ 414  LOAD_GLOBAL            0  (Globals)
+ 417  LOAD_ATTR              5  (channelInfo)
+ 420  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 423  LOAD_ATTR              4  (UID)
+ 426  BINARY_SUBSCR
+ 427  LOAD_GLOBAL            0  (Globals)
+ 430  LOAD_ATTR              18  (playerUID)
+ 433  CALL_FUNCTION          2  (pos=2 kw=0)
+ 436  POP_TOP
+ 437  JUMP_FORWARD           0  (0)
+ 440  LOAD_GLOBAL            0  (Globals)
+ 443  LOAD_ATTR              5  (channelInfo)
+ 446  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 449  LOAD_ATTR              23  (EXT_INFO)
+ 452  BINARY_SUBSCR
+ 453  STORE_FAST             2  (ext_info)
+ 456  LOAD_GLOBAL            0  (Globals)
+ 459  LOAD_ATTR              1  (channel)
+ 462  LOAD_ATTR              2  (get_prop_str)
+ 465  LOAD_CONST             3  ('BOUND_TYPES')
+ 468  CALL_FUNCTION          1  (pos=1 kw=0)
+ 471  LOAD_FAST              2  (ext_info)
+ 474  LOAD_CONST             4  ('bound_types')
+ 477  STORE_SUBSCR
+ 478  LOAD_GLOBAL            24  (SALogging)
+ 481  LOAD_ATTR              25  (drpfLogging)
+ 484  LOAD_CONST             5  ('Identification')
+ 487  CALL_FUNCTION          1  (pos=1 kw=0)
+ 490  POP_TOP
+ 491  LOAD_GLOBAL            0  (Globals)
+ 494  LOAD_ATTR              1  (channel)
+ 497  LOAD_ATTR              26  (set_prop_int)
+ 500  LOAD_CONST             6  ('SCR_ORIENTATION')
+ 503  LOAD_CONST             7  (8)
+ 506  CALL_FUNCTION          2  (pos=2 kw=0)
+ 509  POP_TOP
+ 510  LOAD_GLOBAL            0  (Globals)
+ 513  LOAD_ATTR              18  (playerUID)
+ 516  UNARY_NOT
+ 517  STORE_FAST             3  (isNewLogin)
+ 520  LOAD_GLOBAL            27  (bool)
+ 523  LOAD_GLOBAL            0  (Globals)
+ 526  LOAD_ATTR              18  (playerUID)
+ 529  LOAD_GLOBAL            0  (Globals)
+ 532  LOAD_ATTR              5  (channelInfo)
+ 535  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 538  LOAD_ATTR              4  (UID)
+ 541  BINARY_SUBSCR
+ 542  COMPARE_OP             3  (!=)
+ 545  CALL_FUNCTION          1  (pos=1 kw=0)
+ 548  STORE_FAST             4  (isNewAccount)
+ 551  LOAD_GLOBAL            28  (client_utils)
+ 554  LOAD_ATTR              29  (isOauthChannel)
+ 557  LOAD_GLOBAL            0  (Globals)
+ 560  LOAD_ATTR              1  (channel)
+ 563  LOAD_ATTR              16  (name)
+ 566  CALL_FUNCTION          1  (pos=1 kw=0)
+ 569  POP_JUMP_IF_FALSE      600  (600)
+ 572  LOAD_FAST              3  (isNewLogin)
+ 575  POP_JUMP_IF_TRUE       590  (590)
+ 578  LOAD_GLOBAL            30  (True)
+ 581  LOAD_GLOBAL            0  (Globals)
+ 584  JUMP_FORWARD           31  (31)
+ 587  JUMP_ABSOLUTE          628  (628)
+ 590  LOAD_FAST_ATTR         32  (cls.doOauth)
+ 593  CALL_FUNCTION          0  (pos=0 kw=0)
+ 596  POP_TOP
+ 597  JUMP_FORWARD           28  (28)
+ 600  LOAD_GLOBAL            0  (Globals)
+ 603  LOAD_ATTR              5  (channelInfo)
+ 606  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+ 609  LOAD_ATTR              4  (UID)
+ 612  BINARY_SUBSCR
+ 613  LOAD_GLOBAL            0  (Globals)
+ 616  JUMP_FORWARD           18  (18)
+ 619  LOAD_GLOBAL            30  (True)
+ 622  LOAD_GLOBAL            0  (Globals)
+ 625  JUMP_FORWARD           31  (31)
+ 628  LOAD_FAST              4  (isNewAccount)
+ 631  POP_JUMP_IF_FALSE      724  (724)
+ 634  LOAD_GLOBAL            0  (Globals)
+ 637  LOAD_ATTR              33  (uiMgr)
+ 640  LOAD_ATTR              34  (UILogin)
+ 643  ??neox=105 arg=661
+ 646  LOAD_GLOBAL            0  (Globals)
+ 649  LOAD_ATTR              33  (uiMgr)
+ 652  LOAD_ATTR              34  (UILogin)
+ 655  LOAD_ATTR              35  (refreshChannelLoginState)
+ 658  CALL_FUNCTION          0  (pos=0 kw=0)
+ 661  POP_TOP
+ 662  LOAD_GLOBAL            0  (Globals)
+ 665  LOAD_ATTR              33  (uiMgr)
+ 668  LOAD_ATTR              34  (UILogin)
+ 671  ??neox=105 arg=692
+ 674  LOAD_GLOBAL            0  (Globals)
+ 677  LOAD_ATTR              33  (uiMgr)
+ 680  LOAD_ATTR              34  (UILogin)
+ 683  LOAD_ATTR              36  (exceptionHandleFunc)
+ 686  LOAD_CONST             8  ('showUserAgreement')
+ 689  CALL_FUNCTION          1  (pos=1 kw=0)
+ 692  POP_TOP
+ 693  LOAD_GLOBAL            0  (Globals)
+ 696  LOAD_ATTR              1  (channel)
+ 699  LOAD_ATTR              16  (name)
+ 702  LOAD_CONST             9  ('netease')
+ 705  COMPARE_OP             2  (==)
+ 708  POP_JUMP_IF_FALSE      724  (724)
+ 711  LOAD_FAST_ATTR         37  (cls.refreshDarenState)
+ 714  CALL_FUNCTION          0  (pos=0 kw=0)
+ 717  POP_TOP
+ 718  JUMP_ABSOLUTE          724  (724)
+ 721  JUMP_FORWARD           0  (0)
+ 724  LOAD_GLOBAL            0  (Globals)
+ 727  LOAD_ATTR              38  (playerUIDCheckTimer)
+ 730  POP_JUMP_IF_TRUE       766  (766)
+ 733  LOAD_CONST             10  (0)
+ 736  LOAD_GLOBAL            0  (Globals)
+ 739  JUMP_FORWARD           39  (39)
+ 742  LOAD_GLOBAL            40  (Timer)
+ 745  LOAD_ATTR              41  (addRepeatTimer)
+ 748  LOAD_CONST             11  (0.0)
+ 751  LOAD_FAST_ATTR         42  (cls.onCheckPlayerUID)
+ 754  CALL_FUNCTION          2  (pos=2 kw=0)
+ 757  LOAD_GLOBAL            0  (Globals)
+ 760  JUMP_FORWARD           38  (38)
+ 763  JUMP_FORWARD           0  (0)
+ 766  LOAD_FAST_ATTR         43  (cls.extractNeteaseWinSauthInfo)
+ 769  CALL_FUNCTION          0  (pos=0 kw=0)
+ 772  POP_TOP
+ 773  LOAD_GLOBAL            0  (Globals)
+ 776  LOAD_ATTR              33  (uiMgr)
+ 779  LOAD_ATTR              34  (UILogin)
+ 782  ??neox=105 arg=803
+ 785  LOAD_GLOBAL            0  (Globals)
+ 788  LOAD_ATTR              33  (uiMgr)
+ 791  LOAD_ATTR              34  (UILogin)
+ 794  LOAD_ATTR              36  (exceptionHandleFunc)
+ 797  LOAD_CONST             12  ('showGuestAccountRemind')
+ 800  CALL_FUNCTION          1  (pos=1 kw=0)
+ 803  POP_TOP
+ 804  LOAD_GLOBAL            0  (Globals)
+ 807  LOAD_ATTR              33  (uiMgr)
+ 810  LOAD_ATTR              34  (UILogin)
+ 813  ??neox=105 arg=831
+ 816  LOAD_GLOBAL            0  (Globals)
+ 819  LOAD_ATTR              33  (uiMgr)
+ 822  LOAD_ATTR              34  (UILogin)
+ 825  LOAD_ATTR              44  (checkQiyu)
+ 828  CALL_FUNCTION          0  (pos=0 kw=0)
+ 831  POP_TOP
+ 832  LOAD_GLOBAL            0  (Globals)
+ 835  LOAD_ATTR              33  (uiMgr)
+ 838  LOAD_ATTR              34  (UILogin)
+ 841  ??neox=105 arg=859
+ 844  LOAD_GLOBAL            0  (Globals)
+ 847  LOAD_ATTR              33  (uiMgr)
+ 850  LOAD_ATTR              34  (UILogin)
+ 853  LOAD_ATTR              45  (setDefaultServerNickname)
+ 856  CALL_FUNCTION          0  (pos=0 kw=0)
+ 859  POP_TOP
+ 860  LOAD_GLOBAL            0  (Globals)
+ 863  LOAD_ATTR              46  (GAME_SDK_INIT)
+ 866  LOAD_GLOBAL            47  (False)
+ 869  COMPARE_OP             8  (is)
+ 872  POP_JUMP_IF_FALSE      949  (949)
+ 875  LOAD_GLOBAL            30  (True)
+ 878  LOAD_GLOBAL            0  (Globals)
+ 881  JUMP_FORWARD           46  (46)
+ 884  LOAD_GLOBAL            48  (hasattr)
+ 887  LOAD_GLOBAL            0  (Globals)
+ 890  LOAD_ATTR              1  (channel)
+ 893  LOAD_CONST             13  ('huawei_register_game')
+ 896  CALL_FUNCTION          2  (pos=2 kw=0)
+ 899  ??neox=105 arg=917
+ 902  LOAD_GLOBAL            0  (Globals)
+ 905  LOAD_ATTR              1  (channel)
+ 908  LOAD_ATTR              49  (huawei_register_game)
+ 911  LOAD_CONST             14  ('com.netease.chiji')
+ 914  CALL_FUNCTION          1  (pos=1 kw=0)
+ 917  LOAD_GLOBAL            0  (Globals)
+ 920  JUMP_FORWARD           50  (50)
+ 923  LOAD_CONST             15  (-1)
+ 926  LOAD_CONST             16  ([b'GameSDK'])
+ 929  ??neox=134 arg=51
+ 932  ??neox=116 arg=52
+ 935  STORE_FAST             5  (GameSDK)
+ 938  POP_TOP
+ 939  LOAD_FAST_ATTR         1333  (GameSDK.startGameSDK)
+ 942  CALL_FUNCTION          0  (pos=0 kw=0)
+ 945  POP_TOP
+ 946  JUMP_FORWARD           0  (0)
+ 949  LOAD_GLOBAL            0  (Globals)
+ 952  LOAD_ATTR              1  (channel)
+ 955  LOAD_ATTR              54  (ad_track_event)
+ 958  LOAD_CONST             17  ('af_login')
+ 961  LOAD_CONST             18  ('{"appsflyer": {}}')
+ 964  CALL_FUNCTION          2  (pos=2 kw=0)
+ 967  POP_TOP
+ 968  LOAD_GLOBAL            0  (Globals)
+ 971  LOAD_ATTR              33  (uiMgr)
+ 974  LOAD_ATTR              55  (UIFollowonFacebook)
+ 977  ??neox=105 arg=995
+ 980  LOAD_GLOBAL            0  (Globals)
+ 983  LOAD_ATTR              33  (uiMgr)
+ 986  LOAD_ATTR              55  (UIFollowonFacebook)
+ 989  LOAD_ATTR              56  (check_guest)
+ 992  CALL_FUNCTION          0  (pos=0 kw=0)
+ 995  POP_TOP
+ 996  RETURN_CONST           0  (None)
+
+--------     extractNeteaseWinSauthInfo (nlocals=None stack=None)
+--- extractNeteaseWinSauthInfo (file=helpers\channel\channel_helper.py, argc=8) ---
+VARNAMES: ['cls', 'sauthJson', 'sauth', 'auth', 'platform', 'pcExtraInfoJson', 'pcExtraInfo', 'pcExtraInfoDict']
+NAMES:    ['Globals', 'isWin32', 'isMac', 'channel', 'name', 'channelInfo', 'ChannelLoginInfoEnum', 'SAUTH_JSON', 'json', 'loads', 'utils', 'unicode_to_str', 'dict', 'uiMgr', 'showGlobalTip', 'errtxt', 'I_LOGIN_EXTRACT_SAUTH_FAILURE', 'None', 'playerUID', 'False', 'loginConfirmed', 'get', 'PLATFORM', 'APP_CHANNEL', 'PAY_CHANNEL', 'str', 'const', 'LoginTypeEnum', 'QR_IOS', 'LOGIN_TYPE', 'QR_ANDROID', 'get_prop_str', 'MPAY_EXT_INFO', 'pcSourceUDID']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (isWin32)
+   6  UNARY_NOT
+   7  POP_JUMP_IF_FALSE      20  (20)
+  10  LOAD_GLOBAL            0  (Globals)
+  13  LOAD_ATTR              2  (isMac)
+  16  UNARY_NOT
+  17  POP_JUMP_IF_TRUE       38  (38)
+  20  LOAD_GLOBAL            0  (Globals)
+  23  LOAD_ATTR              3  (channel)
+  26  LOAD_ATTR              4  (name)
+  29  LOAD_CONST             1  ('netease')
+  32  COMPARE_OP             3  (!=)
+  35  POP_JUMP_IF_FALSE      44  (44)
+  38  RETURN_CONST           0  (None)
+  41  JUMP_FORWARD           0  (0)
+  44  LOAD_GLOBAL            0  (Globals)
+  47  LOAD_ATTR              5  (channelInfo)
+  50  LOAD_GLOBAL            6  (ChannelLoginInfoEnum)
+  53  LOAD_ATTR              7  (SAUTH_JSON)
+  56  BINARY_SUBSCR
+  57  STORE_FAST             1  (sauthJson)
+  60  LOAD_FAST              1  (sauthJson)
+  63  POP_JUMP_IF_TRUE       72  (72)
+  66  RETURN_CONST           0  (None)
+  69  JUMP_FORWARD           0  (0)
+  72  ??neox=128 arg=46
+  75  LOAD_GLOBAL            8  (json)
+  78  LOAD_ATTR              9  (loads)
+  81  LOAD_FAST              1  (sauthJson)
+  84  CALL_FUNCTION          1  (pos=1 kw=0)
+  87  STORE_FAST             2  (sauth)
+  90  LOAD_GLOBAL            10  (utils)
+  93  LOAD_ATTR              11  (unicode_to_str)
+  96  LOAD_FAST              2  (sauth)
+  99  CALL_FUNCTION          1  (pos=1 kw=0)
+ 102  STORE_FAST             2  (sauth)
+ 105  LOAD_GLOBAL            12  (dict)
+ 108  LOAD_FAST              2  (sauth)
+ 111  CALL_FUNCTION          1  (pos=1 kw=0)
+ 114  STORE_FAST             3  (auth)
+ 117  POP_BLOCK
+ 118  JUMP_FORWARD           47  (47)
+ 121  POP_TOP
+ 122  POP_TOP
+ 123  POP_TOP
+ 124  LOAD_GLOBAL            0  (Globals)
+ 127  LOAD_ATTR              13  (uiMgr)
+ 130  LOAD_ATTR              14  (showGlobalTip)
+ 133  LOAD_GLOBAL            15  (errtxt)
+ 136  LOAD_ATTR              16  (I_LOGIN_EXTRACT_SAUTH_FAILURE)
+ 139  CALL_FUNCTION          1  (pos=1 kw=0)
+ 142  POP_TOP
+ 143  LOAD_CONST             0  (None)
+ 146  LOAD_GLOBAL            0  (Globals)
+ 149  JUMP_FORWARD           18  (18)
+ 152  LOAD_GLOBAL            19  (False)
+ 155  LOAD_GLOBAL            0  (Globals)
+ 158  JUMP_FORWARD           20  (20)
+ 161  RETURN_CONST           0  (None)
+ 164  JUMP_FORWARD           1  (1)
+ 167  ??neox=48 arg=5536
+ 170  ??neox=3 arg=613
+ 173  ??neox=0 arg=869
+ 176  ??neox=0 arg=643
+ 179  ??neox=0 arg=1128
+ 182  ??neox=0 arg=1117
+ 185  ??neox=0 arg=18068
+ 188  ??neox=1 arg=1117
+ 191  ??neox=0 arg=155
+ 194  ??neox=0 arg=1376
+ 197  ??neox=0 arg=1691
+ 200  ??neox=0 arg=5728
+ 203  ??neox=0 arg=23866
+ 206  ??neox=4 arg=25856
+ 209  ??neox=4 arg=38656
+ 212  ??neox=2 arg=37888
+ 215  ??neox=24 arg=25857
+ 218  ??neox=5 arg=39680
+ 221  ??neox=0 arg=24576
+ 224  ??neox=5 arg=39680
+ 227  ??neox=6 arg=24576
+ 230  BINARY_SUBSCR
+ 231  ??neox=0 arg=25914
+ 234  ??neox=5 arg=39680
+ 237  ??neox=0 arg=24576
+ 240  ??neox=5 arg=39680
+ 243  ??neox=6 arg=24576
+ 246  ??neox=24 arg=14848
+ 249  LOAD_GLOBAL            25  (str)
+ 252  LOAD_GLOBAL            26  (const)
+ 255  LOAD_ATTR              27  (LoginTypeEnum)
+ 258  LOAD_ATTR              28  (QR_IOS)
+ 261  CALL_FUNCTION          1  (pos=1 kw=0)
+ 264  LOAD_GLOBAL            0  (Globals)
+ 267  LOAD_ATTR              5  (channelInfo)
+ 270  LOAD_GLOBAL            6  (ChannelLoginInfoEnum)
+ 273  LOAD_ATTR              29  (LOGIN_TYPE)
+ 276  STORE_SUBSCR
+ 277  JUMP_ABSOLUTE          326  (326)
+ 280  LOAD_FAST              4  (platform)
+ 283  LOAD_CONST             6  ('ad')
+ 286  COMPARE_OP             2  (==)
+ 289  POP_JUMP_IF_FALSE      326  (326)
+ 292  LOAD_GLOBAL            25  (str)
+ 295  LOAD_GLOBAL            26  (const)
+ 298  LOAD_ATTR              27  (LoginTypeEnum)
+ 301  LOAD_ATTR              30  (QR_ANDROID)
+ 304  CALL_FUNCTION          1  (pos=1 kw=0)
+ 307  LOAD_GLOBAL            0  (Globals)
+ 310  LOAD_ATTR              5  (channelInfo)
+ 313  LOAD_GLOBAL            6  (ChannelLoginInfoEnum)
+ 316  LOAD_ATTR              29  (LOGIN_TYPE)
+ 319  STORE_SUBSCR
+ 320  JUMP_ABSOLUTE          326  (326)
+ 323  JUMP_FORWARD           0  (0)
+ 326  LOAD_GLOBAL            0  (Globals)
+ 329  LOAD_ATTR              3  (channel)
+ 332  LOAD_ATTR              31  (get_prop_str)
+ 335  LOAD_GLOBAL            6  (ChannelLoginInfoEnum)
+ 338  LOAD_ATTR              32  (MPAY_EXT_INFO)
+ 341  CALL_FUNCTION          1  (pos=1 kw=0)
+ 344  STORE_FAST             5  (pcExtraInfoJson)
+ 347  LOAD_FAST              5  (pcExtraInfoJson)
+ 350  POP_JUMP_IF_FALSE      436  (436)
+ 353  ??neox=128 arg=70
+ 356  LOAD_GLOBAL            8  (json)
+ 359  LOAD_ATTR              9  (loads)
+ 362  LOAD_FAST              5  (pcExtraInfoJson)
+ 365  CALL_FUNCTION          1  (pos=1 kw=0)
+ 368  STORE_FAST             6  (pcExtraInfo)
+ 371  LOAD_GLOBAL            10  (utils)
+ 374  LOAD_ATTR              11  (unicode_to_str)
+ 377  LOAD_FAST              6  (pcExtraInfo)
+ 380  CALL_FUNCTION          1  (pos=1 kw=0)
+ 383  STORE_FAST             6  (pcExtraInfo)
+ 386  LOAD_GLOBAL            12  (dict)
+ 389  LOAD_FAST              6  (pcExtraInfo)
+ 392  CALL_FUNCTION          1  (pos=1 kw=0)
+ 395  STORE_FAST             7  (pcExtraInfoDict)
+ 398  LOAD_GLOBAL            25  (str)
+ 401  LOAD_FAST_ATTR         1813  (pcExtraInfoDict.get)
+ 404  LOAD_CONST             7  ('src_udid')
+ 407  LOAD_CONST             3  ('')
+ 410  CALL_FUNCTION          2  (pos=2 kw=0)
+ 413  CALL_FUNCTION          1  (pos=1 kw=0)
+ 416  LOAD_GLOBAL            0  (Globals)
+ 419  JUMP_FORWARD           33  (33)
+ 422  POP_BLOCK
+ 423  JUMP_ABSOLUTE          436  (436)
+ 426  POP_TOP
+ 427  POP_TOP
+ 428  POP_TOP
+ 429  JUMP_ABSOLUTE          436  (436)
+ 432  ??neox=48 arg=132
+ 435  ??neox=0 arg=94
+ 438  ??neox=0
+
+--------     onCheckPlayerUID (nlocals=None stack=None)
+--- onCheckPlayerUID (file=helpers\channel\channel_helper.py, argc=2) ---
+VARNAMES: ['cls', 'player']
+NAMES:    ['Globals', 'playerUIDCheckCount', 'BigWorld', 'player', 'playerUID', 'lastPlayerUID', 'changeToLogin', 'Timer', 'delTimer', 'playerUIDCheckTimer', 'None']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  ??neox=46 arg=352
+   6  ??neox=0 arg=357
+   9  ??neox=0 arg=8214
+  12  JUMP_FORWARD           1  (1)
+  15  LOAD_GLOBAL            2  (BigWorld)
+  18  LOAD_ATTR              3  (player)
+  21  CALL_FUNCTION          0  (pos=0 kw=0)
+  24  STORE_FAST             1  (player)
+  27  LOAD_GLOBAL            0  (Globals)
+  30  LOAD_ATTR              4  (playerUID)
+  33  LOAD_GLOBAL            0  (Globals)
+  36  LOAD_ATTR              5  (lastPlayerUID)
+  39  COMPARE_OP             3  (!=)
+  42  POP_JUMP_IF_FALSE      86  (86)
+  45  LOAD_FAST              1  (player)
+  48  POP_JUMP_IF_FALSE      86  (86)
+  51  LOAD_FAST_ATTR         262  (player.changeToLogin)
+  54  CALL_FUNCTION          0  (pos=0 kw=0)
+  57  POP_TOP
+  58  LOAD_GLOBAL            7  (Timer)
+  61  LOAD_ATTR              8  (delTimer)
+  64  LOAD_GLOBAL            0  (Globals)
+  67  LOAD_ATTR              9  (playerUIDCheckTimer)
+  70  CALL_FUNCTION          1  (pos=1 kw=0)
+  73  POP_TOP
+  74  LOAD_CONST             0  (None)
+  77  LOAD_GLOBAL            0  (Globals)
+  80  JUMP_FORWARD           9  (9)
+  83  JUMP_FORWARD           43  (43)
+  86  LOAD_GLOBAL            0  (Globals)
+  89  LOAD_ATTR              1  (playerUIDCheckCount)
+  92  LOAD_CONST             2  (120)
+  95  COMPARE_OP             4  (>)
+  98  POP_JUMP_IF_FALSE      129  (129)
+ 101  LOAD_GLOBAL            7  (Timer)
+ 104  LOAD_ATTR              8  (delTimer)
+ 107  LOAD_GLOBAL            0  (Globals)
+ 110  LOAD_ATTR              9  (playerUIDCheckTimer)
+ 113  CALL_FUNCTION          1  (pos=1 kw=0)
+ 116  POP_TOP
+ 117  LOAD_CONST             0  (None)
+ 120  LOAD_GLOBAL            0  (Globals)
+ 123  JUMP_FORWARD           9  (9)
+ 126  JUMP_FORWARD           0  (0)
+ 129  RETURN_CONST           0  (None)
+
+--------     onLoginFailed (nlocals=None stack=None)
+--- onLoginFailed (file=helpers\channel\channel_helper.py, argc=2) ---
+VARNAMES: ['cls', 'code']
+NAMES:    ['SALogging', 'drpfLogging']
+   0  LOAD_GLOBAL            0  (SALogging)
+   3  LOAD_ATTR              1  (drpfLogging)
+   6  LOAD_CONST             1  ('LoginFailed')
+   9  BUILD_MAP              1  (1)
+  12  LOAD_FAST              1  (code)
+  15  LOAD_CONST             2  ('error_code')
+  18  STORE_MAP
+  19  CALL_FUNCTION          2  (pos=2 kw=0)
+  22  POP_TOP
+  23  RETURN_CONST           0  (None)
+
+--------     onLogout (nlocals=None stack=None)
+--- onLogout (file=helpers\channel\channel_helper.py, argc=4) ---
+VARNAMES: ['cls', 'code', 'player', 'tps']
+NAMES:    ['ChannelLogoutRetEnum', 'FAILED', 'BigWorld', 'player', 'changeToLogin', 'tps', 'False', 'Globals', 'loginConfirmed', 'None', 'playerUID', 'logOff', 'uiMgr', 'clearAllUI', 'enter_ui', 'hasLogonServer']
+   0  LOAD_FAST              1  (code)
+   3  LOAD_GLOBAL            0  (ChannelLogoutRetEnum)
+   6  LOAD_ATTR              1  (FAILED)
+   9  COMPARE_OP             2  (==)
+  12  POP_JUMP_IF_FALSE      21  (21)
+  15  RETURN_CONST           0  (None)
+  18  JUMP_FORWARD           0  (0)
+  21  LOAD_GLOBAL            2  (BigWorld)
+  24  LOAD_ATTR              3  (player)
+  27  CALL_FUNCTION          0  (pos=0 kw=0)
+  30  STORE_FAST             2  (player)
+  33  LOAD_FAST              2  (player)
+  36  POP_JUMP_IF_FALSE      49  (49)
+  39  LOAD_FAST_ATTR         516  (player.changeToLogin)
+  42  CALL_FUNCTION          0  (pos=0 kw=0)
+  45  POP_TOP
+  46  JUMP_FORWARD           66  (66)
+  49  LOAD_CONST             1  (-1)
+  52  LOAD_CONST             0  (None)
+  55  ??neox=134 arg=5
+  58  STORE_FAST             3  (tps)
+  61  LOAD_GLOBAL            6  (False)
+  64  LOAD_GLOBAL            7  (Globals)
+  67  JUMP_FORWARD           8  (8)
+  70  LOAD_CONST             0  (None)
+  73  LOAD_GLOBAL            7  (Globals)
+  76  JUMP_FORWARD           10  (10)
+  79  LOAD_FAST_ATTR         779  (tps.logOff)
+  82  CALL_FUNCTION          0  (pos=0 kw=0)
+  85  POP_TOP
+  86  LOAD_GLOBAL            7  (Globals)
+  89  LOAD_ATTR              12  (uiMgr)
+  92  LOAD_ATTR              13  (clearAllUI)
+  95  CALL_FUNCTION          0  (pos=0 kw=0)
+  98  POP_TOP
+  99  LOAD_GLOBAL            7  (Globals)
+ 102  LOAD_ATTR              12  (uiMgr)
+ 105  LOAD_ATTR              14  (enter_ui)
+ 108  LOAD_CONST             2  ('UILogin')
+ 111  CALL_FUNCTION          1  (pos=1 kw=0)
+ 114  POP_TOP
+ 115  LOAD_GLOBAL            6  (False)
+ 118  LOAD_GLOBAL            7  (Globals)
+ 121  JUMP_FORWARD           15  (15)
+ 124  RETURN_CONST           0  (None)
+
+--------     uploadUserInfo (nlocals=None stack=None)
+--- uploadUserInfo (file=helpers\channel\channel_helper.py, argc=10) ---
+VARNAMES: ['cls', 'uploadStage', 'avt', 'channel', 'userInfoMgr', 'completeUserInfo', 'ServiceAPI', 'score', 'characterInfo', 'field']
+NAMES:    ['BigWorld', 'player', 'Globals', 'channel', 'helpers.UserInfoMgr', 'userInfoMgr', 'uploadUserInfo', 'None', 'name', 'CHANNEL_NEED_FIELD', 'shared', 'ServiceAPI', 'isSubclass', 'uploadChannelInfo', 'score', 'properties', 'getCharactersData', 'baseCharacterType', 'str', 'gid', 'baseNickname', 'servername', 'hostID', 'roleCreatTimestamp', 'careerType', 'NAME', 'set_user_info']
+   0  LOAD_GLOBAL            0  (BigWorld)
+   3  LOAD_ATTR              1  (player)
+   6  CALL_FUNCTION          0  (pos=0 kw=0)
+   9  STORE_FAST             2  (avt)
+  12  LOAD_GLOBAL            2  (Globals)
+  15  LOAD_ATTR              3  (channel)
+  18  STORE_FAST             3  (channel)
+  21  LOAD_CONST             1  (-1)
+  24  LOAD_CONST             2  ([b'userInfoMgr'])
+  27  ??neox=134 arg=4
+  30  ??neox=116 arg=5
+  33  STORE_FAST             4  (userInfoMgr)
+  36  POP_TOP
+  37  LOAD_FAST_ATTR         1030  (userInfoMgr.uploadUserInfo)
+  40  LOAD_FAST              1  (uploadStage)
+  43  CALL_FUNCTION          1  (pos=1 kw=0)
+  46  POP_TOP
+  47  LOAD_FAST              3  (channel)
+  50  LOAD_CONST             0  (None)
+  53  COMPARE_OP             8  (is)
+  56  POP_JUMP_IF_TRUE       71  (71)
+  59  LOAD_FAST              2  (avt)
+  62  LOAD_CONST             0  (None)
+  65  COMPARE_OP             8  (is)
+  68  POP_JUMP_IF_FALSE      77  (77)
+  71  RETURN_CONST           0  (None)
+  74  JUMP_FORWARD           0  (0)
+  77  LOAD_FAST_ATTR         776  (channel.name)
+  80  LOAD_GLOBAL            9  (CHANNEL_NEED_FIELD)
+  83  COMPARE_OP             7  (not in)
+  86  POP_JUMP_IF_FALSE      95  (95)
+  89  RETURN_CONST           0  (None)
+  92  JUMP_FORWARD           0  (0)
+  95  LOAD_CONST             0  (None)
+  98  STORE_FAST             5  (completeUserInfo)
+ 101  LOAD_CONST             1  (-1)
+ 104  LOAD_CONST             3  ([b'ServiceAPI'])
+ 107  ??neox=134 arg=10
+ 110  ??neox=116 arg=11
+ 113  STORE_FAST             6  (ServiceAPI)
+ 116  POP_TOP
+ 117  LOAD_FAST_ATTR         1548  (ServiceAPI.isSubclass)
+ 120  LOAD_FAST              2  (avt)
+ 123  LOAD_CONST             4  ('PlayerAvatar')
+ 126  CALL_FUNCTION          2  (pos=2 kw=0)
+ 129  POP_JUMP_IF_FALSE      159  (159)
+ 132  LOAD_GLOBAL            2  (Globals)
+ 135  LOAD_ATTR              13  (uploadChannelInfo)
+ 138  POP_JUMP_IF_FALSE      153  (153)
+ 141  LOAD_GLOBAL            2  (Globals)
+ 144  LOAD_ATTR              13  (uploadChannelInfo)
+ 147  STORE_FAST             5  (completeUserInfo)
+ 150  JUMP_ABSOLUTE          448  (448)
+ 153  RETURN_CONST           0  (None)
+ 156  JUMP_FORWARD           289  (289)
+ 159  LOAD_FAST_ATTR         1548  (ServiceAPI.isSubclass)
+ 162  LOAD_FAST              2  (avt)
+ 165  LOAD_CONST             5  ('PlayerAthlete')
+ 168  CALL_FUNCTION          2  (pos=2 kw=0)
+ 171  POP_JUMP_IF_FALSE      448  (448)
+ 174  LOAD_FAST_ATTR         526  (avt.score)
+ 177  STORE_FAST             7  (score)
+ 180  LOAD_FAST_ATTR         776  (channel.name)
+ 183  LOAD_CONST             28  ([b'yykj', b'yyxx'])
+ 186  COMPARE_OP             6  (in)
+ 189  POP_JUMP_IF_FALSE      216  (216)
+ 192  LOAD_FAST              7  (score)
+ 195  LOAD_CONST             8  (0)
+ 198  COMPARE_OP             2  (==)
+ 201  POP_JUMP_IF_FALSE      216  (216)
+ 204  LOAD_CONST             9  (1)
+ 207  STORE_FAST             7  (score)
+ 210  JUMP_ABSOLUTE          216  (216)
+ 213  JUMP_FORWARD           0  (0)
+ 216  LOAD_GLOBAL            15  (properties)
+ 219  LOAD_ATTR              16  (getCharactersData)
+ 222  LOAD_FAST_ATTR         529  (avt.baseCharacterType)
+ 225  CALL_FUNCTION          1  (pos=1 kw=0)
+ 228  STORE_FAST             8  (characterInfo)
+ 231  BUILD_MAP              16  (16)
+ 234  LOAD_FAST              1  (uploadStage)
+ 237  LOAD_CONST             10  ('USERINFO_STAGE')
+ 240  STORE_MAP
+ 241  LOAD_GLOBAL            18  (str)
+ 244  LOAD_FAST_ATTR         531  (avt.gid)
+ 247  CALL_FUNCTION          1  (pos=1 kw=0)
+ 250  LOAD_CONST             11  ('USERINFO_UID')
+ 253  STORE_MAP
+ 254  LOAD_FAST_ATTR         532  (avt.baseNickname)
+ 257  ??neox=130 arg=269
+ 260  LOAD_GLOBAL            18  (str)
+ 263  LOAD_FAST_ATTR         531  (avt.gid)
+ 266  CALL_FUNCTION          1  (pos=1 kw=0)
+ 269  LOAD_CONST             12  ('USERINFO_NAME')
+ 272  STORE_MAP
+ 273  LOAD_GLOBAL            18  (str)
+ 276  LOAD_FAST              7  (score)
+ 279  CALL_FUNCTION          1  (pos=1 kw=0)
+ 282  LOAD_CONST             13  ('USERINFO_GRADE')
+ 285  STORE_MAP
+ 286  LOAD_GLOBAL            2  (Globals)
+ 289  LOAD_ATTR              21  (servername)
+ 292  LOAD_CONST             14  ('USERINFO_HOSTNAME')
+ 295  STORE_MAP
+ 296  LOAD_GLOBAL            18  (str)
+ 299  LOAD_FAST_ATTR         534  (avt.hostID)
+ 302  CALL_FUNCTION          1  (pos=1 kw=0)
+ 305  LOAD_CONST             15  ('USERINFO_HOSTID')
+ 308  STORE_MAP
+ 309  LOAD_GLOBAL            18  (str)
+ 312  LOAD_FAST_ATTR         535  (avt.roleCreatTimestamp)
+ 315  CALL_FUNCTION          1  (pos=1 kw=0)
+ 318  LOAD_CONST             16  ('USERINFO_ROLE_CTIME')
+ 321  STORE_MAP
+ 322  LOAD_GLOBAL            18  (str)
+ 325  LOAD_CONST             8  (0)
+ 328  CALL_FUNCTION          1  (pos=1 kw=0)
+ 331  LOAD_CONST             17  ('USERINFO_BALANCE')
+ 334  STORE_MAP
+ 335  LOAD_GLOBAL            18  (str)
+ 338  LOAD_CONST             9  (1)
+ 341  CALL_FUNCTION          1  (pos=1 kw=0)
+ 344  LOAD_CONST             18  ('USERINFO_VIP')
+ 347  STORE_MAP
+ 348  LOAD_CONST             19  ('0')
+ 351  LOAD_CONST             20  ('USERINFO_ROLE_LEVELMTIME')
+ 354  STORE_MAP
+ 355  LOAD_CONST             19  ('0')
+ 358  LOAD_CONST             21  ('USERINFO_CAPABILITY')
+ 361  STORE_MAP
+ 362  LOAD_FAST              8  (characterInfo)
+ 365  POP_JUMP_IF_FALSE      380  (380)
+ 368  LOAD_GLOBAL            18  (str)
+ 371  LOAD_FAST_ATTR         2072  (characterInfo.careerType)
+ 374  CALL_FUNCTION          1  (pos=1 kw=0)
+ 377  JUMP_FORWARD           3  (3)
+ 380  LOAD_CONST             19  ('0')
+ 383  LOAD_CONST             22  ('USERINFO_MENPAI_ID')
+ 386  STORE_MAP
+ 387  LOAD_FAST              8  (characterInfo)
+ 390  POP_JUMP_IF_FALSE      405  (405)
+ 393  LOAD_GLOBAL            18  (str)
+ 396  LOAD_FAST_ATTR         2073  (characterInfo.NAME)
+ 399  CALL_FUNCTION          1  (pos=1 kw=0)
+ 402  JUMP_FORWARD           3  (3)
+ 405  LOAD_CONST             23  ('')
+ 408  LOAD_CONST             24  ('USERINFO_MENPAI_NAME')
+ 411  STORE_MAP
+ 412  LOAD_CONST             23  ('')
+ 415  LOAD_CONST             25  ('USERINFO_GANG_ID')
+ 418  STORE_MAP
+ 419  LOAD_CONST             23  ('')
+ 422  LOAD_CONST             26  ('USERINFO_ORG')
+ 425  STORE_MAP
+ 426  LOAD_CONST             23  ('')
+ 429  LOAD_CONST             27  ('USERINFO_GANG_ROLE_NAME')
+ 432  STORE_MAP
+ 433  STORE_FAST             5  (completeUserInfo)
+ 436  LOAD_FAST              5  (completeUserInfo)
+ 439  LOAD_GLOBAL            2  (Globals)
+ 442  JUMP_FORWARD           13  (13)
+ 445  JUMP_FORWARD           0  (0)
+ 448  LOAD_FAST              5  (completeUserInfo)
+ 451  POP_JUMP_IF_TRUE       460  (460)
+ 454  RETURN_CONST           0  (None)
+ 457  JUMP_FORWARD           0  (0)
+ 460  SETUP_LOOP             35  (35)
+ 463  LOAD_GLOBAL            9  (CHANNEL_NEED_FIELD)
+ 466  LOAD_FAST_ATTR         776  (channel.name)
+ 469  BINARY_SUBSCR
+ 470  GET_ITER
+ 471  FOR_ITER               23  (23)
+ 474  STORE_FAST             9  (field)
+ 477  LOAD_FAST_ATTR         794  (channel.set_user_info)
+ 480  LOAD_FAST              9  (field)
+ 483  LOAD_FAST              5  (completeUserInfo)
+ 486  LOAD_FAST              9  (field)
+ 489  BINARY_SUBSCR
+ 490  CALL_FUNCTION          2  (pos=2 kw=0)
+ 493  POP_TOP
+ 494  JUMP_ABSOLUTE          471  (471)
+ 497  POP_BLOCK
+ 498  LOAD_FAST_ATTR         794  (channel.set_user_info)
+ 501  LOAD_CONST             23  ('')
+ 504  LOAD_CONST             23  ('')
+ 507  CALL_FUNCTION          2  (pos=2 kw=0)
+ 510  POP_TOP
+ 511  RETURN_CONST           0  (None)
+
+--------     refreshDarenState (nlocals=None stack=None)
+--- refreshDarenState (file=helpers\channel\channel_helper.py, argc=1) ---
+VARNAMES: ['cls']
+NAMES:    ['Globals', 'channel', 'is_daren_updated', 'isDarenUpdated', 'uiMgr', 'refreshDarenState']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (channel)
+   6  LOAD_ATTR              2  (is_daren_updated)
+   9  CALL_FUNCTION          0  (pos=0 kw=0)
+  12  LOAD_GLOBAL            0  (Globals)
+  15  JUMP_FORWARD           3  (3)
+  18  LOAD_GLOBAL            0  (Globals)
+  21  LOAD_ATTR              4  (uiMgr)
+  24  POP_JUMP_IF_FALSE      43  (43)
+  27  LOAD_GLOBAL            0  (Globals)
+  30  LOAD_ATTR              4  (uiMgr)
+  33  LOAD_ATTR              5  (refreshDarenState)
+  36  CALL_FUNCTION          0  (pos=0 kw=0)
+  39  POP_TOP
+  40  JUMP_FORWARD           0  (0)
+  43  RETURN_CONST           0  (None)
+
+--------     doOauth (nlocals=None stack=None)
+--- doOauth (file=helpers\channel\channel_helper.py, argc=6) ---
+VARNAMES: ['self', 'headers', 'sauth', 'cache', 'params', 'session']
+NAMES:    ['Globals', 'channelInfo', 'ChannelLoginInfoEnum', 'SAUTH_JSON', 'bool', 'switches', 'URGENT_SWITCH_ENABLE_SAUTH_REPLY_CLIENT_UPLOAD', 'channel', 'name', 'const', 'CLIENT_SAUTH_CHANNELS', 'URGENT_SWITCH_ENABLE_SAUTH_FROM_CACHE', 'CACHE_SAUTH_CHANNELS', 'json', 'dumps', 'SESSION', 'HttpHelper', 'post_by_callback', 'extconfigs', 'ACCOUNT_SERVICE_URL']
+   0  ??neox=120 arg=1
+   3  BUILD_TUPLE            1  (1)
+   6  LOAD_CONST             1  (<code onOauth>)
+   9  ??neox=172 arg=0
+  12  ??neox=100 arg=0
+  15  BUILD_MAP              2  (2)
+  18  LOAD_CONST             2  ('application/json')
+  21  LOAD_CONST             3  ('Content-Type')
+  24  STORE_MAP
+  25  LOAD_CONST             2  ('application/json')
+  28  LOAD_CONST             4  ('Accept')
+  31  STORE_MAP
+  32  STORE_FAST             1  (headers)
+  35  LOAD_GLOBAL            0  (Globals)
+  38  LOAD_ATTR              1  (channelInfo)
+  41  LOAD_GLOBAL            2  (ChannelLoginInfoEnum)
+  44  LOAD_ATTR              3  (SAUTH_JSON)
+  47  BINARY_SUBSCR
+  48  STORE_FAST             2  (sauth)
+  51  LOAD_GLOBAL            4  (bool)
+  54  LOAD_GLOBAL            5  (switches)
+  57  LOAD_ATTR              6  (URGENT_SWITCH_ENABLE_SAUTH_REPLY_CLIENT_UPLOAD)
+  60  ??neox=105 arg=81
+  63  LOAD_GLOBAL            0  (Globals)
+  66  LOAD_ATTR              7  (channel)
+  69  LOAD_ATTR              8  (name)
+  72  LOAD_GLOBAL            9  (const)
+  75  LOAD_ATTR              10  (CLIENT_SAUTH_CHANNELS)
+  78  COMPARE_OP             6  (in)
+  81  CALL_FUNCTION          1  (pos=1 kw=0)
+  84  ??neox=100 arg=1
+  87  LOAD_GLOBAL            4  (bool)
+  90  LOAD_GLOBAL            5  (switches)
+  93  LOAD_ATTR              11  (URGENT_SWITCH_ENABLE_SAUTH_FROM_CACHE)
+  96  ??neox=105 arg=117
+  99  LOAD_GLOBAL            0  (Globals)
+ 102  LOAD_ATTR              7  (channel)
+ 105  LOAD_ATTR              8  (name)
+ 108  LOAD_GLOBAL            9  (const)
+ 111  LOAD_ATTR              12  (CACHE_SAUTH_CHANNELS)
+ 114  COMPARE_OP             6  (in)
+ 117  CALL_FUNCTION          1  (pos=1 kw=0)
+ 120  STORE_FAST             3  (cache)
+ 123  BUILD_MAP              3  (3)
+ 126  LOAD_FAST              2  (sauth)
+ 129  LOAD_CONST             5  ('sauth')
+ 132  STORE_MAP
+ 133  LOAD_FAST              3  (cache)
+ 136  LOAD_CONST             6  ('cache')
+ 139  STORE_MAP
+ 140  ??neox=129 arg=1
+ 143  LOAD_CONST             7  ('copyReply')
+ 146  STORE_MAP
+ 147  STORE_FAST             4  (params)
+ 150  LOAD_GLOBAL            13  (json)
+ 153  LOAD_ATTR              14  (dumps)
+ 156  LOAD_FAST              4  (params)
+ 159  CALL_FUNCTION          1  (pos=1 kw=0)
+ 162  STORE_FAST             4  (params)
+ 165  LOAD_GLOBAL            0  (Globals)
+ 168  LOAD_ATTR              1  (channelInfo)
+ 171  LOAD_GLOBAL            2  (ChannelLoginInfoEnum)
+ 174  LOAD_ATTR              15  (SESSION)
+ 177  BINARY_SUBSCR
+ 178  STORE_FAST             5  (session)
+ 181  LOAD_GLOBAL            16  (HttpHelper)
+ 184  CALL_FUNCTION          0  (pos=0 kw=0)
+ 187  LOAD_ATTR              17  (post_by_callback)
+ 190  LOAD_GLOBAL            18  (extconfigs)
+ 193  LOAD_ATTR              19  (ACCOUNT_SERVICE_URL)
+ 196  LOAD_CONST             8  ('/sauth')
+ 199  LOAD_FAST              1  (headers)
+ 202  LOAD_FAST              4  (params)
+ 205  LOAD_FAST              5  (session)
+ 208  ??neox=120 arg=0
+ 211  BUILD_TUPLE            1  (1)
+ 214  LOAD_CONST             9  (<code <lambda>>)
+ 217  ??neox=172 arg=1
+ 220  LOAD_CONST             10  ('timeout')
+ 223  LOAD_CONST             11  (10)
+ 226  CALL_FUNCTION          261  (pos=5 kw=1)
+ 229  POP_TOP
+ 230  RETURN_CONST           0  (None)
+
+--------       onOauth (nlocals=None stack=None)
+--- onOauth (file=helpers\channel\channel_helper.py, argc=5) ---
+VARNAMES: ['session', 'rawreply', 'reply', 'uid', 'channel_login']
+NAMES:    ['Globals', 'channelInfo', 'ChannelLoginInfoEnum', 'SESSION', 'json', 'loads', 'get', 'Exception', 'None', 'sauthReply', 'playerUID', 'UID', 'channel', 'name', 'channel_login', 'relogin', 'True', 'loginConfirmed']
+   0  LOAD_FAST              0  (session)
+   3  LOAD_GLOBAL            0  (Globals)
+   6  LOAD_ATTR              1  (channelInfo)
+   9  LOAD_GLOBAL            2  (ChannelLoginInfoEnum)
+  12  LOAD_ATTR              3  (SESSION)
+  15  BINARY_SUBSCR
+  16  COMPARE_OP             3  (!=)
+  19  POP_JUMP_IF_FALSE      28  (28)
+  22  RETURN_CONST           0  (None)
+  25  JUMP_FORWARD           0  (0)
+  28  ??neox=128 arg=31
+  31  LOAD_GLOBAL            4  (json)
+  34  LOAD_ATTR              5  (loads)
+  37  LOAD_FAST              1  (rawreply)
+  40  CALL_FUNCTION          1  (pos=1 kw=0)
+  43  STORE_FAST             2  (reply)
+  46  LOAD_FAST_ATTR         518  (reply.get)
+  49  LOAD_CONST             1  ('uid')
+  52  CALL_FUNCTION          1  (pos=1 kw=0)
+  55  STORE_FAST             3  (uid)
+  58  POP_BLOCK
+  59  JUMP_FORWARD           23  (23)
+  62  ??neox=46 arg=1947
+  65  ??neox=0 arg=2711
+  68  ??neox=0 arg=21652
+  71  ??neox=0 arg=14649
+  74  POP_TOP
+  75  LOAD_CONST             0  (None)
+  78  STORE_FAST             3  (uid)
+  81  JUMP_FORWARD           1  (1)
+  84  ??neox=48 arg=861
+  87  ??neox=0 arg=47764
+  90  ??neox=0 arg=129
+  93  ??neox=0 arg=28052
+  96  ??neox=0 arg=349
+  99  ??neox=0 arg=155
+ 102  ??neox=0 arg=2460
+ 105  ??neox=0 arg=132
+ 108  ??neox=0 arg=861
+ 111  ??neox=0 arg=155
+ 114  ??neox=0 arg=2716
+ 117  ??neox=0 arg=861
+ 120  ??neox=0 arg=155
+ 123  ??neox=0 arg=352
+ 126  ??neox=0 arg=667
+ 129  ??neox=0 arg=2912
+ 132  ??neox=0 arg=39738
+ 135  ??neox=0 arg=24576
+ 138  UNARY_NOT
+ 139  ??neox=0 arg=3424
+ 142  ??neox=0 arg=1381
+ 145  ??neox=0 arg=1687
+ 148  ??neox=0 arg=44692
+ 151  ??neox=0 arg=1125
+ 154  ??neox=0 arg=101
+ 157  ??neox=0 arg=3718
+ 160  ??neox=0 arg=1128
+ 163  ??neox=0 arg=4000
+ 166  ??neox=4 arg=131
+ 169  ??neox=0 arg=26425
+ 172  ??neox=186 arg=39680
+ 175  ??neox=16 arg=39680
+ 178  ??neox=0 arg=39936
+ 181  ??neox=17 arg=33792
+ 184  ??neox=0 arg=24064
+ 187  ??neox=0
+ 188  ??neox=0
+
+--------       <lambda> (nlocals=None stack=None)
+--- <lambda> (file=helpers\channel\channel_helper.py, argc=2) ---
+VARNAMES: ['reply', 'session']
+NAMES:    []
+   0  ??neox=129 arg=0
+   3  LOAD_FAST              1  (session)
+   6  LOAD_FAST              0  (reply)
+   9  CALL_FUNCTION          2  (pos=2 kw=0)
+  12  RETURN_VALUE
+
+--------     getCurrencyType (nlocals=None stack=None)
+--- getCurrencyType (file=helpers\channel\channel_helper.py, argc=5) ---
+VARNAMES: ['cls', 'switches', 'channel', 'social', 'game3d']
+NAMES:    ['shared', 'switches', 'Globals', 'channel', 'social', 'get_channel', 'EnableChannel', 'game3d', 'get_platform', 'PLATFORM_IOS', 'get_prop_str', 'PLATFORM_ANDROID']
+   0  LOAD_CONST             1  (-1)
+   3  LOAD_CONST             2  ([b'switches'])
+   6  ??neox=134 arg=0
+   9  ??neox=116 arg=1
+  12  STORE_FAST             1  (switches)
+  15  POP_TOP
+  16  LOAD_GLOBAL            2  (Globals)
+  19  LOAD_ATTR              3  (channel)
+  22  STORE_FAST             2  (channel)
+  25  LOAD_FAST              2  (channel)
+  28  POP_JUMP_IF_TRUE       55  (55)
+  31  LOAD_CONST             1  (-1)
+  34  LOAD_CONST             0  (None)
+  37  ??neox=134 arg=4
+  40  STORE_FAST             3  (social)
+  43  LOAD_FAST_ATTR         773  (social.get_channel)
+  46  CALL_FUNCTION          0  (pos=0 kw=0)
+  49  STORE_FAST             2  (channel)
+  52  JUMP_FORWARD           0  (0)
+  55  LOAD_FAST_ATTR         262  (switches.EnableChannel)
+  58  POP_JUMP_IF_FALSE      135  (135)
+  61  LOAD_FAST              2  (channel)
+  64  POP_JUMP_IF_FALSE      135  (135)
+  67  LOAD_CONST             1  (-1)
+  70  LOAD_CONST             0  (None)
+  73  ??neox=134 arg=7
+  76  STORE_FAST             4  (game3d)
+  79  LOAD_FAST_ATTR         1032  (game3d.get_platform)
+  82  CALL_FUNCTION          0  (pos=0 kw=0)
+  85  LOAD_FAST_ATTR         1033  (game3d.PLATFORM_IOS)
+  88  COMPARE_OP             2  (==)
+  91  POP_JUMP_IF_FALSE      104  (104)
+  94  LOAD_FAST_ATTR         522  (channel.get_prop_str)
+  97  LOAD_CONST             3  ('CURRENCY')
+ 100  CALL_FUNCTION          1  (pos=1 kw=0)
+ 103  RETURN_VALUE
+ 104  LOAD_FAST_ATTR         1032  (game3d.get_platform)
+ 107  CALL_FUNCTION          0  (pos=0 kw=0)
+ 110  LOAD_FAST_ATTR         1035  (game3d.PLATFORM_ANDROID)
+ 113  COMPARE_OP             2  (==)
+ 116  POP_JUMP_IF_FALSE      129  (129)
+ 119  LOAD_FAST_ATTR         522  (channel.get_prop_str)
+ 122  LOAD_CONST             4  ('GOOGLE_CURRENCY')
+ 125  CALL_FUNCTION          1  (pos=1 kw=0)
+ 128  RETURN_VALUE
+ 129  RETURN_CONST           5  ('')
+ 132  JUMP_FORWARD           0  (0)
+ 135  RETURN_CONST           5  ('')
+
+--------     getAuthJsonValue (nlocals=None stack=None)
+--- getAuthJsonValue (file=helpers\channel\channel_helper.py, argc=4) ---
+VARNAMES: ['cls', 'key', 'sauth_json', 'jdata']
+NAMES:    ['Globals', 'channelInfo', 'get', 'ChannelLoginInfoEnum', 'SAUTH_JSON', 'None', 'json', 'loads']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (channelInfo)
+   6  LOAD_ATTR              2  (get)
+   9  LOAD_GLOBAL            3  (ChannelLoginInfoEnum)
+  12  LOAD_ATTR              4  (SAUTH_JSON)
+  15  CALL_FUNCTION          1  (pos=1 kw=0)
+  18  STORE_FAST             2  (sauth_json)
+  21  LOAD_FAST              2  (sauth_json)
+  24  POP_JUMP_IF_TRUE       31  (31)
+  27  LOAD_CONST             0  (None)
+  30  RETURN_VALUE
+  31  LOAD_GLOBAL            6  (json)
+  34  LOAD_ATTR              7  (loads)
+  37  LOAD_FAST              2  (sauth_json)
+  40  CALL_FUNCTION          1  (pos=1 kw=0)
+  43  STORE_FAST             3  (jdata)
+  46  LOAD_FAST_ATTR         770  (jdata.get)
+  49  LOAD_FAST              1  (key)
+  52  CALL_FUNCTION          1  (pos=1 kw=0)
+  55  RETURN_VALUE
+
+--------     isCurrencyVND (nlocals=None stack=None)
+--- isCurrencyVND (file=helpers\channel\channel_helper.py, argc=1) ---
+VARNAMES: ['cls']
+NAMES:    ['getCurrencyType']
+   0  LOAD_FAST_ATTR         0  (cls.getCurrencyType)
+   3  CALL_FUNCTION          0  (pos=0 kw=0)
+   6  LOAD_CONST             1  ('VND')
+   9  COMPARE_OP             2  (==)
+  12  RETURN_VALUE

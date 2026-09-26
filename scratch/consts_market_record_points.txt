@@ -1,0 +1,97 @@
+﻿======================================================================
+<module>
+  varnames: []
+  names   : ['copy', 'os', 'json', 'libclaudia', 'Application', 'Timer', 'Globals', 'BigWorld', 'object', 'MarketRecordPoints']
+  consts[0] = -1
+  consts[1] = None
+  consts[2] = [b'Application']
+  consts[3] = 'MarketRecordPoints'
+  consts[4] = <code MarketRecordPoints>
+======================================================================
+  MarketRecordPoints
+  varnames: []
+  names   : ['__name__', '__module__', 'True', 'INIT_MARKET_RECORD_POINT', '__init__', 'get_uuid', 'hasDoneSomething', 'doSomething', 'thirty_min_done', 'loadMarketRecordPoint', 'saveMarketRecordPoint']
+  consts[0] = 'first_game_done'
+  consts[1] = 'first_friend_added'
+  consts[2] = 'first_match_successed'
+  consts[3] = 'first_download_login_game'
+  consts[4] = 0
+  consts[5] = 'last_remind_time'
+  consts[6] = 'first_on_plane'
+  consts[7] = <code __init__>
+  consts[8] = <code get_uuid>
+  consts[9] = <code hasDoneSomething>
+  consts[10] = <code doSomething>
+  consts[11] = <code thirty_min_done>
+  consts[12] = <code loadMarketRecordPoint>
+  consts[13] = <code saveMarketRecordPoint>
+======================================================================
+    __init__
+  varnames: ['self']
+  names   : ['copy', 'deepcopy', 'INIT_MARKET_RECORD_POINT', 'cur_market_record_point', 'Timer', 'addTimer', 'False', 'loaded']
+  consts[0] = None
+  consts[1] = 60
+  consts[2] = 30
+  consts[3] = <code <lambda>>
+  consts[4] = 1800
+======================================================================
+      <lambda>
+  varnames: []
+  names   : ['thirty_min_done']
+  consts[0] = None
+======================================================================
+    get_uuid
+  varnames: ['self', 'gid', 'ConnectMonitor', 'loginHostRecord', 'serverGroupId']
+  names   : ['BigWorld', 'player', 'gid', 'helpers.ConnectMonitor', 'ConnectMonitor', 'getInstance', 'loginHostRecord', 'get', 'str']
+  consts[0] = None
+  consts[1] = ''
+  consts[2] = -1
+  consts[3] = [b'ConnectMonitor']
+  consts[4] = 'groupid'
+  consts[5] = '_'
+======================================================================
+    hasDoneSomething
+  varnames: ['self', 'k', 'uuid', 'm']
+  names   : ['loaded', 'loadMarketRecordPoint', 'get_uuid', 'False', 'cur_market_record_point', 'get']
+  consts[0] = None
+  consts[1] = ''
+======================================================================
+    doSomething
+  varnames: ['self', 'k', 'uuid', 'm']
+  names   : ['loaded', 'loadMarketRecordPoint', 'get_uuid', 'False', 'cur_market_record_point', 'setdefault', 'True', 'saveMarketRecordPoint']
+  consts[0] = None
+  consts[1] = ''
+======================================================================
+    thirty_min_done
+  varnames: ['self']
+  names   : ['Globals', 'channel', 'ad_track_event']
+  consts[0] = None
+  consts[1] = 'af_thirty_min'
+  consts[2] = '{"appsflyer": {}}'
+======================================================================
+    loadMarketRecordPoint
+  varnames: ['self', 'uuid', 'recordPath', 'oldRecordPath', 'fpOld', 'oldRecord', 'k', 'fp']
+  names   : ['get_uuid', 'os', 'path', 'join', 'Application', 'persistentDataPath', 'exists', 'open', 'json', 'loads', 'read', 'strip', 'True', 'cur_market_record_point', 'saveMarketRecordPoint', 'close', 'loaded']
+  consts[0] = None
+  consts[1] = ''
+  consts[2] = 'market_record_point_%s.txt'
+  consts[3] = 'market_record_point.txt'
+  consts[4] = 'r'
+  consts[5] = 'first_game_done'
+  consts[6] = 'first_friend_added'
+  consts[7] = 'first_match_successed'
+======================================================================
+    saveMarketRecordPoint
+  varnames: ['self', 'uuid', 'recordPath', 'fp']
+  names   : ['get_uuid', 'os', 'path', 'join', 'Application', 'persistentDataPath', 'open', 'write', 'json', 'dumps', 'cur_market_record_point', 'True', 'close']
+  consts[0] = None
+  consts[1] = ''
+  consts[2] = 'market_record_point_%s.txt'
+  consts[3] = 'w'
+  consts[4] = 'sort_keys'
+  consts[5] = 'indent'
+  consts[6] = 4
+  consts[7] = 'separators'
+  consts[8] = ','
+  consts[9] = ' : '
+  consts[10] = [b',', b' : ']

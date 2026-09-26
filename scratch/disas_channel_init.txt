@@ -1,0 +1,747 @@
+==== module helpers/channel/channel_init.py  sig=0x81080651 ====
+
+-------- <module-body> (nlocals=None stack=None)
+--- <module> (file=helpers\channel\channel_init.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['os', 'game3d', 'social', 'shared', 'switches', 'Globals', 'publish_config', 'patch.patch_utils', 'patch_utils', 'activity_limit_time_common', 'const', 'initAppChannel', 'initVNGFlag', 'initVN18', 'writePCVNGPublishType', 'onWhoamiDone', 'checkKofActivityArea', 'removePCVNGSplash']
+   0  LOAD_CONST             0  (-1)
+   3  LOAD_CONST             1  (None)
+   6  ??neox=134 arg=0
+   9  ??neox=157 arg=0
+  12  LOAD_CONST             0  (-1)
+  15  LOAD_CONST             1  (None)
+  18  ??neox=134 arg=1
+  21  ??neox=157 arg=1
+  24  LOAD_CONST             0  (-1)
+  27  LOAD_CONST             1  (None)
+  30  ??neox=134 arg=2
+  33  ??neox=157 arg=2
+  36  LOAD_CONST             0  (-1)
+  39  LOAD_CONST             2  ([b'switches'])
+  42  ??neox=134 arg=3
+  45  ??neox=116 arg=4
+  48  ??neox=157 arg=4
+  51  POP_TOP
+  52  LOAD_CONST             0  (-1)
+  55  LOAD_CONST             1  (None)
+  58  ??neox=134 arg=5
+  61  ??neox=157 arg=5
+  64  LOAD_CONST             0  (-1)
+  67  LOAD_CONST             1  (None)
+  70  ??neox=134 arg=6
+  73  ??neox=157 arg=6
+  76  LOAD_CONST             0  (-1)
+  79  LOAD_CONST             1  (None)
+  82  ??neox=134 arg=7
+  85  LOAD_ATTR              8  (patch_utils)
+  88  ??neox=157 arg=8
+  91  LOAD_CONST             0  (-1)
+  94  LOAD_CONST             1  (None)
+  97  ??neox=134 arg=9
+ 100  ??neox=157 arg=9
+ 103  LOAD_CONST             0  (-1)
+ 106  LOAD_CONST             1  (None)
+ 109  ??neox=134 arg=10
+ 112  ??neox=157 arg=10
+ 115  LOAD_CONST             3  (<code initAppChannel>)
+ 118  MAKE_FUNCTION          0  (0)
+ 121  ??neox=157 arg=11
+ 124  LOAD_CONST             4  (<code initVNGFlag>)
+ 127  MAKE_FUNCTION          0  (0)
+ 130  ??neox=157 arg=12
+ 133  LOAD_CONST             5  (<code initVN18>)
+ 136  MAKE_FUNCTION          0  (0)
+ 139  ??neox=157 arg=13
+ 142  LOAD_CONST             6  (<code writePCVNGPublishType>)
+ 145  MAKE_FUNCTION          0  (0)
+ 148  ??neox=157 arg=14
+ 151  LOAD_CONST             7  (<code onWhoamiDone>)
+ 154  MAKE_FUNCTION          0  (0)
+ 157  ??neox=157 arg=15
+ 160  LOAD_CONST             8  (<code checkKofActivityArea>)
+ 163  MAKE_FUNCTION          0  (0)
+ 166  ??neox=157 arg=16
+ 169  LOAD_CONST             9  (<code removePCVNGSplash>)
+ 172  MAKE_FUNCTION          0  (0)
+ 175  ??neox=157 arg=17
+ 178  RETURN_CONST           1  (None)
+
+--------   initAppChannel (nlocals=None stack=None)
+--- initAppChannel (file=helpers\channel\channel_init.py, argc=1) ---
+VARNAMES: ['channel']
+NAMES:    ['initVNGFlag', 'switches', 'EnableChannel', 'social', 'get_channel', 'is_init', 'Globals', 'isIOS', 'is_vng_by_ip', 'is_vng_by_currency', 'set_prop_str', 'isAndroid', 'name', 'patch_utils', 'getFirstPackVersion', 'isWin32', 'publish_config', 'publish_type', 'PUBLISH_TYPE_VNG', 'PUBLISH_TYPE_NETEASE_GLOBAL_VNG', 'PUBLISH_TYPE_STEAM', 'PUBLISH_TYPE_DEFAULT', 'False', 'is_pc_steam', 'PUBLISH_TYPE_CPS', 'is_pc_vng', 'isMac']
+   0  LOAD_GLOBAL            0  (initVNGFlag)
+   3  CALL_FUNCTION          0  (pos=0 kw=0)
+   6  POP_TOP
+   7  LOAD_GLOBAL            1  (switches)
+  10  LOAD_ATTR              2  (EnableChannel)
+  13  POP_JUMP_IF_FALSE      543  (543)
+  16  LOAD_GLOBAL            3  (social)
+  19  LOAD_ATTR              4  (get_channel)
+  22  CALL_FUNCTION          0  (pos=0 kw=0)
+  25  STORE_FAST             0  (channel)
+  28  LOAD_FAST              0  (channel)
+  31  POP_JUMP_IF_FALSE      543  (543)
+  34  LOAD_FAST_ATTR         5  (channel.is_init)
+  37  POP_JUMP_IF_FALSE      543  (543)
+  40  LOAD_GLOBAL            6  (Globals)
+  43  LOAD_ATTR              7  (isIOS)
+  46  POP_JUMP_IF_FALSE      99  (99)
+  49  LOAD_GLOBAL            6  (Globals)
+  52  LOAD_ATTR              8  (is_vng_by_ip)
+  55  POP_JUMP_IF_TRUE       67  (67)
+  58  LOAD_GLOBAL            6  (Globals)
+  61  LOAD_ATTR              9  (is_vng_by_currency)
+  64  POP_JUMP_IF_FALSE      83  (83)
+  67  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+  70  LOAD_CONST             1  ('APP_CHANNEL')
+  73  LOAD_CONST             2  ('h45naxx2vn@app_store')
+  76  CALL_FUNCTION          2  (pos=2 kw=0)
+  79  POP_TOP
+  80  JUMP_ABSOLUTE          537  (537)
+  83  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+  86  LOAD_CONST             1  ('APP_CHANNEL')
+  89  LOAD_CONST             3  ('app_store')
+  92  CALL_FUNCTION          2  (pos=2 kw=0)
+  95  POP_TOP
+  96  JUMP_ABSOLUTE          540  (540)
+  99  LOAD_GLOBAL            6  (Globals)
+ 102  LOAD_ATTR              11  (isAndroid)
+ 105  POP_JUMP_IF_FALSE      220  (220)
+ 108  LOAD_FAST_ATTR         12  (channel.name)
+ 111  LOAD_CONST             4  ('netease_global')
+ 114  COMPARE_OP             2  (==)
+ 117  POP_JUMP_IF_FALSE      136  (136)
+ 120  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 123  LOAD_CONST             5  ('MY_PAY_CHANNEL')
+ 126  LOAD_CONST             6  ('google_play')
+ 129  CALL_FUNCTION          2  (pos=2 kw=0)
+ 132  POP_TOP
+ 133  JUMP_FORWARD           0  (0)
+ 136  LOAD_GLOBAL            6  (Globals)
+ 139  LOAD_ATTR              8  (is_vng_by_ip)
+ 142  POP_JUMP_IF_TRUE       154  (154)
+ 145  LOAD_GLOBAL            6  (Globals)
+ 148  LOAD_ATTR              9  (is_vng_by_currency)
+ 151  POP_JUMP_IF_FALSE      204  (204)
+ 154  LOAD_GLOBAL            13  (patch_utils)
+ 157  LOAD_ATTR              14  (getFirstPackVersion)
+ 160  CALL_FUNCTION          0  (pos=0 kw=0)
+ 163  LOAD_CONST             7  ('1.186372.186454')
+ 166  COMPARE_OP             2  (==)
+ 169  POP_JUMP_IF_FALSE      188  (188)
+ 172  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 175  LOAD_CONST             1  ('APP_CHANNEL')
+ 178  LOAD_CONST             6  ('google_play')
+ 181  CALL_FUNCTION          2  (pos=2 kw=0)
+ 184  POP_TOP
+ 185  JUMP_ABSOLUTE          217  (217)
+ 188  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 191  LOAD_CONST             1  ('APP_CHANNEL')
+ 194  LOAD_CONST             8  ('h45naxx2vn@google_play')
+ 197  CALL_FUNCTION          2  (pos=2 kw=0)
+ 200  POP_TOP
+ 201  JUMP_ABSOLUTE          537  (537)
+ 204  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 207  LOAD_CONST             1  ('APP_CHANNEL')
+ 210  LOAD_CONST             6  ('google_play')
+ 213  CALL_FUNCTION          2  (pos=2 kw=0)
+ 216  POP_TOP
+ 217  JUMP_ABSOLUTE          540  (540)
+ 220  LOAD_GLOBAL            6  (Globals)
+ 223  LOAD_ATTR              15  (isWin32)
+ 226  POP_JUMP_IF_FALSE      499  (499)
+ 229  LOAD_GLOBAL            16  (publish_config)
+ 232  LOAD_ATTR              17  (publish_type)
+ 235  LOAD_GLOBAL            16  (publish_config)
+ 238  LOAD_ATTR              18  (PUBLISH_TYPE_VNG)
+ 241  COMPARE_OP             2  (==)
+ 244  POP_JUMP_IF_FALSE      263  (263)
+ 247  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 250  LOAD_CONST             1  ('APP_CHANNEL')
+ 253  LOAD_CONST             9  ('pcvng')
+ 256  CALL_FUNCTION          2  (pos=2 kw=0)
+ 259  POP_TOP
+ 260  JUMP_ABSOLUTE          537  (537)
+ 263  LOAD_GLOBAL            16  (publish_config)
+ 266  LOAD_ATTR              17  (publish_type)
+ 269  LOAD_GLOBAL            16  (publish_config)
+ 272  LOAD_ATTR              19  (PUBLISH_TYPE_NETEASE_GLOBAL_VNG)
+ 275  COMPARE_OP             2  (==)
+ 278  POP_JUMP_IF_FALSE      297  (297)
+ 281  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 284  LOAD_CONST             1  ('APP_CHANNEL')
+ 287  LOAD_CONST             10  ('netease_global.pcvng')
+ 290  CALL_FUNCTION          2  (pos=2 kw=0)
+ 293  POP_TOP
+ 294  JUMP_ABSOLUTE          537  (537)
+ 297  LOAD_GLOBAL            16  (publish_config)
+ 300  LOAD_ATTR              17  (publish_type)
+ 303  LOAD_GLOBAL            16  (publish_config)
+ 306  LOAD_ATTR              20  (PUBLISH_TYPE_STEAM)
+ 309  COMPARE_OP             2  (==)
+ 312  POP_JUMP_IF_FALSE      380  (380)
+ 315  LOAD_FAST_ATTR         12  (channel.name)
+ 318  LOAD_CONST             11  ('steam')
+ 321  COMPARE_OP             2  (==)
+ 324  POP_JUMP_IF_FALSE      343  (343)
+ 327  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 330  LOAD_CONST             1  ('APP_CHANNEL')
+ 333  LOAD_CONST             11  ('steam')
+ 336  CALL_FUNCTION          2  (pos=2 kw=0)
+ 339  POP_TOP
+ 340  JUMP_ABSOLUTE          496  (496)
+ 343  LOAD_GLOBAL            16  (publish_config)
+ 346  LOAD_ATTR              21  (PUBLISH_TYPE_DEFAULT)
+ 349  LOAD_GLOBAL            16  (publish_config)
+ 352  JUMP_FORWARD           17  (17)
+ 355  LOAD_GLOBAL            22  (False)
+ 358  LOAD_GLOBAL            6  (Globals)
+ 361  JUMP_FORWARD           23  (23)
+ 364  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 367  LOAD_CONST             1  ('APP_CHANNEL')
+ 370  LOAD_CONST             4  ('netease_global')
+ 373  CALL_FUNCTION          2  (pos=2 kw=0)
+ 376  POP_TOP
+ 377  JUMP_ABSOLUTE          537  (537)
+ 380  LOAD_GLOBAL            16  (publish_config)
+ 383  LOAD_ATTR              17  (publish_type)
+ 386  LOAD_GLOBAL            16  (publish_config)
+ 389  LOAD_ATTR              24  (PUBLISH_TYPE_CPS)
+ 392  COMPARE_OP             2  (==)
+ 395  POP_JUMP_IF_FALSE      421  (421)
+ 398  LOAD_GLOBAL            6  (Globals)
+ 401  LOAD_ATTR              23  (is_pc_steam)
+ 404  UNARY_NOT
+ 405  POP_JUMP_IF_FALSE      421  (421)
+ 408  LOAD_GLOBAL            6  (Globals)
+ 411  LOAD_ATTR              25  (is_pc_vng)
+ 414  UNARY_NOT
+ 415  POP_JUMP_IF_FALSE      421  (421)
+ 418  JUMP_ABSOLUTE          537  (537)
+ 421  LOAD_GLOBAL            16  (publish_config)
+ 424  LOAD_ATTR              17  (publish_type)
+ 427  LOAD_GLOBAL            16  (publish_config)
+ 430  LOAD_ATTR              21  (PUBLISH_TYPE_DEFAULT)
+ 433  COMPARE_OP             2  (==)
+ 436  POP_JUMP_IF_FALSE      483  (483)
+ 439  LOAD_FAST_ATTR         12  (channel.name)
+ 442  LOAD_CONST             12  ('axeso5')
+ 445  COMPARE_OP             2  (==)
+ 448  POP_JUMP_IF_FALSE      467  (467)
+ 451  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 454  LOAD_CONST             1  ('APP_CHANNEL')
+ 457  LOAD_CONST             12  ('axeso5')
+ 460  CALL_FUNCTION          2  (pos=2 kw=0)
+ 463  POP_TOP
+ 464  JUMP_ABSOLUTE          496  (496)
+ 467  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 470  LOAD_CONST             1  ('APP_CHANNEL')
+ 473  LOAD_CONST             4  ('netease_global')
+ 476  CALL_FUNCTION          2  (pos=2 kw=0)
+ 479  POP_TOP
+ 480  JUMP_ABSOLUTE          537  (537)
+ 483  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 486  LOAD_CONST             1  ('APP_CHANNEL')
+ 489  LOAD_CONST             4  ('netease_global')
+ 492  CALL_FUNCTION          2  (pos=2 kw=0)
+ 495  POP_TOP
+ 496  JUMP_ABSOLUTE          540  (540)
+ 499  LOAD_GLOBAL            6  (Globals)
+ 502  LOAD_ATTR              26  (isMac)
+ 505  POP_JUMP_IF_FALSE      524  (524)
+ 508  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 511  LOAD_CONST             1  ('APP_CHANNEL')
+ 514  LOAD_CONST             4  ('netease_global')
+ 517  CALL_FUNCTION          2  (pos=2 kw=0)
+ 520  POP_TOP
+ 521  JUMP_ABSOLUTE          540  (540)
+ 524  LOAD_FAST_ATTR         10  (channel.set_prop_str)
+ 527  LOAD_CONST             1  ('APP_CHANNEL')
+ 530  LOAD_CONST             4  ('netease_global')
+ 533  CALL_FUNCTION          2  (pos=2 kw=0)
+ 536  POP_TOP
+ 537  JUMP_ABSOLUTE          543  (543)
+ 540  JUMP_FORWARD           0  (0)
+ 543  RETURN_CONST           0  (None)
+
+--------   initVNGFlag (nlocals=None stack=None)
+--- initVNGFlag (file=helpers\channel\channel_init.py, argc=1) ---
+VARNAMES: ['channel']
+NAMES:    ['False', 'Globals', 'is_vng_by_currency', 'is_pc_vng', 'is_netease_global_vng', 'is_pc_netease_global_vng', 'is_pc_steam', 'switches', 'EnableChannel', 'social', 'get_channel', 'is_init', 'isIOS', 'get_prop_str', 'const', 'VNG_CURRENCY_LIST', 'True', 'isAndroid', 'isWin32', 'publish_config', 'publish_type', 'PUBLISH_TYPE_VNG', 'PUBLISH_TYPE_NETEASE_GLOBAL_VNG', 'PUBLISH_TYPE_STEAM', 'is_vng_by_ip', 'is_mobile_netease_global_vng']
+   0  LOAD_GLOBAL            0  (False)
+   3  LOAD_GLOBAL            1  (Globals)
+   6  JUMP_FORWARD           2  (2)
+   9  LOAD_GLOBAL            0  (False)
+  12  LOAD_GLOBAL            1  (Globals)
+  15  JUMP_FORWARD           3  (3)
+  18  LOAD_GLOBAL            0  (False)
+  21  LOAD_GLOBAL            1  (Globals)
+  24  JUMP_FORWARD           4  (4)
+  27  LOAD_GLOBAL            0  (False)
+  30  LOAD_GLOBAL            1  (Globals)
+  33  JUMP_FORWARD           5  (5)
+  36  LOAD_GLOBAL            0  (False)
+  39  LOAD_GLOBAL            1  (Globals)
+  42  JUMP_FORWARD           6  (6)
+  45  LOAD_GLOBAL            7  (switches)
+  48  LOAD_ATTR              8  (EnableChannel)
+  51  POP_JUMP_IF_FALSE      216  (216)
+  54  LOAD_GLOBAL            9  (social)
+  57  LOAD_ATTR              10  (get_channel)
+  60  CALL_FUNCTION          0  (pos=0 kw=0)
+  63  STORE_FAST             0  (channel)
+  66  LOAD_FAST              0  (channel)
+  69  POP_JUMP_IF_FALSE      216  (216)
+  72  LOAD_FAST_ATTR         11  (channel.is_init)
+  75  POP_JUMP_IF_FALSE      216  (216)
+  78  LOAD_GLOBAL            1  (Globals)
+  81  LOAD_ATTR              12  (isIOS)
+  84  POP_JUMP_IF_FALSE      123  (123)
+  87  LOAD_FAST_ATTR         13  (channel.get_prop_str)
+  90  LOAD_CONST             1  ('CURRENCY')
+  93  CALL_FUNCTION          1  (pos=1 kw=0)
+  96  LOAD_GLOBAL            14  (const)
+  99  LOAD_ATTR              15  (VNG_CURRENCY_LIST)
+ 102  COMPARE_OP             6  (in)
+ 105  POP_JUMP_IF_FALSE      210  (210)
+ 108  LOAD_GLOBAL            16  (True)
+ 111  LOAD_GLOBAL            1  (Globals)
+ 114  JUMP_FORWARD           2  (2)
+ 117  JUMP_ABSOLUTE          210  (210)
+ 120  JUMP_ABSOLUTE          213  (213)
+ 123  LOAD_GLOBAL            1  (Globals)
+ 126  LOAD_ATTR              17  (isAndroid)
+ 129  POP_JUMP_IF_FALSE      168  (168)
+ 132  LOAD_FAST_ATTR         13  (channel.get_prop_str)
+ 135  LOAD_CONST             2  ('GOOGLE_CURRENCY')
+ 138  CALL_FUNCTION          1  (pos=1 kw=0)
+ 141  LOAD_GLOBAL            14  (const)
+ 144  LOAD_ATTR              15  (VNG_CURRENCY_LIST)
+ 147  COMPARE_OP             6  (in)
+ 150  POP_JUMP_IF_FALSE      210  (210)
+ 153  LOAD_GLOBAL            16  (True)
+ 156  LOAD_GLOBAL            1  (Globals)
+ 159  JUMP_FORWARD           2  (2)
+ 162  JUMP_ABSOLUTE          210  (210)
+ 165  JUMP_ABSOLUTE          213  (213)
+ 168  LOAD_GLOBAL            1  (Globals)
+ 171  LOAD_ATTR              18  (isWin32)
+ 174  POP_JUMP_IF_FALSE      213  (213)
+ 177  LOAD_FAST_ATTR         13  (channel.get_prop_str)
+ 180  LOAD_CONST             3  ('APP_CHANNEL')
+ 183  CALL_FUNCTION          1  (pos=1 kw=0)
+ 186  LOAD_CONST             4  ('steam')
+ 189  COMPARE_OP             2  (==)
+ 192  POP_JUMP_IF_FALSE      210  (210)
+ 195  LOAD_GLOBAL            16  (True)
+ 198  LOAD_GLOBAL            1  (Globals)
+ 201  JUMP_FORWARD           6  (6)
+ 204  JUMP_ABSOLUTE          210  (210)
+ 207  JUMP_ABSOLUTE          213  (213)
+ 210  JUMP_ABSOLUTE          216  (216)
+ 213  JUMP_FORWARD           0  (0)
+ 216  LOAD_GLOBAL            1  (Globals)
+ 219  LOAD_ATTR              18  (isWin32)
+ 222  POP_JUMP_IF_FALSE      354  (354)
+ 225  LOAD_GLOBAL            19  (publish_config)
+ 228  LOAD_ATTR              20  (publish_type)
+ 231  LOAD_GLOBAL            19  (publish_config)
+ 234  LOAD_ATTR              21  (PUBLISH_TYPE_VNG)
+ 237  COMPARE_OP             2  (==)
+ 240  POP_JUMP_IF_FALSE      273  (273)
+ 243  LOAD_GLOBAL            16  (True)
+ 246  LOAD_GLOBAL            1  (Globals)
+ 249  JUMP_FORWARD           3  (3)
+ 252  LOAD_GLOBAL            0  (False)
+ 255  LOAD_GLOBAL            1  (Globals)
+ 258  JUMP_FORWARD           4  (4)
+ 261  LOAD_GLOBAL            0  (False)
+ 264  LOAD_GLOBAL            1  (Globals)
+ 267  JUMP_FORWARD           5  (5)
+ 270  JUMP_ABSOLUTE          393  (393)
+ 273  LOAD_GLOBAL            19  (publish_config)
+ 276  LOAD_ATTR              20  (publish_type)
+ 279  LOAD_GLOBAL            19  (publish_config)
+ 282  LOAD_ATTR              22  (PUBLISH_TYPE_NETEASE_GLOBAL_VNG)
+ 285  COMPARE_OP             2  (==)
+ 288  POP_JUMP_IF_FALSE      321  (321)
+ 291  LOAD_GLOBAL            0  (False)
+ 294  LOAD_GLOBAL            1  (Globals)
+ 297  JUMP_FORWARD           3  (3)
+ 300  LOAD_GLOBAL            16  (True)
+ 303  LOAD_GLOBAL            1  (Globals)
+ 306  JUMP_FORWARD           4  (4)
+ 309  LOAD_GLOBAL            16  (True)
+ 312  LOAD_GLOBAL            1  (Globals)
+ 315  JUMP_FORWARD           5  (5)
+ 318  JUMP_ABSOLUTE          393  (393)
+ 321  LOAD_GLOBAL            19  (publish_config)
+ 324  LOAD_ATTR              20  (publish_type)
+ 327  LOAD_GLOBAL            19  (publish_config)
+ 330  LOAD_ATTR              23  (PUBLISH_TYPE_STEAM)
+ 333  COMPARE_OP             2  (==)
+ 336  POP_JUMP_IF_FALSE      393  (393)
+ 339  LOAD_GLOBAL            16  (True)
+ 342  LOAD_GLOBAL            1  (Globals)
+ 345  JUMP_FORWARD           6  (6)
+ 348  JUMP_ABSOLUTE          393  (393)
+ 351  JUMP_FORWARD           39  (39)
+ 354  LOAD_GLOBAL            1  (Globals)
+ 357  LOAD_ATTR              24  (is_vng_by_ip)
+ 360  POP_JUMP_IF_TRUE       372  (372)
+ 363  LOAD_GLOBAL            1  (Globals)
+ 366  LOAD_ATTR              2  (is_vng_by_currency)
+ 369  POP_JUMP_IF_FALSE      393  (393)
+ 372  LOAD_GLOBAL            16  (True)
+ 375  LOAD_GLOBAL            1  (Globals)
+ 378  JUMP_FORWARD           4  (4)
+ 381  LOAD_GLOBAL            16  (True)
+ 384  LOAD_GLOBAL            1  (Globals)
+ 387  JUMP_FORWARD           25  (25)
+ 390  JUMP_FORWARD           0  (0)
+ 393  RETURN_CONST           0  (None)
+
+--------   initVN18 (nlocals=None stack=None)
+--- initVN18 (file=helpers\channel\channel_init.py, argc=1) ---
+VARNAMES: ['channel']
+NAMES:    ['switches', 'EnableVN18', 'social', 'get_channel', 'Globals', 'isIOS', 'country_iso_code_by_ip', 'get_prop_str', 'True', 'needShowVN18', 'isAndroid', 'isWin32', 'publish_config', 'publish_type', 'PUBLISH_TYPE_VNG']
+   0  LOAD_GLOBAL            0  (switches)
+   3  LOAD_ATTR              1  (EnableVN18)
+   6  POP_JUMP_IF_FALSE      210  (210)
+   9  LOAD_GLOBAL            2  (social)
+  12  LOAD_ATTR              3  (get_channel)
+  15  CALL_FUNCTION          0  (pos=0 kw=0)
+  18  STORE_FAST             0  (channel)
+  21  LOAD_GLOBAL            4  (Globals)
+  24  LOAD_ATTR              5  (isIOS)
+  27  POP_JUMP_IF_FALSE      84  (84)
+  30  LOAD_GLOBAL            4  (Globals)
+  33  LOAD_ATTR              6  (country_iso_code_by_ip)
+  36  LOAD_CONST             1  ('VN')
+  39  COMPARE_OP             2  (==)
+  42  POP_JUMP_IF_TRUE       69  (69)
+  45  LOAD_FAST              0  (channel)
+  48  POP_JUMP_IF_FALSE      207  (207)
+  51  LOAD_FAST_ATTR         7  (channel.get_prop_str)
+  54  LOAD_CONST             2  ('CURRENCY')
+  57  CALL_FUNCTION          1  (pos=1 kw=0)
+  60  LOAD_CONST             3  ('VND')
+  63  COMPARE_OP             2  (==)
+  66  POP_JUMP_IF_FALSE      207  (207)
+  69  LOAD_GLOBAL            8  (True)
+  72  LOAD_GLOBAL            4  (Globals)
+  75  JUMP_FORWARD           9  (9)
+  78  JUMP_ABSOLUTE          207  (207)
+  81  JUMP_ABSOLUTE          210  (210)
+  84  LOAD_GLOBAL            4  (Globals)
+  87  LOAD_ATTR              10  (isAndroid)
+  90  POP_JUMP_IF_FALSE      147  (147)
+  93  LOAD_GLOBAL            4  (Globals)
+  96  LOAD_ATTR              6  (country_iso_code_by_ip)
+  99  LOAD_CONST             1  ('VN')
+ 102  COMPARE_OP             2  (==)
+ 105  POP_JUMP_IF_TRUE       132  (132)
+ 108  LOAD_FAST              0  (channel)
+ 111  POP_JUMP_IF_FALSE      207  (207)
+ 114  LOAD_FAST_ATTR         7  (channel.get_prop_str)
+ 117  LOAD_CONST             4  ('GOOGLE_CURRENCY')
+ 120  CALL_FUNCTION          1  (pos=1 kw=0)
+ 123  LOAD_CONST             3  ('VND')
+ 126  COMPARE_OP             2  (==)
+ 129  POP_JUMP_IF_FALSE      207  (207)
+ 132  LOAD_GLOBAL            8  (True)
+ 135  LOAD_GLOBAL            4  (Globals)
+ 138  JUMP_FORWARD           9  (9)
+ 141  JUMP_ABSOLUTE          207  (207)
+ 144  JUMP_ABSOLUTE          210  (210)
+ 147  LOAD_GLOBAL            4  (Globals)
+ 150  LOAD_ATTR              11  (isWin32)
+ 153  POP_JUMP_IF_FALSE      210  (210)
+ 156  LOAD_GLOBAL            12  (publish_config)
+ 159  LOAD_ATTR              13  (publish_type)
+ 162  LOAD_GLOBAL            12  (publish_config)
+ 165  LOAD_ATTR              14  (PUBLISH_TYPE_VNG)
+ 168  COMPARE_OP             2  (==)
+ 171  POP_JUMP_IF_FALSE      207  (207)
+ 174  LOAD_GLOBAL            4  (Globals)
+ 177  LOAD_ATTR              6  (country_iso_code_by_ip)
+ 180  LOAD_CONST             1  ('VN')
+ 183  COMPARE_OP             2  (==)
+ 186  POP_JUMP_IF_FALSE      204  (204)
+ 189  LOAD_GLOBAL            8  (True)
+ 192  LOAD_GLOBAL            4  (Globals)
+ 195  JUMP_FORWARD           9  (9)
+ 198  JUMP_ABSOLUTE          204  (204)
+ 201  JUMP_ABSOLUTE          207  (207)
+ 204  JUMP_ABSOLUTE          210  (210)
+ 207  JUMP_FORWARD           0  (0)
+ 210  RETURN_CONST           0  (None)
+
+--------   writePCVNGPublishType (nlocals=None stack=None)
+--- writePCVNGPublishType (file=helpers\channel\channel_init.py, argc=2) ---
+VARNAMES: ['file_path', 'f']
+NAMES:    ['os', 'path', 'join', 'game3d', 'get_doc_dir', 'open', 'write', 'str', 'publish_config', 'publish_type']
+   0  LOAD_GLOBAL            0  (os)
+   3  LOAD_ATTR              1  (path)
+   6  LOAD_ATTR              2  (join)
+   9  LOAD_GLOBAL            3  (game3d)
+  12  LOAD_ATTR              4  (get_doc_dir)
+  15  CALL_FUNCTION          0  (pos=0 kw=0)
+  18  LOAD_CONST             1  ('publish_type.txt')
+  21  CALL_FUNCTION          2  (pos=2 kw=0)
+  24  STORE_FAST             0  (file_path)
+  27  LOAD_GLOBAL            5  (open)
+  30  ??neox=123 arg=2
+  33  CALL_FUNCTION          2  (pos=2 kw=0)
+  36  ??neox=178 arg=26
+  39  STORE_FAST             1  (f)
+  42  LOAD_FAST_ATTR         262  (f.write)
+  45  LOAD_GLOBAL            7  (str)
+  48  LOAD_GLOBAL            8  (publish_config)
+  51  LOAD_ATTR              9  (publish_type)
+  54  CALL_FUNCTION          1  (pos=1 kw=0)
+  57  CALL_FUNCTION          1  (pos=1 kw=0)
+  60  POP_TOP
+  61  POP_BLOCK
+  62  LOAD_CONST             0  (None)
+  65  ??neox=50 arg=24112
+  68  ??neox=0
+  69  ??neox=0
+
+--------   onWhoamiDone (nlocals=None stack=None)
+--- onWhoamiDone (file=helpers\channel\channel_init.py, argc=4) ---
+VARNAMES: ['info', 'country_iso_code', 'fo', 'vng_list']
+NAMES:    ['get', 'upper', 'Globals', 'country_iso_code_by_ip', 'country_name_by_ip', 'isWin32', 'open', 'os', 'path', 'join', 'game3d', 'get_root_dir', 'write', 'const', 'PC_VNG_LIST', 'MOBILE_VNG_LIST', 'False', 'is_vng_by_ip', 'True', 'publish_config', 'publish_type', 'PUBLISH_TYPE_DEFAULT', 'PUBLISH_TYPE_NETEASE_GLOBAL_VNG', 'initAppChannel', 'writePCVNGPublishType', 'PUBLISH_TYPE_VNG', 'initVN18', 'removePCVNGSplash', 'initVNGFlag', 'checkKofActivityArea']
+   0  LOAD_FAST_ATTR         0  (info.get)
+   3  LOAD_CONST             1  ('country_iso_code')
+   6  LOAD_CONST             2  ('')
+   9  CALL_FUNCTION          2  (pos=2 kw=0)
+  12  STORE_FAST             1  (country_iso_code)
+  15  LOAD_FAST_ATTR         257  (country_iso_code.upper)
+  18  CALL_FUNCTION          0  (pos=0 kw=0)
+  21  STORE_FAST             1  (country_iso_code)
+  24  LOAD_FAST              1  (country_iso_code)
+  27  LOAD_GLOBAL            2  (Globals)
+  30  JUMP_FORWARD           3  (3)
+  33  LOAD_FAST_ATTR         0  (info.get)
+  36  LOAD_CONST             3  ('country')
+  39  LOAD_CONST             2  ('')
+  42  CALL_FUNCTION          2  (pos=2 kw=0)
+  45  LOAD_GLOBAL            2  (Globals)
+  48  JUMP_FORWARD           4  (4)
+  51  LOAD_GLOBAL            2  (Globals)
+  54  LOAD_ATTR              5  (isWin32)
+  57  POP_JUMP_IF_FALSE      139  (139)
+  60  LOAD_GLOBAL            6  (open)
+  63  LOAD_GLOBAL            7  (os)
+  66  LOAD_ATTR              8  (path)
+  69  LOAD_ATTR              9  (join)
+  72  LOAD_GLOBAL            10  (game3d)
+  75  LOAD_ATTR              11  (get_root_dir)
+  78  CALL_FUNCTION          0  (pos=0 kw=0)
+  81  LOAD_CONST             4  ('region')
+  84  CALL_FUNCTION          2  (pos=2 kw=0)
+  87  LOAD_CONST             5  ('wb')
+  90  CALL_FUNCTION          2  (pos=2 kw=0)
+  93  ??neox=178 arg=38
+  96  STORE_FAST             2  (fo)
+  99  LOAD_FAST_ATTR         524  (fo.write)
+ 102  LOAD_CONST             6  (',')
+ 105  LOAD_ATTR              9  (join)
+ 108  LOAD_GLOBAL            2  (Globals)
+ 111  LOAD_ATTR              3  (country_iso_code_by_ip)
+ 114  LOAD_GLOBAL            2  (Globals)
+ 117  LOAD_ATTR              4  (country_name_by_ip)
+ 120  BUILD_TUPLE            2  (2)
+ 123  CALL_FUNCTION          1  (pos=1 kw=0)
+ 126  CALL_FUNCTION          1  (pos=1 kw=0)
+ 129  POP_TOP
+ 130  POP_BLOCK
+ 131  LOAD_CONST             0  (None)
+ 134  ??neox=50 arg=33840
+ 137  ??neox=0 arg=39680
+ 140  ??neox=2 arg=24576
+ 143  ??neox=5 arg=37888
+ 146  LOAD_FAST_ATTR         39680  (?.get)
+ 149  ??neox=13 arg=24576
+ 152  ??neox=14 arg=26624
+ 155  ??neox=3 arg=33792
+ 158  ??neox=9 arg=39680
+ 161  ??neox=13 arg=24576
+ 164  ??neox=15 arg=26624
+ 167  ??neox=3 arg=39680
+ 170  ??neox=16 arg=39680
+ 173  ??neox=2 arg=39936
+ 176  ??neox=17 arg=23808
+ 179  ??neox=1 arg=23808
+ 182  ??neox=3 arg=38656
+ 185  ??neox=6 arg=37888
+ 188  ??neox=202 arg=39680
+ 191  ??neox=18 arg=39680
+ 194  ??neox=2 arg=39936
+ 197  ??neox=17 arg=33792
+ 200  ??neox=0 arg=39680
+ 203  ??neox=2 arg=24576
+ 206  ??neox=5 arg=37888
+ 209  ??neox=177 arg=39681
+ 212  ??neox=19 arg=24576
+ 215  ??neox=20 arg=39680
+ 218  ??neox=19 arg=24576
+ 221  ??neox=21 arg=38656
+ 224  ??neox=2 arg=37888
+ 227  ??neox=14 arg=39681
+ 230  ??neox=2 arg=24576
+ 233  ??neox=17 arg=37888
+ 236  ??neox=174 arg=39681
+ 239  ??neox=19 arg=24576
+ 242  ??neox=22 arg=39680
+ 245  ??neox=19 arg=39936
+ 248  ??neox=20 arg=39680
+ 251  BINARY_SUBSCR
+ 252  ??neox=0 arg=131
+ 255  ??neox=0 arg=39737
+ 258  ??neox=24 arg=33536
+ 261  ??neox=0 arg=14592
+ 264  JUMP_ABSOLUTE          430  (430)
+ 267  JUMP_ABSOLUTE          447  (447)
+ 270  LOAD_GLOBAL            19  (publish_config)
+ 273  LOAD_ATTR              20  (publish_type)
+ 276  LOAD_GLOBAL            19  (publish_config)
+ 279  LOAD_ATTR              22  (PUBLISH_TYPE_NETEASE_GLOBAL_VNG)
+ 282  COMPARE_OP             2  (==)
+ 285  POP_JUMP_IF_FALSE      336  (336)
+ 288  LOAD_GLOBAL            2  (Globals)
+ 291  LOAD_ATTR              17  (is_vng_by_ip)
+ 294  UNARY_NOT
+ 295  POP_JUMP_IF_FALSE      430  (430)
+ 298  LOAD_FAST              1  (country_iso_code)
+ 301  POP_JUMP_IF_FALSE      430  (430)
+ 304  LOAD_GLOBAL            19  (publish_config)
+ 307  LOAD_ATTR              21  (PUBLISH_TYPE_DEFAULT)
+ 310  LOAD_GLOBAL            19  (publish_config)
+ 313  JUMP_FORWARD           20  (20)
+ 316  LOAD_GLOBAL            23  (initAppChannel)
+ 319  CALL_FUNCTION          0  (pos=0 kw=0)
+ 322  POP_TOP
+ 323  LOAD_GLOBAL            24  (writePCVNGPublishType)
+ 326  CALL_FUNCTION          0  (pos=0 kw=0)
+ 329  POP_TOP
+ 330  JUMP_ABSOLUTE          430  (430)
+ 333  JUMP_ABSOLUTE          447  (447)
+ 336  LOAD_GLOBAL            19  (publish_config)
+ 339  LOAD_ATTR              20  (publish_type)
+ 342  LOAD_GLOBAL            19  (publish_config)
+ 345  LOAD_ATTR              25  (PUBLISH_TYPE_VNG)
+ 348  COMPARE_OP             2  (==)
+ 351  POP_JUMP_IF_FALSE      447  (447)
+ 354  LOAD_GLOBAL            2  (Globals)
+ 357  LOAD_ATTR              17  (is_vng_by_ip)
+ 360  UNARY_NOT
+ 361  POP_JUMP_IF_FALSE      413  (413)
+ 364  LOAD_FAST              1  (country_iso_code)
+ 367  POP_JUMP_IF_FALSE      413  (413)
+ 370  LOAD_GLOBAL            19  (publish_config)
+ 373  LOAD_ATTR              21  (PUBLISH_TYPE_DEFAULT)
+ 376  LOAD_GLOBAL            19  (publish_config)
+ 379  JUMP_FORWARD           20  (20)
+ 382  LOAD_GLOBAL            23  (initAppChannel)
+ 385  CALL_FUNCTION          0  (pos=0 kw=0)
+ 388  POP_TOP
+ 389  LOAD_GLOBAL            26  (initVN18)
+ 392  CALL_FUNCTION          0  (pos=0 kw=0)
+ 395  POP_TOP
+ 396  LOAD_GLOBAL            24  (writePCVNGPublishType)
+ 399  CALL_FUNCTION          0  (pos=0 kw=0)
+ 402  POP_TOP
+ 403  LOAD_GLOBAL            27  (removePCVNGSplash)
+ 406  CALL_FUNCTION          0  (pos=0 kw=0)
+ 409  POP_TOP
+ 410  JUMP_ABSOLUTE          430  (430)
+ 413  LOAD_GLOBAL            28  (initVNGFlag)
+ 416  CALL_FUNCTION          0  (pos=0 kw=0)
+ 419  POP_TOP
+ 420  LOAD_GLOBAL            26  (initVN18)
+ 423  CALL_FUNCTION          0  (pos=0 kw=0)
+ 426  POP_TOP
+ 427  JUMP_ABSOLUTE          447  (447)
+ 430  JUMP_FORWARD           14  (14)
+ 433  LOAD_GLOBAL            23  (initAppChannel)
+ 436  CALL_FUNCTION          0  (pos=0 kw=0)
+ 439  POP_TOP
+ 440  LOAD_GLOBAL            26  (initVN18)
+ 443  CALL_FUNCTION          0  (pos=0 kw=0)
+ 446  POP_TOP
+ 447  LOAD_GLOBAL            29  (checkKofActivityArea)
+ 450  CALL_FUNCTION          0  (pos=0 kw=0)
+ 453  POP_TOP
+ 454  RETURN_CONST           0  (None)
+
+--------   checkKofActivityArea (nlocals=None stack=None)
+--- checkKofActivityArea (file=helpers\channel\channel_init.py, argc=0) ---
+VARNAMES: []
+NAMES:    ['Globals', 'country_iso_code_by_ip', 'activity_limit_time_common', 'KOF', 'OPEN_AREA', 'True', 'isKofArea']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (country_iso_code_by_ip)
+   6  LOAD_GLOBAL            2  (activity_limit_time_common)
+   9  LOAD_ATTR              3  (KOF)
+  12  LOAD_ATTR              4  (OPEN_AREA)
+  15  COMPARE_OP             6  (in)
+  18  POP_JUMP_IF_FALSE      33  (33)
+  21  LOAD_GLOBAL            5  (True)
+  24  LOAD_GLOBAL            0  (Globals)
+  27  JUMP_FORWARD           6  (6)
+  30  JUMP_FORWARD           27  (27)
+  33  LOAD_GLOBAL            0  (Globals)
+  36  LOAD_ATTR              1  (country_iso_code_by_ip)
+  39  LOAD_CONST             1  ('')
+  42  COMPARE_OP             2  (==)
+  45  POP_JUMP_IF_FALSE      60  (60)
+  48  LOAD_GLOBAL            5  (True)
+  51  LOAD_GLOBAL            0  (Globals)
+  54  JUMP_FORWARD           6  (6)
+  57  JUMP_FORWARD           0  (0)
+  60  RETURN_CONST           0  (None)
+
+--------   removePCVNGSplash (nlocals=None stack=None)
+--- removePCVNGSplash (file=helpers\channel\channel_init.py, argc=3) ---
+VARNAMES: ['work_dir', 'file_path', 'e']
+NAMES:    ['Globals', 'isWin32', 'is_vng_by_ip', 'game3d', 'get_root_dir', 'os', 'path', 'exists', 'remove', 'exception']
+   0  LOAD_GLOBAL            0  (Globals)
+   3  LOAD_ATTR              1  (isWin32)
+   6  POP_JUMP_IF_FALSE      101  (101)
+   9  LOAD_GLOBAL            0  (Globals)
+  12  LOAD_ATTR              2  (is_vng_by_ip)
+  15  UNARY_NOT
+  16  POP_JUMP_IF_FALSE      101  (101)
+  19  LOAD_GLOBAL            3  (game3d)
+  22  LOAD_ATTR              4  (get_root_dir)
+  25  CALL_FUNCTION          0  (pos=0 kw=0)
+  28  STORE_FAST             0  (work_dir)
+  31  ??neox=123 arg=1
+  34  BINARY_ADD
+  35  STORE_FAST             1  (file_path)
+  38  LOAD_GLOBAL            5  (os)
+  41  LOAD_ATTR              6  (path)
+  44  LOAD_ATTR              7  (exists)
+  47  LOAD_FAST              1  (file_path)
+  50  CALL_FUNCTION          1  (pos=1 kw=0)
+  53  POP_JUMP_IF_FALSE      101  (101)
+  56  ??neox=128 arg=17
+  59  LOAD_GLOBAL            5  (os)
+  62  LOAD_ATTR              8  (remove)
+  65  LOAD_FAST              1  (file_path)
+  68  CALL_FUNCTION          1  (pos=1 kw=0)
+  71  POP_TOP
+  72  POP_BLOCK
+  73  JUMP_ABSOLUTE          98  (98)
+  76  ??neox=46 arg=2459
+  79  ??neox=0 arg=2711
+  82  ??neox=0 arg=24212
+  85  ??neox=0 arg=26681
+  88  ??neox=2 arg=14592
+  91  JUMP_ABSOLUTE          98  (98)
+  94  ??neox=48 arg=25959
+  97  ??neox=0 arg=132
+ 100  ??neox=0 arg=94
+ 103  ??neox=0
