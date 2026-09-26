@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (§0.8: timeline-instrumented Phase 0 run on frozen Candidate B (SHA256 `27bebace...`, see `scratch/candidates/`) found the **CONFIRMED root cause of the "duplicate loading" symptom**: the client itself re-initiates a brand-new LoginApp/BaseApp handshake from a new ephemeral port exactly ~90s after the first one succeeds, driving a full second `createBasePlayer`/`showSelectCharacter`/`enterHall` cycle server-side (proven via direct server-log timestamp correlation, not inference). This second cycle can also surface client-side as a brand-new Character Creation prompt (Tap to Enter NAME + CREATE) whose CREATE button was observed unresponsive once -- root cause of that part still a hypothesis. See §0.8 for the full CONFIRMED/HYPOTHESIS/NOT-YET-TESTED table. Previous entry (§0.7): Candidate B (baseline + `ui/g.smali` finish() patch ONLY, no `MpayWatcherService`) reaches the full Hall/Lobby reliably, ruling out that patch alone as the Checkpoint 29 stuck-loading cause.)
+> **Last Updated**: 2026-09-26 (§0.9: deeper read of the same server log behind §0.8's confirmed 90s-reconnect finding shows **the client, not the server, goes silent** -- the server's periodic keepalive to the correct port never stops (confirmed 10 minutes past the reconnect), but the client sends nothing at all for 63.997s starting almost exactly when the first post-Confirm loading screen begins. DISPROVEN: "missing server response" causes the reconnect. HYPOTHESIS (favored): a client-side socket-inactivity watchdog fires because the client's main thread is starved by the same long synchronous scene-load already responsible for the "slow first loading" symptom -- i.e. Phase 3 (slow loading) and Phase 4 (duplicate cycle) are one root cause, not two. Repeat runs + static analysis of the timeout constant are NOT YET TESTED. See §0.9. Previous entry (§0.8): confirmed the client re-initiates a full LoginApp/BaseApp handshake ~90s after the first succeeds, driving the duplicate `createBasePlayer` cycle -- see §0.8 for the full CONFIRMED/HYPOTHESIS table.)
 
 ---
 
@@ -1198,6 +1198,101 @@ lines 3026+ from run1 at 21:09:12, well before any stuck state -- weak evidence 
 Candidate B's frozen APK/SHA256 in §0.7/above is untouched. Raw artifacts for this checkpoint:
 `scratch/timeline_run1/server.log`, `scratch/timeline_run1/logcat_full.txt`,
 `scratch/timeline_run2/logcat_full.txt`, `scratch/timeline_run2/shots/*.png`.
+
+---
+
+## 0.9 Why the client reconnects at ~90s (2026-09-26): the client goes silent for 64s, not the server
+
+Continuing §0.8 with a deeper read of the *existing* `scratch/timeline_run1/server.log` (the same
+session already analyzed -- this did not require a new run to extract). Only **one** real
+R0-R3 data point exists so far (see table below); **repeat runs to confirm reproducibility are
+still NOT YET TESTED** and are the natural next step, not yet executed this checkpoint.
+
+### A. R0-R3 for the one available data point
+
+| Marker | Timestamp | Value |
+|---|---|---|
+| R0 (1st LoginApp handshake) | 21:09:27.536 | client port 51169 |
+| R1 (1st BaseApp session starts) | 21:09:27.651 | KEYSCAN picks up new key for port 51170 |
+| R2 (1st enterHall) | 21:09:33.407 | |
+| R3 (2nd LoginApp handshake) | 21:10:57.554 | client port 58828 (**new ephemeral port**) |
+| R3 - R0 | **90.018s** | |
+| R3 - R1 | 89.903s | |
+| R3 - R2 | 84.147s | |
+
+### B. Traffic in the R2-R3 window -- what's actually periodic, and what stops
+
+Three independent periodic exchanges are present in this window, and they behave very differently:
+
+1. **Server-side `setGameTime` keepalive, sent to the correct active port (51170), every 5.000s**
+   (`21:09:37.762, 21:09:42.763, ...`). **This never stops** -- confirmed by grepping the full log
+   far past the reconnect (still sending to the now-abandoned port 51170 as late as `21:20:07.877`,
+   ten minutes later). This rules out "the server stopped sending keepalives" as a cause.
+2. **Server-side `setGameTime` keepalive ALSO sent to a stale, unrelated port 53219** every 5s,
+   the whole time -- this is the already-documented (§0.3 Checkpoint 25 toolchain notes) stale-
+   connection-tracking cruft in `local_baseapp_capture.py`. Confirmed still present; confirmed
+   harmless to this specific investigation (it's a different, leftover client instance's port from
+   earlier in the session, not related to the 90s reconnect).
+3. **Client-initiated 24-byte request, decrypting to a fixed `checkpoint_id=20`
+   "This document s..." payload, answered by the server with an identical
+   `versionPointIdentity push id=94 checkpoint_id=20` reply every time.** This one starts right
+   after `enterHall` (21:09:33.927), has one longer 9.86s gap, then settles into a **steady
+   ~0.53s interval** from 21:09:43.782 onward. It does **not** accelerate, degrade, or show any
+   sign of a failing/retrying exchange -- it looks like a normal, working, steady-state poll.
+
+### C. THE key finding: the client goes completely silent 64 seconds before it reconnects
+
+The last packet received from the client on the original session (port 51170), of any kind, is:
+
+```
+21:09:53.557  BASEAPP UDP RECV 32 bytes from 127.0.0.1:51170   (an UPSTREAM CALL batch)
+```
+
+**Nothing else arrives from that port ever again** -- not the steady 0.53s `checkpoint_id=20`
+poll, not any other traffic -- for **63.997 seconds**, until the fresh LoginApp handshake at
+21:10:57.554. The server, meanwhile, keeps faithfully sending its 5s `setGameTime` keepalive into
+the void the entire time (per §B.1) -- it is never acknowledged, but it never stops being sent
+either.
+
+**This 64-second silence begins right around T11/T12** (Confirm tap on "Please select controls"
+-> first loading screen start, timestamped independently in §0.8 at ~21:09:54-55.117) -- i.e. the
+client stops servicing its own BaseApp UDP socket at almost exactly the moment the first "slow
+loading" screen (Phase 3) begins, and only resumes (via a full reconnect, not a resume) once that
+loading finally lets go of whatever was blocking it.
+
+### D. Report, in the requested format
+
+- **CONFIRMED**: The client, not the server, is the party that goes silent. The server's periodic
+  `setGameTime` keepalive to the correct, still-open port never stops (proven past the reconnect,
+  10 minutes later).
+- **CONFIRMED**: The client-initiated `checkpoint_id=20` poll is a normal, steady, non-failing
+  exchange right up until the client goes silent -- it does not degrade or retry-storm beforehand.
+- **CONFIRMED**: The silence window is 63.997s, starting at 21:09:53.557 -- essentially coincident
+  with the Confirm-tap / first-loading-start moment already timestamped in §0.8.
+- **DISPROVEN (for this data point)**: "a missing periodic server response/ack causes the
+  reconnect." The server's expected periodic response was never missing -- it kept sending,
+  unacknowledged, the whole time. A server-side fix of "send the correct response earlier" is
+  therefore unlikely to prevent the reconnect, because the client was not processing incoming UDP
+  at all during the silence window, regardless of what the server sent.
+- **HYPOTHESIS, strongly favored by this evidence**: the reconnect is triggered by a **client-side
+  watchdog/timeout keyed off socket inactivity** (on the order of ~60-65s), which fires because the
+  client's own main thread stops servicing the BaseApp socket during a long synchronous
+  scene-load operation (the same one responsible for the already-documented "slow first loading"
+  symptom, Phase 3) -- not because anything is missing from the server's side of the exchange.
+  This reframes Phase 3 and Phase 4 as **one root cause, not two**: whatever makes the first
+  post-Confirm loading slow is the same thing that starves the client's own network thread long
+  enough to trigger its self-reconnect logic.
+- **NOT YET TESTED**: repeat runs (2+ more) to confirm the ~64s silence window and ~90s
+  handshake-to-handshake interval are consistent and not coincidental to this one run. Static
+  analysis of client scripts/native code for the actual timeout constant (search terms from the
+  task spec: `90`, `90000`, `reconnect`, `heartbeat`, `timeout`, `relogin` -- not yet run against
+  the decrypted `script.npk` or `libclient.so`). The controlled server-side experimental variant
+  (sending an extra/different keepalive during the silence window) is now **lower priority** given
+  the disproven "missing server response" framing above, but could still be tried as a cheap
+  negative-control test (predicted to NOT prevent the reconnect, which would further support the
+  client-side-watchdog hypothesis if confirmed).
+
+No patches applied this checkpoint either -- read-only log analysis only, per instruction.
 
 ---
 
