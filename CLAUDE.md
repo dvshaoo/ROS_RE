@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (Checkpoint 28: **EmailAuthActivity/Supabase custom auth REVERTED and REMOVED** after live isolation testing proved the "Link Account" nag popup and the stuck-loading-spinner overlay both reproduce identically on a from-scratch pristine baseline -- old pre-Checkpoint-25 guest-only APK, a from-scratch fully-local server with no Supabase/Playit.gg involved at all. Both symptoms are therefore 100% inherent to this game/guest-account combination (confirmed root cause: Checkpoint 27's `get_uuid()` persistence bug for the popup; the stuck overlay is the pre-existing, already-partially-understood Checkpoint 24 `MpayActivity` missing-`finish()` bug -- one manual BACK press reliably clears it), not caused by anything built in Checkpoints 25-27. Project owner's decision: keep the project purely local/offline going forward -- `com.netease.neox.Launcher` is LAUNCHER again, `EmailAuthActivity`/`MpayWatcherService` removed from the manifest and smali, `/custom/auth/login` and the `supabase_db` import removed from `mitm_serve.py`, `mitm/supabase_db.py` deleted. See §0.5 Checkpoint 28 below.)
+> **Last Updated**: 2026-09-26 (Checkpoint 29, OPEN/UNRESOLVED: a new stuck-on-pre-title-loading state appeared after re-adding `MpayWatcherService` on top of a separate agent's live `ui/g.smali` patch for the Checkpoint 24 `MpayActivity` finish() bug. The smali patch is verified real and firing (logcat proof below), but the game now sometimes never leaves the plain "Loading..." splash at all -- no dimming/spinner overlay (that's a different, already-understood symptom), just a flat hang before `MpayActivity` even becomes relevant. Not yet root-caused; likely confounded by heavy same-session churn (many reinstalls, two agents editing the same decompiled build tree, repeated OBB pushes/cert resets). See §0.6 Checkpoint 29 below for the full log and a clean-slate test protocol for whoever picks this up next. Previous entry: Checkpoint 28 reverted EmailAuthActivity/Supabase per project-owner decision -- see §0.5.)
 
 ---
 
@@ -815,6 +815,145 @@ tested live, is "nothing, but we're not using it anymore."
   pristine baseline too, per above) -- it's left in `scratch/` as reusable, verified tooling for
   any future script.npk patch, should the project ever want one again. Do not assume it's broken
   just because of the timing of this revert.
+
+---
+
+## 0.6 Checkpoint 29 (2026-09-26, OPEN/UNRESOLVED): new stuck-pre-title-loading state after stacking two independent fixes
+
+**Context**: after the Checkpoint 28 revert (EmailAuthActivity/Supabase removed, project purely
+local), the project owner asked to bring back just the narrow, previously-proven
+`MpayWatcherService` auto-BACK-press safety net (not the rest of Checkpoint 25) to deal with the
+Checkpoint 24 `MpayActivity`-doesn't-call-`finish()` bug. Independently, in the same shared
+decompiled-build worktree (`.claude/worktrees/agent-a26a6b361cc71d3b5`), a different agent session
+("Gemini", per its own handoff) had already applied a **real smali-level fix** for the same root
+bug. Both changes now coexist in that tree. Stacking them uncovered a **new, different** stuck
+state that neither change addresses, and that is not yet understood.
+
+### A. The `ui/g.smali` finish() patch -- verified real (do not re-litigate)
+
+At `smali/com/netease/mpay/oversea/ui/g.smali`, a new method was added:
+```smali
+.method private a(Lcom/netease/mpay/oversea/ui/g$e;)V
+    .locals 2
+    const-string v0, "MPay"
+    const-string v1, "PATCHED: Closing MpayActivity via a(g$a)"
+    invoke-static {v0, v1}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {p0, p1}, Lcom/netease/mpay/oversea/ui/g;->a(Lcom/netease/mpay/oversea/ui/g$a;)V
+    return-void
+.end method
+```
+Verified independently this session, not just taken on the other agent's word:
+- `g$e` `.super`s `g$a` (confirmed by reading both class headers), so passing a `g$e` into the
+  `a(g$a)` overload is a safe upcast, not a type error.
+- `g;->a(Lcom/netease/mpay/oversea/ui/g$a;)V` (the method actually being called, at smali offset
+  825) does check `Activity.isFinishing()`, check `instance-of MpayActivity`/`MpayActivityStub`,
+  `setResult(...)`, and does call `Landroid/app/Activity;->finish()V` at line 880 -- this is
+  genuinely the finish-handling method, not a red herring.
+- The new `a(g$e)` method is wired in via the standard Dalvik synthetic-accessor pattern (a
+  `static synthetic a(g, g$e)` bridge) from two inner-class call sites, `ui/g$1$1.smali` and
+  `ui/g$2.smali` -- i.e. it is reachable from real success-callback code paths, not dead code.
+- **Live-fired, confirmed in logcat**: `I MPay: PATCHED: Closing MpayActivity via a(g$a)` was
+  observed at least once this session, immediately followed by no further stuck-overlay symptom
+  for that particular launch.
+
+This is a real fix for the Checkpoint 24 bug and should be kept. Do not re-derive or second-guess
+it without new contradicting evidence.
+
+### B. `MpayWatcherService` re-added as a safety net (not the rest of Checkpoint 25)
+
+Re-built and re-added to the same decompiled tree, standalone:
+- `scratch/email_auth_build/src/MpayWatcherService.java` (unchanged from Checkpoint 25 -- always
+  was self-contained, no dependency on `EmailAuthActivity`) built via a new
+  `scratch/email_auth_build/build_mpaywatcher_only.py` (compiles/dexes/disassembles only this one
+  class, leaving `EmailAuthActivity.java` out of the build entirely).
+- `AndroidManifest.xml`: re-added the `<service android:name="com.netease.chiji.MpayWatcherService" .../>`
+  block (same as Checkpoint 25's), `com.netease.neox.Launcher` **stays** the sole `LAUNCHER`
+  (Checkpoint 28's revert was not undone).
+- `res/xml/mpay_watcher_service_config.xml` recreated from scratch (the original was deleted, and
+  not git-tracked, during the Checkpoint 28 revert -- standard accessibility-service config,
+  `typeWindowStateChanged` events, `com.netease.chiji` package filter).
+- Rebuilt via `apktool b` + the existing zipalign/apksigner/`adb install -r` pipeline
+  (`scratch/rebuild_and_install_apk.py`) -- same debug keystore, so this was a normal `install -r`
+  over the existing app, **no uninstall, OBB untouched**.
+
+**Known operational gotcha, reconfirmed this session**: the accessibility service does not
+self-enable, and Android disables it on every `force-stop`. The two-liner from Checkpoint 25's
+toolchain notes,
+```
+adb shell settings put secure enabled_accessibility_services com.netease.chiji/com.netease.chiji.MpayWatcherService
+adb shell settings put secure accessibility_enabled 1
+```
+still has to be run **after** the app process has (re)started, every relaunch cycle, for the
+watcher to be armed at all -- Checkpoint 25 flagged this as "not yet wired in" and it is **still**
+not automated anywhere (not in this repo's `start_server.bat`/relaunch flow, not on-device). A
+launch where these two commands were not re-run has no working safety net even though the service
+exists in the APK.
+
+### C. The new, unresolved symptom
+
+On at least one clean relaunch this session (fresh `am force-stop` -> `monkey -c LAUNCHER`,
+**after** a full `scratch/reapply_env_setup.sh` re-run and a from-scratch `local_baseapp_capture.py`
+restart with no stale connections), the client:
+- Stayed on the plain pre-title "Loading..." splash (yellow progress bar, **no dimming, no small
+  centered spinner** -- visually distinct from the Checkpoint 24/25 stuck-`MpayActivity`-overlay
+  symptom) for multiple minutes without any visible change across repeated screenshots.
+- `adb shell input keyevent KEYCODE_BACK` had **no effect** (unlike the classic stuck-overlay case,
+  where one BACK reliably unblocks it).
+- logcat did confirm `ActivityManager: START ... MpayActivity` fired during this window, but
+  **neither** the `ui/g.smali` "PATCHED" log line **nor** `MpayWatcher`'s own log lines appeared
+  at all for this particular launch -- i.e. neither fix's code path was observed to run. (The
+  `MpayWatcherService` half of that is at least partially explained by §B's re-enable gotcha: it
+  had not been manually re-armed after this specific relaunch.)
+- `local_baseapp_capture.py`'s own log showed `KEYSCAN: SUCCESS` for the new pid promptly, but
+  **zero further HTTP or BaseApp/LoginApp UDP activity** from that pid afterward -- i.e. the stall
+  looks like it's on the client side, before the client has even made its post-login requests, not
+  a server-responsiveness problem.
+- OBB files were checked and confirmed intact and correctly sized
+  (`main.1117219.com.netease.chiji.obb` = 1977238353 bytes,
+  `patch.1117219.com.netease.chiji.obb` = 1523738987 bytes, matching §0.1's documented sizes) --
+  ruling out OBB corruption/truncation from this session's several uninstall/reinstall cycles.
+- The server's own log separately showed **stale `BASEAPP KEEPALIVE` sends to old, no-longer-valid
+  local ports** left over from earlier relaunches this session, persisting across a `force-stop` of
+  the client -- a real server-side connection-tracking cruft bug in `local_baseapp_capture.py`
+  worth fixing on its own merits (it doesn't detect a client is gone and keeps sending), though not
+  yet shown to be the cause of C's stall.
+
+**Not yet tried**: re-running the two `settings put secure ...` accessibility-enable commands
+immediately after the process restarts, then relaunching again to see whether an armed
+`MpayWatcherService` alone resolves this specific new stall (as opposed to the finish() patch,
+which apparently didn't get the chance to run for this launch). This is the most likely next step
+and was flagged to the project owner but not yet executed/verified as of this checkpoint.
+
+### D. Honest assessment: this session's churn is a real confound
+
+Before concluding anything more about root cause, whoever continues this should discount how much
+happened in a single session on the **same shared decompiled-build worktree**
+(`.claude/worktrees/agent-a26a6b361cc71d3b5/scratch/apk_work/decompiled2`):
+- At least two agent sessions (this one and a separate "Gemini" session) edited the same tree's
+  `AndroidManifest.xml` and smali concurrently, without a lock or turn-taking protocol.
+- Several full `adb uninstall`/`install` cycles (APK signature changes, OBB wipes + restores per
+  §0.1), plus many same-keystore `install -r` upgrades on top.
+- Multiple `pm clear`-adjacent operations and at least one `reapply_env_setup.sh` re-run mid-session.
+- Large sequential `adb push` operations (OBB restores, ~3.5 GB) interleaved with frequent
+  screenshot/logcat polling -- exactly the pattern §0.3's toolchain notes already warn can destabilize
+  the LDPlayer adb bridge and starve the KEYSCAN watcher.
+
+Any one of these could plausibly produce a flaky, hard-to-reproduce stall on top of two otherwise-
+verified-correct fixes. **The recommended way to make progress is a clean-slate, single-variable
+test**, not more debugging inside this same churned session state:
+1. Fully uninstall, restore OBB + `patchVersion` fresh from `04_obb/`/`ros_offline_server_backup/`
+   per §0.1, install the current combined APK (`g.smali` finish() fix + `MpayWatcherService`) once,
+   from a cold start.
+2. Re-run `reapply_env_setup.sh` once, start a single fresh `local_baseapp_capture.py`.
+3. Run the two accessibility-enable `settings put` commands once, confirm with
+   `adb shell dumpsys accessibility | grep -A2 MpayWatcher` that the service is actually bound
+   before launching.
+4. One single launch, timed, with continuous `adb logcat | grep -E "PATCHED|MpayWatcher|<SCRIPT>|FATAL"`
+   running throughout (not polled after the fact) so the exact moment and cause of any stall is
+   captured live rather than inferred afterward.
+
+That protocol has not yet been run end-to-end this checkpoint -- do that before adding any new
+theory or patch.
 
 ---
 
