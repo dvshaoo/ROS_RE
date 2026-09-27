@@ -1590,6 +1590,50 @@ whether that count is consistent across runs -- worth doing before attempting an
 reducing it, per this project's own repeated lesson (§0.8-§0.11) that guessing at this loop's
 behavior without hard timestamps has been wrong more than once.
 
+### G. §F's follow-up done same checkpoint: exact cycle count measured -- 5 cycles, ~4m51s, decreasing intervals
+
+One clean, fully-instrumented run (continuous server log, no gaps) on the same corrected build,
+counting every genuine 273-byte LoginApp handshake from PLAY tap to the Daily Claim screen
+actually becoming visible (confirmed via screenshot, not inferred):
+
+| Event | Timestamp | Interval from previous |
+|---|---|---|
+| PLAY tapped | 18:55:48.790 | -- |
+| Cycle 1 (LoginApp handshake) | 18:55:49.565 | 0.775s after PLAY |
+| Cycle 1 STAGE 5 complete | 18:56:00.113 | |
+| Cycle 2 (LoginApp handshake) | 18:56:55.080 | **65.515s** after cycle 1 |
+| Cycle 2 STAGE 5 complete | 18:56:56.433 | |
+| Cycle 3 (LoginApp handshake) | 18:57:44.426 | **49.346s** after cycle 2 |
+| Cycle 3 STAGE 5 complete | 18:57:45.762 | |
+| Cycle 4 (LoginApp handshake) | 18:58:30.192 | **45.766s** after cycle 3 |
+| Cycle 4 STAGE 5 complete | 18:58:31.542 | |
+| Cycle 5 (LoginApp handshake) | 18:59:10.942 | **40.750s** after cycle 4 |
+| Cycle 5 STAGE 5 complete | 18:59:12.319 | |
+| Daily Claim screen confirmed visible | ~19:00:37-19:00:40 (screenshot) | within ~1m25s of cycle 5 |
+
+**CONFIRMED, this run**: exactly **5 reconnect cycles**, total elapsed **~4 minutes 51 seconds**
+from PLAY tap to the Daily Claim screen actually rendering. Every cycle's server-side chain
+(`createBasePlayer` through `STAGE 5`) completed cleanly and quickly (1-11s) every single time --
+**the delay is entirely in the ~41-66s gaps between cycles**, i.e. entirely client-side silence,
+consistent with §0.9's finding.
+
+**NEW finding this run**: the inter-cycle interval is **not fixed** -- it shrinks every cycle
+(65.5s -> 49.3s -> 45.8s -> 40.8s, a clean monotonic decrease). This contradicts a simple
+"fixed N-second socket-inactivity watchdog" model (which would predict roughly constant
+intervals) and instead suggests something **cumulative or progressive** across cycles -- e.g. an
+asset/scene cache that's progressively more populated each attempt, so each successive scene-load
+attempt has less work left to do and therefore stalls the network thread for less time before
+finishing (or timing out) again. **HYPOTHESIS, NOT YET TESTED**: if this pattern holds across more
+runs, it would mean the loop is self-resolving by design (each cycle makes real progress toward a
+fully warmed cache/scene, and cycle N+1 is faster than cycle N) rather than being N truly-identical
+failed attempts -- which would reframe the fix target from "stop the reconnect" to "make the
+*first* cycle's scene-load as fast as the *later* ones already are" (e.g. investigating what's
+cached/warmed after cycle 1 that isn't warm before it).
+
+**NOT YET TESTED**: repeat this exact measurement 2-3 more times to confirm the decreasing-interval
+pattern reproduces (vs. being coincidental to this one run), and to see whether the cycle count
+(5) and total time (~4m51s) are themselves consistent or variable.
+
 ---
 
 ## 1. Standing Rules (Strict Constraints)
