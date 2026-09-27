@@ -1559,13 +1559,36 @@ two confirmed, safe fixes above and document them before attempting anything ris
 | No "Please select controls" screen | **CONFIRMED FIXED** (§B) |
 | No Character Creation UI | **CONFIRMED FIXED** (carried over from §A.1, safe pattern) |
 | No `_realEnterHall` AttributeError crash | **CONFIRMED FIXED** (§C, `ROS_SCENE_LOAD_DELAY=10`) |
-| PLAY -> ONE loading -> Daily Claim -> START -> full Hall | **NOT YET ACHIEVED** -- blocked by the pre-existing self-reconnect loop (§D), unrelated to today's fixes |
+| PLAY -> loading -> Daily Claim -> Hall | **CONFIRMED REACHED** -- see §F, live-verified end to end |
+| PLAY -> exactly ONE loading (no reconnect loop) | **NOT YET ACHIEVED** -- the pre-existing self-reconnect loop (§D) still occurs multiple times before landing; the flow now *completes* instead of hanging forever, but is still slow/non-deterministic in how many reconnect cycles it takes |
 
 Current best server launch command:
 `ROS_ATHLETE_USE_STREAM_FILE=1 ROS_AUTO_ENTER_HALL=1 ROS_BASE_NICKNAME="Dev | Raysoo" ROS_SCENE_LOAD_DELAY=10 python -u mitm/local_baseapp_capture.py`
 paired with `scratch/candidates_cp30/patch_no_crash_no_selectcontrols.obb` as
 `patch.1117219.com.netease.chiji.obb` on device (main OBB untouched, still the pristine `04_obb/`
 copy).
+
+### F. Live-verified end-to-end this same checkpoint: PLAY -> Daily Claim -> full Hall
+
+On the exact same launch as §C's fix test (no relaunch, no further patching), the project owner
+let the client continue past the reconnect loop(s) instead of treating them as a hard hang. It
+**did eventually settle**: reached the Daily Claim panel (`388 Gold` claimable, full Daily
+Sign-in UI from today's earlier RPC work rendering correctly), and backing out of it landed on a
+**fully rendered, fully interactive Hall**: avatar model, motorcycle prop, `999999/999999`
+dev currency, `Dev | Raysoo` nickname, complete side menu (STORE/SUPPLY/MANUAL/PLATOON/DEPOT),
+top bar (LUCKY CLUB/Welfare/data/competition/Settings), Daily Special Offer/Carnival/Monthly
+Offer panels, and the START button -- no residual overlay, no crash, no traceback. Screenshot:
+`scratch/loop_debug/checkH.png`.
+
+**CONFIRMED**: the combination of §A/§B (crash fix) + §C (scene-load-delay fix) is sufficient for
+the client to reach a fully working Hall -- the self-reconnect loop (§D) is a *slowness/UX*
+problem now, not a hard blocker. The exact number of reconnect cycles before landing was not
+counted this run (project owner's own words: "antagal at diko alam kung ilang loading bago nya
+naabot daily claim" -- "took a while and I don't know how many loadings before it reached daily
+claim"). **NOT YET TESTED**: instrumenting exactly how many reconnect cycles typically occur and
+whether that count is consistent across runs -- worth doing before attempting any fix aimed at
+reducing it, per this project's own repeated lesson (§0.8-§0.11) that guessing at this loop's
+behavior without hard timestamps has been wrong more than once.
 
 ---
 
