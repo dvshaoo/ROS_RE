@@ -5,7 +5,7 @@
 > **Target Environment**: LDPlayer 9 (`emulator-5554`, Android guest `172.16.1.15`, Gateway host `172.16.1.2`)  
 > **ADB Path**: `C:\LDPlayer\LDPlayer9\adb.exe`  
 > **Primary Script**: `mitm/local_baseapp_capture.py`  
-> **Last Updated**: 2026-09-26 (§0.9: deeper read of the same server log behind §0.8's confirmed 90s-reconnect finding shows **the client, not the server, goes silent** -- the server's periodic keepalive to the correct port never stops (confirmed 10 minutes past the reconnect), but the client sends nothing at all for 63.997s starting almost exactly when the first post-Confirm loading screen begins. DISPROVEN: "missing server response" causes the reconnect. HYPOTHESIS (favored): a client-side socket-inactivity watchdog fires because the client's main thread is starved by the same long synchronous scene-load already responsible for the "slow first loading" symptom -- i.e. Phase 3 (slow loading) and Phase 4 (duplicate cycle) are one root cause, not two. Repeat runs + static analysis of the timeout constant are NOT YET TESTED. See §0.9. Previous entry (§0.8): confirmed the client re-initiates a full LoginApp/BaseApp handshake ~90s after the first succeeds, driving the duplicate `createBasePlayer` cycle -- see §0.8 for the full CONFIRMED/HYPOTHESIS table.)
+> **Last Updated**: 2026-09-27 (§0.12, Checkpoint 30: root-caused and fixed the native SIGSEGV crash left by an earlier bad hand-computed `script.npk` bytecode patch (Gemini/ChatGPT relay session) -- replaced with a safe 1-byte jump-retarget patch, confirmed crash-free across repeat launches. Also confirmed-fixed a second, separate `_realEnterHall` `AttributeError` crash (scene-preload race, fixed via `ROS_SCENE_LOAD_DELAY=10`) and safely removed both the Character Creation UI and the "Please select controls" screen from the flow. **STILL OPEN**: the pre-existing self-reconnect loop (§0.8-§0.11) remains and now blocks the client from ever visually reaching Daily Claim/Hall even with both crashes fixed -- confirmed unrelated to today's two fixes, reproduces identically on the corrected build. See §0.12 for full detail, frozen working (crash-free) OBB at `scratch/candidates_cp30/`. Pre-Login Gate note (kept for history): Checkpoint 30's own session also carried forward an earlier Gemini finding that the pre-login MPay retry gate can be resolved via `scratch/frida_login_injector.py`; not re-verified this pass, see `GEMINI.md`.)
 
 ---
 
@@ -1436,6 +1436,136 @@ consistent with §0.9's finding that the server side of this exchange is never t
 
 No patch applied. Phase 10's full 3-run R0-R10 timing protocol is still incomplete; this finding
 was extracted from Run 1's already-in-progress data, not a dedicated fresh run.
+
+---
+
+## 0.12 Checkpoint 30 (2026-09-27): root-caused and fixed the SIGSEGV crash; safely removed Select Controls; reconnect-loop remains
+
+Picking up from a Gemini/ChatGPT relay session (see `GEMINI.md`, `CHATGPT.md`,
+`scratch/HANDOFF_CHATGPT.md` for their own logs) that had been working on Daily Sign-in RPCs and a
+`script.npk` bytecode patch to skip Character Creation/Select Controls. The project owner reported
+the client was "looping in loading, never reaching Daily Claim" after that work. Investigation
+found **two separate, unrelated bugs** layered on top of each other.
+
+### A. CONFIRMED ROOT CAUSE of the crash: a bad hand-computed bytecode patch
+
+`scratch/apply_clean_lobby_patch.py` (Gemini's patch script) made two edits to
+`04_obb/extracted/script.npk`:
+1. `ui/UISelectCharacter.py`'s `on_enter()` -> `RETURN_CONST 0` at the very start of the function.
+   This is the same safe, already-proven pattern used elsewhere in this project (e.g.
+   `UILogin.showGuestAccountRemind`, Checkpoint 27/28) -- patching a function's *entry point* to
+   return immediately never desyncs anything else in the module.
+2. `entities/Athlete.py`'s `enterHall()` -- **a hand-computed byte offset (85..88) was overwritten
+   with a brand-new `JUMP_FORWARD 15` instruction**, intended to skip the `enter_ui('UISelectMode',
+   ...)` call. This offset was wrong: live disassembly (`scratch/dump_module_funcs.py`) shows
+   offset 85 is actually the start of `LOAD_GLOBAL Globals` / `LOAD_ATTR enterSelectModeFinished`
+   -- overwriting it destroyed a value load that a later `POP_JUMP_IF_TRUE` at offset 91 depends on,
+   corrupting the interpreter's stack.
+
+**Live-confirmed root cause**: a clean launch with this patch deployed crashed natively --
+`Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x3db in tid 5608 (NeoXMain), pid 5219`
+-- occurring **before any BaseApp/LoginApp traffic even began** (still in the "FinishPatch"
+telemetry phase, confirmed via `scratch/loop_debug/server.log` + `logcat.txt`). Reverting
+`patch.1117219.com.netease.chiji.obb` to the pristine `04_obb/` copy immediately eliminated the
+crash across 3 repeat launches -- **CONFIRMED**, not inferred.
+
+### B. The SAFE fix: retarget an existing jump instead of injecting a new one
+
+`entities/Athlete.py::enterHall()`'s real bytecode (full disassembly captured in this checkpoint)
+already contains a built-in skip path:
+
+```
+ 85  LOAD_GLOBAL   Globals
+ 88  LOAD_ATTR     enterSelectModeFinished
+ 91  POP_JUMP_IF_TRUE   103      <- if already finished once, skip straight to _realEnterHall
+ 94  LOAD_GLOBAL   switches
+ 97  LOAD_ATTR     PCEnableMode
+100  POP_JUMP_IF_FALSE  113      <- if NOT PC-enable-mode, show UISelectMode ("Please select controls")
+103  LOAD_FAST     _realEnterHall
+106  CALL_FUNCTION 0
+...
+113  ... enter_ui('UISelectMode', callback=_realEnterHall) ...
+```
+
+Both `POP_JUMP_IF_*` instructions unconditionally pop their tested value regardless of whether the
+branch is taken, so **retargeting where they jump is stack-safe** -- 103 is already a valid,
+reachable landing point from the other branch. `scratch/apply_safe_lobby_patch.py` changes **one
+byte**: the low byte of the jump-target argument at offset 101, from `113` (0x71) to `103` (0x67)
+-- same opcode, same instruction, same 3-byte slot, nothing else touched. A sanity assertion
+(`arg_lo == 113`) refuses to write anything if the live bytecode doesn't match what was verified
+via disassembly first.
+
+Rebuilt from the **pristine** `04_obb/extracted/script.npk` (not the crashed one), keeping only
+the already-safe UISelectCharacter patch (§A.1) plus this corrected one-byte retarget. Deployed
+into a fresh copy of the pristine `patch.1117219.com.netease.chiji.obb` via the existing,
+CRC-safe in-place zip patcher pipeline (`scratch/npk_deploy_patch.py`'s technique, both local-header
+and central-directory CRC32 fields corrected, `zipfile.testzip()` verified clean before pushing to
+device). Artifact frozen at `scratch/candidates_cp30/patch_no_crash_no_selectcontrols.obb`
+(SHA256 `bb36ebc44325ec60edab72764b9aa5e1f19275bed8333a4e1c81ae2c90120536`).
+
+**Live-verified, 2 clean launches, zero crashes, zero `<SCRIPT>` tracebacks**: PLAY -> loading ->
+(no "Please select controls" screen at all, confirmed by screenshot) -> Hall-bound loading tips
+screen. **CONFIRMED**: both original goals (no crash, no Select-Controls UI) achieved safely.
+
+### C. A second, unrelated bug this uncovered: `_realEnterHall`'s scene-preload race
+
+The *first* live test of the corrected patch (before increasing `ROS_SCENE_LOAD_DELAY`) produced a
+**different, already-documented** crash (§6.B, this file, from months earlier in the project):
+
+```
+<SCRIPT> : Traceback (most recent call last):
+<SCRIPT> :   File "elkLogging.py", line 92, in wrapper
+<SCRIPT> :   File "entities\Athlete.py", line 674, in enterHall
+<SCRIPT> :   File "entities\Athlete.py", line 656, in _realEnterHall
+<SCRIPT> : AttributeError: 'NoneType' object has no attribute 'GetComponent'
+```
+
+**Mechanism, CONFIRMED**: originally, `UISelectMode`'s ~10s on-screen countdown before Confirm
+becomes clickable *incidentally* gave the async scene-preload (triggered earlier by the server's
+`Athlete.showSelectCharacter([])` RPC) enough wall-clock time to finish before `_realEnterHall()`
+ever ran. By skipping straight to `_realEnterHall()` inside `enterHall()`'s own synchronous
+execution (§B), that ~10s buffer disappeared entirely -- `_realEnterHall` now runs essentially
+immediately upon receiving the `enterHall(True)` RPC, racing ahead of the scene load.
+
+**Fix, CONFIRMED working**: increase the server's existing `ROS_SCENE_LOAD_DELAY` env var (already
+present in `local_baseapp_capture.py`'s stage machine, previously defaulted to `2.0`) to `10` --
+i.e. wait 10s after sending `showSelectCharacter([])` before sending the
+`enterHall`/character-creation-chain burst, reproducing the same effective delay the UI countdown
+used to provide, but server-side and invisible to the player (it happens during the loading screen,
+not as an interactive countdown UI). Zero client-side risk -- pure server config. Re-tested clean
+after this change: no crash, no traceback, reached the loading-tips screen normally.
+
+### D. STILL OPEN: the pre-existing self-reconnect loop prevents ever reaching Daily Claim
+
+With both bugs above fixed, the client **still never visually transitions to Daily Claim/Hall**.
+Server-side, the full `createBasePlayer -> ... -> enterHall -> onShowSignedPanel -> STAGE 5`
+chain was observed completing **cleanly, twice in a row**, each preceded by a fresh LoginApp
+reconnect from a new ephemeral port (`51975` -> `50030` this run) roughly a minute apart -- this is
+the **same already-extensively-documented self-reconnect behavior from §0.8-§0.11**, now confirmed
+to reproduce again under this checkpoint's fixed build. **CONFIRMED**: this is not caused by, and
+is not fixed by, either of today's two fixes above -- it predates them and is architecturally
+separate (client-side network/thread stall vs. these two client-script bugs).
+
+**NOT YET TESTED / next step**: per §0.11's own conclusion, pinning down the exact client-side
+trigger for the self-reconnect requires live MPay/NeoX-thread introspection (Frida), which is the
+natural next investigation -- this checkpoint deliberately stopped short of that to first land the
+two confirmed, safe fixes above and document them before attempting anything riskier.
+
+### E. Summary for whoever continues this
+
+| Goal | Status |
+|---|---|
+| No native crash on launch | **CONFIRMED FIXED** (§A/§B) |
+| No "Please select controls" screen | **CONFIRMED FIXED** (§B) |
+| No Character Creation UI | **CONFIRMED FIXED** (carried over from §A.1, safe pattern) |
+| No `_realEnterHall` AttributeError crash | **CONFIRMED FIXED** (§C, `ROS_SCENE_LOAD_DELAY=10`) |
+| PLAY -> ONE loading -> Daily Claim -> START -> full Hall | **NOT YET ACHIEVED** -- blocked by the pre-existing self-reconnect loop (§D), unrelated to today's fixes |
+
+Current best server launch command:
+`ROS_ATHLETE_USE_STREAM_FILE=1 ROS_AUTO_ENTER_HALL=1 ROS_BASE_NICKNAME="Dev | Raysoo" ROS_SCENE_LOAD_DELAY=10 python -u mitm/local_baseapp_capture.py`
+paired with `scratch/candidates_cp30/patch_no_crash_no_selectcontrols.obb` as
+`patch.1117219.com.netease.chiji.obb` on device (main OBB untouched, still the pristine `04_obb/`
+copy).
 
 ---
 
